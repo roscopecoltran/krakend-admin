@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package 1forgefinanceapis;
+
+message GetSymbolsResponse {
+    repeated string items = 1;
+}
+
+service 1ForgeFinanceAPIsService {
+    // Get quotes for all symbols
+    // 
+    // Get quotes
+    rpc GetQuotes(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/forex-quotes/quotes"
+      };
+    }
+    // Get a list of symbols for which we provide real-time quotes
+    // 
+    // Symbol List
+    rpc GetSymbols(google.protobuf.Empty) returns (GetSymbolsResponse) {
+      option (google.api.http) = {
+        get: "/forex-quotes/symbols"
+      };
+    }
+}

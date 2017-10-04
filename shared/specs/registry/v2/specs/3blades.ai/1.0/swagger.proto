@@ -1,0 +1,2635 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package 3blades;
+
+message PostAuthJwtTokenAuthRequest {
+    JWTData jwt_data = 1;
+}
+
+message PostAuthJwtTokenRefreshRequest {
+    RefreshJSONWebTokenData refreshjwt_data = 1;
+}
+
+message PostAuthJwtTokenVerifyRequest {
+    VerifyJSONWebTokenData verifyjwt_data = 1;
+}
+
+message GetAuthLoginProviderRequest {
+    // OAuth2 provider
+    enum GetAuthLoginProviderRequest_Provider {
+        GETAUTHLOGINPROVIDERREQUEST_PROVIDER_GITHUB = 0;
+        GETAUTHLOGINPROVIDERREQUEST_PROVIDER_GOOGLE = 1;
+        GETAUTHLOGINPROVIDERREQUEST_PROVIDER_SLACK = 2;
+    }
+    GetAuthLoginProviderRequest_Provider provider = 1;
+}
+
+message PostAuthRegisterRequest {
+    UserData user_data = 1;
+}
+
+message GetV1ServersOptionsServerSizeRequest {
+    // Set limit when retrieving items.
+    string limit = 1;
+    // Offset when retrieving items.
+    string offset = 2;
+    // Set order when retrieving items.
+    string ordering = 3;
+}
+
+message GetV1ServersOptionsServerSizeResponse {
+    repeated ServerSize items = 1;
+}
+
+message PostV1ServersOptionsServerSizeRequest {
+    ServerSizeData serversize_data = 1;
+}
+
+message GetV1ServersOptionsServerSizeSizeRequest {
+    // Server size unique identifier expressed as UUID or name.
+    string size = 1;
+}
+
+message PutV1ServersOptionsServerSizeSizeRequest {
+    ServerSizeData serversize_data = 1;
+    // Server size unique identifier expressed as UUID or name.
+    string size = 2;
+}
+
+message DeleteV1ServersOptionsServerSizeSizeRequest {
+    // Server size unique identifier expressed as UUID or name.
+    string size = 1;
+}
+
+message GetV1UsersProfilesRequest {
+    // User email.
+    string email = 1;
+    // Limit user list.
+    string limit = 2;
+    // Offset when getting users.
+    string offset = 3;
+    // Ordering when getting users.
+    string ordering = 4;
+    // User username.
+    string username = 5;
+}
+
+message GetV1UsersProfilesResponse {
+    repeated User items = 1;
+}
+
+message PostV1UsersProfilesRequest {
+    UserData user_data = 1;
+}
+
+message GetV1UsersProfilesUserRequest {
+    // Unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message DeleteV1UsersProfilesUserRequest {
+    // User identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message GetV1UsersUserApiKeyRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message PostV1UsersUserApiKeyResetRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message GetV1UsersUserAvatarRequest {
+    // User unique identifier expressed as UUIDor username.
+    string user = 1;
+}
+
+message PostV1UsersUserAvatarRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message DeleteV1UsersUserAvatarRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message GetV1UsersUserEmailsRequest {
+    // Limite when getting email list.
+    string limit = 1;
+    // Offset when getting email list.
+    string offset = 2;
+    // Ordering when getting email list.
+    string ordering = 3;
+    // User unique identifier as expressed as UUID or username.
+    string user = 4;
+}
+
+message GetV1UsersUserEmailsResponse {
+    repeated Email items = 1;
+}
+
+message PostV1UsersUserEmailsRequest {
+    EmailData email_data = 1;
+    // User unique identifier expressed as UUID or username.
+    string user = 2;
+}
+
+message GetV1UsersUserEmailsEmail_idRequest {
+    // Email unique identifier expressed as UUID.
+    string email_id = 1;
+    // User unique identifier expressed as UUID or username.
+    string user = 2;
+}
+
+message PutV1UsersUserEmailsEmail_idRequest {
+    EmailData email_data = 1;
+    // Email unique identifier expressed as UUID.
+    string email_id = 2;
+    // User unique identifier expressed as UUID or username.
+    string user = 3;
+}
+
+message DeleteV1UsersUserEmailsEmail_idRequest {
+    // Email unique identifier expressed as UUID.
+    string email_id = 1;
+    // User unique identifier expressed as UUID or username.
+    string user = 2;
+}
+
+message GetV1UsersUserSshKeyRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message PostV1UsersUserSshKeyResetRequest {
+    // User unique identifier expressed as UUID or username.
+    string user = 1;
+}
+
+message GetV1NamespaceBillingCardsRequest {
+    // Set limit when retrieving credit or debit cards.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Set offset when retriving cards.
+    string offset = 3;
+    // Order when retrieving cards.
+    string ordering = 4;
+}
+
+message GetV1NamespaceBillingCardsResponse {
+    repeated Card items = 1;
+}
+
+message PostV1NamespaceBillingCardsRequest {
+    CardDataPost card_data = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceBillingCardsIdRequest {
+    // User unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message PutV1NamespaceBillingCardsIdRequest {
+    CardDataPutandPatch card_data = 1;
+    string id = 2;
+    // User or team name.
+    string namespace = 3;
+}
+
+message DeleteV1NamespaceBillingCardsIdRequest {
+    // Card unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceBillingInvoicesRequest {
+    // Limit when getting items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset when getting items.
+    string offset = 3;
+    // Ordering when getting items.
+    string ordering = 4;
+}
+
+message GetV1NamespaceBillingInvoicesResponse {
+    repeated Invoice items = 1;
+}
+
+message GetV1NamespaceBillingInvoicesIdRequest {
+    // Invoice unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsRequest {
+    // Invoice id, expressed as UUID.
+    string invoice_id = 1;
+    // Limit when getting items.
+    string limit = 2;
+    // User or team name.
+    string namespace = 3;
+    // Offset when getting items.
+    string offset = 4;
+    // Ordering when getting items.
+    string ordering = 5;
+}
+
+message GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsResponse {
+    repeated InvoiceItem items = 1;
+}
+
+message GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsIdRequest {
+    // InvoiceItem id, expressed as UUID.
+    string id = 1;
+    // Invoice id, expressed as UUID.
+    string invoice_id = 2;
+    // User or team name.
+    string namespace = 3;
+}
+
+message GetV1NamespaceBillingPlansRequest {
+    // Limit when getting items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset when getting items.
+    string offset = 3;
+    // Ordering when getting items.
+    string ordering = 4;
+}
+
+message GetV1NamespaceBillingPlansResponse {
+    repeated Plan items = 1;
+}
+
+message GetV1NamespaceBillingPlansIdRequest {
+    // Plan unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceBillingSubscriptionsRequest {
+    // Limit when getting items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset when getting items.
+    string offset = 3;
+    // Ordering when getting items.
+    string ordering = 4;
+}
+
+message GetV1NamespaceBillingSubscriptionsResponse {
+    repeated Subscription items = 1;
+}
+
+message PostV1NamespaceBillingSubscriptionsRequest {
+    // User or team name.
+    string namespace = 1;
+    SubscriptionData subscription_data = 2;
+}
+
+message GetV1NamespaceBillingSubscriptionsIdRequest {
+    // Unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message DeleteV1NamespaceBillingSubscriptionsIdRequest {
+    // Subscription unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceHostsRequest {
+    // Limite when getting items.
+    string limit = 1;
+    // Name, when getting items.
+    string name = 2;
+    // User or team data.
+    string namespace = 3;
+    // Offset when getting items.
+    string offset = 4;
+    // Ordering when getting items.
+    string ordering = 5;
+}
+
+message GetV1NamespaceHostsResponse {
+    repeated DockerHost items = 1;
+}
+
+message PostV1NamespaceHostsRequest {
+    DockerHostData dockerhost_data = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceHostsHostRequest {
+    // Unique identifier expressed as UUID or name.
+    string host = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message PutV1NamespaceHostsHostRequest {
+    DockerHostData dockerhost_data = 1;
+    string host = 2;
+    // User or team name.
+    string namespace = 3;
+}
+
+message DeleteV1NamespaceHostsHostRequest {
+    // DockerHost unique identifier expressed as UUID.
+    string host = 1;
+    // User or team name.
+    string namespace = 2;
+}
+
+message GetV1NamespaceProjectsRequest {
+    // Limit when getting data.
+    string limit = 1;
+    // Project name.
+    string name = 2;
+    // User or team name.
+    string namespace = 3;
+    // Offset when getting data.
+    string offset = 4;
+    // Ordering when getting projects.
+    string ordering = 5;
+    // Private project or public project.
+    string private = 6;
+}
+
+message GetV1NamespaceProjectsResponse {
+    repeated Project items = 1;
+}
+
+message PostV1NamespaceProjectsRequest {
+    // User or team name.
+    string namespace = 1;
+    ProjectData project_data = 2;
+}
+
+message GetV1NamespaceProjectsProjectRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+}
+
+message PutV1NamespaceProjectsProjectRequest {
+    // User or team namespace.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    ProjectData project_data = 3;
+}
+
+message DeleteV1NamespaceProjectsProjectRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+}
+
+message GetV1NamespaceProjectsProjectCollaboratorsRequest {
+    // Limit when retrieving items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset when retrieving items.
+    string offset = 3;
+    // Ordering when retrieving items.
+    string ordering = 4;
+    // Project unique identifier expressed as UUID or name.
+    string project = 5;
+}
+
+message GetV1NamespaceProjectsProjectCollaboratorsResponse {
+    repeated Collaborator items = 1;
+}
+
+message PostV1NamespaceProjectsProjectCollaboratorsRequest {
+    CollaboratorData collaborator_data = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+}
+
+message GetV1NamespaceProjectsProjectCollaboratorsCollaboratorRequest {
+    // Collaborator unique identifier expressed as UUID or name.
+    string collaborator = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier.
+    string project = 3;
+}
+
+message DeleteV1NamespaceProjectsProjectCollaboratorsCollaboratorRequest {
+    // Collaborator unique identifier.
+    string collaborator = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier.
+    string project = 3;
+}
+
+message GetV1NamespaceProjectsProjectProject_filesRequest {
+    // Determines whether or not content is returned as base64. Defaults to false.
+    string content = 1;
+    // Exact file name, relative to the project root. If no such file is found, an empty list will be returned.
+    string filename = 2;
+    // Limit when getting project file list.
+    string limit = 3;
+    // User or team name.
+    string namespace = 4;
+    // Offset when getting project file list.
+    string offset = 5;
+    // Ordering of list values when getting project file list.
+    string ordering = 6;
+    // Unique identifier for project file expressed as UUID or name.
+    string project = 7;
+}
+
+message GetV1NamespaceProjectsProjectProject_filesResponse {
+    repeated ProjectFile items = 1;
+}
+
+message PostV1NamespaceProjectsProjectProject_filesRequest {
+    // Fila data, represented as base64.
+    string base64_data = 1;
+    // File to send, to create new file. This parameter is only used with form data and may include multiple files.
+    ;
+    // File name. May include path when creating file with base64 field.
+    string name = 3;
+    // User or team name.
+    string namespace = 4;
+    // File path. Defaults to (/).
+    string path = 5;
+    // Project unique identifier.
+    string project = 6;
+}
+
+message GetV1NamespaceProjectsProjectProject_filesIdRequest {
+    // Determines whether or not content is returned as base64. Defaults to false.
+    string content = 1;
+    // File unique identifier.
+    string id = 2;
+    // User or team name.
+    string namespace = 3;
+    // Project unique identifer.
+    string project = 4;
+}
+
+message PutV1NamespaceProjectsProjectProject_filesIdRequest {
+    // Fila data, represented as base64.
+    string base64_data = 1;
+    // File to send, to create new file. This parameter is only used with form data and may include multiple files.
+    ;
+    // File unique identifier.
+    string id = 3;
+    // File name. May include path when creating file with base64 field.
+    string name = 4;
+    // User or team name.
+    string namespace = 5;
+    // File path. Defaults to (/).
+    string path = 6;
+    // Project unique identifer.
+    string project = 7;
+}
+
+message DeleteV1NamespaceProjectsProjectProject_filesIdRequest {
+    // File unique identifier.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifer.
+    string project = 3;
+}
+
+message GetV1NamespaceProjectsProjectServersRequest {
+    // Limit results when getting server list.
+    string limit = 1;
+    // Server name.
+    string name = 2;
+    // User or team name.
+    string namespace = 3;
+    // Offset results when getting server list.
+    string offset = 4;
+    // Ordering option when getting server list.
+    string ordering = 5;
+    // Project unique identifier expressed as UUID or name.
+    string project = 6;
+}
+
+message GetV1NamespaceProjectsProjectServersResponse {
+    repeated Server items = 1;
+}
+
+message PostV1NamespaceProjectsProjectServersRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifer expressed as UUID or name.
+    string project = 2;
+    ServerData server_data = 3;
+}
+
+message GetV1NamespaceProjectsProjectServersServerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+}
+
+message PutV1NamespaceProjectsProjectServersServerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    ServerData server_data = 4;
+}
+
+message DeleteV1NamespaceProjectsProjectServersServerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier.
+    string project = 2;
+    // User unique identifier.
+    string server = 3;
+}
+
+message GetV1NamespaceProjectsProjectServersServerApiKeyRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+}
+
+message PostV1NamespaceProjectsProjectServersServerAuthRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+}
+
+message PostV1NamespaceProjectsProjectServersServerRunStatsRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    ServerRunStatisticsData serverrunstats_data = 4;
+}
+
+message GetV1NamespaceProjectsProjectServersServerRunStatsIdRequest {
+    // Run statistics unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+}
+
+message PutV1NamespaceProjectsProjectServersServerRunStatsIdRequest {
+    // Server run statistics expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+    ServerRunStatisticsData serverrunstats_data = 5;
+}
+
+message DeleteV1NamespaceProjectsProjectServersServerRunStatsIdRequest {
+    // Server run statistics unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+}
+
+message GetV1NamespaceProjectsProjectServersServerSshTunnelsRequest {
+    // Limit retrieved items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset retrieved items.
+    string offset = 3;
+    // Order retrieved items.
+    string ordering = 4;
+    // Project unique identifier expressed as UUID or name.
+    string project = 5;
+    // Server unique identifier expressed as UUID or name.
+    string server = 6;
+}
+
+message GetV1NamespaceProjectsProjectServersServerSshTunnelsResponse {
+    repeated SshTunnel items = 1;
+}
+
+message PostV1NamespaceProjectsProjectServersServerSshTunnelsRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    SshTunnelData sshtunnel_data = 4;
+}
+
+message GetV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    // SSH tunnel unique identifier expressed as UUID or name.
+    string tunnel = 4;
+}
+
+message PutV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    SshTunnelData sshtunnel_data = 4;
+    // SSH tunnel unique identifier expressed as UUID or name.
+    string tunnel = 5;
+}
+
+message DeleteV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    // SSH tunnel unique identifier expressed as UUID or name.
+    string tunnel = 4;
+}
+
+message PostV1NamespaceProjectsProjectServersServerStartRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+}
+
+message GetV1NamespaceProjectsProjectServersServerStatsIdRequest {
+    // Server statistics unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+}
+
+message PutV1NamespaceProjectsProjectServersServerStatsIdRequest {
+    // Server statistics unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+    ServerStatisticsData serverstats_data = 5;
+}
+
+message DeleteV1NamespaceProjectsProjectServersServerStatsIdRequest {
+    // Stats unique identifier expressed as UUID.
+    string id = 1;
+    // User or team name.
+    string namespace = 2;
+    // Project unique identifier expressed as UUID or name.
+    string project = 3;
+    // Server unique identifier expressed as UUID or name.
+    string server = 4;
+}
+
+message PostV1NamespaceProjectsProjectServersServerStopRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+}
+
+message GetV1NamespaceProjectsProjectServersServerTriggersRequest {
+    // Limit when getting triggers.
+    string limit = 1;
+    // Trigger name.
+    string name = 2;
+    // User or team name.
+    string namespace = 3;
+    // Offset when getting triggers.
+    string offset = 4;
+    // Ordering when getting triggers.
+    string ordering = 5;
+    // Project unique identifier expressed as UUID or name.
+    string project = 6;
+    // Server unique identifier expressed as UUID or name.
+    string server = 7;
+}
+
+message GetV1NamespaceProjectsProjectServersServerTriggersResponse {
+    repeated ServerAction items = 1;
+}
+
+message PostV1NamespaceProjectsProjectServersServerTriggersRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    // Server action.
+    ServerActionData server_action = 4;
+}
+
+message GetV1NamespaceProjectsProjectServersServerTriggersTriggerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    // Trigger unique identifier.
+    string trigger = 4;
+}
+
+message PutV1NamespaceProjectsProjectServersServerTriggersTriggerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    ServerActionData server_action = 4;
+    // Trigger unique identifier.
+    string trigger = 5;
+}
+
+message DeleteV1NamespaceProjectsProjectServersServerTriggersTriggerRequest {
+    // User or team name.
+    string namespace = 1;
+    // Project unique identifier expressed as UUID or name.
+    string project = 2;
+    // Server unique identifier expressed as UUID or name.
+    string server = 3;
+    // Trigger identifier expressed as UUID or name.
+    string trigger = 4;
+}
+
+message GetV1NamespaceSearchRequest {
+    // Limit data when getting items.
+    string limit = 1;
+    // User or team name.
+    string namespace = 2;
+    // Offset data when getting items.
+    string offset = 3;
+    // Search string.
+    string q = 4;
+    // Limit results to specific types.
+    enum GetV1NamespaceSearchRequest_Type {
+        GETV1NAMESPACESEARCHREQUEST_TYPE_USERS = 0;
+        GETV1NAMESPACESEARCHREQUEST_TYPE_PROJECTS = 1;
+        GETV1NAMESPACESEARCHREQUEST_TYPE_SERVERS = 2;
+    }
+    GetV1NamespaceSearchRequest_Type type = 5;
+}
+
+message GetV1NamespaceSearchResponse {
+    repeated Search items = 1;
+}
+
+message Action {
+    // Action name.
+    string action = 1;
+    // Action name.
+    string action_name = 2;
+    // Can action be cancelled, or not.
+    bool can_be_cancelled = 3;
+    // May action be retried, or not.
+    bool can_be_retried = 4;
+    // Action needs to end before a certain date and time.
+    string end_date = 5;
+    // Action unique identifier, expressed as UUID.
+    string id = 6;
+    // IP address that action is related to.
+    string ip = 7;
+    // Is the action related to a user, or not.
+    bool is_user_action = 8;
+    // Action method.
+    string method = 9;
+    // Action object.
+    string object = 10;
+    // Action path.
+    string path = 11;
+    // Object action payload.
+    message Payload {
+    }
+    Payload payload = 12;
+    // Resource URI.
+    string resource_uri = 13;
+    // Action date and time start.
+    string start_date = 14;
+    // Action state.
+    string state = 15;
+    // User that action is assigned to.
+    string user = 16;
+    // User agent that action is related to.
+    string user_agent = 17;
+}
+
+message AuthToken {
+    // Unique JWT authorization token.
+    string token = 1;
+}
+
+message AuthTokenData {
+    // User's password.
+    string password = 1;
+    // User's username.
+    string username = 2;
+}
+
+message AuthTokenError {
+    // Errors not connected to any field.
+    repeated string non_field_errors = 1;
+    // Password field errors.
+    repeated string password = 2;
+    // Token field errors.
+    repeated string token = 3;
+    // Username field errors.
+    repeated string username = 4;
+}
+
+message Card {
+    // Address city.
+    string address_city = 1;
+    // Address country.
+    string address_country = 2;
+    // Address line 1.
+    string address_line1 = 3;
+    // Address line 1 check, when processing card.
+    string address_line1_check = 4;
+    // Address line 2.
+    string address_line2 = 5;
+    // Address state.
+    string address_state = 6;
+    // Address zip code.
+    string address_zip = 7;
+    // Address check, when processing card.
+    string address_zip_check = 8;
+    // Credit or debit card brand.
+    string brand = 9;
+    // Card date and time creation.
+    string created = 10;
+    // Card customer.
+    string customer = 11;
+    // Security code check.
+    string cvc_check = 12;
+    // Card expiration month.
+    int32 exp_month = 13;
+    // Card expiration year.
+    int32 exp_year = 14;
+    // Card fingerprint.
+    string fingerprint = 15;
+    // Funding.
+    string funding = 16;
+    // Card unique identifier, expressed as UUID.
+    string id = 17;
+    // Last four digits of credit or debit card.
+    string last4 = 18;
+    // Card name.
+    string name = 19;
+    // Unique stripe identifier.
+    string stripe_id = 20;
+    // Card unique token.
+    string token = 21;
+}
+
+message CardDataPost {
+    // Address city.
+    string address_city = 1;
+    // Address country.
+    string address_country = 2;
+    // Address line 1.
+    string address_line1 = 3;
+    // Address line 2.
+    string address_line2 = 4;
+    // Address state.
+    string address_state = 5;
+    // Address zip code.
+    string address_zip = 6;
+    // Card expiration month.
+    int32 exp_month = 7;
+    // Card expiration year.
+    int32 exp_year = 8;
+    // Card name.
+    string name = 9;
+    // Card unique token.
+    string token = 10;
+}
+
+message CardDataPutandPatch {
+    // Address city.
+    string address_city = 1;
+    // Address country.
+    string address_country = 2;
+    // Address line 1.
+    string address_line1 = 3;
+    // Address line 2.
+    string address_line2 = 4;
+    // Address state.
+    string address_state = 5;
+    // Address zip code.
+    string address_zip = 6;
+    // Card expiration month.
+    int32 exp_month = 7;
+    // Card expiration year.
+    int32 exp_year = 8;
+    // Card name.
+    string name = 9;
+}
+
+message CardError {
+    // address_city field errors
+    repeated string address_city = 1;
+    // address_country field errors
+    repeated string address_country = 2;
+    // address_line1 field errors
+    repeated string address_line1 = 3;
+    // address_line1_check field errors
+    repeated string address_line1_check = 4;
+    // address_line2 field errors
+    repeated string address_line2 = 5;
+    // address_state field errors
+    repeated string address_state = 6;
+    // address_zip field errors
+    repeated string address_zip = 7;
+    // address_zip_check field errors
+    repeated string address_zip_check = 8;
+    // brand field errors
+    repeated string brand = 9;
+    // created field errors
+    repeated string created = 10;
+    // customer field errors
+    repeated string customer = 11;
+    // cvc_check field errors
+    repeated string cvc_check = 12;
+    // exp_month field errors
+    repeated string exp_month = 13;
+    // exp_year field errors
+    repeated string exp_year = 14;
+    // fingerprint field errors
+    repeated string fingerprint = 15;
+    // funding field errors
+    repeated string funding = 16;
+    // id field errors
+    repeated string id = 17;
+    // last4 field errors
+    repeated string last4 = 18;
+    // name field errors
+    repeated string name = 19;
+    // Errors not connected to any field
+    repeated string non_field_errors = 20;
+    // stripe_id field errors
+    repeated string stripe_id = 21;
+    // token field errors
+    repeated string token = 22;
+}
+
+message CardUpdateError {
+    // address_city field errors
+    repeated string address_city = 1;
+    // address_country field errors
+    repeated string address_country = 2;
+    // address_line1 field errors
+    repeated string address_line1 = 3;
+    // address_line1_check field errors
+    repeated string address_line1_check = 4;
+    // address_line2 field errors
+    repeated string address_line2 = 5;
+    // address_state field errors
+    repeated string address_state = 6;
+    // address_zip field errors
+    repeated string address_zip = 7;
+    // address_zip_check field errors
+    repeated string address_zip_check = 8;
+    // brand field errors
+    repeated string brand = 9;
+    // created field errors
+    repeated string created = 10;
+    // customer field errors
+    repeated string customer = 11;
+    // cvc_check field errors
+    repeated string cvc_check = 12;
+    // exp_month field errors
+    repeated string exp_month = 13;
+    // exp_year field errors
+    repeated string exp_year = 14;
+    // fingerprint field errors
+    repeated string fingerprint = 15;
+    // funding field errors
+    repeated string funding = 16;
+    // id field errors
+    repeated string id = 17;
+    // last4 field errors
+    repeated string last4 = 18;
+    // name field errors
+    repeated string name = 19;
+    // Errors not connected to any field
+    repeated string non_field_errors = 20;
+    // stripe_id field errors
+    repeated string stripe_id = 21;
+    // token field errors
+    repeated string token = 22;
+}
+
+message Collaborator {
+    // Collaborator's valid email address.
+    string email = 1;
+    // Collaborator's first name.
+    string first_name = 2;
+    // Collaborator unique identifier in UUID format.
+    string id = 3;
+    // Date time of when collaborator joined.
+    string joined = 4;
+    // Collaborator's last name.
+    string last_name = 5;
+    // Boolean that states whether collaborator is project owner, or not.
+    bool owner = 6;
+    // Collaborator permissions. Project creators are assigned owner
+    // priviledges by default. Permissions are write and read.
+    repeated string permissions = 7;
+    // Collaborator's user name. This must be a valid user name within the
+    // system.
+    string username = 8;
+}
+
+message CollaboratorData {
+    // Project member username.
+    string member = 1;
+    // Project owner. Defaults to false.
+    bool owner = 2;
+    // Permissions assigned to collaborator.
+    enum CollaboratorData_Permission {
+        COLLABORATORDATA_PERMISSION_READ_PROJECT = 0;
+        COLLABORATORDATA_PERMISSION_WRITE_PROJECT = 1;
+    }
+    CollaboratorData_Permission permissions = 3;
+}
+
+message CollaboratorError {
+    // Email field errors.
+    repeated string email = 1;
+    // First name field errors.
+    repeated string first_name = 2;
+    // Id field errors this
+    repeated string id = 3;
+    // Joined field errors.
+    repeated string joined = 4;
+    // Last name field errors.
+    repeated string last_name = 5;
+    // Member field errors.
+    repeated string member = 6;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 7;
+    // Owner field errors.
+    repeated string owner = 8;
+    // Permissions field errors.
+    repeated string permissions = 9;
+    // Username field errors.
+    repeated string username = 10;
+}
+
+message Customer {
+    // Customer account balance.
+    int32 account_balance = 1;
+    // Date and time for customer creation.
+    string created = 2;
+    // Currency used by customer.
+    string currency = 3;
+    // Customer default source.
+    string default_source = 4;
+    // Customer unique identifier expressed as UUID.
+    string id = 5;
+    // Date and time for last invoice sync.
+    string last_invoice_sync = 6;
+    // Customer live mode.
+    bool livemode = 7;
+    // Optional customer meta data object.
+    message Metadata {
+    }
+    Metadata metadata = 8;
+    // Stripe identifier.
+    string stripe_id = 9;
+    // Customer primary user.
+    string user = 10;
+}
+
+message CustomerData {
+    // Account balance.
+    int32 account_balance = 1;
+    // Customer preferred currency.
+    string currency = 2;
+    // Default source.
+    string default_source = 3;
+    // List date and time invoice was synced.
+    string last_invoice_sync = 4;
+    // Customer meta data.
+    message Metadata {
+    }
+    Metadata metadata = 5;
+    // User corresponding to customer.
+    string user = 6;
+}
+
+message CustomerError {
+    // account_balance field errors
+    repeated string account_balance = 1;
+    // created field errors
+    repeated string created = 2;
+    // currency field errors
+    repeated string currency = 3;
+    // default_source field errors
+    repeated string default_source = 4;
+    // id field errors
+    repeated string id = 5;
+    // last_invoice_sync field errors
+    repeated string last_invoice_sync = 6;
+    // livemode field errors
+    repeated string livemode = 7;
+    // metadata field errors
+    repeated string metadata = 8;
+    // Errors not connected to any field
+    repeated string non_field_errors = 9;
+    // stripe_id field errors
+    repeated string stripe_id = 10;
+    // user field errors
+    repeated string user = 11;
+}
+
+message DockerHost {
+    // Unique identifier for docker host as UUID.
+    string id = 1;
+    // Docker host IPv4 address
+    string ip = 2;
+    // Docker host name.
+    string name = 3;
+    // Docker host port.
+    int32 port = 4;
+    // Docker host status.
+    string status = 5;
+}
+
+message DockerHostData {
+    // DockerHost IPv4 address.
+    string ip = 1;
+    // DockerHost name.
+    string name = 2;
+    // DockerHost port.
+    int32 port = 3;
+}
+
+message DockerHostError {
+    // Id field errors.
+    repeated string id = 1;
+    // Ip field errors
+    repeated string ip = 2;
+    // Name field errors.
+    repeated string name = 3;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 4;
+    // Port field errors.
+    repeated string port = 5;
+    // Status field errors.
+    repeated string status = 6;
+}
+
+message Email {
+    // Email address.
+    string address = 1;
+    // Boolean to determine if email is public or private.
+    bool public = 2;
+    // Boolean to determine whether user is suscribed or unsubscribed to out going email campaigns.
+    bool unsubscribed = 3;
+}
+
+message EmailData {
+    // Email address.
+    string address = 1;
+    // Public or private email address.
+    bool public = 2;
+    // Unsubscribed or suscribed.
+    bool unsubscribed = 3;
+}
+
+message EmailError {
+    // Address field errors.
+    repeated string address = 1;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 2;
+    // Public field errors.
+    repeated string public = 3;
+    // Unsubscribed field errors.
+    repeated string unsubscribed = 4;
+}
+
+message Invoice {
+    // Amount due set in invoice.
+    int32 amount_due = 1;
+    // Application fee set in invoice.
+    int32 application_fee = 2;
+    // Number of attempts to deliver invoice.
+    int32 attempt_count = 3;
+    // Boolean to determine whether delivery attempt executed, or not.
+    bool attempted = 4;
+    // Invoice closed, or pending.
+    bool closed = 5;
+    // Date and time when invoice was created.
+    string created = 6;
+    // Currency used in invoice.
+    string currency = 7;
+    // Customer name.
+    string customer = 8;
+    // Invoice description.
+    string description = 9;
+    // Invoice unique identifier expressed as UUID.
+    string id = 10;
+    // Invoice issue date.
+    string invoice_date = 11;
+    // Boolean that determines whether invoice is live, or not.
+    bool livemode = 12;
+    // Optional metadata object of invoice.
+    message Metadata {
+    }
+    Metadata metadata = 13;
+    // Next payment attempt.
+    string next_payment_attempt = 14;
+    // Determines whether invoice has been paid, or not.
+    bool paid = 15;
+    // Invoice end period.
+    string period_end = 16;
+    // Invoice start period.
+    string period_start = 17;
+    // Invoice receipt number.
+    string reciept_number = 18;
+    // Invoice starting balance.
+    int32 starting_balance = 19;
+    // Invoice statement descriptor.
+    string statement_descriptor = 20;
+    // Stripe account identifier.
+    string stripe_id = 21;
+    // Suscription name.
+    string subscription = 22;
+    // Invoice sub total.
+    int32 subtotal = 23;
+    // Tax, if applicable.
+    int32 tax = 24;
+    // Invoice total.
+    int32 total = 25;
+}
+
+message InvoiceItem {
+    // Amount the the invoice item will be billed for.
+    int32 amount = 1;
+    // Date and time when invoice was created.
+    string created = 2;
+    // Currency used in invoice.
+    string currency = 3;
+    // Item description.
+    string description = 4;
+    // InvoiceItem unique identifier expressed as UUID.
+    string id = 5;
+    // Invoice unique identifier expressed as UUID.
+    string invoice = 6;
+    // Date the item was added to the invoice.
+    string invoice_date = 7;
+    // Boolean that determines whether invoice is live, or not.
+    bool livemode = 8;
+    // Optional metadata object of invoice.
+    message Metadata {
+    }
+    Metadata metadata = 9;
+    // Whether or not the items cost will be prorated for the billing period.
+    bool proration = 10;
+    // Number of units for this item.
+    int32 quantity = 11;
+    // Stripe account identifier.
+    string stripe_id = 12;
+}
+
+message JWT {
+    // Unique JSON Web Token (JWT).
+    string token = 1;
+}
+
+message JWTData {
+    // User password.
+    string password = 1;
+    // User name.
+    string username = 2;
+}
+
+message JWTError {
+    // Errors not connected to any field
+    repeated string non_field_errors = 1;
+    // password field errors
+    repeated string password = 2;
+    // token field errors
+    repeated string token = 3;
+    // username field errors
+    repeated string username = 4;
+}
+
+message NotFound {
+    // Requested item not found.
+    string detail = 1;
+}
+
+message Plan {
+    // Amount (cost/price) of plan.
+    int32 amount = 1;
+    // Date and time when plan was created.
+    string created = 2;
+    // Currency used to specify amount.
+    string currency = 3;
+    // Plan unique identifier as UUID.
+    string id = 4;
+    // Interval for plan, such as montly or yearly.
+    string interval = 5;
+    int32 interval_count = 6;
+    // Boolean to determine whether plan is live, or not.
+    bool livemode = 7;
+    // Optional meta data object.
+    message Metadata {
+    }
+    Metadata metadata = 8;
+    // Plan name.
+    string name = 9;
+    // Statement that describes plan to users.
+    string statement_descriptor = 10;
+    // Stripe identifier to identify entity charging for plans.
+    string stripe_id = 11;
+    // Number of days for plan trial, used for try and buy campaigns.
+    int32 trial_period_days = 12;
+}
+
+message PlanData {
+    // Plan amount in currency.
+    int32 amount = 1;
+    // Currency for plan.
+    string currency = 2;
+    // Plan interval.
+    repeated string interval = 3;
+    // Number of intervals.
+    int32 interval_count = 4;
+    // Is plan live, or not.
+    bool livemode = 5;
+    // Plan meta data.
+    message Metadata {
+    }
+    Metadata metadata = 6;
+    // Plan name.
+    string name = 7;
+    // Plan description.
+    string statement_descriptor = 8;
+    // Trial days for try and buy campaigns.
+    int32 trial_period_days = 9;
+}
+
+message PlanError {
+    // amount field errors
+    repeated string amount = 1;
+    // created field errors
+    repeated string created = 2;
+    // currency field errors
+    repeated string currency = 3;
+    // id field errors
+    repeated string id = 4;
+    // interval field errors
+    repeated string interval = 5;
+    // interval_count field errors
+    repeated string interval_count = 6;
+    // livemode field errors
+    repeated string livemode = 7;
+    // metadata field errors
+    repeated string metadata = 8;
+    // name field errors
+    repeated string name = 9;
+    // Errors not connected to any field
+    repeated string non_field_errors = 10;
+    // statement_descriptor field errors
+    repeated string statement_descriptor = 11;
+    // stripe_id field errors
+    repeated string stripe_id = 12;
+    // trial period days field errors
+    repeated string trial_period_days = 13;
+}
+
+message Project {
+    // Array of project collaborators.
+    repeated string collaborators = 1;
+    // Project description.
+    string description = 2;
+    // Unique identifier for project as UUID.
+    string id = 3;
+    // Date and time when project was last updated.
+    string last_updated = 4;
+    // Project name.
+    string name = 5;
+    // Username of project owner.
+    string owner = 6;
+    // Value that states whether project is private or public.
+    bool private = 7;
+}
+
+message ProjectData {
+    // Project description.
+    string description = 1;
+    // Project name.
+    string name = 2;
+    // Private project true, otherwise public.
+    bool private = 3;
+}
+
+message ProjectError {
+    // Collaborators field errors.
+    repeated string collaborators = 1;
+    // Description field errors.
+    repeated string description = 2;
+    // Id field errors.
+    repeated string id = 3;
+    // Last_updated field errors.
+    repeated string last_updated = 4;
+    // Name field errors.
+    repeated string name = 5;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 6;
+    // Owner field errors.
+    repeated string owner = 7;
+    // Private field errors.
+    repeated string private = 8;
+}
+
+message ProjectFile {
+    // Data sent as string, in base64 format.
+    string content = 1;
+    // File unique identifier in UUID format.
+    string id = 2;
+    // File name and extension.
+    string name = 3;
+    // File path. Defaults to root (/).
+    string path = 4;
+    // Project name where file is located.
+    string project = 5;
+}
+
+message ProjectFileError {
+    // base64_data field errors
+    repeated string content = 1;
+    // file field errors
+    repeated string file = 2;
+    // id field errors
+    repeated string id = 3;
+    // name field errors
+    repeated string name = 4;
+    // Errors not connected to any field
+    repeated string non_field_errors = 5;
+    // path field errors
+    repeated string path = 6;
+    // project field errors
+    repeated string project = 7;
+}
+
+message RefreshJSONWebToken {
+    // Refresh JWT token.
+    string token = 1;
+}
+
+message RefreshJSONWebTokenData {
+    // Refreshed token.
+    string token = 1;
+}
+
+message RefreshJSONWebTokenError {
+    // Errors not connected to any field.
+    repeated string non_field_errors = 1;
+    // Token field errors.
+    repeated string token = 2;
+}
+
+message Search {
+}
+
+message Server {
+    // Server configuration option. Values are jupyter, restful and cron.
+    message Config {
+    }
+    Config config = 1;
+    // Array that represents what other servers the server is connected to.
+    repeated string connected = 2;
+    // Date and time when server was created.
+    string created_at = 3;
+    // Server endpoint path.
+    string endpoint = 4;
+    // Value that represents user defined host, otherwise known as BYON (Bring Your Own Node).
+    string host = 5;
+    // Server unique identifier in UUID format.
+    string id = 6;
+    // Server image source, such as 3blades/tensorflow-notebook.
+    string image_name = 7;
+    // A WebSocket URL for streaming stdout and stderr logs from the server.
+    string logs_url = 8;
+    // Server name.
+    string name = 9;
+    // Server size unique identifier.
+    string server_size = 10;
+    // Optional startup script to use when launching server.
+    string startup_script = 11;
+    // Server status, such as Running or Error.
+    enum Server_Statu {
+        SERVER_STATU_STOPPED = 0;
+        SERVER_STATU_RUNNING = 1;
+        SERVER_STATU_ERROR = 2;
+    }
+    Server_Statu status = 12;
+    // A WebSocket URL for listening to server status changes.
+    string status_url = 13;
+}
+
+message ServerAction {
+    // Server trigger unique identifier.
+    string id = 1;
+    // Name for server action.
+    string name = 2;
+    // Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. If the action results in Error, status will change to Error.
+    enum ServerAction_Operation {
+        SERVERACTION_OPERATION_START = 0;
+        SERVERACTION_OPERATION_STOP = 1;
+        SERVERACTION_OPERATION_TERMINATE = 2;
+    }
+    ServerAction_Operation operation = 3;
+    Webhook webhook = 4;
+}
+
+message ServerActionData {
+    // Name of server action.
+    string name = 1;
+    // Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. Stopping a server changes state from Running to Stopped. If the action results in Error, status will change to Error.
+    enum ServerActionData_Operation {
+        SERVERACTIONDATA_OPERATION_START = 0;
+        SERVERACTIONDATA_OPERATION_STOP = 1;
+        SERVERACTIONDATA_OPERATION_TERMINATE = 2;
+    }
+    ServerActionData_Operation operation = 2;
+    Webhook webhook = 3;
+}
+
+message ServerActionError {
+    // Id field errors.
+    repeated string id = 1;
+    // Name field errors.
+    repeated string name = 2;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 3;
+    // Operation field errors.
+    repeated string operation = 4;
+}
+
+message ServerConfig {
+    // Command to run
+    string command = 1;
+    // Server function.
+    string function = 2;
+    // Server script file.
+    string script = 3;
+    // Server type.
+    enum ServerConfig_Type {
+        SERVERCONFIG_TYPE_JUPYTER = 0;
+        SERVERCONFIG_TYPE_RESTFUL = 1;
+        SERVERCONFIG_TYPE_CRON = 2;
+    }
+    ServerConfig_Type type = 4;
+}
+
+message ServerData {
+    // Server configuration option. Values are jupyter, restful and cron.
+    ServerConfig config = 1;
+    // Array of other servers the server is connected to.
+    repeated string connected = 2;
+    // External host IPv4 address or hostname.
+    string host = 3;
+    // Image name.
+    string image_name = 4;
+    // Server name.
+    string name = 5;
+    // Server size unique identifier.
+    string server_size = 6;
+    // Startup script to run when launching server.
+    string startup_script = 7;
+}
+
+message ServerError {
+    // config field errors.
+    repeated string config = 1;
+    // connected field errors.
+    repeated string connected = 2;
+    // created_at field errors.
+    repeated string created_at = 3;
+    // endpoint field errors.
+    repeated string endpoint = 4;
+    // host field errors.
+    repeated string host = 5;
+    // id field errors.
+    repeated string id = 6;
+    // image_name field errors.
+    repeated string image_name = 7;
+    // logs_url field errors.
+    repeated string logs_url = 8;
+    // name field errors.
+    repeated string name = 9;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 10;
+    // server_size field errors.
+    repeated string server_size = 11;
+    // startup_script field errors.
+    repeated string startup_script = 12;
+    // status field errors.
+    repeated string status = 13;
+    // status_url field errors.
+    repeated string status_url = 14;
+}
+
+message ServerRunStatistics {
+    // Exit code, such as Exit 0 or Exit 1.
+    int32 exit_code = 1;
+    // Server run statistics object unique identifier in UUID format.
+    string id = 2;
+    // Size of server.
+    int32 size = 3;
+    // Stacktrace, if there was one.
+    string stacktrace = 4;
+    // Date and time that represents when server started.
+    string start = 5;
+    // Date and time that represents when server stopped.
+    string stop = 6;
+}
+
+message ServerRunStatisticsData {
+    // Server exit code.
+    int32 exit_code = 1;
+    // Server size.
+    int32 size = 2;
+    // Server stacktrace.
+    string stacktrace = 3;
+    // Server start.
+    string start = 4;
+    // Server stop.
+    string stop = 5;
+}
+
+message ServerRunStatisticsError {
+    // exit_code field errors.
+    repeated string exit_code = 1;
+    // id field errors.
+    repeated string id = 2;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 3;
+    // size field errors.
+    repeated string size = 4;
+    // stacktrace field errors.
+    repeated string stacktrace = 5;
+    // start field errors.
+    repeated string start = 6;
+    // stop field errors.
+    repeated string stop = 7;
+}
+
+message ServerSize {
+    // States whether the Server size is active, or not.
+    bool active = 1;
+    // CPU availability, equivalent to --cpus=<value>. For example if a host has
+    // 2 CPU's, then a value of 1.5 would be limit the container to using all of the
+    // first CPU and half of the second CPU.
+    int32 cpu = 2;
+    // Server size unique identifier.
+    string id = 3;
+    // Memory restriction for container.
+    int32 memory = 4;
+    // Server size name.
+    string name = 5;
+}
+
+message ServerSizeData {
+    // Active or not active.
+    bool active = 1;
+    // CPU set for server size.
+    int32 cpu = 2;
+    // Memory set for server size.
+    int32 memory = 3;
+    // Server size name.
+    string name = 4;
+}
+
+message ServerSizeError {
+    // Active field errors.
+    repeated string active = 1;
+    // CPU field errors.
+    repeated string cpu = 2;
+    // Id field errors.
+    repeated string id = 3;
+    // Memory field errors.
+    repeated string memory = 4;
+    // Name field errors.
+    repeated string name = 5;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 6;
+}
+
+message ServerStatistics {
+    // Server statistics unique identifier in UUID format.
+    string id = 1;
+    // Size of statistics.
+    int32 size = 2;
+    // Start statistics, such as start time and date.
+    string start = 3;
+    // Stop statistics, such as stop time and date.
+    string stop = 4;
+}
+
+message ServerStatisticsData {
+    // id field errors.
+    repeated string id = 1;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 2;
+    // size field errors.
+    repeated string size = 3;
+    // start field errors.
+    repeated string start = 4;
+    // stop field errors.
+    repeated string stop = 5;
+}
+
+message ServerStatisticsError {
+    // Id field errors.
+    repeated string id = 1;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 2;
+    // Size field errors.
+    repeated string size = 3;
+    // Start field errors.
+    repeated string start = 4;
+    // Stop field errors.
+    repeated string stop = 5;
+}
+
+message SshTunnel {
+    // SSH tunnel destination endpoint.
+    string endpoint = 1;
+    // Host, usually IPv4, for SSH tunnel.
+    string host = 2;
+    // SSH tunnel unique identifier in UUID format.
+    string id = 3;
+    // Local source port for SSH tunnel.
+    int32 local_port = 4;
+    // SSH tunnel name.
+    string name = 5;
+    // Remote port to establish SSH tunnel.
+    int32 remote_port = 6;
+    // SSH tunnel user name.
+    string username = 7;
+}
+
+message SshTunnelData {
+    // SSH tunnel endpoint.
+    string endpoint = 1;
+    // SSH tunnel host.
+    string host = 2;
+    // SSH tunnel local port.
+    int32 local_port = 3;
+    // SSH tunnel name.
+    string name = 4;
+    // SSH tunnel remote port.
+    int32 remote_port = 5;
+    // User name to establish SSH tunnel.
+    string username = 6;
+}
+
+message SshTunnelError {
+    // endpoint field errors.
+    repeated string endpoint = 1;
+    // host field errors.
+    repeated string host = 2;
+    // id field errors.
+    repeated string id = 3;
+    // local_port field errors.
+    repeated string local_port = 4;
+    // name field errors.
+    repeated string name = 5;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 6;
+    // remote_port field errors.
+    repeated string remote_port = 7;
+    // username field errors.
+    repeated string username = 8;
+}
+
+message Subscription {
+    // Application fee percent.
+    int32 application_fee_percent = 1;
+    // Boolean value to determine whether plan cancels at the end of the period, or not.
+    bool cancel_at_period_end = 2;
+    // Date and time when plan was cancelled.
+    string canceled_at = 3;
+    // Date and time suscription was created.
+    string created = 4;
+    // Current suscription plan end date.
+    string current_period_end = 5;
+    // Current suscription plan start date.
+    string current_period_start = 6;
+    // Date and time for when plan ended.
+    string ended_at = 7;
+    // Unique identifier for suscription as UUID.
+    string id = 8;
+    // Suscription live, or not.
+    bool livemode = 9;
+    // Plan name.
+    string plan = 10;
+    // Quantity purchased as integer.
+    int32 quantity = 11;
+    // Date and time for when plan started.
+    string start = 12;
+    // Suscription status.
+    string status = 13;
+    // Stripe (payment processor) identifier.
+    string stripe_id = 14;
+    // Date and time for trial end.
+    string trial_end = 15;
+    // Date and time for trial start.
+    string trial_start = 16;
+}
+
+message SubscriptionData {
+    // Plan unique identifier.
+    string plan = 1;
+}
+
+message SubscriptionError {
+    // application_fee_percent field errors
+    repeated string application_fee_percent = 1;
+    // cancel_at_period_end field errors
+    repeated string cancel_at_period_end = 2;
+    // canceled_at field errors
+    repeated string canceled_at = 3;
+    // created field errors
+    repeated string created = 4;
+    // current_period_end field errors
+    repeated string current_period_end = 5;
+    // current_period_start field errors
+    repeated string current_period_start = 6;
+    // ended_at field errors
+    repeated string ended_at = 7;
+    // id field errors
+    repeated string id = 8;
+    // livemode field errors
+    repeated string livemode = 9;
+    // Errors not connected to any field
+    repeated string non_field_errors = 10;
+    // plan field errors
+    repeated string plan = 11;
+    // quantity field errors
+    repeated string quantity = 12;
+    // start field errors
+    repeated string start = 13;
+    // status field errors
+    repeated string status = 14;
+    // stripe_id field errors
+    repeated string stripe_id = 15;
+    // trial_end field errors
+    repeated string trial_end = 16;
+    // trial_start field errors
+    repeated string trial_start = 17;
+}
+
+message User {
+    // User email address.
+    string email = 1;
+    // User first name.
+    string first_name = 2;
+    // User unique identifier, expressed as UUID.
+    string id = 3;
+    // User last name.
+    string last_name = 4;
+    // User profile information.
+    UserProfile profile = 5;
+    // Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+    string username = 6;
+}
+
+message UserData {
+    // User email.
+    string email = 1;
+    // User first name.
+    string first_name = 2;
+    // User last name.
+    string last_name = 3;
+    // User password.
+    string password = 4;
+    // User profile information is required, although attribute values may be empty.
+    UserProfile profile = 5;
+    // Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+    string username = 6;
+}
+
+message UserError {
+    // Email field errors.
+    repeated string email = 1;
+    // First name field errors.
+    repeated string first_name = 2;
+    // id field errors.
+    repeated string id = 3;
+    // Last name field errors.
+    repeated string last_name = 4;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 5;
+    // Password field errors.
+    repeated string password = 6;
+    UserProfileError profile = 7;
+    // Username field errors.
+    repeated string username = 8;
+}
+
+message UserProfile {
+    // Avatar image
+    string avatar = 1;
+    // Description of user's biography.
+    string bio = 2;
+    // User's company.
+    string company = 3;
+    // User location.
+    string location = 4;
+    // User's time zone.
+    string timezone = 5;
+    // Users's personal website.
+    string url = 6;
+}
+
+message UserProfileError {
+    // Bio field errors.
+    repeated string bio = 1;
+    // Company field errors.
+    repeated string company = 2;
+    // Location field errors.
+    repeated string location = 3;
+    // Errors not connected to any field.
+    repeated string non_field_errors = 4;
+    // Timezone field errors.
+    repeated string timezone = 5;
+    // URL field errors.
+    repeated string url = 6;
+}
+
+message VerifyJSONWebToken {
+    // Varify JWT token.
+    string token = 1;
+}
+
+message VerifyJSONWebTokenData {
+    // JSON Web Token (JWT).
+    string token = 1;
+}
+
+message VerifyJSONWebTokenError {
+    // Errors not connected to any field.
+    repeated string non_field_errors = 1;
+    // Token field errors.
+    repeated string token = 2;
+}
+
+message Webhook {
+    // JSON with payload and webhook configurations.
+    message Payload {
+    }
+    Payload payload = 1;
+    // URL for webhook.
+    string url = 2;
+}
+
+service 3bladesService {
+    // Create JSON Web Token (JWT)
+    rpc PostAuthJwtTokenAuth(PostAuthJwtTokenAuthRequest) returns (JWT) {
+      option (google.api.http) = {
+        post: "/auth/jwt-token-auth/"
+        body: "jwt_data"
+      };
+    }
+    // Refresh a JSON Web Token (JWT)
+    // 
+    // Obtains a new JSON Web Token using existing user credentials.
+    rpc PostAuthJwtTokenRefresh(PostAuthJwtTokenRefreshRequest) returns (RefreshJSONWebToken) {
+      option (google.api.http) = {
+        post: "/auth/jwt-token-refresh/"
+        body: "refreshjwt_data"
+      };
+    }
+    // Validate JSON Web Token (JWT)
+    // 
+    // Checks veraciy of token.
+    rpc PostAuthJwtTokenVerify(PostAuthJwtTokenVerifyRequest) returns (VerifyJSONWebToken) {
+      option (google.api.http) = {
+        post: "/auth/jwt-token-verify/"
+        body: "verifyjwt_data"
+      };
+    }
+    rpc GetAuthLoginProvider(GetAuthLoginProviderRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/auth/login/{provider}/"
+      };
+    }
+    // Register a user
+    // 
+    // User registration requires confirming email address to activate user.
+    rpc PostAuthRegister(PostAuthRegisterRequest) returns (User) {
+      option (google.api.http) = {
+        post: "/auth/register/"
+        body: "user_data"
+      };
+    }
+    // A convenience endpoint that is equivalent to GET /v1/users/profiles/<my user id>
+    rpc GetV1Me(google.protobuf.Empty) returns (User) {
+      option (google.api.http) = {
+        get: "/v1/me"
+      };
+    }
+    // Retrieve available server sizes
+    rpc GetV1ServersOptionsServerSize(GetV1ServersOptionsServerSizeRequest) returns (GetV1ServersOptionsServerSizeResponse) {
+      option (google.api.http) = {
+        get: "/v1/servers/options/server-size/"
+      };
+    }
+    // Create a new server size item
+    // 
+    // Only super users with on-premises version have acceess to this endpoint.
+    rpc PostV1ServersOptionsServerSize(PostV1ServersOptionsServerSizeRequest) returns (ServerSize) {
+      option (google.api.http) = {
+        post: "/v1/servers/options/server-size/"
+        body: "serversize_data"
+      };
+    }
+    // Get a server size by id
+    rpc GetV1ServersOptionsServerSizeSize(GetV1ServersOptionsServerSizeSizeRequest) returns (ServerSize) {
+      option (google.api.http) = {
+        get: "/v1/servers/options/server-size/{size}/"
+      };
+    }
+    // Replace a server size by id
+    // 
+    // Only super users with on-premises version have acceess to this endpoint.
+    rpc PutV1ServersOptionsServerSizeSize(PutV1ServersOptionsServerSizeSizeRequest) returns (ServerSize) {
+      option (google.api.http) = {
+        put: "/v1/servers/options/server-size/{size}/"
+        body: "serversize_data"
+      };
+    }
+    // Delete a server size by id
+    // 
+    // Only super users with on-premises version have acceess to this endpoint.
+    rpc DeleteV1ServersOptionsServerSizeSize(DeleteV1ServersOptionsServerSizeSizeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/servers/options/server-size/{size}/"
+      };
+    }
+    // Get user list
+    rpc GetV1UsersProfiles(GetV1UsersProfilesRequest) returns (GetV1UsersProfilesResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/profiles/"
+      };
+    }
+    // Create new user
+    // 
+    // Only admin users can create new users. New users have active status by default.
+    rpc PostV1UsersProfiles(PostV1UsersProfilesRequest) returns (User) {
+      option (google.api.http) = {
+        post: "/v1/users/profiles/"
+        body: "user_data"
+      };
+    }
+    // Retrieve a user
+    rpc GetV1UsersProfilesUser(GetV1UsersProfilesUserRequest) returns (User) {
+      option (google.api.http) = {
+        get: "/v1/users/profiles/{user}/"
+      };
+    }
+    // Delete a user
+    rpc DeleteV1UsersProfilesUser(DeleteV1UsersProfilesUserRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/users/profiles/{user}/"
+      };
+    }
+    // Retrieve account's API key
+    rpc GetV1UsersUserApiKey(GetV1UsersUserApiKeyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/users/{user}/api-key/"
+      };
+    }
+    // Reset a user's API key
+    rpc PostV1UsersUserApiKeyReset(PostV1UsersUserApiKeyResetRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/users/{user}/api-key/reset/"
+      };
+    }
+    // Retrieve user's avatar
+    rpc GetV1UsersUserAvatar(GetV1UsersUserAvatarRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/users/{user}/avatar/"
+      };
+    }
+    // Add user avatar
+    rpc PostV1UsersUserAvatar(PostV1UsersUserAvatarRequest) returns (User) {
+      option (google.api.http) = {
+        post: "/v1/users/{user}/avatar/"
+      };
+    }
+    // Delete avatar
+    rpc DeleteV1UsersUserAvatar(DeleteV1UsersUserAvatarRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/users/{user}/avatar/"
+      };
+    }
+    // Retrieve account email addresses
+    rpc GetV1UsersUserEmails(GetV1UsersUserEmailsRequest) returns (GetV1UsersUserEmailsResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user}/emails/"
+      };
+    }
+    // Create an email address
+    rpc PostV1UsersUserEmails(PostV1UsersUserEmailsRequest) returns (Email) {
+      option (google.api.http) = {
+        post: "/v1/users/{user}/emails/"
+        body: "email_data"
+      };
+    }
+    // Retrieve a user's email addresses
+    rpc GetV1UsersUserEmailsEmail_id(GetV1UsersUserEmailsEmail_idRequest) returns (Email) {
+      option (google.api.http) = {
+        get: "/v1/users/{user}/emails/{email_id}/"
+      };
+    }
+    // Replace an email address
+    rpc PutV1UsersUserEmailsEmail_id(PutV1UsersUserEmailsEmail_idRequest) returns (Email) {
+      option (google.api.http) = {
+        put: "/v1/users/{user}/emails/{email_id}/"
+        body: "email_data"
+      };
+    }
+    // Delete an email address
+    rpc DeleteV1UsersUserEmailsEmail_id(DeleteV1UsersUserEmailsEmail_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/users/{user}/emails/{email_id}/"
+      };
+    }
+    // Retrieve an SSH key
+    rpc GetV1UsersUserSshKey(GetV1UsersUserSshKeyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/users/{user}/ssh-key/"
+      };
+    }
+    // Recreate an SSH key
+    rpc PostV1UsersUserSshKeyReset(PostV1UsersUserSshKeyResetRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/users/{user}/ssh-key/reset/"
+      };
+    }
+    // Get credit cards
+    rpc GetV1NamespaceBillingCards(GetV1NamespaceBillingCardsRequest) returns (GetV1NamespaceBillingCardsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/cards/"
+      };
+    }
+    // Create new credit card
+    rpc PostV1NamespaceBillingCards(PostV1NamespaceBillingCardsRequest) returns (Card) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/billing/cards/"
+        body: "card_data"
+      };
+    }
+    // Get credit card by id
+    rpc GetV1NamespaceBillingCardsId(GetV1NamespaceBillingCardsIdRequest) returns (Card) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/cards/{id}/"
+      };
+    }
+    // Replace a credit card
+    rpc PutV1NamespaceBillingCardsId(PutV1NamespaceBillingCardsIdRequest) returns (Card) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/billing/cards/{id}/"
+        body: "card_data"
+      };
+    }
+    // Delete a credit card
+    rpc DeleteV1NamespaceBillingCardsId(DeleteV1NamespaceBillingCardsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/billing/cards/{id}/"
+      };
+    }
+    // Get invoices
+    rpc GetV1NamespaceBillingInvoices(GetV1NamespaceBillingInvoicesRequest) returns (GetV1NamespaceBillingInvoicesResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/invoices/"
+      };
+    }
+    // Get an invoice
+    rpc GetV1NamespaceBillingInvoicesId(GetV1NamespaceBillingInvoicesIdRequest) returns (Invoice) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/invoices/{id}/"
+      };
+    }
+    // Get invoice items for a given invoice.
+    rpc GetV1NamespaceBillingInvoicesInvoice_idInvoiceItems(GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsRequest) returns (GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/"
+      };
+    }
+    // Get a specific InvoiceItem.
+    rpc GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsId(GetV1NamespaceBillingInvoicesInvoice_idInvoiceItemsIdRequest) returns (InvoiceItem) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id}"
+      };
+    }
+    // Get billing plans
+    rpc GetV1NamespaceBillingPlans(GetV1NamespaceBillingPlansRequest) returns (GetV1NamespaceBillingPlansResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/plans/"
+      };
+    }
+    // Get a billing plan
+    rpc GetV1NamespaceBillingPlansId(GetV1NamespaceBillingPlansIdRequest) returns (Plan) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/plans/{id}/"
+      };
+    }
+    // Get active subscriptons
+    rpc GetV1NamespaceBillingSubscriptions(GetV1NamespaceBillingSubscriptionsRequest) returns (GetV1NamespaceBillingSubscriptionsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/subscriptions/"
+      };
+    }
+    // Create a new subscription
+    rpc PostV1NamespaceBillingSubscriptions(PostV1NamespaceBillingSubscriptionsRequest) returns (Subscription) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/billing/subscriptions/"
+        body: "subscription_data"
+      };
+    }
+    // Get a subscriptions
+    rpc GetV1NamespaceBillingSubscriptionsId(GetV1NamespaceBillingSubscriptionsIdRequest) returns (Subscription) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/billing/subscriptions/{id}/"
+      };
+    }
+    // Delete a subscription
+    rpc DeleteV1NamespaceBillingSubscriptionsId(DeleteV1NamespaceBillingSubscriptionsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/billing/subscriptions/{id}/"
+      };
+    }
+    // Get available hosts
+    rpc GetV1NamespaceHosts(GetV1NamespaceHostsRequest) returns (GetV1NamespaceHostsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/hosts/"
+      };
+    }
+    // Create a new host
+    rpc PostV1NamespaceHosts(PostV1NamespaceHostsRequest) returns (DockerHost) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/hosts/"
+        body: "dockerhost_data"
+      };
+    }
+    // Get a host
+    rpc GetV1NamespaceHostsHost(GetV1NamespaceHostsHostRequest) returns (DockerHost) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/hosts/{host}/"
+      };
+    }
+    // Replace a host
+    rpc PutV1NamespaceHostsHost(PutV1NamespaceHostsHostRequest) returns (DockerHost) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/hosts/{host}/"
+        body: "dockerhost_data"
+      };
+    }
+    // Delete a host
+    rpc DeleteV1NamespaceHostsHost(DeleteV1NamespaceHostsHostRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/hosts/{host}/"
+      };
+    }
+    // Get available projects
+    rpc GetV1NamespaceProjects(GetV1NamespaceProjectsRequest) returns (GetV1NamespaceProjectsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/"
+      };
+    }
+    // Create a new project
+    rpc PostV1NamespaceProjects(PostV1NamespaceProjectsRequest) returns (Project) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/"
+        body: "project_data"
+      };
+    }
+    // Get a project
+    rpc GetV1NamespaceProjectsProject(GetV1NamespaceProjectsProjectRequest) returns (Project) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/"
+      };
+    }
+    // Replace a project
+    rpc PutV1NamespaceProjectsProject(PutV1NamespaceProjectsProjectRequest) returns (Project) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/"
+        body: "project_data"
+      };
+    }
+    // Delete a project
+    rpc DeleteV1NamespaceProjectsProject(DeleteV1NamespaceProjectsProjectRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/"
+      };
+    }
+    // Get project collaborators
+    rpc GetV1NamespaceProjectsProjectCollaborators(GetV1NamespaceProjectsProjectCollaboratorsRequest) returns (GetV1NamespaceProjectsProjectCollaboratorsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/collaborators/"
+      };
+    }
+    // Create project collaborators
+    rpc PostV1NamespaceProjectsProjectCollaborators(PostV1NamespaceProjectsProjectCollaboratorsRequest) returns (Collaborator) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/collaborators/"
+        body: "collaborator_data"
+      };
+    }
+    // Get a project collaborator
+    rpc GetV1NamespaceProjectsProjectCollaboratorsCollaborator(GetV1NamespaceProjectsProjectCollaboratorsCollaboratorRequest) returns (Collaborator) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/collaborators/{collaborator}/"
+      };
+    }
+    // Delete a project collaborator
+    rpc DeleteV1NamespaceProjectsProjectCollaboratorsCollaborator(DeleteV1NamespaceProjectsProjectCollaboratorsCollaboratorRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/collaborators/{collaborator}/"
+      };
+    }
+    // Get project files
+    rpc GetV1NamespaceProjectsProjectProject_files(GetV1NamespaceProjectsProjectProject_filesRequest) returns (GetV1NamespaceProjectsProjectProject_filesResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/project_files/"
+      };
+    }
+    // Create project files
+    rpc PostV1NamespaceProjectsProjectProject_files(PostV1NamespaceProjectsProjectProject_filesRequest) returns (ProjectFile) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/project_files/"
+      };
+    }
+    // Get a project file
+    rpc GetV1NamespaceProjectsProjectProject_filesId(GetV1NamespaceProjectsProjectProject_filesIdRequest) returns (ProjectFile) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/project_files/{id}/"
+      };
+    }
+    // Replace a project file
+    rpc PutV1NamespaceProjectsProjectProject_filesId(PutV1NamespaceProjectsProjectProject_filesIdRequest) returns (ProjectFile) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/project_files/{id}/"
+      };
+    }
+    // Delete a project file
+    rpc DeleteV1NamespaceProjectsProjectProject_filesId(DeleteV1NamespaceProjectsProjectProject_filesIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/project_files/{id}/"
+      };
+    }
+    // Retrieve servers
+    rpc GetV1NamespaceProjectsProjectServers(GetV1NamespaceProjectsProjectServersRequest) returns (GetV1NamespaceProjectsProjectServersResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/"
+      };
+    }
+    // Create a new server
+    rpc PostV1NamespaceProjectsProjectServers(PostV1NamespaceProjectsProjectServersRequest) returns (Server) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/"
+        body: "server_data"
+      };
+    }
+    // Retrieve a server
+    rpc GetV1NamespaceProjectsProjectServersServer(GetV1NamespaceProjectsProjectServersServerRequest) returns (Server) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/"
+      };
+    }
+    // Replace a server
+    rpc PutV1NamespaceProjectsProjectServersServer(PutV1NamespaceProjectsProjectServersServerRequest) returns (Server) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/servers/{server}/"
+        body: "server_data"
+      };
+    }
+    // Delete a server
+    rpc DeleteV1NamespaceProjectsProjectServersServer(DeleteV1NamespaceProjectsProjectServersServerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/servers/{server}/"
+      };
+    }
+    // Get server API key
+    rpc GetV1NamespaceProjectsProjectServersServerApiKey(GetV1NamespaceProjectsProjectServersServerApiKeyRequest) returns (JWT) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/api-key/"
+      };
+    }
+    // Server api key validation
+    rpc PostV1NamespaceProjectsProjectServersServerAuth(PostV1NamespaceProjectsProjectServersServerAuthRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/auth/"
+      };
+    }
+    // Create a new server's run statistics
+    rpc PostV1NamespaceProjectsProjectServersServerRunStats(PostV1NamespaceProjectsProjectServersServerRunStatsRequest) returns (ServerRunStatistics) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/run-stats/"
+        body: "serverrunstats_data"
+      };
+    }
+    // Retrieve statistics for a server
+    rpc GetV1NamespaceProjectsProjectServersServerRunStatsId(GetV1NamespaceProjectsProjectServersServerRunStatsIdRequest) returns (ServerRunStatistics) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/run-stats/{id}/"
+      };
+    }
+    // Replace a server's statistics
+    rpc PutV1NamespaceProjectsProjectServersServerRunStatsId(PutV1NamespaceProjectsProjectServersServerRunStatsIdRequest) returns (ServerRunStatistics) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/servers/{server}/run-stats/{id}/"
+        body: "serverrunstats_data"
+      };
+    }
+    // Delete a server's statistics
+    rpc DeleteV1NamespaceProjectsProjectServersServerRunStatsId(DeleteV1NamespaceProjectsProjectServersServerRunStatsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/servers/{server}/run-stats/{id}/"
+      };
+    }
+    // Get SSH Tunnels associated to a server
+    rpc GetV1NamespaceProjectsProjectServersServerSshTunnels(GetV1NamespaceProjectsProjectServersServerSshTunnelsRequest) returns (GetV1NamespaceProjectsProjectServersServerSshTunnelsResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/"
+      };
+    }
+    // Create SSH Tunnel associated to a server
+    rpc PostV1NamespaceProjectsProjectServersServerSshTunnels(PostV1NamespaceProjectsProjectServersServerSshTunnelsRequest) returns (SshTunnel) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/"
+        body: "sshtunnel_data"
+      };
+    }
+    // Get an SSH Tunnel associated to a server
+    rpc GetV1NamespaceProjectsProjectServersServerSshTunnelsTunnel(GetV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest) returns (SshTunnel) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/{tunnel}/"
+      };
+    }
+    // Replace SSH Tunnel associated to a server
+    rpc PutV1NamespaceProjectsProjectServersServerSshTunnelsTunnel(PutV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest) returns (SshTunnel) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/{tunnel}/"
+        body: "sshtunnel_data"
+      };
+    }
+    // Delete an SSH Tunnel associated to a server
+    rpc DeleteV1NamespaceProjectsProjectServersServerSshTunnelsTunnel(DeleteV1NamespaceProjectsProjectServersServerSshTunnelsTunnelRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/{tunnel}/"
+      };
+    }
+    // Start a server
+    rpc PostV1NamespaceProjectsProjectServersServerStart(PostV1NamespaceProjectsProjectServersServerStartRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/start/"
+      };
+    }
+    // Retrieve a server's statistics
+    rpc GetV1NamespaceProjectsProjectServersServerStatsId(GetV1NamespaceProjectsProjectServersServerStatsIdRequest) returns (ServerStatistics) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/stats/{id}/"
+      };
+    }
+    // Replace a server's statistics
+    rpc PutV1NamespaceProjectsProjectServersServerStatsId(PutV1NamespaceProjectsProjectServersServerStatsIdRequest) returns (ServerStatistics) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/servers/{server}/stats/{id}/"
+        body: "serverstats_data"
+      };
+    }
+    // Delete a server's statistics
+    rpc DeleteV1NamespaceProjectsProjectServersServerStatsId(DeleteV1NamespaceProjectsProjectServersServerStatsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/servers/{server}/stats/{id}/"
+      };
+    }
+    // Stop a server
+    rpc PostV1NamespaceProjectsProjectServersServerStop(PostV1NamespaceProjectsProjectServersServerStopRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/stop/"
+      };
+    }
+    // Retrieve server triggers
+    rpc GetV1NamespaceProjectsProjectServersServerTriggers(GetV1NamespaceProjectsProjectServersServerTriggersRequest) returns (GetV1NamespaceProjectsProjectServersServerTriggersResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/triggers/"
+      };
+    }
+    // Create a new server trigger
+    rpc PostV1NamespaceProjectsProjectServersServerTriggers(PostV1NamespaceProjectsProjectServersServerTriggersRequest) returns (ServerAction) {
+      option (google.api.http) = {
+        post: "/v1/{namespace}/projects/{project}/servers/{server}/triggers/"
+        body: "server_action"
+      };
+    }
+    // Get a server trigger
+    rpc GetV1NamespaceProjectsProjectServersServerTriggersTrigger(GetV1NamespaceProjectsProjectServersServerTriggersTriggerRequest) returns (ServerAction) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/projects/{project}/servers/{server}/triggers/{trigger}/"
+      };
+    }
+    // Replace a server trigger
+    rpc PutV1NamespaceProjectsProjectServersServerTriggersTrigger(PutV1NamespaceProjectsProjectServersServerTriggersTriggerRequest) returns (ServerAction) {
+      option (google.api.http) = {
+        put: "/v1/{namespace}/projects/{project}/servers/{server}/triggers/{trigger}/"
+        body: "server_action"
+      };
+    }
+    // Delete a server trigger
+    rpc DeleteV1NamespaceProjectsProjectServersServerTriggersTrigger(DeleteV1NamespaceProjectsProjectServersServerTriggersTriggerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/{namespace}/projects/{project}/servers/{server}/triggers/{trigger}/"
+      };
+    }
+    // Get a search results
+    rpc GetV1NamespaceSearch(GetV1NamespaceSearchRequest) returns (GetV1NamespaceSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/{namespace}/search/"
+      };
+    }
+}
