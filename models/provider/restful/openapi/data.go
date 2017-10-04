@@ -1,14 +1,15 @@
 package openapi
 
 import (
-	// 	"time"
-	// "github.com/qor/media/oss"
 	"github.com/jinzhu/gorm"
 )
 
 type DataAPI struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
 	// ID int `gorm:"column:id" json:"id" yaml:"id" toml:"id"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	FullName  string `gorm:"column:api_name" json:"api_name" yaml:"api_name" toml:"api_name"`
 	Company   string `gorm:"column:company" json:"company" yaml:"company" toml:"company"`
@@ -27,6 +28,9 @@ type DataAPI struct {
 
 type DataInApi struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	ApiName   string `gorm:"column:api_name" json:"api_name" yaml:"api_name" toml:"api_name"`
 	Company   string `gorm:"column:company" json:"company" yaml:"company" toml:"company"`

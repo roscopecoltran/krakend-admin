@@ -1,19 +1,19 @@
-package models
+package classify
 
 import (
 	"fmt"
 	"strings"
 
 	"github.com/jinzhu/gorm"
+	"github.com/qor/l10n"
+	"github.com/qor/sorting"
 	"github.com/qor/validations"
-	// "github.com/qor/l10n"
-	// "github.com/qor/sorting"
 )
 
 type ClassifyTopic struct {
-	gorm.Model `json:"-" yaml:"-" toml:"-"`
-	// l10n.Locale
-	// sorting.Sorting
+	gorm.Model `storm:"-" json:"-" yaml:"-" toml:"-"`
+	l10n.Locale
+	sorting.Sorting
 
 	Disabled bool `gorm:"column:disabled" default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
 	Debug    bool `gorm:"column:debug" default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
@@ -23,8 +23,8 @@ type ClassifyTopic struct {
 	Code        string `gorm:"column:code" storm:"code" json:"code" yaml:"code" toml:"code"`
 	Slug        string `gorm:"column:slug" storm:"slug" json:"slug" yaml:"slug" toml:"slug"`
 
-	Topics []ClassifyTopic // `gorm:"many2many:classify_topics;" storm:"topics" json:"topics" yaml:"topics" toml:"topics"`
-	// TopicID uint            `gorm:"column:topic_id" storm:"topic_id" json:"topic_id" yaml:"topic_id" toml:"topic_id"`
+	Topics  []ClassifyTopic // `gorm:"many2many:classify_topics;" storm:"topics" json:"topics" yaml:"topics" toml:"topics"`
+	TopicID uint            // `gorm:"column:topic_id" storm:"topic_id" json:"topic_id" yaml:"topic_id" toml:"topic_id"`
 }
 
 func (topic ClassifyTopic) Validate(db *gorm.DB) {

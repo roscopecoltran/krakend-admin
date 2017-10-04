@@ -1,14 +1,15 @@
 package openapi
 
 import (
-	// 	"time"
-	// "github.com/qor/media/oss"
 	"github.com/jinzhu/gorm"
 )
 
 // OpenAPI is the root swagger document itself
 type OpenAPI struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// SwaggerVersion, as of this writing, is usually "2.0"
 	SwaggerVersion string `gorm:"column:swagger" json:"swagger,omitempty" yaml:"swagger,omitempty" toml:"swagger,omitempty"`
@@ -36,6 +37,9 @@ type OpenAPI struct {
 type Info struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
 
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
+
 	// Title is the short name of the API
 	Title string `gorm:"column:title" json:"title,omitempty" yaml:"title,omitempty" toml:"title,omitempty"`
 	// Description is a description of the API
@@ -47,6 +51,9 @@ type Info struct {
 // Request is a specification of request parameters and documentation for an HTTP verb and its request
 type Request struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Summary is a title for the HTTP request
 	Summary string `gorm:"column:summary" json:"summary,omitempty" yaml:"summary,omitempty" toml:"summary,omitempty"`
@@ -63,6 +70,9 @@ type Request struct {
 // Parameter is an HTTP request parameter
 type Parameter struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Name is a name for the parameter
 	Name string `gorm:"column:name" json:"name,omitempty" yaml:"name,omitempty" toml:"name,omitempty"`
@@ -88,6 +98,9 @@ type Parameter struct {
 type Response struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
 
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
+
 	// Description is a short description of the response
 	Description string `gorm:"column:description" json:"description,omitempty" yaml:"description,omitempty" toml:"description,omitempty"`
 	// Schema is the Schema for the returned response
@@ -97,6 +110,9 @@ type Response struct {
 // Schema is a response schema definition
 type Schema struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Type is the type of response returned
 	Type string `gorm:"column:type" json:"type,omitempty" yaml:"type,omitempty" toml:"type,omitempty"`
@@ -110,6 +126,9 @@ type Schema struct {
 type ItemRef struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
 
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
+
 	// Ref indicates a reference to a definition (if any)
 	Ref string `json:"$ref,omitempty"`
 	// Type indicates the type of items for an array
@@ -119,6 +138,9 @@ type ItemRef struct {
 // Definition is a type definition for an HTTP request or response
 type Definition struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Type is the type of data being used (usually "object", "string", "integer", "array")
 	Type string `gorm:"column:type" json:"type,omitempty" yaml:"type,omitempty" toml:"type,omitempty"`
@@ -131,6 +153,9 @@ type Definition struct {
 // Property is a definition of a property of a Definition
 type Property struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Type is a data type. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
 	Type string `gorm:"column:type" json:"type,omitempty" yaml:"type,omitempty" toml:"type,omitempty"`
@@ -146,6 +171,9 @@ type Property struct {
 
 type SecurityDefinition struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
+
+	Disabled bool `default:"false" storm:"disabled" json:"disabled" yaml:"disabled" toml:"disabled"`
+	Debug    bool `default:"false" example:"false" storm:"debug" json:"debug" yaml:"debug" toml:"debug"`
 
 	// Type determines the type of security used
 	Type string `gorm:"column:type" json:"type,omitempty" yaml:"type,omitempty" toml:"type,omitempty"`

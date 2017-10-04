@@ -1,4 +1,4 @@
-package models
+package classify
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ type ClassifyCategory struct {
 	Slug        string `storm:"slug" json:"slug" yaml:"slug" toml:"slug"`
 
 	Categories []ClassifyCategory // `gorm:"many2many:classify_categories;" storm:"categories" json:"categories" yaml:"categories" toml:"categories"`
-	// CategoryID uint               `gorm:"column:category_id" storm:"category_id" json:"category_id" yaml:"category_id" toml:"category_id"`
+	CategoryID uint               // `gorm:"column:category_id" storm:"category_id" json:"category_id" yaml:"category_id" toml:"category_id"`
 }
 
 func (category ClassifyCategory) Validate(db *gorm.DB) {

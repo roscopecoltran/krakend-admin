@@ -4,6 +4,24 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+const (
+	DefaultLimitValue   int    = 25
+	DefaultPageValue    int    = 1
+	DefaultLimitString  string = "limit"
+	DefaultPageString   string = "page"
+	DefaultExpandString string = "expand"
+	DefaultFieldsString string = "fields"
+	DefaultOrderString  string = "order"
+	DefaultAscString    string = "asc"
+	DefaultDescString   string = "desc"
+	DefaultQueryString  string = "q"
+	DefaultParamString  string = "p"
+	DefaultLeftBracket  rune   = '('
+	DefaultRightBracket rune   = ')'
+	DefaultSeparator    rune   = ','
+	DefaultKVSeparator  rune   = ':'
+)
+
 type QueryString struct {
 	gorm.Model `json:"-" yaml:"-" toml:"-"`
 
