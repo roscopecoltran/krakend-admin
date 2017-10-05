@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package knowledgegraphsearch;
+
+message GetV1Entities:SearchRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // The list of entity id to be used for search instead of query string.
+    // To specify multiple ids in the HTTP request, repeat the parameter in the
+    // URL as in ...?ids=A&ids=B
+    repeated string ids = 7;
+    // Enables indenting of json results.
+    bool indent = 8;
+    string key = 9;
+    // The list of language codes (defined in ISO 693) to run the query with,
+    // e.g. 'en'.
+    repeated string languages = 10;
+    // Limits the number of entities to be returned.
+    int32 limit = 11;
+    string oauth_token = 12;
+    boolean pp = 13;
+    // Enables prefix match against names and aliases of entities
+    bool prefix = 14;
+    boolean prettyPrint = 15;
+    // The literal query string for search.
+    string query = 16;
+    string quotaUser = 17;
+    // Restricts returned entities with these types, e.g. Person
+    // (as defined in http://schema.org/Person). If multiple types are specified,
+    // returned entities will contain one or more of these types.
+    repeated string types = 18;
+    string uploadType = 19;
+    string upload_protocol = 20;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message SearchResponse {
+    // The local context applicable for the response. See more details at
+    // http://www.w3.org/TR/json-ld/#context-definitions.
+    ;
+    // The schema type of top-level JSON-LD object, e.g. ItemList.
+    ;
+    // The item list of search results.
+    message ItemListElement {
+    }
+    repeated ItemListElement itemListElement = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service KnowledgeGraphSearchService {
+    // Searches Knowledge Graph for entities that match the constraints.
+    // A list of matched entities will be returned in response, which will be in
+    // JSON-LD format and compatible with http://schema.org
+    rpc GetV1Entities:Search(GetV1Entities:SearchRequest) returns (SearchResponse) {
+      option (google.api.http) = {
+        get: "//v1/entities:search"
+      };
+    }
+}

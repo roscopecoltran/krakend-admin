@@ -10,7 +10,7 @@ import (
 	"github.com/qor/validations"
 )
 
-type ClassifyTopic struct {
+type Topic struct {
 	gorm.Model `storm:"-" json:"-" yaml:"-" toml:"-"`
 	l10n.Locale
 	sorting.Sorting
@@ -23,17 +23,17 @@ type ClassifyTopic struct {
 	Code        string `gorm:"column:code" storm:"code" json:"code" yaml:"code" toml:"code"`
 	Slug        string `gorm:"column:slug" storm:"slug" json:"slug" yaml:"slug" toml:"slug"`
 
-	Topics  []ClassifyTopic // `gorm:"many2many:classify_topics;" storm:"topics" json:"topics" yaml:"topics" toml:"topics"`
-	TopicID uint            // `gorm:"column:topic_id" storm:"topic_id" json:"topic_id" yaml:"topic_id" toml:"topic_id"`
+	Topics  []Topic // `gorm:"many2many:classify_topics;" storm:"topics" json:"topics" yaml:"topics" toml:"topics"`
+	TopicID uint    // `gorm:"column:topic_id" storm:"topic_id" json:"topic_id" yaml:"topic_id" toml:"topic_id"`
 }
 
-func (topic ClassifyTopic) Validate(db *gorm.DB) {
+func (topic Topic) Validate(db *gorm.DB) {
 	if strings.TrimSpace(topic.Name) == "" {
 		db.AddError(validations.NewError(topic, "Name", "Name can not be empty"))
 	}
 }
 
-func (topic ClassifyTopic) DefaultPath() string {
+func (topic Topic) DefaultPath() string {
 	if len(topic.Code) > 0 {
 		return fmt.Sprintf("/topic/%s", topic.Code)
 	}

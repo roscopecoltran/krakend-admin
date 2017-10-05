@@ -1,0 +1,195 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package zappitiplayer;
+
+message PostCheckZappitiServiceRequest {
+    CheckZappitiServiceRequest body = 1;
+}
+
+message PostConnectionDetailsRequest {
+    ConnectionDetailsRequest body = 1;
+}
+
+message PostInstallZappitiServiceRequest {
+    InstallZappitiServiceRequest body = 1;
+}
+
+message PostIsAliveRequest {
+    IsAliveRequest body = 1;
+}
+
+message PostLastMediaRequest {
+    LastMediaRequest body = 1;
+}
+
+message PostStartVideoRequest {
+    StartVideoRequest body = 1;
+}
+
+message PostStartZappitiServiceRequest {
+    StartZappitiServiceRequest body = 1;
+}
+
+message CheckZappitiServiceRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message CheckZappitiServiceResult {
+    ErrorCode ErrorCode = 1;
+}
+
+message ConnectionDetailsRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message ConnectionDetailsResult {
+    // User's Authentification key
+    string AuthKey = 1;
+    // User's collection id
+    string Collection = 2;
+    // User's email used for the collection
+    string Email = 3;
+    ErrorCode ErrorCode = 4;
+    // Server's IP
+    string ServerIp = 5;
+    // Port used by the server
+    int32 ServerPort = 6;
+}
+
+enum ErrorCode {
+    NONE = 0;
+    FAILED = 1;
+    EXIST = 2;
+    NOTINSTALLED = 3;
+    NOTRUNNING = 4;
+    RUNNING = 5;
+    FAILTOSTART = 6;
+    BADAPIKEY = 7;
+}
+
+message InstallZappitiServiceRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message InstallZappitiServiceResult {
+    ErrorCode ErrorCode = 1;
+}
+
+message IsAliveRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message IsAliveResult {
+    ErrorCode ErrorCode = 1;
+}
+
+message LastMediaRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message LastMediaResult {
+    repeated string Actors = 1;
+    string BackgroundUrl = 2;
+    repeated string Directors = 3;
+    int32 Episode = 4;
+    ErrorCode ErrorCode = 5;
+    string PosterUrl = 6;
+    int32 Runtime = 7;
+    int32 Season = 8;
+    string Synopsis = 9;
+    string Title = 10;
+    string TvShowName = 11;
+}
+
+message StartVideoRequest {
+    // Client API Key
+    string ApiKey = 1;
+    // User auth key
+    string AuthKey = 2;
+    // Collection id
+    string Collection = 3;
+    // Server Ip
+    string Ip = 4;
+    // Id of the video to start
+    string MediaId = 5;
+    // Server Port
+    int32 Port = 6;
+}
+
+message StartVideoResult {
+    ErrorCode ErrorCode = 1;
+}
+
+message StartZappitiServiceRequest {
+    // Client API Key
+    string ApiKey = 1;
+}
+
+message StartZappitiServiceResult {
+    ErrorCode ErrorCode = 1;
+}
+
+service ZappitiPlayerService {
+    // Check if Zappiti Service app status on the player
+    // 
+    // ErrorCode.NotInstalled
+    // ErrorCode.NotRunning
+    // ErrorCode.Running
+    rpc PostCheckZappitiService(PostCheckZappitiServiceRequest) returns (CheckZappitiServiceResult) {
+      option (google.api.http) = {
+        post: "//CheckZappitiService"
+        body: "body"
+      };
+    }
+    // Get user's login details
+    rpc PostConnectionDetails(PostConnectionDetailsRequest) returns (ConnectionDetailsResult) {
+      option (google.api.http) = {
+        post: "//ConnectionDetails"
+        body: "body"
+      };
+    }
+    // Open a popup that allow the user to install Zappiti Service, if not already installed
+    rpc PostInstallZappitiService(PostInstallZappitiServiceRequest) returns (InstallZappitiServiceResult) {
+      option (google.api.http) = {
+        post: "//InstallZappitiService"
+        body: "body"
+      };
+    }
+    // Get server status
+    rpc PostIsAlive(PostIsAliveRequest) returns (IsAliveResult) {
+      option (google.api.http) = {
+        post: "//IsAlive"
+        body: "body"
+      };
+    }
+    // Get informations about last media playback
+    rpc PostLastMedia(PostLastMediaRequest) returns (LastMediaResult) {
+      option (google.api.http) = {
+        post: "//LastMedia"
+        body: "body"
+      };
+    }
+    // Start the playback
+    // 
+    // Start the playback of the speficied video.
+    rpc PostStartVideo(PostStartVideoRequest) returns (StartVideoResult) {
+      option (google.api.http) = {
+        post: "//StartVideo"
+        body: "body"
+      };
+    }
+    // Start Zappiti Service if not started yet
+    rpc PostStartZappitiService(PostStartZappitiServiceRequest) returns (StartZappitiServiceResult) {
+      option (google.api.http) = {
+        post: "//StartZappitiService"
+        body: "body"
+      };
+    }
+}

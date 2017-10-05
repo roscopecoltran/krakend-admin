@@ -1,0 +1,381 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package amazonpolly;
+
+message GetV1LexiconsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListLexiconsInput body = 10;
+}
+
+message PutV1LexiconsLexiconNameRequest {
+    string Action = 1;
+    string LexiconName = 2;
+    string Version = 3;
+    string X_Amz_Algorithm = 4;
+    string X_Amz_Content_Sha256 = 5;
+    string X_Amz_Credential = 6;
+    string X_Amz_Date = 7;
+    string X_Amz_Security_Token = 8;
+    string X_Amz_Signature = 9;
+    string X_Amz_SignedHeaders = 10;
+    PutLexiconInput body = 11;
+}
+
+message PostV1SpeechRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    SynthesizeSpeechInput body = 10;
+}
+
+message GetV1VoicesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeVoicesInput body = 10;
+}
+
+message DeleteLexiconInput {
+}
+
+message DeleteLexiconOutput {
+}
+
+message DescribeVoicesInput {
+}
+
+message DescribeVoicesOutput {
+    // The pagination token to use in the next request to continue the listing of voices. <code>NextToken</code> is returned only if the response is truncated.
+    string NextToken = 1;
+    // A list of voices with their properties.
+    array Voices = 2;
+}
+
+enum Gender {
+    FEMALE = 0;
+    MALE = 1;
+}
+
+message GetLexiconInput {
+}
+
+message GetLexiconOutput {
+    // Lexicon object that provides name and the string content of the lexicon.
+    Lexicon Lexicon = 1;
+    // Metadata of the lexicon, including phonetic alphabetic used, language code, lexicon ARN, number of lexemes defined in the lexicon, and size of lexicon in bytes.
+    LexiconAttributes LexiconAttributes = 2;
+}
+
+message InvalidLexiconException {
+    string message = 1;
+}
+
+message InvalidNextTokenException {
+    string message = 1;
+}
+
+message InvalidSampleRateException {
+    string message = 1;
+}
+
+message InvalidSsmlException {
+    string message = 1;
+}
+
+enum LanguageCode {
+    CYGB = 0;
+    DADK = 1;
+    DEDE = 2;
+    ENAU = 3;
+    ENGB = 4;
+    ENGBWLS = 5;
+    ENIN = 6;
+    ENUS = 7;
+    ESES = 8;
+    ESUS = 9;
+    FRCA = 10;
+    FRFR = 11;
+    ISIS = 12;
+    ITIT = 13;
+    JAJP = 14;
+    NBNO = 15;
+    NLNL = 16;
+    PLPL = 17;
+    PTBR = 18;
+    PTPT = 19;
+    RORO = 20;
+    RURU = 21;
+    SVSE = 22;
+    TRTR = 23;
+}
+
+message Lexicon {
+    // Lexicon content in string format. The content of a lexicon must be in PLS format.
+    string Content = 1;
+    // Name of the lexicon.
+    string Name = 2;
+}
+
+message LexiconAttributes {
+    // Phonetic alphabet used in the lexicon. Valid values are <code>ipa</code> and <code>x-sampa</code>.
+    string Alphabet = 1;
+    // Language code that the lexicon applies to. A lexicon with a language code such as "en" would be applied to all English languages (en-GB, en-US, en-AUS, en-WLS, and so on.
+    LanguageCode LanguageCode = 2;
+    // Date lexicon was last modified (a timestamp value).
+    string LastModified = 3;
+    // Number of lexemes in the lexicon.
+    integer LexemesCount = 4;
+    // Amazon Resource Name (ARN) of the lexicon.
+    string LexiconArn = 5;
+    // Total size of the lexicon, in characters.
+    integer Size = 6;
+}
+
+message LexiconDescription {
+    // Provides lexicon metadata.
+    LexiconAttributes Attributes = 1;
+    // Name of the lexicon.
+    string Name = 2;
+}
+
+repeated LexiconDescription LexiconDescriptionList = 1
+
+
+
+repeated string LexiconNameList = 1
+
+message LexiconNotFoundException {
+    string message = 1;
+}
+
+message LexiconSizeExceededException {
+    string message = 1;
+}
+
+message ListLexiconsInput {
+}
+
+message ListLexiconsOutput {
+    // A list of lexicon names and attributes.
+    array Lexicons = 1;
+    // The pagination token to use in the next request to continue the listing of lexicons. <code>NextToken</code> is returned only if the response is truncated.
+    string NextToken = 2;
+}
+
+message MarksNotSupportedForFormatException {
+    string message = 1;
+}
+
+message MaxLexemeLengthExceededException {
+    string message = 1;
+}
+
+message MaxLexiconsNumberExceededException {
+    string message = 1;
+}
+
+enum OutputFormat {
+    JSON = 0;
+    MP3 = 1;
+    OGG_VORBIS = 2;
+    PCM = 3;
+}
+
+message PutLexiconInput {
+    // Content of the PLS lexicon as string data.
+    string Content = 1;
+}
+
+message PutLexiconOutput {
+}
+
+message ServiceFailureException {
+    string message = 1;
+}
+
+enum SpeechMarkType {
+    SENTENCE = 0;
+    SSML = 1;
+    VISEME = 2;
+    WORD = 3;
+}
+
+repeated SpeechMarkType SpeechMarkTypeList = 1
+
+message SsmlMarksNotSupportedForTextTypeException {
+    string message = 1;
+}
+
+message SynthesizeSpeechInput {
+    // List of one or more pronunciation lexicon names you want the service to apply during synthesis. Lexicons are applied only if the language of the lexicon is the same as the language of the voice. For information about storing lexicons, see <a href="http://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html">PutLexicon</a>.
+    array LexiconNames = 1;
+    //  The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this will be json.
+    OutputFormat OutputFormat = 2;
+    // <p> The audio frequency specified in Hz. </p> <p>The valid values for <code>mp3</code> and <code>ogg_vorbis</code> are "8000", "16000", and "22050". The default value is "22050". </p> <p> Valid values for <code>pcm</code> are "8000" and "16000" The default value is "16000". </p>
+    string SampleRate = 3;
+    // The type of speech marks returned for the input text.
+    array SpeechMarkTypes = 4;
+    //  Input text to synthesize. If you specify <code>ssml</code> as the <code>TextType</code>, follow the SSML format for the input text.
+    string Text = 5;
+    //  Specifies whether the input text is plain text or SSML. The default value is plain text. For more information, see <a href="http://docs.aws.amazon.com/polly/latest/dg/ssml.html">Using SSML</a>.
+    TextType TextType = 6;
+    //  Voice ID to use for the synthesis. You can get a list of available voice IDs by calling the <a href="http://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation.
+    VoiceId VoiceId = 7;
+}
+
+message SynthesizeSpeechOutput {
+    //  Stream containing the synthesized speech.
+    string AudioStream = 1;
+}
+
+message TextLengthExceededException {
+    string message = 1;
+}
+
+enum TextType {
+    SSML = 0;
+    TEXT = 1;
+}
+
+message UnsupportedPlsAlphabetException {
+    string message = 1;
+}
+
+message UnsupportedPlsLanguageException {
+    string message = 1;
+}
+
+message Voice {
+    // Gender of the voice.
+    Gender Gender = 1;
+    // Amazon Polly assigned voice ID. This is the ID that you specify when calling the <code>SynthesizeSpeech</code> operation.
+    VoiceId Id = 2;
+    // Language code of the voice.
+    LanguageCode LanguageCode = 3;
+    // Human readable name of the language in English.
+    string LanguageName = 4;
+    // Name of the voice (for example, Salli, Kendra, etc.). This provides a human readable voice name that you might display in your application.
+    string Name = 5;
+}
+
+enum VoiceId {
+    GERAINT = 0;
+    GWYNETH = 1;
+    MADS = 2;
+    NAJA = 3;
+    HANS = 4;
+    MARLENE = 5;
+    NICOLE = 6;
+    RUSSELL = 7;
+    AMY = 8;
+    BRIAN = 9;
+    EMMA = 10;
+    RAVEENA = 11;
+    IVY = 12;
+    JOANNA = 13;
+    JOEY = 14;
+    JUSTIN = 15;
+    KENDRA = 16;
+    KIMBERLY = 17;
+    SALLI = 18;
+    CONCHITA = 19;
+    ENRIQUE = 20;
+    MIGUEL = 21;
+    PENELOPE = 22;
+    CHANTAL = 23;
+    CELINE = 24;
+    MATHIEU = 25;
+    DORA = 26;
+    KARL = 27;
+    CARLA = 28;
+    GIORGIO = 29;
+    MIZUKI = 30;
+    LIV = 31;
+    LOTTE = 32;
+    RUBEN = 33;
+    EWA = 34;
+    JACEK = 35;
+    JAN = 36;
+    MAJA = 37;
+    RICARDO = 38;
+    VITORIA = 39;
+    CRISTIANO = 40;
+    INES = 41;
+    CARMEN = 42;
+    MAXIM = 43;
+    TATYANA = 44;
+    ASTRID = 45;
+    FILIZ = 46;
+    VICKI = 47;
+}
+
+repeated Voice VoiceList = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+service AmazonPollyService {
+    // Returns a list of pronunciation lexicons stored in an AWS Region. For more information, see <a href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.
+    rpc GetV1Lexicons(GetV1LexiconsRequest) returns (ListLexiconsOutput) {
+      option (google.api.http) = {
+        get: "//v1/lexicons"
+        body: "body"
+      };
+    }
+    // <p>Stores a pronunciation lexicon in an AWS Region. If a lexicon with the same name already exists in the region, it is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it might take some time before the lexicon is available to the SynthesizeSpeech operation.</p> <p>For more information, see <a href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.</p>
+    rpc PutV1LexiconsLexiconName(PutV1LexiconsLexiconNameRequest) returns (PutLexiconOutput) {
+      option (google.api.http) = {
+        put: "//v1/lexicons/{LexiconName}"
+        body: "body"
+      };
+    }
+    // Synthesizes UTF-8 input, plain text or SSML, to a stream of bytes. SSML input must be valid, well-formed SSML. Some alphabets might not be available with all the voices (for example, Cyrillic might not be read at all by English voices) unless phoneme mapping is used. For more information, see <a href="http://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How it Works</a>.
+    rpc PostV1Speech(PostV1SpeechRequest) returns (SynthesizeSpeechOutput) {
+      option (google.api.http) = {
+        post: "//v1/speech"
+        body: "body"
+      };
+    }
+    // <p>Returns the list of voices that are available for use when requesting speech synthesis. Each voice speaks a specified language, is either male or female, and is identified by an ID, which is the ASCII version of the voice name. </p> <p>When synthesizing speech ( <code>SynthesizeSpeech</code> ), you provide the voice ID for the voice you want from the list of voices returned by <code>DescribeVoices</code>.</p> <p>For example, you want your news reader application to read news in a specific language, but giving a user the option to choose the voice. Using the <code>DescribeVoices</code> operation you can provide the user with a list of available voices to select from.</p> <p> You can optionally specify a language code to filter the available voices. For example, if you specify <code>en-US</code>, the operation returns a list of all available US English voices. </p> <p>This operation requires permissions to perform the <code>polly:DescribeVoices</code> action.</p>
+    rpc GetV1Voices(GetV1VoicesRequest) returns (DescribeVoicesOutput) {
+      option (google.api.http) = {
+        get: "//v1/voices"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package timestags;
+
+message GetTimestagsRequest {
+    // If you do not specify a value for filter (see the Optional Parameters), your query will be matched to tags in all four Times dictionaries: subject, geographic location, organization and person. To use more than one, separate with commas.
+    enum GetTimestagsRequest_Filter {
+        GETTIMESTAGSREQUEST_FILTER_DES = 0;
+        GETTIMESTAGSREQUEST_FILTER_GEO = 1;
+        GETTIMESTAGSREQUEST_FILTER_ORG = 2;
+        GETTIMESTAGSREQUEST_FILTER_PER = 3;
+    }
+    GetTimestagsRequest_Filter filter = 1;
+    // Sets the maximum number of results
+    int32 max = 2;
+    // Your search query
+    string query = 3;
+}
+
+message GetTimestagsResponse {
+    message Item {
+    }
+    repeated Item items = 1;
+}
+
+service TimesTagsService {
+    rpc GetTimestags(GetTimestagsRequest) returns (GetTimestagsResponse) {
+      option (google.api.http) = {
+        get: "/svc/suggest/v1/timestags.json"
+      };
+    }
+}

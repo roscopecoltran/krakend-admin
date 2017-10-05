@@ -1,0 +1,275 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package visagecloud;
+
+message PostRestV11AnalysisDetectionRequest {
+    // The multipart/form-data version of the image, in case a direct upload is used. At least one of picture or pictureURL must be present
+    string picture = 1;
+    // The URL of the picture, assuming it is served by a third party server. Server should be accesible from the Internet or through another netwoek by VisageCloud infrastructure
+    string pictureURL = 2;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 3;
+    // Boolean value indicating whether you want the original picture to be stored for later retrieval
+    bool storePicture = 4;
+}
+
+message GetRestV11AnalysisListLatestRequest {
+    // How many records to retrieve at a time
+    int32 count = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message PostRestV11AnalysisRecognitionRequest {
+    // Filters that will be applied on the recognition operation
+    repeated string attributeFilters = 1;
+    // Uniquely identified collection that can store multiple profiles
+    string collectionId = 2;
+    // Labels associated with the given picture or picture URL
+    repeated string labels = 3;
+    // The picture itself
+    string picture = 4;
+    // The URL of the picture
+    string pictureURL = 5;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 6;
+    // Boolean value indicating whether you want the original picture to be stored for later retrieval
+    bool storePicture = 7;
+}
+
+message GetRestV11AnalysisRetrieveRequest {
+    // The ID of the analysis for which the data will be retrieved
+    string analysisId = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message GetRestV11CollectionAllRequest {
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 1;
+}
+
+message GetRestV11CollectionCollectionRequest {
+    // The id of the collection for which the data will be retrieved
+    string collectionId = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message PostRestV11CollectionCollectionRequest {
+    // The name of the collection that will be created
+    string collectionName = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message DeleteRestV11CollectionCollectionRequest {
+    // The id of the collection that will be removed
+    string collectionId = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message GetRestV11ProfileEnrollmentStatusRequest {
+    // The collection that contains the profile
+    string collectionId = 1;
+    // The profile that contains the faces
+    string profileId = 2;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 3;
+}
+
+message GetRestV11ProfileMapRequest {
+    // The collection that contains the profile
+    string collectionId = 1;
+    // The profile that contains the faces
+    string profileId = 2;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 3;
+}
+
+message PostRestV11ProfileMapRequest {
+    // The collection that contains the profile
+    string collectionId = 1;
+    // The face that will be added to a profile
+    string faceHash = 2;
+    // The profile that will store the face
+    string profileId = 3;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 4;
+}
+
+message DeleteRestV11ProfileMapRequest {
+    // The collection that contains the profile
+    string collectionId = 1;
+    // The face that will be removed from a profile
+    string faceHash = 2;
+    // The profile that contains the face
+    string profileId = 3;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 4;
+}
+
+message PostRestV11ProfileProfileRequest {
+    // Uniquely identified collection that can store multiple profiles
+    string collectionId = 1;
+    // External reference to additional information you don’t want to share with VisageCloud
+    string externalId = 2;
+    // Allows you to do finer filtering in face recognition
+    repeated string labels = 3;
+    // Human-readable label for the profile
+    string screenName = 4;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 5;
+}
+
+message GetRestV11StreamFramesRequest {
+    // How many frames to retrieve at a time
+    int32 count = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+    // The id of the stream for which the frames will be retrieved
+    string streamId = 3;
+}
+
+message PostRestV11StreamStreamRequest {
+    // Boolean value indicating whether the stream is currently active or not
+    bool isActive = 1;
+    // Streaming method
+    enum PostRestV11StreamStreamRequest_Method {
+        POSTRESTV11STREAMSTREAMREQUEST_METHOD_WEBRTC_PULL = 0;
+        POSTRESTV11STREAMSTREAMREQUEST_METHOD_WEBRTC_PUSH = 1;
+        POSTRESTV11STREAMSTREAMREQUEST_METHOD_SNAPSHOT_PULL = 2;
+    }
+    PostRestV11StreamStreamRequest_Method method = 2;
+    // The name of the stream that will be created
+    string name = 3;
+    // Password
+    string password = 4;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 5;
+    // Boolean value indicating whether you want the original picture to be stored for later retrieval
+    bool storeOriginalFrames = 6;
+    // The url of the stream
+    string url = 7;
+    // Username
+    string username = 8;
+}
+
+message DeleteRestV11StreamStreamRequest {
+    // The id of the stream that will be removed
+    string id = 1;
+    // The secretKey or readOnlyKey provided by VisageCloud
+    string secretKey = 2;
+}
+
+message RestResponse {
+    string message = 1;
+    message Payload {
+    }
+    Payload payload = 2;
+    string status = 3;
+}
+
+service VisageCloudService {
+    // Perform detection on a given picture or picture URL
+    rpc PostRestV11AnalysisDetection(PostRestV11AnalysisDetectionRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/analysis/detection"
+      };
+    }
+    // Retrieve the last *count* operations per current account
+    rpc GetRestV11AnalysisListLatest(GetRestV11AnalysisListLatestRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/analysis/listLatest"
+      };
+    }
+    // Perform labeled recognition on a given picture or picture URL
+    rpc PostRestV11AnalysisRecognition(PostRestV11AnalysisRecognitionRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/analysis/recognition"
+      };
+    }
+    // Retrieve a complete analysis object including both detection and recognition information
+    rpc GetRestV11AnalysisRetrieve(GetRestV11AnalysisRetrieveRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/analysis/retrieve"
+      };
+    }
+    // Retrieve all collections
+    rpc GetRestV11CollectionAll(GetRestV11CollectionAllRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/collection/all"
+      };
+    }
+    // Retrieve existing collection content
+    rpc GetRestV11CollectionCollection(GetRestV11CollectionCollectionRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/collection/collection"
+      };
+    }
+    // Create new empty collection with given name
+    rpc PostRestV11CollectionCollection(PostRestV11CollectionCollectionRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/collection/collection"
+      };
+    }
+    // Delete existing collection
+    rpc DeleteRestV11CollectionCollection(DeleteRestV11CollectionCollectionRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        delete: "//rest/v1.1/collection/collection"
+      };
+    }
+    // Gets the enrollment status of a profile: information on whether it is suitable for authentication.
+    rpc GetRestV11ProfileEnrollmentStatus(GetRestV11ProfileEnrollmentStatusRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/profile/enrollmentStatus"
+      };
+    }
+    // Gets all the faceHashes associated to a profile
+    rpc GetRestV11ProfileMap(GetRestV11ProfileMapRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/profile/map"
+      };
+    }
+    // Adds (maps) a face, identified by faceHash, to a profile, identified by profileId
+    rpc PostRestV11ProfileMap(PostRestV11ProfileMapRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/profile/map"
+      };
+    }
+    // Removes (unmaps) a face, identified by faceHash, from a profile, identified by profileId
+    rpc DeleteRestV11ProfileMap(DeleteRestV11ProfileMapRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        delete: "//rest/v1.1/profile/map"
+      };
+    }
+    // Creates a new profile with no faces associated to it (empty profile)
+    rpc PostRestV11ProfileProfile(PostRestV11ProfileProfileRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/profile/profile"
+      };
+    }
+    // Get last processed N frames from stream
+    rpc GetRestV11StreamFrames(GetRestV11StreamFramesRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        get: "//rest/v1.1/stream/frames"
+      };
+    }
+
+
+    // Create new stream with given name
+    rpc PostRestV11StreamStream(PostRestV11StreamStreamRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        post: "//rest/v1.1/stream/stream"
+      };
+    }
+    // Delete existing stream
+    rpc DeleteRestV11StreamStream(DeleteRestV11StreamStreamRequest) returns (RestResponse) {
+      option (google.api.http) = {
+        delete: "//rest/v1.1/stream/stream"
+      };
+    }
+}

@@ -1,0 +1,391 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package cloudmonitoring;
+
+message GetProjectMetricDescriptorsRequest {
+    alt alt = 1;
+    ListMetricDescriptorsRequest body = 2;
+    // Maximum number of metric descriptors per page. Used for pagination. If not specified, count = 100.
+    int32 count = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    // The pagination token, which is used to page through large result sets. Set this value to the value of the nextPageToken to retrieve the next page of results.
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    // The project id. The value can be the numeric project ID or string-based project name.
+    string project = 9;
+    // The query used to search against existing metrics. Separate keywords with a space; the service joins all keywords with AND, meaning that all keywords must match for a metric to be returned. If this field is omitted, all metrics are returned. If an empty string is passed with this field, no metrics are returned.
+    string query = 10;
+    string quotaUser = 11;
+    string userIp = 12;
+}
+
+message PostProjectMetricDescriptorsRequest {
+    alt alt = 1;
+    MetricDescriptor body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // The project id. The value can be the numeric project ID or string-based project name.
+    string project = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message DeleteProjectMetricDescriptorsMetricRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Name of the metric.
+    string metric = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // The project ID to which the metric belongs.
+    string project = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetProjectTimeseriesMetricRequest {
+    // The aggregation function that will reduce the data points in each window to a single point. This parameter is only valid for non-cumulative metrics with a value type of INT64 or DOUBLE.
+    enum GetProjectTimeseriesMetricRequest_Aggregator {
+        GETPROJECTTIMESERIESMETRICREQUEST_AGGREGATOR_MAX = 0;
+        GETPROJECTTIMESERIESMETRICREQUEST_AGGREGATOR_MEAN = 1;
+        GETPROJECTTIMESERIESMETRICREQUEST_AGGREGATOR_MIN = 2;
+        GETPROJECTTIMESERIESMETRICREQUEST_AGGREGATOR_SUM = 3;
+    }
+    GetProjectTimeseriesMetricRequest_Aggregator aggregator = 1;
+    alt alt = 2;
+    ListTimeseriesRequest body = 3;
+    // Maximum number of data points per page, which is used for pagination of results.
+    int32 count = 4;
+    string fields = 5;
+    string key = 6;
+    // A collection of labels for the matching time series, which are represented as:  
+    // - key==value: key equals the value 
+    // - key=~value: key regex matches the value 
+    // - key!=value: key does not equal the value 
+    // - key!~value: key regex does not match the value  For example, to list all of the time series descriptors for the region us-central1, you could specify:
+    // label=cloud.googleapis.com%2Flocation=~us-central1.*
+    repeated string labels = 7;
+    // Metric names are protocol-free URLs as listed in the Supported Metrics page. For example, compute.googleapis.com/instance/disk/read_ops_count.
+    string metric = 8;
+    string oauth_token = 9;
+    // Start of the time interval (exclusive), which is expressed as an RFC 3339 timestamp. If neither oldest nor timespan is specified, the default time interval will be (youngest - 4 hours, youngest]
+    string oldest = 10;
+    // The pagination token, which is used to page through large result sets. Set this value to the value of the nextPageToken to retrieve the next page of results.
+    string pageToken = 11;
+    boolean prettyPrint = 12;
+    // The project ID to which this time series belongs. The value can be the numeric project ID or string-based project name.
+    string project = 13;
+    string quotaUser = 14;
+    // Length of the time interval to query, which is an alternative way to declare the interval: (youngest - timespan, youngest]. The timespan and oldest parameters should not be used together. Units:  
+    // - s: second 
+    // - m: minute 
+    // - h: hour 
+    // - d: day 
+    // - w: week  Examples: 2s, 3m, 4w. Only one unit is allowed, for example: 2w3d is not allowed; you should use 17d instead.
+    // 
+    // If neither oldest nor timespan is specified, the default time interval will be (youngest - 4 hours, youngest].
+    string timespan = 15;
+    string userIp = 16;
+    // The sampling window. At most one data point will be returned for each window in the requested time interval. This parameter is only valid for non-cumulative metric types. Units:  
+    // - m: minute 
+    // - h: hour 
+    // - d: day 
+    // - w: week  Examples: 3m, 4w. Only one unit is allowed, for example: 2w3d is not allowed; you should use 17d instead.
+    string window = 17;
+    // End of the time interval (inclusive), which is expressed as an RFC 3339 timestamp.
+    string youngest = 18;
+}
+
+message PostProjectTimeseries:WriteRequest {
+    alt alt = 1;
+    WriteTimeseriesRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // The project ID. The value can be the numeric project ID or string-based project name.
+    string project = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetProjectTimeseriesDescriptorsMetricRequest {
+    // The aggregation function that will reduce the data points in each window to a single point. This parameter is only valid for non-cumulative metrics with a value type of INT64 or DOUBLE.
+    enum GetProjectTimeseriesDescriptorsMetricRequest_Aggregator {
+        GETPROJECTTIMESERIESDESCRIPTORSMETRICREQUEST_AGGREGATOR_MAX = 0;
+        GETPROJECTTIMESERIESDESCRIPTORSMETRICREQUEST_AGGREGATOR_MEAN = 1;
+        GETPROJECTTIMESERIESDESCRIPTORSMETRICREQUEST_AGGREGATOR_MIN = 2;
+        GETPROJECTTIMESERIESDESCRIPTORSMETRICREQUEST_AGGREGATOR_SUM = 3;
+    }
+    GetProjectTimeseriesDescriptorsMetricRequest_Aggregator aggregator = 1;
+    alt alt = 2;
+    ListTimeseriesDescriptorsRequest body = 3;
+    // Maximum number of time series descriptors per page. Used for pagination. If not specified, count = 100.
+    int32 count = 4;
+    string fields = 5;
+    string key = 6;
+    // A collection of labels for the matching time series, which are represented as:  
+    // - key==value: key equals the value 
+    // - key=~value: key regex matches the value 
+    // - key!=value: key does not equal the value 
+    // - key!~value: key regex does not match the value  For example, to list all of the time series descriptors for the region us-central1, you could specify:
+    // label=cloud.googleapis.com%2Flocation=~us-central1.*
+    repeated string labels = 7;
+    // Metric names are protocol-free URLs as listed in the Supported Metrics page. For example, compute.googleapis.com/instance/disk/read_ops_count.
+    string metric = 8;
+    string oauth_token = 9;
+    // Start of the time interval (exclusive), which is expressed as an RFC 3339 timestamp. If neither oldest nor timespan is specified, the default time interval will be (youngest - 4 hours, youngest]
+    string oldest = 10;
+    // The pagination token, which is used to page through large result sets. Set this value to the value of the nextPageToken to retrieve the next page of results.
+    string pageToken = 11;
+    boolean prettyPrint = 12;
+    // The project ID to which this time series belongs. The value can be the numeric project ID or string-based project name.
+    string project = 13;
+    string quotaUser = 14;
+    // Length of the time interval to query, which is an alternative way to declare the interval: (youngest - timespan, youngest]. The timespan and oldest parameters should not be used together. Units:  
+    // - s: second 
+    // - m: minute 
+    // - h: hour 
+    // - d: day 
+    // - w: week  Examples: 2s, 3m, 4w. Only one unit is allowed, for example: 2w3d is not allowed; you should use 17d instead.
+    // 
+    // If neither oldest nor timespan is specified, the default time interval will be (youngest - 4 hours, youngest].
+    string timespan = 15;
+    string userIp = 16;
+    // The sampling window. At most one data point will be returned for each window in the requested time interval. This parameter is only valid for non-cumulative metric types. Units:  
+    // - m: minute 
+    // - h: hour 
+    // - d: day 
+    // - w: week  Examples: 3m, 4w. Only one unit is allowed, for example: 2w3d is not allowed; you should use 17d instead.
+    string window = 17;
+    // End of the time interval (inclusive), which is expressed as an RFC 3339 timestamp.
+    string youngest = 18;
+}
+
+message DeleteMetricDescriptorResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#deleteMetricDescriptorResponse".
+    string kind = 1;
+}
+
+message ListMetricDescriptorsRequest {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listMetricDescriptorsRequest".
+    string kind = 1;
+}
+
+message ListMetricDescriptorsResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listMetricDescriptorsResponse".
+    string kind = 1;
+    // The returned metric descriptors.
+    repeated MetricDescriptor metrics = 2;
+    // Pagination token. If present, indicates that additional results are available for retrieval. To access the results past the pagination limit, pass this value to the pageToken query parameter.
+    string nextPageToken = 3;
+}
+
+message ListTimeseriesDescriptorsRequest {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listTimeseriesDescriptorsRequest".
+    string kind = 1;
+}
+
+message ListTimeseriesDescriptorsResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listTimeseriesDescriptorsResponse".
+    string kind = 1;
+    // Pagination token. If present, indicates that additional results are available for retrieval. To access the results past the pagination limit, set this value to the pageToken query parameter.
+    string nextPageToken = 2;
+    // The oldest timestamp of the interval of this query, as an RFC 3339 string.
+    string oldest = 3;
+    // The returned time series descriptors.
+    repeated TimeseriesDescriptor timeseries = 4;
+    // The youngest timestamp of the interval of this query, as an RFC 3339 string.
+    string youngest = 5;
+}
+
+message ListTimeseriesRequest {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listTimeseriesRequest".
+    string kind = 1;
+}
+
+message ListTimeseriesResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#listTimeseriesResponse".
+    string kind = 1;
+    // Pagination token. If present, indicates that additional results are available for retrieval. To access the results past the pagination limit, set the pageToken query parameter to this value. All of the points of a time series will be returned before returning any point of the subsequent time series.
+    string nextPageToken = 2;
+    // The oldest timestamp of the interval of this query as an RFC 3339 string.
+    string oldest = 3;
+    // The returned time series.
+    repeated Timeseries timeseries = 4;
+    // The youngest timestamp of the interval of this query as an RFC 3339 string.
+    string youngest = 5;
+}
+
+message MetricDescriptor {
+    // Description of this metric.
+    string description = 1;
+    // Labels defined for this metric.
+    repeated MetricDescriptorLabelDescriptor labels = 2;
+    // The name of this metric.
+    string name = 3;
+    // The project ID to which the metric belongs.
+    string project = 4;
+    // Type description for this metric.
+    MetricDescriptorTypeDescriptor typeDescriptor = 5;
+}
+
+message MetricDescriptorLabelDescriptor {
+    // Label description.
+    string description = 1;
+    // Label key.
+    string key = 2;
+}
+
+message MetricDescriptorTypeDescriptor {
+    // The method of collecting data for the metric. See Metric types.
+    string metricType = 1;
+    // The data type of of individual points in the metric's time series. See Metric value types.
+    string valueType = 2;
+}
+
+message Point {
+    // The value of this data point. Either "true" or "false".
+    bool boolValue = 1;
+    // The value of this data point as a distribution. A distribution value can contain a list of buckets and/or an underflowBucket and an overflowBucket. The values of these points can be used to create a histogram.
+    PointDistribution distributionValue = 2;
+    // The value of this data point as a double-precision floating-point number.
+    double doubleValue = 3;
+    // The interval [start, end] is the time period to which the point's value applies. For gauge metrics, whose values are instantaneous measurements, this interval should be empty (start should equal end). For cumulative metrics (of which deltas and rates are special cases), the interval should be non-empty. Both start and end are RFC 3339 strings.
+    string end = 4;
+    // The value of this data point as a 64-bit integer.
+    string int64Value = 5;
+    // The interval [start, end] is the time period to which the point's value applies. For gauge metrics, whose values are instantaneous measurements, this interval should be empty (start should equal end). For cumulative metrics (of which deltas and rates are special cases), the interval should be non-empty. Both start and end are RFC 3339 strings.
+    string start = 6;
+    // The value of this data point in string format.
+    string stringValue = 7;
+}
+
+message PointDistribution {
+    // The finite buckets.
+    repeated PointDistributionBucket buckets = 1;
+    // The overflow bucket.
+    PointDistributionOverflowBucket overflowBucket = 2;
+    // The underflow bucket.
+    PointDistributionUnderflowBucket underflowBucket = 3;
+}
+
+message PointDistributionBucket {
+    // The number of events whose values are in the interval defined by this bucket.
+    string count = 1;
+    // The lower bound of the value interval of this bucket (inclusive).
+    double lowerBound = 2;
+    // The upper bound of the value interval of this bucket (exclusive).
+    double upperBound = 3;
+}
+
+message PointDistributionOverflowBucket {
+    // The number of events whose values are in the interval defined by this bucket.
+    string count = 1;
+    // The lower bound of the value interval of this bucket (inclusive).
+    double lowerBound = 2;
+}
+
+message PointDistributionUnderflowBucket {
+    // The number of events whose values are in the interval defined by this bucket.
+    string count = 1;
+    // The upper bound of the value interval of this bucket (exclusive).
+    double upperBound = 2;
+}
+
+message Timeseries {
+    // The data points of this time series. The points are listed in order of their end timestamp, from younger to older.
+    repeated Point points = 1;
+    // The descriptor of this time series.
+    TimeseriesDescriptor timeseriesDesc = 2;
+}
+
+message TimeseriesDescriptor {
+    // The label's name.
+    map<string, string> labels = 1;
+    // The name of the metric.
+    string metric = 2;
+    // The Developers Console project number to which this time series belongs.
+    string project = 3;
+}
+
+message TimeseriesDescriptorLabel {
+    // The label's name.
+    string key = 1;
+    // The label's value.
+    string value = 2;
+}
+
+message TimeseriesPoint {
+    // The data point in this time series snapshot.
+    Point point = 1;
+    // The descriptor of this time series.
+    TimeseriesDescriptor timeseriesDesc = 2;
+}
+
+message WriteTimeseriesRequest {
+    // The label's name.
+    map<string, string> commonLabels = 1;
+    // Provide time series specific labels and the data points for each time series. The labels in timeseries and the common_labels should form a complete list of labels that required by the metric.
+    repeated TimeseriesPoint timeseries = 2;
+}
+
+message WriteTimeseriesResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "cloudmonitoring#writeTimeseriesResponse".
+    string kind = 1;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service CloudMonitoringService {
+    // List metric descriptors that match the query. If the query is not set, then all of the metric descriptors will be returned. Large responses will be paginated, use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
+    rpc GetProjectMetricDescriptors(GetProjectMetricDescriptorsRequest) returns (ListMetricDescriptorsResponse) {
+      option (google.api.http) = {
+        get: "/cloudmonitoring/v2beta2/projects/{project}/metricDescriptors"
+        body: "body"
+      };
+    }
+    // Create a new metric.
+    rpc PostProjectMetricDescriptors(PostProjectMetricDescriptorsRequest) returns (MetricDescriptor) {
+      option (google.api.http) = {
+        post: "/cloudmonitoring/v2beta2/projects/{project}/metricDescriptors"
+        body: "body"
+      };
+    }
+    // Delete an existing metric.
+    rpc DeleteProjectMetricDescriptorsMetric(DeleteProjectMetricDescriptorsMetricRequest) returns (DeleteMetricDescriptorResponse) {
+      option (google.api.http) = {
+        delete: "/cloudmonitoring/v2beta2/projects/{project}/metricDescriptors/{metric}"
+      };
+    }
+    // List the data points of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
+    rpc GetProjectTimeseriesMetric(GetProjectTimeseriesMetricRequest) returns (ListTimeseriesResponse) {
+      option (google.api.http) = {
+        get: "/cloudmonitoring/v2beta2/projects/{project}/timeseries/{metric}"
+        body: "body"
+      };
+    }
+    // Put data points to one or more time series for one or more metrics. If a time series does not exist, a new time series will be created. It is not allowed to write a time series point that is older than the existing youngest point of that time series. Points that are older than the existing youngest point of that time series will be discarded silently. Therefore, users should make sure that points of a time series are written sequentially in the order of their end time.
+    rpc PostProjectTimeseries:Write(PostProjectTimeseries:WriteRequest) returns (WriteTimeseriesResponse) {
+      option (google.api.http) = {
+        post: "/cloudmonitoring/v2beta2/projects/{project}/timeseries:write"
+        body: "body"
+      };
+    }
+    // List the descriptors of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
+    rpc GetProjectTimeseriesDescriptorsMetric(GetProjectTimeseriesDescriptorsMetricRequest) returns (ListTimeseriesDescriptorsResponse) {
+      option (google.api.http) = {
+        get: "/cloudmonitoring/v2beta2/projects/{project}/timeseriesDescriptors/{metric}"
+        body: "body"
+      };
+    }
+}

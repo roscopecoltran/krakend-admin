@@ -1,0 +1,313 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package powerbiembeddedmanagementclient;
+
+message GetProvidersMicrosoftPowerBIOperationsRequest {
+    string api_version = 1;
+}
+
+message PostSubscriptionsSubscriptionIdProvidersMicrosoftPowerBILocationsLocationCheckNameAvailabilityRequest {
+    string api_version = 1;
+    // Check name availability request
+    CheckNameRequest body = 2;
+    // Azure location
+    string location = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftPowerBIWorkspaceCollectionsRequest {
+    string api_version = 1;
+    string subscriptionId = 2;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameMoveResourcesRequest {
+    string api_version = 1;
+    // Workspace migration request
+    MigrateWorkspaceCollectionRequest body = 2;
+    // Azure resource group
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsRequest {
+    string api_version = 1;
+    // Azure resource group
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest {
+    string api_version = 1;
+    // Azure resource group
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 4;
+}
+
+message PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest {
+    string api_version = 1;
+    // Create workspace collection request
+    CreateWorkspaceCollectionRequest body = 2;
+    // Azure resource group
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 5;
+}
+
+message DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest {
+    string api_version = 1;
+    // Azure resource group
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 4;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameListKeysRequest {
+    string api_version = 1;
+    // Azure resource group
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 4;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRegenerateKeyRequest {
+    string api_version = 1;
+    // Access key to regenerate
+    WorkspaceCollectionAccessKey body = 2;
+    // Azure resource group
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 5;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameWorkspacesRequest {
+    string api_version = 1;
+    // Azure resource group
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    // Power BI Embedded Workspace Collection name
+    string workspaceCollectionName = 4;
+}
+
+message AzureSku {
+    // SKU name
+    enum AzureSku_Name {
+        AZURESKU_NAME_S1 = 0;
+    }
+    AzureSku_Name name = 1;
+    // SKU tier
+    enum AzureSku_Tier {
+        AZURESKU_TIER_STANDARD = 0;
+    }
+    AzureSku_Tier tier = 2;
+}
+
+message CheckNameRequest {
+    // Workspace collection name
+    string name = 1;
+    // Resource type
+    string type = 2;
+}
+
+message CheckNameResponse {
+    // Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.
+    string message = 1;
+    // Specifies a Boolean value that indicates whether the specified Power BI Workspace Collection name is available to use.
+    bool nameAvailable = 2;
+    // Reason why the workspace collection name cannot be used.
+    enum CheckNameResponse_Reason {
+        CHECKNAMERESPONSE_REASON_UNAVAILABLE = 0;
+        CHECKNAMERESPONSE_REASON_INVALID = 1;
+    }
+    CheckNameResponse_Reason reason = 3;
+}
+
+message CreateWorkspaceCollectionRequest {
+    // Azure location
+    string location = 1;
+    AzureSku sku = 2;
+    map<string, string> tags = 3;
+}
+
+message Display {
+    // The localized friendly description for the operation as shown to the user. This description should be thorough, yet concise. It will be used in tool-tips and detailed views.
+    string description = 1;
+    // The localized friendly name for the operation as shown to the user. This name should be concise (to fit in drop downs), but clear (self-documenting). Use Title Casing and include the entity/resource to which it applies.
+    string operation = 2;
+    // The intended executor of the operation; governs the display of the operation in the RBAC UX and the audit logs UX. Default value is 'user,system'
+    string origin = 3;
+    // The localized friendly form of the resource provider name. This form is also expected to include the publisher/company responsible. Use Title Casing. Begin with “Microsoft” for 1st party services.
+    string provider = 4;
+    // The localized friendly form of the resource type related to this action/operation. This form should match the public documentation for the resource provider. Use Title Casing. For examples, refer to the “name” section.
+    string resource = 5;
+}
+
+message Error {
+    string code = 1;
+    repeated ErrorDetail details = 2;
+    string message = 3;
+    string target = 4;
+}
+
+message ErrorDetail {
+    string code = 1;
+    string message = 2;
+    string target = 3;
+}
+
+message MigrateWorkspaceCollectionRequest {
+    repeated string resources = 1;
+    // Name of the resource group the Power BI workspace collections will be migrated to.
+    string targetResourceGroup = 2;
+}
+
+message Operation {
+    Display display = 1;
+    // The name of the operation being performed on this particular object. This name should match the action name that appears in RBAC / the event service.
+    string name = 2;
+}
+
+message OperationList {
+    repeated Operation value = 1;
+}
+
+message UpdateWorkspaceCollectionRequest {
+    AzureSku sku = 1;
+    map<string, string> tags = 2;
+}
+
+message Workspace {
+    // Workspace id
+    string id = 1;
+    // Workspace name
+    string name = 2;
+    // Property bag
+    message Properties {
+    }
+    Properties properties = 3;
+    // Resource type
+    string type = 4;
+}
+
+message WorkspaceCollection {
+    // Resource id
+    string id = 1;
+    // Azure location
+    string location = 2;
+    // Workspace collection name
+    string name = 3;
+    // Properties
+    message Properties {
+    }
+    Properties properties = 4;
+    AzureSku sku = 5;
+    map<string, string> tags = 6;
+    // Resource type
+    string type = 7;
+}
+
+message WorkspaceCollectionAccessKey {
+    // Key name
+    enum WorkspaceCollectionAccessKey_KeyName {
+        WORKSPACECOLLECTIONACCESSKEY_KEYNAME_KEY1 = 0;
+        WORKSPACECOLLECTIONACCESSKEY_KEYNAME_KEY2 = 1;
+    }
+    WorkspaceCollectionAccessKey_KeyName keyName = 1;
+}
+
+message WorkspaceCollectionAccessKeys {
+    // Access key 1
+    string key1 = 1;
+    // Access key 2
+    string key2 = 2;
+}
+
+message WorkspaceCollectionList {
+    repeated WorkspaceCollection value = 1;
+}
+
+message WorkspaceList {
+    repeated Workspace value = 1;
+}
+
+service PowerBIEmbeddedManagementClientService {
+    // Indicates which operations can be performed by the Power BI Resource Provider.
+    rpc GetProvidersMicrosoftPowerBIOperations(GetProvidersMicrosoftPowerBIOperationsRequest) returns (OperationList) {
+      option (google.api.http) = {
+        get: "/providers/Microsoft.PowerBI/operations"
+      };
+    }
+    // Verify the specified Power BI Workspace Collection name is valid and not already in use.
+    rpc PostSubscriptionsSubscriptionIdProvidersMicrosoftPowerBILocationsLocationCheckNameAvailability(PostSubscriptionsSubscriptionIdProvidersMicrosoftPowerBILocationsLocationCheckNameAvailabilityRequest) returns (CheckNameResponse) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/providers/Microsoft.PowerBI/locations/{location}/checkNameAvailability"
+        body: "body"
+      };
+    }
+    // Retrieves all existing Power BI workspace collections in the specified subscription.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftPowerBIWorkspaceCollections(GetSubscriptionsSubscriptionIdProvidersMicrosoftPowerBIWorkspaceCollectionsRequest) returns (WorkspaceCollectionList) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.PowerBI/workspaceCollections"
+      };
+    }
+    // Migrates an existing Power BI Workspace Collection to a different resource group and/or subscription.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameMoveResources(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameMoveResourcesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources"
+        body: "body"
+      };
+    }
+    // Retrieves all existing Power BI workspace collections in the specified resource group.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollections(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsRequest) returns (WorkspaceCollectionList) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections"
+      };
+    }
+    // Retrieves an existing Power BI Workspace Collection.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionName(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest) returns (WorkspaceCollection) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}"
+      };
+    }
+    // Creates a new Power BI Workspace Collection with the specified properties. A Power BI Workspace Collection contains one or more workspaces, and can be used to provision keys that provide API access to those workspaces.
+    rpc PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionName(PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest) returns (WorkspaceCollection) {
+      option (google.api.http) = {
+        put: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}"
+        body: "body"
+      };
+    }
+    // Delete a Power BI Workspace Collection.
+    rpc DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionName(DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}"
+      };
+    }
+    // Retrieves the primary and secondary access keys for the specified Power BI Workspace Collection.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameListKeys(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameListKeysRequest) returns (WorkspaceCollectionAccessKeys) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}/listKeys"
+      };
+    }
+    // Regenerates the primary or secondary access key for the specified Power BI Workspace Collection.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRegenerateKey(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameRegenerateKeyRequest) returns (WorkspaceCollectionAccessKeys) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}/regenerateKey"
+        body: "body"
+      };
+    }
+    // Retrieves all existing Power BI workspaces in the specified workspace collection.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameWorkspaces(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftPowerBIWorkspaceCollectionsWorkspaceCollectionNameWorkspacesRequest) returns (WorkspaceList) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}/workspaces"
+      };
+    }
+}

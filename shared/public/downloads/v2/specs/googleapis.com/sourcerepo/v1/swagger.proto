@@ -1,0 +1,388 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package cloudsourcerepositories;
+
+message GetV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the requested repository. Values are of the form
+    // `projects/<project>/repos/<repo>`.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message DeleteV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the repo to delete. Values are of the form
+    // `projects/<project>/repos/<repo>`.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1NameReposRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The project ID whose repos should be listed. Values are of the form
+    // `projects/<project>`.
+    string name = 8;
+    string oauth_token = 9;
+    // Maximum number of repositories to return; between 1 and 500.
+    // If not set or zero, defaults to 100 at the server.
+    int32 pageSize = 10;
+    // Resume listing repositories where a prior ListReposResponse
+    // left off. This is an opaque token that must be obtained from
+    // a recent, prior ListReposResponse's next_page_token field.
+    string pageToken = 11;
+    boolean pp = 12;
+    boolean prettyPrint = 13;
+    string quotaUser = 14;
+    string uploadType = 15;
+    string upload_protocol = 16;
+}
+
+message PostV1ParentReposRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Repo body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    // The project in which to create the repo. Values are of the form
+    // `projects/<project>`.
+    string parent = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV1Resource:GetIamPolicyRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean pp = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // REQUIRED: The resource for which the policy is being requested.
+    // See the operation documentation for the appropriate value for this field.
+    string resource = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1Resource:SetIamPolicyRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    SetIamPolicyRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // REQUIRED: The resource for which the policy is being specified.
+    // See the operation documentation for the appropriate value for this field.
+    string resource = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1Resource:TestIamPermissionsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    TestIamPermissionsRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // REQUIRED: The resource for which the policy detail is being requested.
+    // See the operation documentation for the appropriate value for this field.
+    string resource = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AuditConfig {
+    // The configuration for logging of each type of permission.
+    // Next ID: 4
+    repeated AuditLogConfig auditLogConfigs = 1;
+    repeated string exemptedMembers = 2;
+    // Specifies a service that will be enabled for audit logging.
+    // For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
+    // `allServices` is a special value that covers all services.
+    string service = 3;
+}
+
+message AuditLogConfig {
+    // Specifies the identities that do not cause logging for this type of
+    // permission.
+    // Follows the same format of Binding.members.
+    repeated string exemptedMembers = 1;
+    // The log type that this config enables.
+    enum AuditLogConfig_LogType {
+        AUDITLOGCONFIG_LOGTYPE_LOG_TYPE_UNSPECIFIED = 0;
+        AUDITLOGCONFIG_LOGTYPE_ADMIN_READ = 1;
+        AUDITLOGCONFIG_LOGTYPE_DATA_WRITE = 2;
+        AUDITLOGCONFIG_LOGTYPE_DATA_READ = 3;
+    }
+    AuditLogConfig_LogType logType = 2;
+}
+
+message Binding {
+    // The condition that is associated with this binding.
+    // NOTE: an unsatisfied condition will not allow user access via current
+    // binding. Different bindings, including their conditions, are examined
+    // independently.
+    // This field is GOOGLE_INTERNAL.
+    Expr condition = 1;
+    // Specifies the identities requesting access for a Cloud Platform resource.
+    // `members` can have the following values:
+    // 
+    // * `allUsers`: A special identifier that represents anyone who is
+    //    on the internet; with or without a Google account.
+    // 
+    // * `allAuthenticatedUsers`: A special identifier that represents anyone
+    //    who is authenticated with a Google account or a service account.
+    // 
+    // * `user:{emailid}`: An email address that represents a specific Google
+    //    account. For example, `alice@gmail.com` or `joe@example.com`.
+    // 
+    // 
+    // * `serviceAccount:{emailid}`: An email address that represents a service
+    //    account. For example, `my-other-app@appspot.gserviceaccount.com`.
+    // 
+    // * `group:{emailid}`: An email address that represents a Google group.
+    //    For example, `admins@example.com`.
+    // 
+    // 
+    // * `domain:{domain}`: A Google Apps domain name that represents all the
+    //    users of that domain. For example, `google.com` or `example.com`.
+    // 
+    repeated string members = 2;
+    // Role that is assigned to `members`.
+    // For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
+    // Required
+    string role = 3;
+}
+
+message Empty {
+}
+
+message Expr {
+    // An optional description of the expression. This is a longer text which
+    // describes the expression, e.g. when hovered over it in a UI.
+    string description = 1;
+    // Textual representation of an expression in
+    // Common Expression Language syntax.
+    // 
+    // The application context of the containing message determines which
+    // well-known feature set of CEL is supported.
+    string expression = 2;
+    // An optional string indicating the location of the expression for error
+    // reporting, e.g. a file name and a position in the file.
+    string location = 3;
+    // An optional title for the expression, i.e. a short string describing
+    // its purpose. This can be used e.g. in UIs which allow to enter the
+    // expression.
+    string title = 4;
+}
+
+message ListReposResponse {
+    // If non-empty, additional repositories exist within the project. These
+    // can be retrieved by including this value in the next ListReposRequest's
+    // page_token field.
+    string nextPageToken = 1;
+    // The listed repos.
+    repeated Repo repos = 2;
+}
+
+message MirrorConfig {
+    // ID of the SSH deploy key at the other hosting service.
+    // Removing this key from the other service would deauthorize
+    // Google Cloud Source Repositories from mirroring.
+    string deployKeyId = 1;
+    // URL of the main repository at the other hosting service.
+    string url = 2;
+    // ID of the webhook listening to updates to trigger mirroring.
+    // Removing this webook from the other hosting service will stop
+    // Google Cloud Source Repositories from receiving notifications,
+    // and thereby disabling mirroring.
+    string webhookId = 3;
+}
+
+message Policy {
+    // Specifies cloud audit logging configuration for this policy.
+    repeated AuditConfig auditConfigs = 1;
+    // Associates a list of `members` to a `role`.
+    // `bindings` with no members will result in an error.
+    repeated Binding bindings = 2;
+    // `etag` is used for optimistic concurrency control as a way to help
+    // prevent simultaneous updates of a policy from overwriting each other.
+    // It is strongly suggested that systems make use of the `etag` in the
+    // read-modify-write cycle to perform policy updates in order to avoid race
+    // conditions: An `etag` is returned in the response to `getIamPolicy`, and
+    // systems are expected to put that etag in the request to `setIamPolicy` to
+    // ensure that their change will be applied to the same version of the policy.
+    // 
+    // If no `etag` is provided in the call to `setIamPolicy`, then the existing
+    // policy is overwritten blindly.
+    string etag = 3;
+    bool iamOwned = 4;
+    // Version of the `Policy`. The default version is 0.
+    int32 version = 5;
+}
+
+message Repo {
+    // How this repository mirrors a repository managed by another service.
+    MirrorConfig mirrorConfig = 1;
+    // Resource name of the repository, of the form
+    // `projects/<project>/repos/<repo>`.  The repo name may contain slashes.
+    // eg, `projects/myproject/repos/name/with/slash`
+    string name = 2;
+    // The disk usage of the repo, in bytes.
+    // Only returned by GetRepo.
+    string size = 3;
+    // URL to clone the repository from Google Cloud Source Repositories.
+    string url = 4;
+}
+
+message SetIamPolicyRequest {
+    // REQUIRED: The complete policy to be applied to the `resource`. The size of
+    // the policy is limited to a few 10s of KB. An empty policy is a
+    // valid policy but certain Cloud Platform services (such as Projects)
+    // might reject them.
+    Policy policy = 1;
+    // OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
+    // the fields in the mask will be modified. If no mask is provided, the
+    // following default mask is used:
+    // paths: "bindings, etag"
+    // This field is only used by Cloud IAM.
+    string updateMask = 2;
+}
+
+message TestIamPermissionsRequest {
+    // The set of permissions to check for the `resource`. Permissions with
+    // wildcards (such as '*' or 'storage.*') are not allowed. For more
+    // information see
+    // [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+    repeated string permissions = 1;
+}
+
+message TestIamPermissionsResponse {
+    // A subset of `TestPermissionsRequest.permissions` that the caller is
+    // allowed.
+    repeated string permissions = 1;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service CloudSourceRepositoriesService {
+    // Returns information about a repo.
+    rpc GetV1Name(GetV1NameRequest) returns (Repo) {
+      option (google.api.http) = {
+        get: "//v1/{name}"
+      };
+    }
+    // Deletes a repo.
+    rpc DeleteV1Name(DeleteV1NameRequest) returns (Empty) {
+      option (google.api.http) = {
+        delete: "//v1/{name}"
+      };
+    }
+    // Returns all repos belonging to a project. The sizes of the repos are
+    // not set by ListRepos.  To get the size of a repo, use GetRepo.
+    rpc GetV1NameRepos(GetV1NameReposRequest) returns (ListReposResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}/repos"
+      };
+    }
+    // Creates a repo in the given project with the given name.
+    // 
+    // If the named repository already exists, `CreateRepo` returns
+    // `ALREADY_EXISTS`.
+    rpc PostV1ParentRepos(PostV1ParentReposRequest) returns (Repo) {
+      option (google.api.http) = {
+        post: "//v1/{parent}/repos"
+        body: "body"
+      };
+    }
+    // Gets the access control policy for a resource.
+    // Returns an empty policy if the resource exists and does not have a policy
+    // set.
+    rpc GetV1Resource:GetIamPolicy(GetV1Resource:GetIamPolicyRequest) returns (Policy) {
+      option (google.api.http) = {
+        get: "//v1/{resource}:getIamPolicy"
+      };
+    }
+    // Sets the access control policy on the specified resource. Replaces any
+    // existing policy.
+    rpc PostV1Resource:SetIamPolicy(PostV1Resource:SetIamPolicyRequest) returns (Policy) {
+      option (google.api.http) = {
+        post: "//v1/{resource}:setIamPolicy"
+        body: "body"
+      };
+    }
+    // Returns permissions that a caller has on the specified resource.
+    // If the resource does not exist, this will return an empty set of
+    // permissions, not a NOT_FOUND error.
+    rpc PostV1Resource:TestIamPermissions(PostV1Resource:TestIamPermissionsRequest) returns (TestIamPermissionsResponse) {
+      option (google.api.http) = {
+        post: "//v1/{resource}:testIamPermissions"
+        body: "body"
+      };
+    }
+}

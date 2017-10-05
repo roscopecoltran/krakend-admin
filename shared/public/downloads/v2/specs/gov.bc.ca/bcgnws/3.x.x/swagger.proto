@@ -1,0 +1,510 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package bcgeographicalnameswebservice-;
+
+message GetFeatureCategoriesRequest {
+    // The format of the output.
+    enum GetFeatureCategoriesRequest_OutputFormat {
+        GETFEATURECATEGORIESREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETFEATURECATEGORIESREQUEST_OUTPUTFORMAT_XML = 1;
+    }
+    GetFeatureCategoriesRequest_OutputFormat outputFormat = 1;
+}
+
+message GetFeatureClassesRequest {
+    // The format of the output.
+    enum GetFeatureClassesRequest_OutputFormat {
+        GETFEATURECLASSESREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETFEATURECLASSESREQUEST_OUTPUTFORMAT_XML = 1;
+    }
+    GetFeatureClassesRequest_OutputFormat outputFormat = 1;
+}
+
+message GetFeatureTypesRequest {
+    // The format of the output.
+    enum GetFeatureTypesRequest_OutputFormat {
+        GETFEATURETYPESREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETFEATURETYPESREQUEST_OUTPUTFORMAT_XML = 1;
+    }
+    GetFeatureTypesRequest_OutputFormat outputFormat = 1;
+}
+
+message GetFeaturesFeatureIdRequest {
+    // The unique identifier for a feature
+    int32 featureId = 1;
+}
+
+message GetNameAuthoritiesRequest {
+    // The format of the output.
+    enum GetNameAuthoritiesRequest_OutputFormat {
+        GETNAMEAUTHORITIESREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMEAUTHORITIESREQUEST_OUTPUTFORMAT_XML = 1;
+    }
+    GetNameAuthoritiesRequest_OutputFormat outputFormat = 1;
+}
+
+message GetNamesChangesRequest {
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 1;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 2;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 3;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 4;
+    // Defines the earliest date (YYYY-MM-DD format) of the change time window for the search
+    int32 fromDate = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // The format of the output.
+    enum GetNamesChangesRequest_OutputFormat {
+        GETNAMESCHANGESREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESCHANGESREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESCHANGESREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESCHANGESREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesChangesRequest_OutputFormat outputFormat = 7;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 8;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesChangesRequest_OutputStyle {
+        GETNAMESCHANGESREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESCHANGESREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesChangesRequest_OutputStyle outputStyle = 9;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesChangesRequest_SortBy {
+        GETNAMESCHANGESREQUEST_SORTBY_NAME = 0;
+        GETNAMESCHANGESREQUEST_SORTBY_FEATURETYPE = 1;
+        GETNAMESCHANGESREQUEST_SORTBY_DECISIONDATE = 2;
+    }
+    GetNamesChangesRequest_SortBy sortBy = 10;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 11;
+    // Defines the latest date (YYYY-MM-DD format) of the change time window for the search
+    int32 toDate = 12;
+}
+
+message GetNamesDecisionsRecentRequest {
+    // The number of days used to define the time window of naming decisions to search.  The number is interpreted as searching for 'names affected by decisions within the last X days'.
+    int32 days = 1;
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // The format of the output.
+    enum GetNamesDecisionsRecentRequest_OutputFormat {
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesDecisionsRecentRequest_OutputFormat outputFormat = 7;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 8;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesDecisionsRecentRequest_OutputStyle {
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESDECISIONSRECENTREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesDecisionsRecentRequest_OutputStyle outputStyle = 9;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesDecisionsRecentRequest_SortBy {
+        GETNAMESDECISIONSRECENTREQUEST_SORTBY_NAME = 0;
+        GETNAMESDECISIONSRECENTREQUEST_SORTBY_FEATURETYPE = 1;
+        GETNAMESDECISIONSRECENTREQUEST_SORTBY_DECISIONDATE = 2;
+    }
+    GetNamesDecisionsRecentRequest_SortBy sortBy = 10;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 11;
+}
+
+message GetNamesDecisionsYearRequest {
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 1;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 2;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 3;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 4;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 5;
+    // The format of the output.
+    enum GetNamesDecisionsYearRequest_OutputFormat {
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesDecisionsYearRequest_OutputFormat outputFormat = 6;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 7;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesDecisionsYearRequest_OutputStyle {
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESDECISIONSYEARREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesDecisionsYearRequest_OutputStyle outputStyle = 8;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesDecisionsYearRequest_SortBy {
+        GETNAMESDECISIONSYEARREQUEST_SORTBY_NAME = 0;
+        GETNAMESDECISIONSYEARREQUEST_SORTBY_FEATURETYPE = 1;
+        GETNAMESDECISIONSYEARREQUEST_SORTBY_DECISIONDATE = 2;
+    }
+    GetNamesDecisionsYearRequest_SortBy sortBy = 9;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 10;
+    // The year in which to search for names affected by naming decisions'.
+    int32 year = 11;
+}
+
+message GetNamesInsideRequest {
+    // A geographic bounding box defining the search area.  Must be specified as a string of the form 'minLongitude,minLatitude,maxLongitude,maxLatitude' (WGS84). e.g. -119,49,-118,50
+    string bbox = 1;
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // The format of the output.
+    enum GetNamesInsideRequest_OutputFormat {
+        GETNAMESINSIDEREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESINSIDEREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESINSIDEREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESINSIDEREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesInsideRequest_OutputFormat outputFormat = 7;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 8;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesInsideRequest_OutputStyle {
+        GETNAMESINSIDEREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESINSIDEREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesInsideRequest_OutputStyle outputStyle = 9;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesInsideRequest_SortBy {
+        GETNAMESINSIDEREQUEST_SORTBY_NAME = 0;
+        GETNAMESINSIDEREQUEST_SORTBY_FEATURETYPE = 1;
+        GETNAMESINSIDEREQUEST_SORTBY_DECISIONDATE = 2;
+    }
+    GetNamesInsideRequest_SortBy sortBy = 10;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 11;
+}
+
+message GetNamesNearRequest {
+    // A radius (in kilometres) around the centre point.
+    string distance = 1;
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A geographic coordinate specifying the centre point of the search area.  Must be specified as a string of the form 'longitude,latitude' (WGS84).  e.g. -120,51
+    string featurePoint = 5;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 6;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 7;
+    // The format of the output.
+    enum GetNamesNearRequest_OutputFormat {
+        GETNAMESNEARREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESNEARREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESNEARREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESNEARREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesNearRequest_OutputFormat outputFormat = 8;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 9;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesNearRequest_OutputStyle {
+        GETNAMESNEARREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESNEARREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesNearRequest_OutputStyle outputStyle = 10;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesNearRequest_SortBy {
+        GETNAMESNEARREQUEST_SORTBY_NAME = 0;
+        GETNAMESNEARREQUEST_SORTBY_FEATURETYPE = 1;
+        GETNAMESNEARREQUEST_SORTBY_DECISIONDATE = 2;
+    }
+    GetNamesNearRequest_SortBy sortBy = 11;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 12;
+}
+
+message GetNamesNotOfficialSearchRequest {
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 1;
+    // If the 'name' parameter is specified, 'exactSpelling' specifies whether to include only names that exactly match the search text (exactSpelling=1), or whether to also include names with similar spellings (exactSpelling=0)
+    int32 exactSpelling = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // A filter to search based on the the text of the name itself.  Use the asterisk (*) as a wildcard character.  For example 'vancouv*'
+    string name = 7;
+    // The format of the output.
+    enum GetNamesNotOfficialSearchRequest_OutputFormat {
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesNotOfficialSearchRequest_OutputFormat outputFormat = 8;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 9;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesNotOfficialSearchRequest_OutputStyle {
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesNotOfficialSearchRequest_OutputStyle outputStyle = 10;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesNotOfficialSearchRequest_SortBy {
+        GETNAMESNOTOFFICIALSEARCHREQUEST_SORTBY_RELEVANCE = 0;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_SORTBY_NAME = 1;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_SORTBY_FEATURETYPE = 2;
+        GETNAMESNOTOFFICIALSEARCHREQUEST_SORTBY_DECISIONDATE = 3;
+    }
+    GetNamesNotOfficialSearchRequest_SortBy sortBy = 11;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 12;
+}
+
+message GetNamesOfficialSearchRequest {
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 1;
+    // If the 'name' parameter is specified, 'exactSpelling' specifies whether to include only names that exactly match the search text (exactSpelling=1), or whether to also include names with similar spellings (exactSpelling=0)
+    int32 exactSpelling = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // A filter to search based on the the text of the name itself.  Use the asterisk (*) as a wildcard character.  For example 'vancouv*'
+    string name = 7;
+    // The format of the output.
+    enum GetNamesOfficialSearchRequest_OutputFormat {
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesOfficialSearchRequest_OutputFormat outputFormat = 8;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 9;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesOfficialSearchRequest_OutputStyle {
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESOFFICIALSEARCHREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesOfficialSearchRequest_OutputStyle outputStyle = 10;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesOfficialSearchRequest_SortBy {
+        GETNAMESOFFICIALSEARCHREQUEST_SORTBY_RELEVANCE = 0;
+        GETNAMESOFFICIALSEARCHREQUEST_SORTBY_NAME = 1;
+        GETNAMESOFFICIALSEARCHREQUEST_SORTBY_FEATURETYPE = 2;
+        GETNAMESOFFICIALSEARCHREQUEST_SORTBY_DECISIONDATE = 3;
+    }
+    GetNamesOfficialSearchRequest_SortBy sortBy = 11;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 12;
+}
+
+message GetNamesSearchRequest {
+    // A flag to indicate whether to embed the corresponding 'feature' into each matching name
+    int32 embed = 1;
+    // If the 'name' parameter is specified, 'exactSpelling' specifies whether to include only names that exactly match the search text (exactSpelling=1), or whether to also include names with similar spellings (exactSpelling=0)
+    int32 exactSpelling = 2;
+    // A filter to limit the search to names associated with features of a certain 'category'  The value of this parameter should be a 'featureCategoryCode' value returned by the /featureCategories resource, or an asterisk (*) to request that all feature categories be included.
+    string featureCategory = 3;
+    // A filter to limit the search to names associated with features of a certain 'class'  The value of this parameter should be a 'featureClassCode' value returned by the /featureClasses resource, or an asterisk (*) to request that all feature classes be included.
+    string featureClass = 4;
+    // A filter to limit the search to names associated with features of a certain 'type'  The value of this parameter should be a 'featureTypeCode' value returned by the /featureTypes resource, or an asterisk (*) to request that all feature types be included
+    string featureType = 5;
+    // The number of search results to return (1-200)
+    int32 itemsPerPage = 6;
+    // A filter to search based on the the text of the name itself.  Use the asterisk (*) as a wildcard character.  For example 'vancouv*'
+    string name = 7;
+    // The format of the output.
+    enum GetNamesSearchRequest_OutputFormat {
+        GETNAMESSEARCHREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESSEARCHREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESSEARCHREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESSEARCHREQUEST_OUTPUTFORMAT_CSV = 3;
+    }
+    GetNamesSearchRequest_OutputFormat outputFormat = 8;
+    // The EPSG code of the spatial reference system (SRS) to use for output geometries.
+    int32 outputSRS = 9;
+    // A flag indicating whether to include with each matching name a succinct list of attributes (summary), or a comprehensive list of attributes (detail)
+    enum GetNamesSearchRequest_OutputStyle {
+        GETNAMESSEARCHREQUEST_OUTPUTSTYLE_SUMMARY = 0;
+        GETNAMESSEARCHREQUEST_OUTPUTSTYLE_DETAIL = 1;
+    }
+    GetNamesSearchRequest_OutputStyle outputStyle = 10;
+    // The distance to move the accessPoint away from the curb and towards the inside of the parcel (in metres). Ignored if locationDescriptor not set to accessPoint.
+    enum GetNamesSearchRequest_SortBy {
+        GETNAMESSEARCHREQUEST_SORTBY_RELEVANCE = 0;
+        GETNAMESSEARCHREQUEST_SORTBY_NAME = 1;
+        GETNAMESSEARCHREQUEST_SORTBY_FEATURETYPE = 2;
+        GETNAMESSEARCHREQUEST_SORTBY_DECISIONDATE = 3;
+    }
+    GetNamesSearchRequest_SortBy sortBy = 11;
+    // The index of the first record to be returned (>= 1)
+    int32 startIndex = 12;
+}
+
+message GetNamesNameIdOutputFormatRequest {
+    // The unique identifier for a name
+    int32 nameId = 1;
+    // The format of the output.
+    enum GetNamesNameIdOutputFormatRequest_OutputFormat {
+        GETNAMESNAMEIDOUTPUTFORMATREQUEST_OUTPUTFORMAT_JSON = 0;
+        GETNAMESNAMEIDOUTPUTFORMATREQUEST_OUTPUTFORMAT_XML = 1;
+        GETNAMESNAMEIDOUTPUTFORMATREQUEST_OUTPUTFORMAT_KML = 2;
+        GETNAMESNAMEIDOUTPUTFORMATREQUEST_OUTPUTFORMAT_CSV = 3;
+        GETNAMESNAMEIDOUTPUTFORMATREQUEST_OUTPUTFORMAT_HTML = 4;
+    }
+    GetNamesNameIdOutputFormatRequest_OutputFormat outputFormat = 2;
+}
+
+service BCGeographicalNamesWebService-Service {
+    // Get all feature categories
+    // 
+    // Gets a list of all feature categories used by the BC Geographical Names Information System (BCGNIS).  Note: there are three levels of classification in the BCGNIS feature taxonomy: classes, categories and types.  A type is a subset of a category, and a category is a subset of a class.
+    rpc GetFeatureCategories(GetFeatureCategoriesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/featureCategories"
+      };
+    }
+    // Get all feature classes
+    // 
+    // Gets a list of all feature classes used by the BC Geographical Names Information System (BCGNIS).  Note: there are three levels of classification in the BCGNIS feature taxonomy: classes, categories and types.  A type is a subset of a category, and a category is a subset of a class.
+    rpc GetFeatureClasses(GetFeatureClassesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/featureClasses"
+      };
+    }
+    // Get all feature types
+    // 
+    // Gets a list of all feature types used by the BC Geographical Names Information System (BCGNIS).  Note: there are three levels of classification in the BCGNIS feature taxonomy: classes, categories and types.  A type is a subset of a category, and a category is a subset of a class.
+    rpc GetFeatureTypes(GetFeatureTypesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/featureTypes"
+      };
+    }
+    // Get a feature by its featureId
+    // 
+    // Get information about the geographical feature with the specified featureId.
+    rpc GetFeaturesFeatureId(GetFeaturesFeatureIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/features/{featureId}"
+      };
+    }
+    // Get all name authorities
+    // 
+    // Gets a list of all name authorities responsible for naming decisions of the geographical names in the BC Geographical Names Information System (BCGNIS)
+    rpc GetNameAuthorities(GetNameAuthoritiesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/nameAuthorities"
+      };
+    }
+    // Search for names with metadata changes in a given period
+    // 
+    // Search for information about geographical names which have changed most recently within a specified time window.  Changes may include status cupdates and metadata corrections.
+    rpc GetNamesChanges(GetNamesChangesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/changes"
+      };
+    }
+    // Search for names affected by recent naming decision
+    // 
+    // Search for information about geographical names affected by naming 'decisions' made by the BC Geographical Names Office (naming authority) within the last X days.
+    rpc GetNamesDecisionsRecent(GetNamesDecisionsRecentRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/decisions/recent"
+      };
+    }
+    // Search for names affected by naming decisions in a given year
+    // 
+    // Search for information about geographical names affected by naming 'decisions' made by the BC Geographical Names Office (naming authority) in a given year.
+    rpc GetNamesDecisionsYear(GetNamesDecisionsYearRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/decisions/year"
+      };
+    }
+    // Search in a geographic area
+    // 
+    // Search for information about geographical names that correspond to features within a geographic bounding box.  Various options and filter parameters are available to refine the search.
+    rpc GetNamesInside(GetNamesInsideRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/inside"
+      };
+    }
+    // Search near to a geographic point
+    // 
+    // Search for information about geographical names that correspond to features within a geographic area defined by a centre point and a radius.  Various options and filter parameters are available to refine the search.
+    rpc GetNamesNear(GetNamesNearRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/near"
+      };
+    }
+    // Search by name, limit to unofficial names only
+    // 
+    // Search for information about unofficial geographical names by the text of the name itself.  Various options and filter parameters are available to refine the search.
+    rpc GetNamesNotOfficialSearch(GetNamesNotOfficialSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/notOfficial/search"
+      };
+    }
+    // Search by name, limit to official names only
+    // 
+    // Search for information about official geographical names by the text of the name itself.  Various options and filter parameters are available to refine the search.
+    rpc GetNamesOfficialSearch(GetNamesOfficialSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/official/search"
+      };
+    }
+    // Search by name
+    // 
+    // Search for information about geographical names by the text of the name itself.  The response will include both official and unofficial names.  Various options and filter parameters are available to refine the search.
+    rpc GetNamesSearch(GetNamesSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/search"
+      };
+    }
+    // Get a name by its nameId
+    // 
+    // Get information about the geographical name with the specified nameId.
+    rpc GetNamesNameIdOutputFormat(GetNamesNameIdOutputFormatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/bcgnws/names/{nameId}.{outputFormat}"
+      };
+    }
+}

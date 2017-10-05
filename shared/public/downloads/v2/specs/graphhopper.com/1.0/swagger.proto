@@ -1,0 +1,332 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package routeoptimization;
+
+message PostOptimizeRequest {
+    // Request object that contains the problem to be solved
+    Request body = 1;
+    // your API key
+    string key = 2;
+}
+
+message GetSolutionJobIdRequest {
+    // Request solution with jobId
+    string jobId = 1;
+    // your API key
+    string key = 2;
+}
+
+message Activity {
+    // arrival time at this activity in ms
+    int64 arr_time = 1;
+    // cumulated distance from start to this activity in m
+    int64 distance = 2;
+    // driving time of driver in ms
+    int64 driving_time = 3;
+    // end time of and thus departure time at this activity
+    int64 end_time = 4;
+    // id referring to the underlying service or shipment, i.e. the shipment or service this activity belongs to
+    string id = 5;
+    // Array with size/capacity dimensions after this activity
+    repeated int32 load_after = 6;
+    // Array with size/capacity dimensions before this activity
+    repeated int32 load_before = 7;
+    // id that refers to address
+    string location_id = 8;
+    // type of activity
+    enum Activity_Type {
+        ACTIVITY_TYPE_START = 0;
+        ACTIVITY_TYPE_END = 1;
+        ACTIVITY_TYPE_SERVICE = 2;
+        ACTIVITY_TYPE_PICKUPSHIPMENT = 3;
+        ACTIVITY_TYPE_DELIVERSHIPMENT = 4;
+        ACTIVITY_TYPE_PICKUP = 5;
+        ACTIVITY_TYPE_DELIVERY = 6;
+    }
+    Activity_Type type = 9;
+    // waiting time at this activity in ms
+    int64 waiting_time = 10;
+}
+
+message Address {
+    // latitude
+    double lat = 1;
+    // Unique identifier of location
+    string location_id = 2;
+    // longitude
+    double lon = 3;
+}
+
+message Algorithm {
+    enum Algorithm_Objective {
+        ALGORITHM_OBJECTIVE_TRANSPORT_TIME = 0;
+        ALGORITHM_OBJECTIVE_COMPLETION_TIME = 1;
+    }
+    Algorithm_Objective objective = 1;
+    enum Algorithm_Problem_type {
+        ALGORITHM_PROBLEM_TYPE_MIN = 0;
+        ALGORITHM_PROBLEM_TYPE_MINMAX = 1;
+    }
+    Algorithm_Problem_type problem_type = 2;
+}
+
+message Break {
+    // duration of break
+    int64 duration = 1;
+    // earliest start of break
+    int64 earliest = 2;
+    // initial driving time, i.e. the time your driver has already spent for driving
+    int64 initial_driving_time = 3;
+    // latest start of break
+    int64 latest = 4;
+    // max driving time without break
+    int64 max_driving_time = 5;
+    // array of splits
+    repeated int64 possible_split = 6;
+}
+
+message CostMatrix {
+    // vehicle profile or empty if catch all fallback
+    string profile = 1;
+    // type of cost matrix, currently default or google are supported
+    enum CostMatrix_Type {
+        COSTMATRIX_TYPE_DEFAULT = 0;
+        COSTMATRIX_TYPE_GOOGLE = 1;
+    }
+    CostMatrix_Type type = 2;
+    // URL of matrix service
+    string url = 3;
+}
+
+message JobId {
+    // unique id for your job/request with which you can fetch your solution
+    string job_id = 1;
+}
+
+message Objective {
+    // type of objective function, i.e. min or min-max
+    enum Objective_Type {
+        OBJECTIVE_TYPE_MIN = 0;
+        OBJECTIVE_TYPE_MINMAX = 1;
+    }
+    Objective_Type type = 1;
+    // objective function value
+    enum Objective_Value {
+        OBJECTIVE_VALUE_COMPLETION_TIME = 0;
+        OBJECTIVE_VALUE_TRANSPORT_TIME = 1;
+        OBJECTIVE_VALUE_VEHICLES = 2;
+    }
+    Objective_Value value = 2;
+}
+
+message Relation {
+    // An array of ids that should be related
+    repeated string ids = 1;
+    // identifier of relation
+    string type = 2;
+    // vehicle id
+    string vehicle_id = 3;
+}
+
+message Request {
+    Algorithm algorithm = 1;
+    // An array of cost matrices
+    repeated CostMatrix cost_matrices = 2;
+    // An array of objectives
+    repeated Objective objectives = 3;
+    // An array of relations
+    repeated Relation relations = 4;
+    // An array of services
+    repeated Service services = 5;
+    // An array of shipments
+    repeated Shipment shipments = 6;
+    // An array of vehicle types
+    repeated VehicleType vehicle_types = 7;
+    // An array of vehicles that can be employed
+    repeated Vehicle vehicles = 8;
+}
+
+message Response {
+    repeated string copyrights = 1;
+    // unique identify of job - which you get when posting your request to the large problem solver
+    string job_id = 2;
+    // processing time in ms. if job is still waiting in queue, processing_time is 0
+    int64 processing_time = 3;
+    // the solution. only available if status field indicates finished
+    Solution solution = 4;
+    // indicates the current status of the job
+    enum Response_Statu {
+        RESPONSE_STATU_WAITING_IN_QUEUE = 0;
+        RESPONSE_STATU_PROCESSING = 1;
+        RESPONSE_STATU_FINISHED = 2;
+    }
+    Response_Statu status = 5;
+    // waiting time in ms
+    int64 waiting_in_queue = 6;
+}
+
+message Route {
+    // array of activities
+    repeated Activity activities = 1;
+    // completion time of route in ms
+    int64 completion_time = 2;
+    // distance of route in meter
+    int64 distance = 3;
+    // transport time of route in ms
+    int64 transport_time = 4;
+    // id of vehicle that operates route
+    string vehicle_id = 5;
+    // waiting time of route in ms
+    int64 waiting_time = 6;
+}
+
+message Service {
+    Address address = 1;
+    // array of allowed vehicle ids
+    repeated string allowed_vehicles = 2;
+    // duration of service, i.e. time in ms the corresponding activity takes
+    int64 duration = 3;
+    // Unique identifier of service
+    string id = 4;
+    // name of service
+    string name = 5;
+    // priority of service, i.e. 1 = high, 2 = normal, 3 = low. default is 2.
+    int32 priority = 6;
+    // array of required skills
+    repeated string required_skills = 7;
+    // array of capacity dimensions
+    repeated int32 size = 8;
+    // array of time windows. currently, only a single time window is allowed
+    repeated TimeWindow time_windows = 9;
+    // type of service
+    enum Service_Type {
+        SERVICE_TYPE_SERVICE = 0;
+        SERVICE_TYPE_PICKUP = 1;
+        SERVICE_TYPE_DELIVERY = 2;
+    }
+    Service_Type type = 10;
+}
+
+message Shipment {
+    // array of allowed vehicle ids
+    repeated string allowed_vehicles = 1;
+    Stop delivery = 2;
+    // Unique identifier of service
+    string id = 3;
+    // name of shipment
+    string name = 4;
+    Stop pickup = 5;
+    // priority of service, i.e. 1 = high, 2 = normal, 3 = low. default is 2.
+    int32 priority = 6;
+    // array of required skills
+    repeated string required_skills = 7;
+    // array of capacity dimensions
+    repeated int32 size = 8;
+}
+
+message Solution {
+    // overall costs of solution
+    int32 costs = 1;
+    // overall travel distance in meters
+    int32 distance = 2;
+    // operation time of the longest route in ms
+    int64 max_operation_time = 3;
+    // number of jobs that could not be assigned to final solution
+    int32 no_unassigned = 4;
+    // number of employed vehicles
+    int32 no_vehicles = 5;
+    // An array of routes
+    repeated Route routes = 6;
+    // overall transport time in ms
+    int64 time = 7;
+    // overall transport time in ms
+    int64 transport_time = 8;
+    message Unassigned {
+            // An array of ids of unassigned services
+    repeated string services = 1;
+            // An array of ids of unassigned shipments
+    repeated string shipments = 2;
+    }
+    Unassigned unassigned = 9;
+    // total waiting time in ms
+    int64 waiting_time = 10;
+}
+
+message Stop {
+    Address address = 1;
+    // duration of stop, i.e. time in ms the corresponding activity takes
+    int64 duration = 2;
+    // array of time windows. currently, only a single time window is allowed
+    repeated TimeWindow time_windows = 3;
+}
+
+message TimeWindow {
+    // earliest start time of corresponding activity
+    int64 earliest = 1;
+    // latest start time of corresponding activity
+    int64 latest = 2;
+}
+
+message Vehicle {
+    Break break = 1;
+    // earliest start of vehicle at its start location
+    int64 earliest_start = 2;
+    Address end_address = 3;
+    // latest end of vehicle at its end location
+    int64 latest_end = 4;
+    // Indicates whether vehicle should return to start address or not. If not, it can end at any service activity.
+    bool return_to_depot = 5;
+    // array of skills
+    repeated string skills = 6;
+    Address start_address = 7;
+    // Unique identifier referring to the available vehicle types
+    string type_id = 8;
+    // Unique identifier of vehicle
+    string vehicle_id = 9;
+}
+
+message VehicleType {
+    // array of capacity dimensions
+    repeated int32 capacity = 1;
+    // Profile of vehicle type
+    enum VehicleType_Profile {
+        VEHICLETYPE_PROFILE_CAR = 0;
+        VEHICLETYPE_PROFILE_BIKE = 1;
+        VEHICLETYPE_PROFILE_FOOT = 2;
+        VEHICLETYPE_PROFILE_MTB = 3;
+        VEHICLETYPE_PROFILE_MOTORCYCLE = 4;
+        VEHICLETYPE_PROFILE_RACINGBIKE = 5;
+        VEHICLETYPE_PROFILE_TRUCK = 6;
+        VEHICLETYPE_PROFILE_SMALL_TRUCK = 7;
+        VEHICLETYPE_PROFILE_BUS = 8;
+    }
+    VehicleType_Profile profile = 2;
+    // service time factor of vehicle type
+    double service_time_factor = 3;
+    // speed_factor of vehicle type
+    double speed_factor = 4;
+    // Unique identifier for the vehicle type
+    string type_id = 5;
+}
+
+service RouteOptimizationService {
+    // Solves vehicle routing problems
+    // 
+    // This endpoint for solving vehicle routing problems, i.e. traveling salesman or vehicle routing problems, and returns the solution.
+    rpc PostOptimize(PostOptimizeRequest) returns (JobId) {
+      option (google.api.http) = {
+        post: "/api/1/vrp/optimize"
+        body: "body"
+      };
+    }
+    // Return the solution associated to the jobId
+    // 
+    // This endpoint returns the solution of a large problems. You can fetch it with the job_id, you have been sent.
+    rpc GetSolutionJobId(GetSolutionJobIdRequest) returns (Response) {
+      option (google.api.http) = {
+        get: "/api/1/vrp/solution/{jobId}"
+      };
+    }
+}

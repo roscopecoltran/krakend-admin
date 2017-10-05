@@ -1,0 +1,241 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package azureanalysisservices;
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesServersRequest {
+    string api_version = 1;
+    string subscriptionId = 2;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesSkusRequest {
+    string api_version = 1;
+    string subscriptionId = 2;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be a minimum of 3 characters, and a maximum of 63.
+    string serverName = 3;
+    string subscriptionId = 4;
+}
+
+message PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be a minimum of 3 characters, and a maximum of 63.
+    string serverName = 3;
+    // Contains the information used to provision the Analysis Services server.
+    AnalysisServicesServer serverParameters = 4;
+    string subscriptionId = 5;
+}
+
+message DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be at least 3 characters in length, and no more than 63.
+    string serverName = 3;
+    string subscriptionId = 4;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameResumeRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be at least 3 characters in length, and no more than 63.
+    string serverName = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSkusRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be at least 3 characters in length, and no more than 63.
+    string serverName = 3;
+    string subscriptionId = 4;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSuspendRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    // The name of the Analysis Services server. It must be at least 3 characters in length, and no more than 63.
+    string serverName = 3;
+    string subscriptionId = 4;
+}
+
+message AnalysisServicesServer {
+    // Properties of the provision operation request.
+    AnalysisServicesServerProperties properties = 1;
+}
+
+message AnalysisServicesServerMutableProperties {
+    // A collection of AS server administrators
+    ServerAdministrators asAdministrators = 1;
+    // The container URI of backup blob.
+    string backupBlobContainerUri = 2;
+}
+
+message AnalysisServicesServerProperties {
+    // The current deployment state of Analysis Services resource. The provisioningState is to indicate states for resource provisioning.
+    enum AnalysisServicesServerProperties_ProvisioningState {
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_DELETING = 0;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_SUCCEEDED = 1;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_FAILED = 2;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_PAUSED = 3;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_SUSPENDED = 4;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_PROVISIONING = 5;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_UPDATING = 6;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_SUSPENDING = 7;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_PAUSING = 8;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_RESUMING = 9;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_PREPARING = 10;
+        ANALYSISSERVICESSERVERPROPERTIES_PROVISIONINGSTATE_SCALING = 11;
+    }
+    AnalysisServicesServerProperties_ProvisioningState provisioningState = 1;
+    // The full name of the Analysis Services resource.
+    string serverFullName = 2;
+    // The current state of Analysis Services resource. The state is to indicate more states outside of resource provisioning.
+    enum AnalysisServicesServerProperties_State {
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_DELETING = 0;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_SUCCEEDED = 1;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_FAILED = 2;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_PAUSED = 3;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_SUSPENDED = 4;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_PROVISIONING = 5;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_UPDATING = 6;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_SUSPENDING = 7;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_PAUSING = 8;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_RESUMING = 9;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_PREPARING = 10;
+        ANALYSISSERVICESSERVERPROPERTIES_STATE_SCALING = 11;
+    }
+    AnalysisServicesServerProperties_State state = 3;
+}
+
+message AnalysisServicesServerUpdateParameters {
+    // Properties of the provision operation request.
+    AnalysisServicesServerMutableProperties properties = 1;
+    // The SKU of the Analysis Services resource.
+    ResourceSku sku = 2;
+    // Key-value pairs of additional provisioning properties.
+    map<string, string> tags = 3;
+}
+
+message AnalysisServicesServers {
+    // An array of Analysis Services resources.
+    repeated AnalysisServicesServer value = 1;
+}
+
+message Resource {
+    // An identifier that represents the Analysis Services resource.
+    string id = 1;
+    // Location of the Analysis Services resource.
+    string location = 2;
+    // The name of the Analysis Services resource.
+    string name = 3;
+    // The SKU of the Analysis Services resource.
+    ResourceSku sku = 4;
+    // Key-value pairs of additional resource provisioning properties.
+    map<string, string> tags = 5;
+    // The type of the Analysis Services resource.
+    string type = 6;
+}
+
+message ResourceSku {
+    // Name of the SKU level.
+    string name = 1;
+    // The name of the Azure pricing tier to which the SKU applies.
+    enum ResourceSku_Tier {
+        RESOURCESKU_TIER_DEVELOPMENT = 0;
+        RESOURCESKU_TIER_BASIC = 1;
+        RESOURCESKU_TIER_STANDARD = 2;
+    }
+    ResourceSku_Tier tier = 2;
+}
+
+message ServerAdministrators {
+    // An array of administrator user identities.
+    repeated string members = 1;
+}
+
+message SkuDetailsForExistingResource {
+    // The SKU in SKU details for existing resources.
+    ResourceSku sku = 1;
+}
+
+message SkuEnumerationForExistingResourceResult {
+    // The collection of available SKUs for existing resources
+    repeated SkuDetailsForExistingResource value = 1;
+}
+
+message SkuEnumerationForNewResourceResult {
+    // The collection of available SKUs for new resources
+    repeated ResourceSku value = 1;
+}
+
+service AzureAnalysisServicesService {
+    // Lists all the Analysis Services servers for the given subscription.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesServers(GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesServersRequest) returns (AnalysisServicesServers) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.AnalysisServices/servers"
+      };
+    }
+    // Lists eligible SKUs for Analysis Services resource provider.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesSkus(GetSubscriptionsSubscriptionIdProvidersMicrosoftAnalysisServicesSkusRequest) returns (SkuEnumerationForNewResourceResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.AnalysisServices/skus"
+      };
+    }
+    // Gets all the Analysis Services servers for the given resource group.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServers(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersRequest) returns (AnalysisServicesServers) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers"
+      };
+    }
+    // Gets details about the specified Analysis Services server.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerName(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest) returns (AnalysisServicesServer) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}"
+      };
+    }
+    // Provisions the specified Analysis Services server based on the configuration specified in the request.
+    rpc PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerName(PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest) returns (AnalysisServicesServer) {
+      option (google.api.http) = {
+        put: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}"
+        body: "serverParameters"
+      };
+    }
+    // Deletes the specified Analysis Services server.
+    rpc DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerName(DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}"
+      };
+    }
+    // Resumes operation of the specified Analysis Services server instance.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameResume(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameResumeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}/resume"
+      };
+    }
+    // Lists eligible SKUs for an Analysis Services resource.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSkus(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSkusRequest) returns (SkuEnumerationForExistingResourceResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}/skus"
+      };
+    }
+    // Supends operation of the specified Analysis Services server instance.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSuspend(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftAnalysisServicesServersServerNameSuspendRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}/suspend"
+      };
+    }
+}

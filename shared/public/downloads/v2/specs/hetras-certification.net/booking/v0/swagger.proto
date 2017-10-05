@@ -1,0 +1,2165 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package hetrasbookingapiversion0;
+
+message GetApiBookingV0AddonsRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Number of adults per room.
+    string adults = 3;
+    // Date from when the addon service will be booked to the reservation in the ISO-8601 format "YYYY-MM-DD".
+    string arrivalDate = 4;
+    // Channel Code the rate plan needs to be configured for.
+    string channelCode = 5;
+    // Date until when the addon service will be booked to the reservation in the ISO-8601 format "YYYY-MM-DD".
+    //             This is usually the departure date of the reservation.
+    string departureDate = 6;
+    // Expand the rates breakdown if required.
+    enum GetApiBookingV0AddonsRequest_Expand {
+        GETAPIBOOKINGV0ADDONSREQUEST_EXPAND_NONE = 0;
+        GETAPIBOOKINGV0ADDONSREQUEST_EXPAND_BREAKDOWN = 1;
+    }
+    GetApiBookingV0AddonsRequest_Expand expand = 7;
+    // Specifies the hotel id to request offers for.
+    int32 hotelId = 8;
+    // Only return offers for the specified rate plan code.
+    string ratePlanCode = 9;
+    // Only return offers for the specified room type code.
+    string roomType = 10;
+    // Number of rooms.
+    string rooms = 11;
+}
+
+message GetApiBookingV0AvailabilityRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // You can expand the room types breakdown per business day for the availibility numbers if need be.
+    enum GetApiBookingV0AvailabilityRequest_Expand {
+        GETAPIBOOKINGV0AVAILABILITYREQUEST_EXPAND_ROOMTYPES = 0;
+    }
+    GetApiBookingV0AvailabilityRequest_Expand expand = 3;
+    // Defines the first business day you would like to get availability numbers for.
+    string from = 4;
+    // Specifies the hotel id to request the availability for.
+    int32 hotelId = 5;
+    // Return total number of items for a given filter criteria.
+    enum GetApiBookingV0AvailabilityRequest_Inlinecount {
+        GETAPIBOOKINGV0AVAILABILITYREQUEST_INLINECOUNT_NONE = 0;
+        GETAPIBOOKINGV0AVAILABILITYREQUEST_INLINECOUNT_ALLPAGES = 1;
+    }
+    GetApiBookingV0AvailabilityRequest_Inlinecount inlinecount = 6;
+    // Amount of items to skip.
+    int32 skip = 7;
+    // Defines the last business day you would like to get availability numbers for. The maximum time span between <i>from</i>´and <i>to</i>
+    //             is limited to 365 days.
+    string to = 8;
+    // Amount of items to select.
+    int32 top = 9;
+}
+
+message GetApiBookingV0BlocksRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Return all blocks where the block's last_departure is greater than specified date.
+    string from = 3;
+    // Filter the blocks by the specified group code
+    string groupCode = 4;
+    // Only return blocks for this specific hotel.
+    int32 hotelId = 5;
+    // Return total number of items for a given filter criteria.
+    enum GetApiBookingV0BlocksRequest_Inlinecount {
+        GETAPIBOOKINGV0BLOCKSREQUEST_INLINECOUNT_NONE = 0;
+        GETAPIBOOKINGV0BLOCKSREQUEST_INLINECOUNT_ALLPAGES = 1;
+    }
+    GetApiBookingV0BlocksRequest_Inlinecount inlinecount = 6;
+    // Return all blocks that have related the specified comma-separated rate plans.
+    repeated string ratePlanCodes = 7;
+    // Amount of items to skip.
+    int32 skip = 8;
+    // Return all blocks where the block status is one of the specified values.
+    enum GetApiBookingV0BlocksRequest_Statu {
+        GETAPIBOOKINGV0BLOCKSREQUEST_STATU_CANCELLED = 0;
+        GETAPIBOOKINGV0BLOCKSREQUEST_STATU_TENTATIVE = 1;
+        GETAPIBOOKINGV0BLOCKSREQUEST_STATU_DEFINITE = 2;
+    }
+    GetApiBookingV0BlocksRequest_Statu status = 9;
+    // Return all blocks where the block's last_departure is less than specified date.
+    string to = 10;
+    // Amount of items to select.
+    int32 top = 11;
+}
+
+message GetApiBookingV0Blocks$CountRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Return all blocks where the block's last_departure is greater than specified date.
+    string from = 3;
+    // Filter the blocks by the specified group code
+    string groupCode = 4;
+    // Only return blocks for this specific hotel.
+    int32 hotelId = 5;
+    // Return all blocks that have related the specified comma-separated rate plans.
+    repeated string ratePlanCodes = 6;
+    // Return all blocks where the block status is one of the specified values.
+    enum GetApiBookingV0Blocks$CountRequest_Statu {
+        GETAPIBOOKINGV0BLOCKS$COUNTREQUEST_STATU_CANCELLED = 0;
+        GETAPIBOOKINGV0BLOCKS$COUNTREQUEST_STATU_TENTATIVE = 1;
+        GETAPIBOOKINGV0BLOCKS$COUNTREQUEST_STATU_DEFINITE = 2;
+    }
+    GetApiBookingV0Blocks$CountRequest_Statu status = 7;
+    // Return all blocks where the block's last_departure is less than specified date.
+    string to = 8;
+}
+
+message GetApiBookingV0BlocksBlockCodeRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Specifies the block code. The block code is composed of the hotel code, a dash and the block code 
+    //             as shown in the hetras UI.
+    string blockCode = 3;
+}
+
+message GetApiBookingV0BookingsRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Return all bookings where the block code matches the specified value.
+    string blockCode = 3;
+    // Return bookings for this cancellation id.
+    string cancellationId = 4;
+    // Return all bookings where the channel code is one of the specified values.
+    repeated string channelCodes = 5;
+    // Return all bookings where the primary email address of the company or the travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyEmail = 6;
+    // Return all bookings the id of the company or travel agent profile matches the specified value.
+    string companyId = 7;
+    // Return all bookings where the name of the linked company or travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyName = 8;
+    // Return all bookings where the primary email address of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerEmail = 9;
+    // Return all bookings the id of one of the guests or the contact matches the specified value.
+    string customerId = 10;
+    // Return all bookings where the first or lastname of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerName = 11;
+    // Select a date field you want to filter bookings by. Only one filter at a time can be applied. The to and from dates
+    //             will then define the time range.
+    enum GetApiBookingV0BookingsRequest_DateFilter {
+        GETAPIBOOKINGV0BOOKINGSREQUEST_DATEFILTER_ARRIVALDATE = 0;
+        GETAPIBOOKINGV0BOOKINGSREQUEST_DATEFILTER_DEPARTUREDATE = 1;
+        GETAPIBOOKINGV0BOOKINGSREQUEST_DATEFILTER_STAYDATE = 2;
+        GETAPIBOOKINGV0BOOKINGSREQUEST_DATEFILTER_CREATIONDATE = 3;
+        GETAPIBOOKINGV0BOOKINGSREQUEST_DATEFILTER_MODIFICATIONDATE = 4;
+    }
+    GetApiBookingV0BookingsRequest_DateFilter dateFilter = 12;
+    // Return all bookings exactly matching the specified external id. This filter is case sensitive.
+    string externalId = 13;
+    // Start date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or later.
+    string from = 14;
+    // Only return bookings for this specific hotel.
+    int32 hotelId = 15;
+    // Return total number of items for a given filter criteria.
+    enum GetApiBookingV0BookingsRequest_Inlinecount {
+        GETAPIBOOKINGV0BOOKINGSREQUEST_INLINECOUNT_NONE = 0;
+        GETAPIBOOKINGV0BOOKINGSREQUEST_INLINECOUNT_ALLPAGES = 1;
+    }
+    GetApiBookingV0BookingsRequest_Inlinecount inlinecount = 16;
+    // Return all reservations with at least one of the specified labels.
+    repeated string labels = 17;
+    // Return all bookings where the market code is one of the specified values.
+    repeated string marketCodes = 18;
+    // Return all bookings where the rate plan code is one of the specified values.
+    repeated string ratePlanCodes = 19;
+    // Return bookings matching this reservation number. Please note that reservation numbers are only unique within a hotel. If you
+    //             don´t specify a hotel filter at the same time you could get back multiple bookings from different hotels.
+    int32 reservationNumber = 20;
+    // Return all bookings where the reservation status is one of the specified values.
+    repeated string reservationStatuses = 21;
+    // Return all bookings having the specified room number assigned.
+    string roomNumber = 22;
+    // Return all bookings where the room type is one of the specified values.
+    repeated string roomTypes = 23;
+    // Amount of items to skip.
+    int32 skip = 24;
+    // Return all bookings where the subchannel code is one of the specified values.
+    repeated string subChannelCodes = 25;
+    // End date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or earlier.
+    string to = 26;
+    // Amount of items to select.
+    int32 top = 27;
+}
+
+message PostApiBookingV0BookingsRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Specifies the details of the booking to be created.
+    Reservation reservation = 3;
+    // Whether to send a confirmation email to the primary guest
+    bool sendConfirmation = 4;
+}
+
+message GetApiBookingV0Bookings$CountRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Return all bookings where the block code matches the specified value.
+    string blockCode = 3;
+    // Return bookings for this cancellation id.
+    string cancellationId = 4;
+    // Return all bookings where the channel code is one of the specified values.
+    repeated string channelCodes = 5;
+    // Return all bookings where the primary email address of the company or the travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyEmail = 6;
+    // Return all bookings the id of the company or travel agent profile matches the specified value.
+    string companyId = 7;
+    // Return all bookings where the name of the linked company or travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyName = 8;
+    // Return all bookings where the primary email address of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerEmail = 9;
+    // Return all bookings the id of one of the guests or the contact matches the specified value.
+    string customerId = 10;
+    // Return all bookings where the first or lastname of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerName = 11;
+    // Select a date field you want to filter bookings by. Only one filter at a time can be applied. The to and from dates
+    //             will then define the time range.
+    enum GetApiBookingV0Bookings$CountRequest_DateFilter {
+        GETAPIBOOKINGV0BOOKINGS$COUNTREQUEST_DATEFILTER_ARRIVALDATE = 0;
+        GETAPIBOOKINGV0BOOKINGS$COUNTREQUEST_DATEFILTER_DEPARTUREDATE = 1;
+        GETAPIBOOKINGV0BOOKINGS$COUNTREQUEST_DATEFILTER_STAYDATE = 2;
+        GETAPIBOOKINGV0BOOKINGS$COUNTREQUEST_DATEFILTER_CREATIONDATE = 3;
+        GETAPIBOOKINGV0BOOKINGS$COUNTREQUEST_DATEFILTER_MODIFICATIONDATE = 4;
+    }
+    GetApiBookingV0Bookings$CountRequest_DateFilter dateFilter = 12;
+    // Return all bookings exactly matching the specified external id. This filter is case sensitive.
+    string externalId = 13;
+    // Start date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or later.
+    string from = 14;
+    // Only return bookings for this specific hotel.
+    int32 hotelId = 15;
+    // Return all reservations with at least one of the specified labels.
+    repeated string labels = 16;
+    // Return all bookings where the market code is one of the specified values.
+    repeated string marketCodes = 17;
+    // Return all bookings where the rate plan code is one of the specified values.
+    repeated string ratePlanCodes = 18;
+    // Return bookings matching this reservation number. Please note that reservation numbers are only unique within a hotel. If you
+    //             don´t specify a hotel filter at the same time you could get back multiple bookings from different hotels.
+    int32 reservationNumber = 19;
+    // Return all bookings where the reservation status is one of the specified values.
+    repeated string reservationStatuses = 20;
+    // Return all bookings having the specified room number assigned.
+    string roomNumber = 21;
+    // Return all bookings where the room type is one of the specified values.
+    repeated string roomTypes = 22;
+    // Return all bookings where the subchannel code is one of the specified values.
+    repeated string subChannelCodes = 23;
+    // End date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or earlier.
+    string to = 24;
+}
+
+message GetApiBookingV0BookingsConfirmationIdRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // The confirmation id for the booking to load.
+    string confirmationId = 3;
+    // Specifies the expand type.
+    enum GetApiBookingV0BookingsConfirmationIdRequest_Expand {
+        GETAPIBOOKINGV0BOOKINGSCONFIRMATIONIDREQUEST_EXPAND_NONE = 0;
+        GETAPIBOOKINGV0BOOKINGSCONFIRMATIONIDREQUEST_EXPAND_ROOMRATES = 1;
+    }
+    GetApiBookingV0BookingsConfirmationIdRequest_Expand expand = 4;
+}
+
+message GetApiBookingV0BookingsConfirmationIdReservationsReservationNumberRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // The confirmation id for the booking the reservation was made.
+    string confirmationId = 3;
+    // Specifies the expand type.
+    enum GetApiBookingV0BookingsConfirmationIdReservationsReservationNumberRequest_Expand {
+        GETAPIBOOKINGV0BOOKINGSCONFIRMATIONIDRESERVATIONSRESERVATIONNUMBERREQUEST_EXPAND_NONE = 0;
+        GETAPIBOOKINGV0BOOKINGSCONFIRMATIONIDRESERVATIONSRESERVATIONNUMBERREQUEST_EXPAND_ROOMRATES = 1;
+    }
+    GetApiBookingV0BookingsConfirmationIdReservationsReservationNumberRequest_Expand expand = 4;
+    // Specifies the reservation number for the reservation to load.
+    int32 reservationNumber = 5;
+}
+
+message PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberAssign_roomRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Specifies the criteria for the room selection.
+    AssignRoomCriteria assigningCriteria = 3;
+    // The confirmation id for the booking the reservation was made.
+    string confirmationId = 4;
+    // Specifies the reservation number for the reservation the room should be assigned to.
+    int32 reservationNumber = 5;
+}
+
+message PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCancelRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // The confirmation id for the booking the reservation was made.
+    string confirmationId = 3;
+    // Specifies the reservation number for the reservation to cancel.
+    int32 reservationNumber = 4;
+}
+
+message PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCheck_inRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // The confirmation id for the booking the reservation was made.
+    string confirmationId = 3;
+    // Specifies the reservation number for the reservation to be checked in.
+    int32 reservationNumber = 4;
+}
+
+message GetApiBookingV0Daily_ratesRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Define the channel code in order to look up the rates for.
+    string channelCode = 3;
+    // Define the sections you want to expand and get informed about rates for.
+    repeated string expand = 4;
+    // Define the first business day you would like to get availability numbers for. The day should not be in the past.
+    string from = 5;
+    // Define the hotel id to request the availability for.
+    int32 hotelId = 6;
+    // Return total number of items for a given filter criteria.
+    enum GetApiBookingV0Daily_ratesRequest_Inlinecount {
+        GETAPIBOOKINGV0DAILY_RATESREQUEST_INLINECOUNT_NONE = 0;
+        GETAPIBOOKINGV0DAILY_RATESREQUEST_INLINECOUNT_ALLPAGES = 1;
+    }
+    GetApiBookingV0Daily_ratesRequest_Inlinecount inlinecount = 7;
+    // Define the codes of rate plans to show in the response. A list of comma ',' separated rate plan codes.
+    repeated string ratePlanCodes = 8;
+    // Amount of items to skip.
+    int32 skip = 9;
+    // Define the last business day you would like to get rates for (inclusive). The maximum time span between <i>'From'</i> and <i>'To'</i>
+    //             is limited to 365 days. This can't be less than the 'From' date.
+    string to = 10;
+    // Amount of items to select.
+    int32 top = 11;
+}
+
+message GetApiBookingV0RatesRequest {
+    // Application identifier
+    string App_Id = 1;
+    // Application key.
+    string App_Key = 2;
+    // Number of adults per room.
+    string adults = 3;
+    // Date of arrival for the guest in the ISO-8601 format "YYYY-MM-DD".
+    string arrivalDate = 4;
+    // Channel Code the rate plan needs to be configured for.
+    string channelCode = 5;
+    // Date of departure for the guest in the ISO-8601 format "YYYY-MM-DD".
+    string departureDate = 6;
+    // Expand the rates breakdown if required.
+    enum GetApiBookingV0RatesRequest_Expand {
+        GETAPIBOOKINGV0RATESREQUEST_EXPAND_NONE = 0;
+        GETAPIBOOKINGV0RATESREQUEST_EXPAND_BREAKDOWN = 1;
+    }
+    GetApiBookingV0RatesRequest_Expand expand = 7;
+    // Only return offers for the specified group code.
+    string groupCode = 8;
+    // Specifies the hotel id to request offers for.
+    int32 hotelId = 9;
+    // Only return offers for the specified room type code.
+    string ratePlanCode = 10;
+    // Only return offers with rates for the specified room type code.
+    string roomType = 11;
+    // Number of rooms (default is 1).
+    string rooms = 12;
+}
+
+message AcceptedGuaranteeTypes {
+    // In this list you find all the accepted guarantee types for this offer. They are sorted in ascending
+    //             order.
+    repeated string accepted = 1;
+    // Based on the rateplan a reservation does need to have a minimum guarantee. When you create a new booking you
+    //             can always use a higher guarantee type starting from the minimum. If you do not specify a guarantee when creating
+    //             a new booking using this offer this guarantee type will be used by default. See 
+    //             https://developer.hetras.com/docs/tutorials#payment for information about guarantee types and payment details
+    enum AcceptedGuaranteeTypes_Minimum {
+        ACCEPTEDGUARANTEETYPES_MINIMUM_PM4HOLD = 0;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_PM6HOLD = 1;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_GUARANTEETOCREDITCARD = 2;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_GUARANTEETOGUESTACCOUNT = 3;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_GUARANTEEBYTRAVELAGENT = 4;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_GUARANTEEBYCOMPANY = 5;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_DEPOSIT = 6;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_VOUCHER = 7;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_PREPAYMENT = 8;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_NONGUARANTEED = 9;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_TENTATIVE = 10;
+        ACCEPTEDGUARANTEETYPES_MINIMUM_WAITLIST = 11;
+    }
+    AcceptedGuaranteeTypes_Minimum minimum = 2;
+}
+
+message AddonOffer {
+    // In this collection you will get an entry with price information for every day the addon service will be charged
+    //             to the folio of the reservation if the addon service is booked.
+    repeated AddonOfferBreakdown breakdown = 1;
+    // The code of the addon service
+    string code = 2;
+    // The description of the addon service
+    string description = 3;
+    // The frequency this addon service will be charged to the reservation. This field is a string that can be displayed,
+    //             but is not supposed to be used for computation
+    string frequency = 4;
+    // The name of the addon service
+    string name = 5;
+    // The price for an addon service can be per person or per room. All the prices in an offer are already calculated
+    //             for all rooms and number of persons per room. Based on this attribute you will be able to know how to calculate
+    //             the price per person and room, per room or per person depending on your needs.
+    enum AddonOffer_Rate_mode {
+        ADDONOFFER_RATE_MODE_PERROOM = 0;
+        ADDONOFFER_RATE_MODE_PERPERSON = 1;
+    }
+    AddonOffer_Rate_mode rate_mode = 6;
+    // This object gives you the price information if this addon service is booked for the total stay defined in your
+    //             request by arrivalDate and departureDate
+    AddonOfferRate total_stay = 7;
+}
+
+message AddonOfferBreakdown {
+    // The business day the price for the addon service will be posted to the folio of the reservation
+    string business_day = 1;
+    // The currency the addon service will be charged in.
+    string currency = 2;
+    // The amount of taxes already included in the gross rate of the addon service also calculated for all rooms and
+    //             all persons.
+    double included_tax = 3;
+    // The gross rate of the addon service. It is the price calculated for all rooms and all persons.
+    double rate = 4;
+}
+
+message AddonOfferRate {
+    // The currency the addon service will be charged in.
+    string currency = 1;
+    // The amount of taxes already included in the gross rate of the addon service also calculated for all rooms and
+    //             all persons.
+    double included_tax = 2;
+    // The gross rate of the addon service. It is the price calculated for all rooms and all persons.
+    double rate = 3;
+}
+
+message AddonRate {
+    // The business day the addon service should be charged
+    string business_day = 1;
+    // The code of the addon service to be booked
+    string code = 2;
+    // Total gross amount for the service
+    double rate = 3;
+}
+
+message Addons {
+    // A collection of offers for addon services.
+    repeated AddonOffer addon_services = 1;
+    // The number of adults per room the addon offers are requested for. The rates will then already reflects this.
+    int32 adults = 2;
+    // The arrival date of the reservation the addon offers are supposed to be booked on.
+    string arrival_date = 3;
+    // The departure date of the reservation the addon offers are supposed to be booked on.
+    string departure_date = 4;
+    // The id of the hotel the addon offers will be valid for
+    int32 hotel_id = 5;
+    // The name of the hotel the addon offers will be valid for
+    string hotel_name = 6;
+    // The rate plan all the addon offers are valid for. The reservation you want to book this addons for needs
+    //             to have the same rate plan otherwise you might see different prices on the target reservation.
+    RatePlan rate_plan = 7;
+    // The room type all the addon offers are valid for. The reservation you want to book this addons for needs
+    //             to have the same room type otherwise you might see different prices on the target reservation.
+    ReservationRoom room = 8;
+    // The number of rooms the addon offers are requested for. The rates will then already reflects this.
+    int32 rooms = 9;
+}
+
+message AssignRoomCriteria {
+    // Ensure the assigned room will have all the amenities specified. You can provide a comma seperated list of amenity codes.
+    repeated string amenities = 1;
+    // Here you can define to limit the list of assignable rooms based on their current condition. This is only applicable if the underlying reservation
+    //             is due to arrive on the current business day. If not set by default only clean rooms will be assigned.
+    enum AssignRoomCriteria_Condition {
+        ASSIGNROOMCRITERIA_CONDITION_CLEANNOTINSPECTED = 0;
+        ASSIGNROOMCRITERIA_CONDITION_CLEAN = 1;
+        ASSIGNROOMCRITERIA_CONDITION_DIRTY = 2;
+        ASSIGNROOMCRITERIA_CONDITION_ANY = 3;
+    }
+    AssignRoomCriteria_Condition condition = 2;
+    // Sometimes you might want to assign rooms which are out of service (small repair needed) if no other rooms are available anymore. If you set
+    //             include_out_of_service to true even those rooms will be considered. The default is false.
+    bool include_out_of_service = 3;
+    // Ensure the assigned room will have at least one of the specified locations. You can provide a comma seperated list of location codes.
+    repeated string locations = 4;
+    // Defines if the preferences for locations, amenities and views of the primary guest should be taken into account. All defined preferences in the guest
+    //             profile override any of the criteria defined in the request body. The default is false.
+    bool respect_guest_preferences = 5;
+    // If you define a specific room number this room will be assigned if not assigned to another reservation, has proper room type and is not OutOfOrder 
+    //             or OutOfInventory for the stay duration of the underlying reservaton. If set all other filter criteria will be ignored.
+    string room_number = 6;
+    // Ensure the assigned room will have at least one of the specified views. You can provide a comma seperated list of view codes.
+    repeated string views = 7;
+}
+
+message AssignRoomResponse {
+    // Warnings that came up when your request was processed. Your request will still be processed successfull when
+    //             you see such warnings in your response
+    repeated string _warnings = 1;
+    // The room number assigned
+    string room_number = 2;
+}
+
+message AvailabilityDetail {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The number of rooms that were originally available to sell. This is the the house count reduced by rooms set
+    //             to OutOfOrder but increased by the set overbooking
+    int32 available = 2;
+    // The breakdown for rooms blocked
+    Blocked blocked = 3;
+    // The number of day use reservations
+    int32 day_use = 4;
+    // The total count of physical rooms reduced by the number of rooms set to OutOfInventory
+    int32 house_count = 5;
+    // The breakdown for rooms under maintenance
+    Maintenance maintenance = 6;
+    // The manually set overbooking
+    int32 overbooking = 7;
+    // The total count of physical rooms
+    int32 room_count = 8;
+    // The count of rooms sold. It sums up the rooms sold through individual reservations plus rooms blocked definitely
+    int32 sold = 9;
+    // The number of rooms still available to sell. It is available reduced by the already sold rooms
+    int32 to_sell = 10;
+}
+
+message AvailabilityResponse {
+    // The number of items matching your request in total for all pages.
+    int32 _count = 1;
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 2;
+    // The list of availability numbers per business day
+    repeated DailyAvailability daily_availabilities = 3;
+    // The hotel info you requsted the availability numbers for
+    EmbeddedHotel hotel = 4;
+}
+
+message BaseResponse {
+    // Warnings that came up when your request was processed. Your request will still be processed successfull when
+    //             you see such warnings in your response
+    repeated string _warnings = 1;
+}
+
+message Block {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Average daily rate for this block. You can multiply by the count of blocked room nights and get a forecast value for this block
+    double average_daily_rate = 2;
+    // The code of a block. The code is composed of the hotel code a dash and the block code shown in the hetras UI. 
+    //             An example block code on the API for a block with code TRAVEL1 defined for the hotel with code ABC 
+    //             would be ABC-TRAVEL1
+    string code = 3;
+    // Total number of room nights blocked across all room types and days
+    int32 count = 4;
+    // Timestamp the block was created
+    string created = 5;
+    // (Earliest) arrival date for reservations split from this block
+    string first_arrival = 6;
+    // Group master template linked to this block
+    GroupMaster group = 7;
+    // Hotel information for the hotel the rooms are blocked for
+    HotelSummary hotel = 8;
+    // (Latest) departure date for reservations split from this block
+    string last_departure = 9;
+    // The name of the block
+    string name = 10;
+    // Total number of room nights picked up accross all room types and days
+    int32 picked = 11;
+    // The rateplans linked to this block
+    repeated BlockRatePlan rate_plans = 12;
+    // The current status of the block
+    enum Block_Statu {
+        BLOCK_STATU_PHYSICAL = 0;
+        BLOCK_STATU_CANCELLED = 1;
+        BLOCK_STATU_TENTATIVE = 2;
+        BLOCK_STATU_DEFINITE = 3;
+    }
+    Block_Statu status = 13;
+    // Timestamp of when the block was changed the last time
+    string updated = 14;
+}
+
+message BlockInfo {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The code is composed of the hotel code a dash and the block code shown in the hetras UI. An 
+    //             example block code on the API for a block with code TRAVEL1 defined for the hotel with code ABC would 
+    //             be ABC-TRAVEL1
+    string code = 2;
+    // The name of the block
+    string name = 3;
+}
+
+message BlockListRequest {
+    // Return all blocks where the block's last_departure is greater than specified date.
+    string from = 1;
+    // Filter the blocks by the specified group code
+    string groupCode = 2;
+    // Only return blocks for this specific hotel.
+    int32 hotelId = 3;
+    // Return all blocks that have related the specified comma-separated rate plans.
+    repeated string ratePlanCodes = 4;
+    // Return all blocks where the block status is one of the specified values.
+    enum BlockListRequest_Statu {
+        BLOCKLISTREQUEST_STATU_CANCELLED = 0;
+        BLOCKLISTREQUEST_STATU_TENTATIVE = 1;
+        BLOCKLISTREQUEST_STATU_DEFINITE = 2;
+    }
+    BlockListRequest_Statu status = 5;
+    // Return all blocks where the block's last_departure is less than specified date.
+    string to = 6;
+}
+
+message BlockRatePlan {
+    // Code of the rate plan
+    string code = 1;
+    // Description of the rate plan suitable for being displayed to customers
+    string description = 2;
+    // Speficies if this is the rateplan that should be used for calculating the forecast
+    bool forecast = 3;
+    // Name of the rate plan
+    string name = 4;
+}
+
+message BlockResponse {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Average daily rate for this block. You can multiply by the count of blocked room nights and get a forecast value for this block
+    double average_daily_rate = 2;
+    // The code of a block. The code is composed of the hotel code a dash and the block code shown in the hetras UI. 
+    //             An example block code on the API for a block with code TRAVEL1 defined for the hotel with code ABC 
+    //             would be ABC-TRAVEL1
+    string code = 3;
+    // Total number of room nights blocked across all room types and days
+    int32 count = 4;
+    // Timestamp the block was created
+    string created = 5;
+    // (Earliest) arrival date for reservations split from this block
+    string first_arrival = 6;
+    // Group master template linked to this block
+    GroupMaster group = 7;
+    // Hotel information for the hotel the rooms are blocked for
+    HotelSummary hotel = 8;
+    // (Latest) departure date for reservations split from this block
+    string last_departure = 9;
+    // The name of the block
+    string name = 10;
+    // Total number of room nights picked up accross all room types and days
+    int32 picked = 11;
+    // The rateplans linked to this block
+    repeated BlockRatePlan rate_plans = 12;
+    // Number of blocked and picked up rooms per room type and day.
+    repeated RoomTypeCount room_type_counts = 13;
+    // The current status of the block
+    enum BlockResponse_Statu {
+        BLOCKRESPONSE_STATU_PHYSICAL = 0;
+        BLOCKRESPONSE_STATU_CANCELLED = 1;
+        BLOCKRESPONSE_STATU_TENTATIVE = 2;
+        BLOCKRESPONSE_STATU_DEFINITE = 3;
+    }
+    BlockResponse_Statu status = 14;
+    // Timestamp of when the block was changed the last time
+    string updated = 15;
+}
+
+message BlockRoomType {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Code of the room type
+    string code = 2;
+    // Name of the room type
+    string name = 3;
+}
+
+message Blocked {
+    // Number of rooms blocked defintely
+    int32 definite = 1;
+    // Number of definitely blocked rooms not picked up
+    int32 remaining = 2;
+    // Number of rooms blocked tentatively
+    int32 tentative = 3;
+}
+
+message BlocksResponse {
+    // The number of items matching your request in total for all pages.
+    int32 _count = 1;
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 2;
+    // List of all blocks matching the given filter criteria.
+    repeated Block blocks = 3;
+}
+
+message BookingListItem {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The confirmation id for the booking which the guest can use to check in on the kiosk, add the
+    //             booking to the mobile app etc. It is used as identifier for all reservations done with the same
+    //             booking request.
+    string confirmation_id = 2;
+    // Timestamp the booking was created
+    string created = 3;
+    // Collection of reservations made with on booking request.
+    repeated BookingListReservationItem reservations = 4;
+    // Timestamp of when the booking was changed the last time
+    string updated = 5;
+}
+
+message BookingListRequest {
+    // Return all bookings where the block code matches the specified value.
+    string blockCode = 1;
+    // Return bookings for this cancellation id.
+    string cancellationId = 2;
+    // Return all bookings where the channel code is one of the specified values.
+    repeated string channelCodes = 3;
+    // Return all bookings where the primary email address of the company or the travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyEmail = 4;
+    // Return all bookings the id of the company or travel agent profile matches the specified value.
+    string companyId = 5;
+    // Return all bookings where the name of the linked company or travel agent profile contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string companyName = 6;
+    // Return all bookings where the primary email address of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerEmail = 7;
+    // Return all bookings the id of one of the guests or the contact matches the specified value.
+    string customerId = 8;
+    // Return all bookings where the first or lastname of one of the guests or the contact contains the specified value. The search is executed case insensitive
+    //             and also stripping of any whitespaces.
+    string customerName = 9;
+    // Select a date field you want to filter bookings by. Only one filter at a time can be applied. The to and from dates
+    //             will then define the time range.
+    enum BookingListRequest_DateFilter {
+        BOOKINGLISTREQUEST_DATEFILTER_ARRIVALDATE = 0;
+        BOOKINGLISTREQUEST_DATEFILTER_DEPARTUREDATE = 1;
+        BOOKINGLISTREQUEST_DATEFILTER_STAYDATE = 2;
+        BOOKINGLISTREQUEST_DATEFILTER_CREATIONDATE = 3;
+        BOOKINGLISTREQUEST_DATEFILTER_MODIFICATIONDATE = 4;
+    }
+    BookingListRequest_DateFilter dateFilter = 10;
+    // Return all bookings exactly matching the specified external id. This filter is case sensitive.
+    string externalId = 11;
+    // Start date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or later.
+    string from = 12;
+    // Only return bookings for this specific hotel.
+    int32 hotelId = 13;
+    // Return all reservations with at least one of the specified labels.
+    repeated string labels = 14;
+    // Return all bookings where the market code is one of the specified values.
+    repeated string marketCodes = 15;
+    // Return all bookings where the rate plan code is one of the specified values.
+    repeated string ratePlanCodes = 16;
+    // Return bookings matching this reservation number. Please note that reservation numbers are only unique within a hotel. If you
+    //             don´t specify a hotel filter at the same time you could get back multiple bookings from different hotels.
+    int32 reservationNumber = 17;
+    // Return all bookings where the reservation status is one of the specified values.
+    repeated string reservationStatuses = 18;
+    // Return all bookings having the specified room number assigned.
+    string roomNumber = 19;
+    // Return all bookings where the room type is one of the specified values.
+    repeated string roomTypes = 20;
+    // Return all bookings where the subchannel code is one of the specified values.
+    repeated string subChannelCodes = 21;
+    // End date for the selected date filter. If you select arrival date as date filter the bookings returned will have at least
+    //             one reservation arriving on the specified date or earlier.
+    string to = 22;
+}
+
+message BookingListReservationItem {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // A list of addon service codes that are currently booked on the reservation. Services which are charged
+    //             once per stay are only visible before and on the day they are booked for
+    repeated string addon_services = 2;
+    // The number of adults per room
+    int32 adults = 3;
+    // The arrival date of the guests
+    string arrival_date = 4;
+    // The balance for all folios of this reservartion. It is calculated by all already charged room and service rates plus manual charges 
+    //             or charges from other systems like POS minus all payments. A negative balance indicates the reservation is overpaid, a positive balance 
+    //             that the guest owes the hotel money
+    double balance = 5;
+    // If this reservation is a pick-up from a block you will see the appropriate block code here
+    string block_code = 6;
+    // The cancellation id if the reservation has been cancelled
+    string cancellation_id = 7;
+    // The code of the channel that was used when the booking has been created. It is also known as source. 
+    //             Possible values can be OTA, GDS or DIRECT, but it is configurable per hotel
+    string channel_code = 8;
+    // Information about related companies
+    CompaniesInfo companies = 9;
+    // Timestamp the reservation was created
+    string created = 10;
+    // Information about customers
+    CustomersInfo customers = 11;
+    // The departure date of the guests
+    string departure_date = 12;
+    // The external id for this reservation is the unique identifier from the system that created the booking in hetras. It could be the id of an
+    //             OTA like Expedia or booking.com or one of the GDS systems like Amadeus or Galileo
+    string external_id = 13;
+    // Information about the hotel the reservation belongs to
+    HotelInfo hotel = 14;
+    // The labels attached to this reservation.
+    repeated string labels = 15;
+    // The code of the market segment the rate plan for this reservation is linked to
+    string market_code = 16;
+    // The rate plan details this reservation is related to
+    RatePlan rate_plan = 17;
+    // The reservation number of the reservation
+    int32 reservation_number = 18;
+    // The current status of this reservation
+    enum BookingListReservationItem_Reservation_statu {
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_TENTATIVE = 0;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_WAITLISTED = 1;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_ONREQUEST = 2;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_NONGUARANTEED = 3;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_GUARANTEED = 4;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_INHOUSE = 5;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_CHECKEDOUT = 6;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_NOSHOW = 7;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_DENIED = 8;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_CANCELLED = 9;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_RELEASED = 10;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_WALKED = 11;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_EXPIRED = 12;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_WALKIN = 13;
+        BOOKINGLISTRESERVATIONITEM_RESERVATION_STATU_REGISTERED = 14;
+    }
+    BookingListReservationItem_Reservation_statu reservation_status = 19;
+    // The room type this reservation is related to and if applicable the already assigned specific room for 
+    //             this reservation
+    RoomInfo room = 20;
+    // The number of rooms this reservation is valid for. After a multi-room booking is done there will be 
+    //             one reservation in hetras for this booking for all rooms. The hotel staff then will split this reservation into
+    //             one reservation per room to be able to check in the guests
+    int32 rooms = 21;
+    // A list of details for all services included and addon service booked on this reservation
+    repeated Service services = 22;
+    // The code of the subchannel that was used when the booking has been created. Possible values can be 
+    //             BOOKING, EXPEDIA or WALKIN, but it is configurable per hotel
+    string subchannel_code = 23;
+    // Timestamp of when the reservation was changed the last time
+    string updated = 24;
+}
+
+message BookingListResponse {
+    // The number of items matching your request in total for all pages.
+    int32 _count = 1;
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 2;
+    // Collection of bookings that match the defined filter criteria.
+    repeated BookingListItem bookings = 3;
+}
+
+message CancellationPolicy {
+    // Description of the cancellation policy suitable for displaying to customers
+    string description = 1;
+    // The fee a guest has to pay when cancelling the reservation
+    double fee = 2;
+    // The date and time in UTC from when the fee has to be paid in case of cancellation
+    string fee_date = 3;
+}
+
+message CancellationResponse {
+    // Warnings that came up when your request was processed. Your request will still be processed successfull when
+    //             you see such warnings in your response
+    repeated string _warnings = 1;
+    // The current balance on the reservations folio without the cancellation fee
+    double balance = 2;
+    // The fee that might be charged to the folio of the reservation. The cancelled reservation will
+    //             show up in the cancellation and no show processing screen and the hotel staff will either charge
+    //             the fee or waive it.
+    double cancellation_fee = 3;
+    // The id of the successful cancellation. With this id the hotel staff will be able to find the reservation
+    string cancellation_id = 4;
+}
+
+message Card {
+    string id = 1;
+}
+
+message CompaniesInfo {
+    // The company linked to this reservation
+    Company company = 1;
+    // The travel agent linked to this reservation
+    Company travel_agent = 2;
+}
+
+message Company {
+    // The id of a company profile. The id is build out of the Supplier Code a dash and the profile id
+    //             shown in the hetras UI. An example id on the API for a profile with id 12345 on the level of supplier ABC 
+    //             would be ABC-12345
+    string company_id = 1;
+}
+
+message Contact {
+    // The id of a customer profile. The id is build out of the Supplier Code a dash and the profile id
+    //             shown in the hetras UI. An example id on the API for a profile with id 12345 on the level of supplier ABC 
+    //             would be ABC-12345
+    string customer_id = 1;
+}
+
+message ContactResponse {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The id of a customer profile. The id is build out of the Supplier Code a dash and the profile id
+    //             shown in the hetras UI. An example id on the API for a profile with id 12345 on the level of supplier ABC 
+    //             would be ABC-12345
+    string customer_id = 2;
+}
+
+message CreateReservationRequest {
+    // Whether to send a confirmation email to the primary guest
+    bool sendConfirmation = 1;
+}
+
+message CreditCard {
+    // name of the card holder
+    string card_holder_name = 1;
+    // Credit card number
+    string card_number = 2;
+    // One of the allowed values for a credit card type. If omitted it will be set to Others
+    string card_type = 3;
+    // credit card verification value
+    string cvv_code = 4;
+    // month of expiration
+    int32 expiration_month = 5;
+    // year of expiration
+    int32 expiration_year = 6;
+}
+
+message CreditCardGuarantee {
+    // The credit card to be used for capturing the reservations amount or to guarantee for the reservation
+    CreditCard credit_card = 1;
+    // One of the accepted guarantee types from the offer you selected out of the rates response
+    enum CreditCardGuarantee_Guarantee_type {
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_PM4HOLD = 0;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_PM6HOLD = 1;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_GUARANTEETOCREDITCARD = 2;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_GUARANTEETOGUESTACCOUNT = 3;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_GUARANTEEBYTRAVELAGENT = 4;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_GUARANTEEBYCOMPANY = 5;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_DEPOSIT = 6;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_VOUCHER = 7;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_PREPAYMENT = 8;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_NONGUARANTEED = 9;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_TENTATIVE = 10;
+        CREDITCARDGUARANTEE_GUARANTEE_TYPE_WAITLIST = 11;
+    }
+    CreditCardGuarantee_Guarantee_type guarantee_type = 2;
+    // The token to be used for capturing the reservations amount or to guarantee for the reservation
+    Token token = 3;
+}
+
+message Customer {
+    // The id of a customer profile. The id is build out of the Supplier Code a dash and the profile id
+    //             shown in the hetras UI. An example id on the API for a profile with id 12345 on the level of supplier ABC 
+    //             would be ABC-12345
+    string customer_id = 1;
+    // The primary email address of the guest
+    string email = 2;
+    // First name of the guest
+    string first_name = 3;
+    // Gender
+    enum Customer_Gender {
+        CUSTOMER_GENDER_UNSPECIFIED = 0;
+        CUSTOMER_GENDER_MALE = 1;
+        CUSTOMER_GENDER_FEMALE = 2;
+    }
+    Customer_Gender gender = 4;
+    // Last name of the guest
+    string last_name = 5;
+    // The home mailing address of the guest or if no home mailing address is specified it will
+    //             give you the first address found on the guest profile.
+    MailingAddress mailing_address = 6;
+    // The nationality of the guest in ISO 3166-1 alpha-2 format
+    //             (see: http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm)
+    string nationality = 7;
+    // The primary phone number of the guest
+    string phone = 8;
+    // Defines if the guest is the primary guest of the reservation
+    bool primary = 9;
+    // Title of the guest. Needs to be taken from the available titles defined in the codes
+    string title = 10;
+}
+
+message CustomerResponse {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The id of a customer profile. The id is build out of the Supplier Code a dash and the profile id
+    //             shown in the hetras UI. An example id on the API for a profile with id 12345 on the level of supplier ABC 
+    //             would be ABC-12345
+    string customer_id = 2;
+    // The primary email address of the guest
+    string email = 3;
+    // First name of the guest
+    string first_name = 4;
+    // Gender
+    enum CustomerResponse_Gender {
+        CUSTOMERRESPONSE_GENDER_UNSPECIFIED = 0;
+        CUSTOMERRESPONSE_GENDER_MALE = 1;
+        CUSTOMERRESPONSE_GENDER_FEMALE = 2;
+    }
+    CustomerResponse_Gender gender = 5;
+    // Last name of the guest
+    string last_name = 6;
+    // The home mailing address of the guest or if no home mailing address is specified it will
+    //             give you the first address found on the guest profile.
+    MailingAddress mailing_address = 7;
+    // The nationality of the guest in ISO 3166-1 alpha-2 format
+    //             (see: http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm)
+    string nationality = 8;
+    // The primary phone number of the guest
+    string phone = 9;
+    // Defines if the guest is the primary guest of the reservation
+    bool primary = 10;
+    // Title of the guest. Needs to be taken from the available titles defined in the codes
+    string title = 11;
+}
+
+message CustomersInfo {
+    // The contact linked to this reservation
+    CustomerResponse contact = 1;
+    // A list of guest details for this reservation
+    repeated CustomerResponse guests = 2;
+}
+
+message DailyAvailability {
+    // The business day the following availability numbers are shown for
+    string business_day = 1;
+    // The availability numbers for the house level
+    AvailabilityDetail house_level = 2;
+    // The availability numbers for all room types if the expand parameter is set appropriately
+    repeated RoomAvailabilityDetail room_types = 3;
+}
+
+message DailyCalendarRate {
+    string business_day = 1;
+    repeated DailyRateOffer offers = 2;
+}
+
+message DailyRate {
+    // List of addon services with additional price information.
+    repeated ServiceRate addon_services = 1;
+    // Date the room rate will be charged to the folio
+    string date = 2;
+    // The amount of extra taxes also calculated for all rooms and all persons per room.
+    double excluded_tax = 3;
+    // List of codes for all services already included in the gross rate
+    repeated string included_services = 4;
+    // The amount of taxes already included in the gross rate also calculated for all rooms and
+    //             all persons per room.
+    double included_tax = 5;
+    // The gross rate. It is the price calculated for all rooms and all persons per room.
+    double rate = 6;
+    // Code of the room type which is booked for that day
+    string room_type = 7;
+}
+
+message DailyRateCancellationPolicy {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    string code = 2;
+}
+
+message DailyRateHotel {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    string code = 2;
+    int32 id = 3;
+    string name = 4;
+}
+
+message DailyRateNoShowPolicy {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    string code = 2;
+}
+
+message DailyRateOffer {
+    string cancellation_policy_code = 1;
+    string guarantee_type_code = 2;
+    string noshow_policy_code = 3;
+    string rateplan_code = 4;
+    repeated DailyRateRoomOffer room_type_details = 5;
+}
+
+message DailyRatePlan {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    string code = 2;
+    // Three letter ISO code.
+    string currency = 3;
+    string name = 4;
+}
+
+message DailyRateRoomOffer {
+    int32 available_rooms_count = 1;
+    bool is_available = 2;
+    repeated DailyRoomRate rates = 3;
+    Restrictions restrictions = 4;
+    string room_type_code = 5;
+    // If there is an issue and this room offer is unavailable (IsAvailable=false) this message may be not empty.
+    string unavailable_reason = 6;
+}
+
+message DailyRatesResponse {
+    // The number of items matching your request in total for all pages.
+    int32 _count = 1;
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 2;
+    repeated DailyCalendarRate daily_rates = 3;
+    DailyRateHotel hotel = 4;
+    Policies policies = 5;
+    repeated DailyRatePlan rateplans = 6;
+    repeated RoomType room_types = 7;
+}
+
+message DailyRoomRate {
+    int32 adults = 1;
+    double rate = 2;
+}
+
+message DepositPolicy {
+    // Deposit amount that has to be paid
+    double amount = 1;
+    // Description of the deposit policy suitable for displaying to customers
+    string description = 2;
+    // Date the deposit amount has to be paid latest
+    string due_date = 3;
+}
+
+message EmbeddedHotel {
+    // The code of the hotel
+    string code = 1;
+    // The id of the hotel
+    int32 id = 2;
+    // The name of the hotel
+    string name = 3;
+}
+
+message EmbeddedRoom {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Description of the room
+    string description = 2;
+    // Name of the room
+    string name = 3;
+    // Number of the room
+    string number = 4;
+    // Room type of the room. Contains only the basic properties of the room type
+    EmbeddedRoomType room_type = 5;
+}
+
+message EmbeddedRoomType {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Code of the room type
+    string code = 2;
+    // Description of the room type
+    string description = 3;
+    // Name of the room type
+    string name = 4;
+}
+
+message GeneralPolicy {
+    // Description of the general policy suitable for displaying to customers
+    string description = 1;
+    // Name of the general policy
+    string name = 2;
+}
+
+message GetAddonsRequest {
+    // Number of adults per room.
+    string adults = 1;
+    // Date from when the addon service will be booked to the reservation in the ISO-8601 format "YYYY-MM-DD".
+    string arrivalDate = 2;
+    // Channel Code the rate plan needs to be configured for.
+    string channelCode = 3;
+    // Date until when the addon service will be booked to the reservation in the ISO-8601 format "YYYY-MM-DD".
+    //             This is usually the departure date of the reservation.
+    string departureDate = 4;
+    // Expand the rates breakdown if required.
+    enum GetAddonsRequest_Expand {
+        GETADDONSREQUEST_EXPAND_NONE = 0;
+        GETADDONSREQUEST_EXPAND_BREAKDOWN = 1;
+    }
+    GetAddonsRequest_Expand expand = 5;
+    // Specifies the hotel id to request offers for.
+    int32 hotelId = 6;
+    // Only return offers for the specified rate plan code.
+    string ratePlanCode = 7;
+    // Only return offers for the specified room type code.
+    string roomType = 8;
+    // Number of rooms.
+    string rooms = 9;
+}
+
+message GetAvailabilityRequest {
+    // You can expand the room types breakdown per business day for the availibility numbers if need be.
+    enum GetAvailabilityRequest_Expand {
+        GETAVAILABILITYREQUEST_EXPAND_ROOMTYPES = 0;
+    }
+    GetAvailabilityRequest_Expand expand = 1;
+    // Defines the first business day you would like to get availability numbers for.
+    string from = 2;
+    // Specifies the hotel id to request the availability for.
+    int32 hotelId = 3;
+    // Defines the last business day you would like to get availability numbers for. The maximum time span between <i>from</i>´and <i>to</i>
+    //             is limited to 365 days.
+    string to = 4;
+}
+
+message GetCardsResponse {
+    repeated Card cards = 1;
+}
+
+message GetDailyRatesRequest {
+    // Define the channel code in order to look up the rates for.
+    string channelCode = 1;
+    // Define the sections you want to expand and get informed about rates for.
+    repeated string expand = 2;
+    // Define the first business day you would like to get availability numbers for. The day should not be in the past.
+    string from = 3;
+    // Define the hotel id to request the availability for.
+    int32 hotelId = 4;
+    // Define the codes of rate plans to show in the response. A list of comma ',' separated rate plan codes.
+    repeated string ratePlanCodes = 5;
+    // Define the last business day you would like to get rates for (inclusive). The maximum time span between <i>'From'</i> and <i>'To'</i>
+    //             is limited to 365 days. This can't be less than the 'From' date.
+    string to = 6;
+}
+
+message GroupMaster {
+    // Code of the linked group master template
+    string code = 1;
+    // Name of the linked group master template
+    string name = 2;
+}
+
+message Guarantee {
+    // One of the accepted guarantee types from the offer you selected out of the rates response
+    enum Guarantee_Guarantee_type {
+        GUARANTEE_GUARANTEE_TYPE_PM4HOLD = 0;
+        GUARANTEE_GUARANTEE_TYPE_PM6HOLD = 1;
+        GUARANTEE_GUARANTEE_TYPE_GUARANTEETOCREDITCARD = 2;
+        GUARANTEE_GUARANTEE_TYPE_GUARANTEETOGUESTACCOUNT = 3;
+        GUARANTEE_GUARANTEE_TYPE_GUARANTEEBYTRAVELAGENT = 4;
+        GUARANTEE_GUARANTEE_TYPE_GUARANTEEBYCOMPANY = 5;
+        GUARANTEE_GUARANTEE_TYPE_DEPOSIT = 6;
+        GUARANTEE_GUARANTEE_TYPE_VOUCHER = 7;
+        GUARANTEE_GUARANTEE_TYPE_PREPAYMENT = 8;
+        GUARANTEE_GUARANTEE_TYPE_NONGUARANTEED = 9;
+        GUARANTEE_GUARANTEE_TYPE_TENTATIVE = 10;
+        GUARANTEE_GUARANTEE_TYPE_WAITLIST = 11;
+    }
+    Guarantee_Guarantee_type guarantee_type = 1;
+    // The token to be used for capturing the reservations amount or to guarantee for the reservation
+    Token token = 2;
+}
+
+message GuaranteeResponse {
+    // The guarantee type of the reservation
+    enum GuaranteeResponse_Guarantee_type {
+        GUARANTEERESPONSE_GUARANTEE_TYPE_PM4HOLD = 0;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_PM6HOLD = 1;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_GUARANTEETOCREDITCARD = 2;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_GUARANTEETOGUESTACCOUNT = 3;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_GUARANTEEBYTRAVELAGENT = 4;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_GUARANTEEBYCOMPANY = 5;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_DEPOSIT = 6;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_VOUCHER = 7;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_PREPAYMENT = 8;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_NONGUARANTEED = 9;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_TENTATIVE = 10;
+        GUARANTEERESPONSE_GUARANTEE_TYPE_WAITLIST = 11;
+    }
+    GuaranteeResponse_Guarantee_type guarantee_type = 1;
+    // Tells you if there is a token for a valid creadit card on the reservation that can be used to
+    //             capture the reservations amount or to guarantee for the reservation
+    bool valid_token = 2;
+}
+
+message GuaranteeTypes {
+    repeated string accepted = 1;
+    string code = 2;
+}
+
+message HotelInfo {
+    // Hotel Code which is also called property or component code
+    string code = 1;
+    // Hotel Identifier
+    int32 id = 2;
+}
+
+message HotelSummary {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // Hotel code
+    string code = 2;
+    // Hotel Identity
+    int32 id = 3;
+    // Hotel name
+    string name = 4;
+}
+
+repeated Operation[ReservationPatchableModel] JsonPatchDocument[ReservationPatchableModel] = 1
+
+message LinkObject {
+    // <para>The "deprecation" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its presence indicates that the link is to be deprecated (i.e.
+    //             removed) at a future date.  Its value is a URL that SHOULD provide
+    //             further information about the deprecation.
+    //             A client SHOULD provide some notification (for example, by logging a
+    //             warning message) whenever it traverses over a link that has this
+    //             property.  The notification SHOULD include the deprecation property's
+    //             value so that a client maintainer can easily find information about
+    //             the deprecation.</para>
+    string deprecation = 1;
+    // <para>The "href" property is REQUIRED.</para>
+    // <para> </para>
+    // <para>Its value is either a URI [RFC3986] or a URI Template [RFC6570].
+    //             If the value is a URI Template then the Link Object SHOULD have a
+    //             "templated" attribute whose value is true.</para>
+    string href = 2;
+    // <para>The "hreflang" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value is a string and is intended for indicating the language of
+    //             the target resource (as defined by [RFC5988]).</para>
+    string hreflang = 3;
+    // <para>The "name" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value MAY be used as a secondary key for selecting Link Objects
+    //             which share the same relation type.</para>
+    string name = 4;
+    // <para>The "profile" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value is a string which is a URI that hints about the profile.</para>
+    string profile = 5;
+    // <para>The "templated" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value is boolean and SHOULD be true when the Link Object's "href"
+    //             property is a URI Template.
+    //             Its value SHOULD be considered false if it is undefined or any other
+    //             value than true.</para>
+    bool templated = 6;
+    // <para>The "title" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value is a string and is intended for labelling the link with a
+    //             human-readable identifier (as defined by [RFC5988]).</para>
+    string title = 7;
+    // <para>The "type" property is OPTIONAL.</para>
+    // <para> </para>
+    // <para>Its value is a string used as a hint to indicate the media type
+    //             expected when dereferencing the target resource.</para>
+    string type = 8;
+}
+
+message MailingAddress {
+    // The address details like street, number, and other in free format
+    string address = 1;
+    // One of the values from the enumeration of allowed address types
+    enum MailingAddress_Address_type {
+        MAILINGADDRESS_ADDRESS_TYPE_HOME = 0;
+        MAILINGADDRESS_ADDRESS_TYPE_BUSINESS = 1;
+        MAILINGADDRESS_ADDRESS_TYPE_BILLING = 2;
+        MAILINGADDRESS_ADDRESS_TYPE_OTHER = 3;
+    }
+    MailingAddress_Address_type address_type = 2;
+    // The city name for this address
+    string city = 3;
+    // The country code for this address in ISO 3166-1 alpha-2 format
+    //             (see: <a href="http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm" onfocus="this.blur()" target="_blank">http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm</a>)
+    string country = 4;
+    // The postal code for this address
+    string postal_code = 5;
+}
+
+message Maintenance {
+    // Number of rooms set to OutOfInventory
+    int32 out_of_inventory = 1;
+    // Number of rooms set to OutOfOrder
+    int32 out_of_order = 2;
+    // Number of rooms set to OutOfService
+    int32 out_of_service = 3;
+}
+
+message NoShowPolicy {
+    // Description of the noshow policy suitable for displaying to customers
+    string description = 1;
+    // The fee that will be charged to the reservations folio in case the guest does not show up
+    double fee = 2;
+}
+
+message Object {
+}
+
+message Offer {
+    // Link to request addon offers for this stay
+    map<string, LinkObject> _links = 1;
+    // Number of adults the offer is calculated for
+    int32 adults = 2;
+    // Number of currently available rooms for that specific offer
+    int32 available_rooms = 3;
+    // In this collection you will get an entry with price information for every day.
+    repeated RoomOfferDailyRate breakdown = 4;
+    // List of cancellation policies defined for that rate
+    repeated CancellationPolicy cancellation_policies = 5;
+    // The amounts of this offer are always in this currency
+    string currency = 6;
+    // List of Deposit policies defined for that rate
+    repeated DepositPolicy deposit_policies = 7;
+    // List of general policies defined for that rate
+    repeated GeneralPolicy general_policies = 8;
+    // Accepted guarantee types and the minimum guarantee type defined for that rate
+    AcceptedGuaranteeTypes guarantee_types = 9;
+    // A list of  of services included already in the rate for this offer
+    repeated string included_services = 10;
+    // No Show policy defined for that rate
+    NoShowPolicy noshow_policy = 11;
+    // The code of the rate plan for this offer
+    string rate_plan_code = 12;
+    // The total stay amounts for this offer
+    Rate total_stay = 13;
+}
+
+message Operation[ReservationPatchableModel] {
+    string from = 1;
+    string op = 2;
+    string path = 3;
+    Object value = 4;
+}
+
+message PagedDataRequest {
+    // Return total number of items for a given filter criteria.
+    enum PagedDataRequest_Inlinecount {
+        PAGEDDATAREQUEST_INLINECOUNT_NONE = 0;
+        PAGEDDATAREQUEST_INLINECOUNT_ALLPAGES = 1;
+    }
+    PagedDataRequest_Inlinecount inlinecount = 1;
+    // Amount of items to skip.
+    int32 skip = 2;
+    // Amount of items to select.
+    int32 top = 3;
+}
+
+message Policies {
+    repeated DailyRateCancellationPolicy cancellation_policies = 1;
+    repeated GuaranteeTypes guarantee_types = 2;
+    repeated DailyRateNoShowPolicy noshow_policies = 3;
+}
+
+message PreCheckInRequest {
+    // The device id that will be put on the reservation
+    string device_id = 1;
+}
+
+message Rate {
+    // List of addon services with additional price information.
+    repeated ServiceRate addon_services = 1;
+    // The amount of extra taxes also calculated for all rooms and all persons per room.
+    double excluded_tax = 2;
+    // List of codes for all services already included in the gross rate
+    repeated string included_services = 3;
+    // The amount of taxes already included in the gross rate also calculated for all rooms and
+    //             all persons per room.
+    double included_tax = 4;
+    // The gross rate. It is the price calculated for all rooms and all persons per room.
+    double rate = 5;
+}
+
+message RatePlan {
+    // Code of the rate plan
+    string code = 1;
+    // Description of the rate plan suitable for being displayed to customers
+    string description = 2;
+    // Name of the rate plan
+    string name = 3;
+}
+
+message Rates {
+    // The arrival date of the guest for this rate offer
+    string arrival_date = 1;
+    // The departure date of the guest for this rate offer
+    string departure_date = 2;
+    // The id of the hotel the rate offers will be valid for
+    int32 hotel_id = 3;
+    // The name of the hotel the rate offers will be valid for
+    string hotel_name = 4;
+    // List of rate plans details for rates you can find offers in the room_offers
+    repeated RatePlan rate_plans = 5;
+    // List of room types with available rate offers ordered from ascending
+    repeated RoomOffer room_offers = 6;
+    // List of room type details for room types you can find offers in the room_offers
+    repeated ReservationRoom rooms = 7;
+    // List of service details for included services in offers you can find in the room_offers
+    repeated Service services = 8;
+}
+
+message RatesRequest {
+    // Number of adults per room.
+    string adults = 1;
+    // Date of arrival for the guest in the ISO-8601 format "YYYY-MM-DD".
+    string arrivalDate = 2;
+    // Channel Code the rate plan needs to be configured for.
+    string channelCode = 3;
+    // Date of departure for the guest in the ISO-8601 format "YYYY-MM-DD".
+    string departureDate = 4;
+    // Expand the rates breakdown if required.
+    enum RatesRequest_Expand {
+        RATESREQUEST_EXPAND_NONE = 0;
+        RATESREQUEST_EXPAND_BREAKDOWN = 1;
+    }
+    RatesRequest_Expand expand = 5;
+    // Only return offers for the specified group code.
+    string groupCode = 6;
+    // Specifies the hotel id to request offers for.
+    int32 hotelId = 7;
+    // Only return offers for the specified room type code.
+    string ratePlanCode = 8;
+    // Only return offers with rates for the specified room type code.
+    string roomType = 9;
+    // Number of rooms (default is 1).
+    string rooms = 10;
+}
+
+message Reservation {
+    // A list of addon service codes that should be booked for all reservations of this booking
+    repeated string addons = 1;
+    // The number of adults per room
+    int32 adults = 2;
+    // The arrival date of the guests
+    string arrival_date = 3;
+    // The channel code for this reservation. You can find available channels in the codes for the hotel.
+    string channel_code = 4;
+    // The comment you want to add for this reservation
+    string comment = 5;
+    // The company that will be linked to this reservation
+    Company company = 6;
+    // The contact that will be linked to this reservation
+    Contact contact = 7;
+    // The departure date of the guests
+    string departure_date = 8;
+    // The external id for this reservation. You can put here your own id used by you or the external system
+    //             you integrate hetras with
+    string external_id = 9;
+    // The group code based on which the reservation will be created.
+    string group_code = 10;
+    // The guarantee for this reservation. See https://developer.hetras.com/docs/tutorials#payment for information about
+    //             how to fill out the guarantee object
+    Guarantee guarantee = 11;
+    // A list of guests with some basic guest details
+    repeated Customer guests = 12;
+    // The id of the hotel this reservation is valid for
+    int32 hotel_id = 13;
+    // The payment method for this reservation
+    enum Reservation_Payment_method {
+        RESERVATION_PAYMENT_METHOD_NONE = 0;
+        RESERVATION_PAYMENT_METHOD_CASH = 1;
+        RESERVATION_PAYMENT_METHOD_CREDITCARD = 2;
+        RESERVATION_PAYMENT_METHOD_WIRETRANSFER = 3;
+        RESERVATION_PAYMENT_METHOD_CHARGETOCOMPANY = 4;
+        RESERVATION_PAYMENT_METHOD_CHECK = 5;
+        RESERVATION_PAYMENT_METHOD_VOUCHER = 6;
+        RESERVATION_PAYMENT_METHOD_DEBITCARD = 7;
+        RESERVATION_PAYMENT_METHOD_TOKEN = 8;
+        RESERVATION_PAYMENT_METHOD_MISCELLANEOUS = 9;
+        RESERVATION_PAYMENT_METHOD_DIGITALPAYMENT = 10;
+    }
+    Reservation_Payment_method payment_method = 14;
+    // If you create a booking for a rateplan requiring prepayment this amount will be deducted from the booking value before
+    //             the prepayment will be taken. This feature is useful when the booker redeems a gift voucher and you want to 
+    //             only capture the remaining amount from the guest´s credit card
+    double prepay_discount = 15;
+    // The rate plan code this reservation is related to
+    string rate_plan = 16;
+    // The room type code this reservation is related to
+    string room_type = 17;
+    // The number of rooms this reservation is for. After a multi-room booking is done there will be 
+    //             one reservation in hetras for all rooms. The hotel staff then will split this reservation into
+    //             one reservation per room to be able to check in the guests
+    int32 rooms = 18;
+    // The travel agency that will be linked to this reservation
+    Company travelAgent = 19;
+}
+
+message ReservationConfirmation {
+    // Warnings that came up when your request was processed. Your request will still be processed successfull when
+    //             you see such warnings in your response
+    repeated string _warnings = 1;
+    // The confirmation id for the newly created booking which the guest can use to check in on the kiosk, add the
+    //             booking to the mobile app etc.
+    string confirmation_id = 2;
+    // The reservation number of the newly created reservation
+    int32 reservation_id = 3;
+}
+
+message ReservationDetails {
+    // A breakdown of addon services with their prices for every stay day
+    repeated AddonRate addon_rates = 1;
+    // The number of adults per room
+    int32 adults = 2;
+    // The arrival date of the guests
+    string arrival_date = 3;
+    // The channel code for this reservation. You can find available channels in the codes for the hotel.
+    string channel_code = 4;
+    // The comment you want to add for this reservation
+    string comment = 5;
+    // The company that will be linked to this reservation
+    Company company = 6;
+    // The contact that will be linked to this reservation
+    Contact contact = 7;
+    // The departure date of the guests
+    string departure_date = 8;
+    // The external id for this reservation. You can put here your own id used by you or the external system
+    //             you integrate hetras with
+    string external_id = 9;
+    // The group code based on which the reservation will be created.
+    string group_code = 10;
+    // The guarantee for this reservation. See https://developer.hetras.com/docs/tutorials#payment for information about
+    //             how to fill out the guarantee object
+    CreditCardGuarantee guarantee = 11;
+    // A list of guests with some basic guest details
+    repeated Customer guests = 12;
+    // The id of the hotel this reservation is valid for
+    int32 hotel_id = 13;
+    // The payment method for this reservation
+    enum ReservationDetails_Payment_method {
+        RESERVATIONDETAILS_PAYMENT_METHOD_NONE = 0;
+        RESERVATIONDETAILS_PAYMENT_METHOD_CASH = 1;
+        RESERVATIONDETAILS_PAYMENT_METHOD_CREDITCARD = 2;
+        RESERVATIONDETAILS_PAYMENT_METHOD_WIRETRANSFER = 3;
+        RESERVATIONDETAILS_PAYMENT_METHOD_CHARGETOCOMPANY = 4;
+        RESERVATIONDETAILS_PAYMENT_METHOD_CHECK = 5;
+        RESERVATIONDETAILS_PAYMENT_METHOD_VOUCHER = 6;
+        RESERVATIONDETAILS_PAYMENT_METHOD_DEBITCARD = 7;
+        RESERVATIONDETAILS_PAYMENT_METHOD_TOKEN = 8;
+        RESERVATIONDETAILS_PAYMENT_METHOD_MISCELLANEOUS = 9;
+        RESERVATIONDETAILS_PAYMENT_METHOD_DIGITALPAYMENT = 10;
+    }
+    ReservationDetails_Payment_method payment_method = 14;
+    // If you create a booking for a rateplan requiring prepayment this amount will be deducted from the booking value before
+    //             the prepayment will be taken. This feature is useful when the booker redeems a gift voucher and you want to 
+    //             only capture the remaining amount from the guest´s credit card
+    double prepay_discount = 15;
+    // A breakdown of room rates specified for every stay day
+    repeated RoomRate room_rates = 16;
+    // The number of rooms this reservation is for. After a multi-room booking is done there will be 
+    //             one reservation in hetras for all rooms. The hotel staff then will split this reservation into
+    //             one reservation per room to be able to check in the guests
+    int32 rooms = 17;
+    // The travel agency that will be linked to this reservation
+    Company travelAgent = 18;
+}
+
+message ReservationResponse {
+    // Warnings that came up when your request was processed. Your request will still be processed successfull when
+    //             you see such warnings in your response
+    repeated string _warnings = 1;
+    // A list of addon service codes that are currently booked on the reservation. Services which are charged
+    //             once per stay are only visible before and on the day they are booked for.
+    repeated string addon_services = 2;
+    // The number of adults per room
+    int32 adults = 3;
+    // The arrival date of the guests
+    string arrival_date = 4;
+    // The balance for all folios of this reservartion. It is calculated by all already charged room and service
+    //             rates plus manual charges or charges from other systems like POS minus all payments. A negative balance
+    //             indicates the reservation is overpaid, a positive balance that the guest owes the hotel money
+    double balance = 5;
+    // If this reservation is a pick-up from a block you will see the appropriate block here
+    BlockInfo block = 6;
+    // Given the reservation was cancelled, this field contains the cancellation id
+    string cancellation_id = 7;
+    // The cancellation policies that were applicable on the date the booking was done
+    repeated CancellationPolicy cancellation_policies = 8;
+    // The code of the channel that was used when the booking has been created. It is also known as source. 
+    //             Possible values can be OTA, GDS or DIRECT, but it is configurable per hotel
+    string channel_code = 9;
+    // The real checkin time of the guests. It will be set after the checkin has been performed
+    string checkin_time = 10;
+    // The real checkout time of the guests. It will be set after the checkout has been performed
+    string checkout_time = 11;
+    // The comment for this reservation
+    string comment = 12;
+    // The company linked to this reservation
+    Company company = 13;
+    // The confirmation id for the booking which the guest can use to check in on the kiosk, add the
+    //             booking to the mobile app etc. It is used as identifier for all reservations done with the same
+    //             booking request
+    string confirmation_id = 14;
+    // The contact linked to this reservation
+    ContactResponse contact = 15;
+    // Timestamp the reservation was created
+    string created = 16;
+    // The currency all amounts of this reservation will be shown in
+    string currency = 17;
+    // The departure date of the guests
+    string departure_date = 18;
+    // The external id for this reservation is the unique identifier from the system that created the booking in hetras. It could be the id of an
+    //             OTA like Expedia or booking.com or one of the GDS systems like Amadeus or Galileo
+    string external_id = 19;
+    // The general policies that were applicable on the date the booking was done
+    repeated GeneralPolicy general_policies = 20;
+    // The guarantee for this reservation
+    GuaranteeResponse guarantee = 21;
+    // A list of guest details for this reservation
+    repeated CustomerResponse guests = 22;
+    // The id of the hotel this reservation is valid for
+    int32 hotel_id = 23;
+    // A list of labels that are attached to the reservation.
+    repeated string labels = 24;
+    // The code of the market segment the rate plan for this reservation is linked to
+    string market_code = 25;
+    // The noshow policy that were applicable on the date the booking was done
+    NoShowPolicy noshow_policy = 26;
+    // The payment method for this reservation
+    enum ReservationResponse_Payment_method {
+        RESERVATIONRESPONSE_PAYMENT_METHOD_NONE = 0;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_CASH = 1;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_CREDITCARD = 2;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_WIRETRANSFER = 3;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_CHARGETOCOMPANY = 4;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_CHECK = 5;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_VOUCHER = 6;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_DEBITCARD = 7;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_TOKEN = 8;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_MISCELLANEOUS = 9;
+        RESERVATIONRESPONSE_PAYMENT_METHOD_DIGITALPAYMENT = 10;
+    }
+    ReservationResponse_Payment_method payment_method = 27;
+    // The rate plan details this reservation is related to
+    RatePlan rate_plan = 28;
+    // The reservation number of the reservation
+    int32 reservation_number = 29;
+    // The current status of this reservation
+    enum ReservationResponse_Reservation_statu {
+        RESERVATIONRESPONSE_RESERVATION_STATU_TENTATIVE = 0;
+        RESERVATIONRESPONSE_RESERVATION_STATU_WAITLISTED = 1;
+        RESERVATIONRESPONSE_RESERVATION_STATU_ONREQUEST = 2;
+        RESERVATIONRESPONSE_RESERVATION_STATU_NONGUARANTEED = 3;
+        RESERVATIONRESPONSE_RESERVATION_STATU_GUARANTEED = 4;
+        RESERVATIONRESPONSE_RESERVATION_STATU_INHOUSE = 5;
+        RESERVATIONRESPONSE_RESERVATION_STATU_CHECKEDOUT = 6;
+        RESERVATIONRESPONSE_RESERVATION_STATU_NOSHOW = 7;
+        RESERVATIONRESPONSE_RESERVATION_STATU_DENIED = 8;
+        RESERVATIONRESPONSE_RESERVATION_STATU_CANCELLED = 9;
+        RESERVATIONRESPONSE_RESERVATION_STATU_RELEASED = 10;
+        RESERVATIONRESPONSE_RESERVATION_STATU_WALKED = 11;
+        RESERVATIONRESPONSE_RESERVATION_STATU_EXPIRED = 12;
+        RESERVATIONRESPONSE_RESERVATION_STATU_WALKIN = 13;
+        RESERVATIONRESPONSE_RESERVATION_STATU_REGISTERED = 14;
+    }
+    ReservationResponse_Reservation_statu reservation_status = 30;
+    // The room type this reservation is related to and if applicable the already assigned specific room for 
+    //             this reservation
+    EmbeddedRoom room = 31;
+    // The breakdown for all daily room rates and service charges for this reservation
+    repeated DailyRate room_rates = 32;
+    // The number of rooms this reservation is valid for. After a multi-room booking is done there will be 
+    //             one reservation in hetras for this booking for all rooms. The hotel staff then will split this reservation into
+    //             one reservation per room to be able to check in the guests
+    int32 rooms = 33;
+    // A list of details for all services included and addon service booked on this reservation
+    repeated Service services = 34;
+    // The code of the subchannel that was used when the booking has been created. Possible values can be 
+    //             BOOKING, EXPEDIA or WALKIN, but it is configurable per hotel
+    string subchannel_code = 35;
+    // The total stay amounts for this reservation
+    Rate total_stay = 36;
+    // Timestamp of when the reservation was changed the last time
+    string updated = 37;
+}
+
+message ReservationRoom {
+    // The description of the room type
+    string description = 1;
+    // The name of the room type
+    string name = 2;
+    // The room number of the assigned room
+    int32 room_number = 3;
+    // The code of the room type
+    string type = 4;
+}
+
+message ReservationsResponse {
+    // All reservations for the requested booking
+    repeated ReservationResponse reservations = 1;
+}
+
+message Restrictions {
+    bool closed = 1;
+    bool closed_to_arrival = 2;
+    bool closed_to_departure = 3;
+    int32 maximum_length_of_stay = 4;
+    int32 minimum_length_of_stay = 5;
+    int32 minimum_stay_through = 6;
+}
+
+message RoomAvailabilityDetail {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    // The number of rooms that were originally available to sell. This is the the house count reduced by rooms set
+    //             to OutOfOrder but increased by the set overbooking
+    int32 available = 2;
+    // The breakdown for rooms blocked
+    Blocked blocked = 3;
+    // Code of the room type
+    string code = 4;
+    // The number of day use reservations
+    int32 day_use = 5;
+    // Specifies if the room type is the default room type of the hotel
+    bool default = 6;
+    // The total count of physical rooms reduced by the number of rooms set to OutOfInventory
+    int32 house_count = 7;
+    // The breakdown for rooms under maintenance
+    Maintenance maintenance = 8;
+    // The manually set overbooking
+    int32 overbooking = 9;
+    // The total count of physical rooms
+    int32 room_count = 10;
+    // The count of rooms sold. It sums up the rooms sold through individual reservations plus rooms blocked definitely
+    int32 sold = 11;
+    // The number of rooms still available to sell. It is available reduced by the already sold rooms
+    int32 to_sell = 12;
+}
+
+message RoomInfo {
+    // Number of the room if one is assigned already
+    string number = 1;
+    // Room type information
+    RoomTypeInfo room_type = 2;
+}
+
+message RoomNightCount {
+    // Number of rooms blocked
+    int32 count = 1;
+    // Business day rooms are blocked for
+    string date = 2;
+    // Number of rooms picked up
+    int32 picked = 3;
+}
+
+message RoomOffer {
+    // A list of rate offers for the appropriate room type ordered by amount ascending
+    repeated Offer offers = 1;
+    // The room type all offers will be valid for
+    string room_type = 2;
+}
+
+message RoomOfferDailyRate {
+    // The business day the prize for the daily rate and all included services will be posted to the folio of the reservation
+    string business_day = 1;
+    // The amount of taxes that are not included in the gross rate of the room offer and will be charged separately for
+    //             that business day. It is also calculated for all rooms and all persons per room
+    double excluded_tax = 2;
+    // The amount of taxes already included in the gross rate of the room and all included services for this business day.
+    //             The prize is calculated for all rooms and all persons per room
+    double included_tax = 3;
+    // The gross rate for this day for the room and all included services. The prize is calculated for all rooms and all 
+    //             persons per room
+    double rate = 4;
+}
+
+message RoomRate {
+    // The business day the room rate will be charged
+    string business_day = 1;
+    // Total gross amount to be charged for the rate including all services of a package. Only extra taxes might
+    //             be added to the booking on top
+    double rate = 2;
+    // The rate plan code for the specified business day
+    string rate_plan = 3;
+    // The room type code for the specified business day
+    string room_type = 4;
+}
+
+message RoomType {
+    // Collection of links to related resources
+    map<string, LinkObject> _links = 1;
+    string code = 2;
+    string name = 3;
+}
+
+message RoomTypeCount {
+    // Number of rooms blocked or picked up for this room type per day
+    repeated RoomNightCount counts = 1;
+    // Room type for which rooms are blocked
+    BlockRoomType room_type = 2;
+}
+
+message RoomTypeInfo {
+    // Code of the room type
+    string code = 1;
+    // Name of the room type
+    string name = 2;
+}
+
+message Service {
+    // The code of the service
+    string code = 1;
+    // The description of the service which is suitable for displaying to customers
+    string description = 2;
+    // The frequency for charging the service to the guests folio. It is a free text and only suitable for 
+    //             displaying to customers
+    string frequency = 3;
+    // This flag indicates if a service is an addon or is included already in the room rate
+    bool is_addon = 4;
+    // The name of the service
+    string name = 5;
+}
+
+message ServiceRate {
+    // The code of the service
+    string code = 1;
+    // The included taxes in the gross rate of the service calculated for all rooms and all persons
+    double included_tax = 2;
+    // The gross rate of the service calculated for all rooms and all persons
+    double rate = 3;
+}
+
+message Token {
+    // The authorization expiry date you got back from the payment service provider
+    string authorization_expiry_date = 1;
+    // The authorization reference. This value is specific for different payment service providers. There will be
+    //             a page on the developer portal explaining the pattern on how to fill this value for the payment service
+    //             provider hetras is integrated with
+    string authorization_reference = 2;
+    // The authorization status you got back from the payment service provider
+    enum Token_Authorization_statu {
+        TOKEN_AUTHORIZATION_STATU_AUTHORIZED = 0;
+        TOKEN_AUTHORIZATION_STATU_REFUSED = 1;
+        TOKEN_AUTHORIZATION_STATU_ERROR = 2;
+        TOKEN_AUTHORIZATION_STATU_CANCELED = 3;
+        TOKEN_AUTHORIZATION_STATU_CONSUMED = 4;
+        TOKEN_AUTHORIZATION_STATU_AUTHORIZEDWITHZEROAMOUNT = 5;
+    }
+    Token_Authorization_statu authorization_status = 3;
+    // The authorized amount
+    double authorized_amount = 4;
+    // The merchant reference you used when requesting the token from the payment service provider
+    string merchant_reference = 5;
+    // The shopper email you used when requesting the token from the payment service provider
+    string shopper_email = 6;
+    // The shopper reference you used when requesting the token from the payment service provider. It can
+    //             be the same as the merchant reference
+    string shopper_reference = 7;
+    // The token id you get from the payment service provider
+    string token_id = 8;
+}
+
+message TotalCountResponse {
+    // Returns the total count for all items matching the query parameters. If none is matching it will return 0.
+    int64 _count = 1;
+}
+
+service HetrasBookingAPIVersion0Service {
+    // Get a list of offers for addon services for the specified guest stay details.
+    // 
+    // With the addons request you can get a list of offers for addon services available for a specific rate, room type
+    //             and guest stay details.The channel code will define which rates will be returned based on the access control 
+    //             configuration for related rates.
+    rpc GetApiBookingV0Addons(GetApiBookingV0AddonsRequest) returns (Addons) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/addons"
+      };
+    }
+    // Gets the availability and occupancy for a specific hotel and timespan.
+    // 
+    // Read past occupancy and future availability for a specific hotel. You can also request the breakdown per room type.
+    rpc GetApiBookingV0Availability(GetApiBookingV0AvailabilityRequest) returns (AvailabilityResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/availability"
+      };
+    }
+    // Gets a list of blocks.
+    // 
+    // With this endpoint you can request a list of blocks for the hotel chain. Currently we only support to optionally
+    //             filter by the group code linked to the block. Additional filters will be available soon.
+    rpc GetApiBookingV0Blocks(GetApiBookingV0BlocksRequest) returns (BlocksResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/blocks"
+      };
+    }
+    // Get total blocks count that match the given filter criteria.
+    rpc GetApiBookingV0Blocks$Count(GetApiBookingV0Blocks$CountRequest) returns (TotalCountResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/blocks/$count"
+      };
+    }
+    // Gets the details for a specific block.
+    // 
+    // Read all informationen about a block including the numbers of blocked rooms per room type and business day.
+    rpc GetApiBookingV0BlocksBlockCode(GetApiBookingV0BlocksBlockCodeRequest) returns (BlockResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/blocks/{blockCode}"
+      };
+    }
+    // Find bookings matching the given filter criteria.
+    // 
+    // Here you can easily find bookings matching various criteria. The booking you are looking for has to fullfill all the specified criteria
+    //             at the same time. So if you specify a customer name and a channel code you will get all bookings where the firstname or lastname of a guest or a 
+    //             contact contains the specified value and that have been done through the defined channel.
+    //             A booking can consist of multiple reservations, so even if you are looking for a specific reservation which is part of a multi-room booking you will get
+    //             all reservations for this booking returned.
+    rpc GetApiBookingV0Bookings(GetApiBookingV0BookingsRequest) returns (BookingListResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/bookings"
+      };
+    }
+    // Create a new booking.
+    // 
+    // Create a new booking as defined in the requests payload. You can get more information about the payload if you check out the
+    //             documentation for the reservation request model.<br />
+    //             Please also have a look at the <a href="https://developer.hetras.com/docs/tutorials" onfocus="this.blur()">Tutorials</a>.<br />
+    //             For more details on how the API responds to errors please check our documentation on 
+    //             <a href="https://developer.hetras.com/docs/errors/" onfocus="this.blur()">Error Handling</a>.
+    rpc PostApiBookingV0Bookings(PostApiBookingV0BookingsRequest) returns (ReservationConfirmation) {
+      option (google.api.http) = {
+        post: "//api/booking/v0/bookings"
+        body: "reservation"
+      };
+    }
+    // Get total count of bookings matchung the given filter criteria.
+    // 
+    // Get the count of all bookings matching your criteria. The bookings have to fullfill all the specified criteria
+    //             at the same time. So if you specify a customer name and a channel code you will get the count for all bookings where the firstname or lastname 
+    //             of a guest or a contact contains the specified value and that have been done through the defined channel.
+    rpc GetApiBookingV0Bookings$Count(GetApiBookingV0Bookings$CountRequest) returns (TotalCountResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/bookings/$count"
+      };
+    }
+    // Load all reservations for one booking by confirmation id.
+    // 
+    // A booking groups all reservations done in one single request and can be identified by the confirmation id.
+    //             Guests usually use the confirmation id to check in at the kiosk, on the website or mobile device. In hetras
+    //             all reservations of one booking share the room type, rate plan and number of guests per room.
+    rpc GetApiBookingV0BookingsConfirmationId(GetApiBookingV0BookingsConfirmationIdRequest) returns (ReservationsResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/bookings/{confirmationId}"
+      };
+    }
+    // Load a specific reservation from a booking.
+    // 
+    // With this request you can load one specific reservation done with one booking request.
+    rpc GetApiBookingV0BookingsConfirmationIdReservationsReservationNumber(GetApiBookingV0BookingsConfirmationIdReservationsReservationNumberRequest) returns (ReservationResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/bookings/{confirmationId}/reservations/{reservationNumber}"
+      };
+    }
+    // Assign a room to a reservation.
+    // 
+    // By default this API call assigns a random room, which has the proper room type, is not already assigned
+    //             to another reservation or has any maintenance status set for the stay period of the underlying reservation. If the
+    //             arrival date for the underlying reservation is the current business day dirty rooms are excluded by default. For reservation
+    //             arriving on any latter day the room condition is not taken into account.<br />
+    //             By specifiying the room selection criteria in the request body you can influence which room will be assigned. See the request model
+    //             for further details.<br />
+    //             For more details on how the API responds to errors please check our documentation on 
+    //             <a href="https://developer.hetras.com/docs/errors/" onfocus="this.blur()">Error Handling</a>.
+    rpc PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberAssign_room(PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberAssign_roomRequest) returns (AssignRoomResponse) {
+      option (google.api.http) = {
+        post: "//api/booking/v0/bookings/{confirmationId}/reservations/{reservationNumber}/assign_room"
+        body: "assigningCriteria"
+      };
+    }
+    // Cancel one reservation.
+    // 
+    // This request will cancel one specific reservation. It will show up in the hetras UI in the Cancellation and NoShow
+    //             processing screen and it will be up to the hotel staff to either charge or waive the cancellation fee.<br />
+    //             For more details on how the API responds to errors please check our documentation on 
+    //             <a href="https://developer.hetras.com/docs/errors/" onfocus="this.blur()">Error Handling</a>.
+    rpc PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCancel(PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCancelRequest) returns (CancellationResponse) {
+      option (google.api.http) = {
+        post: "//api/booking/v0/bookings/{confirmationId}/reservations/{reservationNumber}/cancel"
+      };
+    }
+    // Performs a check in operation for a reservation.
+    // 
+    // With this call you can set a reservation to the status inhouse. It allows only single room reservations to be checked in.
+    //             The reservation must have assigned a vacant and clean room.<br />
+    //             For more details on how the API responds to errors please check our documentation on 
+    //             <a href="https://developer.hetras.com/docs/errors/" onfocus="this.blur()">Error Handling</a>.
+    rpc PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCheck_in(PostApiBookingV0BookingsConfirmationIdReservationsReservationNumberCheck_inRequest) returns (BaseResponse) {
+      option (google.api.http) = {
+        post: "//api/booking/v0/bookings/{confirmationId}/reservations/{reservationNumber}/check_in"
+      };
+    }
+    // Get a list of daily rates given a hotel Id, a channel code and a date range.
+    // 
+    // With the rates request you can get a list of different daily rates. You will have to at least 
+    //             specify the hotel, the channel code, and a calendar range. The channel code will define which rates will be 
+    //             returned based on the access control configuration for the rates. Additionally rate plan codes may be specified in
+    //             the request in order to limit only those rates of the given plans, if they are not specified, it will return all the public rate plans.
+    //             If requested the caller may specify whether he wants policies or not.
+    rpc GetApiBookingV0Daily_rates(GetApiBookingV0Daily_ratesRequest) returns (DailyRatesResponse) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/daily_rates"
+      };
+    }
+    // Get a list of room offers for the specified guest stay details.
+    // 
+    // With the rates request you can get a list of different rate offers per room type. You will have to at least 
+    //             specify the hotel, the arrival and departure date, number of adults per room and the channel code. The channel code
+    //             will define which rates will be returned based on the access control configuration for the rates.
+    rpc GetApiBookingV0Rates(GetApiBookingV0RatesRequest) returns (Rates) {
+      option (google.api.http) = {
+        get: "//api/booking/v0/rates"
+      };
+    }
+}

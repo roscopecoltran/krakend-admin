@@ -1,0 +1,2371 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package box2.0;
+
+message GetCollaborationsRequest {
+    // Attribute(s) to include in the response
+    string fields = 1;
+    // Must be 'pending'
+    enum GetCollaborationsRequest_Statu {
+        GETCOLLABORATIONSREQUEST_STATU_PENDING = 0;
+    }
+    GetCollaborationsRequest_Statu status = 2;
+}
+
+message PostCollaborationsRequest {
+    Collaboration body = 1;
+}
+
+message GetCollaborationsCOLLAB_IDRequest {
+    string COLLAB_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // Can only be pending
+    enum GetCollaborationsCOLLAB_IDRequest_Statu {
+        GETCOLLABORATIONSCOLLAB_IDREQUEST_STATU_PENDING = 0;
+    }
+    GetCollaborationsCOLLAB_IDRequest_Statu status = 3;
+}
+
+message PutCollaborationsCOLLAB_IDRequest {
+    string COLLAB_ID = 1;
+    Collaboration body = 2;
+}
+
+message DeleteCollaborationsCOLLAB_IDRequest {
+    string COLLAB_ID = 1;
+}
+
+message GetCollectionsCOLLECTION_IDItemsRequest {
+    string COLLECTION_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page.
+    int64 limit = 3;
+    // The offset at which to begin the response. An offset of value of 0 will start at the beginning of the folder-listing. Offset of 2 would start at the 2nd record, not the second page. Note: If there are hidden items in your previous response, your next offset should be = offset + limit, not the # of records you received back.
+    string offset = 4;
+}
+
+message PostCommentsRequest {
+    Comment body = 1;
+    // Attribute(s) to include in the response.
+    string fields = 2;
+}
+
+message GetCommentsCOMMENT_IDRequest {
+    string COMMENT_ID = 1;
+    // Attribute(s) to include in the response.
+    string fields = 2;
+}
+
+message PutCommentsCOMMENT_IDRequest {
+    string COMMENT_ID = 1;
+    Comment body = 2;
+    // Attribute(s) to include in the response.
+    string fields = 3;
+}
+
+message DeleteCommentsCOMMENT_IDRequest {
+    string COMMENT_ID = 1;
+}
+
+message GetDevice_pinnersIDRequest {
+    string ID = 1;
+}
+
+message DeleteDevice_pinnersIDRequest {
+    string ID = 1;
+}
+
+message GetEnterprisesENTERPRISE_IDDevice_pinnersRequest {
+    string ENTERPRISE_ID = 1;
+    // Default is "asc". Valid values are asc, desc. Case in-sensitive, ASC/DESC works just fine.
+    string direction = 2;
+    // Default value is 100. Max value is 10000
+    string limit = 3;
+    // Needs not be passed or can be empty for first invocation of the API. Use the one returned in response for each subsequent call.
+    string marker = 4;
+}
+
+message GetEventsRequest {
+    // A lower bound on the timestamp of the events returned
+    string created_after = 1;
+    // An upper bound on the timestamp of the events returned
+    string created_before = 2;
+    // A comma-separated list of events to filter by
+    string event_type = 3;
+    // Limits the number of events returned
+    int64 limit = 4;
+    // The location in the event stream at which you want to start receiving events. Can specify special case ‘now’ to get 0 events and the latest stream position for initialization.
+    string stream_position = 5;
+    // Limits the type of events returned: all: returns everything, changes: returns tree changes, sync: returns tree changes only for sync folders
+    enum GetEventsRequest_Stream_type {
+        GETEVENTSREQUEST_STREAM_TYPE_ALL = 0;
+        GETEVENTSREQUEST_STREAM_TYPE_CHANGES = 1;
+        GETEVENTSREQUEST_STREAM_TYPE_SYNC = 2;
+        GETEVENTSREQUEST_STREAM_TYPE_ADMIN_LOGS = 3;
+    }
+    GetEventsRequest_Stream_type stream_type = 6;
+}
+
+message GetFile_version_legal_holdsRequest {
+    string policy_id = 1;
+}
+
+message GetFile_version_legal_holdsIDRequest {
+    string ID = 1;
+}
+
+message GetFile_version_retentionsRequest {
+    // The disposition action of the retention policy. This action can be permanently_delete, which will cause the content retained by the policy to be permanently deleted, or remove_retention, which will lift the retention policy from the content, allowing it to be deleted by users, once the retention policy time period has passed.
+    enum GetFile_version_retentionsRequest_Disposition_action {
+        GETFILE_VERSION_RETENTIONSREQUEST_DISPOSITION_ACTION_PERMANENTLY_DELETE = 0;
+        GETFILE_VERSION_RETENTIONSREQUEST_DISPOSITION_ACTION_REMOVE_RETENTION = 1;
+    }
+    GetFile_version_retentionsRequest_Disposition_action disposition_action = 1;
+    // See content times for formatting
+    string disposition_after = 2;
+    // See content times for formatting
+    string disposition_before = 3;
+    // A file id to filter the file version retentions by.
+    string file_id = 4;
+    // A file version id to filter the file version retentions by.
+    string file_version_id = 5;
+    // The maximum number of items to return in a page
+    int64 limit = 6;
+    // Base 64 encoded string that represents where the paging should being. It should be left blank to begin paging.
+    string marker = 7;
+    // A policy id to filter the file version retentions by.
+    string policy_id = 8;
+}
+
+message GetFile_version_retentionsFILE_VERSION_RETENTION_IDRequest {
+    string FILE_VERSION_RETENTION_ID = 1;
+}
+
+message GetFilesFILE_IDRequest {
+    string FILE_ID = 1;
+    // Attribute(s) to include in the response.
+    string fields = 2;
+}
+
+message PutFilesFILE_IDRequest {
+    string FILE_ID = 1;
+    // The etag of the file can be included as an ‘If-Match’ header to prevent race conditions.
+    string If_Match = 2;
+    BoxFile body = 3;
+}
+
+message PostFilesFILE_IDRequest {
+    string FILE_ID = 1;
+    BoxFile body = 2;
+}
+
+message DeleteFilesFILE_IDRequest {
+    string FILE_ID = 1;
+    // The etag of the file. This is in the ‘etag’ field of the file object.
+    string If_Match = 2;
+}
+
+message GetFilesFILE_IDCollaborationsRequest {
+    string FILE_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page
+    int32 limit = 3;
+    // The item at which to begin the response
+    int32 offset = 4;
+}
+
+message GetFilesFILE_IDCommentsRequest {
+    string FILE_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetFilesFILE_IDContentRequest {
+    // The shared link for this item. Format should be shared_link=SHARED_LINK
+    string BoxApi = 1;
+    string FILE_ID = 2;
+    // The range value in bytes. Format should be bytes={start_range}-{end_range}
+    string Range = 3;
+    // The ID specific version of this file to download.
+    string version = 4;
+}
+
+message PostFilesFILE_IDCopyRequest {
+    string FILE_ID = 1;
+    CopyFile body = 2;
+}
+
+message GetFilesFILE_IDMetadataRequest {
+    string FILE_ID = 1;
+}
+
+message GetFilesFILE_IDMetadataSCOPETEMPLATERequest {
+    string FILE_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+}
+
+message PutFilesFILE_IDMetadataSCOPETEMPLATERequest {
+    string FILE_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+    array body = 4;
+}
+
+message PostFilesFILE_IDMetadataSCOPETEMPLATERequest {
+    string FILE_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+    Metadata body = 4;
+}
+
+message DeleteFilesFILE_IDMetadataSCOPETEMPLATERequest {
+    string FILE_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+}
+
+message GetFilesFILE_IDTasksRequest {
+    string FILE_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetFilesFILE_IDThumbnailEXTENSIONRequest {
+    // The preview format, e.g. png or jpg
+    string EXTENSION = 1;
+    string FILE_ID = 2;
+    // The maximum height of the thumbnail
+    int64 max_height = 3;
+    // The maximum width of the thumbnail
+    int64 max_width = 4;
+    // The minimum height of the thumbnail
+    int64 min_height = 5;
+    // The minimum width of the thumbnail
+    int64 min_width = 6;
+}
+
+message GetFilesFILE_IDTrashRequest {
+    string FILE_ID = 1;
+}
+
+message DeleteFilesFILE_IDTrashRequest {
+    string FILE_ID = 1;
+}
+
+message GetFilesFILE_IDVersionsRequest {
+    string FILE_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PostFilesFILE_IDVersionsCurrentRequest {
+    string FILE_ID = 1;
+    Reference body = 2;
+}
+
+message DeleteFilesFILE_IDVersionsVERSION_IDRequest {
+    string FILE_ID = 1;
+    // The etag of the file. This is in the ‘etag’ field of the file object.
+    string If_Match = 2;
+    string VERSION_ID = 3;
+}
+
+message GetFilesFILE_IDWatermarkRequest {
+    string FILE_ID = 1;
+}
+
+message PutFilesFILE_IDWatermarkRequest {
+    string FILE_ID = 1;
+    Watermark body = 2;
+}
+
+message DeleteFilesFILE_IDWatermarkRequest {
+    string FILE_ID = 1;
+}
+
+message PostFoldersRequest {
+    Folder body = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetFoldersTrashItemsRequest {
+    // Attribute(s) to include in the response
+    string fields = 1;
+    // The maximum number of items to return
+    int64 limit = 2;
+    // The item at which to begin the response
+    int64 offset = 3;
+}
+
+message GetFoldersFOLDER_IDRequest {
+    string FOLDER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutFoldersFOLDER_IDRequest {
+    string FOLDER_ID = 1;
+    // This is in the ‘etag’ field of the folder object.
+    string If_Match = 2;
+    Folder body = 3;
+    // Attribute(s) to include in the response
+    string fields = 4;
+}
+
+message PostFoldersFOLDER_IDRequest {
+    string FOLDER_ID = 1;
+    Folder body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteFoldersFOLDER_IDRequest {
+    string FOLDER_ID = 1;
+    // This is in the ‘etag’ field of the folder object.
+    string If_Match = 2;
+    bool recursive = 3;
+}
+
+message GetFoldersFOLDER_IDCollaborationsRequest {
+    string FOLDER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page. The default is 100 and the max is 1000.
+    int64 limit = 3;
+    // The item at which to begin the response
+    int64 offset = 4;
+}
+
+message PostFoldersFOLDER_IDCopyRequest {
+    string FOLDER_ID = 1;
+    Folder body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message GetFoldersFOLDER_IDItemsRequest {
+    string FOLDER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page. The default is 100 and the max is 1000.
+    int64 limit = 3;
+    // The offset at which to begin the response. An offset of value of 0 will start at the beginning of the folder-listing. Note: If there are hidden items in your previous response, your next offset should be = offset + limit, not the # of records you received back. The default is 0.
+    string offset = 4;
+}
+
+message GetFoldersFOLDER_IDMetadataRequest {
+    string FOLDER_ID = 1;
+}
+
+message GetFoldersFOLDER_IDMetadataSCOPETEMPLATERequest {
+    string FOLDER_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+}
+
+message PutFoldersFOLDER_IDMetadataSCOPETEMPLATERequest {
+    string FOLDER_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+    array body = 4;
+}
+
+message PostFoldersFOLDER_IDMetadataSCOPETEMPLATERequest {
+    string FOLDER_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+    Metadata body = 4;
+}
+
+message DeleteFoldersFOLDER_IDMetadataSCOPETEMPLATERequest {
+    string FOLDER_ID = 1;
+    string SCOPE = 2;
+    string TEMPLATE = 3;
+}
+
+message GetFoldersFOLDER_IDTrashRequest {
+    string FOLDER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message DeleteFoldersFOLDER_IDTrashRequest {
+    string FOLDER_ID = 1;
+}
+
+message GetFoldersFOLDER_IDWatermarkRequest {
+    string FOLDER_ID = 1;
+}
+
+message PutFoldersFOLDER_IDWatermarkRequest {
+    string FOLDER_ID = 1;
+    Watermark body = 2;
+}
+
+message DeleteFoldersFOLDER_IDWatermarkRequest {
+    string FOLDER_ID = 1;
+}
+
+message PostGroup_membershipsRequest {
+    GroupMembership body = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetGroup_membershipsGROUP_MEMBERSHIP_IDRequest {
+    string GROUP_MEMBERSHIP_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutGroup_membershipsGROUP_MEMBERSHIP_IDRequest {
+    string GROUP_MEMBERSHIP_ID = 1;
+    GroupMembership body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteGroup_membershipsGROUP_MEMBERSHIP_IDRequest {
+    string GROUP_MEMBERSHIP_ID = 1;
+}
+
+message GetGroupsRequest {
+    // Attribute(s) to include in the response
+    string fields = 1;
+    // The maximum number of items to return in a page. The default is 100 and the max is 1000.
+    int64 limit = 2;
+    // The item at which to begin the response.
+    int64 offset = 3;
+}
+
+message PostGroupsRequest {
+    Group body = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetGroupsGROUP_IDRequest {
+    string GROUP_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutGroupsGROUP_IDRequest {
+    string GROUP_ID = 1;
+    Group body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteGroupsGROUP_IDRequest {
+    string GROUP_ID = 1;
+}
+
+message GetGroupsGROUP_IDCollaborationsRequest {
+    string GROUP_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page. The default is 100 and the max is 1000.
+    int64 limit = 3;
+    // The item at which to begin the response.
+    int64 offset = 4;
+}
+
+message GetGroupsGROUP_IDMembershipsRequest {
+    string GROUP_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // The maximum number of items to return in a page. The default is 100 and the max is 1000.
+    int64 limit = 3;
+    // The item at which to begin the response.
+    int64 offset = 4;
+}
+
+message PostInvitesRequest {
+    InviteUser body = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetInvitesINVITE_IDRequest {
+    string INVITE_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetLegal_hold_policiesRequest {
+    // Limit result size to this number. Defaults to 100, maximum is 1,000.
+    int32 limit = 1;
+    // Take from next_marker column of a prior call to get the next page
+    string marker = 2;
+    // Case insensitive prefix-match filter on Policy name.
+    string policy_name = 3;
+}
+
+message PostLegal_hold_policiesRequest {
+    LegalHoldPolicy body = 1;
+}
+
+message GetLegal_hold_policiesIDRequest {
+    string ID = 1;
+}
+
+message PutLegal_hold_policiesIDRequest {
+    string ID = 1;
+    LegalHoldPolicy body = 2;
+}
+
+message DeleteLegal_hold_policiesIDRequest {
+    string ID = 1;
+}
+
+message GetLegal_hold_policiesIDAssignmentsRequest {
+    string ID = 1;
+}
+
+message PostLegal_hold_policy_assignmentsRequest {
+    CreateLegalHoldPolicyAssignment body = 1;
+}
+
+message GetLegal_hold_policy_assignmentsASSIGNMENT_IDRequest {
+    string ASSIGNMENT_ID = 1;
+}
+
+message DeleteLegal_hold_policy_assignmentsASSIGNMENT_IDRequest {
+    string ASSIGNMENT_ID = 1;
+}
+
+message PostMetadata_templatesSchemaRequest {
+    MetadataTemplate body = 1;
+}
+
+message GetMetadata_templatesSCOPERequest {
+    string SCOPE = 1;
+}
+
+message GetMetadata_templatesSCOPETEMPLATESchemaRequest {
+    string SCOPE = 1;
+    string TEMPLATE = 2;
+}
+
+message PutMetadata_templatesSCOPETEMPLATESchemaRequest {
+    string SCOPE = 1;
+    string TEMPLATE = 2;
+    array body = 3;
+}
+
+message GetRetention_policiesRequest {
+    // A user id to filter the retention policies by.
+    string created_by_user_id = 1;
+    // A name to filter the retention policies by. A trailing partial match search is performed.
+    string policy_name = 2;
+    // A policy type to filter the retention policies by.
+    enum GetRetention_policiesRequest_Policy_type {
+        GETRETENTION_POLICIESREQUEST_POLICY_TYPE_FINITE = 0;
+        GETRETENTION_POLICIESREQUEST_POLICY_TYPE_INDEFINITE = 1;
+    }
+    GetRetention_policiesRequest_Policy_type policy_type = 3;
+}
+
+message PostRetention_policiesRequest {
+    RetentionPolicy body = 1;
+}
+
+message GetRetention_policiesPOLICY_IDRequest {
+    string POLICY_ID = 1;
+}
+
+message PutRetention_policiesPOLICY_IDRequest {
+    string POLICY_ID = 1;
+    RetentionPolicy body = 2;
+}
+
+message GetRetention_policiesPOLICY_IDAssignmentsRequest {
+    string POLICY_ID = 1;
+    // The type of the retention policy assignment to retrieve. Can either be folder or enterprise.
+    enum GetRetention_policiesPOLICY_IDAssignmentsRequest_Type {
+        GETRETENTION_POLICIESPOLICY_IDASSIGNMENTSREQUEST_TYPE_FOLDER = 0;
+        GETRETENTION_POLICIESPOLICY_IDASSIGNMENTSREQUEST_TYPE_ENTERPRISE = 1;
+    }
+    GetRetention_policiesPOLICY_IDAssignmentsRequest_Type type = 2;
+}
+
+message PostRetention_policy_assignmentsRequest {
+    CreateRetentionPolicyAssignment body = 1;
+}
+
+message GetRetention_policy_assignmentsRETENTION_POLICY_ASSIGNMENT_IDRequest {
+    string RETENTION_POLICY_ASSIGNMENT_ID = 1;
+}
+
+message GetSearchRequest {
+    // Limit searches to specific parent folders. Requires one or a set of comma delimited folder_ids: folder_id_1,folder_id_2,.... Parent folder results will also include items within subfolders.
+    string ancestor_folder_ids = 1;
+    // Limit searches to specific Box designated content types. Can be name, description, file_content, comments, or tags. Requires one or a set of comma delimited content_types: content_type_1,content_type_2,....
+    string content_types = 2;
+    // The date for when the item was created. Specify the date range by using RFC3339 timestamp variables separated by a comma: from_date,to_date (e.g 2014-05-15T13:35:01-07:00,2014-05-17T13:35:01-07:00). Trailing from_date, and leading ,to_date commas are also accepted, where the current date and earliest known date will be designated respectively.
+    string created_at_range = 3;
+    // Limit searches to specific file extensions like pdf,png,doc. Requires one or a set of comma delimited file extensions: file_extension_1,file_extension_2,....
+    string file_extensions = 4;
+    // Number of search results to return. The default is 30 and the max is 200.
+    int64 limit = 5;
+    // Filters for a specific metadata template for files with metadata object associations. The filters are to be placed in a single JSON object. Please refer the MDFilters object in the definitions section of the swagger.json
+    string mdfilters = 6;
+    // The search result at which to start the response. The default is 0.
+    int64 offset = 7;
+    // Search by item owners. Requires one or a set of comma delimited user_ids: user_id_1,user_id_2,...
+    string owner_user_ids = 8;
+    // The string to search for; can be matched against item names, descriptions, text content of a file, and other fields of the different item types.
+    string query = 9;
+    // The scope for which you want to limit your search to. Can be user_content for a search limited to only the current user or enterprise_content for the entire enterprise. To enable the enterprise_content scope for an administrator, please contact us.
+    string scope = 10;
+    // Filter by a file size range. Specify the file size range in bytes separated by a comma:lower_bound_size,upper_bound_size, where 1MB is equivalent to 1000000 bytes. Trailing lower_bound_size, and leading ,upper_bound_size commas are also accepted as parameters.
+    int64 size_range = 11;
+    // Allows you to search within the trash. Can be trashed_only or non_trashed_only. Searches without this parameter default to non_trashed_only.
+    string trash_content = 12;
+    // The type you want to return in your search. Can be file, folder, or web_link.
+    enum GetSearchRequest_Type {
+        GETSEARCHREQUEST_TYPE_FILE = 0;
+        GETSEARCHREQUEST_TYPE_FOLDER = 1;
+        GETSEARCHREQUEST_TYPE_WEB_LINK = 2;
+    }
+    GetSearchRequest_Type type = 13;
+    // The date for when the item was last updated. Specify the date range by using RFC3339 variables separated by a comma: from_date,to_date(e.g 2014-05-15T13:35:01-07:00,2014-05-17T13:35:01-07:00). Trailing from_date, and leading ,to_date commas are also accepted, where the current date and earliest known date will be designated respectively.
+    string updated_at_range = 14;
+}
+
+message GetShared_itemsRequest {
+    // The usage is 'BoxApi: shared_link=SHARED_LINK&shared_link_password=SHARED_LINK_PASSWORD'
+    string BoxApi = 1;
+}
+
+message GetShared_itemsResponse {
+}
+
+message PostTask_assignmentsRequest {
+    CreateTaskAssignment body = 1;
+}
+
+message GetTask_assignmentsTASK_ASSIGNMENT_IDRequest {
+    string TASK_ASSIGNMENT_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutTask_assignmentsTASK_ASSIGNMENT_IDRequest {
+    string TASK_ASSIGNMENT_ID = 1;
+    TaskAssignment body = 2;
+}
+
+message DeleteTask_assignmentsTASK_ASSIGNMENT_IDRequest {
+    string TASK_ASSIGNMENT_ID = 1;
+}
+
+message PostTasksRequest {
+    Task body = 1;
+}
+
+message GetTasksTASK_IDRequest {
+    string TASK_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutTasksTASK_IDRequest {
+    string TASK_ID = 1;
+    Task body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteTasksTASK_IDRequest {
+    string TASK_ID = 1;
+}
+
+message GetTasksTASK_IDAssignmentsRequest {
+    string TASK_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetUsersRequest {
+    // Attribute(s) to include in the response
+    string fields = 1;
+    // A string used to filter the results to only users starting with the filter_term in either the name or the login.
+    string filter_term = 2;
+    // The number of records to return. The default is 100 and the max is 1000.
+    int64 limit = 3;
+    // The record at which to start. The default is 0.
+    int64 offset = 4;
+    // The type of user to search for. Valid values are all, external or managed.  If nothing is provided, the default behavior will be managed only
+    enum GetUsersRequest_User_type {
+        GETUSERSREQUEST_USER_TYPE_ALL = 0;
+        GETUSERSREQUEST_USER_TYPE_EXTERNAL = 1;
+        GETUSERSREQUEST_USER_TYPE_MANAGED = 2;
+    }
+    GetUsersRequest_User_type user_type = 5;
+}
+
+message PostUsersRequest {
+    User body = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message GetUsersMeRequest {
+    // Attribute(s) to include in the response
+    string fields = 1;
+}
+
+message GetUsersUSER_IDRequest {
+    string USER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutUsersUSER_IDRequest {
+    string USER_ID = 1;
+    User body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteUsersUSER_IDRequest {
+    string USER_ID = 1;
+    bool force = 2;
+    bool notify = 3;
+}
+
+message GetUsersUSER_IDEmail_aliasesRequest {
+    string USER_ID = 1;
+}
+
+message PostUsersUSER_IDEmail_aliasesRequest {
+    string USER_ID = 1;
+    EmailAlias body = 2;
+}
+
+message DeleteUsersUSER_IDEmail_aliasesEMAIL_ALIAS_IDRequest {
+    string EMAIL_ALIAS_ID = 1;
+    string USER_ID = 2;
+}
+
+message PutUsersUSER_IDFoldersFOLDER_IDRequest {
+    string FOLDER_ID = 1;
+    string USER_ID = 2;
+    Folder body = 3;
+    // Attribute(s) to include in the response
+    string fields = 4;
+    bool notify = 5;
+}
+
+message GetUsersUSER_IDMembershipsRequest {
+    string USER_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+    // Default is 100. Max is 1000
+    int64 limit = 3;
+    // The item at which to begin the response
+    int64 offset = 4;
+}
+
+message PostWeb_linksRequest {
+    WebLink body = 1;
+}
+
+message GetWeb_linksWEB_LINK_IDRequest {
+    string WEB_LINK_ID = 1;
+    // Attribute(s) to include in the response
+    string fields = 2;
+}
+
+message PutWeb_linksWEB_LINK_IDRequest {
+    string WEB_LINK_ID = 1;
+    WebLink body = 2;
+    // Attribute(s) to include in the response
+    string fields = 3;
+}
+
+message DeleteWeb_linksWEB_LINK_IDRequest {
+    string WEB_LINK_ID = 1;
+}
+
+message GetWebhooksRequest {
+    // The maximum number of webhooks to return per page
+    int64 limit = 1;
+    // A marker string returned by Box if the result contains less than the full number of webhooks that are defined
+    string marker = 2;
+}
+
+message PostWebhooksRequest {
+    Webhook body = 1;
+}
+
+message GetWebhooksWEBHOOK_IDRequest {
+    string WEBHOOK_ID = 1;
+}
+
+message PutWebhooksWEBHOOK_IDRequest {
+    string WEBHOOK_ID = 1;
+    Webhook body = 2;
+}
+
+message DeleteWebhooksWEBHOOK_IDRequest {
+    string WEBHOOK_ID = 1;
+}
+
+message AssignmentCounts {
+    int64 file = 1;
+    int64 file_version = 2;
+    int64 folder = 3;
+    int64 user = 4;
+}
+
+message BoxFile {
+}
+
+message ChunkPagination {
+    int64 chunk_size = 1;
+    string next_stream_position = 2;
+}
+
+message Collaboration {
+}
+
+message CollaborationList {
+}
+
+message Collection {
+}
+
+message CollectionList {
+}
+
+message Comment {
+}
+
+message CommentList {
+}
+
+message CopyFile {
+    string name = 1;
+    message Parent {
+        string id = 1;
+    }
+    Parent parent = 2;
+    string version = 3;
+}
+
+message CreateLegalHoldPolicyAssignment {
+    // Target Object. Type of target and ID of the target entity
+    Reference assign_to = 1;
+    // ID of Policy to create Assignment for.
+    string policy_id = 2;
+}
+
+message CreateRetentionPolicyAssignment {
+    // Target Object. Type of target and ID of the target entity
+    Reference assign_to = 1;
+    // ID of Policy to create Assignment for.
+    string policy_id = 2;
+}
+
+message CreateTaskAssignment {
+    UserReference assign_to = 1;
+    Task task = 2;
+}
+
+message DevicePinner {
+}
+
+message DevicePinnerList {
+}
+
+message EmailAlias {
+}
+
+message EmailAliasList {
+}
+
+message Enterprise {
+}
+
+message Error {
+    string code = 1;
+    message Context_info {
+        message Error {
+            string message = 1;
+            string name = 2;
+            string reason = 3;
+        }
+        repeated Error errors = 1;
+    }
+    Context_info context_info = 2;
+    string help_url = 3;
+    string message = 4;
+    string request_id = 5;
+    int32 status = 6;
+    enum Error_Type {
+        ERROR_TYPE_ERROR = 0;
+    }
+    Error_Type type = 7;
+}
+
+message Event {
+    // This object provides additional information about the event if available. This can include how a user performed an event as well as additional information to correlate an event to external Keysafe logs. Not all events have an additional_details object.  This object is only available in the Enterprise Events.
+    message Additional_details {
+    }
+    Additional_details additional_details = 1;
+    // The user that performed the action. Some events may be performed by users not logged into Box. In those instances, not all attributes of this object will be populated and the event will be attributed to a unknown user (user_id = 2).
+    UserReference created_by = 2;
+    // The id of the event, used for de-duplication purposes
+    string event_id = 3;
+    // One of the event types
+    string event_type = 4;
+    // The session of the user that performed the action. Not all events will populate this attribute.
+    string session_id = 5;
+    // The object that was modified. See Object definitions for appropriate object: file, folder, comment, etc. Not all events have a source object.
+    message Source {
+    }
+    Source source = 6;
+    enum Event_Type {
+        EVENT_TYPE_EVENT = 0;
+    }
+    Event_Type type = 7;
+}
+
+message EventList {
+}
+
+message FilePermissions {
+    bool can_download = 1;
+    bool can_invite_collaborator = 2;
+    bool can_preview = 3;
+    bool can_rename = 4;
+    bool can_set_share_access = 5;
+    bool can_share = 6;
+    bool can_upload = 7;
+    bool cand_delete = 8;
+}
+
+message FileReference {
+}
+
+message FileReferenceList {
+}
+
+message FileVersion {
+}
+
+message FileVersionLegalHold {
+}
+
+message FileVersionLegalHoldList {
+}
+
+message FileVersionList {
+}
+
+message FileVersionReference {
+}
+
+message FileVersionRetention {
+}
+
+message FileVersionRetentionList {
+}
+
+message Folder {
+}
+
+message FolderPermissions {
+    bool can_download = 1;
+    bool can_invite_collaborator = 2;
+    bool can_rename = 3;
+    bool can_set_share_access = 4;
+    bool can_share = 5;
+    bool can_upload = 6;
+    bool cand_delete = 7;
+}
+
+message FolderUploadEmail {
+    string access = 1;
+    string email = 2;
+}
+
+message Group {
+}
+
+message GroupList {
+}
+
+message GroupMembership {
+}
+
+message GroupMembershipList {
+}
+
+message GroupReference {
+}
+
+message Invite {
+}
+
+message InviteUser {
+    UserReference actionable_by = 1;
+    Reference enterprise = 2;
+}
+
+message ItemCollection {
+}
+
+message ItemReference {
+}
+
+message ItemReferenceList {
+}
+
+message LegalHoldPolicy {
+}
+
+message LegalHoldPolicyAssignment {
+}
+
+message LegalHoldPolicyAssignmentList {
+}
+
+message LegalHoldPolicyList {
+}
+
+message Lock {
+}
+
+message MarkerPagination {
+    int64 limit = 1;
+    string next_marker = 2;
+    string prev_marker = 3;
+}
+
+message Metadata {
+}
+
+message MetadataList {
+}
+
+message MetadataTemplate {
+    // The display name of the template. The character limit is 4096.
+    string displayName = 1;
+    // The ordered set of key:value pairs for the template.
+    repeated TemplateFields fields = 2;
+    // Whether this template is hidden in the UI
+    bool hidden = 3;
+    // The scope of the object.
+    string scope = 4;
+    // A unique identifier for the template. The identifier must be unique across the scope of the enterprise to which the metadata template is being applied to. Defaults to a string derived from the displayName if no value is provided.
+    string templateKey = 5;
+}
+
+message MetadataTemplateList {
+}
+
+message ObjectList {
+}
+
+message Pagination {
+    int64 limit = 1;
+    int64 offset = 2;
+    message Order {
+        string by = 1;
+        string direction = 2;
+    }
+    repeated Order order = 3;
+    int64 total_count = 4;
+}
+
+message PathCollection {
+}
+
+message RealtimeServer {
+    int64 max_retries = 1;
+    int64 retry_timeout = 2;
+    int64 ttl = 3;
+    string type = 4;
+    string url = 5;
+}
+
+message RealtimeServerList {
+}
+
+message Reference {
+    string id = 1;
+    enum Reference_Type {
+        REFERENCE_TYPE_FOLDER = 0;
+        REFERENCE_TYPE_FILE = 1;
+        REFERENCE_TYPE_USER = 2;
+        REFERENCE_TYPE_FILE_VERSION = 3;
+        REFERENCE_TYPE_LOCK = 4;
+        REFERENCE_TYPE_COLLABORATION = 5;
+        REFERENCE_TYPE_COMMENT = 6;
+        REFERENCE_TYPE_TASK = 7;
+        REFERENCE_TYPE_WEB_LINK = 8;
+        REFERENCE_TYPE_COLLECTION = 9;
+        REFERENCE_TYPE_TASK_ASSIGNMENT = 10;
+        REFERENCE_TYPE_EVENT = 11;
+        REFERENCE_TYPE_REALTIME_SERVER = 12;
+        REFERENCE_TYPE_WEBHOOK_EVENT = 13;
+        REFERENCE_TYPE_WEBHOOK = 14;
+        REFERENCE_TYPE_ENTERPRISE = 15;
+        REFERENCE_TYPE_INVITE = 16;
+        REFERENCE_TYPE_EMAIL_ALIAS = 17;
+        REFERENCE_TYPE_GROUP = 18;
+        REFERENCE_TYPE_GROUP_MEMBERSHIP = 19;
+        REFERENCE_TYPE_DEVICE_PINNER = 20;
+        REFERENCE_TYPE_RETENTION_POLICY = 21;
+        REFERENCE_TYPE_RETENTION_POLICY_ASSIGNMENT = 22;
+        REFERENCE_TYPE_FILE_VERSION_RETENTION = 23;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY = 24;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY_ASSIGNMENT = 25;
+        REFERENCE_TYPE_LEGAL_HOLD = 26;
+        REFERENCE_TYPE_UPLOAD_SESSION = 27;
+    }
+    Reference_Type type = 2;
+}
+
+message RetentionPolicy {
+}
+
+message RetentionPolicyAssignment {
+}
+
+message RetentionPolicyAssignmentList {
+    repeated RetentionPolicyAssignment entries = 1;
+}
+
+message RetentionPolicyList {
+    repeated RetentionPolicy entries = 1;
+}
+
+message RetentionPolicyReference {
+}
+
+message SharedLink {
+    string access = 1;
+    int64 download_count = 2;
+    string download_url = 3;
+    string effective_access = 4;
+    bool is_password_enabled = 5;
+    string password = 6;
+    SharedLinkPermissions permissions = 7;
+    int64 preview_count = 8;
+    string unshared_at = 9;
+    string url = 10;
+    string vanity_url = 11;
+}
+
+message SharedLinkPermissions {
+    bool can_download = 1;
+    bool can_preview = 2;
+}
+
+message Task {
+}
+
+message TaskAssignment {
+}
+
+message TaskAssignmentList {
+}
+
+message TaskList {
+}
+
+message TemplateFields {
+    // A description of the field. The character limit is 4096. All characters are allowed.
+    string description = 1;
+    // The display name of the field. The character limit is 4096. All characters are allowed.
+    string displayName = 2;
+    bool hidden = 3;
+    // A unique identifier for the field. The identifier must be unique within the template to which it belongs. The character limit is 256. All characters are allowed.
+    string key = 4;
+    message Option {
+        string key = 1;
+    }
+    repeated Option options = 5;
+    // The data type of the field's value.
+    enum TemplateFields_Type {
+        TEMPLATEFIELDS_TYPE_STRING = 0;
+        TEMPLATEFIELDS_TYPE_ENUM = 1;
+        TEMPLATEFIELDS_TYPE_FLOAT = 2;
+        TEMPLATEFIELDS_TYPE_DATE = 3;
+    }
+    TemplateFields_Type type = 6;
+}
+
+message UpdateMetadata {
+    // Required for move or copy. The path that designates the source key, in the format of a JSON-Pointer, formatted in the same way as path. Used in conjunction with path: from specifies the source, path specifies the destination.
+    string from = 1;
+    // The operation type. Must be add, replace, remove , test, move, or copy.
+    enum UpdateMetadata_Op {
+        UPDATEMETADATA_OP_ADD = 0;
+        UPDATEMETADATA_OP_REPLACE = 1;
+        UPDATEMETADATA_OP_REMOVE = 2;
+        UPDATEMETADATA_OP_TEST = 3;
+        UPDATEMETADATA_OP_MOVE = 4;
+        UPDATEMETADATA_OP_COPY = 5;
+    }
+    UpdateMetadata_Op op = 2;
+    // The path that designates the key, in the format of a JSON-Pointer. Since all keys are located at the root of the metadata instance, the key must be prefixed with a /. Special characters ~ and / in the key must be escaped according to JSON-Pointer specification. The value at the path must exist for the operation to be successful.
+    string path = 3;
+    // The value to be set or tested. Required for add, replace, and test operations. For add, if value already exists, then previous value will be overwritten by the new value. For replace, the metadata value must exist before replacing.For test, the value of the existing metadata instance must match the specified value.
+    string value = 4;
+}
+repeated UpdateMetadata UpdateMetadata = 1
+
+message UpdateMetadataTemplate {
+    // The data for the operation.  Can vary depending on the operation.
+    message Data {
+    }
+    Data data = 1;
+    // For operations that affect multiple enum options, the keys of the enum options to be affected.
+    repeated string enumOptionKeys = 2;
+    // For operations that affect a specific field, the key of the field to be affected.
+    string fieldKey = 3;
+    // For operations that affect multiple fields, the keys of the fields to be affected.
+    repeated string fieldKeys = 4;
+    // The operation name.
+    enum UpdateMetadataTemplate_Op {
+        UPDATEMETADATATEMPLATE_OP_ADDENUMOPTION = 0;
+        UPDATEMETADATATEMPLATE_OP_ADDFIELD = 1;
+        UPDATEMETADATATEMPLATE_OP_EDITENUMOPTION = 2;
+        UPDATEMETADATATEMPLATE_OP_EDITFIELD = 3;
+        UPDATEMETADATATEMPLATE_OP_EDITTEMPLATE = 4;
+        UPDATEMETADATATEMPLATE_OP_REMOVEENUMOPTION = 5;
+        UPDATEMETADATATEMPLATE_OP_REMOVEFIELD = 6;
+        UPDATEMETADATATEMPLATE_OP_REORDERENUMOPTIONS = 7;
+        UPDATEMETADATATEMPLATE_OP_REORDERFIELDS = 8;
+    }
+    UpdateMetadataTemplate_Op op = 5;
+}
+repeated UpdateMetadataTemplate UpdateMetadataTemplate = 1
+
+message User {
+}
+
+message UserList {
+}
+
+message UserReference {
+    // Unqiue string identifying this user.
+    string id = 1;
+    // The email address this user uses to login.
+    string login = 2;
+    // Name of this user
+    string name = 3;
+    enum UserReference_Type {
+        USERREFERENCE_TYPE_USER = 0;
+    }
+    UserReference_Type type = 4;
+}
+
+message Watermark {
+    WatermarkReference watermark = 1;
+}
+
+message WatermarkInfo {
+    bool is_watermarked = 1;
+}
+repeated WatermarkInfo WatermarkInfo = 1
+
+message WatermarkReference {
+    // When this watermark was created
+    string created_at = 1;
+    enum WatermarkReference_Imprint {
+        WATERMARKREFERENCE_IMPRINT_DEFAULT = 0;
+    }
+    WatermarkReference_Imprint imprint = 2;
+    // When this task was modified
+    string modified_at = 3;
+}
+
+message WebLink {
+}
+
+message Webhook {
+}
+
+message WebhookList {
+}
+
+service Box2.0Service {
+    // Pending Collaborations
+    // 
+    // Used to retrieve all pending collaboration invites for this user.
+    rpc GetCollaborations(GetCollaborationsRequest) returns (CollaborationList) {
+      option (google.api.http) = {
+        get: "/2.0/collaborations"
+      };
+    }
+    // Create Collaboration
+    // 
+    // Used to add a collaboration for a single user or a single group to a folder. Either an email address, a user ID, or a group id can be used to create the collaboration. If the collaboration is being created with a group, access to this endpoint is granted based on the group's invitability_level.
+    rpc PostCollaborations(PostCollaborationsRequest) returns (Collaboration) {
+      option (google.api.http) = {
+        post: "/2.0/collaborations"
+        body: "body"
+      };
+    }
+    // Get Collaboration
+    // 
+    // Used to get information about a single collaboration. All collaborations for a single folder can be retrieved through GET /folders/{id}/collaborations. A complete list of the user’s pending collaborations can also be retrieved.
+    rpc GetCollaborationsCOLLAB_ID(GetCollaborationsCOLLAB_IDRequest) returns (Collaboration) {
+      option (google.api.http) = {
+        get: "/2.0/collaborations/{COLLAB_ID}"
+      };
+    }
+    // Update Collaboration
+    // 
+    // Used to edit an existing collaboration. Descriptions of the various roles can be found here.
+    rpc PutCollaborationsCOLLAB_ID(PutCollaborationsCOLLAB_IDRequest) returns (Collaboration) {
+      option (google.api.http) = {
+        put: "/2.0/collaborations/{COLLAB_ID}"
+        body: "body"
+      };
+    }
+    // Delete Collaboration
+    // 
+    // Used to delete a single collaboration.
+    rpc DeleteCollaborationsCOLLAB_ID(DeleteCollaborationsCOLLAB_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/collaborations/{COLLAB_ID}"
+      };
+    }
+    // Get Collections
+    // 
+    // Retrieves the collections for the given user. Currently, only the favorites collection is supported.
+    rpc GetCollections(google.protobuf.Empty) returns (CollectionList) {
+      option (google.api.http) = {
+        get: "/2.0/collections"
+      };
+    }
+    // Get Collection Items
+    // 
+    // Retrieves the files and/or folders contained within this collection. Collection item lists behave a lot like getting a folder’s items.
+    // Paginated results can be retrieved using the limit and offset parameters.
+    // Sub-object fields can be requested via the ?fields parameter
+    rpc GetCollectionsCOLLECTION_IDItems(GetCollectionsCOLLECTION_IDItemsRequest) returns (ItemReferenceList) {
+      option (google.api.http) = {
+        get: "/2.0/collections/{COLLECTION_ID}/items"
+      };
+    }
+    // Create Comment
+    // 
+    // Used to add a comment by the user to a specific file or comment (i.e. as a reply comment).
+    rpc PostComments(PostCommentsRequest) returns (Comment) {
+      option (google.api.http) = {
+        post: "/2.0/comments"
+        body: "body"
+      };
+    }
+    // Get Comment
+    // 
+    // Used to retrieve the message and metadata about a specific comment. Information about the user who created the comment is also included.
+    rpc GetCommentsCOMMENT_ID(GetCommentsCOMMENT_IDRequest) returns (Comment) {
+      option (google.api.http) = {
+        get: "/2.0/comments/{COMMENT_ID}"
+      };
+    }
+    // Update Comment
+    // 
+    // Used to update the message of the comment.
+    rpc PutCommentsCOMMENT_ID(PutCommentsCOMMENT_IDRequest) returns (Comment) {
+      option (google.api.http) = {
+        put: "/2.0/comments/{COMMENT_ID}"
+        body: "body"
+      };
+    }
+    // Delete Comment
+    // 
+    // Permanently deletes a comment.
+    rpc DeleteCommentsCOMMENT_ID(DeleteCommentsCOMMENT_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/comments/{COMMENT_ID}"
+      };
+    }
+    // Get Device Pin
+    // 
+    // Gets information about an individual device pin.
+    rpc GetDevice_pinnersID(GetDevice_pinnersIDRequest) returns (DevicePinner) {
+      option (google.api.http) = {
+        get: "/2.0/device_pinners/{ID}"
+      };
+    }
+    // Delete Device Pin
+    // 
+    // Delete individual device pin.
+    rpc DeleteDevice_pinnersID(DeleteDevice_pinnersIDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/device_pinners/{ID}"
+      };
+    }
+    // Get Enterprise Device Pins
+    // 
+    // Gets all the device pins within a given enterprise. Must be an enterprise admin with the manage enterprise scope to make this call.
+    rpc GetEnterprisesENTERPRISE_IDDevice_pinners(GetEnterprisesENTERPRISE_IDDevice_pinnersRequest) returns (DevicePinnerList) {
+      option (google.api.http) = {
+        get: "/2.0/enterprises/{ENTERPRISE_ID}/device_pinners"
+      };
+    }
+    // User Events, Enterprise Events
+    // 
+    // Use this to get events for a given user. A chunk of event objects is returned for the user based on the parameters passed in. Parameters indicating how many chunks are left as well as the next stream_position are also returned.
+    // 
+    // To retrieve Enterprise Events specify 'stream_type=admin_logs'. Retrieves up to a year' events for all users in an enterprise. Upper and lower bounds as well as filters can be applied to the results.
+    rpc GetEvents(GetEventsRequest) returns (EventList) {
+      option (google.api.http) = {
+        get: "/2.0/events"
+      };
+    }
+    // Get List of File Version Legal Holds
+    // 
+    // Get list of non-deleted Holds for a single Policy.
+    rpc GetFile_version_legal_holds(GetFile_version_legal_holdsRequest) returns (FileVersionLegalHoldList) {
+      option (google.api.http) = {
+        get: "/2.0/file_version_legal_holds"
+      };
+    }
+    // Get File Version Legal Hold
+    // 
+    // Get details of a single File Version Legal Hold.
+    rpc GetFile_version_legal_holdsID(GetFile_version_legal_holdsIDRequest) returns (FileVersionLegalHold) {
+      option (google.api.http) = {
+        get: "/2.0/file_version_legal_holds/{ID}"
+      };
+    }
+    // Get File Version Retentions
+    // 
+    // Retrieves all file version retentions for the given enterprise.
+    rpc GetFile_version_retentions(GetFile_version_retentionsRequest) returns (FileVersionRetentionList) {
+      option (google.api.http) = {
+        get: "/2.0/file_version_retentions"
+      };
+    }
+    // Get File Version Retention
+    // 
+    // Used to retrieve information about a file version retention
+    rpc GetFile_version_retentionsFILE_VERSION_RETENTION_ID(GetFile_version_retentionsFILE_VERSION_RETENTION_IDRequest) returns (FileVersionRetention) {
+      option (google.api.http) = {
+        get: "/2.0/file_version_retentions/{FILE_VERSION_RETENTION_ID}"
+      };
+    }
+
+    // Get File's Info, Get Embed Link
+    // 
+    // Used to retrieve the metadata about a file.
+    rpc GetFilesFILE_ID(GetFilesFILE_IDRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}"
+      };
+    }
+    // Update File Info, Lock and Unlock, Create Shared Link
+    // 
+    // Used to update individual or multiple fields in the file object, including renaming the file, changing its description, and creating a shared link for the file. To move a file, change the ID of its parent folder. An optional If-Match header can be included to prevent race conditions.
+    // 
+    // To lock and unlock files, you execute a PUT operation on the /files/{file id} endpoint and set or clear the lock properties on the file.
+    // 
+    // Used to create a shared link for this particular file. Please see here for more information on the permissions available for shared links. In order to get default shared link status, set it to an empty access level, i.e. {"shared_link": {}}. In order to disable a shared link, send this same type of PUT request with the value of shared_link set to null, i.e. {"shared_link": null}
+    rpc PutFilesFILE_ID(PutFilesFILE_IDRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        put: "/2.0/files/{FILE_ID}"
+        body: "body"
+      };
+    }
+    // Restore Item
+    // 
+    // Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash. If that parent folder no longer exists or if there is now an item with the same name in that parent folder, the new parent folder and/or new name will need to be included in the request.
+    rpc PostFilesFILE_ID(PostFilesFILE_IDRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        post: "/2.0/files/{FILE_ID}"
+        body: "body"
+      };
+    }
+    // Delete File
+    // 
+    // Discards a file to the trash. The etag of the file can be included as an ‘If-Match’ header to prevent race conditions.
+    rpc DeleteFilesFILE_ID(DeleteFilesFILE_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/files/{FILE_ID}"
+      };
+    }
+    // Get File's Collaborations
+    // 
+    // Use this to get a list of all the collaborations on a file
+    rpc GetFilesFILE_IDCollaborations(GetFilesFILE_IDCollaborationsRequest) returns (CollaborationList) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/collaborations"
+      };
+    }
+    // Get File's Comments
+    // 
+    // Retrieves the comments on a particular file, if any exist.
+    rpc GetFilesFILE_IDComments(GetFilesFILE_IDCommentsRequest) returns (CommentList) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/comments"
+      };
+    }
+    // Download File
+    // 
+    // Retrieves the actual data of the file. An optional version parameter can be set to download a previous version of the file.
+    rpc GetFilesFILE_IDContent(GetFilesFILE_IDContentRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/content"
+      };
+    }
+    // Copy File
+    // 
+    // Used to create a copy of a file in another folder. The original version of the file will not be altered.
+    rpc PostFilesFILE_IDCopy(PostFilesFILE_IDCopyRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        post: "/2.0/files/{FILE_ID}/copy"
+        body: "body"
+      };
+    }
+    // Get all Metadata on File
+    // 
+    // Used to retrieve all metadata associated with a given file
+    rpc GetFilesFILE_IDMetadata(GetFilesFILE_IDMetadataRequest) returns (MetadataList) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/metadata"
+      };
+    }
+    // Get Metadata on File
+    // 
+    // Used to retrieve the metadata template instance for a corresponding Box file.
+    rpc GetFilesFILE_IDMetadataSCOPETEMPLATE(GetFilesFILE_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/metadata/{SCOPE}/{TEMPLATE}"
+      };
+    }
+    // Update Metadata on File
+    // 
+    // Used to update the template instance. The request body must follow the JSON-Patch specification, which is represented as a JSON array of operation objects (see examples for more details). Updates can be either add, replace, remove , test, move, or copy. The template instance can only be updated if the template instance already exists. When editing metadata, only values that adhere to the metadata template schema will be accepted.
+    // The update is applied atomically. If any errors occur during the application of the update operations, the metadata instance remains unchanged.
+    rpc PutFilesFILE_IDMetadataSCOPETEMPLATE(PutFilesFILE_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        put: "/2.0/files/{FILE_ID}/metadata/{SCOPE}/{TEMPLATE}"
+        body: "body"
+      };
+    }
+    // Create Metadata on File
+    // 
+    // Used to create the metadata template instance for a corresponding Box file. When creating metadata, only values that adhere to the metadata template schema will be accepted.
+    rpc PostFilesFILE_IDMetadataSCOPETEMPLATE(PostFilesFILE_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        post: "/2.0/files/{FILE_ID}/metadata/{SCOPE}/{TEMPLATE}"
+        body: "body"
+      };
+    }
+    // Delete Metadata on File
+    // 
+    // Used to delete the template instance. To delete custom key:value pairs within a template instance, you should refer to the updating metadata section.
+    rpc DeleteFilesFILE_IDMetadataSCOPETEMPLATE(DeleteFilesFILE_IDMetadataSCOPETEMPLATERequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/files/{FILE_ID}/metadata/{SCOPE}/{TEMPLATE}"
+      };
+    }
+    // Get File's Tasks
+    // 
+    // Retrieves all of the tasks for given file.
+    rpc GetFilesFILE_IDTasks(GetFilesFILE_IDTasksRequest) returns (TaskList) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/tasks"
+      };
+    }
+    // Get Thumbnail
+    // 
+    // Retrieves a thumbnail, or smaller image representation, of this file. Sizes of 32x32,64x64, 128x128, and 256x256 can be returned in the .png format and sizes of 32x32, 94x94, 160x160, and 320x320 can be returned in the .jpg format. Thumbnails can be generated for the image and video file formats listed here.
+    rpc GetFilesFILE_IDThumbnailEXTENSION(GetFilesFILE_IDThumbnailEXTENSIONRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/thumbnail.{EXTENSION}"
+      };
+    }
+    // Get Trashed File
+    // 
+    // Retrieves an item that has been moved to the trash.
+    rpc GetFilesFILE_IDTrash(GetFilesFILE_IDTrashRequest) returns (BoxFile) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/trash"
+      };
+    }
+    // Permanently Delete
+    // 
+    // Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+    rpc DeleteFilesFILE_IDTrash(DeleteFilesFILE_IDTrashRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/files/{FILE_ID}/trash"
+      };
+    }
+    // View Versions
+    // 
+    // If there are previous versions of this file, this method can be used to retrieve information about the older versions. (Versions are only tracked for Box users with premium accounts.)
+    rpc GetFilesFILE_IDVersions(GetFilesFILE_IDVersionsRequest) returns (FileVersionList) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/versions"
+      };
+    }
+    // Promote Version
+    // 
+    // If there are previous versions of this file, this method can be used to promote one of the older versions to the top of the stack. This actually mints a copy of the old version and puts it on the top of the versions stack. The file will have the exact same contents, the same SHA1/etag, and the same name as the original. Other properties such as comments do not get updated to their former values.
+    rpc PostFilesFILE_IDVersionsCurrent(PostFilesFILE_IDVersionsCurrentRequest) returns (FileVersion) {
+      option (google.api.http) = {
+        post: "/2.0/files/{FILE_ID}/versions/current"
+        body: "body"
+      };
+    }
+    // Delete Old Version
+    // 
+    // Discards a specific file version to the trash. (Depending on the enterprise settings for this user, the item will either be actually deleted from Box or moved to the trash.)
+    rpc DeleteFilesFILE_IDVersionsVERSION_ID(DeleteFilesFILE_IDVersionsVERSION_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/files/{FILE_ID}/versions/{VERSION_ID}"
+      };
+    }
+    // Get Watermark on File
+    // 
+    // Used to retrieve the watermark for a corresponding Box file.
+    rpc GetFilesFILE_IDWatermark(GetFilesFILE_IDWatermarkRequest) returns (Watermark) {
+      option (google.api.http) = {
+        get: "/2.0/files/{FILE_ID}/watermark"
+      };
+    }
+    // Apply Watermark on File
+    // 
+    // Used to apply or update the watermark for a corresponding Box file. The endpoint accepts a JSON body describing the watermark to apply.
+    rpc PutFilesFILE_IDWatermark(PutFilesFILE_IDWatermarkRequest) returns (Watermark) {
+      option (google.api.http) = {
+        put: "/2.0/files/{FILE_ID}/watermark"
+        body: "body"
+      };
+    }
+    // Remove Watermark on File
+    // 
+    // Used to remove the watermark for a corresponding Box file.
+    rpc DeleteFilesFILE_IDWatermark(DeleteFilesFILE_IDWatermarkRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/files/{FILE_ID}/watermark"
+      };
+    }
+    // Create Folder
+    // 
+    // Used to create a new empty folder. The new folder will be created inside of the specified parent folder
+    rpc PostFolders(PostFoldersRequest) returns (Folder) {
+      option (google.api.http) = {
+        post: "/2.0/folders"
+        body: "body"
+      };
+    }
+    // Get Trashed Items
+    // 
+    // Retrieves the files and/or folders that have been moved to the trash. Any attribute in the full files or folders objects can be passed in with the fields parameter to get specific attributes, and only those specific attributes back; otherwise, the mini format is returned for each item by default. Multiple attributes can be passed in separated by commas e.g. fields=name,created_at. Paginated results can be retrieved using the limit and offset parameters.
+    rpc GetFoldersTrashItems(GetFoldersTrashItemsRequest) returns (FileReferenceList) {
+      option (google.api.http) = {
+        get: "/2.0/folders/trash/items"
+      };
+    }
+    // Get Folder's Info
+    // 
+    // Retrieves the full metadata about a folder, including information about when it was last updated as well as the files and folders contained in it. The root folder of a Box account is always represented by the id “0”.
+    rpc GetFoldersFOLDER_ID(GetFoldersFOLDER_IDRequest) returns (Folder) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}"
+      };
+    }
+    // Update Folder, Create Shared Link, Create or Delete
+    // 
+    // Used to update information about the folder. To move a folder, update the ID of its parent. To enable an email address that can be used to upload files to this folder, update the folder_upload_email attribute. An optional If-Match header can be included to ensure that client only updates the folder if it knows about the latest version.
+    // 
+    // Used to create a shared link for this particular folder. Please see here for more information on the permissions available for shared links. In order to get default shared link status, set it to an empty access level, i.e. {"shared_link": {}}. In order to disable a shared link, send this same type of PUT request with the value of shared_link set to null, i.e. {"shared_link": null}
+    // 
+    // To add or remove an item from a collection, you do a PUT on that item and change the list of collections it belongs to. Philosophically, this is similar to the way “move” operations work on files and folders: you do a PUT on the item and change its parent. It’s the same idea with collections, except you’re changing which collection(s) the item belongs to instead of the folder it belongs to. Currently the only collection available is the favorites collection, and you’ll need to know it’s ID for the user that is making the API call, since every user has a different favorites collection_id.
+    // The Add/Remove API handling will check all ids passed in before performing any add/removal operations. If any collection ids are malformed or do not exist in the user’s account, the API call will throw a 400. Only if all of the collection ids are valid will the adds and removals be carried out.
+    rpc PutFoldersFOLDER_ID(PutFoldersFOLDER_IDRequest) returns (Folder) {
+      option (google.api.http) = {
+        put: "/2.0/folders/{FOLDER_ID}"
+        body: "body"
+      };
+    }
+    // Restore Folder
+    // 
+    // Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash. If that parent folder no longer exists or if there is now an item with the same name in that parent folder, the new parent folder and/or new name will need to be included in the request.
+    rpc PostFoldersFOLDER_ID(PostFoldersFOLDER_IDRequest) returns (Folder) {
+      option (google.api.http) = {
+        post: "/2.0/folders/{FOLDER_ID}"
+        body: "body"
+      };
+    }
+    // Delete Folder
+    // 
+    // Used to delete a folder. A recursive parameter must be included in order to delete folders that have items inside of them. An optional If-Match header can be included to ensure that client only deletes the folder if it knows about the latest version.
+    rpc DeleteFoldersFOLDER_ID(DeleteFoldersFOLDER_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/folders/{FOLDER_ID}"
+      };
+    }
+    // Get Folder Collaborations
+    // 
+    // Use this to get a list of all the collaborations on a folder i.e. all of the users that have access to that folder.
+    rpc GetFoldersFOLDER_IDCollaborations(GetFoldersFOLDER_IDCollaborationsRequest) returns (CollaborationList) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/collaborations"
+      };
+    }
+    // Copy Folder
+    // 
+    // Used to create a copy of a folder in another folder. The original version of the folder will not be altered.
+    rpc PostFoldersFOLDER_IDCopy(PostFoldersFOLDER_IDCopyRequest) returns (Folder) {
+      option (google.api.http) = {
+        post: "/2.0/folders/{FOLDER_ID}/copy"
+        body: "body"
+      };
+    }
+    // Get Folder’s Items
+    // 
+    // Retrieves the files and/or folders contained within this folder without any other metadata about the folder. Any attribute in the full files or folders objects can be passed in with the fields parameter to get specific attributes, and only those specific attributes back; otherwise, the mini format is returned for each item by default. Multiple attributes can be passed in separated by commas e.g. fields=name,created_at. Paginated results can be retrieved using the limit and offset parameters.
+    rpc GetFoldersFOLDER_IDItems(GetFoldersFOLDER_IDItemsRequest) returns (ItemReferenceList) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/items"
+      };
+    }
+    // Get All Metadata on Folder
+    // 
+    // Used to retrieve all metadata associated with a given folder
+    rpc GetFoldersFOLDER_IDMetadata(GetFoldersFOLDER_IDMetadataRequest) returns (MetadataList) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/metadata"
+      };
+    }
+    // Get Metadata on Folder
+    // 
+    // Used to retrieve the metadata template instance for a corresponding Box folder.
+    rpc GetFoldersFOLDER_IDMetadataSCOPETEMPLATE(GetFoldersFOLDER_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/metadata/{SCOPE}/{TEMPLATE}"
+      };
+    }
+    // Update Metadata on Folder
+    // 
+    // Used to update the template instance. Updates can be either add, replace, remove , or test. The template instance can only be updated if the template instance already exists. When editing metadata, only values that adhere to the metadata template schema will be accepted.
+    rpc PutFoldersFOLDER_IDMetadataSCOPETEMPLATE(PutFoldersFOLDER_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        put: "/2.0/folders/{FOLDER_ID}/metadata/{SCOPE}/{TEMPLATE}"
+        body: "body"
+      };
+    }
+    // Create Metadata on Folder
+    // 
+    // Used to create the metadata template instance for a corresponding Box folder. When creating metadata, only values that adhere to the metadata template schema will be accepted.
+    rpc PostFoldersFOLDER_IDMetadataSCOPETEMPLATE(PostFoldersFOLDER_IDMetadataSCOPETEMPLATERequest) returns (Metadata) {
+      option (google.api.http) = {
+        post: "/2.0/folders/{FOLDER_ID}/metadata/{SCOPE}/{TEMPLATE}"
+        body: "body"
+      };
+    }
+    // Delete Metadata on Folder
+    // 
+    // Used to delete the template instance. To delete custom key:value pairs within a template instance, you should refer to the updating metadata section.
+    rpc DeleteFoldersFOLDER_IDMetadataSCOPETEMPLATE(DeleteFoldersFOLDER_IDMetadataSCOPETEMPLATERequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/folders/{FOLDER_ID}/metadata/{SCOPE}/{TEMPLATE}"
+      };
+    }
+    // Get Trashed Folder
+    // 
+    // Retrieves an folder that has been moved to the trash.
+    rpc GetFoldersFOLDER_IDTrash(GetFoldersFOLDER_IDTrashRequest) returns (Folder) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/trash"
+      };
+    }
+    // Permanently Delete
+    // 
+    // Permanently deletes an folder that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+    rpc DeleteFoldersFOLDER_IDTrash(DeleteFoldersFOLDER_IDTrashRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/folders/{FOLDER_ID}/trash"
+      };
+    }
+    // Get Watermark on Folder
+    // 
+    // Used to retrieve the watermark for a corresponding Box folder.
+    rpc GetFoldersFOLDER_IDWatermark(GetFoldersFOLDER_IDWatermarkRequest) returns (Watermark) {
+      option (google.api.http) = {
+        get: "/2.0/folders/{FOLDER_ID}/watermark"
+      };
+    }
+    // Apply Watermark on Folder
+    // 
+    // Used to apply or update the watermark for a corresponding Box folder. The endpoints accepts a JSON body describing the watermark to apply.
+    rpc PutFoldersFOLDER_IDWatermark(PutFoldersFOLDER_IDWatermarkRequest) returns (Watermark) {
+      option (google.api.http) = {
+        put: "/2.0/folders/{FOLDER_ID}/watermark"
+        body: "body"
+      };
+    }
+    // Remove Watermark on Folder
+    // 
+    // Used to remove the watermark for a corresponding Box Folder.
+    rpc DeleteFoldersFOLDER_IDWatermark(DeleteFoldersFOLDER_IDWatermarkRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/folders/{FOLDER_ID}/watermark"
+      };
+    }
+    // Create Membership
+    // 
+    // Used to add a member to a Group.
+    rpc PostGroup_memberships(PostGroup_membershipsRequest) returns (GroupMembership) {
+      option (google.api.http) = {
+        post: "/2.0/group_memberships"
+        body: "body"
+      };
+    }
+    // Get Membership
+    // 
+    // Fetches a specific group membership entry.
+    rpc GetGroup_membershipsGROUP_MEMBERSHIP_ID(GetGroup_membershipsGROUP_MEMBERSHIP_IDRequest) returns (GroupMembership) {
+      option (google.api.http) = {
+        get: "/2.0/group_memberships/{GROUP_MEMBERSHIP_ID}"
+      };
+    }
+    // Update Membership
+    // 
+    // Used to update a group membership.
+    rpc PutGroup_membershipsGROUP_MEMBERSHIP_ID(PutGroup_membershipsGROUP_MEMBERSHIP_IDRequest) returns (GroupMembership) {
+      option (google.api.http) = {
+        put: "/2.0/group_memberships/{GROUP_MEMBERSHIP_ID}"
+        body: "body"
+      };
+    }
+    // Delete Membership
+    // 
+    // Deletes a specific group membership.
+    rpc DeleteGroup_membershipsGROUP_MEMBERSHIP_ID(DeleteGroup_membershipsGROUP_MEMBERSHIP_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/group_memberships/{GROUP_MEMBERSHIP_ID}"
+      };
+    }
+    // Get Groups for an Enterprise
+    // 
+    // Retrieves all of the groups for given enterprise. Must have permissions to see an enterprise's groups.
+    rpc GetGroups(GetGroupsRequest) returns (GroupList) {
+      option (google.api.http) = {
+        get: "/2.0/groups"
+      };
+    }
+    // Create Group
+    // 
+    // Used to create a group.
+    rpc PostGroups(PostGroupsRequest) returns (Group) {
+      option (google.api.http) = {
+        post: "/2.0/groups"
+        body: "body"
+      };
+    }
+    // Get Group
+    // 
+    // Used to get information about a group.
+    rpc GetGroupsGROUP_ID(GetGroupsGROUP_IDRequest) returns (Group) {
+      option (google.api.http) = {
+        get: "/2.0/groups/{GROUP_ID}"
+      };
+    }
+    // Update Group
+    // 
+    // Updates a specific group.
+    rpc PutGroupsGROUP_ID(PutGroupsGROUP_IDRequest) returns (Group) {
+      option (google.api.http) = {
+        put: "/2.0/groups/{GROUP_ID}"
+        body: "body"
+      };
+    }
+    // Delete Group
+    // 
+    // Permanently deletes a specific group.
+    rpc DeleteGroupsGROUP_ID(DeleteGroupsGROUP_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/groups/{GROUP_ID}"
+      };
+    }
+    // Get Collaborations for Group
+    // 
+    // Retrieves all of the group collaborations for a given group. Note this is only available to group admins.
+    rpc GetGroupsGROUP_IDCollaborations(GetGroupsGROUP_IDCollaborationsRequest) returns (CollaborationList) {
+      option (google.api.http) = {
+        get: "/2.0/groups/{GROUP_ID}/collaborations"
+      };
+    }
+    // Get Memberships for Group
+    // 
+    // Retrieves all of the members for a given group if the requesting user has access (see Group Object member_viewability_level).
+    rpc GetGroupsGROUP_IDMemberships(GetGroupsGROUP_IDMembershipsRequest) returns (GroupMembershipList) {
+      option (google.api.http) = {
+        get: "/2.0/groups/{GROUP_ID}/memberships"
+      };
+    }
+    // Invite User
+    // 
+    // Invites an existing user to join an Enterprise. The existing user can not be part of another Enterprise and must already have a Box account. Once invited, the user will receive an email and prompt to accept the invitation within the Box web application. This method requires the "Manage An Enterprise" scope for the enterprise, which can be enabled within your developer console.
+    rpc PostInvites(PostInvitesRequest) returns (Invite) {
+      option (google.api.http) = {
+        post: "/2.0/invites"
+        body: "body"
+      };
+    }
+    // Get status of the invite
+    rpc GetInvitesINVITE_ID(GetInvitesINVITE_IDRequest) returns (Invite) {
+      option (google.api.http) = {
+        get: "/2.0/invites/{INVITE_ID}"
+      };
+    }
+    // Get Legal Hold Policies
+    // 
+    // Get a list of Legal Hold Policies that belong to your Enterprise.
+    rpc GetLegal_hold_policies(GetLegal_hold_policiesRequest) returns (LegalHoldPolicyList) {
+      option (google.api.http) = {
+        get: "/2.0/legal_hold_policies"
+      };
+    }
+    // Create New Legal Hold Policy
+    // 
+    // Create a new Legal Hold Policy. Optional date filter may be passed. If Policy has a date filter, any Custodian assignments will apply only to file versions created or uploaded inside of the date range.
+    rpc PostLegal_hold_policies(PostLegal_hold_policiesRequest) returns (LegalHoldPolicy) {
+      option (google.api.http) = {
+        post: "/2.0/legal_hold_policies"
+        body: "body"
+      };
+    }
+    // Get Legal Hold Policy
+    // 
+    // Get details of a single Legal Hold Policy
+    rpc GetLegal_hold_policiesID(GetLegal_hold_policiesIDRequest) returns (LegalHoldPolicy) {
+      option (google.api.http) = {
+        get: "/2.0/legal_hold_policies/{ID}"
+      };
+    }
+    // Update Existing Legal Hold Policy
+    // 
+    // Update existing Legal Hold Policy. Only name and description can be modified.
+    rpc PutLegal_hold_policiesID(PutLegal_hold_policiesIDRequest) returns (LegalHoldPolicy) {
+      option (google.api.http) = {
+        put: "/2.0/legal_hold_policies/{ID}"
+        body: "body"
+      };
+    }
+    // Delete Legal Hold Policy
+    // 
+    // Sends request to delete an existing Legal Hold Policy. Note that this is an asynchronous process - the Policy will not be fully deleted yet when the response comes back.
+    rpc DeleteLegal_hold_policiesID(DeleteLegal_hold_policiesIDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/legal_hold_policies/{ID}"
+      };
+    }
+    // Get Legal hold policy assignments
+    // 
+    // Get list of assignments for a single Policy.
+    rpc GetLegal_hold_policiesIDAssignments(GetLegal_hold_policiesIDAssignmentsRequest) returns (LegalHoldPolicyAssignmentList) {
+      option (google.api.http) = {
+        get: "/2.0/legal_hold_policies/{ID}/assignments"
+      };
+    }
+    // Create New Legal Hold Policy Assignment
+    // 
+    // Create a new Assignment, which will apply the Legal Hold Policy to the target of the Assignment.
+    rpc PostLegal_hold_policy_assignments(PostLegal_hold_policy_assignmentsRequest) returns (LegalHoldPolicyAssignment) {
+      option (google.api.http) = {
+        post: "/2.0/legal_hold_policy_assignments"
+        body: "body"
+      };
+    }
+    // Get Legal Hold Policy Assignment
+    // 
+    // Get details of a single assignment.
+    rpc GetLegal_hold_policy_assignmentsASSIGNMENT_ID(GetLegal_hold_policy_assignmentsASSIGNMENT_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/2.0/legal_hold_policy_assignments/{ASSIGNMENT_ID}"
+      };
+    }
+    // Delete Legal Hold Policy Assignment
+    // 
+    // Sends request to delete an existing Assignment. Note that this is an asynchronous process - the Assignment will not be fully deleted yet when the response comes back.
+    rpc DeleteLegal_hold_policy_assignmentsASSIGNMENT_ID(DeleteLegal_hold_policy_assignmentsASSIGNMENT_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/legal_hold_policy_assignments/{ASSIGNMENT_ID}"
+      };
+    }
+    // Create Metadata Template
+    // 
+    // Used to create a new metadata template with the specified schema.
+    rpc PostMetadata_templatesSchema(PostMetadata_templatesSchemaRequest) returns (MetadataTemplate) {
+      option (google.api.http) = {
+        post: "/2.0/metadata_templates/schema"
+        body: "body"
+      };
+    }
+    // Get Enterprise Metadata
+    // 
+    // Used to retrieve all metadata templates within a user's enterprise. Currently only the enterprise scope is supported.
+    rpc GetMetadata_templatesSCOPE(GetMetadata_templatesSCOPERequest) returns (MetadataTemplateList) {
+      option (google.api.http) = {
+        get: "/2.0/metadata_templates/{SCOPE}"
+      };
+    }
+    // Get Metadata Template
+    // 
+    // Used to retrieve the schema for a given metadata template.
+    rpc GetMetadata_templatesSCOPETEMPLATESchema(GetMetadata_templatesSCOPETEMPLATESchemaRequest) returns (MetadataTemplate) {
+      option (google.api.http) = {
+        get: "/2.0/metadata_templates/{SCOPE}/{TEMPLATE}/schema"
+      };
+    }
+    // Update Metadata Template
+    // 
+    // Used to update the schema of an existing template.
+    rpc PutMetadata_templatesSCOPETEMPLATESchema(PutMetadata_templatesSCOPETEMPLATESchemaRequest) returns (MetadataTemplate) {
+      option (google.api.http) = {
+        put: "/2.0/metadata_templates/{SCOPE}/{TEMPLATE}/schema"
+        body: "body"
+      };
+    }
+    // Get Retention Policies
+    // 
+    // Retrieves all of the retention policies for the given enterprise.
+    rpc GetRetention_policies(GetRetention_policiesRequest) returns (RetentionPolicyList) {
+      option (google.api.http) = {
+        get: "/2.0/retention_policies"
+      };
+    }
+    // Create Retention Policy
+    // 
+    // Used to create a new retention policy.
+    rpc PostRetention_policies(PostRetention_policiesRequest) returns (RetentionPolicy) {
+      option (google.api.http) = {
+        post: "/2.0/retention_policies"
+        body: "body"
+      };
+    }
+    // Get Retention Policy
+    // 
+    // Used to retrieve information about a retention policy
+    rpc GetRetention_policiesPOLICY_ID(GetRetention_policiesPOLICY_IDRequest) returns (RetentionPolicy) {
+      option (google.api.http) = {
+        get: "/2.0/retention_policies/{POLICY_ID}"
+      };
+    }
+    // Update Retention Policy
+    // 
+    // Used to update a retention policy.
+    rpc PutRetention_policiesPOLICY_ID(PutRetention_policiesPOLICY_IDRequest) returns (RetentionPolicy) {
+      option (google.api.http) = {
+        put: "/2.0/retention_policies/{POLICY_ID}"
+        body: "body"
+      };
+    }
+    // Get Retention Policy Assignments
+    // 
+    // Returns a list of all retention policy assignments associated with a specified retention policy.
+    rpc GetRetention_policiesPOLICY_IDAssignments(GetRetention_policiesPOLICY_IDAssignmentsRequest) returns (RetentionPolicyAssignmentList) {
+      option (google.api.http) = {
+        get: "/2.0/retention_policies/{POLICY_ID}/assignments"
+      };
+    }
+    // Create Retention Policy Assignment
+    // 
+    // Returns a list of all retention policy assignments associated with a specified retention policy.
+    rpc PostRetention_policy_assignments(PostRetention_policy_assignmentsRequest) returns (RetentionPolicyAssignment) {
+      option (google.api.http) = {
+        post: "/2.0/retention_policy_assignments"
+        body: "body"
+      };
+    }
+    // Get Retention Policy Assignment
+    // 
+    // Used to retrieve information about a retention policy assignment.
+    rpc GetRetention_policy_assignmentsRETENTION_POLICY_ASSIGNMENT_ID(GetRetention_policy_assignmentsRETENTION_POLICY_ASSIGNMENT_IDRequest) returns (RetentionPolicyAssignment) {
+      option (google.api.http) = {
+        get: "/2.0/retention_policy_assignments/{RETENTION_POLICY_ASSIGNMENT_ID}"
+      };
+    }
+    // Searching for Content
+    // 
+    // The search endpoint provides a powerful way of finding items that are accessible by a single user or an entire enterprise. Leverage the parameters listed below to generate targeted advanced searches.
+    rpc GetSearch(GetSearchRequest) returns (ObjectList) {
+      option (google.api.http) = {
+        get: "/2.0/search"
+      };
+    }
+    // Shared Items
+    // 
+    // Shared items are any files or folders that are represented by a shared link. Shared items are different from other API resources in that a shared resource doesn’t necessarily have to be in the account of the user accessing it. The actual shared link itself is used along with a normal access token.
+    // Used to retrieve the metadata about a shared item when only given a shared link. Because of varying permission for shared links, a password may be required to retrieve the shared item. Once the item has been retrieved, you can make API requests against the actual resource /files/{id} or /folders/{id} as long as the shared link and optional password are in the header.
+    rpc GetShared_items(GetShared_itemsRequest) returns (GetShared_itemsResponse) {
+      option (google.api.http) = {
+        get: "/2.0/shared_items"
+      };
+    }
+    // Create Task Assignment
+    // 
+    // Used to assign a task to a single user. There can be multiple assignments on a given task.
+    rpc PostTask_assignments(PostTask_assignmentsRequest) returns (TaskAssignment) {
+      option (google.api.http) = {
+        post: "/2.0/task_assignments"
+        body: "body"
+      };
+    }
+    // Get Task Assignment
+    // 
+    // Fetches a specific task assignment.
+    rpc GetTask_assignmentsTASK_ASSIGNMENT_ID(GetTask_assignmentsTASK_ASSIGNMENT_IDRequest) returns (TaskAssignment) {
+      option (google.api.http) = {
+        get: "/2.0/task_assignments/{TASK_ASSIGNMENT_ID}"
+      };
+    }
+    // Update Task Assignment
+    // 
+    // Used to update a task assignment.
+    rpc PutTask_assignmentsTASK_ASSIGNMENT_ID(PutTask_assignmentsTASK_ASSIGNMENT_IDRequest) returns (TaskAssignment) {
+      option (google.api.http) = {
+        put: "/2.0/task_assignments/{TASK_ASSIGNMENT_ID}"
+        body: "body"
+      };
+    }
+    // Delete Task Assignment
+    // 
+    // Deletes a specific task assignment.
+    rpc DeleteTask_assignmentsTASK_ASSIGNMENT_ID(DeleteTask_assignmentsTASK_ASSIGNMENT_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/task_assignments/{TASK_ASSIGNMENT_ID}"
+      };
+    }
+    // Create Task
+    // 
+    // Used to create a single task for single user on a single file.
+    rpc PostTasks(PostTasksRequest) returns (Task) {
+      option (google.api.http) = {
+        post: "/2.0/tasks"
+        body: "body"
+      };
+    }
+    // Get Task
+    // 
+    // Fetches a specific task.
+    rpc GetTasksTASK_ID(GetTasksTASK_IDRequest) returns (Task) {
+      option (google.api.http) = {
+        get: "/2.0/tasks/{TASK_ID}"
+      };
+    }
+    // Update Task
+    // 
+    // Updates a specific task.
+    rpc PutTasksTASK_ID(PutTasksTASK_IDRequest) returns (Task) {
+      option (google.api.http) = {
+        put: "/2.0/tasks/{TASK_ID}"
+        body: "body"
+      };
+    }
+    // Delete Task
+    // 
+    // Permanently deletes a specific task.
+    rpc DeleteTasksTASK_ID(DeleteTasksTASK_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/tasks/{TASK_ID}"
+      };
+    }
+    // Get Assignments
+    // 
+    // Retrieves all of the assignments for a given task.
+    rpc GetTasksTASK_IDAssignments(GetTasksTASK_IDAssignmentsRequest) returns (TaskAssignmentList) {
+      option (google.api.http) = {
+        get: "/2.0/tasks/{TASK_ID}/assignments"
+      };
+    }
+    // Get Enterprise Users
+    // 
+    // Returns a list of all users for the Enterprise along with their user_id, public_name, and login.
+    rpc GetUsers(GetUsersRequest) returns (UserList) {
+      option (google.api.http) = {
+        get: "/2.0/users"
+      };
+    }
+    // Create User
+    // 
+    // Used to provision a new user in an enterprise. This method only works for enterprise admins.
+    rpc PostUsers(PostUsersRequest) returns (User) {
+      option (google.api.http) = {
+        post: "/2.0/users"
+        body: "body"
+      };
+    }
+    // Get Current User
+    // 
+    // Retrieves information about the user who is currently logged in i.e. the user for whom this auth token was generated.
+    rpc GetUsersMe(GetUsersMeRequest) returns (User) {
+      option (google.api.http) = {
+        get: "/2.0/users/me"
+      };
+    }
+    // Get User's Info
+    // 
+    // Retrieves information about a user in the enterprise. Requires enterprise administration authorization.
+    rpc GetUsersUSER_ID(GetUsersUSER_IDRequest) returns (User) {
+      option (google.api.http) = {
+        get: "/2.0/users/{USER_ID}"
+      };
+    }
+    // Update User, Change User's Login
+    // 
+    // Used to edit the settings and information about a user. This method only works for enterprise admins. To roll a user out of the enterprise (and convert them to a standalone free user), update the special enterprise attribute to be null.
+    // 
+    // Used to convert one of the user’s confirmed email aliases into the user’s primary login.
+    rpc PutUsersUSER_ID(PutUsersUSER_IDRequest) returns (User) {
+      option (google.api.http) = {
+        put: "/2.0/users/{USER_ID}"
+        body: "body"
+      };
+    }
+    // Delete User
+    // 
+    // Deletes a user in an enterprise account.
+    rpc DeleteUsersUSER_ID(DeleteUsersUSER_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/users/{USER_ID}"
+      };
+    }
+    // Get Email Aliases
+    // 
+    // Retrieves all email aliases for this user. The collection of email aliases does not include the primary login for the user; use GET /users/USER_ID to retrieve the login email address.
+    rpc GetUsersUSER_IDEmail_aliases(GetUsersUSER_IDEmail_aliasesRequest) returns (EmailAliasList) {
+      option (google.api.http) = {
+        get: "/2.0/users/{USER_ID}/email_aliases"
+      };
+    }
+    // Add Email Alias
+    // 
+    // Adds a new email alias to the given user’s account.
+    rpc PostUsersUSER_IDEmail_aliases(PostUsersUSER_IDEmail_aliasesRequest) returns (EmailAlias) {
+      option (google.api.http) = {
+        post: "/2.0/users/{USER_ID}/email_aliases"
+        body: "body"
+      };
+    }
+    // Delete Email Alias
+    // 
+    // Removes an email alias from a user.
+    rpc DeleteUsersUSER_IDEmail_aliasesEMAIL_ALIAS_ID(DeleteUsersUSER_IDEmail_aliasesEMAIL_ALIAS_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/users/{USER_ID}/email_aliases/{EMAIL_ALIAS_ID}"
+      };
+    }
+    // Move User's Folder
+    // 
+    // Moves all of the owned content from within one user’s folder into a new folder in another user’s account. You can move folders across users as long as the you have administrative permissions and the ‘source’ user owns the folders. To move everything from the root folder, use “0” which always represents the root folder of a Box account.
+    rpc PutUsersUSER_IDFoldersFOLDER_ID(PutUsersUSER_IDFoldersFOLDER_IDRequest) returns (Folder) {
+      option (google.api.http) = {
+        put: "/2.0/users/{USER_ID}/folders/{FOLDER_ID}"
+        body: "body"
+      };
+    }
+    // Get Memberships for User
+    // 
+    // Retrieves all of the group memberships for a given user. Note this is only available to group admins. To retrieve group memberships for the user making the API request, use the users/me/memberships endpoint.
+    rpc GetUsersUSER_IDMemberships(GetUsersUSER_IDMembershipsRequest) returns (GroupMembershipList) {
+      option (google.api.http) = {
+        get: "/2.0/users/{USER_ID}/memberships"
+      };
+    }
+    // Create Web Link
+    // 
+    // Creates a web link object within a given folder.
+    rpc PostWeb_links(PostWeb_linksRequest) returns (WebLink) {
+      option (google.api.http) = {
+        post: "/2.0/web_links"
+        body: "body"
+      };
+    }
+    // Get Web Link
+    // 
+    // Use to get information about the web link.
+    rpc GetWeb_linksWEB_LINK_ID(GetWeb_linksWEB_LINK_IDRequest) returns (WebLink) {
+      option (google.api.http) = {
+        get: "/2.0/web_links/{WEB_LINK_ID}"
+      };
+    }
+    // Update Web Link
+    // 
+    // Updates information for a web link.
+    rpc PutWeb_linksWEB_LINK_ID(PutWeb_linksWEB_LINK_IDRequest) returns (WebLink) {
+      option (google.api.http) = {
+        put: "/2.0/web_links/{WEB_LINK_ID}"
+        body: "body"
+      };
+    }
+    // Delete Web Link
+    // 
+    // Deletes a web link and moves it to the trash
+    rpc DeleteWeb_linksWEB_LINK_ID(DeleteWeb_linksWEB_LINK_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/web_links/{WEB_LINK_ID}"
+      };
+    }
+    // Get Webhooks
+    // 
+    // Returns all defined webhooks for the requesting application and user, up to the limit. If no limit is supplied then Box uses the default limit of 100.
+    // If more than limit webhooks are defined then Box returns the webhooks in batches. When the results are batched, Box sends limit webhooks along with a next_marker field in the response object. The value of the next_marker field is a marker string that you can use in later requests to tell Box which batch to send next.
+    // When you send a request that includes a marker string, Box sends the next batch of webhooks, beginning after the last webhook of the previous batch. When the response contains the last of the defined webhooks, Box omits the next_marker field from its response.
+    // You can use limit and marker together with the marker string returned in the next_marker field to paginate lists of webhooks.
+    rpc GetWebhooks(GetWebhooksRequest) returns (WebhookList) {
+      option (google.api.http) = {
+        get: "/2.0/webhooks"
+      };
+    }
+    // Create Webhook
+    // 
+    // Create Webhook
+    rpc PostWebhooks(PostWebhooksRequest) returns (Webhook) {
+      option (google.api.http) = {
+        post: "/2.0/webhooks"
+        body: "body"
+      };
+    }
+    // Get Webhook
+    // 
+    // Get a Webhook
+    rpc GetWebhooksWEBHOOK_ID(GetWebhooksWEBHOOK_IDRequest) returns (Webhook) {
+      option (google.api.http) = {
+        get: "/2.0/webhooks/{WEBHOOK_ID}"
+      };
+    }
+    // Update Webhook
+    // 
+    // Update a Webhook
+    rpc PutWebhooksWEBHOOK_ID(PutWebhooksWEBHOOK_IDRequest) returns (Webhook) {
+      option (google.api.http) = {
+        put: "/2.0/webhooks/{WEBHOOK_ID}"
+        body: "body"
+      };
+    }
+    // Delete Webhook
+    // 
+    // Permanently deletes a webhook
+    rpc DeleteWebhooksWEBHOOK_ID(DeleteWebhooksWEBHOOK_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/2.0/webhooks/{WEBHOOK_ID}"
+      };
+    }
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package tweetsummarizationapis;
+
+message GetTwitterSummarizeGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Numof search requests. Return up to 100 x iter tweets.
+    int32 iter = 2;
+    // Get before this id.
+    int64 maxId = 3;
+    // Numof summarization tweets.
+    int32 num = 4;
+    // Search query
+    string q = 5;
+    // Get after this id.
+    int64 sinceId = 6;
+}
+
+message TweetSummarizeEntity {
+    // Tweet date
+    int64 createdAt = 1;
+    // Summarization score
+    double score = 2;
+    // Status ID
+    int64 statusId = 3;
+    // Tweet text
+    string text = 4;
+    // User ID
+    int64 userId = 5;
+    // User name
+    string userName = 6;
+    // User profile image URL
+    string userProfileImageURL = 7;
+    // User screen name
+    string userScreenName = 8;
+}
+
+message TwitterSummarizeResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Output: Numof summarize
+    int32 numofSummarize = 3;
+    // Output: Numof hit tweets
+    int32 numofTweets = 4;
+    // Process time [millisecond]
+    string processTime = 5;
+    // Input: query
+    string query = 6;
+    // Start date
+    string startTime = 7;
+    // Output: Summarization tweets
+    repeated TweetSummarizeEntity tweets = 8;
+}
+
+service TweetSummarizationAPIsService {
+    // Summarize tweets.
+    // 
+    // Tweet summarization API.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/twitter-response">twitter-response</a><BR />&nbsp; Class: com.apitore.banana.response.twitter.TwitterSummarizeResponseEntity<BR />
+    rpc GetTwitterSummarizeGet(GetTwitterSummarizeGetRequest) returns (TwitterSummarizeResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/27/twitter-summarize/get"
+      };
+    }
+}

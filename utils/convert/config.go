@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/ghodss/yaml"
-	_ "github.com/krakend-admin/utils/errors"
+	"github.com/roscopecoltran/krakend-admin/utils/errors"
 )
 
 func JSON2YAML(j []byte) (string, error) {
@@ -50,10 +50,10 @@ func GetYamlFilenames(dirname string) ([]string, error) {
 	return files, nil
 }
 
-func concatYamlFiles(files []string) ([]string, error) {
+func ConcatYamlFiles(files []string) ([]string, error) {
 	d := make([]string, 0)
 	for _, v := range files {
-		content, err := readLines(v, "  ")
+		content, err := ReadLines(v, "  ")
 		if err != nil {
 			return d, err
 		}
@@ -62,19 +62,19 @@ func concatYamlFiles(files []string) ([]string, error) {
 	return d, nil
 }
 
-func concatYamlFilesFromDir(dirname string) []string {
+func ConcatYamlFilesFromDir(dirname string) []string {
 	data := make([]string, 0)
 	files, err := GetYamlFilenames(dirname)
 	if err == nil {
-		data, err = concatYamlFiles(files)
+		data, err = ConcatYamlFiles(files)
 		if err != nil {
-			printError(err)
+			errors.PrintError(err)
 		}
 	}
 	return data
 }
 
-func readLines(path, leftPad string) ([]string, error) {
+func ReadLines(path, leftPad string) ([]string, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err

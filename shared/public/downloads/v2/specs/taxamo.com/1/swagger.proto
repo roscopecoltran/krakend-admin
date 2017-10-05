@@ -1,0 +1,1980 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package taxamo;
+
+message GetApiV1DictionariesCountriesRequest {
+    // Should only countries with tax supported be listed?
+    bool tax_supported = 1;
+}
+
+message GetApiV1GeoipIpRequest {
+    // IP address.
+    string ip = 1;
+}
+
+message GetApiV1ReportsDomesticSummaryRequest {
+    // ISO 2-letter country code which will be used for determining which country is domestic.
+    string country_code = 1;
+    // ISO 3-letter currency code, e.g. EUR or USD. Defaults to the one assigned to MOSS calculations for a given country code.
+    string currency_code = 2;
+    // Period end month in yyyy-MM format.
+    string end_month = 3;
+    // Output format. 'xml' and 'csv' values are accepted. Default format - json
+    string format = 4;
+    // Which date should be used for FX.
+    string fx_date_type = 5;
+    // Period start month in yyyy-MM format.
+    string start_month = 6;
+}
+
+message GetApiV1ReportsEuViesRequest {
+    // ISO 3-letter currency code, e.g. EUR or USD. Defaults to the one assigned to MOSS calculations for a given country code.
+    string currency_code = 1;
+    // Period end month in yyyy-MM format.
+    string end_month = 2;
+    // ISO 2-letter country code which will be used for determining which country is domestic.
+    string eu_country_code = 3;
+    // Output format. 'xml', 'csv' and 'lff' (only for Ireland) values are accepted as well
+    string format = 4;
+    // Which date should be used for FX.
+    string fx_date_type = 5;
+    // Sequence number used to generate report in Large Filer Format. If not specified then '0000000001' will be used.
+    string lff_sequence_number = 6;
+    // Length of report period. 'month', 'quarter' and 'year' values are accepted. Required only if Large Filer Format is requested.
+    string period_length = 7;
+    // Period start month in yyyy-MM format.
+    string start_month = 8;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used.
+    string tax_id = 9;
+    // Which transformation should be applied. Please note that transformation will be applied only for xml and csv formats.
+    string transformation = 10;
+}
+
+message GetApiV1SettlementDetailed_refundsRequest {
+    // Comma separated list of 2-letter country codes
+    string country_codes = 1;
+    // Take only refunds issued at or after the date. Format: yyyy-MM-dd
+    string date_from = 2;
+    // Take only refunds issued at or before the date. Format: yyyy-MM-dd
+    string date_to = 3;
+    // Output format. 'json' or 'csv'. Default value is 'json'
+    string format = 4;
+    // Limit (no more than 1000, defaults to 100).
+    int32 limit = 5;
+    // Offset. Defaults to 0
+    int32 offset = 6;
+}
+
+message GetApiV1SettlementRefundsRequest {
+    // Take only refunds issued at or after the date. Format: yyyy-MM-dd
+    string date_from = 1;
+    // Output format. 'csv' value is accepted as well
+    string format = 2;
+    // MOSS country code, used to determine currency. If ommited, merchant default setting is used.
+    string moss_country_code = 3;
+    // Tax region key, defaults to EU for backwards compatibility.
+    string tax_region = 4;
+}
+
+message GetApiV1SettlementSummaryQuarterRequest {
+    // Period end month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string end_month = 1;
+    // MOSS country code, used to determine currency. If ommited, merchant default setting is used.
+    string moss_country_code = 2;
+    // Quarter in yyyy-MM format. If start-date and end-date are provided, quarter is ignored and should be set to 'range'.
+    string quarter = 3;
+    // Period start month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string start_month = 4;
+    // Tax region key
+    string tax_region = 5;
+}
+
+message GetApiV1SettlementQuarterRequest {
+    // ISO 3-letter currency code, e.g. EUR or USD. If provided, all amounts will be coerced for this currency. Defaults to region's currency code.
+    string currency_code = 1;
+    // Period end month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string end_month = 2;
+    // Output format. 'csv' value is accepted as well
+    string format = 3;
+    // MOSS country code, used to determine currency/region. If ommited, merchant default setting is used. Deprecated: please use tax-country-code.
+    string moss_country_code = 4;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used. Deprecated, please use tax-id.
+    string moss_tax_id = 5;
+    // Quarter in yyyy-MM format. If start-date and end-date are provided, quarter is ignored and should be set to 'range'.
+    string quarter = 6;
+    // Set to 'order_date' to show only refunds for the transactions in the selected reporting period. Set to 'refund_timestamp' to show refunds that were created in the selected reporting period. Do not set to use the default region's setting.
+    string refund_date_kind_override = 7;
+    // Period start month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string start_month = 8;
+    // Tax entity country code, used to determine currency/region.
+    string tax_country_code = 9;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used. Deprecated, please use tax-id.
+    string tax_id = 10;
+}
+
+message GetApiV1StatsSettlementBy_countryRequest {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+}
+
+message GetApiV1StatsSettlementBy_taxation_typeRequest {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+}
+
+message GetApiV1StatsSettlementDailyRequest {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Interval type - day, week, month.
+    string interval = 3;
+}
+
+message GetApiV1StatsTransactionsRequest {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Interval. Accepted values are 'day', 'week' and 'month'.
+    string interval = 3;
+}
+
+message GetApiV1StatsTransactionsBy_countryRequest {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Global currency code to use for conversion - in addition to country's currency if rate is available. Conversion is indicative and based on most-recent rate from ECB.
+    string global_currency_code = 3;
+}
+
+message GetApiV1TaxCalculateRequest {
+    // Amount. Required if total amount or both unit price and quantity are not provided.
+    int32 amount = 1;
+    // Billing two letter ISO country code.
+    string billing_country_code = 2;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 3;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 4;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 5;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 6;
+    // Invoice address/postal_code
+    string invoice_address_city = 7;
+    // Invoice address/postal_code
+    string invoice_address_postal_code = 8;
+    // Invoice address/region
+    string invoice_address_region = 9;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 10;
+    // Product type, according to dictionary /dictionaries/product_types.
+    string product_type = 11;
+    // Quantity Defaults to 1.
+    int32 quantity = 12;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 13;
+    // Total amount. Required if amount or both unit price and quantity are not provided.
+    int32 total_amount = 14;
+    // Unit price.
+    int32 unit_price = 15;
+}
+
+message PostApiV1TaxCalculateRequest {
+    // Input
+    calculateTaxIn input = 1;
+}
+
+message GetApiV1TaxLocationCalculateRequest {
+    // Billing two letter ISO country code.
+    string billing_country_code = 1;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 2;
+}
+
+message GetApiV1TaxVat_numbersTax_numberValidateRequest {
+    // Two-letter ISO country code.
+    string country_code = 1;
+    // Tax number
+    string tax_number = 2;
+}
+
+message GetApiV1TransactionsRequest {
+    // Three letter ISO currency code.
+    string currency_code = 1;
+    // Filtering expression
+    string filter_text = 2;
+    // Output format - supports 'csv' value for this operation.
+    string format = 3;
+    // Return only transactions with a note field set.
+    bool has_note = 4;
+    // Transaction invoice number.
+    string invoice_number = 5;
+    // Taxamo provided transaction key or custom id
+    string key_or_custom_id = 6;
+    // Limit (no more than 1000, defaults to 100).
+    int32 limit = 7;
+    // Offset
+    int32 offset = 8;
+    // Order date from in yyyy-MM-dd format.
+    string order_date_from = 9;
+    // Order date to in yyyy-MM-dd format.
+    string order_date_to = 10;
+    // Taxamo provided original transaction key
+    string original_transaction_key = 11;
+    // If true, results are sorted in descending order.
+    bool sort_reverse = 12;
+    // Comma separated list of of transaction statuses. 'N' - unconfirmed transaction, 'C' - confirmed transaction.
+    string statuses = 13;
+    // Two letter ISO tax country code.
+    string tax_country_code = 14;
+    // Comma separated list of two letter ISO tax country codes.
+    string tax_country_codes = 15;
+    // Return only transactions with total amount greater than given number. Transactions with total amount equal to a given number (e.g. 0) are not returned.
+    string total_amount_greater_than = 16;
+    // Return only transactions with total amount less than a given number. Transactions with total amount equal to a given number (e.g. 1) are not returned.
+    string total_amount_less_than = 17;
+}
+
+message PostApiV1TransactionsRequest {
+    // Input
+    createTransactionIn input = 1;
+}
+
+message GetApiV1TransactionsKeyRequest {
+    // Transaction key
+    string key = 1;
+}
+
+message PutApiV1TransactionsKeyRequest {
+    // Input
+    updateTransactionIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message DeleteApiV1TransactionsKeyRequest {
+    // Transaction key
+    string key = 1;
+}
+
+message PostApiV1TransactionsKeyConfirmRequest {
+    // Input
+    confirmTransactionIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message PostApiV1TransactionsKeyInvoiceRefundsRefund_note_numberSend_emailRequest {
+    // Input
+    emailRefundIn input = 1;
+    // Transaction key.
+    string key = 2;
+    // Refund note id.
+    string refund_note_number = 3;
+}
+
+message PostApiV1TransactionsKeyInvoiceSend_emailRequest {
+    // Input
+    emailInvoiceIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message GetApiV1TransactionsKeyPaymentsRequest {
+    // Transaction key.
+    string key = 1;
+    // Max record count (no more than 100, defaults to 10).
+    string limit = 2;
+    // How many records need to be skipped, defaults to 0.
+    string offset = 3;
+}
+
+message PostApiV1TransactionsKeyPaymentsRequest {
+    // Input
+    createPaymentIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message PostApiV1TransactionsKeyPaymentsCaptureRequest {
+    // Transaction key.
+    string key = 1;
+}
+
+message GetApiV1TransactionsKeyRefundsRequest {
+    // Transaction key.
+    string key = 1;
+}
+
+message PostApiV1TransactionsKeyRefundsRequest {
+    // Input
+    createRefundIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message PostApiV1TransactionsKeyUnconfirmRequest {
+    // Input
+    unconfirmTransactionIn input = 1;
+    // Transaction key.
+    string key = 2;
+}
+
+message PostApiV1VerificationSmsRequest {
+    // Input
+    createSMSTokenIn input = 1;
+}
+
+message GetApiV1VerificationSmsTokenRequest {
+    // Provided token.
+    string token = 1;
+}
+
+message C {
+    // Date for stats in yyyy-MM-dd format.
+    string day = 1;
+    // Date for stats in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string day_raw = 2;
+    // Transaction status (C or N).
+    string status = 3;
+    // Transaction count.
+    int32 value = 4;
+}
+
+message N {
+    // Date for stats in yyyy-MM-dd format.
+    string day = 1;
+    // Date for stats in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string day_raw = 2;
+    // Transaction status (C or N).
+    string status = 3;
+    // Transaction count.
+    int32 value = 4;
+}
+
+message Additional_currencies {
+    // Invoicing currency information.
+    additional_currency invoice = 1;
+}
+
+message Additional_currency {
+    // Amount (w/o TAX) in designated currency.
+    int32 amount = 1;
+    // 3-letter ISO currency code.
+    string currency_code = 2;
+    // Foreign exchange rate used in calculation
+    int32 fx_rate = 3;
+    // Tax amount in designated currency.
+    int32 tax_amount = 4;
+    // Total amount in designated currency.
+    int32 total_amount = 5;
+}
+
+message By_country {
+    // Three-letter ISO currency code.
+    string currency_code = 1;
+    // Two letter ISO country code.
+    string tax_country_code = 2;
+    // Country name
+    string tax_country_name = 3;
+    // Tax amount
+    int32 value = 4;
+}
+
+message By_status {
+    // Confirmed transactions
+    repeated C C = 1;
+    // New transactions
+    repeated N N = 2;
+}
+
+message By_taxation_type {
+    // Number of tax deducted transactions.
+    int32 deducted_count = 1;
+    // Total EU B2B transaction count.
+    int32 eu_b2b = 2;
+    // Total EU Taxed transaction count.
+    int32 eu_taxed = 3;
+    // Number of taxed transactions.
+    int32 taxed_count = 4;
+    // Total number of transactions
+    int32 transactions_count = 5;
+}
+
+message CalculateSimpleTaxIn {
+    // Amount. Required if total amount or both unit price and quantity are not provided.
+    int32 amount = 1;
+    // Billing two letter ISO country code.
+    string billing_country_code = 2;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 3;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 4;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 5;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 6;
+    // Invoice address/postal_code
+    string invoice_address_city = 7;
+    // Invoice address/postal_code
+    string invoice_address_postal_code = 8;
+    // Invoice address/region
+    string invoice_address_region = 9;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 10;
+    // Product type, according to dictionary /dictionaries/product_types.
+    string product_type = 11;
+    // Quantity Defaults to 1.
+    int32 quantity = 12;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 13;
+    // Total amount. Required if amount or both unit price and quantity are not provided.
+    int32 total_amount = 14;
+    // Unit price.
+    int32 unit_price = 15;
+}
+
+message CalculateSimpleTaxOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message CalculateTaxIn {
+    // Transaction data.
+    input_transaction transaction = 1;
+}
+
+message CalculateTaxLocationIn {
+    // Billing two letter ISO country code.
+    string billing_country_code = 1;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 2;
+}
+
+message CalculateTaxLocationOut {
+    // Billing two letter ISO country code.
+    string billing_country_code = 1;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 2;
+    // IP address of the buyer in dotted decimal (IPv4) or text format (IPv6).
+    string buyer_ip = 3;
+    // Map of countries calculated from evidence provided. This value is not stored and is available only upon tax calculation.
+    countries countries = 4;
+    // Tax country of residence evidence.
+    evidence evidence = 5;
+    // Two-letter ISO country code, e.g. FR. This code applies to detected/set country for transaction, but can be set using manual mode.
+    string tax_country_code = 6;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 7;
+    // Is tax calculation supported for a detected tax location?
+    bool tax_supported = 8;
+}
+
+message CalculateTaxOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message CancelTransactionOut {
+    // Was operation successful?
+    bool success = 1;
+}
+
+message CapturePaymentOut {
+    // Was the operation successful?
+    bool success = 1;
+}
+
+message ConfirmTransactionIn {
+    // Transaction.
+    input_transaction_update transaction = 1;
+}
+
+message ConfirmTransactionOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message Countries {
+    // Used when merchant uses 2003 EU VAT rules.
+    country_schema by_2003_rules = 1;
+    // Country detected by billing country code
+    country_schema by_billing = 2;
+    // Country detected by credit card number prefix
+    country_schema by_cc = 3;
+    // Country detected by IP
+    country_schema by_ip = 4;
+    // Country detected from EU TAX number
+    country_schema by_tax_number = 5;
+    // Country detected from SMS token
+    country_schema by_token = 6;
+    // Country detected from other evidence
+    country_schema detected = 7;
+    // Country forced by paramters
+    country_schema forced = 8;
+    // Country guessed from IP due to lack of other evidence
+    country_schema guessed_from_ip = 9;
+    // Additional evidence held by the merchant.
+    country_schema other_commercially_relevant_info = 10;
+    // Self declared country as evidence.
+    country_schema self_declaration = 11;
+}
+
+message Country {
+    // List of phone number calling codes.
+    repeated string callingCode = 1;
+    // Two letter ISO country code.
+    string cca2 = 2;
+    // Three letter ISO country code.
+    string cca3 = 3;
+    // Country ISO 3-digit code.
+    string ccn3 = 4;
+    // Two letter ISO country code.
+    string code = 5;
+    // Three letter ISO country code.
+    string code_long = 6;
+    // Country ISO 3-digit code.
+    string codenum = 7;
+    // List of currencies.
+    repeated string currency = 8;
+    // Country name.
+    string name = 9;
+    // VAT number country code. Important for Greece.
+    string tax_number_country_code = 10;
+    // Tax region code - e.g. EU, US, NO, JP...
+    string tax_region = 11;
+    // True if tax calculation supported for this country.
+    bool tax_supported = 12;
+}
+
+message Country_schema {
+    // List of phone number calling codes.
+    repeated string callingCode = 1;
+    // Two letter ISO country code.
+    string cca2 = 2;
+    // Three letter ISO country code.
+    string cca3 = 3;
+    // Country ISO 3-digit code.
+    string ccn3 = 4;
+    // Two letter ISO country code.
+    string code = 5;
+    // Three letter ISO country code.
+    string code_long = 6;
+    // Country ISO 3-digit code.
+    string codenum = 7;
+    // List of currencies.
+    repeated string currency = 8;
+    // Country name.
+    string name = 9;
+    // VAT number country code. Important for Greece.
+    string tax_number_country_code = 10;
+    // Tax region code - e.g. EU, US, NO, JP...
+    string tax_region = 11;
+    // True if tax calculation supported for this country.
+    bool tax_supported = 12;
+}
+
+message CreatePaymentIn {
+    // Amount that has been paid. Use negative value to register refunds.
+    int32 amount = 1;
+    // Additional payment information.
+    string payment_information = 2;
+    // When the payment was received in yyyy-MM-dd'T'HH:mm:ss(.SSS)'Z' format (24 hour, UTC timezone). Defaults to current date and time.
+    string payment_timestamp = 3;
+}
+
+message CreatePaymentOut {
+    // Was the operation successful?
+    bool success = 1;
+}
+
+message CreateRefundIn {
+    // Amount (without tax) to be refunded. Either amount or total amount is required. In case of line key and custom id missing, only total_amount can be used.
+    int32 amount = 1;
+    // Line custom identifier. If neither line key or custom id is provided, the refund amount will be assigned to lines in order.
+    string custom_id = 2;
+    // Line identifier. If neither line key or custom id is provided, the refund amount will be assigned to lines in order.
+    string line_key = 3;
+    // Refund reason, displayed on the credit note.
+    string refund_reason = 4;
+    // Total amount, including tax, to be refunded. Either amount or total amount is required. In case of line key and custom id missing, only total_amount can be used.
+    int32 total_amount = 5;
+}
+
+message CreateRefundOut {
+    // Total tax amount, that was refunded for this line.
+    int32 refunded_tax_amount = 1;
+    // Total amount, including tax, that was refunded for this line.
+    int32 refunded_total_amount = 2;
+    // Calculated tax amount, that was refunded in this call.
+    int32 tax_amount = 3;
+    // Total amount, including tax, that was refunded in this call.
+    int32 total_amount = 4;
+}
+
+message CreateSMSTokenIn {
+    // Two letter ISO country code.
+    string country_code = 1;
+    // Recipient phone number.
+    string recipient = 2;
+}
+
+message CreateSMSTokenOut {
+    // Always set to true. Success means that the message has been queued for delivery. In some cases message may be undelivered at the end, e.g. mobile number is blacklisted. API errors are signalled with appropriate error codes.
+    bool success = 1;
+}
+
+message CreateTransactionIn {
+    // Use manual mode, bypassing country detection. Only allowed with private token. This flag allows to use original_transaction_key field
+    bool manual_mode = 1;
+    // Transaction.
+    input_transaction transaction = 2;
+}
+
+message CreateTransactionOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message Currency_schema {
+    // Currency 3-letter ISO code.
+    string code = 1;
+    // Currency description.
+    string description = 2;
+    // Currency 3-letter ISO code.
+    string isocode = 3;
+    // Currency iso numeric code.
+    int32 isonum = 4;
+    // Number of minor units for currency.
+    int32 minorunits = 5;
+}
+
+message Custom_fields {
+    // Field's key.
+    string key = 1;
+    // Field's value.
+    string value = 2;
+}
+
+message EmailInvoiceIn {
+    // Email to send the invoice. If not provided, transaction.buyer_email will be used.
+    string buyer_email = 1;
+}
+
+message EmailInvoiceOut {
+    // Was operation successful?
+    bool success = 1;
+}
+
+message EmailRefundIn {
+    // Email to send the credit note/refund note. If not provided, transaction.buyer_email will be used.
+    string buyer_email = 1;
+}
+
+message EmailRefundOut {
+    // Was operation successful?
+    bool success = 1;
+}
+
+message Evidence {
+    // Used when merchant uses 2003 EU VAT rules.
+    evidence_schema by_2003_rules = 1;
+    // Country detected by billing country code
+    evidence_schema by_billing = 2;
+    // Country detected by credit card number prefix
+    evidence_schema by_cc = 3;
+    // Country detected by IP
+    evidence_schema by_ip = 4;
+    // Country detected by payment method.
+    evidence_schema by_payment_method = 5;
+    // Country detected from EU TAX number
+    evidence_schema by_tax_number = 6;
+    // Country detected from SMS token
+    evidence_schema by_token = 7;
+    // Country forced by paramters
+    evidence_schema forced = 8;
+    // Country guessed from IP due to lack of other evidence
+    evidence_schema guessed_from_ip = 9;
+    // Additional evidence held by the merchant. Can be used only with a private token.
+    evidence_schema other_commercially_relevant_info = 10;
+    // Self declared country as evidence. Requires merchant setting to be active.
+    evidence_schema self_declaration = 11;
+}
+
+message Evidence_schema {
+    // Type of evidence.
+    string evidence_type = 1;
+    // Value provided as evidence - for example IP address.
+    string evidence_value = 2;
+    // Country code that was resolved using this evidence.
+    string resolved_country_code = 3;
+    // If the evidence was used to match the actual country.
+    bool used = 4;
+}
+
+message GetCountriesDictIn {
+    // Should only countries with tax supported be listed?
+    bool tax_supported = 1;
+}
+
+message GetCountriesDictOut {
+    // Countries dictionary.
+    repeated country_schema dictionary = 1;
+}
+
+message GetCurrenciesDictOut {
+    // Currency dictionary.
+    repeated currency_schema dictionary = 1;
+}
+
+message GetDailySettlementStatsIn {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Interval type - day, week, month.
+    string interval = 3;
+}
+
+message GetDailySettlementStatsOut {
+    // Daily settlement stats
+    repeated settlement_daily_stats_schema settlement_daily = 1;
+}
+
+message GetDetailedRefundsIn {
+    // Comma separated list of 2-letter country codes
+    string country_codes = 1;
+    // Take only refunds issued at or after the date. Format: yyyy-MM-dd
+    string date_from = 2;
+    // Take only refunds issued at or before the date. Format: yyyy-MM-dd
+    string date_to = 3;
+    // Output format. 'json' or 'csv'. Default value is 'json'
+    string format = 4;
+    // Limit (no more than 1000, defaults to 100).
+    int32 limit = 5;
+    // Offset. Defaults to 0
+    int32 offset = 6;
+}
+
+message GetDetailedRefundsOut {
+    // Detailed refunds report
+    repeated report report = 1;
+}
+
+message GetDomesticSummaryReportIn {
+    // ISO 2-letter country code which will be used for determining which country is domestic.
+    string country_code = 1;
+    // ISO 3-letter currency code, e.g. EUR or USD. Defaults to the one assigned to MOSS calculations for a given country code.
+    string currency_code = 2;
+    // Period end month in yyyy-MM format.
+    string end_month = 3;
+    // Output format. 'xml' and 'csv' values are accepted. Default format - json
+    string format = 4;
+    // Which date should be used for FX.
+    string fx_date_type = 5;
+    // Period start month in yyyy-MM format.
+    string start_month = 6;
+}
+
+message GetDomesticSummaryReportOut {
+    // Three-letter ISO currency code.
+    string currency_code = 1;
+    // Domestic sales refunds amount.
+    int32 domestic_refunds_amount = 2;
+    // Domestic sales refunds tax amout.
+    int32 domestic_refunds_tax_amount = 3;
+    // Domestic sales amount.
+    int32 domestic_sales_amount = 4;
+    // Domestic sales tax amout.
+    int32 domestic_tax_amount = 5;
+    // Period end date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string end_date = 6;
+    // EU deducted tax sales.
+    int32 eu_tax_deducted_refunds = 7;
+    // EU deducted tax sales.
+    int32 eu_tax_deducted_sales = 8;
+    // Global sales refunds amount. This includes refunds from domestic country too.
+    int32 global_refunds_amount = 9;
+    // Global sales refunds amount. This includes refunds from domestic country too.
+    int32 global_refunds_tax_amount = 10;
+    // Global sales amount. This includes sales from domestic country too.
+    int32 global_sales_amount = 11;
+    // Global sales amount. This includes sales from domestic country too.
+    int32 global_sales_tax_amount = 12;
+    // Period start date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string start_date = 13;
+}
+
+message GetEuViesReportIn {
+    // ISO 3-letter currency code, e.g. EUR or USD. Defaults to the one assigned to MOSS calculations for a given country code.
+    string currency_code = 1;
+    // Period end month in yyyy-MM format.
+    string end_month = 2;
+    // ISO 2-letter country code which will be used for determining which country is domestic.
+    string eu_country_code = 3;
+    // Output format. 'xml', 'csv' and 'lff' (only for Ireland) values are accepted as well
+    string format = 4;
+    // Which date should be used for FX.
+    string fx_date_type = 5;
+    // Sequence number used to generate report in Large Filer Format. If not specified then '0000000001' will be used.
+    string lff_sequence_number = 6;
+    // Length of report period. 'month', 'quarter' and 'year' values are accepted. Required only if Large Filer Format is requested.
+    string period_length = 7;
+    // Period start month in yyyy-MM format.
+    string start_month = 8;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used.
+    string tax_id = 9;
+    // Which transformation should be applied. Please note that transformation will be applied only for xml and csv formats.
+    string transformation = 10;
+}
+
+message GetEuViesReportOut {
+    // Three-letter ISO currency code.
+    string currency_code = 1;
+    // Period end date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string end_date = 2;
+    // Settlement report.
+    repeated report report = 3;
+    // Period start date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string start_date = 4;
+}
+
+message GetProductTypesDictOut {
+    // Product type dictionary.
+    repeated product_type_schema dictionary = 1;
+}
+
+message GetRefundsIn {
+    // Take only refunds issued at or after the date. Format: yyyy-MM-dd
+    string date_from = 1;
+    // Output format. 'csv' value is accepted as well
+    string format = 2;
+    // MOSS country code, used to determine currency. If ommited, merchant default setting is used.
+    string moss_country_code = 3;
+    // Tax region key, defaults to EU for backwards compatibility.
+    string tax_region = 4;
+}
+
+message GetRefundsOut {
+    // Refunds report.
+    repeated report report = 1;
+}
+
+message GetSettlementIn {
+    // ISO 3-letter currency code, e.g. EUR or USD. If provided, all amounts will be coerced for this currency. Defaults to region's currency code.
+    string currency_code = 1;
+    // Period end month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string end_month = 2;
+    // Output format. 'csv' value is accepted as well
+    string format = 3;
+    // MOSS country code, used to determine currency/region. If ommited, merchant default setting is used. Deprecated: please use tax-country-code.
+    string moss_country_code = 4;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used. Deprecated, please use tax-id.
+    string moss_tax_id = 5;
+    // Set to 'order_date' to show only refunds for the transactions in the selected reporting period. Set to 'refund_timestamp' to show refunds that were created in the selected reporting period. Do not set to use the default region's setting.
+    string refund_date_kind_override = 6;
+    // Period start month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string start_month = 7;
+    // Tax entity country code, used to determine currency/region.
+    string tax_country_code = 8;
+    // MOSS-assigned tax ID - if not provided, merchant's national tax number will be used. Deprecated, please use tax-id.
+    string tax_id = 9;
+}
+
+message GetSettlementOut {
+    // Period end date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string end_date = 1;
+    // Date of ECB FX rate used for conversions in yyyy-MM-dd'T'hh:mm:ss'Z' format. Applies to tax regions where
+    string fx_rate_date = 2;
+    // If the quarter isn't closed yet, tax amount is indicative, as we cannot determine FX rate or all transactions yet.
+    bool indicative = 3;
+    // Settlement report.
+    repeated report report = 4;
+    // Period start date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string start_date = 5;
+}
+
+message GetSettlementStatsByCountryIn {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+}
+
+message GetSettlementStatsByCountryOut {
+    // Settlement stats.
+    repeated by_country by_country = 1;
+}
+
+message GetSettlementStatsByTaxationTypeIn {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+}
+
+message GetSettlementStatsByTaxationTypeOut {
+    // Settlements stats by taxation type.
+    by_taxation_type by_taxation_type = 1;
+}
+
+message GetSettlementSummaryIn {
+    // Period end month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string end_month = 1;
+    // MOSS country code, used to determine currency. If ommited, merchant default setting is used.
+    string moss_country_code = 2;
+    // Period start month in yyyy-MM format. Either quarter or start-month and end-month have to be provided.
+    string start_month = 3;
+    // Tax region key
+    string tax_region = 4;
+}
+
+message GetSettlementSummaryOut {
+    // Settlement summary.
+    summary summary = 1;
+}
+
+message GetTransactionOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message GetTransactionsStatsByCountryIn {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Global currency code to use for conversion - in addition to country's currency if rate is available. Conversion is indicative and based on most-recent rate from ECB.
+    string global_currency_code = 3;
+}
+
+message GetTransactionsStatsByCountryOut {
+    // Settlement stats.
+    repeated by_country by_country = 1;
+}
+
+message GetTransactionsStatsIn {
+    // Date from in yyyy-MM format.
+    string date_from = 1;
+    // Date to in yyyy-MM format.
+    string date_to = 2;
+    // Interval. Accepted values are 'day', 'week' and 'month'.
+    string interval = 3;
+}
+
+message GetTransactionsStatsOut {
+    // Transaction stats grouped by status.
+    by_status by_status = 1;
+}
+
+message Input_transaction {
+    // Additional currency information - can be used to receive additional information about invoice in another currency.
+    additional_currencies additional_currencies = 1;
+    // Billing two letter ISO country code.
+    string billing_country_code = 2;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 3;
+    // Buyer's declared email address.
+    string buyer_email = 4;
+    // IP address of the buyer in dotted decimal (IPv4) or text format (IPv6).
+    string buyer_ip = 5;
+    // Buyer's name - first name and last name or company name.
+    string buyer_name = 6;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 7;
+    // Additional information about the transaction - for example if the evidence has been amended.
+    string comments = 8;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 9;
+    // Custom data related to transaction.
+    string custom_data = 10;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 11;
+    // Custom identifier provided upon transaction creation.
+    string custom_id = 12;
+    // Free-form field for storing customer id.
+    string customer_id = 13;
+    // Transaction description.
+    string description = 14;
+    // Tax country of residence evidence.
+    evidence evidence = 15;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 16;
+    // Invoice address.
+    invoice_address invoice_address = 17;
+    // Invoice date of issue.
+    string invoice_date = 18;
+    // Invoice number.
+    string invoice_number = 19;
+    // Invoice place of issue.
+    string invoice_place = 20;
+    // Additional note related to transaction state - for example if the transaction was created in a 'catch-all' mode or the VAT number re-check for subscriptions has failed.
+    string note = 21;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 22;
+    // Use data and evidence from original transaction. Tax will be re-calculated, but evidence won't be re-checked. This parameter is taken into account only when 'manual' flag is raised.
+    string original_transaction_key = 23;
+    // Transaction status: 'N' - new, 'C' - confirmed. Can use 'C' in store-transaction! with private-token to create confirmed transaction, otherwise 'N' is default status. Not applicable for update-transaction!.
+    string status = 24;
+    // Sub account identifier.
+    string sub_account_id = 25;
+    // Supply date in yyyy-MM-dd format.
+    string supply_date = 26;
+    // Two-letter ISO country code, e.g. FR. This code applies to detected/set country for transaction, but can be set using manual mode.
+    string tax_country_code = 27;
+    // Tax additional information - e.g. US sales tax exemption certificate data.
+    tax_data_schema tax_data = 28;
+    // True if the transaction is deducted from tax and no tax is applied (it is untaxed). Either set automatically when VAT number validates with VIES correctly, but can also be provided in manual mode.
+    bool tax_deducted = 29;
+    // Transaction lines.
+    repeated input_transaction_line transaction_lines = 30;
+    // Verification token
+    string verification_token = 31;
+}
+
+message Input_transaction_line {
+    // Amount. Required if total amount or both unit price and quantity are not provided.
+    int32 amount = 1;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 2;
+    // Custom id, provided by ecommerce software.
+    string custom_id = 3;
+    // Deducted tax rate, calculated by taxamo.
+    int32 deducted_tax_rate = 4;
+    // Line contents description.
+    string description = 5;
+    // If the line is provided for informative purposes. Such line must have :tax-rate and optionally :tax-name - if not, API validation will fail for this line.
+    bool informative = 6;
+    // Generated line key.
+    string line_key = 7;
+    // Internal product code, used for invoicing for example.
+    string product_code = 8;
+    // External product tax code for a line, for example TIC in US Sales tax.
+    string product_tax_code = 9;
+    // Product type, according to dictionary /dictionaries/product_types.
+    string product_type = 10;
+    // Quantity Defaults to 1.
+    int32 quantity = 11;
+    // Date of supply in yyyy-MM-dd format.
+    string supply_date = 12;
+    // Tax name, calculated by taxamo.  Can be overwritten when informative field is true.
+    string tax_name = 13;
+    // Tax rate, calculated by taxamo. Must be provided when informative field is true.
+    int32 tax_rate = 14;
+    // Total amount. Required if amount or both unit price and quantity are not provided.
+    int32 total_amount = 15;
+    // Unit of measure.
+    string unit_of_measure = 16;
+    // Unit price.
+    int32 unit_price = 17;
+}
+
+message Input_transaction_update {
+    // Additional currency information - can be used to receive additional information about invoice in another currency.
+    additional_currencies additional_currencies = 1;
+    // Billing two letter ISO country code.
+    string billing_country_code = 2;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 3;
+    // Buyer's declared email address.
+    string buyer_email = 4;
+    // IP address of the buyer in dotted decimal (IPv4) or text format (IPv6).
+    string buyer_ip = 5;
+    // Buyer's name - first name and last name or company name.
+    string buyer_name = 6;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 7;
+    // Additional information about the transaction - for example if the evidence has been amended.
+    string comments = 8;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 9;
+    // Custom data related to transaction.
+    string custom_data = 10;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 11;
+    // Custom identifier provided upon transaction creation.
+    string custom_id = 12;
+    // Free-form field for storing customer id.
+    string customer_id = 13;
+    // Transaction description.
+    string description = 14;
+    // Tax country of residence evidence.
+    evidence evidence = 15;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 16;
+    // Invoice address.
+    invoice_address invoice_address = 17;
+    // Invoice date of issue.
+    string invoice_date = 18;
+    // Invoice number.
+    string invoice_number = 19;
+    // Invoice place of issue.
+    string invoice_place = 20;
+    // Additional note related to transaction state - for example if the transaction was created in a 'catch-all' mode or the VAT number re-check for subscriptions has failed.
+    string note = 21;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 22;
+    // Use data and evidence from original transaction. Tax will be re-calculated, but evidence won't be re-checked. This parameter is taken into account only when 'manual' flag is raised.
+    string original_transaction_key = 23;
+    // Transaction status: 'N' - new, 'C' - confirmed. Can use 'C' in store-transaction! with private-token to create confirmed transaction, otherwise 'N' is default status. Not applicable for update-transaction!.
+    string status = 24;
+    // Sub account identifier.
+    string sub_account_id = 25;
+    // Supply date in yyyy-MM-dd format.
+    string supply_date = 26;
+    // Two-letter ISO country code, e.g. FR. This code applies to detected/set country for transaction, but can be set using manual mode.
+    string tax_country_code = 27;
+    // Tax additional information - e.g. US sales tax exemption certificate data.
+    tax_data_schema tax_data = 28;
+    // True if the transaction is deducted from tax and no tax is applied (it is untaxed). Either set automatically when VAT number validates with VIES correctly, but can also be provided in manual mode.
+    bool tax_deducted = 29;
+    // Transaction lines.
+    repeated input_transaction_line transaction_lines = 30;
+    // Verification token
+    string verification_token = 31;
+}
+
+message Invoice_address {
+    // Address details - for example apartament number.
+    string address_detail = 1;
+    // Building number.
+    string building_number = 2;
+    // City name.
+    string city = 3;
+    // 2-letter ISO country code.
+    string country = 4;
+    // Freeform address. Use when structured data is not available. Will be used in SAF-MOSS file if other fields are not provided.
+    string freeform_address = 5;
+    // Postal code.
+    string postal_code = 6;
+    // Region, for United States - state code - e.g. NJ.
+    string region = 7;
+    //  Street name.
+    string street_name = 8;
+}
+
+message ListPaymentsIn {
+    // Max record count (no more than 100, defaults to 10).
+    string limit = 1;
+    // How many records need to be skipped, defaults to 0.
+    string offset = 2;
+}
+
+message ListPaymentsOut {
+    // Payments.
+    repeated payments payments = 1;
+}
+
+message ListRefundsOut {
+    // Refunds
+    repeated refunds refunds = 1;
+}
+
+message ListTransactionsIn {
+    // Three letter ISO currency code.
+    string currency_code = 1;
+    // Filtering expression
+    string filter_text = 2;
+    // Output format - supports 'csv' value for this operation.
+    string format = 3;
+    // Return only transactions with a note field set.
+    bool has_note = 4;
+    // Transaction invoice number.
+    string invoice_number = 5;
+    // Taxamo provided transaction key or custom id
+    string key_or_custom_id = 6;
+    // Limit (no more than 1000, defaults to 100).
+    int32 limit = 7;
+    // Offset
+    int32 offset = 8;
+    // Order date from in yyyy-MM-dd format.
+    string order_date_from = 9;
+    // Order date to in yyyy-MM-dd format.
+    string order_date_to = 10;
+    // Taxamo provided original transaction key
+    string original_transaction_key = 11;
+    // If true, results are sorted in descending order.
+    bool sort_reverse = 12;
+    // Comma separated list of of transaction statuses. 'N' - unconfirmed transaction, 'C' - confirmed transaction.
+    string statuses = 13;
+    // Two letter ISO tax country code.
+    string tax_country_code = 14;
+    // Comma separated list of two letter ISO tax country codes.
+    string tax_country_codes = 15;
+    // Return only transactions with total amount greater than given number. Transactions with total amount equal to a given number (e.g. 0) are not returned.
+    string total_amount_greater_than = 16;
+    // Return only transactions with total amount less than a given number. Transactions with total amount equal to a given number (e.g. 1) are not returned.
+    string total_amount_less_than = 17;
+}
+
+message ListTransactionsOut {
+    // Transactions matching the criteria.
+    repeated transactions transactions = 1;
+}
+
+message LocateGivenIPOut {
+    // Detected country details
+    country country = 1;
+    // Detected country code.
+    string country_code = 2;
+    // Remote IP address.
+    string remote_addr = 3;
+}
+
+message LocateMyIPOut {
+    // Detected country details
+    country country = 1;
+    // Detected country code.
+    string country_code = 2;
+    // Remote IP address.
+    string remote_addr = 3;
+}
+
+message Payments {
+    // Amount that has been paid. Use negative value to register refunds.
+    int32 amount = 1;
+    // Additional payment information.
+    string payment_information = 2;
+    // When the payment was received in yyyy-MM-dd HH:mm:ss (24 hour format, UTC+0 timezone).
+    string payment_timestamp = 3;
+}
+
+message Product_type_schema {
+    // Product type code.
+    string code = 1;
+}
+
+message Refunds {
+    // Amount, excluding tax, that was refunded.
+    int32 amount = 1;
+    // Was this refund applied to an informative line?
+    bool informative = 2;
+    // Line identifier. If neither line key or custom id is provided, the refund amount will be assigned to lines in order.
+    string line_key = 3;
+    // Sequential refund note number.
+    string refund_note_number = 4;
+    // Refund note image url.
+    string refund_note_url = 5;
+    // Refund reason, displayed on the credit note.
+    string refund_reason = 6;
+    // Refund timestamp in UTC timezone.
+    string refund_timestamp = 7;
+    // Calculated tax amount, that was refunded.
+    int32 tax_amount = 8;
+    // Tax rate for the line that was used for the refund calculation.
+    int32 tax_rate = 9;
+    // Total amount, including tax, that was refunded.
+    int32 total_amount = 10;
+}
+
+message Report {
+    // Amount w/o tax
+    int32 amount = 1;
+    // Two letter ISO country code.
+    string country_code = 2;
+    // Country name
+    string country_name = 3;
+    // Country subdivision (e.g. state or provice or county)
+    string country_subdivision = 4;
+    // Three-letter ISO currency code.
+    string currency_code = 5;
+    // If true, this line should not be entered into MOSS and is provided for informative purposes only. For example because the country is the same as MOSS registration country and merchant country.
+    bool skip_moss = 6;
+    // Tax amount
+    int32 tax_amount = 7;
+    // Tax rate
+    int32 tax_rate = 8;
+    // Tax region key
+    string tax_region = 9;
+}
+
+message Settlement_daily_stats_schema {
+    // B2B transaction count.
+    int32 b2b = 1;
+    // B2C transaction count.
+    int32 b2c = 2;
+    // Total transaction count.
+    int32 count = 3;
+    // Date for stats in yyyy-MM-dd format.
+    string day = 4;
+    // Date for stats in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string day_raw = 5;
+    // Total EU B2B transaction count.
+    int32 eu_b2b = 6;
+    // Total EU Taxed transaction count.
+    int32 eu_taxed = 7;
+    // Total EU transaction count.
+    int32 eu_total = 8;
+    // Untaxed transaction count.
+    int32 untaxed = 9;
+}
+
+message Storage_required_fields {
+    // Required field name.
+    string field_name = 1;
+}
+
+message Summary {
+    // In which currency code the settlement was calculated.
+    string currency_code = 1;
+    // Period end date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string end_date = 2;
+    // Date of ECB FX rate used for conversions in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string fx_rate_date = 3;
+    // If the quarter isn't closed yet, tax amount is indicative, as we cannot determine FX rate or all transactions yet.
+    bool indicative = 4;
+    // Quarter that this summary applies to.
+    string quarter = 5;
+    // Period start date in yyyy-MM-dd'T'hh:mm:ss'Z' format.
+    string start_date = 6;
+    // Tax amount due in this quarter.
+    int32 tax_amount = 7;
+    // Tax entity that the tax is due.
+    string tax_entity_name = 8;
+}
+
+message Tax_data_schema {
+    // US sales tax exemption certificate.
+    us_tax_exemption_certificate_schema us_tax_exemption_certificate = 1;
+}
+
+message Tax_required_fields {
+    // Required field name.
+    string field_name = 1;
+}
+
+message Transaction {
+    // Additional currency information - can be used to receive additional information about invoice in another currency.
+    additional_currencies additional_currencies = 1;
+    // Amount of transaction without tax.
+    int32 amount = 2;
+    // Billing two letter ISO country code.
+    string billing_country_code = 3;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 4;
+    // Buyer's declared email address.
+    string buyer_email = 5;
+    // IP address of the buyer in dotted decimal (IPv4) or text format (IPv6).
+    string buyer_ip = 6;
+    // Buyer's name - first name and last name or company name.
+    string buyer_name = 7;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 8;
+    // If the buyer tax number has been provided and was validated successfully. Always true for domestic transactions (billing country same as merchant's country), tax number doesn't get validated in that case.
+    bool buyer_tax_number_valid = 9;
+    // Additional information about the transaction - for example if the evidence has been amended.
+    string comments = 10;
+    // Date and time of transaction confirmation.
+    string confirm_timestamp = 11;
+    // Map of countries calculated from evidence provided. This value is not stored and is available only upon tax calculation.
+    countries countries = 12;
+    // Date and time of transaction creation.
+    string create_timestamp = 13;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 14;
+    // Custom data related to transaction.
+    string custom_data = 15;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 16;
+    // Custom identifier provided upon transaction creation.
+    string custom_id = 17;
+    // Free-form field for storing customer id.
+    string customer_id = 18;
+    // How much tax has been deducted.
+    int32 deducted_tax_amount = 19;
+    // Transaction description.
+    string description = 20;
+    // Tax country of residence evidence.
+    evidence evidence = 21;
+    // Transaction external key
+    string external_key = 22;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 23;
+    // Set to true if transaction has only informative lines.
+    bool fully_informative = 24;
+    // Invoice address.
+    invoice_address invoice_address = 25;
+    // Invoice date of issue.
+    string invoice_date = 26;
+    // Invoice image URL - provided by Taxamo.
+    string invoice_image_url = 27;
+    // Invoice number.
+    string invoice_number = 28;
+    // Invoice place of issue.
+    string invoice_place = 29;
+    // Id generated by taxamo.
+    string key = 30;
+    // Transaction kind: eu-b2c, eu-b2b, domestic, untaxed
+    string kind = 31;
+    // Is the transaction created manually - using private token. In manual mode, it is the merchant who calculates tax country and validates evidence. If you need API to do that when accessing the API with private token, just skip the 'manual' flag or use false value there and provide customer's ip address through buyer_ip field. Manual mode is also used when using original_transaction_key field.
+    bool manual = 32;
+    // Additional note related to transaction state - for example if the transaction was created in a 'catch-all' mode or the VAT number re-check for subscriptions has failed.
+    string note = 33;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 34;
+    // Use data and evidence from original transaction. Tax will be re-calculated, but evidence won't be re-checked. This parameter is taken into account only when 'manual' flag is raised.
+    string original_transaction_key = 35;
+    // Refunded tax amount.
+    int32 refunded_tax_amount = 36;
+    // Total amount refunde (including tax).
+    int32 refunded_total_amount = 37;
+    // Transaction source software - e.g. plugin
+    string source = 38;
+    // Transaction status: 'N' - new, 'C' - confirmed. Can use 'C' in store-transaction! with private-token to create confirmed transaction, otherwise 'N' is default status. Not applicable for update-transaction!.
+    string status = 39;
+    // Sub account identifier.
+    string sub_account_id = 40;
+    // Supply date in yyyy-MM-dd format.
+    string supply_date = 41;
+    // Tax amount of transaction.
+    int32 tax_amount = 42;
+    // Two-letter ISO country code, e.g. FR. This code applies to detected/set country for transaction, but can be set using manual mode.
+    string tax_country_code = 43;
+    // Tax additional information - e.g. US sales tax exemption certificate data.
+    tax_data_schema tax_data = 44;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 45;
+    // To which entity is the tax due.
+    string tax_entity_name = 46;
+    // Tax number service identifier - if available for a given region and the region is enabled.
+    string tax_number_service = 47;
+    // Is tax calculation supported for a detected tax location?
+    bool tax_supported = 48;
+    // Timezone name for tax transaction.
+    string tax_timezone = 49;
+    // Was this transaction created in test mode?
+    bool test = 50;
+    // Total amount of transaction.
+    int32 total_amount = 51;
+    // Transaction lines.
+    repeated transaction_lines transaction_lines = 52;
+    // Verification token
+    string verification_token = 53;
+}
+
+message Transaction_lines {
+    // Additional currency information - can be used to receive additional information about invoice in another currency.
+    additional_currencies additional_currencies = 1;
+    // Amount. Required if total amount or both unit price and quantity are not provided.
+    int32 amount = 2;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 3;
+    // Custom id, provided by ecommerce software.
+    string custom_id = 4;
+    // Deducted tax amount, calculated by taxmo.
+    int32 deducted_tax_amount = 5;
+    // Deducted tax rate, calculated by taxamo.
+    int32 deducted_tax_rate = 6;
+    // Line contents description.
+    string description = 7;
+    // Generated id.
+    int32 id = 8;
+    // If the line is provided for informative purposes. Such line must have :tax-rate and optionally :tax-name - if not, API validation will fail for this line.
+    bool informative = 9;
+    // Generated line key.
+    string line_key = 10;
+    // Internal product code, used for invoicing for example.
+    string product_code = 11;
+    // External product tax code for a line, for example TIC in US Sales tax.
+    string product_tax_code = 12;
+    // Product type, according to dictionary /dictionaries/product_types.
+    string product_type = 13;
+    // Quantity Defaults to 1.
+    int32 quantity = 14;
+    // Refunded tax amount, calculated by taxmo.
+    int32 refunded_tax_amount = 15;
+    // Refunded total amount, calculated by taxmo.
+    int32 refunded_total_amount = 16;
+    // Date of supply in yyyy-MM-dd format.
+    string supply_date = 17;
+    // Tax amount, calculated by taxamo.
+    int32 tax_amount = 18;
+    // Tax name, calculated by taxamo.  Can be overwritten when informative field is true.
+    string tax_name = 19;
+    // Tax rate, calculated by taxamo. Must be provided when informative field is true.
+    int32 tax_rate = 20;
+    // Total amount. Required if amount or both unit price and quantity are not provided.
+    int32 total_amount = 21;
+    // Unit of measure.
+    string unit_of_measure = 22;
+    // Unit price.
+    int32 unit_price = 23;
+}
+
+message Transactions {
+    // Additional currency information - can be used to receive additional information about invoice in another currency.
+    additional_currencies additional_currencies = 1;
+    // Amount of transaction without tax.
+    int32 amount = 2;
+    // Billing two letter ISO country code.
+    string billing_country_code = 3;
+    // First 6 digits of buyer's credit card prefix.
+    string buyer_credit_card_prefix = 4;
+    // Buyer's declared email address.
+    string buyer_email = 5;
+    // IP address of the buyer in dotted decimal (IPv4) or text format (IPv6).
+    string buyer_ip = 6;
+    // Buyer's name - first name and last name or company name.
+    string buyer_name = 7;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 8;
+    // If the buyer tax number has been provided and was validated successfully. Always true for domestic transactions (billing country same as merchant's country), tax number doesn't get validated in that case.
+    bool buyer_tax_number_valid = 9;
+    // Additional information about the transaction - for example if the evidence has been amended.
+    string comments = 10;
+    // Date and time of transaction confirmation.
+    string confirm_timestamp = 11;
+    // Map of countries calculated from evidence provided. This value is not stored and is available only upon tax calculation.
+    countries countries = 12;
+    // Date and time of transaction creation.
+    string create_timestamp = 13;
+    // Currency code for transaction - e.g. EUR.
+    string currency_code = 14;
+    // Custom data related to transaction.
+    string custom_data = 15;
+    // Custom fields, stored as key-value pairs. This property is not processed and used mostly with Taxamo-built helpers.
+    repeated custom_fields custom_fields = 16;
+    // Custom identifier provided upon transaction creation.
+    string custom_id = 17;
+    // Free-form field for storing customer id.
+    string customer_id = 18;
+    // How much tax has been deducted.
+    int32 deducted_tax_amount = 19;
+    // Transaction description.
+    string description = 20;
+    // Tax country of residence evidence.
+    evidence evidence = 21;
+    // Transaction external key
+    string external_key = 22;
+    // Two-letter ISO country code, e.g. FR. Use it to force country code for tax calculation.
+    string force_country_code = 23;
+    // Set to true if transaction has only informative lines.
+    bool fully_informative = 24;
+    // Invoice address.
+    invoice_address invoice_address = 25;
+    // Invoice date of issue.
+    string invoice_date = 26;
+    // Invoice image URL - provided by Taxamo.
+    string invoice_image_url = 27;
+    // Invoice number.
+    string invoice_number = 28;
+    // Invoice place of issue.
+    string invoice_place = 29;
+    // Id generated by taxamo.
+    string key = 30;
+    // Transaction kind: eu-b2c, eu-b2b, domestic, untaxed
+    string kind = 31;
+    // Is the transaction created manually - using private token. In manual mode, it is the merchant who calculates tax country and validates evidence. If you need API to do that when accessing the API with private token, just skip the 'manual' flag or use false value there and provide customer's ip address through buyer_ip field. Manual mode is also used when using original_transaction_key field.
+    bool manual = 32;
+    // Additional note related to transaction state - for example if the transaction was created in a 'catch-all' mode or the VAT number re-check for subscriptions has failed.
+    string note = 33;
+    // Order date in yyyy-MM-dd format, in merchant's timezone. If provided by the API caller, no timezone conversion is performed. Default value is current date and time. When using public token, the default value is used.
+    string order_date = 34;
+    // Use data and evidence from original transaction. Tax will be re-calculated, but evidence won't be re-checked. This parameter is taken into account only when 'manual' flag is raised.
+    string original_transaction_key = 35;
+    // Refunded tax amount.
+    int32 refunded_tax_amount = 36;
+    // Total amount refunde (including tax).
+    int32 refunded_total_amount = 37;
+    // Transaction source software - e.g. plugin
+    string source = 38;
+    // Transaction status: 'N' - new, 'C' - confirmed. Can use 'C' in store-transaction! with private-token to create confirmed transaction, otherwise 'N' is default status. Not applicable for update-transaction!.
+    string status = 39;
+    // Sub account identifier.
+    string sub_account_id = 40;
+    // Supply date in yyyy-MM-dd format.
+    string supply_date = 41;
+    // Tax amount of transaction.
+    int32 tax_amount = 42;
+    // Two-letter ISO country code, e.g. FR. This code applies to detected/set country for transaction, but can be set using manual mode.
+    string tax_country_code = 43;
+    // Tax additional information - e.g. US sales tax exemption certificate data.
+    tax_data_schema tax_data = 44;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 45;
+    // To which entity is the tax due.
+    string tax_entity_name = 46;
+    // Tax number service identifier - if available for a given region and the region is enabled.
+    string tax_number_service = 47;
+    // Is tax calculation supported for a detected tax location?
+    bool tax_supported = 48;
+    // Timezone name for tax transaction.
+    string tax_timezone = 49;
+    // Was this transaction created in test mode?
+    bool test = 50;
+    // Total amount of transaction.
+    int32 total_amount = 51;
+    // Transaction lines.
+    repeated transaction_lines transaction_lines = 52;
+    // Verification token
+    string verification_token = 53;
+}
+
+message UnconfirmTransactionIn {
+    // Transaction.
+    input_transaction_update transaction = 1;
+}
+
+message UnconfirmTransactionOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message UpdateTransactionIn {
+    // Transaction.
+    transaction transaction = 1;
+}
+
+message UpdateTransactionOut {
+    // Fields required for transaction storage (can be added later - it's up to merchant software). Depends on the region/transaction type.
+    repeated storage_required_fields storage_required_fields = 1;
+    // Fields required for tax calculation. Depends on the region/transaction type.
+    repeated tax_required_fields tax_required_fields = 2;
+    // Transaction data
+    transaction transaction = 3;
+}
+
+message Us_tax_exempt_state {
+    // Identifier for exemption reason.
+    string identifier_for_exemption_reason = 1;
+    // Exemption reason
+    string reason_for_exemption = 2;
+    // Two character state abbreviation.
+    string state_abbr = 3;
+}
+
+message Us_tax_exemption_certificate_details_schema {
+    // List of states where the certificate is valid.
+    repeated us_tax_exempt_state exempt_states = 1;
+    // Purchaser's first address line.
+    string purchaser_address1 = 2;
+    // Purchaser's second address line.
+    string purchaser_address2 = 3;
+    // Purchaser business type.
+    string purchaser_business_type = 4;
+    // If business type is other, a short description must be provided.
+    string purchaser_business_type_other_value = 5;
+    // Purchaser's city.
+    string purchaser_city = 6;
+    // The reason for exemption reason.
+    string purchaser_exemption_reason = 7;
+    // The value of exemption reason.
+    string purchaser_exemption_reason_value = 8;
+    // Purchaser's first name.
+    string purchaser_first_name = 9;
+    // Purchaser's last name.
+    string purchaser_last_name = 10;
+    // Purchaser's state.
+    string purchaser_state = 11;
+    // Purchaser's TAX ID.
+    us_tax_id purchaser_tax_id = 12;
+    // Purchaser's title.
+    string purchaser_title = 13;
+    // Purchaser's zip code.
+    string purchaser_zip = 14;
+    // Set to true if this certificate is valid for single purchase only.
+    bool single_purchase = 15;
+    // Purchase/order identifier for single purchase.
+    string single_purchase_order_identifier = 16;
+}
+
+message Us_tax_exemption_certificate_schema {
+    // The exemption certificate number.
+    string certificate_id = 1;
+    // US tax exemption ertificate detail.
+    us_tax_exemption_certificate_details_schema detail = 2;
+}
+
+message Us_tax_id {
+    // State of issue
+    string state_of_issue = 1;
+    // Tax ID
+    string tax_id = 2;
+    // Tax id type.
+    string tax_id_type = 3;
+}
+
+message ValidateTaxNumberIn {
+    // Two-letter ISO country code.
+    string country_code = 1;
+}
+
+message ValidateTaxNumberOut {
+    // Billing two letter ISO country code.
+    string billing_country_code = 1;
+    //  Buyer's tax number - EU VAT number for example. If using EU VAT number, it is possible to provide country code in it (e.g. IE1234567X) or simply use billing_country_code field for that. In the first case, if billing_country_code value was provided, it will be overwritten with country code value extracted from VAT number - but only if the VAT has been verified properly.
+    string buyer_tax_number = 2;
+    // If the buyer tax number has been provided and was validated successfully. Always true for domestic transactions (billing country same as merchant's country), tax number doesn't get validated in that case.
+    bool buyer_tax_number_valid = 3;
+    // If the transaction is in a country supported by Taxamo, but the tax is not calculated due to merchant settings or EU B2B transaction for example.
+    bool tax_deducted = 4;
+}
+
+message VerifySMSTokenOut {
+    // Verified country code, returned if operation was successful.
+    string country_code = 1;
+}
+
+service TaxamoService {
+    // Countries
+    rpc GetApiV1DictionariesCountries(GetApiV1DictionariesCountriesRequest) returns (GetCountriesDictOut) {
+      option (google.api.http) = {
+        get: "//api/v1/dictionaries/countries"
+      };
+    }
+    // Currencies
+    rpc GetApiV1DictionariesCurrencies(google.protobuf.Empty) returns (GetCurrenciesDictOut) {
+      option (google.api.http) = {
+        get: "//api/v1/dictionaries/currencies"
+      };
+    }
+    // Product types
+    rpc GetApiV1DictionariesProduct_types(google.protobuf.Empty) returns (GetProductTypesDictOut) {
+      option (google.api.http) = {
+        get: "//api/v1/dictionaries/product_types"
+      };
+    }
+    // Locate IP
+    rpc GetApiV1Geoip(google.protobuf.Empty) returns (LocateMyIPOut) {
+      option (google.api.http) = {
+        get: "//api/v1/geoip"
+      };
+    }
+    // Locate provided IP
+    rpc GetApiV1GeoipIp(GetApiV1GeoipIpRequest) returns (LocateGivenIPOut) {
+      option (google.api.http) = {
+        get: "//api/v1/geoip/{ip}"
+      };
+    }
+    // Calculate domestic summary
+    rpc GetApiV1ReportsDomesticSummary(GetApiV1ReportsDomesticSummaryRequest) returns (GetDomesticSummaryReportOut) {
+      option (google.api.http) = {
+        get: "//api/v1/reports/domestic/summary"
+      };
+    }
+    // Calculate EU VIES report
+    rpc GetApiV1ReportsEuVies(GetApiV1ReportsEuViesRequest) returns (GetEuViesReportOut) {
+      option (google.api.http) = {
+        get: "//api/v1/reports/eu/vies"
+      };
+    }
+    // Detailed refunds
+    rpc GetApiV1SettlementDetailed_refunds(GetApiV1SettlementDetailed_refundsRequest) returns (GetDetailedRefundsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/settlement/detailed_refunds"
+      };
+    }
+    // Fetch refunds
+    rpc GetApiV1SettlementRefunds(GetApiV1SettlementRefundsRequest) returns (GetRefundsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/settlement/refunds"
+      };
+    }
+    // Fetch summary
+    rpc GetApiV1SettlementSummaryQuarter(GetApiV1SettlementSummaryQuarterRequest) returns (GetSettlementSummaryOut) {
+      option (google.api.http) = {
+        get: "//api/v1/settlement/summary/{quarter}"
+      };
+    }
+    // Fetch settlement
+    rpc GetApiV1SettlementQuarter(GetApiV1SettlementQuarterRequest) returns (GetSettlementOut) {
+      option (google.api.http) = {
+        get: "//api/v1/settlement/{quarter}"
+      };
+    }
+    // Settlement by country
+    rpc GetApiV1StatsSettlementBy_country(GetApiV1StatsSettlementBy_countryRequest) returns (GetSettlementStatsByCountryOut) {
+      option (google.api.http) = {
+        get: "//api/v1/stats/settlement/by_country"
+      };
+    }
+    // Settlement by tax type
+    rpc GetApiV1StatsSettlementBy_taxation_type(GetApiV1StatsSettlementBy_taxation_typeRequest) returns (GetSettlementStatsByTaxationTypeOut) {
+      option (google.api.http) = {
+        get: "//api/v1/stats/settlement/by_taxation_type"
+      };
+    }
+    // Settlement stats over time
+    rpc GetApiV1StatsSettlementDaily(GetApiV1StatsSettlementDailyRequest) returns (GetDailySettlementStatsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/stats/settlement/daily"
+      };
+    }
+    // Transaction stats
+    rpc GetApiV1StatsTransactions(GetApiV1StatsTransactionsRequest) returns (GetTransactionsStatsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/stats/transactions"
+      };
+    }
+    // Settlement by country
+    rpc GetApiV1StatsTransactionsBy_country(GetApiV1StatsTransactionsBy_countryRequest) returns (GetTransactionsStatsByCountryOut) {
+      option (google.api.http) = {
+        get: "//api/v1/stats/transactions/by_country"
+      };
+    }
+    // Simple tax
+    rpc GetApiV1TaxCalculate(GetApiV1TaxCalculateRequest) returns (CalculateSimpleTaxOut) {
+      option (google.api.http) = {
+        get: "//api/v1/tax/calculate"
+      };
+    }
+    // Calculate tax
+    rpc PostApiV1TaxCalculate(PostApiV1TaxCalculateRequest) returns (CalculateTaxOut) {
+      option (google.api.http) = {
+        post: "//api/v1/tax/calculate"
+        body: "input"
+      };
+    }
+    // Calculate location
+    rpc GetApiV1TaxLocationCalculate(GetApiV1TaxLocationCalculateRequest) returns (CalculateTaxLocationOut) {
+      option (google.api.http) = {
+        get: "//api/v1/tax/location/calculate"
+      };
+    }
+    // Validate VAT number
+    rpc GetApiV1TaxVat_numbersTax_numberValidate(GetApiV1TaxVat_numbersTax_numberValidateRequest) returns (ValidateTaxNumberOut) {
+      option (google.api.http) = {
+        get: "//api/v1/tax/vat_numbers/{tax_number}/validate"
+      };
+    }
+    // Browse transactions
+    rpc GetApiV1Transactions(GetApiV1TransactionsRequest) returns (ListTransactionsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/transactions"
+      };
+    }
+    // Store transaction
+    rpc PostApiV1Transactions(PostApiV1TransactionsRequest) returns (CreateTransactionOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions"
+        body: "input"
+      };
+    }
+    // Retrieve transaction data.
+    rpc GetApiV1TransactionsKey(GetApiV1TransactionsKeyRequest) returns (GetTransactionOut) {
+      option (google.api.http) = {
+        get: "//api/v1/transactions/{key}"
+      };
+    }
+    // Update transaction
+    rpc PutApiV1TransactionsKey(PutApiV1TransactionsKeyRequest) returns (UpdateTransactionOut) {
+      option (google.api.http) = {
+        put: "//api/v1/transactions/{key}"
+        body: "input"
+      };
+    }
+    // Delete transaction
+    rpc DeleteApiV1TransactionsKey(DeleteApiV1TransactionsKeyRequest) returns (CancelTransactionOut) {
+      option (google.api.http) = {
+        delete: "//api/v1/transactions/{key}"
+      };
+    }
+    // Confirm transaction
+    rpc PostApiV1TransactionsKeyConfirm(PostApiV1TransactionsKeyConfirmRequest) returns (ConfirmTransactionOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/confirm"
+        body: "input"
+      };
+    }
+    // Email credit note
+    rpc PostApiV1TransactionsKeyInvoiceRefundsRefund_note_numberSend_email(PostApiV1TransactionsKeyInvoiceRefundsRefund_note_numberSend_emailRequest) returns (EmailRefundOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/invoice/refunds/{refund_note_number}/send_email"
+        body: "input"
+      };
+    }
+    // Email invoice
+    rpc PostApiV1TransactionsKeyInvoiceSend_email(PostApiV1TransactionsKeyInvoiceSend_emailRequest) returns (EmailInvoiceOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/invoice/send_email"
+        body: "input"
+      };
+    }
+    // List payments
+    rpc GetApiV1TransactionsKeyPayments(GetApiV1TransactionsKeyPaymentsRequest) returns (ListPaymentsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/transactions/{key}/payments"
+      };
+    }
+    // Register a payment
+    rpc PostApiV1TransactionsKeyPayments(PostApiV1TransactionsKeyPaymentsRequest) returns (CreatePaymentOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/payments"
+        body: "input"
+      };
+    }
+    // Capture payment
+    rpc PostApiV1TransactionsKeyPaymentsCapture(PostApiV1TransactionsKeyPaymentsCaptureRequest) returns (CapturePaymentOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/payments/capture"
+      };
+    }
+    // Get transaction refunds
+    rpc GetApiV1TransactionsKeyRefunds(GetApiV1TransactionsKeyRefundsRequest) returns (ListRefundsOut) {
+      option (google.api.http) = {
+        get: "//api/v1/transactions/{key}/refunds"
+      };
+    }
+    // Create a refund
+    rpc PostApiV1TransactionsKeyRefunds(PostApiV1TransactionsKeyRefundsRequest) returns (CreateRefundOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/refunds"
+        body: "input"
+      };
+    }
+    // Un-confirm the transaction
+    rpc PostApiV1TransactionsKeyUnconfirm(PostApiV1TransactionsKeyUnconfirmRequest) returns (UnconfirmTransactionOut) {
+      option (google.api.http) = {
+        post: "//api/v1/transactions/{key}/unconfirm"
+        body: "input"
+      };
+    }
+    // Create SMS token
+    rpc PostApiV1VerificationSms(PostApiV1VerificationSmsRequest) returns (CreateSMSTokenOut) {
+      option (google.api.http) = {
+        post: "//api/v1/verification/sms"
+        body: "input"
+      };
+    }
+    // Verify SMS token
+    rpc GetApiV1VerificationSmsToken(GetApiV1VerificationSmsTokenRequest) returns (VerifySMSTokenOut) {
+      option (google.api.http) = {
+        get: "//api/v1/verification/sms/{token}"
+      };
+    }
+}

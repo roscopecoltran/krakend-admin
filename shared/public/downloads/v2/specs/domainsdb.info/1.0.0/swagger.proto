@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package domainsdb.info;
+
+message GetSearchRequest {
+    // Search query for registered domains for ex. facebook
+    string query = 1;
+    // Search area (cctld|gtld|all)
+    string tld = 2;
+}
+
+message Domains {
+    // Search results array
+    message Domain {
+            // Domains name
+    string name = 1;
+    }
+    repeated Domain domains = 1;
+    // Request time
+    int32 time = 2;
+    // Total records found
+    int32 total = 3;
+}
+
+service Domainsdb.InfoService {
+    // Search for registered domains
+    rpc GetSearch(GetSearchRequest) returns (Domains) {
+      option (google.api.http) = {
+        get: "//search"
+      };
+    }
+}

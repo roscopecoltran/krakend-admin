@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package groupsmigration;
+
+message PostGroupIdArchiveRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The group ID
+    string groupId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message Groups {
+    // The kind of insert resource this is.
+    string kind = 1;
+    // The status of the insert request.
+    string responseCode = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GroupsMigrationService {
+    // Inserts a new mail into the archive of the Google group.
+    rpc PostGroupIdArchive(PostGroupIdArchiveRequest) returns (Groups) {
+      option (google.api.http) = {
+        post: "/groups/v1/groups/{groupId}/archive"
+      };
+    }
+}

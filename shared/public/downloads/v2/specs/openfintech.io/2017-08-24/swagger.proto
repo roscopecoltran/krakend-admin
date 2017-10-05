@@ -1,0 +1,942 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package openfintech.io;
+
+message GetBanksRequest {
+    string filter[code] = 1;
+    // Filtering by banks code.
+    string filter[sort_code] = 2;
+    // Filtration by status.
+    repeated string filter[status] = 3;
+    integer page[number] = 4;
+    integer page[size] = 5;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | code | -code |
+    // | status | -status |
+    // | sort_code | -sort_code |
+    repeated string sort = 6;
+}
+
+message GetBanksIdRequest {
+    string id = 1;
+}
+
+message GetCountriesRequest {
+    // Filtration by region.
+    repeated string filter[region] = 1;
+    // Filtration by sub region.
+    repeated string filter[sub_region] = 2;
+    integer page[number] = 3;
+    integer page[size] = 4;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | area | -area |
+    // | population | -population |
+    // | region | -region |
+    // | sub_region | -sub_region |
+    repeated string sort = 5;
+}
+
+message GetCountriesIdRequest {
+    string id = 1;
+}
+
+message GetCurrenciesRequest {
+    // Filtration by category.
+    repeated string filter[category] = 1;
+    // Filtering by estandards code.
+    string filter[code_estandards_alpha] = 2;
+    // Filtering by ISO code.
+    string filter[code_iso_alpha3] = 3;
+    // Filtering by ISO number.
+    int32 filter[code_iso_numeric3] = 4;
+    // Filtration by currency type.
+    repeated string filter[currency_type] = 5;
+    // Full text search with name, code, type, code_iso_alpha3, code_jsons_alpha, code_estandards_alpha, category.
+    string filter[search] = 6;
+    integer page[number] = 7;
+    integer page[size] = 8;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | type | -type |
+    // | category | -category |
+    // | code | -code |
+    // | code_iso_alpha3 | -code_iso_alpha3 |
+    // | code_iso_numeric3 | -code_iso_numeric3 |
+    // | code_estandards_alpha | -code_estandards_alpha |
+    repeated string sort = 9;
+}
+
+message GetCurrenciesIdRequest {
+    string id = 1;
+}
+
+message GetExchangersRequest {
+    string filter[name] = 1;
+    array filter[status] = 2;
+    integer page[number] = 3;
+    integer page[size] = 4;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | status | -status |
+    // | wmid | -wmid |
+    // | rate_type | -rate_type |
+    // | rates_export_standard | <nobr>-rates_export_standard</nobr> |
+    repeated string sort = 5;
+}
+
+message GetExchangersIdRequest {
+    string id = 1;
+}
+
+message GetMerchantIndustriesRequest {
+    string filter[name] = 1;
+    integer page[number] = 2;
+    integer page[size] = 3;
+}
+
+message GetMerchantIndustriesIdRequest {
+    string id = 1;
+}
+
+message GetOrganizationsRequest {
+    string filter[code] = 1;
+    // Filtering by industries.
+    string filter[industries] = 2;
+    string filter[name] = 3;
+    // Full text search with id, name, code.
+    string filter[search] = 4;
+    array filter[status] = 5;
+    integer page[number] = 6;
+    integer page[size] = 7;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | code | -code |
+    // | status | -status |
+    // | description | -description |
+    repeated string sort = 8;
+}
+
+message GetOrganizationsIdRequest {
+    string id = 1;
+}
+
+message GetPaymentMethodsRequest {
+    // Filtering by category.
+    repeated string filter[category] = 1;
+    string filter[code] = 2;
+    string filter[name] = 3;
+    // Filtering by processor_name.
+    string filter[processor_name] = 4;
+    // Full text search with id, name, code, category.
+    string filter[search] = 5;
+    integer page[number] = 6;
+    integer page[size] = 7;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | code | -code |
+    // | processor_name | -processor_name |
+    // | category | -category |
+    repeated string sort = 8;
+}
+
+message GetPaymentMethodsIdRequest {
+    string id = 1;
+}
+
+message GetPaymentProvidersRequest {
+    string filter[code] = 1;
+    // Filtering by features.
+    repeated string filter[features] = 2;
+    string filter[name] = 3;
+    // Filtering by sales channels.
+    repeated string filter[sales_channels] = 4;
+    // Full text search with id, code, name.
+    string filter[search] = 5;
+    // Filtering by types.
+    repeated string filter[types] = 6;
+    integer page[number] = 7;
+    integer page[size] = 8;
+    // Sort params:<br>
+    // 
+    // | ASC | DESC |
+    // |-----|------|
+    // | name | -name |
+    // | code | -code |
+    repeated string sort = 9;
+}
+
+message GetPaymentProvidersIdRequest {
+    string id = 1;
+}
+
+message Bank {
+    BankAttributes attributes = 1;
+    // Bank`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    BankRelationships relationships = 4;
+    string type = 5;
+}
+
+message BankAttributes {
+    string account_number = 1;
+    string bank_code = 2;
+    string bic = 3;
+    // Bank`s code
+    string code = 4;
+    string iban = 5;
+    // Bank`s name
+    string name = 6;
+    string sort_code = 7;
+    // Status [active, liquidated, problem, deleted]
+    string status = 8;
+    string vatin = 9;
+}
+
+message BankOrganization {
+    BankOrganizationData data = 1;
+    BankOrganizationLinks links = 2;
+}
+
+message BankOrganizationData {
+    // Organization`s ID
+    string id = 1;
+    string type = 2;
+}
+
+message BankOrganizationLinks {
+    string related = 1;
+}
+
+message BankRelationships {
+    BankOrganization organization = 1;
+}
+
+message BankResponse {
+    Bank data = 1;
+}
+
+message BanksResponse {
+    repeated Bank data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message CountriesResponse {
+    repeated Country data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message Country {
+    CountryAttributes attributes = 1;
+    // Country`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    CountryRelationships relationships = 4;
+    string type = 5;
+}
+
+message CountryAttributes {
+    // Countryâ€™s area (sq km)
+    string area = 1;
+    // Array of country`s phone codes
+    repeated int32 calling_codes = 2;
+    // Countryâ€™s capital
+    string capital = 3;
+    // Country`s ISO alpha3 code
+    string code_alpha3 = 4;
+    // Array of country`s languages
+    repeated string languages = 5;
+    // Country`s name
+    string name = 6;
+    // Country`s nativ name
+    string native_name = 7;
+    // Countryâ€™s population
+    string population = 8;
+    // Countryâ€™s region:<br>
+    // 
+    //   * Africa
+    //   * Americas
+    //   * Asia
+    //   * Europe
+    //   * Oceania
+    //   * Polar
+    string region = 9;
+    // Countryâ€™s sub region:<br>
+    // 
+    //   * Northern Africa
+    //   * Southern Africa
+    //   * Western Africa
+    //   * Eastern Africa
+    //   * Middle Africa
+    //   * Northern America
+    //   * South America
+    //   * Central America
+    //   * Caribbean
+    //   * Southern Asia
+    //   * Western Asia
+    //   * Eastern Asia
+    //   * South-Eastern Asia
+    //   * Central Asia
+    //   * Northern Europe
+    //   * Southern Europe
+    //   * Western Europe
+    //   * Eastern Europe
+    //   * Polynesia
+    //   * Australia and New Zealand
+    //   * Micronesia
+    //   * Melanesia
+    string sub_region = 10;
+    // Array of country`s timezones (UTC)
+    repeated string timezones = 11;
+    // Array of country`s domains
+    repeated string top_level_domains = 12;
+}
+
+message CountryRelationships {
+    CountryTranslations translations = 1;
+}
+
+message CountryResponse {
+    Country data = 1;
+}
+
+message CountryTranslations {
+    CountryTranslationsLinks links = 1;
+}
+
+message CountryTranslationsLinks {
+    string related = 1;
+}
+
+message CurrenciesResponse {
+    repeated Currency data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message Currency {
+    CurrencyAttributes attributes = 1;
+    // Currency ID
+    string id = 2;
+    SelfLinks links = 3;
+    CurrencyRelationships relationships = 4;
+    string type = 5;
+}
+
+message CurrencyAttributes {
+    // Currency category
+    string category = 1;
+    // Currency system code
+    string code = 2;
+    string code_estandards_alpha = 3;
+    // Currency ISO code
+    string code_iso_alpha3 = 4;
+    // Currency ISO numeric code
+    int32 code_iso_numeric3 = 5;
+    string code_json_alpha = 6;
+    // Created date in system (in Unixtime)
+    string created = 7;
+    // Type of currencies [national, digital, virtual, metal, energy]
+    string currency_type = 8;
+    // Number of digits after the decimal separator
+    string decimal_e = 9;
+    CurrencyAttributesIcon icon = 10;
+    // Currency`s issuer
+    string issuer = 11;
+    // Currency description
+    string name = 12;
+    // Currencyâ€™s symbol. In general, only for nationals currencies
+    string native_symbol = 13;
+    // Currencyâ€™s symbol. In general, only for nationals currencies
+    string symbol = 14;
+}
+
+message CurrencyAttributesIcon {
+    // 16x16 icon
+    string 16 = 1;
+    // 32x32 icon
+    string 32 = 2;
+    // 64x64 icon
+    string 64 = 3;
+}
+
+message CurrencyCountries {
+    CurrencyCountryLinks links = 1;
+}
+
+message CurrencyCountryLinks {
+    string related = 1;
+}
+
+message CurrencyIssuer {
+    CurrencyIssuertData data = 1;
+    CurrencyIssuerLinks links = 2;
+}
+
+message CurrencyIssuerLinks {
+    string related = 1;
+}
+
+message CurrencyIssuerOrganization {
+    CurrencyIssuerOrganizationData data = 1;
+    CurrencyIssuerOrganizationLinks links = 2;
+}
+
+message CurrencyIssuerOrganizationData {
+    // Issuer organization ID
+    string id = 1;
+    string type = 2;
+}
+
+message CurrencyIssuerOrganizationLinks {
+    string related = 1;
+}
+
+message CurrencyIssuertData {
+    // Issuer ID
+    string id = 1;
+    string type = 2;
+}
+
+message CurrencyParent {
+    CurrencyParentData data = 1;
+    CurrencyParentLinks links = 2;
+}
+
+message CurrencyParentData {
+    // Parent currency ID
+    string id = 1;
+    string type = 2;
+}
+
+message CurrencyParentLinks {
+    string related = 1;
+}
+
+message CurrencyRelationships {
+    CurrencyCountries countries = 1;
+    CurrencyIssuer issuer = 2;
+    CurrencyIssuerOrganization issuer_organization = 3;
+    CurrencyParent parent = 4;
+}
+
+message CurrencyResponse {
+    Currency data = 1;
+}
+
+message Exchanger {
+    ExchangerAttributes attributes = 1;
+    // Exchanger`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    ExchangerRelationships relationships = 4;
+    string type = 5;
+}
+
+message ExchangerAttributes {
+    // Exchanger`s name
+    string name = 1;
+    string rates_export_standard = 2;
+    string rates_export_url = 3;
+    // Exchanger`s status [active, blocked, deleted]
+    string status = 4;
+    // Exchanger`s WebMoney ID
+    int32 wmid = 5;
+}
+
+message ExchangerOrganization {
+    ExchangerOrganizationData data = 1;
+    ExchangerOrganizationLinks links = 2;
+}
+
+message ExchangerOrganizationData {
+    // Organization ID
+    string id = 1;
+    string type = 2;
+}
+
+message ExchangerOrganizationLinks {
+    string related = 1;
+}
+
+message ExchangerRelationships {
+    ExchangerOrganization organization = 1;
+}
+
+message ExchangerResponse {
+    Exchanger data = 1;
+}
+
+message ExchangersResponse {
+    repeated Exchanger data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message MerchantIndustriesResponse {
+    repeated MerchantIndustry data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message MerchantIndustry {
+    MerchantIndustryAttributes attributes = 1;
+    // Merchant-industry`s ID
+    string id = 2;
+    string type = 3;
+}
+
+message MerchantIndustryAttributes {
+    // Merchant-industry`s name
+    string name = 1;
+}
+
+message MerchantIndustryResponse {
+    MerchantIndustry data = 1;
+}
+
+message Organization {
+    OrganizationAttributes attributes = 1;
+    // Organization`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    OrganizationRelationships relationships = 4;
+    string type = 5;
+}
+
+message OrganizationActive {
+    repeated string data = 1;
+    OrganizationActiveLinks links = 2;
+}
+
+message OrganizationActiveLinks {
+    string related = 1;
+}
+
+message OrganizationAddress {
+    string city = 1;
+    string country = 2;
+    int32 post_code = 3;
+    // Countryâ€™s region:<br>
+    // 
+    //   * Africa
+    //   * Americas
+    //   * Asia
+    //   * Europe
+    //   * Oceania
+    //   * Polar
+    string region = 4;
+    string street = 5;
+}
+
+message OrganizationAttributes {
+    OrganizationAddress address = 1;
+    // Organization`s blog
+    string blog = 2;
+    // Organization`s code
+    string code = 3;
+    OrganizationContacts contacts = 4;
+    // Description
+    string description = 5;
+    OrganizationAttributesIcon icon = 6;
+    // Industries
+    repeated string industries = 7;
+    OrganizationAttributesLogo logo = 8;
+    // Organization`s name
+    string name = 9;
+    // Organization`s site
+    string site = 10;
+    OrganizationSocial social_profiles = 11;
+    // Organization`s status [active, liquidated, deleted]
+    string status = 12;
+    // Organization`s wiki
+    string wiki = 13;
+}
+
+message OrganizationAttributesIcon {
+    // 16x16 icon
+    string 16 = 1;
+    // 32x32 icon
+    string 32 = 2;
+    // 64x64 icon
+    string 64 = 3;
+}
+
+message OrganizationAttributesLogo {
+    // 100x100 logo
+    string 100 = 1;
+    // 150x150 logo
+    string 150 = 2;
+    // 50x50 logo
+    string 50 = 3;
+}
+
+message OrganizationContacts {
+    string email = 1;
+    string fax = 2;
+    string phone = 3;
+    string skype = 4;
+}
+
+message OrganizationHq {
+    OrganizationHqData data = 1;
+    OrganizationHqLinks links = 2;
+}
+
+message OrganizationHqData {
+    // HQ location
+    string id = 1;
+    string type = 2;
+}
+
+message OrganizationHqLinks {
+    string related = 1;
+}
+
+message OrganizationRelationships {
+    OrganizationActive active_in_countries = 1;
+    OrganizationHq hq_in_country = 2;
+    OrganizationSource source_register_org = 3;
+}
+
+message OrganizationResponse {
+    Organization data = 1;
+}
+
+message OrganizationSocial {
+    string facebook = 1;
+    string google_plus = 2;
+    string linked_in = 3;
+    string twitter = 4;
+    string vkontakte = 5;
+}
+
+message OrganizationSource {
+    OrganizationSourceData data = 1;
+    OrganizationSourceLinks links = 2;
+}
+
+message OrganizationSourceData {
+    string id = 1;
+    string type = 2;
+}
+
+message OrganizationSourceLinks {
+    string related = 1;
+}
+
+message OrganizationsResponse {
+    repeated Organization data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message PaymentMethod {
+    PaymentMethodAttributes attributes = 1;
+    // Payment-methods`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    PaymentMethodRelationships relationships = 4;
+    string type = 5;
+}
+
+message PaymentMethodAttributes {
+    string category = 1;
+    // Payment-method`s code
+    string code = 2;
+    // Payment-method`s name
+    string name = 3;
+    // Payment-method`s processor
+    string processor_name = 4;
+}
+
+message PaymentMethodCurrencies {
+    repeated string data = 1;
+    PaymentMethodCurrenciesLinks links = 2;
+}
+
+message PaymentMethodCurrenciesLinks {
+    string related = 1;
+}
+
+message PaymentMethodProcessor {
+    PaymentMethodProcessorData data = 1;
+    PaymentMethodProcessorLinks links = 2;
+}
+
+message PaymentMethodProcessorData {
+    // Processor`s id.
+    string id = 1;
+    // Processor`s type.
+    string type = 2;
+}
+
+message PaymentMethodProcessorLinks {
+    string related = 1;
+}
+
+message PaymentMethodRelationships {
+    PaymentMethodCurrencies currencies = 1;
+    PaymentMethodProcessor payment_processor = 2;
+}
+
+message PaymentMethodResponse {
+    PaymentMethod data = 1;
+}
+
+message PaymentMethodsResponse {
+    repeated PaymentMethod data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message PaymentProvider {
+    PaymentProviderAttributes attributes = 1;
+    // Payment-provider`s ID
+    string id = 2;
+    SelfLinks links = 3;
+    PaymentProviderRelationships relationships = 4;
+    string type = 5;
+}
+
+message PaymentProviderAttributes {
+    // Payment-provider`s code
+    string code = 1;
+    repeated string features = 2;
+    // Payment-provider`s name
+    string name = 3;
+    repeated string sales_channels = 4;
+    repeated string types = 5;
+}
+
+message PaymentProviderOrganization {
+    PaymentProviderOrganizationData data = 1;
+    PaymentProviderOrganizationLinks links = 2;
+}
+
+message PaymentProviderOrganizationData {
+    // Organization`s ID
+    string id = 1;
+    string type = 2;
+}
+
+message PaymentProviderOrganizationLinks {
+    string related = 1;
+}
+
+message PaymentProviderPaymentMethods {
+    repeated string data = 1;
+    PaymentProviderPaymentMethodsLinks links = 2;
+}
+
+message PaymentProviderPaymentMethodsLinks {
+    string related = 1;
+}
+
+message PaymentProviderRelationships {
+    PaymentProviderOrganization organization = 1;
+    PaymentProviderPaymentMethods payment_methods = 2;
+}
+
+message PaymentProviderResponse {
+    PaymentProvider data = 1;
+}
+
+message PaymentProvidersResponse {
+    repeated PaymentProvider data = 1;
+    ResponseLinks links = 2;
+    ResponseMeta meta = 3;
+}
+
+message ResponseLinks {
+    // first page of query
+    string first = 1;
+    // last page of query
+    string last = 2;
+    // next page in query
+    string next = 3;
+    // previous page in query
+    string prev = 4;
+}
+
+message ResponseMeta {
+    // total pages
+    int32 pages = 1;
+    // total objects in query
+    int32 total = 2;
+}
+
+message SelfLinks {
+    string self = 1;
+}
+
+
+
+
+
+repeated string filter[status] = 1
+
+
+
+
+
+
+
+service OpenFinTech.IoService {
+    // List of banks
+    // 
+    // Returns list of banks. Each object contains general information about bank such as name and status, also information about bank details and related link to main organization.
+    rpc GetBanks(GetBanksRequest) returns (BanksResponse) {
+      option (google.api.http) = {
+        get: "/v1//banks"
+      };
+    }
+    // Bank by ID
+    // 
+    // Returns bank with specific ID.
+    rpc GetBanksId(GetBanksIdRequest) returns (BankResponse) {
+      option (google.api.http) = {
+        get: "/v1//banks/{id}"
+      };
+    }
+    // List of countries
+    // 
+    // Returns all available countries.
+    rpc GetCountries(GetCountriesRequest) returns (CountriesResponse) {
+      option (google.api.http) = {
+        get: "/v1//countries"
+      };
+    }
+    // Country by ID
+    // 
+    // Returns country with specific ID.
+    rpc GetCountriesId(GetCountriesIdRequest) returns (CountryResponse) {
+      option (google.api.http) = {
+        get: "/v1//countries/{id}"
+      };
+    }
+    // List of currencies
+    // 
+    // Returns all available currencies.
+    rpc GetCurrencies(GetCurrenciesRequest) returns (CurrenciesResponse) {
+      option (google.api.http) = {
+        get: "/v1//currencies"
+      };
+    }
+    // Currency by ID
+    // 
+    // Returns currency with specific ID.
+    rpc GetCurrenciesId(GetCurrenciesIdRequest) returns (CurrencyResponse) {
+      option (google.api.http) = {
+        get: "/v1//currencies/{id}"
+      };
+    }
+    // List of exchangers
+    // 
+    // Returns list of exchange markets. Each object contains general information about exchanger such as name and status, also information about rates export and related link to main organization.<br>
+    // Rates export standards is represented by:
+    // * [estandards](http://estandards.info)
+    // * [jsons](http://jsons.info)
+    // * ratex - our internal standard
+    rpc GetExchangers(GetExchangersRequest) returns (ExchangersResponse) {
+      option (google.api.http) = {
+        get: "/v1//exchangers"
+      };
+    }
+    // Exchanger by ID
+    // 
+    // Returns exchanger with specific ID.
+    rpc GetExchangersId(GetExchangersIdRequest) returns (ExchangerResponse) {
+      option (google.api.http) = {
+        get: "/v1//exchangers/{id}"
+      };
+    }
+    // List of merchant industries
+    // 
+    // Returns all available merchant fields of activity.
+    rpc GetMerchantIndustries(GetMerchantIndustriesRequest) returns (MerchantIndustriesResponse) {
+      option (google.api.http) = {
+        get: "/v1//merchant-industries"
+      };
+    }
+    // Merchant industry by ID
+    // 
+    // Returns merchant industry with specific ID.
+    rpc GetMerchantIndustriesId(GetMerchantIndustriesIdRequest) returns (MerchantIndustryResponse) {
+      option (google.api.http) = {
+        get: "/v1//merchant-industries/{id}"
+      };
+    }
+    // List of organizations
+    // 
+    // This endpoint retrievs the list of organizations present in the system. The data displays general, public information, without reference to the type of activity (for example - name, address, contacts, etc.).
+    rpc GetOrganizations(GetOrganizationsRequest) returns (OrganizationsResponse) {
+      option (google.api.http) = {
+        get: "/v1//organizations"
+      };
+    }
+    // Organization by ID
+    // 
+    // Returns organization with specific ID.
+    rpc GetOrganizationsId(GetOrganizationsIdRequest) returns (OrganizationResponse) {
+      option (google.api.http) = {
+        get: "/v1//organizations/{id}"
+      };
+    }
+    // List of payment methods
+    // 
+    // Returns list of payment methods. Each object contains information about payment method such as name and category, also related link to payment method issuer (which processing it).
+    rpc GetPaymentMethods(GetPaymentMethodsRequest) returns (PaymentMethodsResponse) {
+      option (google.api.http) = {
+        get: "/v1//payment-methods"
+      };
+    }
+    // Payment method by ID
+    // 
+    // Returns payment method with specific ID.
+    rpc GetPaymentMethodsId(GetPaymentMethodsIdRequest) returns (PaymentMethodResponse) {
+      option (google.api.http) = {
+        get: "/v1//payment-methods/{id}"
+      };
+    }
+    // List of payment providers
+    // 
+    // A payment service provider (PSP) offers shops online services for accepting electronic payments by a variety of payment methods.<br> Endpoint returns list of PSPs. Each object contains: name, type, supported features and sales channels, also related link to available payment methods and main organization.
+    rpc GetPaymentProviders(GetPaymentProvidersRequest) returns (PaymentProvidersResponse) {
+      option (google.api.http) = {
+        get: "/v1//payment-providers"
+      };
+    }
+    // Payment provider by ID
+    // 
+    // Returns payment provider with specific ID.
+    rpc GetPaymentProvidersId(GetPaymentProvidersIdRequest) returns (PaymentProviderResponse) {
+      option (google.api.http) = {
+        get: "/v1//payment-providers/{id}"
+      };
+    }
+}

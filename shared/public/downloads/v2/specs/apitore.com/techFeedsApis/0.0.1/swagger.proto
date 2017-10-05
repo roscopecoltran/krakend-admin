@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package techfeedsapis;
+
+message GetFeedsTechRequest {
+    // Access Token
+    string access_token = 1;
+    // Page number [page x 10 feeds]
+    int32 page = 2;
+}
+
+message FeedEntryEntity {
+    // Author
+    string author = 1;
+    // Description
+    string description = 2;
+    // Link
+    string link = 3;
+    // Published Date
+    int64 pubDate = 4;
+    // Source Link
+    string sourceLink = 5;
+    // Source Title
+    string sourceTitle = 6;
+    // Title
+    string title = 7;
+}
+
+message FeedResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated FeedEntryEntity entries = 2;
+    // Last Updated At
+    int64 lastUpdatedAt = 3;
+    // Log message
+    string log = 4;
+    // Num
+    int32 num = 5;
+    // Input page num
+    int32 page = 6;
+    // Process time [millisecond]
+    string processTime = 7;
+    // Start date
+    string startTime = 8;
+}
+
+service TechFeedsAPIsService {
+    // Get tech feeds
+    // 
+    // Tech feeds.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/rome-response">rome-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.rome.FeedResponseEntity<BR />
+    rpc GetFeedsTech(GetFeedsTechRequest) returns (FeedResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/35/feeds/tech"
+      };
+    }
+}

@@ -1,0 +1,221 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleoauth2;
+
+message GetOauth2V1CertsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetOauth2V1Raw_public_keysRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message PostOauth2V1TokeninfoRequest {
+    // The oauth2 access token
+    string access_token = 1;
+    alt alt = 2;
+    string fields = 3;
+    // The ID token
+    string id_token = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetOauth2V1UserinfoRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetService_accountsV1JwkRobotEmailRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The email of robot account.
+    string robotEmail = 7;
+    string userIp = 8;
+}
+
+message GetService_accountsV1MetadataRawRobotEmailRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The email of robot account.
+    string robotEmail = 7;
+    string userIp = 8;
+}
+
+message GetService_accountsV1MetadataX509RobotEmailRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The email of robot account.
+    string robotEmail = 7;
+    string userIp = 8;
+}
+
+message GetUserinfoV2MeRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message Jwk {
+    message Key {
+        string alg = 1;
+        string e = 2;
+        string kid = 3;
+        string kty = 4;
+        string n = 5;
+        string use = 6;
+    }
+    repeated Key keys = 1;
+}
+
+message Raw {
+    message Keyvalue {
+        string algorithm = 1;
+        string exponent = 2;
+        string keyid = 3;
+        string modulus = 4;
+    }
+    repeated Keyvalue keyvalues = 1;
+}
+
+message Tokeninfo {
+    // The access type granted with this token. It can be offline or online.
+    string access_type = 1;
+    // Who is the intended audience for this token. In general the same as issued_to.
+    string audience = 2;
+    // The email address of the user. Present only if the email scope is present in the request.
+    string email = 3;
+    // Boolean flag which is true if the email address is verified. Present only if the email scope is present in the request.
+    bool email_verified = 4;
+    // The expiry time of the token, as number of seconds left until expiry.
+    int32 expires_in = 5;
+    // The issue time of the token, as number of seconds.
+    int32 issued_at = 6;
+    // To whom was the token issued to. In general the same as audience.
+    string issued_to = 7;
+    // Who issued the token.
+    string issuer = 8;
+    // Nonce of the id token.
+    string nonce = 9;
+    // The space separated list of scopes granted to this token.
+    string scope = 10;
+    // The obfuscated user id.
+    string user_id = 11;
+    // Boolean flag which is true if the email address is verified. Present only if the email scope is present in the request.
+    bool verified_email = 12;
+}
+
+message Userinfoplus {
+    // The user's email address.
+    string email = 1;
+    // The user's last name.
+    string family_name = 2;
+    // The user's gender.
+    string gender = 3;
+    // The user's first name.
+    string given_name = 4;
+    // The hosted domain e.g. example.com if the user is Google apps user.
+    string hd = 5;
+    // The obfuscated ID of the user.
+    string id = 6;
+    // URL of the profile page.
+    string link = 7;
+    // The user's preferred locale.
+    string locale = 8;
+    // The user's full name.
+    string name = 9;
+    // URL of the user's picture image.
+    string picture = 10;
+    // Boolean flag which is true if the email address is verified. Always verified because we only return the user's primary email address.
+    bool verified_email = 11;
+}
+
+map<string, string> X509 = 1
+
+enum Alt {
+    JSON = 0;
+}
+
+service GoogleOAuth2Service {
+    rpc GetOauth2V1Certs(GetOauth2V1CertsRequest) returns (X509) {
+      option (google.api.http) = {
+        get: "//oauth2/v1/certs"
+      };
+    }
+    rpc GetOauth2V1Raw_public_keys(GetOauth2V1Raw_public_keysRequest) returns (Raw) {
+      option (google.api.http) = {
+        get: "//oauth2/v1/raw_public_keys"
+      };
+    }
+    // Get token info
+    rpc PostOauth2V1Tokeninfo(PostOauth2V1TokeninfoRequest) returns (Tokeninfo) {
+      option (google.api.http) = {
+        post: "//oauth2/v1/tokeninfo"
+      };
+    }
+    // Get user info
+    rpc GetOauth2V1Userinfo(GetOauth2V1UserinfoRequest) returns (Userinfoplus) {
+      option (google.api.http) = {
+        get: "//oauth2/v1/userinfo"
+      };
+    }
+    rpc GetService_accountsV1JwkRobotEmail(GetService_accountsV1JwkRobotEmailRequest) returns (Jwk) {
+      option (google.api.http) = {
+        get: "//service_accounts/v1/jwk/{robotEmail}"
+      };
+    }
+    rpc GetService_accountsV1MetadataRawRobotEmail(GetService_accountsV1MetadataRawRobotEmailRequest) returns (Raw) {
+      option (google.api.http) = {
+        get: "//service_accounts/v1/metadata/raw/{robotEmail}"
+      };
+    }
+    rpc GetService_accountsV1MetadataX509RobotEmail(GetService_accountsV1MetadataX509RobotEmailRequest) returns (X509) {
+      option (google.api.http) = {
+        get: "//service_accounts/v1/metadata/x509/{robotEmail}"
+      };
+    }
+    // Get user info
+    rpc GetUserinfoV2Me(GetUserinfoV2MeRequest) returns (Userinfoplus) {
+      option (google.api.http) = {
+        get: "//userinfo/v2/me"
+      };
+    }
+}

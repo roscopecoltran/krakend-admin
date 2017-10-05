@@ -1,0 +1,530 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awshealthapisandnotifications;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeAffectedEntitiesRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message Post#DescribeEntityAggregatesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeEntityAggregatesRequest body = 10;
+}
+
+message Post#DescribeEventAggregatesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeEventAggregatesRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message Post#DescribeEventDetailsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeEventDetailsRequest body = 10;
+}
+
+message Post#DescribeEventTypesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeEventTypesRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message Post#DescribeEventsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeEventsRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message AffectedEntity {
+    // The 12-digit AWS account number that contains the affected entity.
+    string awsAccountId = 1;
+    // The unique identifier for the entity. Format: <code>arn:aws:health:<i>entity-region</i>:<i>aws-account</i>:entity/<i>entity-id</i> </code>. Example: <code>arn:aws:health:us-east-1:111222333444:entity/AVh5GGT7ul1arKr1sE1K</code>
+    string entityArn = 2;
+    // The ID of the affected entity.
+    string entityValue = 3;
+    // The unique identifier for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i> </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code>
+    string eventArn = 4;
+    // The most recent time that the entity was updated.
+    string lastUpdatedTime = 5;
+    // The most recent status of the entity affected by the event. The possible values are <code>IMPAIRED</code>, <code>UNIMPAIRED</code>, and <code>UNKNOWN</code>.
+    entityStatusCode statusCode = 6;
+    // A map of entity tags attached to the affected entity.
+    array tags = 7;
+}
+
+message DateTimeRange {
+    // The starting date and time of a time range.
+    string from = 1;
+    // The ending date and time of a time range.
+    string to = 2;
+}
+
+message DescribeAffectedEntitiesRequest {
+    // Values to narrow the results returned. At least one event ARN is required.
+    EntityFilter filter = 1;
+    // The locale (language) to return information in. English (en) is the default and the only supported value at this time.
+    string locale = 2;
+    // The maximum number of items to return in one batch, between 10 and 100, inclusive.
+    integer maxResults = 3;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 4;
+}
+
+message DescribeAffectedEntitiesResponse {
+    // The entities that match the filter criteria.
+    array entities = 1;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 2;
+}
+
+message DescribeEntityAggregatesRequest {
+    // A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331", "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code>
+    array eventArns = 1;
+}
+
+message DescribeEntityAggregatesResponse {
+    // The number of entities that are affected by each of the specified events.
+    array entityAggregates = 1;
+}
+
+message DescribeEventAggregatesRequest {
+    // The only currently supported value is <code>eventTypeCategory</code>.
+    eventAggregateField aggregateField = 1;
+    // Values to narrow the results returned.
+    EventFilter filter = 2;
+    // The maximum number of items to return in one batch, between 10 and 100, inclusive.
+    integer maxResults = 3;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 4;
+}
+
+message DescribeEventAggregatesResponse {
+    // The number of events in each category that meet the optional filter criteria.
+    array eventAggregates = 1;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 2;
+}
+
+repeated EventDetailsErrorItem DescribeEventDetailsFailedSet = 1
+
+message DescribeEventDetailsRequest {
+    // A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331", "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code>
+    array eventArns = 1;
+    // The locale (language) to return information in. English (en) is the default and the only supported value at this time.
+    string locale = 2;
+}
+
+message DescribeEventDetailsResponse {
+    // Error messages for any events that could not be retrieved.
+    array failedSet = 1;
+    // Information about the events that could be retrieved.
+    array successfulSet = 2;
+}
+
+repeated EventDetails DescribeEventDetailsSuccessfulSet = 1
+
+message DescribeEventTypesRequest {
+    // Values to narrow the results returned.
+    EventTypeFilter filter = 1;
+    // The locale (language) to return information in. English (en) is the default and the only supported value at this time.
+    string locale = 2;
+    // The maximum number of items to return in one batch, between 10 and 100, inclusive.
+    integer maxResults = 3;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 4;
+}
+
+message DescribeEventTypesResponse {
+    // A list of event types that match the filter criteria. Event types have a category (<code>issue</code>, <code>accountNotification</code>, or <code>scheduledChange</code>), a service (for example, <code>EC2</code>, <code>RDS</code>, <code>DATAPIPELINE</code>, <code>BILLING</code>), and a code (in the format <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example, <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>).
+    array eventTypes = 1;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 2;
+}
+
+message DescribeEventsRequest {
+    // Values to narrow the results returned.
+    EventFilter filter = 1;
+    // The locale (language) to return information in. English (en) is the default and the only supported value at this time.
+    string locale = 2;
+    // The maximum number of items to return in one batch, between 10 and 100, inclusive.
+    integer maxResults = 3;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 4;
+}
+
+message DescribeEventsResponse {
+    // The events that match the specified filter criteria.
+    array events = 1;
+    // If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.
+    string nextToken = 2;
+}
+
+message EntityAggregate {
+    // The number entities that match the criteria for the specified events.
+    integer count = 1;
+    // The unique identifier for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i> </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code>
+    string eventArn = 2;
+}
+
+repeated EntityAggregate EntityAggregateList = 1
+
+message EntityFilter {
+    // A list of entity ARNs (unique identifiers).
+    array entityArns = 1;
+    // A list of IDs for affected entities.
+    array entityValues = 2;
+    // A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331", "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code>
+    array eventArns = 3;
+    // A list of the most recent dates and times that the entity was updated.
+    array lastUpdatedTimes = 4;
+    // A list of entity status codes (<code>IMPAIRED</code>, <code>UNIMPAIRED</code>, or <code>UNKNOWN</code>).
+    array statusCodes = 5;
+    // A map of entity tags attached to the affected entity.
+    array tags = 6;
+}
+
+repeated AffectedEntity EntityList = 1
+
+message Event {
+    // The unique identifier for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i> </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code>
+    string arn = 1;
+    // The AWS Availability Zone of the event. For example, us-east-1a.
+    string availabilityZone = 2;
+    // The date and time that the event ended.
+    string endTime = 3;
+    // The
+    eventTypeCategory eventTypeCategory = 4;
+    // The unique identifier for the event type. The format is <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example, <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.
+    string eventTypeCode = 5;
+    // The most recent date and time that the event was updated.
+    string lastUpdatedTime = 6;
+    // The AWS region name of the event.
+    string region = 7;
+    // The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+    string service = 8;
+    // The date and time that the event began.
+    string startTime = 9;
+    // The most recent status of the event. Possible values are <code>open</code>, <code>closed</code>, and <code>upcoming</code>.
+    eventStatusCode statusCode = 10;
+}
+
+message EventAggregate {
+    // The issue type for the associated count.
+    string aggregateValue = 1;
+    // The number of events of the associated issue type.
+    integer count = 2;
+}
+
+repeated EventAggregate EventAggregateList = 1
+
+repeated string EventArnsList = 1
+
+message EventDescription {
+    // The most recent description of the event.
+    string latestDescription = 1;
+}
+
+message EventDetails {
+    // Summary information about the event.
+    Event event = 1;
+    // The most recent description of the event.
+    EventDescription eventDescription = 2;
+    // Additional metadata about the event.
+    array eventMetadata = 3;
+}
+
+message EventDetailsErrorItem {
+    // A message that describes the error.
+    string errorMessage = 1;
+    // The name of the error.
+    string errorName = 2;
+    // The unique identifier for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i> </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code>
+    string eventArn = 3;
+}
+
+message EventFilter {
+    // A list of AWS availability zones.
+    array availabilityZones = 1;
+    // A list of dates and times that the event ended.
+    array endTimes = 2;
+    // A list of entity ARNs (unique identifiers).
+    array entityArns = 3;
+    // A list of entity identifiers, such as EC2 instance IDs (<code>i-34ab692e</code>) or EBS volumes (<code>vol-426ab23e</code>).
+    array entityValues = 4;
+    // A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331", "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code>
+    array eventArns = 5;
+    // A list of event status codes.
+    array eventStatusCodes = 6;
+    // A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or <code>accountNotification</code>).
+    array eventTypeCategories = 7;
+    // A list of unique identifiers for event types. For example, <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+    array eventTypeCodes = 8;
+    // A list of dates and times that the event was last updated.
+    array lastUpdatedTimes = 9;
+    // A list of AWS regions.
+    array regions = 10;
+    // The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+    array services = 11;
+    // A list of dates and times that the event began.
+    array startTimes = 12;
+    // A map of entity tags attached to the affected entity.
+    array tags = 13;
+}
+
+repeated Event EventList = 1
+
+message EventType {
+    // A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or <code>accountNotification</code>).
+    eventTypeCategory category = 1;
+    // The unique identifier for the event type. The format is <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example, <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.
+    string code = 2;
+    // The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+    string service = 3;
+}
+
+repeated eventTypeCategory EventTypeCategoryList = 1
+
+repeated string EventTypeCodeList = 1
+
+message EventTypeFilter {
+    // A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or <code>accountNotification</code>).
+    array eventTypeCategories = 1;
+    // A list of event type codes.
+    array eventTypeCodes = 2;
+    // The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+    array services = 3;
+}
+
+repeated EventType EventTypeList = 1
+
+message InvalidPaginationToken {
+    string message = 1;
+}
+
+message UnsupportedLocale {
+    string message = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+repeated string availabilityZones = 1
+
+
+
+repeated DateTimeRange dateTimeRangeList = 1
+
+
+
+repeated string entityArnList = 1
+
+enum EntityStatusCode {
+    IMPAIRED = 0;
+    UNIMPAIRED = 1;
+    UNKNOWN = 2;
+}
+
+repeated entityStatusCode entityStatusCodeList = 1
+
+
+
+repeated string entityValueList = 1
+
+enum EventAggregateField {
+    EVENTTYPECATEGORY = 0;
+}
+
+
+
+repeated string eventArnList = 1
+
+
+
+message EventMetadata {
+    string key = 1;
+    string value = 2;
+}
+repeated EventMetadata eventMetadata = 1
+
+enum EventStatusCode {
+    OPEN = 0;
+    CLOSED = 1;
+    UPCOMING = 2;
+}
+
+repeated eventStatusCode eventStatusCodeList = 1
+
+
+
+enum EventTypeCategory {
+    ISSUE = 0;
+    ACCOUNTNOTIFICATION = 1;
+    SCHEDULEDCHANGE = 2;
+}
+
+repeated eventTypeCategory eventTypeCategoryList = 1
+
+
+
+repeated string eventTypeList = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+repeated string regionList = 1
+
+
+
+repeated string serviceList = 1
+
+
+
+repeated array tagFilter = 1
+
+
+
+message TagSet {
+    string key = 1;
+    string value = 2;
+}
+repeated TagSet tagSet = 1
+
+
+
+
+
+service AWSHealthAPIsAndNotificationsService {
+    // <p>Returns a list of entities that have been affected by the specified events, based on the specified filter criteria. Entities can refer to individual customer resources, groups of customer resources, or any other construct, depending on the AWS service. Events that have impact beyond that of the affected entities, or where the extent of impact is unknown, include at least one entity indicating this.</p> <p>At least one event ARN is required. Results are sorted by the <code>lastUpdatedTime</code> of the entity, starting with the most recent.</p>
+    rpc Post(PostRequest) returns (DescribeAffectedEntitiesResponse) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // Returns the number of entities that are affected by each of the specified events. If no events are specified, the counts of all affected entities are returned.
+    rpc Post#DescribeEntityAggregates(Post#DescribeEntityAggregatesRequest) returns (DescribeEntityAggregatesResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeEntityAggregates"
+        body: "body"
+      };
+    }
+    // Returns the number of events of each event type (issue, scheduled change, and account notification). If no filter is specified, the counts of all events in each category are returned.
+    rpc Post#DescribeEventAggregates(Post#DescribeEventAggregatesRequest) returns (DescribeEventAggregatesResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeEventAggregates"
+        body: "body"
+      };
+    }
+    // <p>Returns detailed information about one or more specified events. Information includes standard event data (region, service, etc., as returned by <a>DescribeEvents</a>), a detailed event description, and possible additional metadata that depends upon the nature of the event. Affected entities are not included; to retrieve those, use the <a>DescribeAffectedEntities</a> operation.</p> <p>If a specified event cannot be retrieved, an error message is returned for that event.</p>
+    rpc Post#DescribeEventDetails(Post#DescribeEventDetailsRequest) returns (DescribeEventDetailsResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeEventDetails"
+        body: "body"
+      };
+    }
+    // Returns the event types that meet the specified filter criteria. If no filter criteria are specified, all event types are returned, in no particular order.
+    rpc Post#DescribeEventTypes(Post#DescribeEventTypesRequest) returns (DescribeEventTypesResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeEventTypes"
+        body: "body"
+      };
+    }
+    // <p>Returns information about events that meet the specified filter criteria. Events are returned in a summary form and do not include the detailed description, any additional metadata that depends on the event type, or any affected resources. To retrieve that information, use the <a>DescribeEventDetails</a> and <a>DescribeAffectedEntities</a> operations.</p> <p>If no filter criteria are specified, all events are returned. Results are sorted by <code>lastModifiedTime</code>, starting with the most recent.</p>
+    rpc Post#DescribeEvents(Post#DescribeEventsRequest) returns (DescribeEventsResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeEvents"
+        body: "body"
+      };
+    }
+}

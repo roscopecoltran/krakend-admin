@@ -1,0 +1,703 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleanalyticsreporting;
+
+message PostV4Reports:BatchGetRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    GetReportsRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message Cohort {
+    // This is used for `FIRST_VISIT_DATE` cohort, the cohort selects users
+    // whose first visit date is between start date and end date defined in the
+    // DateRange. The date ranges should be aligned for cohort requests. If the
+    // request contains `ga:cohortNthDay` it should be exactly one day long,
+    // if `ga:cohortNthWeek` it should be aligned to the week boundary (starting
+    // at Sunday and ending Saturday), and for `ga:cohortNthMonth` the date range
+    // should be aligned to the month (starting at the first and ending on the
+    // last day of the month).
+    // For LTV requests there are no such restrictions.
+    // You do not need to supply a date range for the
+    // `reportsRequest.dateRanges` field.
+    DateRange dateRange = 1;
+    // A unique name for the cohort. If not defined name will be auto-generated
+    // with values cohort_[1234...].
+    string name = 2;
+    // Type of the cohort. The only supported type as of now is
+    // `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
+    // as `FIRST_VISIT_DATE` type cohort.
+    enum Cohort_Type {
+        COHORT_TYPE_UNSPECIFIED_COHORT_TYPE = 0;
+        COHORT_TYPE_FIRST_VISIT_DATE = 1;
+    }
+    Cohort_Type type = 3;
+}
+
+message CohortGroup {
+    // The definition for the cohort.
+    repeated Cohort cohorts = 1;
+    // Enable Life Time Value (LTV).  LTV measures lifetime value for users
+    // acquired through different channels.
+    // Please see:
+    // [Cohort Analysis](https://support.google.com/analytics/answer/6074676) and
+    // [Lifetime Value](https://support.google.com/analytics/answer/6182550)
+    // If the value of lifetimeValue is false:
+    // 
+    // - The metric values are similar to the values in the web interface cohort
+    //   report.
+    // - The cohort definition date ranges must be aligned to the calendar week
+    //   and month. i.e. while requesting `ga:cohortNthWeek` the `startDate` in
+    //   the cohort definition should be a Sunday and the `endDate` should be the
+    //   following Saturday, and for `ga:cohortNthMonth`, the `startDate`
+    //   should be the 1st of the month and `endDate` should be the last day
+    //   of the month.
+    // 
+    // When the lifetimeValue is true:
+    // 
+    // - The metric values will correspond to the values in the web interface
+    //   LifeTime value report.
+    // - The Lifetime Value report shows you how user value (Revenue) and
+    //   engagement (Appviews, Goal Completions, Sessions, and Session Duration)
+    //   grow during the 90 days after a user is acquired.
+    // - The metrics are calculated as a cumulative average per user per the time
+    //   increment.
+    // - The cohort definition date ranges need not be aligned to the calendar
+    //   week and month boundaries.
+    // - The `viewId` must be an
+    //   [app view ID](https://support.google.com/analytics/answer/2649553#WebVersusAppViews)
+    bool lifetimeValue = 2;
+}
+
+message ColumnHeader {
+    // The dimension names in the response.
+    repeated string dimensions = 1;
+    // Metric headers for the metrics in the response.
+    MetricHeader metricHeader = 2;
+}
+
+message DateRange {
+    // The end date for the query in the format `YYYY-MM-DD`.
+    string endDate = 1;
+    // The start date for the query in the format `YYYY-MM-DD`.
+    string startDate = 2;
+}
+
+message DateRangeValues {
+    // The values of each pivot region.
+    repeated PivotValueRegion pivotValueRegions = 1;
+    // Each value corresponds to each Metric in the request.
+    repeated string values = 2;
+}
+
+message Dimension {
+    // If non-empty, we place dimension values into buckets after string to
+    // int64. Dimension values that are not the string representation of an
+    // integral value will be converted to zero.  The bucket values have to be in
+    // increasing order.  Each bucket is closed on the lower end, and open on the
+    // upper end. The "first" bucket includes all values less than the first
+    // boundary, the "last" bucket includes all values up to infinity. Dimension
+    // values that fall in a bucket get transformed to a new dimension value. For
+    // example, if one gives a list of "0, 1, 3, 4, 7", then we return the
+    // following buckets:
+    // 
+    // - bucket #1: values < 0, dimension value "<0"
+    // - bucket #2: values in [0,1), dimension value "0"
+    // - bucket #3: values in [1,3), dimension value "1-2"
+    // - bucket #4: values in [3,4), dimension value "3"
+    // - bucket #5: values in [4,7), dimension value "4-6"
+    // - bucket #6: values >= 7, dimension value "7+"
+    // 
+    // NOTE: If you are applying histogram mutation on any dimension, and using
+    // that dimension in sort, you will want to use the sort type
+    // `HISTOGRAM_BUCKET` for that purpose. Without that the dimension values
+    // will be sorted according to dictionary
+    // (lexicographic) order. For example the ascending dictionary order is:
+    // 
+    //    "<50", "1001+", "121-1000", "50-120"
+    // 
+    // And the ascending `HISTOGRAM_BUCKET` order is:
+    // 
+    //    "<50", "50-120", "121-1000", "1001+"
+    // 
+    // The client has to explicitly request `"orderType": "HISTOGRAM_BUCKET"`
+    // for a histogram-mutated dimension.
+    repeated string histogramBuckets = 1;
+    // Name of the dimension to fetch, for example `ga:browser`.
+    string name = 2;
+}
+
+message DimensionFilter {
+    // Should the match be case sensitive? Default is false.
+    bool caseSensitive = 1;
+    // The dimension to filter on. A DimensionFilter must contain a dimension.
+    string dimensionName = 2;
+    // Strings or regular expression to match against. Only the first value of
+    // the list is used for comparison unless the operator is `IN_LIST`.
+    // If `IN_LIST` operator, then the entire list is used to filter the
+    // dimensions as explained in the description of the `IN_LIST` operator.
+    repeated string expressions = 3;
+    // Logical `NOT` operator. If this boolean is set to true, then the matching
+    // dimension values will be excluded in the report. The default is false.
+    bool not = 4;
+    // How to match the dimension to the expression. The default is REGEXP.
+    enum DimensionFilter_Operator {
+        DIMENSIONFILTER_OPERATOR_OPERATOR_UNSPECIFIED = 0;
+        DIMENSIONFILTER_OPERATOR_REGEXP = 1;
+        DIMENSIONFILTER_OPERATOR_BEGINS_WITH = 2;
+        DIMENSIONFILTER_OPERATOR_ENDS_WITH = 3;
+        DIMENSIONFILTER_OPERATOR_PARTIAL = 4;
+        DIMENSIONFILTER_OPERATOR_EXACT = 5;
+        DIMENSIONFILTER_OPERATOR_NUMERIC_EQUAL = 6;
+        DIMENSIONFILTER_OPERATOR_NUMERIC_GREATER_THAN = 7;
+        DIMENSIONFILTER_OPERATOR_NUMERIC_LESS_THAN = 8;
+        DIMENSIONFILTER_OPERATOR_IN_LIST = 9;
+    }
+    DimensionFilter_Operator operator = 5;
+}
+
+message DimensionFilterClause {
+    // The repeated set of filters. They are logically combined based on the
+    // operator specified.
+    repeated DimensionFilter filters = 1;
+    // The operator for combining multiple dimension filters. If unspecified, it
+    // is treated as an `OR`.
+    enum DimensionFilterClause_Operator {
+        DIMENSIONFILTERCLAUSE_OPERATOR_OPERATOR_UNSPECIFIED = 0;
+        DIMENSIONFILTERCLAUSE_OPERATOR_OR = 1;
+        DIMENSIONFILTERCLAUSE_OPERATOR_AND = 2;
+    }
+    DimensionFilterClause_Operator operator = 2;
+}
+
+message DynamicSegment {
+    // The name of the dynamic segment.
+    string name = 1;
+    // Session Segment to select sessions to include in the segment.
+    SegmentDefinition sessionSegment = 2;
+    // User Segment to select users to include in the segment.
+    SegmentDefinition userSegment = 3;
+}
+
+message GetReportsRequest {
+    // Requests, each request will have a separate response.
+    // There can be a maximum of 5 requests. All requests should have the same
+    // `dateRanges`, `viewId`, `segments`, `samplingLevel`, and `cohortGroup`.
+    repeated ReportRequest reportRequests = 1;
+}
+
+message GetReportsResponse {
+    // Responses corresponding to each of the request.
+    repeated Report reports = 1;
+}
+
+message Metric {
+    // An alias for the metric expression is an alternate name for the
+    // expression. The alias can be used for filtering and sorting. This field
+    // is optional and is useful if the expression is not a single metric but
+    // a complex expression which cannot be used in filtering and sorting.
+    // The alias is also used in the response column header.
+    string alias = 1;
+    // A metric expression in the request. An expression is constructed from one
+    // or more metrics and numbers. Accepted operators include: Plus (+), Minus
+    // (-), Negation (Unary -), Divided by (/), Multiplied by (*), Parenthesis,
+    // Positive cardinal numbers (0-9), can include decimals and is limited to
+    // 1024 characters. Example `ga:totalRefunds/ga:users`, in most cases the
+    // metric expression is just a single metric name like `ga:users`.
+    // Adding mixed `MetricType` (E.g., `CURRENCY` + `PERCENTAGE`) metrics
+    // will result in unexpected results.
+    string expression = 2;
+    // Specifies how the metric expression should be formatted, for example
+    // `INTEGER`.
+    enum Metric_FormattingType {
+        METRIC_FORMATTINGTYPE_METRIC_TYPE_UNSPECIFIED = 0;
+        METRIC_FORMATTINGTYPE_INTEGER = 1;
+        METRIC_FORMATTINGTYPE_FLOAT = 2;
+        METRIC_FORMATTINGTYPE_CURRENCY = 3;
+        METRIC_FORMATTINGTYPE_PERCENT = 4;
+        METRIC_FORMATTINGTYPE_TIME = 5;
+    }
+    Metric_FormattingType formattingType = 3;
+}
+
+message MetricFilter {
+    // The value to compare against.
+    string comparisonValue = 1;
+    // The metric that will be filtered on. A metricFilter must contain a metric
+    // name. A metric name can be an alias earlier defined as a metric or it can
+    // also be a metric expression.
+    string metricName = 2;
+    // Logical `NOT` operator. If this boolean is set to true, then the matching
+    // metric values will be excluded in the report. The default is false.
+    bool not = 3;
+    // Is the metric `EQUAL`, `LESS_THAN` or `GREATER_THAN` the
+    // comparisonValue, the default is `EQUAL`. If the operator is
+    // `IS_MISSING`, checks if the metric is missing and would ignore the
+    // comparisonValue.
+    enum MetricFilter_Operator {
+        METRICFILTER_OPERATOR_OPERATOR_UNSPECIFIED = 0;
+        METRICFILTER_OPERATOR_EQUAL = 1;
+        METRICFILTER_OPERATOR_LESS_THAN = 2;
+        METRICFILTER_OPERATOR_GREATER_THAN = 3;
+        METRICFILTER_OPERATOR_IS_MISSING = 4;
+    }
+    MetricFilter_Operator operator = 4;
+}
+
+message MetricFilterClause {
+    // The repeated set of filters. They are logically combined based on the
+    // operator specified.
+    repeated MetricFilter filters = 1;
+    // The operator for combining multiple metric filters. If unspecified, it is
+    // treated as an `OR`.
+    enum MetricFilterClause_Operator {
+        METRICFILTERCLAUSE_OPERATOR_OPERATOR_UNSPECIFIED = 0;
+        METRICFILTERCLAUSE_OPERATOR_OR = 1;
+        METRICFILTERCLAUSE_OPERATOR_AND = 2;
+    }
+    MetricFilterClause_Operator operator = 2;
+}
+
+message MetricHeader {
+    // Headers for the metrics in the response.
+    repeated MetricHeaderEntry metricHeaderEntries = 1;
+    // Headers for the pivots in the response.
+    repeated PivotHeader pivotHeaders = 2;
+}
+
+message MetricHeaderEntry {
+    // The name of the header.
+    string name = 1;
+    // The type of the metric, for example `INTEGER`.
+    enum MetricHeaderEntry_Type {
+        METRICHEADERENTRY_TYPE_METRIC_TYPE_UNSPECIFIED = 0;
+        METRICHEADERENTRY_TYPE_INTEGER = 1;
+        METRICHEADERENTRY_TYPE_FLOAT = 2;
+        METRICHEADERENTRY_TYPE_CURRENCY = 3;
+        METRICHEADERENTRY_TYPE_PERCENT = 4;
+        METRICHEADERENTRY_TYPE_TIME = 5;
+    }
+    MetricHeaderEntry_Type type = 2;
+}
+
+message OrFiltersForSegment {
+    // List of segment filters to be combined with a `OR` operator.
+    repeated SegmentFilterClause segmentFilterClauses = 1;
+}
+
+message OrderBy {
+    // The field which to sort by. The default sort order is ascending. Example:
+    // `ga:browser`.
+    // Note, that you can only specify one field for sort here. For example,
+    // `ga:browser, ga:city` is not valid.
+    string fieldName = 1;
+    // The order type. The default orderType is `VALUE`.
+    enum OrderBy_OrderType {
+        ORDERBY_ORDERTYPE_ORDER_TYPE_UNSPECIFIED = 0;
+        ORDERBY_ORDERTYPE_VALUE = 1;
+        ORDERBY_ORDERTYPE_DELTA = 2;
+        ORDERBY_ORDERTYPE_SMART = 3;
+        ORDERBY_ORDERTYPE_HISTOGRAM_BUCKET = 4;
+        ORDERBY_ORDERTYPE_DIMENSION_AS_INTEGER = 5;
+    }
+    OrderBy_OrderType orderType = 2;
+    // The sorting order for the field.
+    enum OrderBy_SortOrder {
+        ORDERBY_SORTORDER_SORT_ORDER_UNSPECIFIED = 0;
+        ORDERBY_SORTORDER_ASCENDING = 1;
+        ORDERBY_SORTORDER_DESCENDING = 2;
+    }
+    OrderBy_SortOrder sortOrder = 3;
+}
+
+message Pivot {
+    // DimensionFilterClauses are logically combined with an `AND` operator: only
+    // data that is included by all these DimensionFilterClauses contributes to
+    // the values in this pivot region. Dimension filters can be used to restrict
+    // the columns shown in the pivot region. For example if you have
+    // `ga:browser` as the requested dimension in the pivot region, and you
+    // specify key filters to restrict `ga:browser` to only "IE" or "Firefox",
+    // then only those two browsers would show up as columns.
+    repeated DimensionFilterClause dimensionFilterClauses = 1;
+    // A list of dimensions to show as pivot columns. A Pivot can have a maximum
+    // of 4 dimensions. Pivot dimensions are part of the restriction on the
+    // total number of dimensions allowed in the request.
+    repeated Dimension dimensions = 2;
+    // Specifies the maximum number of groups to return.
+    // The default value is 10, also the maximum value is 1,000.
+    int32 maxGroupCount = 3;
+    // The pivot metrics. Pivot metrics are part of the
+    // restriction on total number of metrics allowed in the request.
+    repeated Metric metrics = 4;
+    // If k metrics were requested, then the response will contain some
+    // data-dependent multiple of k columns in the report.  E.g., if you pivoted
+    // on the dimension `ga:browser` then you'd get k columns for "Firefox", k
+    // columns for "IE", k columns for "Chrome", etc. The ordering of the groups
+    // of columns is determined by descending order of "total" for the first of
+    // the k values.  Ties are broken by lexicographic ordering of the first
+    // pivot dimension, then lexicographic ordering of the second pivot
+    // dimension, and so on.  E.g., if the totals for the first value for
+    // Firefox, IE, and Chrome were 8, 2, 8, respectively, the order of columns
+    // would be Chrome, Firefox, IE.
+    // 
+    // The following let you choose which of the groups of k columns are
+    // included in the response.
+    int32 startGroup = 5;
+}
+
+message PivotHeader {
+    // A single pivot section header.
+    repeated PivotHeaderEntry pivotHeaderEntries = 1;
+    // The total number of groups for this pivot.
+    int32 totalPivotGroupsCount = 2;
+}
+
+message PivotHeaderEntry {
+    // The name of the dimensions in the pivot response.
+    repeated string dimensionNames = 1;
+    // The values for the dimensions in the pivot.
+    repeated string dimensionValues = 2;
+    // The metric header for the metric in the pivot.
+    MetricHeaderEntry metric = 3;
+}
+
+message PivotValueRegion {
+    // The values of the metrics in each of the pivot regions.
+    repeated string values = 1;
+}
+
+message Report {
+    // The column headers.
+    ColumnHeader columnHeader = 1;
+    // Response data.
+    ReportData data = 2;
+    // Page token to retrieve the next page of results in the list.
+    string nextPageToken = 3;
+}
+
+message ReportData {
+    // The last time the data in the report was refreshed. All the hits received
+    // before this timestamp are included in the calculation of the report.
+    string dataLastRefreshed = 1;
+    // Indicates if response to this request is golden or not. Data is
+    // golden when the exact same request will not produce any new results if
+    // asked at a later point in time.
+    bool isDataGolden = 2;
+    // Minimum and maximum values seen over all matching rows. These are both
+    // empty when `hideValueRanges` in the request is false, or when
+    // rowCount is zero.
+    repeated DateRangeValues maximums = 3;
+    // Minimum and maximum values seen over all matching rows. These are both
+    // empty when `hideValueRanges` in the request is false, or when
+    // rowCount is zero.
+    repeated DateRangeValues minimums = 4;
+    // Total number of matching rows for this query.
+    int32 rowCount = 5;
+    // There's one ReportRow for every unique combination of dimensions.
+    repeated ReportRow rows = 6;
+    // If the results are
+    // [sampled](https://support.google.com/analytics/answer/2637192),
+    // this returns the total number of samples read, one entry per date range.
+    // If the results are not sampled this field will not be defined. See
+    // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+    // for details.
+    repeated string samplesReadCounts = 7;
+    // If the results are
+    // [sampled](https://support.google.com/analytics/answer/2637192),
+    // this returns the total number of
+    // samples present, one entry per date range. If the results are not sampled
+    // this field will not be defined. See
+    // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+    // for details.
+    repeated string samplingSpaceSizes = 8;
+    // For each requested date range, for the set of all rows that match
+    // the query, every requested value format gets a total. The total
+    // for a value format is computed by first totaling the metrics
+    // mentioned in the value format and then evaluating the value
+    // format as a scalar expression.  E.g., The "totals" for
+    // `3 / (ga:sessions + 2)` we compute
+    // `3 / ((sum of all relevant ga:sessions) + 2)`.
+    // Totals are computed before pagination.
+    repeated DateRangeValues totals = 9;
+}
+
+message ReportRequest {
+    // Cohort group associated with this request. If there is a cohort group
+    // in the request the `ga:cohort` dimension must be present.
+    // Every [ReportRequest](#ReportRequest) within a `batchGet` method must
+    // contain the same `cohortGroup` definition.
+    CohortGroup cohortGroup = 1;
+    // Date ranges in the request. The request can have a maximum of 2 date
+    // ranges. The response will contain a set of metric values for each
+    // combination of the dimensions for each date range in the request. So, if
+    // there are two date ranges, there will be two set of metric values, one for
+    // the original date range and one for the second date range.
+    // The `reportRequest.dateRanges` field should not be specified for cohorts
+    // or Lifetime value requests.
+    // If a date range is not provided, the default date range is (startDate:
+    // current date - 7 days, endDate: current date - 1 day). Every
+    // [ReportRequest](#ReportRequest) within a `batchGet` method must
+    // contain the same `dateRanges` definition.
+    repeated DateRange dateRanges = 2;
+    // The dimension filter clauses for filtering Dimension Values. They are
+    // logically combined with the `AND` operator. Note that filtering occurs
+    // before any dimensions are aggregated, so that the returned metrics
+    // represent the total for only the relevant dimensions.
+    repeated DimensionFilterClause dimensionFilterClauses = 3;
+    // The dimensions requested.
+    // Requests can have a total of 7 dimensions.
+    repeated Dimension dimensions = 4;
+    // Dimension or metric filters that restrict the data returned for your
+    // request. To use the `filtersExpression`, supply a dimension or metric on
+    // which to filter, followed by the filter expression. For example, the
+    // following expression selects `ga:browser` dimension which starts with
+    // Firefox; `ga:browser=~^Firefox`. For more information on dimensions
+    // and metric filters, see
+    // [Filters reference](https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters).
+    string filtersExpression = 5;
+    // If set to true, hides the total of all metrics for all the matching rows,
+    // for every date range. The default false and will return the totals.
+    bool hideTotals = 6;
+    // If set to true, hides the minimum and maximum across all matching rows.
+    // The default is false and the value ranges are returned.
+    bool hideValueRanges = 7;
+    // If set to false, the response does not include rows if all the retrieved
+    // metrics are equal to zero. The default is false which will exclude these
+    // rows.
+    bool includeEmptyRows = 8;
+    // The metric filter clauses. They are logically combined with the `AND`
+    // operator.  Metric filters look at only the first date range and not the
+    // comparing date range. Note that filtering on metrics occurs after the
+    // metrics are aggregated.
+    repeated MetricFilterClause metricFilterClauses = 9;
+    // The metrics requested.
+    // Requests must specify at least one metric. Requests can have a
+    // total of 10 metrics.
+    repeated Metric metrics = 10;
+    // Sort order on output rows. To compare two rows, the elements of the
+    // following are applied in order until a difference is found.  All date
+    // ranges in the output get the same row order.
+    repeated OrderBy orderBys = 11;
+    // Page size is for paging and specifies the maximum number of returned rows.
+    // Page size should be >= 0. A query returns the default of 1,000 rows.
+    // The Analytics Core Reporting API returns a maximum of 10,000 rows per
+    // request, no matter how many you ask for. It can also return fewer rows
+    // than requested, if there aren't as many dimension segments as you expect.
+    // For instance, there are fewer than 300 possible values for `ga:country`,
+    // so when segmenting only by country, you can't get more than 300 rows,
+    // even if you set `pageSize` to a higher value.
+    int32 pageSize = 12;
+    // A continuation token to get the next page of the results. Adding this to
+    // the request will return the rows after the pageToken. The pageToken should
+    // be the value returned in the nextPageToken parameter in the response to
+    // the GetReports request.
+    string pageToken = 13;
+    // The pivot definitions. Requests can have a maximum of 2 pivots.
+    repeated Pivot pivots = 14;
+    // The desired report
+    // [sample](https://support.google.com/analytics/answer/2637192) size.
+    // If the the `samplingLevel` field is unspecified the `DEFAULT` sampling
+    // level is used. Every [ReportRequest](#ReportRequest) within a
+    // `batchGet` method must contain the same `samplingLevel` definition. See
+    // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+    //  for details.
+    enum ReportRequest_SamplingLevel {
+        REPORTREQUEST_SAMPLINGLEVEL_SAMPLING_UNSPECIFIED = 0;
+        REPORTREQUEST_SAMPLINGLEVEL_DEFAULT = 1;
+        REPORTREQUEST_SAMPLINGLEVEL_SMALL = 2;
+        REPORTREQUEST_SAMPLINGLEVEL_LARGE = 3;
+    }
+    ReportRequest_SamplingLevel samplingLevel = 15;
+    // Segment the data returned for the request. A segment definition helps look
+    // at a subset of the segment request. A request can contain up to four
+    // segments. Every [ReportRequest](#ReportRequest) within a
+    // `batchGet` method must contain the same `segments` definition. Requests
+    // with segments must have the `ga:segment` dimension.
+    repeated Segment segments = 16;
+    // The Analytics
+    // [view ID](https://support.google.com/analytics/answer/1009618)
+    // from which to retrieve data. Every [ReportRequest](#ReportRequest)
+    // within a `batchGet` method must contain the same `viewId`.
+    string viewId = 17;
+}
+
+message ReportRow {
+    // List of requested dimensions.
+    repeated string dimensions = 1;
+    // List of metrics for each requested DateRange.
+    repeated DateRangeValues metrics = 2;
+}
+
+message Segment {
+    // A dynamic segment definition in the request.
+    DynamicSegment dynamicSegment = 1;
+    // The segment ID of a built-in or custom segment, for example `gaid::-3`.
+    string segmentId = 2;
+}
+
+message SegmentDefinition {
+    // A segment is defined by a set of segment filters which are combined
+    // together with a logical `AND` operation.
+    repeated SegmentFilter segmentFilters = 1;
+}
+
+message SegmentDimensionFilter {
+    // Should the match be case sensitive, ignored for `IN_LIST` operator.
+    bool caseSensitive = 1;
+    // Name of the dimension for which the filter is being applied.
+    string dimensionName = 2;
+    // The list of expressions, only the first element is used for all operators
+    repeated string expressions = 3;
+    // Maximum comparison values for `BETWEEN` match type.
+    string maxComparisonValue = 4;
+    // Minimum comparison values for `BETWEEN` match type.
+    string minComparisonValue = 5;
+    // The operator to use to match the dimension with the expressions.
+    enum SegmentDimensionFilter_Operator {
+        SEGMENTDIMENSIONFILTER_OPERATOR_OPERATOR_UNSPECIFIED = 0;
+        SEGMENTDIMENSIONFILTER_OPERATOR_REGEXP = 1;
+        SEGMENTDIMENSIONFILTER_OPERATOR_BEGINS_WITH = 2;
+        SEGMENTDIMENSIONFILTER_OPERATOR_ENDS_WITH = 3;
+        SEGMENTDIMENSIONFILTER_OPERATOR_PARTIAL = 4;
+        SEGMENTDIMENSIONFILTER_OPERATOR_EXACT = 5;
+        SEGMENTDIMENSIONFILTER_OPERATOR_IN_LIST = 6;
+        SEGMENTDIMENSIONFILTER_OPERATOR_NUMERIC_LESS_THAN = 7;
+        SEGMENTDIMENSIONFILTER_OPERATOR_NUMERIC_GREATER_THAN = 8;
+        SEGMENTDIMENSIONFILTER_OPERATOR_NUMERIC_BETWEEN = 9;
+    }
+    SegmentDimensionFilter_Operator operator = 6;
+}
+
+message SegmentFilter {
+    // If true, match the complement of simple or sequence segment.
+    // For example, to match all visits not from "New York", we can define the
+    // segment as follows:
+    // 
+    //       "sessionSegment": {
+    //         "segmentFilters": [{
+    //           "simpleSegment" :{
+    //             "orFiltersForSegment": [{
+    //               "segmentFilterClauses":[{
+    //                 "dimensionFilter": {
+    //                   "dimensionName": "ga:city",
+    //                   "expressions": ["New York"]
+    //                 }
+    //               }]
+    //             }]
+    //           },
+    //           "not": "True"
+    //         }]
+    //       },
+    bool not = 1;
+    // Sequence conditions consist of one or more steps, where each step is
+    // defined by one or more dimension/metric conditions. Multiple steps can
+    // be combined with special sequence operators.
+    SequenceSegment sequenceSegment = 2;
+    // A Simple segment conditions consist of one or more dimension/metric
+    // conditions that can be combined
+    SimpleSegment simpleSegment = 3;
+}
+
+message SegmentFilterClause {
+    // Dimension Filter for the segment definition.
+    SegmentDimensionFilter dimensionFilter = 1;
+    // Metric Filter for the segment definition.
+    SegmentMetricFilter metricFilter = 2;
+    // Matches the complement (`!`) of the filter.
+    bool not = 3;
+}
+
+message SegmentMetricFilter {
+    // The value to compare against. If the operator is `BETWEEN`, this value is
+    // treated as minimum comparison value.
+    string comparisonValue = 1;
+    // Max comparison value is only used for `BETWEEN` operator.
+    string maxComparisonValue = 2;
+    // The metric that will be filtered on. A `metricFilter` must contain a
+    // metric name.
+    string metricName = 3;
+    // Specifies is the operation to perform to compare the metric. The default
+    // is `EQUAL`.
+    enum SegmentMetricFilter_Operator {
+        SEGMENTMETRICFILTER_OPERATOR_UNSPECIFIED_OPERATOR = 0;
+        SEGMENTMETRICFILTER_OPERATOR_LESS_THAN = 1;
+        SEGMENTMETRICFILTER_OPERATOR_GREATER_THAN = 2;
+        SEGMENTMETRICFILTER_OPERATOR_EQUAL = 3;
+        SEGMENTMETRICFILTER_OPERATOR_BETWEEN = 4;
+    }
+    SegmentMetricFilter_Operator operator = 4;
+    // Scope for a metric defines the level at which that metric is defined.  The
+    // specified metric scope must be equal to or greater than its primary scope
+    // as defined in the data model. The primary scope is defined by if the
+    // segment is selecting users or sessions.
+    enum SegmentMetricFilter_Scope {
+        SEGMENTMETRICFILTER_SCOPE_UNSPECIFIED_SCOPE = 0;
+        SEGMENTMETRICFILTER_SCOPE_PRODUCT = 1;
+        SEGMENTMETRICFILTER_SCOPE_HIT = 2;
+        SEGMENTMETRICFILTER_SCOPE_SESSION = 3;
+        SEGMENTMETRICFILTER_SCOPE_USER = 4;
+    }
+    SegmentMetricFilter_Scope scope = 5;
+}
+
+message SegmentSequenceStep {
+    // Specifies if the step immediately precedes or can be any time before the
+    // next step.
+    enum SegmentSequenceStep_MatchType {
+        SEGMENTSEQUENCESTEP_MATCHTYPE_UNSPECIFIED_MATCH_TYPE = 0;
+        SEGMENTSEQUENCESTEP_MATCHTYPE_PRECEDES = 1;
+        SEGMENTSEQUENCESTEP_MATCHTYPE_IMMEDIATELY_PRECEDES = 2;
+    }
+    SegmentSequenceStep_MatchType matchType = 1;
+    // A sequence is specified with a list of Or grouped filters which are
+    // combined with `AND` operator.
+    repeated OrFiltersForSegment orFiltersForSegment = 2;
+}
+
+message SequenceSegment {
+    // If set, first step condition must match the first hit of the visitor (in
+    // the date range).
+    bool firstStepShouldMatchFirstHit = 1;
+    // The list of steps in the sequence.
+    repeated SegmentSequenceStep segmentSequenceSteps = 2;
+}
+
+message SimpleSegment {
+    // A list of segment filters groups which are combined with logical `AND`
+    // operator.
+    repeated OrFiltersForSegment orFiltersForSegment = 1;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleAnalyticsReportingService {
+    // Returns the Analytics data.
+    rpc PostV4Reports:BatchGet(PostV4Reports:BatchGetRequest) returns (GetReportsResponse) {
+      option (google.api.http) = {
+        post: "//v4/reports:batchGet"
+        body: "body"
+      };
+    }
+}

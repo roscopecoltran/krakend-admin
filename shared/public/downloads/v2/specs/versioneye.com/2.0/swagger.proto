@@ -1,0 +1,815 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package availableapiendpoints;
+
+message GetGithubRequest {
+    // Filter by language
+    string lang = 1;
+    // Show only imported repositories
+    bool only_imported = 2;
+    // Filter by name of organization
+    string org_name = 3;
+    // Filter by type of organization
+    string org_type = 4;
+    // Number of page
+    string page = 5;
+    // Filter by visibility
+    bool private = 6;
+}
+
+message PostGithubHookProject_idRequest {
+    // Project ID
+    string project_id = 1;
+}
+
+message GetGithubRepo_keyRequest {
+    // encoded repo name with optional branch info.
+    string repo_key = 1;
+}
+
+message PostGithubRepo_keyRequest {
+    // the name of the branch
+    string branch = 1;
+    // the project file (default is Gemfile)
+    string file = 2;
+    // encoded repo name
+    string repo_key = 3;
+}
+
+message DeleteGithubRepo_keyRequest {
+    // the name of the branch
+    string branch = 1;
+    // encoded repo-key
+    string repo_key = 2;
+}
+
+message GetMeCommentsRequest {
+    // page number for pagination
+    int32 page = 1;
+}
+
+message GetMeFavoritesRequest {
+    // page number for pagination
+    int32 page = 1;
+}
+
+message GetMeNotificationsRequest {
+    // Specify page for paging
+    int32 page = 1;
+}
+
+message GetOrganisationsOrga_nameInventoryRequest {
+    // Filter by programming language
+    string language = 1;
+    int32 orga_name = 2;
+    // Post processing filter. Possible values are 'ALL', 'duplicates_only', 'show_duplicates'
+    string post_filter = 3;
+    // Filter down by project version
+    string project_version = 4;
+    // Filter by team name
+    string team_name = 5;
+}
+
+message GetOrganisationsOrga_nameInventory_diffRequest {
+    // ID of the inventory diff object
+    string inventory_diff_id = 1;
+    int32 orga_name = 2;
+}
+
+message PostOrganisationsOrga_nameInventory_diffRequest {
+    // Inventory1, filter by programming language
+    string f1_language = 1;
+    // Inventory1, post processing filter. Possible values are 'ALL', 'duplicates_only', 'show_duplicates'
+    string f1_post_filter = 2;
+    // Inventory1, filter down by project version
+    string f1_project_version = 3;
+    // Inventory1, filter by team name
+    string f1_team_name = 4;
+    // Inventory2, filter by programming language
+    string f2_language = 5;
+    // Inventory2, post processing filter. Possible values are 'ALL', 'duplicates_only', 'show_duplicates'
+    string f2_post_filter = 6;
+    // Inventory2, filter down by project version
+    string f2_project_version = 7;
+    // Inventory2, filter by team name
+    string f2_team_name = 8;
+    int32 orga_name = 9;
+}
+
+message GetOrganisationsOrga_nameProjectsRequest {
+    int32 orga_name = 1;
+}
+
+message GetOrganisationsOrga_nameTeamsRequest {
+    int32 orga_name = 1;
+}
+
+message GetProductsSearchQRequest {
+    // Filter by GroupID. This is Java/Maven specific
+    string g = 1;
+    // Filter results by programming languages;
+    //                                   For filtering multiple languages submit a comma separated list of language strings.
+    string lang = 2;
+    // Specify page for paging
+    int32 page = 3;
+    // Query string. At least 2 characters.
+    string q = 4;
+}
+
+message GetProductsShaShaRequest {
+    int32 sha = 1;
+}
+
+message GetProductsLangProd_keyRequest {
+    // "Name of programming language"
+    string lang = 1;
+    // "Encoded product key, replace all `/` and `.`
+    string prod_key = 2;
+    // "Version string"
+    string prod_version = 3;
+}
+
+message GetProductsLangProd_keyFollowRequest {
+    // "Name of programming language"
+    string lang = 1;
+    // Package specifier
+    string prod_key = 2;
+}
+
+message PostProductsLangProd_keyFollowRequest {
+    // Programming language
+    string lang = 1;
+    //  Package product key.
+    string prod_key = 2;
+}
+
+message DeleteProductsLangProd_keyFollowRequest {
+    // Programming language
+    string lang = 1;
+    // Package specifier
+    string prod_key = 2;
+}
+
+message GetProductsLangProd_keyReferencesRequest {
+    // Language
+    string lang = 1;
+    // Page for paging
+    int32 page = 2;
+    // Product Key
+    string prod_key = 3;
+}
+
+message GetProductsLangProd_keyVersionsRequest {
+    // "Name of programming language"
+    string lang = 1;
+    // "Encoded product key, replace all `/` and `.`
+    string prod_key = 2;
+}
+
+message PostProductsLangProd_keyProd_versionLicenseRequest {
+    //  you wanna say anyting important to this license?
+    string comments = 1;
+    //  programming language
+    string lang = 2;
+    //  name of the license
+    string license_name = 3;
+    //  source of the license. Where did you find it?
+    string license_source = 4;
+    //  product key
+    string prod_key = 5;
+    //  product version
+    string prod_version = 6;
+}
+
+message PostProductsLangProd_keyProd_versionScm_changesRequest {
+    //  programming language
+    string lang = 1;
+    //  product key
+    string prod_key = 2;
+    //  product version
+    string prod_version = 3;
+}
+
+message GetProjectsRequest {
+    // The name of the organisation the project is assigned to.
+    string orga_name = 1;
+    // The name of the team in the organisation this project is assigned to.
+    string team_name = 2;
+}
+
+message PostProjectsRequest {
+    // The name of the VersionEye project. By default it is the filename.
+    string name = 1;
+    // The name of the organisation this project should be assigned to.
+    string orga_name = 2;
+    // The name of the team in the organisation this project should be assigned to.
+    string team_name = 3;
+    // If 'true' this project will not show up in the UI and gets removed later.
+    string temp = 4;
+    // Project file - [maven.pom, Gemfile ...]
+    ;
+    // By default 'public'. If 'public' everybody can see the project.
+    string visibility = 6;
+}
+
+message GetProjectsGroup_idArtifact_idMerge_gaChild_idRequest {
+    // ArtifactId of the parent project
+    string artifact_id = 1;
+    // Project ID of the child
+    string child_id = 2;
+    // GroupId of the parent project
+    string group_id = 3;
+}
+
+message GetProjectsParent_idMergeChild_idRequest {
+    // Project ID of the child
+    string child_id = 1;
+    // Project ID of the parent
+    string parent_id = 2;
+}
+
+message GetProjectsParent_idUnmergeChild_idRequest {
+    // Project ID of the child
+    string child_id = 1;
+    // Project ID of the parent
+    string parent_id = 2;
+}
+
+message GetProjectsProject_keyRequest {
+    // Project ID
+    string project_key = 1;
+}
+
+message PostProjectsProject_keyRequest {
+    // Project file - [maven.pom, Gemfile ...]
+    ;
+    // Project ID
+    string project_key = 2;
+}
+
+message DeleteProjectsProject_keyRequest {
+    // Delete project with given project ID.
+    string project_key = 1;
+}
+
+message GetProjectsProject_keyDependenciesRequest {
+    // Project ID or project_key
+    string project_key = 1;
+}
+
+message GetProjectsProject_keyLicensesRequest {
+    // Project ID or project_key
+    string project_key = 1;
+}
+
+message GetSecurityRequest {
+    // Asc sort by value
+    string asc_sort = 1;
+    // Desc sort by value
+    string desc_sort = 2;
+    // Filter by programming languages
+    string language = 3;
+    // Specify page for paging
+    int32 page = 4;
+    // prod_key of the package
+    string prod_key = 5;
+}
+
+message PostSessionsRequest {
+    // your personal token for API.
+    string api_key = 1;
+}
+
+message PostSessionsLoginRequest {
+    // password
+    string password = 1;
+    // email or username
+    string username = 2;
+}
+
+message GetUsersUsernameRequest {
+    // username
+    string username = 1;
+}
+
+message GetUsersUsernameCommentsRequest {
+    // pagination number
+    int32 page = 1;
+    // VersionEye users' nickname
+    string username = 2;
+}
+
+message GetUsersUsernameFavoritesRequest {
+    // Pagination number
+    int32 page = 1;
+    // username
+    string username = 2;
+}
+
+service AvailableAPIEndpointsService {
+    // lists your's github repos
+    // 
+    // 
+    // This endpoint shows all imported repositories from your Github account.
+    // 
+    // This enpoint expects that you have a GitHub account connected and the token
+    // is still valid. If that is not the case please visit **https://www.versioneye.com/settings/connect**.
+    // to update your GitHub credentials.
+    // 
+    // If it shows no or old data, then you can use the `github/sync` endpoint
+    // to update your account with the current meta data from GitHub.
+    rpc GetGithub(GetGithubRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/github"
+      };
+    }
+    // github service hook
+    // 
+    // This endpoint is registered as service hook on GitHub. It triggers a project re-parse on each git push.
+    rpc PostGithubHookProject_id(PostGithubHookProject_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/github/hook/{project_id}"
+      };
+    }
+    // re-load github data
+    // 
+    // 
+    // Reimports ALL GitHub Repositories. This Endpoint fetches meta information to all
+    // repositories in your GitHub account. Meta information such as repo name, branches and
+    // supported project files.
+    // 
+    // This endpoint works asynchronously and returns a status code. The status code is either
+    // **running** or **done**.
+    rpc GetGithubSync(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/github/sync"
+      };
+    }
+    // shows the detailed information for the repository
+    // 
+    // 
+    // This Endpoint returns detailed information about a GitHub repository.
+    // 
+    // Due the limits of our current API framework, the repo key has to be
+    // encoded as url-safe string. That means all '/' has to be replaced with
+    // colons ':' and '.' has to be replaced with '~'.
+    // 
+    // For example,  repository with fullname `versioneye/veye` has to transformed
+    // to `versioneye:veye`.
+    rpc GetGithubRepo_key(GetGithubRepo_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/github/{repo_key}"
+      };
+    }
+    // imports project file from github
+    // 
+    // 
+    // Use this Endpoint to import a project file from GitHub. This will create a new project on VersionEye.
+    // 
+    // Due the limits of our current API framework, the repo key has to be
+    // encoded as url-safe string. That means all '/' has to be replaced with
+    // colons ':' and '.' has to be replaced with '~'.
+    // 
+    // For example,  repository with fullname `versioneye/veye` has to transformed
+    // to `versioneye:veye`.
+    rpc PostGithubRepo_key(PostGithubRepo_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/github/{repo_key}"
+      };
+    }
+    // remove imported project
+    // 
+    // 
+    // This Endpoint deletes a project on VersionEye!
+    // 
+    // Due the limits of our current API framework, the repo key has to be
+    // encoded as url-safe string. That means all '/' has to be replaced with
+    // colons ':' and '.' has to be replaced with '~'.
+    // 
+    // For example,  repository with fullname `versioneye/veye` has to transformed
+    // to `versioneye:veye`.
+    rpc DeleteGithubRepo_key(DeleteGithubRepo_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v2/github/{repo_key}"
+      };
+    }
+    // shows profile of authorized user
+    // 
+    // On Swagger, you can create session by adding additional parameter :api_key.
+    rpc GetMe(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/me"
+      };
+    }
+    // shows comments of authorized user
+    // 
+    // shows comments of authorized user
+    rpc GetMeComments(GetMeCommentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/me/comments"
+      };
+    }
+    // shows the packages you are following
+    // 
+    // shows the packages you are following
+    rpc GetMeFavorites(GetMeFavoritesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/me/favorites"
+      };
+    }
+    // shows unread notifications of authorized user
+    // 
+    // 
+    // This Endpoint returns the 30 latest notifications.
+    // 
+    // If there are new versions out there for software packages you follow directly on VersionEye, then
+    // each new version is a new **notification** for your account.
+    rpc GetMeNotifications(GetMeNotificationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/me/notifications"
+      };
+    }
+    // Returns the list of organisations you have access to
+    // 
+    // 
+    // This endpoint requires the API key from a user. The result is a set of organisations and their API keys.
+    rpc GetOrganisations(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/organisations"
+      };
+    }
+    // Returns the inventory list of the organisation
+    // 
+    // 
+    // Find a detailed description here: https://github.com/versioneye/versioneye-api/blob/master/docs/api/v2/organisation.md
+    rpc GetOrganisationsOrga_nameInventory(GetOrganisationsOrga_nameInventoryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/organisations/{orga_name}/inventory"
+      };
+    }
+    // Returns the inventory diff object
+    rpc GetOrganisationsOrga_nameInventory_diff(GetOrganisationsOrga_nameInventory_diffRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/organisations/{orga_name}/inventory_diff"
+      };
+    }
+    // Creates an inventory diff object
+    // 
+    // 
+    // This Endpoint takes 2 inventory filters and calculates the difference between them.
+    // The diff object contains wich items have been removed and/or added compared to the inventory1 filter.
+    // The response of this Endpoint is the ID of the diff object, which is calculated async in the background.
+    rpc PostOrganisationsOrga_nameInventory_diff(PostOrganisationsOrga_nameInventory_diffRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/organisations/{orga_name}/inventory_diff"
+      };
+    }
+    // Returns the list of projects
+    // 
+    // Returns the list of projects
+    rpc GetOrganisationsOrga_nameProjects(GetOrganisationsOrga_nameProjectsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/organisations/{orga_name}/projects"
+      };
+    }
+    // Returns the list of teams
+    // 
+    // Returns the list of teams
+    rpc GetOrganisationsOrga_nameTeams(GetOrganisationsOrga_nameTeamsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/organisations/{orga_name}/teams"
+      };
+    }
+    // search packages
+    // 
+    // 
+    // This resource returns same results as our web application. But you get it as JSON objects -
+    // the result is an JSON array of product objects.
+    // 
+    // When there's no match for the query, the result array will be empty.
+    rpc GetProductsSearchQ(GetProductsSearchQRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/search/{q}"
+      };
+    }
+    // search by SHA value
+    // 
+    // 
+    // This Endpoint expects a SHA value and returns the corresponding product to it, if available.
+    rpc GetProductsShaSha(GetProductsShaShaRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/sha/{sha}"
+      };
+    }
+    // detailed information for specific package
+    // 
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    //   * API returns 404, when the product with given product key doesnt exists.
+    // 
+    //   * Response 302 means that you didnt encode prod_key correctly.* (Replace all dots & slashes ) *
+    rpc GetProductsLangProd_key(GetProductsLangProd_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/{lang}/{prod_key}"
+      };
+    }
+    // check your following status
+    // 
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    // This resource will returns the status code 404 if there is no product
+    // for the given prod_key.
+    rpc GetProductsLangProd_keyFollow(GetProductsLangProd_keyFollowRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/{lang}/{prod_key}/follow"
+      };
+    }
+    // follow your favorite software package
+    // 
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    // It will respond 404, when you are using wrong product key or encode it uncorrectly.
+    rpc PostProductsLangProd_keyFollow(PostProductsLangProd_keyFollowRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/products/{lang}/{prod_key}/follow"
+      };
+    }
+    // unfollow given software package
+    // 
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Response codes
+    // 
+    //   * 400 - bad request; you used wrong product key;
+    //   * 401 - unauthorized - please append api_key
+    //   * 403 - forbidden; you are not authorized; or just missed api_key;
+    rpc DeleteProductsLangProd_keyFollow(DeleteProductsLangProd_keyFollowRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v2/products/{lang}/{prod_key}/follow"
+      };
+    }
+    // references
+    // 
+    // 
+    // It returns the references of a package.
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    // This resource will return the status code 404 if there is no product for
+    // the given prod_key or the product has 0 references.
+    rpc GetProductsLangProd_keyReferences(GetProductsLangProd_keyReferencesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/{lang}/{prod_key}/references"
+      };
+    }
+    // list versions of a package
+    // 
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    //   * API returns 404, when the product with given product key doesnt exists.
+    // 
+    //   * Response 302 means that you didnt encode prod_key correctly.* (Replace all dots & slashes ) *
+    rpc GetProductsLangProd_keyVersions(GetProductsLangProd_keyVersionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/products/{lang}/{prod_key}/versions"
+      };
+    }
+    // suggest a license for an artifact
+    // 
+    // With this endpoint users can suggest a license for an artifact.
+    rpc PostProductsLangProd_keyProd_versionLicense(PostProductsLangProd_keyProd_versionLicenseRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/products/{lang}/{prod_key}/{prod_version}/license"
+      };
+    }
+    // upload scm changelogs to an artifact
+    // 
+    // 
+    // This resource can parse a changelog.xml from the maven-changelog-plugin, assign
+    // it to a specific artifact and display the changelog infos on the product page.
+    // 
+    // Please replace all slashes `/` through colons `:` and all dots `.` through `~`!
+    // 
+    // Example: The clojure package `yummy.json/json` has to be transformed to  `yummy~json:json`.
+    // 
+    // #### Notes about status codes
+    // 
+    // It will respond 404, when you are using wrong product key or encode it uncorrectly.
+    rpc PostProductsLangProd_keyProd_versionScm_changes(PostProductsLangProd_keyProd_versionScm_changesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/products/{lang}/{prod_key}/{prod_version}/scm_changes"
+      };
+    }
+    // list of projects
+    // 
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjects(GetProjectsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects"
+      };
+    }
+    // upload project file and create a new project
+    // 
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc PostProjects(PostProjectsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/projects"
+      };
+    }
+    // merge a project into another one
+    // 
+    // 
+    // This endpoint merges a project (child_id) into another project (group_id/artifact_id).
+    // This endpoint is specially for Maven based projects!
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjectsGroup_idArtifact_idMerge_gaChild_id(GetProjectsGroup_idArtifact_idMerge_gaChild_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{group_id}/{artifact_id}/merge_ga/{child_id}"
+      };
+    }
+    // merge a project into another one
+    // 
+    // 
+    // This endpoint merges a project (child_id) into another project (parent_id).
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjectsParent_idMergeChild_id(GetProjectsParent_idMergeChild_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{parent_id}/merge/{child_id}"
+      };
+    }
+    // unmerge a project
+    // 
+    // 
+    // This endpoint unmerges a project (child_id) from another project (parent_id). It makes the
+    // chilld again a separate project!
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjectsParent_idUnmergeChild_id(GetProjectsParent_idUnmergeChild_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{parent_id}/unmerge/{child_id}"
+      };
+    }
+    // shows the project's information
+    // 
+    //  It shows detailed info of your project.
+    rpc GetProjectsProject_key(GetProjectsProject_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{project_key}"
+      };
+    }
+    // update project with new file
+    // 
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc PostProjectsProject_key(PostProjectsProject_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/projects/{project_key}"
+      };
+    }
+    // delete given project
+    // 
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc DeleteProjectsProject_key(DeleteProjectsProject_keyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v2/projects/{project_key}"
+      };
+    }
+    // get a list of ALL dependencies
+    // 
+    // 
+    // This Endpoint returns a list of ALL dependencies of the project. This list includes
+    // dependencies of child projects as well.
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjectsProject_keyDependencies(GetProjectsProject_keyDependenciesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{project_key}/dependencies"
+      };
+    }
+    // get grouped view of licences for dependencies
+    // 
+    // 
+    // To use this resource you need either an active session or you have to append
+    // your API Key to the URL as parameter. For example: "?api_key=666_your_api_key_666"
+    rpc GetProjectsProject_keyLicenses(GetProjectsProject_keyLicensesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/projects/{project_key}/licenses"
+      };
+    }
+    // Security Vulnerabilities
+    // 
+    // Security Vulnerabilities
+    rpc GetSecurity(GetSecurityRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/security"
+      };
+    }
+    // Answers to request with basic pong.
+    // 
+    // check is the service up and running
+    rpc GetServicesPing(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/services/ping"
+      };
+    }
+    // returns session info for authorized users
+    // 
+    // 
+    // If current user has active session, then this
+    // method will return 200 with short user profile.
+    // For othercase, it will return error message with status code 401.
+    rpc GetSessions(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/sessions"
+      };
+    }
+    // creates new sessions
+    // 
+    //  You need to append your api_key to request.
+    rpc PostSessions(PostSessionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/sessions"
+      };
+    }
+    // delete current session aka log out.
+    // 
+    // Close current session. It's very handy method when you re-generated your current API-key.
+    rpc DeleteSessions(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v2/sessions"
+      };
+    }
+    // creates new sessions
+    // 
+    //  You need to append your api_key to request.
+    rpc PostSessionsLogin(PostSessionsLoginRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v2/sessions/login"
+      };
+    }
+    // shows profile of given user_id
+    // 
+    // shows profile of given user_id
+    rpc GetUsersUsername(GetUsersUsernameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/users/{username}"
+      };
+    }
+    // shows user's comments
+    // 
+    // shows user's comments
+    rpc GetUsersUsernameComments(GetUsersUsernameCommentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/users/{username}/comments"
+      };
+    }
+    // shows user's favorite packages
+    // 
+    // shows user's favorite packages
+    rpc GetUsersUsernameFavorites(GetUsersUsernameFavoritesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/users/{username}/favorites"
+      };
+    }
+}

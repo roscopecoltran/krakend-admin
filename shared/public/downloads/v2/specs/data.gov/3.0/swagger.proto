@@ -1,0 +1,158 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package regulations.gov;
+
+message GetDocketResponse_formatRequest {
+    // Docket ID
+    string docketId = 1;
+    // Format
+    enum GetDocketResponse_formatRequest_Response_format {
+        GETDOCKETRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_JSON = 0;
+        GETDOCKETRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_XML = 1;
+    }
+    GetDocketResponse_formatRequest_Response_format response_format = 2;
+}
+
+message GetDocumentResponse_formatRequest {
+    // FDMS Document ID
+    string documentId = 1;
+    // Federal Register Document Number
+    string federalRegisterNumber = 2;
+    // Format
+    enum GetDocumentResponse_formatRequest_Response_format {
+        GETDOCUMENTRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_JSON = 0;
+        GETDOCUMENTRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_XML = 1;
+    }
+    GetDocumentResponse_formatRequest_Response_format response_format = 3;
+}
+
+message GetDocumentsResponse_formatRequest {
+    // Federal Agency: List of accepted Federal Agency values. This field allows multiple values. Ex. a=FMCSA%252BEPA%252BFDA
+    string a = 1;
+    // Document Category: <ul><li>AD (Aerospace and Transportation)</li> <li>AEP (Agriculture, Environment, and Public Lands)</li> <li>BFS (Banking and Financial)</li> <li>CT (Commerce and International)</li> <li>LES (Defense, Law Enforcement, and Security)</li> <li>EELS (Education, Labor, Presidential, and Government Services)</li> <li>EUMM (Energy, Natural Resources, and Utilities)</li> <li>HCFP (Food Safety, Health, and Pharmaceutical)</li> <li>PRE (Housing, Development, and Real Estate)</li> <li>ITT (Technology and Telecommunications)</li></ul>
+    enum GetDocumentsResponse_formatRequest_Cat {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_AD = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_AEP = 1;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_BFS = 2;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_CT = 3;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_LES = 4;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_EELS = 5;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_EUMM = 6;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_HCFP = 7;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_PRE = 8;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CAT_ITT = 9;
+    }
+    GetDocumentsResponse_formatRequest_Cat cat = 2;
+    // Comment Period End Date: Enter a date in the form of MM/DD/YY. Note: If the Comment Period Start Date is also provided, then ensure the Comment Period End date is after.<br/>* Comment Period Start and End Dates are mutually exclusive with the 'closing soon' parameter. If both are provided, 'closing soon' will be ignored.
+    string cmd = 3;
+    // Comment Period Start Date: Enter a date in the form of MM/DD/YY. Note: If the Comment Period End Date is also provided, then ensure the Comment Period Start date is earlier.
+    string cmsd = 4;
+    // Counts Only: <ul><li>1 (will return only the document count for a search query)</li><li>0 (will return documents as well)</li></ul>
+    int32 countsOnly = 5;
+    // Comment Period: <ul><li>O: Open</li><li>C: Closed</li></ul>
+    enum GetDocumentsResponse_formatRequest_Cp {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CP_O = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_CP_C = 1;
+    }
+    GetDocumentsResponse_formatRequest_Cp cp = 6;
+    // Creation Date: Enter a date in the form of MM/DD/YY. Accepts a single date or a date range. Ex. <code>crd=11/06/13-03/06/14</code>
+    string crd = 7;
+    // Comment Period Closing Soon: <ul><li>0 (closing today)</li><li>3 (closing within 3 days)</li><li>15 (closing within 15 days)</li><li>30 (closing within 30 days)</li><li>90 (closing within 90 days)</li></ul>
+    int32 cs = 8;
+    // Document Type: <ul><li>N: Notice</li><li>PR: Proposed Rule</li><li>FR: Rule</li><li>O: Other</li><li>SR: Supporting & Related Material</li><li>PS: Public Submission</li></ul>
+    enum GetDocumentsResponse_formatRequest_Dct {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_N = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_PR = 1;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_FR = 2;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_O = 3;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_SR = 4;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DCT_PS = 5;
+    }
+    GetDocumentsResponse_formatRequest_Dct dct = 9;
+    // Docket Type: <ul><li>R: Rulemaking</li><li>N: Nonrulemaking</li></ul><p>A Docket Type is either Rulemaking or Nonrulemaking. A Rulemaking docket includes the type of regulation that establishes a rule. While a Non-Rulemaking docket does not include a rule.</p>
+    enum GetDocumentsResponse_formatRequest_Dkt {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DKT_N = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_DKT_R = 1;
+    }
+    GetDocumentsResponse_formatRequest_Dkt dkt = 10;
+    // Valid Docket ID (ex. SEC-2012-0044)
+    string dktid = 11;
+    // Docket Subtype: Only one docket subtype at a time may be selected. One or more agency values must be part of the request. Only values valid for the selected agency will be returned.
+    string dktst = 12;
+    // Docket Sub-subtype: Only one docket sub-subtype at a time may be selected. One or more agency values must be part of the request. Only values valid for the selected agency will be returned.
+    string dktst2 = 13;
+    // Document Subtype: Single or multiple document subtypes may be included.  Multiple values should be passed as follows: <code>docst=%20Certificate+of+Service%252BCorrespondence</code>
+    string docst = 14;
+    // Encoded: <ul><li>1 (will accept Regulations.gov style encoded parameters)</li><li>0 (will not accept such encoded parameters)</li></ul>
+    int32 encoded = 15;
+    // Newly Posted: <ul><li>0 (posted today)</li><li>3 (posted within last 3 days)</li><li>15 (posted within last 15 days)</li><li>30 (posted within last 30 days)</li><li>90 (posted within last 90 days)</li></ul>  For periods of time beyond 90-days, please use a date range with the Posted Date parameter.
+    int32 np = 16;
+    // Posted Date: Enter a date in the form of MM/DD/YY. Accepts a single date or a date range. Ex. <code>pd=11/06/13-03/06/14</code>
+    string pd = 17;
+    // Enter the page offset (always starts with 0). This is used in conjunction with results per page to provide large data sets. For example, if a search produces 82 results and the result per page is set to 25, this will generate 4 pages. 3 pages will have 25 results and the last page will have 7 results. Page offset values for each page will be: <pre>Page 1: po=0 Page 2: po=25 Page 3: po=50 Page 4: po=75</pre> The total number of pages is [total results/results per page] and page offset for page X is [X-1 * results per page]
+    int32 po = 18;
+    // Received Date: Enter a date in the form of MM/DD/YY. Accepts a single date or a date range. Ex. <code>rd=11/06/13-03/06/14</code>
+    string rd = 19;
+    // Format
+    enum GetDocumentsResponse_formatRequest_Response_format {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_JSON = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RESPONSE_FORMAT_XML = 1;
+    }
+    GetDocumentsResponse_formatRequest_Response_format response_format = 20;
+    // Results Per Page 10, 25, 100, 500, 1,000.  Results per page may not exceed 1,000.
+    enum GetDocumentsResponse_formatRequest_Rpp {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RPP_10 = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RPP_25 = 1;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RPP_100 = 2;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RPP_500 = 3;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_RPP_1000 = 4;
+    }
+    GetDocumentsResponse_formatRequest_Rpp rpp = 21;
+    // Keyword(s)
+    string s = 22;
+    // Sort By: <ul><li>docketId (Docket ID)</li><li>docId (Document ID)</li><li>title (Title)</li><li>postedDate (Posted Date)</li><li>agency (Agency)</li><li>documentType (Document Type)</li><li>submitterName (Submitter Name)</li><li>organization (Organization)</li></ul> Sort Order is REQUIRED if this parameter is included.
+    enum GetDocumentsResponse_formatRequest_Sb {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_DOCKETID = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_DOCID = 1;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_TITLE = 2;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_POSTEDDATE = 3;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_AGENCY = 4;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_DOCUMENTTYPE = 5;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_SUBMITTERNAME = 6;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SB_ORGANIZATION = 7;
+    }
+    GetDocumentsResponse_formatRequest_Sb sb = 23;
+    // Sort Order: <ul><li>ASC: Ascending</li><li>DESC: Descending</li></ul>
+    enum GetDocumentsResponse_formatRequest_So {
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SO_ASC = 0;
+        GETDOCUMENTSRESPONSE_FORMATREQUEST_SO_DESC = 1;
+    }
+    GetDocumentsResponse_formatRequest_So so = 24;
+}
+
+service Regulations.GovService {
+    // Returns Docket information
+    rpc GetDocketResponse_format(GetDocketResponse_formatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/regulations/v3/docket.{response_format}"
+      };
+    }
+    // Returns Document information
+    rpc GetDocumentResponse_format(GetDocumentResponse_formatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/regulations/v3/document.{response_format}"
+      };
+    }
+    // Search for Documents
+    // 
+    // This API allows users to build a query based on any of the parameters below.  If you have trouble building queries, you may wish to try them through the <a href="http://www.regulations.gov/#!advancedSearch">Advanced Search</a> page on the Regulations.gov website.
+    rpc GetDocumentsResponse_format(GetDocumentsResponse_formatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/regulations/v3/documents.{response_format}"
+      };
+    }
+}

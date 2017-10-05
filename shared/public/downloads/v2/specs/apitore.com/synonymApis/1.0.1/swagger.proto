@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package synonymapis;
+
+message GetWord2vecNeologdJawikiDistanceRequest {
+    // Access Token
+    string access_token = 1;
+    // num [max 10, default 1]
+    int32 num = 2;
+    // word
+    string word = 3;
+}
+
+message DistanceEntity {
+    // cosine distance
+    double distance = 1;
+    // word
+    string word = 2;
+}
+
+message DistanceResponseEntity {
+    // Distances
+    repeated DistanceEntity distances = 1;
+    // End date
+    string endTime = 2;
+    // Input word
+    string input = 3;
+    // Log message
+    string log = 4;
+    // Input num
+    string num = 5;
+    // Process time [millisecond]
+    string processTime = 6;
+    // Start date
+    string startTime = 7;
+}
+
+service SynonymAPIsService {
+    // Word2Vec distance
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.DistanceResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiDistance(GetWord2vecNeologdJawikiDistanceRequest) returns (DistanceResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/9/word2vec-neologd-jawiki/distance"
+      };
+    }
+}

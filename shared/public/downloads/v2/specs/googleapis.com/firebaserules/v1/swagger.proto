@@ -1,0 +1,661 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package firebaserules;
+
+message GetV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // Resource name of the `Release`.
+    // 
+    // Format: `projects/{project_id}/releases/{release_id}`
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PutV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Release body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // Resource name for the `Release`.
+    // 
+    // `Release` names may be structured `app1/prod/v2` or flat `app1_prod_v2`
+    // which affords developers a great deal of flexibility in mapping the name
+    // to the style that best fits their existing development practices. For
+    // example, a name could refer to an environment, an app, a version, or some
+    // combination of three.
+    // 
+    // In the table below, for the project name `projects/foo`, the following
+    // relative release paths show how flat and structured names might be chosen
+    // to match a desired development / deployment strategy.
+    // 
+    // Use Case     | Flat Name           | Structured Name
+    // -------------|---------------------|----------------
+    // Environments | releases/qa         | releases/qa
+    // Apps         | releases/app1_qa    | releases/app1/qa
+    // Versions     | releases/app1_v2_qa | releases/app1/v2/qa
+    // 
+    // The delimiter between the release name path elements can be almost anything
+    // and it should work equally well with the release name list filter, but in
+    // many ways the structured paths provide a clearer picture of the
+    // relationship between `Release` instances.
+    // 
+    // Format: `projects/{project_id}/releases/{release_id}`
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message DeleteV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // Resource name for the `Release` to delete.
+    // 
+    // Format: `projects/{project_id}/releases/{release_id}`
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1NameReleasesRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // `Release` filter. The list method supports filters with restrictions on the
+    // `Release.name`, `Release.ruleset_name`, and `Release.test_suite_name`.
+    // 
+    // Example 1: A filter of 'name=prod*' might return `Release`s with names
+    // within 'projects/foo' prefixed with 'prod':
+    // 
+    // Name                          | Ruleset Name
+    // ------------------------------|-------------
+    // projects/foo/releases/prod    | projects/foo/rulesets/uuid1234
+    // projects/foo/releases/prod/v1 | projects/foo/rulesets/uuid1234
+    // projects/foo/releases/prod/v2 | projects/foo/rulesets/uuid8888
+    // 
+    // Example 2: A filter of `name=prod* ruleset_name=uuid1234` would return only
+    // `Release` instances for 'projects/foo' with names prefixed with 'prod'
+    // referring to the same `Ruleset` name of 'uuid1234':
+    // 
+    // Name                          | Ruleset Name
+    // ------------------------------|-------------
+    // projects/foo/releases/prod    | projects/foo/rulesets/1234
+    // projects/foo/releases/prod/v1 | projects/foo/rulesets/1234
+    // 
+    // In the examples, the filter parameters refer to the search filters are
+    // relative to the project. Fully qualified prefixed may also be used. e.g.
+    // `test_suite_name=projects/foo/testsuites/uuid1`
+    string filter = 7;
+    string key = 8;
+    // Resource name for the project.
+    // 
+    // Format: `projects/{project_id}`
+    string name = 9;
+    string oauth_token = 10;
+    // Page size to load. Maximum of 100. Defaults to 10.
+    // Note: `page_size` is just a hint and the service may choose to load fewer
+    // than `page_size` results due to the size of the output. To traverse all of
+    // the releases, the caller should iterate until the `page_token` on the
+    // response is empty.
+    int32 pageSize = 11;
+    // Next page token for the next batch of `Release` instances.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message PostV1NameReleasesRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Release body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // Resource name for the project which owns this `Release`.
+    // 
+    // Format: `projects/{project_id}`
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV1NameRulesetsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // `Ruleset` filter. The list method supports filters with restrictions on
+    // `Ruleset.name`.
+    // 
+    // Filters on `Ruleset.create_time` should use the `date` function which
+    // parses strings that conform to the RFC 3339 date/time specifications.
+    // 
+    // Example: `create_time > date("2017-01-01") AND name=UUID-*`
+    string filter = 7;
+    string key = 8;
+    // Resource name for the project.
+    // 
+    // Format: `projects/{project_id}`
+    string name = 9;
+    string oauth_token = 10;
+    // Page size to load. Maximum of 100. Defaults to 10.
+    // Note: `page_size` is just a hint and the service may choose to load less
+    // than `page_size` due to the size of the output. To traverse all of the
+    // releases, caller should iterate until the `page_token` is empty.
+    int32 pageSize = 11;
+    // Next page token for loading the next batch of `Ruleset` instances.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message PostV1NameRulesetsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Ruleset body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // Resource name for Project which owns this `Ruleset`.
+    // 
+    // Format: `projects/{project_id}`
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV1Name:GetExecutableRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    // The requested runtime executable version.
+    // Defaults to FIREBASE_RULES_EXECUTABLE_V1
+    enum GetV1Name:GetExecutableRequest_ExecutableVersion {
+        GETV1NAME:GETEXECUTABLEREQUEST_EXECUTABLEVERSION_RELEASE_EXECUTABLE_VERSION_UNSPECIFIED = 0;
+        GETV1NAME:GETEXECUTABLEREQUEST_EXECUTABLEVERSION_FIREBASE_RULES_EXECUTABLE_V1 = 1;
+        GETV1NAME:GETEXECUTABLEREQUEST_EXECUTABLEVERSION_FIREBASE_RULES_EXECUTABLE_V2 = 2;
+    }
+    GetV1Name:GetExecutableRequest_ExecutableVersion executableVersion = 6;
+    string fields = 7;
+    string key = 8;
+    // Resource name of the `Release`.
+    // 
+    // Format: `projects/{project_id}/releases/{release_id}`
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1Name:TestRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    TestRulesetRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // Tests may either provide `source` or a `Ruleset` resource name.
+    // 
+    // For tests against `source`, the resource name must refer to the project:
+    // Format: `projects/{project_id}`
+    // 
+    // For tests against a `Ruleset`, this must be the `Ruleset` resource name:
+    // Format: `projects/{project_id}/rulesets/{ruleset_id}`
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message Arg {
+    // Argument matches any value provided.
+    Empty anyValue = 1;
+    // Argument exactly matches value provided.
+    ;
+}
+
+message Empty {
+}
+
+message File {
+    // Textual Content.
+    string content = 1;
+    // Fingerprint (e.g. github sha) associated with the `File`.
+    string fingerprint = 2;
+    // File name.
+    string name = 3;
+}
+
+message FunctionCall {
+    // The arguments that were provided to the function.
+    message Arg {
+    }
+    repeated Arg args = 1;
+    // Name of the function invoked.
+    string function = 2;
+}
+
+message FunctionMock {
+    // The list of `Arg` values to match. The order in which the arguments are
+    // provided is the order in which they must appear in the function
+    // invocation.
+    repeated Arg args = 1;
+    // The name of the function.
+    // 
+    // The function name must match one provided by a service declaration.
+    string function = 2;
+    // The mock result of the function call.
+    Result result = 3;
+}
+
+message GetReleaseExecutableResponse {
+    // Executable view of the `Ruleset` referenced by the `Release`.
+    string executable = 1;
+    // The Rules runtime version of the executable.
+    enum GetReleaseExecutableResponse_ExecutableVersion {
+        GETRELEASEEXECUTABLERESPONSE_EXECUTABLEVERSION_RELEASE_EXECUTABLE_VERSION_UNSPECIFIED = 0;
+        GETRELEASEEXECUTABLERESPONSE_EXECUTABLEVERSION_FIREBASE_RULES_EXECUTABLE_V1 = 1;
+        GETRELEASEEXECUTABLERESPONSE_EXECUTABLEVERSION_FIREBASE_RULES_EXECUTABLE_V2 = 2;
+    }
+    GetReleaseExecutableResponse_ExecutableVersion executableVersion = 2;
+    // `Language` used to generate the executable bytes.
+    enum GetReleaseExecutableResponse_Language {
+        GETRELEASEEXECUTABLERESPONSE_LANGUAGE_LANGUAGE_UNSPECIFIED = 0;
+        GETRELEASEEXECUTABLERESPONSE_LANGUAGE_FIREBASE_RULES = 1;
+        GETRELEASEEXECUTABLERESPONSE_LANGUAGE_EVENT_FLOW_TRIGGERS = 2;
+    }
+    GetReleaseExecutableResponse_Language language = 3;
+    // `Ruleset` name associated with the `Release` executable.
+    string rulesetName = 4;
+    // Timestamp for the most recent `Release.update_time`.
+    string updateTime = 5;
+}
+
+message Issue {
+    // Short error description.
+    string description = 1;
+    // The severity of the issue.
+    enum Issue_Severity {
+        ISSUE_SEVERITY_SEVERITY_UNSPECIFIED = 0;
+        ISSUE_SEVERITY_DEPRECATION = 1;
+        ISSUE_SEVERITY_WARNING = 2;
+        ISSUE_SEVERITY_ERROR = 3;
+    }
+    Issue_Severity severity = 2;
+    // Position of the issue in the `Source`.
+    SourcePosition sourcePosition = 3;
+}
+
+message ListReleasesResponse {
+    // The pagination token to retrieve the next page of results. If the value is
+    // empty, no further results remain.
+    string nextPageToken = 1;
+    // List of `Release` instances.
+    repeated Release releases = 2;
+}
+
+message ListRulesetsResponse {
+    // The pagination token to retrieve the next page of results. If the value is
+    // empty, no further results remain.
+    string nextPageToken = 1;
+    // List of `Ruleset` instances.
+    repeated Ruleset rulesets = 2;
+}
+
+message Release {
+    // Time the release was created.
+    // Output only.
+    string createTime = 1;
+    // Resource name for the `Release`.
+    // 
+    // `Release` names may be structured `app1/prod/v2` or flat `app1_prod_v2`
+    // which affords developers a great deal of flexibility in mapping the name
+    // to the style that best fits their existing development practices. For
+    // example, a name could refer to an environment, an app, a version, or some
+    // combination of three.
+    // 
+    // In the table below, for the project name `projects/foo`, the following
+    // relative release paths show how flat and structured names might be chosen
+    // to match a desired development / deployment strategy.
+    // 
+    // Use Case     | Flat Name           | Structured Name
+    // -------------|---------------------|----------------
+    // Environments | releases/qa         | releases/qa
+    // Apps         | releases/app1_qa    | releases/app1/qa
+    // Versions     | releases/app1_v2_qa | releases/app1/v2/qa
+    // 
+    // The delimiter between the release name path elements can be almost anything
+    // and it should work equally well with the release name list filter, but in
+    // many ways the structured paths provide a clearer picture of the
+    // relationship between `Release` instances.
+    // 
+    // Format: `projects/{project_id}/releases/{release_id}`
+    string name = 2;
+    // Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must
+    // exist the `Release` to be created.
+    string rulesetName = 3;
+    // Time the release was updated.
+    // Output only.
+    string updateTime = 4;
+}
+
+message Result {
+    // The result is undefined, meaning the result could not be computed.
+    Empty undefined = 1;
+    // The result is an actual value. The type of the value must match that
+    // of the type declared by the service.
+    ;
+}
+
+message Ruleset {
+    // Time the `Ruleset` was created.
+    // Output only.
+    string createTime = 1;
+    // Name of the `Ruleset`. The ruleset_id is auto generated by the service.
+    // Format: `projects/{project_id}/rulesets/{ruleset_id}`
+    // Output only.
+    string name = 2;
+    // `Source` for the `Ruleset`.
+    Source source = 3;
+}
+
+message Source {
+    // `File` set constituting the `Source` bundle.
+    repeated File files = 1;
+}
+
+message SourcePosition {
+    // First column on the source line associated with the source fragment.
+    int32 column = 1;
+    // Name of the `File`.
+    string fileName = 2;
+    // Line number of the source fragment. 1-based.
+    int32 line = 3;
+}
+
+message TestCase {
+    // Test expectation.
+    enum TestCase_Expectation {
+        TESTCASE_EXPECTATION_EXPECTATION_UNSPECIFIED = 0;
+        TESTCASE_EXPECTATION_ALLOW = 1;
+        TESTCASE_EXPECTATION_DENY = 2;
+    }
+    TestCase_Expectation expectation = 1;
+    // Optional function mocks for service-defined functions. If not set, any
+    // service defined function is expected to return an error, which may or may
+    // not influence the test outcome.
+    repeated FunctionMock functionMocks = 2;
+    // Request context.
+    // 
+    // The exact format of the request context is service-dependent. See the
+    // appropriate service documentation for information about the supported
+    // fields and types on the request. Minimally, all services support the
+    // following fields and types:
+    // 
+    // Request field  | Type
+    // ---------------|-----------------
+    // auth.uid       | `string`
+    // auth.token     | `map<string, string>`
+    // headers        | `map<string, string>`
+    // method         | `string`
+    // params         | `map<string, string>`
+    // path           | `string`
+    // time           | `google.protobuf.Timestamp`
+    // 
+    // If the request value is not well-formed for the service, the request will
+    // be rejected as an invalid argument.
+    ;
+    // Optional resource value as it appears in persistent storage before the
+    // request is fulfilled.
+    // 
+    // The resource type depends on the `request.path` value.
+    ;
+}
+
+message TestResult {
+    // Debug messages related to test execution issues encountered during
+    // evaluation.
+    // 
+    // Debug messages may be related to too many or too few invocations of
+    // function mocks or to runtime errors that occur during evaluation.
+    // 
+    // For example: ```Unable to read variable [name: "resource"]```
+    repeated string debugMessages = 1;
+    // Position in the `Source` or `Ruleset` where the principle runtime error
+    // occurs.
+    // 
+    // Evaluation of an expression may result in an error. Rules are deny by
+    // default, so a `DENY` expectation when an error is generated is valid.
+    // When there is a `DENY` with an error, the `SourcePosition` is returned.
+    // 
+    // E.g. `error_position { line: 19 column: 37 }`
+    SourcePosition errorPosition = 2;
+    // The set of function calls made to service-defined methods.
+    // 
+    // Function calls are included in the order in which they are encountered
+    // during evaluation, are provided for both mocked and unmocked functions,
+    // and included on the response regardless of the test `state`.
+    repeated FunctionCall functionCalls = 3;
+    // State of the test.
+    enum TestResult_State {
+        TESTRESULT_STATE_STATE_UNSPECIFIED = 0;
+        TESTRESULT_STATE_SUCCESS = 1;
+        TESTRESULT_STATE_FAILURE = 2;
+    }
+    TestResult_State state = 4;
+}
+
+message TestRulesetRequest {
+    // Optional `Source` to be checked for correctness.
+    // 
+    // This field must not be set when the resource name refers to a `Ruleset`.
+    Source source = 1;
+    // Inline `TestSuite` to run.
+    TestSuite testSuite = 2;
+}
+
+message TestRulesetResponse {
+    // Syntactic and semantic `Source` issues of varying severity. Issues of
+    // `ERROR` severity will prevent tests from executing.
+    repeated Issue issues = 1;
+    // The set of test results given the test cases in the `TestSuite`.
+    // The results will appear in the same order as the test cases appear in the
+    // `TestSuite`.
+    repeated TestResult testResults = 2;
+}
+
+message TestSuite {
+    // Collection of test cases associated with the `TestSuite`.
+    repeated TestCase testCases = 1;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service FirebaseRulesService {
+    // Get a `Release` by name.
+    rpc GetV1Name(GetV1NameRequest) returns (Release) {
+      option (google.api.http) = {
+        get: "//v1/{name}"
+      };
+    }
+    // Update a `Release`.
+    // 
+    // Only updates to the `ruleset_name` and `test_suite_name` fields will be
+    // honored. `Release` rename is not supported. To create a `Release` use the
+    // CreateRelease method.
+    rpc PutV1Name(PutV1NameRequest) returns (Release) {
+      option (google.api.http) = {
+        put: "//v1/{name}"
+        body: "body"
+      };
+    }
+    // Delete a `Release` by resource name.
+    rpc DeleteV1Name(DeleteV1NameRequest) returns (Empty) {
+      option (google.api.http) = {
+        delete: "//v1/{name}"
+      };
+    }
+    // List the `Release` values for a project. This list may optionally be
+    // filtered by `Release` name, `Ruleset` name, `TestSuite` name, or any
+    // combination thereof.
+    rpc GetV1NameReleases(GetV1NameReleasesRequest) returns (ListReleasesResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}/releases"
+      };
+    }
+    // Create a `Release`.
+    // 
+    // Release names should reflect the developer's deployment practices. For
+    // example, the release name may include the environment name, application
+    // name, application version, or any other name meaningful to the developer.
+    // Once a `Release` refers to a `Ruleset`, the rules can be enforced by
+    // Firebase Rules-enabled services.
+    // 
+    // More than one `Release` may be 'live' concurrently. Consider the following
+    // three `Release` names for `projects/foo` and the `Ruleset` to which they
+    // refer.
+    // 
+    // Release Name                    | Ruleset Name
+    // --------------------------------|-------------
+    // projects/foo/releases/prod      | projects/foo/rulesets/uuid123
+    // projects/foo/releases/prod/beta | projects/foo/rulesets/uuid123
+    // projects/foo/releases/prod/v23  | projects/foo/rulesets/uuid456
+    // 
+    // The table reflects the `Ruleset` rollout in progress. The `prod` and
+    // `prod/beta` releases refer to the same `Ruleset`. However, `prod/v23`
+    // refers to a new `Ruleset`. The `Ruleset` reference for a `Release` may be
+    // updated using the UpdateRelease method.
+    rpc PostV1NameReleases(PostV1NameReleasesRequest) returns (Release) {
+      option (google.api.http) = {
+        post: "//v1/{name}/releases"
+        body: "body"
+      };
+    }
+    // List `Ruleset` metadata only and optionally filter the results by `Ruleset`
+    // name.
+    // 
+    // The full `Source` contents of a `Ruleset` may be retrieved with
+    // GetRuleset.
+    rpc GetV1NameRulesets(GetV1NameRulesetsRequest) returns (ListRulesetsResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}/rulesets"
+      };
+    }
+    // Create a `Ruleset` from `Source`.
+    // 
+    // The `Ruleset` is given a unique generated name which is returned to the
+    // caller. `Source` containing syntactic or semantics errors will result in an
+    // error response indicating the first error encountered. For a detailed view
+    // of `Source` issues, use TestRuleset.
+    rpc PostV1NameRulesets(PostV1NameRulesetsRequest) returns (Ruleset) {
+      option (google.api.http) = {
+        post: "//v1/{name}/rulesets"
+        body: "body"
+      };
+    }
+    // Get the `Release` executable to use when enforcing rules.
+    rpc GetV1Name:GetExecutable(GetV1Name:GetExecutableRequest) returns (GetReleaseExecutableResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}:getExecutable"
+      };
+    }
+    // Test `Source` for syntactic and semantic correctness. Issues present, if
+    // any, will be returned to the caller with a description, severity, and
+    // source location.
+    // 
+    // The test method may be executed with `Source` or a `Ruleset` name.
+    // Passing `Source` is useful for unit testing new rules. Passing a `Ruleset`
+    // name is useful for regression testing an existing rule.
+    // 
+    // The following is an example of `Source` that permits users to upload images
+    // to a bucket bearing their user id and matching the correct metadata:
+    // 
+    // _*Example*_
+    // 
+    //     // Users are allowed to subscribe and unsubscribe to the blog.
+    //     service firebase.storage {
+    //       match /users/{userId}/images/{imageName} {
+    //           allow write: if userId == request.auth.uid
+    //               && (imageName.matches('*.png$')
+    //               || imageName.matches('*.jpg$'))
+    //               && resource.mimeType.matches('^image/')
+    //       }
+    //     }
+    rpc PostV1Name:Test(PostV1Name:TestRequest) returns (TestRulesetResponse) {
+      option (google.api.http) = {
+        post: "//v1/{name}:test"
+        body: "body"
+      };
+    }
+}

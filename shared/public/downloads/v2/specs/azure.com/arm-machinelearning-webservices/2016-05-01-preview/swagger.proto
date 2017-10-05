@@ -1,0 +1,391 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package azuremlwebservicesmanagementclient;
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningWebServicesRequest {
+    // Continuation token for pagination.
+    string $skiptoken = 1;
+    string api_version = 2;
+    string subscriptionId = 3;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesRequest {
+    // Continuation token for pagination.
+    string $skiptoken = 1;
+    string api_version = 2;
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    string webServiceName = 4;
+}
+
+message PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest {
+    string api_version = 1;
+    // The payload that is used to create or update the web service.
+    WebService createOrUpdatePayload = 2;
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+    string webServiceName = 5;
+}
+
+message DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    string webServiceName = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameListKeysRequest {
+    string api_version = 1;
+    string resourceGroupName = 2;
+    string subscriptionId = 3;
+    string webServiceName = 4;
+}
+
+message AssetItem {
+    // Asset's Id.
+    string id = 1;
+    // Information about the asset's input ports.
+    map<string, InputPort> inputPorts = 2;
+    // Access information for the asset.
+    AssetLocation locationInfo = 3;
+    // If the asset is a custom module, this holds the module's metadata.
+    map<string, string> metadata = 4;
+    // Asset's friendly name.
+    string name = 5;
+    // Information about the asset's output ports.
+    map<string, OutputPort> outputPorts = 6;
+    // If the asset is a custom module, this holds the module's parameters.
+    repeated ModuleAssetParameter parameters = 7;
+    // Asset's type.
+    enum AssetItem_Type {
+        ASSETITEM_TYPE_MODULE = 0;
+        ASSETITEM_TYPE_RESOURCE = 1;
+    }
+    AssetItem_Type type = 8;
+}
+
+message AssetLocation {
+    // Access credentials for the asset, if applicable (e.g. asset specified by storage account connection string + blob URI)
+    string credentials = 1;
+    // The URI where the asset is accessible from, (e.g. aml://abc for system assets or https://xyz for user asets
+    string uri = 2;
+}
+
+message ColumnSpecification {
+    // If the data type is categorical, this provides the list of accepted categories.
+    message Enum {
+    }
+    repeated Enum enum = 1;
+    // Additional format information for the data type.
+    enum ColumnSpecification_Format {
+        COLUMNSPECIFICATION_FORMAT_BYTE = 0;
+        COLUMNSPECIFICATION_FORMAT_CHAR = 1;
+        COLUMNSPECIFICATION_FORMAT_COMPLEX64 = 2;
+        COLUMNSPECIFICATION_FORMAT_COMPLEX128 = 3;
+        COLUMNSPECIFICATION_FORMAT_DATETIME = 4;
+        COLUMNSPECIFICATION_FORMAT_DATETIMEOFFSET = 5;
+        COLUMNSPECIFICATION_FORMAT_DOUBLE = 6;
+        COLUMNSPECIFICATION_FORMAT_DURATION = 7;
+        COLUMNSPECIFICATION_FORMAT_FLOAT = 8;
+        COLUMNSPECIFICATION_FORMAT_INT8 = 9;
+        COLUMNSPECIFICATION_FORMAT_INT16 = 10;
+        COLUMNSPECIFICATION_FORMAT_INT32 = 11;
+        COLUMNSPECIFICATION_FORMAT_INT64 = 12;
+        COLUMNSPECIFICATION_FORMAT_UINT8 = 13;
+        COLUMNSPECIFICATION_FORMAT_UINT16 = 14;
+        COLUMNSPECIFICATION_FORMAT_UINT32 = 15;
+        COLUMNSPECIFICATION_FORMAT_UINT64 = 16;
+    }
+    ColumnSpecification_Format format = 2;
+    // Data type of the column.
+    enum ColumnSpecification_Type {
+        COLUMNSPECIFICATION_TYPE_BOOLEAN = 0;
+        COLUMNSPECIFICATION_TYPE_INTEGER = 1;
+        COLUMNSPECIFICATION_TYPE_NUMBER = 2;
+        COLUMNSPECIFICATION_TYPE_STRING = 3;
+    }
+    ColumnSpecification_Type type = 3;
+    // Flag indicating if the type supports null values or not.
+    bool x_ms_isnullable = 4;
+    // Flag indicating whether the categories are treated as an ordered set or not, if this is a categorical column.
+    bool x_ms_isordered = 5;
+}
+
+message CommitmentPlan {
+    // Specifies the Azure Resource Manager ID of the commitment plan associated with the web service.
+    string id = 1;
+}
+
+message DiagnosticsConfiguration {
+    // Specifies the date and time when the logging will cease. If null, diagnostic collection is not time limited.
+    string expiry = 1;
+    // Specifies the verbosity of the diagnostic output. Valid values are: None - disables tracing; Error - collects only error (stderr) traces; All - collects all traces (stdout and stderr).
+    enum DiagnosticsConfiguration_Level {
+        DIAGNOSTICSCONFIGURATION_LEVEL_NONE = 0;
+        DIAGNOSTICSCONFIGURATION_LEVEL_ERROR = 1;
+        DIAGNOSTICSCONFIGURATION_LEVEL_ALL = 2;
+    }
+    DiagnosticsConfiguration_Level level = 2;
+}
+
+message ExampleRequest {
+    // Sample input data for the web service's global parameters
+    map<string, object> globalParameters = 1;
+    // Sample input data for the web service's input(s) given as an input name to sample input values matrix map.
+    map<string, array> inputs = 2;
+}
+
+message GraphEdge {
+    // The source graph node's identifier.
+    string sourceNodeId = 1;
+    // The identifier of the source node's port that the edge connects from.
+    string sourcePortId = 2;
+    // The destination graph node's identifier.
+    string targetNodeId = 3;
+    // The identifier of the destination node's port that the edge connects into.
+    string targetPortId = 4;
+}
+
+message GraphNode {
+    // The id of the asset represented by this node.
+    string assetId = 1;
+    // The id of the input element represented by this node.
+    string inputId = 2;
+    // The id of the output element represented by this node.
+    string outputId = 3;
+    // If applicable, parameters of the node. Global graph parameters map into these, with values set at runtime.
+    map<string, string> parameters = 4;
+}
+
+message GraphPackage {
+    // The list of edges making up the graph.
+    repeated GraphEdge edges = 1;
+    // The collection of global parameters for the graph, given as a global parameter name to GraphParameter map. Each parameter here has a 1:1 match with the global parameters values map declared at the WebServiceProperties level.
+    map<string, GraphParameter> graphParameters = 2;
+    // The set of nodes making up the graph, provided as a nodeId to GraphNode map
+    map<string, GraphNode> nodes = 3;
+}
+
+message GraphParameter {
+    // Description of this graph parameter.
+    string description = 1;
+    // Association links for this parameter to nodes in the graph.
+    repeated GraphParameterLink links = 2;
+    // Graph parameter's type.
+    enum GraphParameter_Type {
+        GRAPHPARAMETER_TYPE_STRING = 0;
+        GRAPHPARAMETER_TYPE_INT = 1;
+        GRAPHPARAMETER_TYPE_FLOAT = 2;
+        GRAPHPARAMETER_TYPE_ENUMERATED = 3;
+        GRAPHPARAMETER_TYPE_SCRIPT = 4;
+        GRAPHPARAMETER_TYPE_MODE = 5;
+        GRAPHPARAMETER_TYPE_CREDENTIAL = 6;
+        GRAPHPARAMETER_TYPE_BOOLEAN = 7;
+        GRAPHPARAMETER_TYPE_DOUBLE = 8;
+        GRAPHPARAMETER_TYPE_COLUMNPICKER = 9;
+        GRAPHPARAMETER_TYPE_PARAMETERRANGE = 10;
+        GRAPHPARAMETER_TYPE_DATAGATEWAYNAME = 11;
+    }
+    GraphParameter_Type type = 3;
+}
+
+message GraphParameterLink {
+    // The graph node's identifier
+    string nodeId = 1;
+    // The identifier of the node parameter that the global parameter maps to.
+    string parameterKey = 2;
+}
+
+message InputPort {
+    // Port data type.
+    enum InputPort_Type {
+        INPUTPORT_TYPE_DATASET = 0;
+    }
+    InputPort_Type type = 1;
+}
+
+message MachineLearningWorkspace {
+    // Specifies the workspace ID of the machine learning workspace associated with the web service
+    string id = 1;
+}
+
+message ModeValueInfo {
+    // The interface string name for the nested parameter.
+    string interfaceString = 1;
+    // The definition of the parameter.
+    repeated ModuleAssetParameter parameters = 2;
+}
+
+message ModuleAssetParameter {
+    // Definitions for nested interface parameters if this is a complex module parameter.
+    map<string, ModeValueInfo> modeValuesInfo = 1;
+    // Parameter name.
+    string name = 2;
+    // Parameter type.
+    string parameterType = 3;
+}
+
+message OutputPort {
+    // Port data type.
+    enum OutputPort_Type {
+        OUTPUTPORT_TYPE_DATASET = 0;
+    }
+    OutputPort_Type type = 1;
+}
+
+message PaginatedWebServicesList {
+    // A continuation link (absolute URI) to the next page of results in the list.
+    string nextLink = 1;
+    // An array of web service objects.
+    repeated WebService value = 2;
+}
+
+message RealtimeConfiguration {
+    // Specifies the maximum concurrent calls that can be made to the web service. Minimum value: 4, Maximum value: 200.
+    int32 maxConcurrentCalls = 1;
+}
+
+message ServiceInputOutputSpecification {
+    // The description of the Swagger schema.
+    string description = 1;
+    // Specifies a collection that contains the column schema for each input or output of the web service. For more information, see the Swagger specification.
+    map<string, TableSpecification> properties = 2;
+    // The title of your Swagger schema.
+    string title = 3;
+    // The type of the entity described in swagger. Always 'object'.
+    string type = 4;
+}
+
+message StorageAccount {
+    // Specifies the key used to access the storage account.
+    string key = 1;
+    // Specifies the name of the storage account.
+    string name = 2;
+}
+
+message TableSpecification {
+    // Swagger schema description.
+    string description = 1;
+    // The format, if 'type' is not 'object'
+    string format = 2;
+    // The set of columns within the data table.
+    map<string, ColumnSpecification> properties = 3;
+    // Swagger schema title.
+    string title = 4;
+    // The type of the entity described in swagger.
+    string type = 5;
+}
+
+message WebService {
+    // Contains the property payload that describes the web service.
+    WebServiceProperties properties = 1;
+}
+
+message WebServiceKeys {
+    // The primary access key.
+    string primary = 1;
+    // The secondary access key.
+    string secondary = 2;
+}
+
+message WebServiceProperties {
+    // Contains user defined properties describing web service assets. Properties are expressed as Key/Value pairs.
+    map<string, AssetItem> assets = 1;
+    // Contains the commitment plan associated with this web service. Set at creation time. Once set, this value cannot be changed. Note: The commitment plan is not returned from calls to GET operations.
+    CommitmentPlan commitmentPlan = 2;
+    // Read Only: The date and time when the web service was created.
+    string createdOn = 3;
+    // The description of the web service.
+    string description = 4;
+    // Settings controlling the diagnostics traces collection for the web service.
+    DiagnosticsConfiguration diagnostics = 5;
+    // Defines sample input data for one or more of the service's inputs.
+    ExampleRequest exampleRequest = 6;
+    // When set to true, sample data is included in the web service's swagger definition. The default value is true.
+    bool exposeSampleData = 7;
+    // Contains the Swagger 2.0 schema describing one or more of the web service's inputs. For more information, see the Swagger specification.
+    ServiceInputOutputSpecification input = 8;
+    // Contains the web service provisioning keys. If you do not specify provisioning keys, the Azure Machine Learning system generates them for you. Note: The keys are not returned from calls to GET operations.
+    WebServiceKeys keys = 9;
+    // Specifies the Machine Learning workspace containing the experiment that is source for the web service.
+    MachineLearningWorkspace machineLearningWorkspace = 10;
+    // Read Only: The date and time when the web service was last modified.
+    string modifiedOn = 11;
+    // Contains the Swagger 2.0 schema describing one or more of the web service's outputs. For more information, see the Swagger specification.
+    ServiceInputOutputSpecification output = 12;
+    // Specifies the package type. Valid values are Graph (Specifies a web service published through the Machine Learning Studio) and Code (Specifies a web service published using code such as Python). Note: Code is not supported at this time.
+    enum WebServiceProperties_PackageType {
+        WEBSERVICEPROPERTIES_PACKAGETYPE_GRAPH = 0;
+    }
+    WebServiceProperties_PackageType packageType = 13;
+    // The set of global parameters values defined for the web service, given as a global parameter name to default value map. If no default value is specified, the parameter is considered to be required.
+    map<string, string> parameters = 14;
+    // Read Only: The provision state of the web service. Valid values are Unknown, Provisioning, Succeeded, and Failed.
+    enum WebServiceProperties_ProvisioningState {
+        WEBSERVICEPROPERTIES_PROVISIONINGSTATE_UNKNOWN = 0;
+        WEBSERVICEPROPERTIES_PROVISIONINGSTATE_PROVISIONING = 1;
+        WEBSERVICEPROPERTIES_PROVISIONINGSTATE_SUCCEEDED = 2;
+        WEBSERVICEPROPERTIES_PROVISIONINGSTATE_FAILED = 3;
+    }
+    WebServiceProperties_ProvisioningState provisioningState = 15;
+    // When set to true, indicates that the web service is read-only and can no longer be updated or patched, only removed. Default, is false. Note: Once set to true, you cannot change its value.
+    bool readOnly = 16;
+    // Contains the configuration settings for the web service endpoint.
+    RealtimeConfiguration realtimeConfiguration = 17;
+    // Specifies the storage account that Azure Machine Learning uses to store information about the web service. Only the name of the storage account is returned from calls to GET operations. When updating the storage account information, you must ensure that all necessary assets are available in the new storage account or calls to your web service will fail.
+    StorageAccount storageAccount = 18;
+    // Read Only: Contains the URI of the swagger spec associated with this web service.
+    string swaggerLocation = 19;
+    // The title of the web service.
+    string title = 20;
+}
+
+service AzureMLWebServicesManagementClientService {
+    // Gets the web services in the specified subscription.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningWebServices(GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningWebServicesRequest) returns (PaginatedWebServicesList) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.MachineLearning/webServices"
+      };
+    }
+    // Gets the web services in the specified resource group.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServices(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesRequest) returns (PaginatedWebServicesList) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices"
+      };
+    }
+    // Gets the Web Service Definiton as specified by a subscription, resource group, and name. Note that the storage credentials and web service keys are not returned by this call. To get the web service access keys, call List Keys.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceName(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest) returns (WebService) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices/{webServiceName}"
+      };
+    }
+    // Create or update a web service. This call will overwrite an existing web service. Note that there is no warning or confirmation. This is a nonrecoverable operation. If your intent is to create a new web service, call the Get operation first to verify that it does not exist.
+    rpc PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceName(PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest) returns (WebService) {
+      option (google.api.http) = {
+        put: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices/{webServiceName}"
+        body: "createOrUpdatePayload"
+      };
+    }
+    // Deletes the specified web service.
+    rpc DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceName(DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices/{webServiceName}"
+      };
+    }
+    // Gets the access keys for the specified web service.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameListKeys(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningWebServicesWebServiceNameListKeysRequest) returns (WebServiceKeys) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices/{webServiceName}/listKeys"
+      };
+    }
+}

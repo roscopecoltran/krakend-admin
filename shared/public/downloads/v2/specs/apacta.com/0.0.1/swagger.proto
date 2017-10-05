@@ -1,0 +1,3149 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package apacta;
+
+message GetCitiesRequest {
+    // Used to search for a city with specific zip code
+    string zip_code = 1;
+}
+
+message GetCitiesResponse {
+    repeated City data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetCitiesCity_idRequest {
+    string city_id = 1;
+}
+
+message GetCitiesCity_idResponse {
+    City data = 1;
+    bool success = 2;
+}
+
+message GetClocking_recordsRequest {
+    // Used to search for active clocking records
+    bool active = 1;
+}
+
+message GetClocking_recordsResponse {
+    repeated ClockingRecord data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostClocking_recordsRequest {
+    message Clocking_record {
+        string checkin_latitude = 1;
+        string checkin_longitude = 2;
+        string checkout_latitude = 3;
+        string checkout_longitude = 4;
+        string project_id = 5;
+    }
+    Clocking_record clocking_record = 1;
+}
+
+message PostClocking_recordsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message PostClocking_recordsCheckoutResponse {
+    bool success = 1;
+}
+
+message GetClocking_recordsClocking_record_idRequest {
+    string clocking_record_id = 1;
+}
+
+message GetClocking_recordsClocking_record_idResponse {
+    ClockingRecord data = 1;
+    bool success = 2;
+}
+
+message PutClocking_recordsClocking_record_idRequest {
+    string clocking_record_id = 1;
+}
+
+message PutClocking_recordsClocking_record_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteClocking_recordsClocking_record_idRequest {
+    string clocking_record_id = 1;
+}
+
+message DeleteClocking_recordsClocking_record_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message GetCompaniesResponse {
+    repeated Company data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetCompaniesCompany_idRequest {
+    string company_id = 1;
+}
+
+message GetCompaniesCompany_idResponse {
+    Company data = 1;
+    bool success = 2;
+}
+
+message GetCompaniesCompany_idIntegration_feature_settingsRequest {
+    string company_id = 1;
+}
+
+message GetCompaniesCompany_idIntegration_feature_settingsResponse {
+    repeated IntegrationFeatureSetting data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetCompaniesCompany_idIntegration_feature_settingsIntegration_feature_setting_idRequest {
+    string company_id = 1;
+    string integration_feature_setting_id = 2;
+}
+
+message GetCompaniesCompany_idIntegration_feature_settingsIntegration_feature_setting_idResponse {
+    IntegrationFeatureSetting data = 1;
+    bool success = 2;
+}
+
+message GetContact_typesRequest {
+    // Search for specific identifier value
+    string identifier = 1;
+}
+
+message GetContact_typesResponse {
+    repeated ContactType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetContact_typesContact_type_idRequest {
+    string contact_type_id = 1;
+}
+
+message GetContact_typesContact_type_idResponse {
+    ContactType data = 1;
+    bool success = 2;
+}
+
+message GetContactsRequest {
+    // Used to show only contacts with with one specific `City`
+    string city = 1;
+    // Used to show only contacts with with one specific `ContactType`
+    string contact_type = 2;
+    // Search for values in CVR field
+    string cvr = 3;
+    // Search for values in EAN field
+    string ean = 4;
+    // Search for values in ERP id field
+    string erp_id = 5;
+    // Used to search for a contact with a specific name
+    string name = 6;
+}
+
+message GetContactsResponse {
+    repeated Contact data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostContactsRequest {
+    message Contact {
+            // Street address
+    string address = 1;
+        string city_id = 2;
+        message Contact_types {
+            repeated string _ids = 1;
+        }
+        Contact_types contact_types = 3;
+        string cvr = 4;
+        string description = 5;
+        string email = 6;
+            // If company has integration to an ERP system, and the contacts are synchronized, this will be the ERP-systems ID of this contact
+    string erp_id = 7;
+        string name = 8;
+            // Format like eg. `28680133` or `046158971404`
+    string phone = 9;
+        string website = 10;
+    }
+    Contact contact = 1;
+}
+
+message PostContactsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetContactsContact_idRequest {
+    string contact_id = 1;
+}
+
+message GetContactsContact_idResponse {
+    Contact data = 1;
+    bool success = 2;
+}
+
+message PutContactsContact_idRequest {
+    message Contact {
+            // Street address
+    string address = 1;
+        string city_id = 2;
+        message Contact_types {
+            repeated string _ids = 1;
+        }
+        Contact_types contact_types = 3;
+        string cvr = 4;
+        string description = 5;
+        string email = 6;
+            // If company has integration to an ERP system, and the contacts are synchronized, this will be the ERP-systems ID of this contact
+    string erp_id = 7;
+        string name = 8;
+            // Format like eg. `28680133` or `046158971404`
+    string phone = 9;
+        string website = 10;
+    }
+    Contact contact = 1;
+    string contact_id = 2;
+}
+
+message PutContactsContact_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteContactsContact_idRequest {
+    string contact_id = 1;
+}
+
+message DeleteContactsContact_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message GetCurrenciesResponse {
+    repeated Currency data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetCurrenciesCurrency_idRequest {
+    string currency_id = 1;
+}
+
+message GetCurrenciesCurrency_idResponse {
+    Currency data = 1;
+    bool success = 2;
+}
+
+message GetEmployee_hoursRequest {
+    // Date formatted as Y-m-d (2016-06-28)
+    string date_from = 1;
+    // Date formatted as Y-m-d (2016-06-28)
+    string date_to = 2;
+}
+
+message GetEmployee_hoursResponse {
+    // One element per form in the period
+    message Data {
+            // Y-m-d formatted
+    string form_date = 1;
+        string form_id = 2;
+        string project_name = 3;
+            // The amount of hours in seconds
+    int32 total_hours = 4;
+            // Trimmed at 50 characters
+    string working_description = 5;
+            // Full work description (if available)
+    string working_description_full = 6;
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetExpense_filesRequest {
+    string created_by_id = 1;
+    string expense_id = 2;
+}
+
+message GetExpense_filesResponse {
+    repeated ExpenseFile data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostExpense_filesRequest {
+    string description = 1;
+    ;
+}
+
+message PostExpense_filesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetExpense_filesExpense_file_idRequest {
+    string expense_file_id = 1;
+}
+
+message GetExpense_filesExpense_file_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message PutExpense_filesExpense_file_idRequest {
+    string expense_file_id = 1;
+}
+
+message PutExpense_filesExpense_file_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message DeleteExpense_filesExpense_file_idRequest {
+    string expense_file_id = 1;
+}
+
+message DeleteExpense_filesExpense_file_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message GetExpense_linesRequest {
+    string created_by_id = 1;
+    string currency_id = 2;
+    string expense_id = 3;
+}
+
+message GetExpense_linesResponse {
+    repeated ExpenseLine data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostExpense_linesRequest {
+    message Expense_line {
+        float buying_price = 1;
+        string currency_id = 2;
+        string expense_id = 3;
+        int32 quantity = 4;
+        float selling_price = 5;
+        string text = 6;
+    }
+    Expense_line expense_line = 1;
+}
+
+message PostExpense_linesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetExpense_linesExpense_line_idRequest {
+    string expense_line_id = 1;
+}
+
+message GetExpense_linesExpense_line_idResponse {
+    ExpenseLine data = 1;
+    bool success = 2;
+}
+
+message PutExpense_linesExpense_line_idRequest {
+    string expense_line_id = 1;
+}
+
+message PutExpense_linesExpense_line_idResponse {
+    ExpenseLine data = 1;
+    bool success = 2;
+}
+
+message DeleteExpense_linesExpense_line_idRequest {
+    string expense_line_id = 1;
+}
+
+message DeleteExpense_linesExpense_line_idResponse {
+    ExpenseLine data = 1;
+    bool success = 2;
+}
+
+message GetExpensesRequest {
+    string company_id = 1;
+    string contact_id = 2;
+    string created_by_id = 3;
+    // Created after date
+    string gt_created = 4;
+    // Created before date
+    string lt_created = 5;
+    string project_id = 6;
+}
+
+message GetExpensesResponse {
+    repeated Expense data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostExpensesRequest {
+    message Expense_line {
+        string contact_id = 1;
+        string currency_id = 2;
+        string delivery_date = 3;
+        string description = 4;
+        string project_id = 5;
+        string reference = 6;
+        string short_text = 7;
+        string supplier_invoice_number = 8;
+    }
+    Expense_line expense_line = 1;
+}
+
+message PostExpensesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetExpensesExpense_idRequest {
+    string expense_id = 1;
+}
+
+message GetExpensesExpense_idResponse {
+    Expense data = 1;
+    bool success = 2;
+}
+
+message PutExpensesExpense_idRequest {
+    string expense_id = 1;
+}
+
+message PutExpensesExpense_idResponse {
+    Expense data = 1;
+    bool success = 2;
+}
+
+message DeleteExpensesExpense_idRequest {
+    string expense_id = 1;
+}
+
+message DeleteExpensesExpense_idResponse {
+    Expense data = 1;
+    bool success = 2;
+}
+
+message GetForm_field_typesRequest {
+    // Used to filter on the `identifier` of the form_fields
+    string identifier = 1;
+    // Used to filter on the `name` of the form_fields
+    string name = 2;
+}
+
+message GetForm_field_typesResponse {
+    repeated FormFieldType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetForm_field_typesForm_field_type_idRequest {
+    string form_field_type_id = 1;
+}
+
+message GetForm_field_typesForm_field_type_idResponse {
+    FormFieldType data = 1;
+    bool success = 2;
+}
+
+message PostForm_fieldsRequest {
+    message Form_field {
+        string comment = 1;
+        string content_value = 2;
+        string file_id = 3;
+        string form_field_type_id = 4;
+        string form_id = 5;
+        string form_template_field_id = 6;
+        int32 placement = 7;
+    }
+    Form_field form_field = 1;
+}
+
+message PostForm_fieldsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetForm_fieldsForm_field_idRequest {
+    string form_field_id = 1;
+}
+
+message GetForm_fieldsForm_field_idResponse {
+    FormField data = 1;
+    bool success = 2;
+}
+
+message GetForm_templatesRequest {
+    // Used to filter on the `description` of the form_templates
+    string description = 1;
+    // Used to filter on the `identifier` of the form_templates
+    string identifier = 2;
+    // Used to filter on the `name` of the form_templates
+    string name = 3;
+    // Used to filter on the `pdf_template_identifier` of the form_templates
+    string pdf_template_identifier = 4;
+}
+
+message GetForm_templatesResponse {
+    repeated FormTemplate data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetForm_templatesForm_template_idRequest {
+    string form_template_id = 1;
+}
+
+message GetForm_templatesForm_template_idResponse {
+    FormTemplate data = 1;
+    bool success = 2;
+}
+
+message GetFormsRequest {
+    // Used to filter on the `created_by_id` of the forms
+    string created_by_id = 1;
+    // Used in conjunction with `date_to` to only show forms within these dates - format like `2016-28-05`
+    string date_from = 2;
+    // Used in conjunction with `date_from` to only show forms within these dates - format like `2016-28-30`
+    string date_to = 3;
+    // Used to have extended details from the forms from the `Form`'s `FormFields`
+    enum GetFormsRequest_Extended {
+        GETFORMSREQUEST_EXTENDED_TRUE = 0;
+        GETFORMSREQUEST_EXTENDED_FALSE = 1;
+    }
+    GetFormsRequest_Extended extended = 4;
+    // Used to filter on the `form_template_id` of the forms
+    string form_template_id = 5;
+    // Used to filter on the `project_id` of the forms
+    string project_id = 6;
+}
+
+message GetFormsResponse {
+    repeated Form data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostFormsRequest {
+    message Form {
+        string form_template_id = 1;
+        string project_id = 2;
+    }
+    Form form = 1;
+}
+
+message PostFormsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetFormsForm_idRequest {
+    string form_id = 1;
+}
+
+message GetFormsForm_idResponse {
+    Form data = 1;
+    bool success = 2;
+}
+
+message PutFormsForm_idRequest {
+    string form_id = 1;
+}
+
+message DeleteFormsForm_idRequest {
+    string form_id = 1;
+}
+
+message GetInvoice_linesRequest {
+    string discount_text = 1;
+    string invoice_id = 2;
+    string name = 3;
+    string product_id = 4;
+    string user_id = 5;
+}
+
+message GetInvoice_linesResponse {
+    repeated InvoiceLine data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostInvoice_linesRequest {
+    message Invoice_line {
+        string description = 1;
+        int32 discount_percent = 2;
+        string discount_text = 3;
+        string invoice_id = 4;
+        string name = 5;
+        string product_id = 6;
+        int32 quantity = 7;
+        float selling_price = 8;
+        string user_id = 9;
+    }
+    Invoice_line invoice_line = 1;
+}
+
+message PostInvoice_linesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetInvoice_linesInvoice_line_idRequest {
+    string invoice_line_id = 1;
+}
+
+message GetInvoice_linesInvoice_line_idResponse {
+    InvoiceLine data = 1;
+    bool success = 2;
+}
+
+message PutInvoice_linesInvoice_line_idRequest {
+    message Invoice_line {
+        string description = 1;
+        int32 discount_percent = 2;
+        string discount_text = 3;
+        string invoice_id = 4;
+        string name = 5;
+        string product_id = 6;
+        int32 quantity = 7;
+        float selling_price = 8;
+        string user_id = 9;
+    }
+    Invoice_line invoice_line = 1;
+    string invoice_line_id = 2;
+}
+
+message PutInvoice_linesInvoice_line_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteInvoice_linesInvoice_line_idRequest {
+    string invoice_line_id = 1;
+}
+
+message DeleteInvoice_linesInvoice_line_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetInvoicesRequest {
+    // Used to filter on the `contact_id` of the invoices
+    string contact_id = 1;
+    string date_from = 2;
+    string date_to = 3;
+    // Used to filter on the `invoice_number` of the invoices
+    string invoice_number = 4;
+    int32 is_draft = 5;
+    int32 is_locked = 6;
+    int32 is_offer = 7;
+    string issued_date = 8;
+    string offer_number = 9;
+    // Used to filter on the `project_id` of the invoices
+    string project_id = 10;
+}
+
+message GetInvoicesResponse {
+    repeated Invoice data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostInvoicesRequest {
+    message Invoice {
+        string contact_id = 1;
+        string date_from = 2;
+        string date_to = 3;
+        string erp_id = 4;
+        string erp_payment_term_id = 5;
+        int32 invoice_number = 6;
+        bool is_draft = 7;
+        bool is_locked = 8;
+        bool is_offer = 9;
+        string issued_date = 10;
+        string message = 11;
+        int32 offer_number = 12;
+        string payment_due_date = 13;
+        string payment_term_id = 14;
+        string project_id = 15;
+        string reference = 16;
+        int32 vat_percent = 17;
+    }
+    Invoice invoice = 1;
+}
+
+message PostInvoicesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetInvoicesInvoice_idRequest {
+    string invoice_id = 1;
+}
+
+message GetInvoicesInvoice_idResponse {
+    Invoice data = 1;
+    bool success = 2;
+}
+
+message PutInvoicesInvoice_idRequest {
+    message Invoice {
+        string contact_id = 1;
+        string date_from = 2;
+        string date_to = 3;
+        string erp_id = 4;
+        string erp_payment_term_id = 5;
+        int32 invoice_number = 6;
+        bool is_draft = 7;
+        bool is_locked = 8;
+        bool is_offer = 9;
+        string issued_date = 10;
+        string message = 11;
+        int32 offer_number = 12;
+        string payment_due_date = 13;
+        string payment_term_id = 14;
+        string project_id = 15;
+        string reference = 16;
+        int32 vat_percent = 17;
+    }
+    Invoice invoice = 1;
+    string invoice_id = 2;
+}
+
+message PutInvoicesInvoice_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteInvoicesInvoice_idRequest {
+    string invoice_id = 1;
+}
+
+message DeleteInvoicesInvoice_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetMass_messages_usersRequest {
+    // Used to filter on the `is_read` of the mass messages
+    bool is_read = 1;
+}
+
+message GetMass_messages_usersResponse {
+    repeated MassMessagesUser data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetMass_messages_usersMass_messages_user_idRequest {
+    string mass_messages_user_id = 1;
+}
+
+message GetMass_messages_usersMass_messages_user_idResponse {
+    MassMessagesUser data = 1;
+    bool success = 2;
+}
+
+message PutMass_messages_usersMass_messages_user_idRequest {
+    string mass_messages_user_id = 1;
+}
+
+message PutMass_messages_usersMass_messages_user_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetMaterialsRequest {
+    // Used to filter on the `barcode` of the materials
+    string barcode = 1;
+    // Used to find currently rented materials
+    bool currently_rented = 2;
+    // Used to filter on the `name` of the materials
+    string name = 3;
+    // Used to find materials used in specific project by `project_id`
+    string project_id = 4;
+}
+
+message GetMaterialsResponse {
+    repeated Material data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetMaterialsMaterial_idRequest {
+    string material_id = 1;
+}
+
+message GetMaterialsMaterial_idResponse {
+    Material data = 1;
+    bool success = 2;
+}
+
+message PutMaterialsMaterial_idRequest {
+    string material_id = 1;
+}
+
+message PutMaterialsMaterial_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteMaterialsMaterial_idRequest {
+    string material_id = 1;
+}
+
+message DeleteMaterialsMaterial_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetMaterialsMaterial_idRentalsRequest {
+    string material_id = 1;
+}
+
+message GetMaterialsMaterial_idRentalsResponse {
+    repeated MaterialRental data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostMaterialsMaterial_idRentalsRequest {
+    string material_id = 1;
+    message Material_rental {
+        string form_id = 1;
+        string from_date = 2;
+        string is_invoiced = 3;
+        string material_id = 4;
+        string project_id = 5;
+        float quantity = 6;
+        string to_date = 7;
+    }
+    Material_rental material_rental = 2;
+}
+
+message PostMaterialsMaterial_idRentalsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message PostMaterialsMaterial_idRentalsCheckoutRequest {
+    string material_id = 1;
+    message Material_rental {
+        string form_id = 1;
+        string material_rental_id = 2;
+        string to_date = 3;
+    }
+    Material_rental material_rental = 2;
+}
+
+message PostMaterialsMaterial_idRentalsCheckoutResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetMaterialsMaterial_idRentalsMaterial_rental_idRequest {
+    string material_id = 1;
+    string material_rental_id = 2;
+}
+
+message GetMaterialsMaterial_idRentalsMaterial_rental_idResponse {
+    MaterialRental data = 1;
+    bool success = 2;
+}
+
+message PutMaterialsMaterial_idRentalsMaterial_rental_idRequest {
+    string material_id = 1;
+    string material_rental_id = 2;
+}
+
+message PutMaterialsMaterial_idRentalsMaterial_rental_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message PostMaterialsMaterial_idRentalsMaterial_rental_idRequest {
+    message Material {
+        string barcode = 1;
+        enum Material_Billing_cysle {
+            MATERIAL_BILLING_CYSLE_HOURLY = 0;
+            MATERIAL_BILLING_CYSLE_DAILY = 1;
+            MATERIAL_BILLING_CYSLE_WEEKLY = 2;
+        }
+        Material_Billing_cysle billing_cysle = 2;
+        float cost_price = 3;
+        string description = 4;
+        bool is_single_usage = 5;
+        string name = 6;
+        float selling_price = 7;
+    }
+    Material material = 1;
+    string material_id = 2;
+    string material_rental_id = 3;
+}
+
+message PostMaterialsMaterial_idRentalsMaterial_rental_idResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message DeleteMaterialsMaterial_idRentalsMaterial_rental_idRequest {
+    string material_id = 1;
+    string material_rental_id = 2;
+}
+
+message DeleteMaterialsMaterial_idRentalsMaterial_rental_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetPayment_term_typesResponse {
+    repeated PaymentTermType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetPayment_term_typesPayment_term_type_idRequest {
+    string payment_term_type_id = 1;
+}
+
+message GetPayment_term_typesPayment_term_type_idResponse {
+    PaymentTermType data = 1;
+    bool success = 2;
+}
+
+message GetPayment_termsResponse {
+    repeated PaymentTerm data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetPayment_termsPayment_term_idRequest {
+    string payment_term_id = 1;
+}
+
+message GetPayment_termsPayment_term_idResponse {
+    PaymentTerm data = 1;
+    bool success = 2;
+}
+
+message GetPingResponse {
+    string status = 1;
+}
+
+message GetProductsRequest {
+    // Used to filter on the `barcode` of the products
+    string barcode = 1;
+    // Used to filter on the `name` of the products
+    string name = 2;
+    // Used to filter on the `product_number` of the products
+    string product_number = 3;
+}
+
+message GetProductsResponse {
+    repeated Product data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostProductsRequest {
+    message Product {
+        string barcode = 1;
+        double buying_price = 2;
+        string description = 3;
+        string erp_id = 4;
+        string name = 5;
+        string product_number = 6;
+        double selling_price = 7;
+    }
+    Product product = 1;
+}
+
+message PostProductsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProductsProduct_idRequest {
+    string product_id = 1;
+}
+
+message GetProductsProduct_idResponse {
+    Product data = 1;
+    bool success = 2;
+}
+
+message PutProductsProduct_idRequest {
+    string product_id = 1;
+}
+
+message PutProductsProduct_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteProductsProduct_idRequest {
+    string product_id = 1;
+}
+
+message DeleteProductsProduct_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message GetProject_statusesResponse {
+    repeated ProjectStatus data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetProject_statusesProject_status_idRequest {
+    string project_status_id = 1;
+}
+
+message GetProject_statusesProject_status_idResponse {
+    ProjectStatus data = 1;
+    bool success = 2;
+}
+
+message GetProjectsRequest {
+    // Used to filter on the `contact_id` of the projects
+    string contact_id = 1;
+    // Used to search on the `erp_id` of the projects
+    string erp_id = 2;
+    // Used to search on the `name` of the projects
+    string name = 3;
+    // Used to filter on the `project_status_id` of the projects
+    string project_status_id = 4;
+    // Used to filter on the `project_status_id` of the projects (match any of the provided values)
+    repeated string project_status_ids = 5;
+    // Unless this is set to `true` only open projects will be shown
+    bool show_all = 6;
+    // Show only projects with start time on specific date
+    string start_time_eq = 7;
+    // Show projects with start time after than this value
+    string start_time_gte = 8;
+    // Show projects with start time before this value
+    string start_time_lte = 9;
+}
+
+message GetProjectsResponse {
+    repeated Project data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostProjectsRequest {
+    message Project {
+        string contact_id = 1;
+        string description = 2;
+        string erp_project_id = 3;
+        string erp_task_id = 4;
+        string name = 5;
+        string project_status_id = 6;
+        string start_time = 7;
+        string street_name = 8;
+    }
+    Project project = 1;
+}
+
+message PostProjectsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idRequest {
+    string project_id = 1;
+}
+
+message GetProjectsProject_idResponse {
+    Project data = 1;
+    bool success = 2;
+}
+
+message PutProjectsProject_idRequest {
+    message Project {
+        string contact_id = 1;
+        string description = 2;
+        string erp_project_id = 3;
+        string erp_task_id = 4;
+        string name = 5;
+        string project_status_id = 6;
+        string start_time = 7;
+        string street_name = 8;
+    }
+    Project project = 1;
+    string project_id = 2;
+}
+
+message PutProjectsProject_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteProjectsProject_idRequest {
+    string project_id = 1;
+}
+
+message DeleteProjectsProject_idResponse {
+    repeated string data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idFilesRequest {
+    string project_id = 1;
+}
+
+message GetProjectsProject_idFilesResponse {
+    repeated string data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetProjectsProject_idFilesFile_idRequest {
+    string file_id = 1;
+    string project_id = 2;
+}
+
+message GetProjectsProject_idFilesFile_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message PutProjectsProject_idFilesFile_idRequest {
+    string file_id = 1;
+    string project_id = 2;
+}
+
+message PutProjectsProject_idFilesFile_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message DeleteProjectsProject_idFilesFile_idRequest {
+    string file_id = 1;
+    string project_id = 2;
+}
+
+message DeleteProjectsProject_idFilesFile_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idProject_filesRequest {
+    string project_id = 1;
+}
+
+message GetProjectsProject_idProject_filesResponse {
+    repeated string data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostProjectsProject_idProject_filesRequest {
+    ;
+    string project_id = 2;
+}
+
+message PostProjectsProject_idProject_filesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idProject_filesProject_file_idRequest {
+    string project_file_id = 1;
+    string project_id = 2;
+}
+
+message GetProjectsProject_idProject_filesProject_file_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message PutProjectsProject_idProject_filesProject_file_idRequest {
+    string project_file_id = 1;
+    string project_id = 2;
+}
+
+message PutProjectsProject_idProject_filesProject_file_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message DeleteProjectsProject_idProject_filesProject_file_idRequest {
+    string project_file_id = 1;
+    string project_id = 2;
+}
+
+message DeleteProjectsProject_idProject_filesProject_file_idResponse {
+    message Data {
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idUsersRequest {
+    string project_id = 1;
+}
+
+message GetProjectsProject_idUsersResponse {
+    repeated User data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostProjectsProject_idUsersRequest {
+    string project_id = 1;
+    message User_id {
+        string user_id = 1;
+    }
+    User_id user_id = 2;
+}
+
+message PostProjectsProject_idUsersResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetProjectsProject_idUsersUser_idRequest {
+    string project_id = 1;
+    string user_id = 2;
+}
+
+message GetProjectsProject_idUsersUser_idResponse {
+    User data = 1;
+    bool success = 2;
+}
+
+message DeleteProjectsProject_idUsersUser_idRequest {
+    string project_id = 1;
+    string user_id = 2;
+}
+
+message DeleteProjectsProject_idUsersUser_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetStock_locationsRequest {
+    // Used to filter on the `name` of the stock_locations
+    string name = 1;
+}
+
+message GetStock_locationsResponse {
+    repeated StockLocation data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostStock_locationsRequest {
+    message Location {
+        string name = 1;
+    }
+    Location location = 1;
+}
+
+message PostStock_locationsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetStock_locationsLocation_idRequest {
+    string location_id = 1;
+}
+
+message GetStock_locationsLocation_idResponse {
+    StockLocation data = 1;
+    bool success = 2;
+}
+
+message PutStock_locationsLocation_idRequest {
+    string location_id = 1;
+}
+
+message PutStock_locationsLocation_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteStock_locationsLocation_idRequest {
+    string location_id = 1;
+}
+
+message DeleteStock_locationsLocation_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetTime_entriesRequest {
+    string form_id = 1;
+    string gt_from_time = 2;
+    string gt_sum = 3;
+    string gt_to_time = 4;
+    string lt_from_time = 5;
+    string lt_sum = 6;
+    string lt_to_time = 7;
+    string project_id = 8;
+    string user_id = 9;
+}
+
+message GetTime_entriesResponse {
+    repeated TimeEntry data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostTime_entriesRequest {
+    message Time_entry {
+        string form_id = 1;
+        string from_time = 2;
+        bool is_all_day = 3;
+        string project_id = 4;
+            // Amount of seconds - should only be included when using is_all_day, otherwise will be calculated from from_time and to_time
+    int32 sum = 5;
+        string time_entry_type_id = 6;
+        string to_time = 7;
+        string user_id = 8;
+    }
+    Time_entry time_entry = 1;
+}
+
+message PostTime_entriesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetTime_entriesTime_entry_idRequest {
+    string time_entry_id = 1;
+}
+
+message GetTime_entriesTime_entry_idResponse {
+    TimeEntry data = 1;
+    bool success = 2;
+}
+
+message PutTime_entriesTime_entry_idRequest {
+    string time_entry_id = 1;
+}
+
+message PutTime_entriesTime_entry_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteTime_entriesTime_entry_idRequest {
+    string time_entry_id = 1;
+}
+
+message DeleteTime_entriesTime_entry_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetTime_entry_intervalsResponse {
+    repeated TimeEntryInterval data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetTime_entry_intervalsTime_entry_interval_idRequest {
+    string time_entry_interval_id = 1;
+}
+
+message GetTime_entry_intervalsTime_entry_interval_idResponse {
+    TimeEntryInterval data = 1;
+    bool success = 2;
+}
+
+message GetTime_entry_typesResponse {
+    repeated TimeEntryType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostTime_entry_typesRequest {
+    message Time_entry_type {
+        string description = 1;
+        string name = 2;
+        string time_entry_interval_id = 3;
+        string time_entry_value_type_id = 4;
+    }
+    Time_entry_type time_entry_type = 1;
+}
+
+message PostTime_entry_typesResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetTime_entry_typesTime_entry_type_idRequest {
+    string time_entry_type_id = 1;
+}
+
+message GetTime_entry_typesTime_entry_type_idResponse {
+    TimeEntryType data = 1;
+    bool success = 2;
+}
+
+message PutTime_entry_typesTime_entry_type_idRequest {
+    string time_entry_type_id = 1;
+}
+
+message PutTime_entry_typesTime_entry_type_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteTime_entry_typesTime_entry_type_idRequest {
+    string time_entry_type_id = 1;
+}
+
+message DeleteTime_entry_typesTime_entry_type_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message GetTime_entry_unit_typesResponse {
+    repeated TimeEntryUnitType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetTime_entry_unit_typesTime_entry_unit_type_idRequest {
+    string time_entry_unit_type_id = 1;
+}
+
+message GetTime_entry_unit_typesTime_entry_unit_type_idResponse {
+    TimeEntryUnitType data = 1;
+    bool success = 2;
+}
+
+message GetTime_entry_value_typesResponse {
+    repeated TimeEntryValueType data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message GetTime_entry_value_typesTime_entry_value_type_idRequest {
+    string time_entry_value_type_id = 1;
+}
+
+message GetTime_entry_value_typesTime_entry_value_type_idResponse {
+    TimeEntryValueType data = 1;
+    bool success = 2;
+}
+
+message GetUsersRequest {
+    // Used to filter on the `email` of the users
+    string email = 1;
+    // Used to filter on the `first_name` of the users
+    string first_name = 2;
+    // Used to filter on the `last_name` of the users
+    string last_name = 3;
+    // Used to filter on the `stock_location_id` of the users
+    string stock_location_id = 4;
+}
+
+message GetUsersResponse {
+    repeated User data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostUsersRequest {
+    message User {
+        string city_id = 1;
+            // Cost of salaries
+    float cost_price = 2;
+        string email = 3;
+            // Additional cost on this employee (pension, vacation etc.)
+    float extra_price = 4;
+        string first_name = 5;
+        bool is_active = 6;
+        string language_id = 7;
+        string last_name = 8;
+        string mobile = 9;
+        string mobile_countrycode = 10;
+        string password = 11;
+        string phone = 12;
+        string phone_countrycode = 13;
+            // If `true` the employee will receive an email receipt of every form submitted
+    bool receive_form_mails = 14;
+            // The price this employee costs per hour when working
+    float sale_price = 15;
+        string street_name = 16;
+    }
+    User user = 1;
+}
+
+message PostUsersResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetUsersUser_idRequest {
+    string user_id = 1;
+}
+
+message GetUsersUser_idResponse {
+    User data = 1;
+    bool success = 2;
+}
+
+message PutUsersUser_idRequest {
+    string user_id = 1;
+}
+
+message PutUsersUser_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message DeleteUsersUser_idRequest {
+    string user_id = 1;
+}
+
+message DeleteUsersUser_idResponse {
+    message Data {
+    }
+    repeated Data data = 1;
+    bool success = 2;
+}
+
+message PostWall_commentsRequest {
+    message Wall_comment {
+        string message = 1;
+        string wall_post_id = 2;
+    }
+    Wall_comment wall_comment = 1;
+}
+
+message PostWall_commentsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetWall_commentsWall_comment_idRequest {
+    string wall_comment_id = 1;
+}
+
+message GetWall_commentsWall_comment_idResponse {
+    WallComment data = 1;
+    bool success = 2;
+}
+
+message GetWall_postsRequest {
+    string project_id = 1;
+    string user_id = 2;
+}
+
+message GetWall_postsResponse {
+    repeated WallPost data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message PostWall_postsRequest {
+    message Wall_post {
+        string message = 1;
+        string project_id = 2;
+    }
+    Wall_post wall_post = 1;
+}
+
+message PostWall_postsResponse {
+    message Data {
+        string id = 1;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message GetWall_postsWall_post_idRequest {
+    string wall_post_id = 1;
+}
+
+message GetWall_postsWall_post_idResponse {
+    WallPost data = 1;
+    bool success = 2;
+}
+
+message GetWall_postsWall_post_idWall_commentsRequest {
+    string wall_post_id = 1;
+}
+
+message GetWall_postsWall_post_idWall_commentsResponse {
+    repeated WallComment data = 1;
+    PaginationDetails pagination = 2;
+    bool success = 3;
+}
+
+message City {
+    string created = 1;
+    string deleted = 2;
+    string id = 3;
+    string modified = 4;
+    string name = 5;
+    int32 zip_code = 6;
+}
+
+message ClockingRecord {
+    string checked_in = 1;
+    string checked_out = 2;
+    string checkin_latitude = 3;
+    string checkin_longitude = 4;
+    string checkout_latitude = 5;
+    string checkout_longitude = 6;
+    string created = 7;
+    string created_by_id = 8;
+    string deleted = 9;
+    string id = 10;
+    string modified = 11;
+    string modified_by_id = 12;
+    string project_id = 13;
+    string user_id = 14;
+}
+
+message Company {
+    string city_id = 1;
+    string contact_person_id = 2;
+    string created = 3;
+    // Read-only
+    string created_by_id = 4;
+    string cvr = 5;
+    string deleted = 6;
+    string expired = 7;
+    string file_id = 8;
+    string id = 9;
+    string invoice_email = 10;
+    string language_id = 11;
+    string modified = 12;
+    string name = 13;
+    int32 next_invoice_number = 14;
+    // Format like eg. `28680133` or `046158971404`
+    string phone = 15;
+    // Format like eg. `45` or `49`
+    string phone_countrycode = 16;
+    string receive_form_mails = 17;
+    string street_name = 18;
+    int32 vat_percent = 19;
+    string website = 20;
+}
+
+message Contact {
+    // Street address
+    string address = 1;
+    string city_id = 2;
+    // Only filled out if this represents another company within Apacta (used for partners)
+    string company_id = 3;
+    string created = 4;
+    // Read-only
+    string created_by_id = 5;
+    string cvr = 6;
+    string deleted = 7;
+    string description = 8;
+    string email = 9;
+    // If company has integration to an ERP system, and the contacts are synchronized, this will be the ERP-systems ID of this contact
+    string erp_id = 10;
+    string id = 11;
+    string modified = 12;
+    string name = 13;
+    // Format like eg. `28680133` or `046158971404`
+    string phone = 14;
+    string website = 15;
+}
+
+message ContactType {
+    string created = 1;
+    // Read-only
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    // One of 3 values
+    enum ContactType_Identifier {
+        CONTACTTYPE_IDENTIFIER_CLIENT = 0;
+        CONTACTTYPE_IDENTIFIER_PARTNER = 1;
+        CONTACTTYPE_IDENTIFIER_SUPPLIER = 2;
+    }
+    ContactType_Identifier identifier = 6;
+    string modified = 7;
+    string name = 8;
+}
+
+message Currency {
+    string created = 1;
+    string currency_sign = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    string identifier = 6;
+    string modified = 7;
+    string name = 8;
+}
+
+message ErrorNotFound {
+    message Data {
+            // The HTTP status code
+    int32 code = 1;
+            // Error message
+    string message = 2;
+            // The url from which this originated
+    string url = 3;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message ErrorValidation {
+    message Data {
+            // The HTTP status code
+    int32 code = 1;
+            // The amount of validation errors
+    int32 errorCount = 2;
+            // Object that contains details information about which properties failed validation and what rules they failed.
+    message Errors {
+        }
+        Errors errors = 3;
+            // Error message
+    string message = 4;
+            // The url from which this originated
+    string url = 5;
+    }
+    Data data = 1;
+    bool success = 2;
+}
+
+message Expense {
+    // Read-only
+    string company_id = 1;
+    string contact_id = 2;
+    string created = 3;
+    // Read-only
+    string created_by_id = 4;
+    string currency_id = 5;
+    string deleted = 6;
+    string delivery_date = 7;
+    string description = 8;
+    // Read-only
+    string id = 9;
+    string modified = 10;
+    string project_id = 11;
+    string reference = 12;
+    string short_text = 13;
+    string supplier_invoice_number = 14;
+}
+
+message ExpenseFile {
+    string created = 1;
+    // Read-only
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string expense_id = 5;
+    // File's name
+    string file = 6;
+    string file_extension = 7;
+    string file_original_name = 8;
+    // File size in bytes
+    string file_size = 9;
+    // File's MIME type
+    string file_type = 10;
+    // Read-only
+    string file_url = 11;
+    // Read-only
+    string id = 12;
+    string modified = 13;
+}
+
+message ExpenseLine {
+    float buying_price = 1;
+    string created = 2;
+    // Read-only
+    string created_by_id = 3;
+    string currency_id = 4;
+    string deleted = 5;
+    string expense_id = 6;
+    // Read-only
+    string id = 7;
+    string modified = 8;
+    int32 quantity = 9;
+    float selling_price = 10;
+    string text = 11;
+}
+
+message Form {
+    string approved_by_id = 1;
+    string company_id = 2;
+    string created = 3;
+    // Read-only
+    string created_by_id = 4;
+    string deleted = 5;
+    string form_date = 6;
+    string form_template_id = 7;
+    // Read-only
+    string id = 8;
+    bool is_draft = 9;
+    bool is_invoiced = 10;
+    bool is_shared = 11;
+    string mass_form_id = 12;
+    string modified = 13;
+    string project_id = 14;
+}
+
+message FormField {
+    string comment = 1;
+    string content_value = 2;
+    string created = 3;
+    // Read-only
+    string created_by_id = 4;
+    string deleted = 5;
+    string file_id = 6;
+    string form_field_type_id = 7;
+    string form_id = 8;
+    string form_template_field_id = 9;
+    // Read-only
+    string id = 10;
+    string modified = 11;
+    int32 placement = 12;
+}
+
+message FormFieldType {
+    string created = 1;
+    // Read-only
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    // Read-only
+    string id = 5;
+    string identifier = 6;
+    string modified = 7;
+    string name = 8;
+}
+
+message FormTemplate {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string form_category_id = 5;
+    string form_overview_category_id = 6;
+    string id = 7;
+    string identifier = 8;
+    bool is_active = 9;
+    string modified = 10;
+    string name = 11;
+    string pdf_template_identifier = 12;
+}
+
+message IntegrationFeatureSetting {
+    string created = 1;
+    string created_by_id = 2;
+    string default_value = 3;
+    string deleted = 4;
+    string description = 5;
+    string id = 6;
+    string identifier = 7;
+    string integration_feature_id = 8;
+    bool is_custom_setting = 9;
+    string modified = 10;
+    string name = 11;
+}
+
+message Invoice {
+    string company_id = 1;
+    string contact_id = 2;
+    string created = 3;
+    string created_by_id = 4;
+    string currency_id = 5;
+    string date_from = 6;
+    string date_to = 7;
+    string deleted = 8;
+    string erp_id = 9;
+    string erp_payment_term_id = 10;
+    bool eu_customer = 11;
+    float gross_payment = 12;
+    string id = 13;
+    string integration_id = 14;
+    int32 invoice_number = 15;
+    bool is_draft = 16;
+    bool is_locked = 17;
+    bool is_offer = 18;
+    string issued_date = 19;
+    string message = 20;
+    string modified = 21;
+    float net_payment = 22;
+    int32 offer_number = 23;
+    string payment_due_date = 24;
+    string payment_term_id = 25;
+    string project_id = 26;
+    string reference = 27;
+    int32 vat_percent = 28;
+}
+
+message InvoiceLine {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    int32 discount_percent = 5;
+    string discount_text = 6;
+    string id = 7;
+    string invoice_id = 8;
+    string modified = 9;
+    string name = 10;
+    string product_id = 11;
+    int32 quantity = 12;
+    float selling_price = 13;
+    string user_id = 14;
+}
+
+message MassMessage {
+    string company_id = 1;
+    string content = 2;
+    string created = 3;
+    string created_by_id = 4;
+    string deleted = 5;
+    string id = 6;
+    string modified = 7;
+}
+
+message MassMessagesUser {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string id = 4;
+    bool is_read = 5;
+    bool is_sent_email = 6;
+    MassMessage mass_message = 7;
+    string mass_message_id = 8;
+    string modified = 9;
+    string modified_by_id = 10;
+    string user_id = 11;
+}
+
+message Material {
+    string barcode = 1;
+    string billing_cycle = 2;
+    string company_id = 3;
+    float cost_price = 4;
+    string created = 5;
+    string created_by_id = 6;
+    string deleted = 7;
+    string description = 8;
+    string id = 9;
+    bool is_single_usage = 10;
+    string modified = 11;
+    string modified_by_id = 12;
+    string name = 13;
+    float selling_price = 14;
+}
+
+message MaterialRental {
+    float amount = 1;
+    string created = 2;
+    string created_by_id = 3;
+    string deleted = 4;
+    string from_date = 5;
+    string id = 6;
+    string is_invoiced = 7;
+    string material_id = 8;
+    string modified = 9;
+    string modified_by_id = 10;
+    string project_id = 11;
+    float quantity = 12;
+    string to_date = 13;
+}
+
+message PaginationDetails {
+    int32 count = 1;
+    string current_page = 2;
+    bool has_next_page = 3;
+    bool has_prev_page = 4;
+    int32 limit = 5;
+    string page_count = 6;
+}
+
+message PaymentTerm {
+    string created = 1;
+    string created_by_id = 2;
+    int32 days_of_credit = 3;
+    string deleted = 4;
+    string id = 5;
+    string modified = 6;
+    string payment_term_type_id = 7;
+}
+
+message PaymentTermType {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    string identifier = 6;
+    string modified = 7;
+    string name = 8;
+}
+
+message Product {
+    string barcode = 1;
+    double buying_price = 2;
+    string company_id = 3;
+    string created = 4;
+    string created_by_id = 5;
+    string deleted = 6;
+    string description = 7;
+    string erp_id = 8;
+    string id = 9;
+    string modified = 10;
+    string name = 11;
+    string product_number = 12;
+    double selling_price = 13;
+}
+
+message Project {
+    string contact_id = 1;
+    string created = 2;
+    string created_by_id = 3;
+    string deleted = 4;
+    string description = 5;
+    string erp_project_id = 6;
+    string erp_task_id = 7;
+    string id = 8;
+    string modified = 9;
+    string name = 10;
+    string project_status_id = 11;
+    string start_time = 12;
+    string street_name = 13;
+}
+
+message ProjectStatus {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    // One of 3 values
+    enum ProjectStatus_Identifier {
+        PROJECTSTATUS_IDENTIFIER_READY_FOR_BILLING = 0;
+        PROJECTSTATUS_IDENTIFIER_OPEN = 1;
+        PROJECTSTATUS_IDENTIFIER_CLOSED = 2;
+    }
+    ProjectStatus_Identifier identifier = 6;
+    string modified = 7;
+    string name = 8;
+}
+
+message StockLocation {
+    string company_id = 1;
+    string created = 2;
+    string created_by_id = 3;
+    string deleted = 4;
+    string id = 5;
+    string modified = 6;
+    string name = 7;
+}
+
+message TimeEntry {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string form_id = 4;
+    string from_time = 5;
+    string id = 6;
+    bool is_all_day = 7;
+    string modified = 8;
+    string modified_by_id = 9;
+    string project_id = 10;
+    // Amount of seconds
+    int32 sum = 11;
+    string time_entry_type_id = 12;
+    string to_time = 13;
+    string user_id = 14;
+}
+
+message TimeEntryInterval {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    string identifier = 6;
+    string modified = 7;
+    string modified_by_id = 8;
+    string name = 9;
+}
+
+message TimeEntryType {
+    string company_id = 1;
+    string created = 2;
+    string created_by_id = 3;
+    string deleted = 4;
+    string description = 5;
+    string id = 6;
+    string modified = 7;
+    string modified_by_id = 8;
+    string name = 9;
+    string time_entry_interval_id = 10;
+    string time_entry_value_type_id = 11;
+}
+
+message TimeEntryUnitType {
+    string abbreviation = 1;
+    string created = 2;
+    string created_by_id = 3;
+    string deleted = 4;
+    string description = 5;
+    string id = 6;
+    string identifier = 7;
+    string modified = 8;
+    string modified_by_id = 9;
+    string name = 10;
+}
+
+message TimeEntryValueType {
+    string created = 1;
+    string created_by_id = 2;
+    string deleted = 3;
+    string description = 4;
+    string id = 5;
+    string identifier = 6;
+    string modified = 7;
+    string modified_by_id = 8;
+    string name = 9;
+    string time_entry_unit_type_id = 10;
+}
+
+message User {
+    string api_key = 1;
+    string city_id = 2;
+    string company_id = 3;
+    // Cost of salaries
+    float cost_price = 4;
+    string created = 5;
+    string created_by_id = 6;
+    string deleted = 7;
+    string email = 8;
+    // Additional cost on this employee (pension, vacation etc.)
+    float extra_price = 9;
+    string first_name = 10;
+    // READ-ONLY
+    string full_name = 11;
+    string id = 12;
+    bool is_active = 13;
+    string language_id = 14;
+    string last_name = 15;
+    string mobile = 16;
+    string mobile_countrycode = 17;
+    string modified = 18;
+    string password = 19;
+    string phone = 20;
+    string phone_countrycode = 21;
+    // If `true` the employee will receive an email receipt of every form submitted
+    bool receive_form_mails = 22;
+    // The price this employee costs per hour when working
+    float sale_price = 23;
+    string street_name = 24;
+    string website = 25;
+}
+
+message WallComment {
+    string created = 1;
+    string deleted = 2;
+    string id = 3;
+    string message = 4;
+    string modified = 5;
+    string user_id = 6;
+    string wall_post_id = 7;
+}
+
+message WallPost {
+    string created = 1;
+    string deleted = 2;
+    string id = 3;
+    string message = 4;
+    string modified = 5;
+    string project_id = 6;
+    string user_id = 7;
+}
+
+service ApactaService {
+    // Get list of cities supported in Apacta
+    rpc GetCities(GetCitiesRequest) returns (GetCitiesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/cities"
+      };
+    }
+    // Get details about one city
+    rpc GetCitiesCity_id(GetCitiesCity_idRequest) returns (GetCitiesCity_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/cities/{city_id}"
+      };
+    }
+    // Get a list of clocking records
+    rpc GetClocking_records(GetClocking_recordsRequest) returns (GetClocking_recordsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/clocking_records"
+      };
+    }
+    // Create clocking record for authenticated user
+    rpc PostClocking_records(PostClocking_recordsRequest) returns (PostClocking_recordsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/clocking_records"
+        body: "clocking_record"
+      };
+    }
+    // Checkout active clocking record for authenticated user
+    rpc PostClocking_recordsCheckout(google.protobuf.Empty) returns (PostClocking_recordsCheckoutResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/clocking_records/checkout"
+      };
+    }
+    // Details of 1 clocking_record
+    rpc GetClocking_recordsClocking_record_id(GetClocking_recordsClocking_record_idRequest) returns (GetClocking_recordsClocking_record_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/clocking_records/{clocking_record_id}"
+      };
+    }
+    // Edit a clocking record
+    rpc PutClocking_recordsClocking_record_id(PutClocking_recordsClocking_record_idRequest) returns (PutClocking_recordsClocking_record_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/clocking_records/{clocking_record_id}"
+      };
+    }
+    // Delete a clocking record
+    rpc DeleteClocking_recordsClocking_record_id(DeleteClocking_recordsClocking_record_idRequest) returns (DeleteClocking_recordsClocking_record_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/clocking_records/{clocking_record_id}"
+      };
+    }
+    // Get a list of companies
+    rpc GetCompanies(google.protobuf.Empty) returns (GetCompaniesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/companies"
+      };
+    }
+    // Details of 1 company
+    rpc GetCompaniesCompany_id(GetCompaniesCompany_idRequest) returns (GetCompaniesCompany_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/companies/{company_id}"
+      };
+    }
+    // Get a list of integration feature settings
+    rpc GetCompaniesCompany_idIntegration_feature_settings(GetCompaniesCompany_idIntegration_feature_settingsRequest) returns (GetCompaniesCompany_idIntegration_feature_settingsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/companies/{company_id}/integration_feature_settings"
+      };
+    }
+    // Show details of 1 integration feature setting
+    rpc GetCompaniesCompany_idIntegration_feature_settingsIntegration_feature_setting_id(GetCompaniesCompany_idIntegration_feature_settingsIntegration_feature_setting_idRequest) returns (GetCompaniesCompany_idIntegration_feature_settingsIntegration_feature_setting_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/companies/{company_id}/integration_feature_settings/{integration_feature_setting_id}"
+      };
+    }
+    // Get list of contact types supported in Apacta
+    rpc GetContact_types(GetContact_typesRequest) returns (GetContact_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/contact_types"
+      };
+    }
+    // Get details about one contact type
+    rpc GetContact_typesContact_type_id(GetContact_typesContact_type_idRequest) returns (GetContact_typesContact_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/contact_types/{contact_type_id}"
+      };
+    }
+    // Get a list of contacts
+    rpc GetContacts(GetContactsRequest) returns (GetContactsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/contacts"
+      };
+    }
+    // Add a new contact
+    rpc PostContacts(PostContactsRequest) returns (PostContactsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/contacts"
+        body: "contact"
+      };
+    }
+    // Details of 1 contact
+    rpc GetContactsContact_id(GetContactsContact_idRequest) returns (GetContactsContact_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/contacts/{contact_id}"
+      };
+    }
+    // Edit a contact
+    rpc PutContactsContact_id(PutContactsContact_idRequest) returns (PutContactsContact_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/contacts/{contact_id}"
+        body: "contact"
+      };
+    }
+    // Delete a contact
+    rpc DeleteContactsContact_id(DeleteContactsContact_idRequest) returns (DeleteContactsContact_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/contacts/{contact_id}"
+      };
+    }
+    // Get list of currencies supported in Apacta
+    rpc GetCurrencies(google.protobuf.Empty) returns (GetCurrenciesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/currencies"
+      };
+    }
+    // Get details about one currency
+    rpc GetCurrenciesCurrency_id(GetCurrenciesCurrency_idRequest) returns (GetCurrenciesCurrency_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/currencies/{currency_id}"
+      };
+    }
+    // Used to retrieve details about the logged in user's hours
+    rpc GetEmployee_hours(GetEmployee_hoursRequest) returns (GetEmployee_hoursResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/employee_hours"
+      };
+    }
+    // Show list of expense files
+    rpc GetExpense_files(GetExpense_filesRequest) returns (GetExpense_filesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expense_files"
+      };
+    }
+    // Add file to expense
+    rpc PostExpense_files(PostExpense_filesRequest) returns (PostExpense_filesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/expense_files"
+      };
+    }
+    // Show file
+    rpc GetExpense_filesExpense_file_id(GetExpense_filesExpense_file_idRequest) returns (GetExpense_filesExpense_file_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expense_files/{expense_file_id}"
+      };
+    }
+    // Edit file
+    rpc PutExpense_filesExpense_file_id(PutExpense_filesExpense_file_idRequest) returns (PutExpense_filesExpense_file_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/expense_files/{expense_file_id}"
+      };
+    }
+    // Delete file
+    rpc DeleteExpense_filesExpense_file_id(DeleteExpense_filesExpense_file_idRequest) returns (DeleteExpense_filesExpense_file_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/expense_files/{expense_file_id}"
+      };
+    }
+    // Show list of expense lines
+    rpc GetExpense_lines(GetExpense_linesRequest) returns (GetExpense_linesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expense_lines"
+      };
+    }
+    // Add line to expense
+    rpc PostExpense_lines(PostExpense_linesRequest) returns (PostExpense_linesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/expense_lines"
+        body: "expense_line"
+      };
+    }
+    // Show expense line
+    rpc GetExpense_linesExpense_line_id(GetExpense_linesExpense_line_idRequest) returns (GetExpense_linesExpense_line_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expense_lines/{expense_line_id}"
+      };
+    }
+    // Edit expense line
+    rpc PutExpense_linesExpense_line_id(PutExpense_linesExpense_line_idRequest) returns (PutExpense_linesExpense_line_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/expense_lines/{expense_line_id}"
+      };
+    }
+    // Delete expense line
+    rpc DeleteExpense_linesExpense_line_id(DeleteExpense_linesExpense_line_idRequest) returns (DeleteExpense_linesExpense_line_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/expense_lines/{expense_line_id}"
+      };
+    }
+    // Show list of expenses
+    rpc GetExpenses(GetExpensesRequest) returns (GetExpensesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expenses"
+      };
+    }
+    // Add line to expense
+    rpc PostExpenses(PostExpensesRequest) returns (PostExpensesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/expenses"
+        body: "expense_line"
+      };
+    }
+    // Show expense
+    rpc GetExpensesExpense_id(GetExpensesExpense_idRequest) returns (GetExpensesExpense_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/expenses/{expense_id}"
+      };
+    }
+    // Edit expense
+    rpc PutExpensesExpense_id(PutExpensesExpense_idRequest) returns (PutExpensesExpense_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/expenses/{expense_id}"
+      };
+    }
+    // Delete expense
+    rpc DeleteExpensesExpense_id(DeleteExpensesExpense_idRequest) returns (DeleteExpensesExpense_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/expenses/{expense_id}"
+      };
+    }
+    // Get list of form field types
+    rpc GetForm_field_types(GetForm_field_typesRequest) returns (GetForm_field_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/form_field_types"
+      };
+    }
+    // Get details about single `FormField`
+    rpc GetForm_field_typesForm_field_type_id(GetForm_field_typesForm_field_type_idRequest) returns (GetForm_field_typesForm_field_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/form_field_types/{form_field_type_id}"
+      };
+    }
+    // Add a new field to a `Form`
+    rpc PostForm_fields(PostForm_fieldsRequest) returns (PostForm_fieldsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/form_fields"
+        body: "form_field"
+      };
+    }
+    // Get details about single `FormField`
+    rpc GetForm_fieldsForm_field_id(GetForm_fieldsForm_field_idRequest) returns (GetForm_fieldsForm_field_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/form_fields/{form_field_id}"
+      };
+    }
+    // Get array of form_templates for your company
+    rpc GetForm_templates(GetForm_templatesRequest) returns (GetForm_templatesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/form_templates"
+      };
+    }
+    // View one form template
+    rpc GetForm_templatesForm_template_id(GetForm_templatesForm_template_idRequest) returns (GetForm_templatesForm_template_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/form_templates/{form_template_id}"
+      };
+    }
+    // Retrieve array of forms
+    rpc GetForms(GetFormsRequest) returns (GetFormsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/forms"
+      };
+    }
+    // Add new form
+    // 
+    // Used to add a form into the system
+    rpc PostForms(PostFormsRequest) returns (PostFormsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/forms"
+        body: "form"
+      };
+    }
+    // View form
+    rpc GetFormsForm_id(GetFormsForm_idRequest) returns (GetFormsForm_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/forms/{form_id}"
+      };
+    }
+    // Edit a form
+    rpc PutFormsForm_id(PutFormsForm_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/v1/forms/{form_id}"
+      };
+    }
+    // Delete a form
+    // 
+    // You can only delete the forms that you've submitted yourself
+    rpc DeleteFormsForm_id(DeleteFormsForm_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/forms/{form_id}"
+      };
+    }
+    // View list of invoice lines
+    rpc GetInvoice_lines(GetInvoice_linesRequest) returns (GetInvoice_linesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/invoice_lines"
+      };
+    }
+    // Add invoice
+    rpc PostInvoice_lines(PostInvoice_linesRequest) returns (PostInvoice_linesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/invoice_lines"
+        body: "invoice_line"
+      };
+    }
+    // View invoice line
+    rpc GetInvoice_linesInvoice_line_id(GetInvoice_linesInvoice_line_idRequest) returns (GetInvoice_linesInvoice_line_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/invoice_lines/{invoice_line_id}"
+      };
+    }
+    // Edit invoice line
+    rpc PutInvoice_linesInvoice_line_id(PutInvoice_linesInvoice_line_idRequest) returns (PutInvoice_linesInvoice_line_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/invoice_lines/{invoice_line_id}"
+        body: "invoice_line"
+      };
+    }
+    // Delete invoice line
+    rpc DeleteInvoice_linesInvoice_line_id(DeleteInvoice_linesInvoice_line_idRequest) returns (DeleteInvoice_linesInvoice_line_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/invoice_lines/{invoice_line_id}"
+      };
+    }
+    // View list of invoices
+    rpc GetInvoices(GetInvoicesRequest) returns (GetInvoicesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/invoices"
+      };
+    }
+    // Add invoice
+    rpc PostInvoices(PostInvoicesRequest) returns (PostInvoicesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/invoices"
+        body: "invoice"
+      };
+    }
+    // View invoice
+    rpc GetInvoicesInvoice_id(GetInvoicesInvoice_idRequest) returns (GetInvoicesInvoice_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/invoices/{invoice_id}"
+      };
+    }
+    // Edit invoice
+    rpc PutInvoicesInvoice_id(PutInvoicesInvoice_idRequest) returns (PutInvoicesInvoice_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/invoices/{invoice_id}"
+        body: "invoice"
+      };
+    }
+    // Delete invoice
+    rpc DeleteInvoicesInvoice_id(DeleteInvoicesInvoice_idRequest) returns (DeleteInvoicesInvoice_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/invoices/{invoice_id}"
+      };
+    }
+    // View list of mass messages for specific user
+    rpc GetMass_messages_users(GetMass_messages_usersRequest) returns (GetMass_messages_usersResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/mass_messages_users"
+      };
+    }
+    // View mass message
+    rpc GetMass_messages_usersMass_messages_user_id(GetMass_messages_usersMass_messages_user_idRequest) returns (GetMass_messages_usersMass_messages_user_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/mass_messages_users/{mass_messages_user_id}"
+      };
+    }
+    // Edit mass message
+    rpc PutMass_messages_usersMass_messages_user_id(PutMass_messages_usersMass_messages_user_idRequest) returns (PutMass_messages_usersMass_messages_user_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/mass_messages_users/{mass_messages_user_id}"
+      };
+    }
+    // View list of all materials
+    rpc GetMaterials(GetMaterialsRequest) returns (GetMaterialsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/materials"
+      };
+    }
+    // View material
+    rpc GetMaterialsMaterial_id(GetMaterialsMaterial_idRequest) returns (GetMaterialsMaterial_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/materials/{material_id}"
+      };
+    }
+    // Edit material
+    rpc PutMaterialsMaterial_id(PutMaterialsMaterial_idRequest) returns (PutMaterialsMaterial_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/materials/{material_id}"
+      };
+    }
+    // Delete material
+    rpc DeleteMaterialsMaterial_id(DeleteMaterialsMaterial_idRequest) returns (DeleteMaterialsMaterial_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/materials/{material_id}"
+      };
+    }
+    // Show list of rentals for specific material
+    rpc GetMaterialsMaterial_idRentals(GetMaterialsMaterial_idRentalsRequest) returns (GetMaterialsMaterial_idRentalsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/materials/{material_id}/rentals/"
+      };
+    }
+    // Add material rental
+    rpc PostMaterialsMaterial_idRentals(PostMaterialsMaterial_idRentalsRequest) returns (PostMaterialsMaterial_idRentalsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/materials/{material_id}/rentals/"
+        body: "material_rental"
+      };
+    }
+    // Checkout material rental
+    rpc PostMaterialsMaterial_idRentalsCheckout(PostMaterialsMaterial_idRentalsCheckoutRequest) returns (PostMaterialsMaterial_idRentalsCheckoutResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/materials/{material_id}/rentals/checkout/"
+        body: "material_rental"
+      };
+    }
+    // Show rental foor materi
+    rpc GetMaterialsMaterial_idRentalsMaterial_rental_id(GetMaterialsMaterial_idRentalsMaterial_rental_idRequest) returns (GetMaterialsMaterial_idRentalsMaterial_rental_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/materials/{material_id}/rentals/{material_rental_id}/"
+      };
+    }
+    // Edit material rental
+    // 
+    // Edit material rental
+    rpc PutMaterialsMaterial_idRentalsMaterial_rental_id(PutMaterialsMaterial_idRentalsMaterial_rental_idRequest) returns (PutMaterialsMaterial_idRentalsMaterial_rental_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/materials/{material_id}/rentals/{material_rental_id}/"
+      };
+    }
+    // Add material
+    rpc PostMaterialsMaterial_idRentalsMaterial_rental_id(PostMaterialsMaterial_idRentalsMaterial_rental_idRequest) returns (PostMaterialsMaterial_idRentalsMaterial_rental_idResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/materials/{material_id}/rentals/{material_rental_id}/"
+        body: "material"
+      };
+    }
+    // Delete material rental
+    // 
+    // Delete rental for material
+    rpc DeleteMaterialsMaterial_idRentalsMaterial_rental_id(DeleteMaterialsMaterial_idRentalsMaterial_rental_idRequest) returns (DeleteMaterialsMaterial_idRentalsMaterial_rental_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/materials/{material_id}/rentals/{material_rental_id}/"
+      };
+    }
+    // Get a list of payment term types
+    rpc GetPayment_term_types(google.protobuf.Empty) returns (GetPayment_term_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/payment_term_types"
+      };
+    }
+    // Details of 1 payment term type
+    rpc GetPayment_term_typesPayment_term_type_id(GetPayment_term_typesPayment_term_type_idRequest) returns (GetPayment_term_typesPayment_term_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/payment_term_types/{payment_term_type_id}"
+      };
+    }
+    // Get a list of payment terms
+    rpc GetPayment_terms(google.protobuf.Empty) returns (GetPayment_termsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/payment_terms"
+      };
+    }
+    // Details of 1 payment term
+    rpc GetPayment_termsPayment_term_id(GetPayment_termsPayment_term_idRequest) returns (GetPayment_termsPayment_term_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/payment_terms/{payment_term_id}"
+      };
+    }
+    // Check if API is up and API key works
+    rpc GetPing(google.protobuf.Empty) returns (GetPingResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/ping"
+      };
+    }
+    // List products
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/products"
+      };
+    }
+    // Add new product
+    rpc PostProducts(PostProductsRequest) returns (PostProductsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/products"
+        body: "product"
+      };
+    }
+    // View single product
+    rpc GetProductsProduct_id(GetProductsProduct_idRequest) returns (GetProductsProduct_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/products/{product_id}"
+      };
+    }
+    // Edit a product
+    rpc PutProductsProduct_id(PutProductsProduct_idRequest) returns (PutProductsProduct_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/products/{product_id}"
+      };
+    }
+    // Delete a product
+    rpc DeleteProductsProduct_id(DeleteProductsProduct_idRequest) returns (DeleteProductsProduct_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/products/{product_id}"
+      };
+    }
+    // Get list of project statuses
+    rpc GetProject_statuses(google.protobuf.Empty) returns (GetProject_statusesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/project_statuses"
+      };
+    }
+    // Get details about one contact type
+    rpc GetProject_statusesProject_status_id(GetProject_statusesProject_status_idRequest) returns (GetProject_statusesProject_status_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/project_statuses/{project_status_id}"
+      };
+    }
+    // View list of projects
+    rpc GetProjects(GetProjectsRequest) returns (GetProjectsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects"
+      };
+    }
+    // Add a project
+    rpc PostProjects(PostProjectsRequest) returns (PostProjectsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/projects"
+        body: "project"
+      };
+    }
+    // View specific project
+    rpc GetProjectsProject_id(GetProjectsProject_idRequest) returns (GetProjectsProject_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}"
+      };
+    }
+    // Edit a project
+    rpc PutProjectsProject_id(PutProjectsProject_idRequest) returns (PutProjectsProject_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/projects/{project_id}"
+        body: "project"
+      };
+    }
+    // Delete a project
+    rpc DeleteProjectsProject_id(DeleteProjectsProject_idRequest) returns (DeleteProjectsProject_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/projects/{project_id}"
+      };
+    }
+    // Show list of files uploaded to project
+    // 
+    // Used to show files uploaded to a project from wall post or form
+    rpc GetProjectsProject_idFiles(GetProjectsProject_idFilesRequest) returns (GetProjectsProject_idFilesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/files"
+      };
+    }
+    // Show file
+    // 
+    // Show file uploaded to a project from wall post or form
+    rpc GetProjectsProject_idFilesFile_id(GetProjectsProject_idFilesFile_idRequest) returns (GetProjectsProject_idFilesFile_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/files/{file_id}/"
+      };
+    }
+    // Edit file
+    // 
+    // Edit file uploaded to a project from wall post or form
+    rpc PutProjectsProject_idFilesFile_id(PutProjectsProject_idFilesFile_idRequest) returns (PutProjectsProject_idFilesFile_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/projects/{project_id}/files/{file_id}/"
+      };
+    }
+    // Delete file
+    // 
+    // Delete file uploaded to a project from wall post or form
+    rpc DeleteProjectsProject_idFilesFile_id(DeleteProjectsProject_idFilesFile_idRequest) returns (DeleteProjectsProject_idFilesFile_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/projects/{project_id}/files/{file_id}/"
+      };
+    }
+    // Show list of project files uploaded to project
+    // 
+    // Returns files belonging to the project, not uploaded from wall post or form
+    rpc GetProjectsProject_idProject_files(GetProjectsProject_idProject_filesRequest) returns (GetProjectsProject_idProject_filesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/project_files"
+      };
+    }
+    // Add project file to projects
+    rpc PostProjectsProject_idProject_files(PostProjectsProject_idProject_filesRequest) returns (PostProjectsProject_idProject_filesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/projects/{project_id}/project_files"
+      };
+    }
+    // Show project file
+    rpc GetProjectsProject_idProject_filesProject_file_id(GetProjectsProject_idProject_filesProject_file_idRequest) returns (GetProjectsProject_idProject_filesProject_file_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/project_files/{project_file_id}/"
+      };
+    }
+    // Edit project file
+    rpc PutProjectsProject_idProject_filesProject_file_id(PutProjectsProject_idProject_filesProject_file_idRequest) returns (PutProjectsProject_idProject_filesProject_file_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/projects/{project_id}/project_files/{project_file_id}/"
+      };
+    }
+    // Delete project file
+    rpc DeleteProjectsProject_idProject_filesProject_file_id(DeleteProjectsProject_idProject_filesProject_file_idRequest) returns (DeleteProjectsProject_idProject_filesProject_file_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/projects/{project_id}/project_files/{project_file_id}/"
+      };
+    }
+    // Show list of users added to project
+    rpc GetProjectsProject_idUsers(GetProjectsProject_idUsersRequest) returns (GetProjectsProject_idUsersResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/users/"
+      };
+    }
+    // Add user to project
+    rpc PostProjectsProject_idUsers(PostProjectsProject_idUsersRequest) returns (PostProjectsProject_idUsersResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/projects/{project_id}/users/"
+        body: "user_id"
+      };
+    }
+    // View specific user assigned to project
+    rpc GetProjectsProject_idUsersUser_id(GetProjectsProject_idUsersUser_idRequest) returns (GetProjectsProject_idUsersUser_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/projects/{project_id}/users/{user_id}"
+      };
+    }
+    // Delete user from project
+    rpc DeleteProjectsProject_idUsersUser_id(DeleteProjectsProject_idUsersUser_idRequest) returns (DeleteProjectsProject_idUsersUser_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/projects/{project_id}/users/{user_id}"
+      };
+    }
+    // List stock_locations
+    rpc GetStock_locations(GetStock_locationsRequest) returns (GetStock_locationsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/stock_locations"
+      };
+    }
+    // Add new stock_locations
+    rpc PostStock_locations(PostStock_locationsRequest) returns (PostStock_locationsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/stock_locations"
+        body: "location"
+      };
+    }
+    // View single location
+    rpc GetStock_locationsLocation_id(GetStock_locationsLocation_idRequest) returns (GetStock_locationsLocation_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/stock_locations/{location_id}"
+      };
+    }
+    // Edit location
+    rpc PutStock_locationsLocation_id(PutStock_locationsLocation_idRequest) returns (PutStock_locationsLocation_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/stock_locations/{location_id}"
+      };
+    }
+    // Delete location
+    rpc DeleteStock_locationsLocation_id(DeleteStock_locationsLocation_idRequest) returns (DeleteStock_locationsLocation_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/stock_locations/{location_id}"
+      };
+    }
+    // List time entries
+    rpc GetTime_entries(GetTime_entriesRequest) returns (GetTime_entriesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entries"
+      };
+    }
+    // Add new time entry
+    rpc PostTime_entries(PostTime_entriesRequest) returns (PostTime_entriesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/time_entries"
+        body: "time_entry"
+      };
+    }
+    // View time entry
+    rpc GetTime_entriesTime_entry_id(GetTime_entriesTime_entry_idRequest) returns (GetTime_entriesTime_entry_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entries/{time_entry_id}"
+      };
+    }
+    // Edit time entry
+    rpc PutTime_entriesTime_entry_id(PutTime_entriesTime_entry_idRequest) returns (PutTime_entriesTime_entry_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/time_entries/{time_entry_id}"
+      };
+    }
+    // Delete time entry
+    rpc DeleteTime_entriesTime_entry_id(DeleteTime_entriesTime_entry_idRequest) returns (DeleteTime_entriesTime_entry_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/time_entries/{time_entry_id}"
+      };
+    }
+    // List possible time entry intervals
+    rpc GetTime_entry_intervals(google.protobuf.Empty) returns (GetTime_entry_intervalsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_intervals"
+      };
+    }
+    // View time entry interval
+    rpc GetTime_entry_intervalsTime_entry_interval_id(GetTime_entry_intervalsTime_entry_interval_idRequest) returns (GetTime_entry_intervalsTime_entry_interval_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_intervals/{time_entry_interval_id}"
+      };
+    }
+    // List time entries types
+    rpc GetTime_entry_types(google.protobuf.Empty) returns (GetTime_entry_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_types"
+      };
+    }
+    // Add new time entry type
+    rpc PostTime_entry_types(PostTime_entry_typesRequest) returns (PostTime_entry_typesResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/time_entry_types"
+        body: "time_entry_type"
+      };
+    }
+    // View time entry type
+    rpc GetTime_entry_typesTime_entry_type_id(GetTime_entry_typesTime_entry_type_idRequest) returns (GetTime_entry_typesTime_entry_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_types/{time_entry_type_id}"
+      };
+    }
+    // Edit time entry type
+    rpc PutTime_entry_typesTime_entry_type_id(PutTime_entry_typesTime_entry_type_idRequest) returns (PutTime_entry_typesTime_entry_type_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/time_entry_types/{time_entry_type_id}"
+      };
+    }
+    // Delete time entry type
+    rpc DeleteTime_entry_typesTime_entry_type_id(DeleteTime_entry_typesTime_entry_type_idRequest) returns (DeleteTime_entry_typesTime_entry_type_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/time_entry_types/{time_entry_type_id}"
+      };
+    }
+    // List possible time entry unit types
+    rpc GetTime_entry_unit_types(google.protobuf.Empty) returns (GetTime_entry_unit_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_unit_types"
+      };
+    }
+    // View time entry unit type
+    rpc GetTime_entry_unit_typesTime_entry_unit_type_id(GetTime_entry_unit_typesTime_entry_unit_type_idRequest) returns (GetTime_entry_unit_typesTime_entry_unit_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_unit_types/{time_entry_unit_type_id}"
+      };
+    }
+    // List possible time entry value types
+    rpc GetTime_entry_value_types(google.protobuf.Empty) returns (GetTime_entry_value_typesResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_value_types"
+      };
+    }
+    // View time entry value type
+    rpc GetTime_entry_value_typesTime_entry_value_type_id(GetTime_entry_value_typesTime_entry_value_type_idRequest) returns (GetTime_entry_value_typesTime_entry_value_type_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/time_entry_value_types/{time_entry_value_type_id}"
+      };
+    }
+    // Get list of users in company
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/users"
+      };
+    }
+    // Add user to company
+    rpc PostUsers(PostUsersRequest) returns (PostUsersResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/users"
+        body: "user"
+      };
+    }
+    // View user
+    rpc GetUsersUser_id(GetUsersUser_idRequest) returns (GetUsersUser_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/users/{user_id}"
+      };
+    }
+    // Edit user
+    rpc PutUsersUser_id(PutUsersUser_idRequest) returns (PutUsersUser_idResponse) {
+      option (google.api.http) = {
+        put: "/api/v1/users/{user_id}"
+      };
+    }
+    // Delete user
+    rpc DeleteUsersUser_id(DeleteUsersUser_idRequest) returns (DeleteUsersUser_idResponse) {
+      option (google.api.http) = {
+        delete: "/api/v1/users/{user_id}"
+      };
+    }
+    // Add wall comment
+    rpc PostWall_comments(PostWall_commentsRequest) returns (PostWall_commentsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/wall_comments"
+        body: "wall_comment"
+      };
+    }
+    // View wall comment
+    rpc GetWall_commentsWall_comment_id(GetWall_commentsWall_comment_idRequest) returns (GetWall_commentsWall_comment_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/wall_comments/{wall_comment_id}"
+      };
+    }
+    // View list of wall posts
+    rpc GetWall_posts(GetWall_postsRequest) returns (GetWall_postsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/wall_posts"
+      };
+    }
+    // Add a wall post
+    rpc PostWall_posts(PostWall_postsRequest) returns (PostWall_postsResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/wall_posts"
+        body: "wall_post"
+      };
+    }
+    // View wall post
+    rpc GetWall_postsWall_post_id(GetWall_postsWall_post_idRequest) returns (GetWall_postsWall_post_idResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/wall_posts/{wall_post_id}"
+      };
+    }
+    // See wall comments to a wall post
+    rpc GetWall_postsWall_post_idWall_comments(GetWall_postsWall_post_idWall_commentsRequest) returns (GetWall_postsWall_post_idWall_commentsResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/wall_posts/{wall_post_id}/wall_comments"
+      };
+    }
+}

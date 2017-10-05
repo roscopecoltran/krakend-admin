@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package googleanalytics;
+
+message GetDataRequest {
+    alt alt = 1;
+    // A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'.
+    string dimensions = 2;
+    // End date for fetching report data. All requests should specify an end date formatted as YYYY-MM-DD.
+    string end_date = 3;
+    string fields = 4;
+    // A comma-separated list of dimension or metric filters to be applied to the report data.
+    string filters = 5;
+    // Unique table ID for retrieving report data. Table ID is of the form ga:XXXX, where XXXX is the Analytics view (profile) ID.
+    string ids = 6;
+    string key = 7;
+    // The maximum number of entries to include in this feed.
+    int32 max_results = 8;
+    // A comma-separated list of Analytics metrics. E.g., 'ga:sessions,ga:pageviews'. At least one metric must be specified to retrieve a valid Analytics report.
+    string metrics = 9;
+    string oauth_token = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // An Analytics advanced segment to be applied to the report data.
+    string segment = 13;
+    // A comma-separated list of dimensions or metrics that determine the sort order for the report data.
+    string sort = 14;
+    // Start date for fetching report data. All requests should specify a start date formatted as YYYY-MM-DD.
+    string start_date = 15;
+    // An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 16;
+    string userIp = 17;
+}
+
+message GetManagementAccountsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // The maximum number of accounts to include in this response.
+    int32 max_results = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // An index of the first account to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 8;
+    string userIp = 9;
+}
+
+message GetManagementAccountsAccountIdWebpropertiesRequest {
+    // Account ID to retrieve web properties for. Can either be a specific account ID or '~all', which refers to all the accounts that user has access to.
+    string accountId = 1;
+    alt alt = 2;
+    string fields = 3;
+    string key = 4;
+    // The maximum number of web properties to include in this response.
+    int32 max_results = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 9;
+    string userIp = 10;
+}
+
+message GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfilesRequest {
+    // Account ID for the views (profiles) to retrieve. Can either be a specific account ID or '~all', which refers to all the accounts to which the user has access.
+    string accountId = 1;
+    alt alt = 2;
+    string fields = 3;
+    string key = 4;
+    // The maximum number of views (profiles) to include in this response.
+    int32 max_results = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 9;
+    string userIp = 10;
+    // Web property ID for the views (profiles) to retrieve. Can either be a specific web property ID or '~all', which refers to all the web properties to which the user has access.
+    string webPropertyId = 11;
+}
+
+message GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfilesProfileIdGoalsRequest {
+    // Account ID to retrieve goals for. Can either be a specific account ID or '~all', which refers to all the accounts that user has access to.
+    string accountId = 1;
+    alt alt = 2;
+    string fields = 3;
+    string key = 4;
+    // The maximum number of goals to include in this response.
+    int32 max_results = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    // View (Profile) ID to retrieve goals for. Can either be a specific view (profile) ID or '~all', which refers to all the views (profiles) that user has access to.
+    string profileId = 8;
+    string quotaUser = 9;
+    // An index of the first goal to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 10;
+    string userIp = 11;
+    // Web property ID to retrieve goals for. Can either be a specific web property ID or '~all', which refers to all the web properties that user has access to.
+    string webPropertyId = 12;
+}
+
+message GetManagementSegmentsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // The maximum number of advanced segments to include in this response.
+    int32 max_results = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // An index of the first advanced segment to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+    int32 start_index = 8;
+    string userIp = 9;
+}
+
+enum Alt {
+    ATOM = 0;
+}
+
+service GoogleAnalyticsService {
+    // Returns Analytics report data for a view (profile).
+    rpc GetData(GetDataRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/data"
+      };
+    }
+    // Lists all accounts to which the user has access.
+    rpc GetManagementAccounts(GetManagementAccountsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/management/accounts"
+      };
+    }
+    // Lists web properties to which the user has access.
+    rpc GetManagementAccountsAccountIdWebproperties(GetManagementAccountsAccountIdWebpropertiesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/management/accounts/{accountId}/webproperties"
+      };
+    }
+    // Lists views (profiles) to which the user has access.
+    rpc GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfiles(GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfilesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/management/accounts/{accountId}/webproperties/{webPropertyId}/profiles"
+      };
+    }
+    // Lists goals to which the user has access.
+    rpc GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfilesProfileIdGoals(GetManagementAccountsAccountIdWebpropertiesWebPropertyIdProfilesProfileIdGoalsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/management/accounts/{accountId}/webproperties/{webPropertyId}/profiles/{profileId}/goals"
+      };
+    }
+    // Lists advanced segments to which the user has access.
+    rpc GetManagementSegments(GetManagementSegmentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/analytics/v2.4/management/segments"
+      };
+    }
+}

@@ -1,0 +1,1348 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package bigoven;
+
+message GetCollectionIdRequest {
+    // the collection identifier
+    int32 id = 1;
+    // page number (starting with 1)
+    int32 pg = 2;
+    // results per page
+    int32 rpp = 3;
+    string sessionForLogging = 4;
+    bool test = 5;
+}
+
+message GetCollectionIdMetaRequest {
+    // the collection identifier
+    int32 id = 1;
+}
+
+message GetCollectionsRequest {
+    string test = 1;
+}
+
+message GetCollectionsResponse {
+    repeated BigOven.Model.API2.CollectionInfo items = 1;
+}
+
+message GetGlossaryBytermTermRequest {
+    // Keyword used to look up article, e.g., asparagus
+    string term = 1;
+}
+
+message GetGlossaryIdRequest {
+    // identifier of article to retrieve
+    int32 id = 1;
+}
+
+message PostGrocerylistDepartmentRequest {
+    API2.Controllers.GroceryListController.DepartmentModel model = 1;
+}
+
+message PostGrocerylistDepartmentResponse {
+    repeated API2.GroceryListDepartmentResult items = 1;
+}
+
+message PostGrocerylistItemRequest {
+    // name, quantity, unit, notes, department
+    API2.Controllers.GroceryListController.PostToGroceryListRecipeRequest newItem = 1;
+}
+
+message PutGrocerylistItemGuidRequest {
+    string guid = 1;
+    API2.Controllers.GroceryListController.UpdateItemByGuidRequest req = 2;
+}
+
+message DeleteGrocerylistItemGuidRequest {
+    string guid = 1;
+}
+
+message PostGrocerylistRecipeRequest {
+    API2.Controllers.GroceryListController.PostGroceryListRecipeRequest data = 1;
+}
+
+message PostGrocerylistSyncRequest {
+    API2.Controllers.GroceryListController.PostGroceryListSyncRequest req = 1;
+}
+
+message PutMeRequest {
+    API2.Models.BigOvenUser req = 1;
+}
+
+message PutMePersonalRequest {
+    API2.Models.Personal req = 1;
+}
+
+message PutMePreferencesRequest {
+    API2.Models.Preference req = 1;
+}
+
+message GetMePreferencesOptionsResponse {
+    repeated API2.Controllers.MeController.KeyOption items = 1;
+}
+
+message PutMeProfileRequest {
+    API2.Models.Profile req = 1;
+}
+
+message PutRecipeRequest {
+    BigOven.Model.API.Recipe recipe = 1;
+}
+
+message PostRecipeRequest {
+    BigOven.Model.API.Recipe recipe = 1;
+}
+
+message GetRecipeAutocompleteRequest {
+    int32 limit = 1;
+    string query = 2;
+}
+
+message GetRecipeAutocompleteResponse {
+    repeated string items = 1;
+}
+
+message GetRecipeCategoriesResponse {
+    repeated BigOven.Model.RecipeCategory items = 1;
+}
+
+message PutRecipeReviewRepliesReplyIdRequest {
+    API2.Controllers.ReviewController.PostReplyReq data = 1;
+    string replyId = 2;
+}
+
+message DeleteRecipeReviewRepliesReplyIdRequest {
+    string replyId = 1;
+}
+
+message GetRecipeReviewReviewIdRequest {
+    string reviewId = 1;
+}
+
+message PutRecipeReviewReviewIdRequest {
+    API2.Controllers.ReviewController.ReviewRequest review = 1;
+    string reviewId = 2;
+}
+
+message GetRecipeReviewReviewIdRepliesRequest {
+    // the page (int), starting with 1
+    int32 pg = 1;
+    string reviewId = 2;
+    // results per page (int)
+    int32 rpp = 3;
+}
+
+message GetRecipeReviewReviewIdRepliesResponse {
+    repeated BigOven.Model.API.Reply items = 1;
+}
+
+message PostRecipeReviewReviewIdRepliesRequest {
+    API2.Controllers.ReviewController.PostReplyReq data = 1;
+    string reviewId = 2;
+}
+
+message PostRecipeScanRequest {
+    string devicetype = 1;
+    double lat = 2;
+    double lng = 3;
+    bool test = 4;
+}
+
+message GetRecipeIdRequest {
+    // the Recipe ID to retrieve
+    int32 id = 1;
+    bool prefetch = 2;
+}
+
+message DeleteRecipeIdRequest {
+    int32 id = 1;
+}
+
+message GetRecipeIdZapRequest {
+    int32 id = 1;
+}
+
+message PostRecipeRecipeIdFeedbackRequest {
+    // The payload for feedback, which includes the field "feedback"
+    API2.Controllers.RecipeController.FeedbackDTO data = 1;
+    int32 recipeId = 2;
+}
+
+message PostRecipeRecipeIdImageRequest {
+    string caption = 1;
+    double lat = 2;
+    double lng = 3;
+    string recipeId = 4;
+}
+
+message GetRecipeRecipeIdImagesRequest {
+    // Recipe ID (required)
+    int32 recipeId = 1;
+}
+
+message GetRecipeRecipeIdImagesResponse {
+    repeated BigOven.Model.API.Image items = 1;
+}
+
+message PostRecipeRecipeIdNoteRequest {
+    // a recipe note, with fields: Date (YYYY-MM-DD string), Notes (string), People (string), Variations (string), RecipeID (int?)
+    API2.Controllers.NoteController.NoteRequest note = 1;
+    // recipeId (int)
+    int32 recipeId = 2;
+}
+
+message GetRecipeRecipeIdNoteNoteIdRequest {
+    // The note ID (note -- it's not the RecipeID)
+    int32 noteId = 1;
+    // recipe identifier (integer)
+    int32 recipeId = 2;
+}
+
+message PutRecipeRecipeIdNoteNoteIdRequest {
+    int32 noteId = 1;
+    int32 recipeId = 2;
+    API2.Controllers.NoteController.NoteRequest recipeNote = 3;
+}
+
+message DeleteRecipeRecipeIdNoteNoteIdRequest {
+    // noteId (int)
+    int32 noteId = 1;
+    // recipeId (int)
+    int32 recipeId = 2;
+}
+
+message GetRecipeRecipeIdNotesRequest {
+    // page (int, starting from 1)
+    int32 pg = 1;
+    // recipeId (int)
+    int32 recipeId = 2;
+    // recipeId
+    int32 rpp = 3;
+}
+
+message GetRecipeRecipeIdPhotosRequest {
+    int32 pg = 1;
+    // Recipe ID (required)
+    int32 recipeId = 2;
+    int32 rpp = 3;
+}
+
+message GetRecipeRecipeIdRelatedRequest {
+    int32 pg = 1;
+    int32 recipeId = 2;
+    int32 rpp = 3;
+}
+
+message GetRecipeRecipeIdReviewRequest {
+    int32 recipeId = 1;
+}
+
+message PostRecipeRecipeIdReviewRequest {
+    API2.Controllers.ReviewController.ReviewRequest data = 1;
+    int32 recipeId = 2;
+}
+
+message GetRecipeRecipeIdReviewReviewIdRequest {
+    // int
+    int32 recipeId = 1;
+    // int
+    int32 reviewId = 2;
+}
+
+message PutRecipeRecipeIdReviewReviewIdRequest {
+    // recipeId (int)
+    int32 recipeId = 1;
+    API2.Controllers.ReviewController.ReviewRequestLegacy review = 2;
+    // reviewId (int)
+    int32 reviewId = 3;
+}
+
+message DeleteRecipeRecipeIdReviewReviewIdRequest {
+    string recipeId = 1;
+    string reviewId = 2;
+}
+
+message GetRecipeRecipeIdReviewsRequest {
+    // the page (int), starting with 1
+    int32 pg = 1;
+    // recipe id (int)
+    int32 recipeId = 2;
+    // results per page (int)
+    int32 rpp = 3;
+}
+
+message GetRecipeRecipeIdReviewsResponse {
+    repeated BigOven.Model.API.Review items = 1;
+}
+
+message GetRecipeRecipeIdScansRequest {
+    // the recipe identifier (int)
+    int32 recipeId = 1;
+}
+
+message GetRecipeRecipeIdScansResponse {
+    repeated BigOven.Model.API.Image items = 1;
+}
+
+message GetRecipesRequest {
+    // Search anywhere in the recipe for the keyword
+    string any_kw = 1;
+    // if set to true, boost my own recipes in my folders so they show up high in the list (at the expense of other sort orders)
+    bool boostmine = 2;
+    // optional. When set to 1, this will limit search results to "best of" recipes as determined by various internal editorial and programmatic algorithms. For the most comprehensive results, don't include this parameter.
+    int32 champion = 3;
+    // when set to 1, limit to contains-cheese (Powersearch-capable plan required)
+    int32 chs = 4;
+    // Limit to a collection ID number
+    int32 coll = 5;
+    // when set to 1, recipe contains pasta, set to 0 means contains no pasta (Powersearch-capable plan required)
+    int32 cps = 6;
+    // Limit to a specific cuisine. Cooks can enter anything free-form, but the few dozen preconfigured values are Afghan,African,American,American-South,Asian,Australian,Brazilian,Cajun,Canadian,Caribbean,Chinese,Croatian,Cuban,Dessert,Eastern European,English,French,German,Greek,Hawaiian,Hungarian,India,Indian,Irish,Italian,Japanese,Jewish,Korean,Latin,Mediterranean,Mexican,Middle Eastern,Moroccan,Polish,Russian,Scandanavian,Seafood,Southern,Southwestern,Spanish,Tex-Mex,Thai,Vegan,Vegetarian,Vietnamese
+    string cuisine = 7;
+    string db = 8;
+    // when set to 1, limit to dairy-free (Powersearch-capable plan required)
+    int32 dyf = 9;
+    // like include_cat, set this to an integer to exclude a specific category
+    string exclude_cat = 10;
+    // A CSV representing up to 3 ingredients to exclude  (Powersearch-capable plan required)
+    string exclude_ing = 11;
+    // csv indicating integer values for up to 3 top-level categories -- valid values are 1...11 [appetizers,bread,breakfast,desserts,drinks,maindish,salads,sidedish,soups,marinades,other]
+    string exclude_primarycat = 12;
+    // optionally set to either "myrecipes", "try", "favorites","added" to filter to just the authenticated user's recipe set
+    string filter = 13;
+    // Search in a specific folder name for the authenticated user
+    string folder = 14;
+    // when set to 1, limit to gluten-free (Powersearch-capable plan required)
+    int32 glf = 15;
+    // integer of the subcategory you'd like to limit searches to (see the /recipe/categories endpoint for available id numbers). For instance, 58 is "Main Dish &gt; Casseroles".
+    string include_cat = 16;
+    // A CSV representing up to 3 ingredients to include, e.g., tomatoes,corn%20%starch,chicken
+    string include_ing = 17;
+    // csv indicating up to three top-level categories -- valid values are [appetizers,bread,breakfast,desserts,drinks,maindish,salads,sidedish,soups,marinades,other]
+    string include_primarycat = 18;
+    // Optional. If supplied, will restrict results to recipes that can be made with {maxIngredients} ingredients or less
+    int32 maxIngredients = 19;
+    // Optional. If supplied, will restrict results to recipes that have at least {minIngredients}
+    int32 minIngredients = 20;
+    // when set to 1, limit to nut-free (Powersearch-capable plan required)
+    int32 ntf = 21;
+    // integer: the page number
+    int32 pg = 22;
+    // if set to true, limit search results to photos only
+    bool photos = 23;
+    // when set to 1, limit to red-meat free (Powersearch-capable plan required)
+    int32 rmf = 24;
+    // integer; results per page
+    int32 rpp = 25;
+    // Limit to yield of a given number size or greater. Note that cooks usually enter recipes by Servings, but sometimes they are posted by "dozen", etc. This parameter simply specifies the minimum number for that value entered in "yield."
+    double servingsMin = 26;
+    // when set to 1, limit to seafood-free (Powersearch-capable plan required)
+    int32 sff = 27;
+    // when set to 1, limit to shellfish-free (Powersearch-capable plan required)
+    int32 slf = 28;
+    // optional, default is false. When set to true, BigOven will attempt to apply synonyms in search (e.g., excluding pork will also exclude bacon)
+    bool synonyms = 29;
+    // Search just in the recipe title for the keyword
+    string title_kw = 30;
+    // when set to 1, limit to tree-nut free (Powersearch-capable plan required)
+    int32 tnf = 31;
+    string token = 32;
+    // Optional. If supplied, will restrict results to recipes that can be made in {totalMins} or less. (Convert "1 hour, 15 minutes" to 75 before passing in.)
+    int32 totalMins = 33;
+    // Set the target userid to search their public recipes
+    int32 userId = 34;
+    // Set the target username to search their public recipes
+    string username = 35;
+    // If set to a given username, it'll force the search to filter to just that username
+    string userset = 36;
+    // when set to 1, limit to vegan (Powersearch-capable plan required)
+    int32 vgn = 37;
+    // when set to 1, limit to vegetarian (Powersearch-capable plan required)
+    int32 vtn = 38;
+    // when set to 1, limit to white-meat free (Powersearch-capable plan required)
+    int32 wmf = 39;
+}
+
+message GetRecipesRavesRequest {
+    // page, starting with 1
+    int32 pg = 1;
+    // results per page
+    int32 rpp = 2;
+}
+
+message GetRecipesRavesResponse {
+    repeated BigOven.Model.RecipeInfoReviewTuple2 items = 1;
+}
+
+message GetRecipesRecentviewsRequest {
+    // Page number starting with 1
+    int32 pg = 1;
+    // results per page
+    int32 rpp = 2;
+}
+
+message GetRecipesRecentviewsResponse {
+    repeated BigOven.Model.RecipeInfoDateTuple2 items = 1;
+}
+
+message API2.Controllers.GroceryListController.DepartmentModel {
+    string items = 1;
+}
+
+message API2.Controllers.GroceryListController.PostGroceryListRecipeRequest {
+    bool markAsPending = 1;
+    int32 recipeId = 2;
+    double scale = 3;
+}
+
+message API2.Controllers.GroceryListController.PostGroceryListSyncRequest {
+    BigOven.Model.API.Grocery.GroceryList list = 1;
+    string since = 2;
+}
+
+message API2.Controllers.GroceryListController.PostToGroceryListRecipeRequest {
+    string department = 1;
+    string name = 2;
+    string notes = 3;
+    string quantity = 4;
+    string unit = 5;
+}
+
+message API2.Controllers.GroceryListController.UpdateItemByGuidRequest {
+    string department = 1;
+    string guid = 2;
+    string name = 3;
+    string notes = 4;
+    string quantity = 5;
+    string unit = 6;
+}
+
+message API2.Controllers.ImagesController.RecipePhotosResponse {
+    int32 ResultCount = 1;
+    repeated BigOven.Model.API2.Photo Results = 2;
+}
+
+message API2.Controllers.MeController.KeyOption {
+    string Key = 1;
+    repeated API2.Models.Option Options = 2;
+}
+
+message API2.Controllers.NoteController.NoteRequest {
+    string CreationDate = 1;
+    string Date = 2;
+    string DateDT = 3;
+    string GUID = 4;
+    int32 ID = 5;
+    string Notes = 6;
+    string People = 7;
+    int32 RecipeID = 8;
+    int32 UserID = 9;
+    string Variations = 10;
+}
+
+message API2.Controllers.RecipeController.FeedbackDTO {
+    string feedback = 1;
+}
+
+message API2.Controllers.ReviewController.PostReplyReq {
+    // The comment. If mentioning any user(s) (optional), include them as @username in the text body. Do not use @ symbol for anything but mentioning @usernames.
+    string Comment = 1;
+}
+
+message API2.Controllers.ReviewController.ReviewRequest {
+    // How many minutes of ACTIVE time (i.e., actively working on the recipe, not waiting for rising, baking, etc.) did it 
+    //             demand of the cook? Optional.
+    int32 ActiveMinutes = 1;
+    // The notes
+    string Comment = 2;
+    // "yes" or "no"
+    string MakeAgain = 3;
+    // 1, 2, 3, 4, or 5
+    int32 StarRating = 4;
+    // How long, start to finish, in minutes (integer) did it take? Optional.
+    int32 TotalMinutes = 5;
+}
+
+message API2.Controllers.ReviewController.ReviewRequestLegacy {
+    int32 ActiveMinutes = 1;
+    string Comment = 2;
+    string GUID = 3;
+    string MakeAgain = 4;
+    int32 ParentID = 5;
+    int32 StarRating = 6;
+    int32 TotalMinutes = 7;
+}
+
+message API2.GroceryListDepartmentResult {
+    string dept = 1;
+    string item = 2;
+}
+
+message API2.Models.Accounting {
+    int32 CreditBalance = 1;
+    string MemberSince = 2;
+    string PremiumExpiryDate = 3;
+    string UserLevel = 4;
+}
+
+message API2.Models.BigOvenUser {
+    API2.Models.Accounting Accounting = 1;
+    string BOAuthToken = 2;
+    string LastChangeLogID = 3;
+    API2.Models.Personal Personal = 4;
+    API2.Models.Preference Preferences = 5;
+    API2.Models.Profile Profile = 6;
+}
+
+message API2.Models.Counts {
+    int64 AddedCount = 1;
+    int64 FollowersCount = 2;
+    int64 FollowingCount = 3;
+    int64 PrivateRecipeCount = 4;
+    int64 PublicRecipeCount = 5;
+    int64 TotalRecipes = 6;
+}
+
+message API2.Models.Location {
+    string City = 1;
+    string Country = 2;
+    int32 DMA = 3;
+}
+
+message API2.Models.Option {
+    string Description = 1;
+    string Key = 2;
+}
+
+message API2.Models.Personal {
+    string Email = 1;
+    API2.Models.Location Location = 2;
+}
+
+message API2.Models.Preference {
+    string EatingStyle = 1;
+}
+
+message API2.Models.Profile {
+    string AboutMe = 1;
+    API2.Models.Counts Counts = 2;
+    string FirstName = 3;
+    string FullName = 4;
+    string HomeUrl = 5;
+    string LastName = 6;
+    string PhotoUrl = 7;
+    int64 UserID = 8;
+    string UserName = 9;
+}
+
+message BigOven.Model.API.GlossaryEntry {
+    string CreationDate = 1;
+    string Definition = 2;
+    int32 GlossaryEntryID = 3;
+    string LastModified = 4;
+    string Term = 5;
+}
+
+message BigOven.Model.API.Grocery.GroceryList {
+    repeated BigOven.Model.API.Grocery.Item Items = 1;
+    string LastModified = 2;
+    repeated BigOven.Model.API.RecipeInfo Recipes = 3;
+    string VersionGuid = 4;
+}
+
+message BigOven.Model.API.Grocery.Item {
+    string BigOvenObject = 1;
+    string CreationDate = 2;
+    string Department = 3;
+    string DisplayQuantity = 4;
+    string GUID = 5;
+    bool IsChecked = 6;
+    int64 ItemID = 7;
+    string LastModified = 8;
+    string LocalStatus = 9;
+    string Name = 10;
+    string Notes = 11;
+    int32 RecipeID = 12;
+    string ThirdPartyURL = 13;
+}
+
+message BigOven.Model.API.Image {
+    string Caption = 1;
+    string CreationDate = 2;
+    int64 ImageID = 3;
+    repeated int32 ImageSquares = 4;
+    string ImageURL = 5;
+    string ImageURL120 = 6;
+    string ImageURL128 = 7;
+    string ImageURL200 = 8;
+    string ImageURL256 = 9;
+    string ImageURL48 = 10;
+    string ImageURL64 = 11;
+    bool IsPrimary = 12;
+    int32 MaxImageSquare = 13;
+    BigOven.Model.API.UserInfo Poster = 14;
+}
+
+message BigOven.Model.API.Ingredient {
+    int32 DisplayIndex = 1;
+    string DisplayQuantity = 2;
+    string HTMLName = 3;
+    int64 IngredientID = 4;
+    BigOven.Model.API.IngredientInfo IngredientInfo = 5;
+    bool IsHeading = 6;
+    bool IsLinked = 7;
+    string MetricDisplayQuantity = 8;
+    double MetricQuantity = 9;
+    string MetricUnit = 10;
+    string Name = 11;
+    string PreparationNotes = 12;
+    double Quantity = 13;
+    string Unit = 14;
+}
+
+message BigOven.Model.API.IngredientInfo {
+    string Department = 1;
+    int32 MasterIngredientID = 2;
+    string Name = 3;
+    bool UsuallyOnHand = 4;
+}
+
+message BigOven.Model.API.NutritionInfo {
+    double CaloriesFromFat = 1;
+    double Cholesterol = 2;
+    double CholesterolPct = 3;
+    double DietaryFiber = 4;
+    double DietaryFiberPct = 5;
+    double MonoFat = 6;
+    double PolyFat = 7;
+    double Potassium = 8;
+    double PotassiumPct = 9;
+    double Protein = 10;
+    double ProteinPct = 11;
+    double SatFat = 12;
+    double SatFatPct = 13;
+    string SingularYieldUnit = 14;
+    double Sodium = 15;
+    double SodiumPct = 16;
+    double Sugar = 17;
+    double TotalCalories = 18;
+    double TotalCarbs = 19;
+    double TotalCarbsPct = 20;
+    double TotalFat = 21;
+    double TotalFatPct = 22;
+    double TransFat = 23;
+}
+
+message BigOven.Model.API.Recipe {
+    int32 ActiveMinutes = 1;
+    string AdTags = 2;
+    int32 AdminBoost = 3;
+    string AllCategoriesText = 4;
+    string BookmarkImageURL = 5;
+    string BookmarkSiteLogo = 6;
+    string BookmarkURL = 7;
+    string Category = 8;
+    string Collection = 9;
+    int32 CollectionID = 10;
+    string CreationDate = 11;
+    string Cuisine = 12;
+    string Description = 13;
+    int32 FavoriteCount = 14;
+    string HeroPhotoUrl = 15;
+    repeated int32 ImageSquares = 16;
+    string ImageURL = 17;
+    repeated BigOven.Model.API.Ingredient Ingredients = 18;
+    string IngredientsTextBlock = 19;
+    string Instructions = 20;
+    bool IsBookmark = 21;
+    bool IsPrivate = 22;
+    bool IsRecipeScan = 23;
+    bool IsSponsored = 24;
+    string LastModified = 25;
+    int32 MaxImageSquare = 26;
+    int32 MedalCount = 27;
+    int32 MenuCount = 28;
+    string Microcategory = 29;
+    int32 NotesCount = 30;
+    BigOven.Model.API.NutritionInfo NutritionInfo = 31;
+    BigOven.Model.API.UserInfo Poster = 32;
+    string PrimaryIngredient = 33;
+    int32 RecipeID = 34;
+    int32 ReviewCount = 35;
+    double StarRating = 36;
+    string Subcategory = 37;
+    string Title = 38;
+    int32 TotalMinutes = 39;
+    int32 VariantOfRecipeID = 40;
+    string VerifiedByClass = 41;
+    string VerifiedDateTime = 42;
+    string WebURL = 43;
+    double YieldNumber = 44;
+    string YieldUnit = 45;
+}
+
+message BigOven.Model.API.RecipeInfo {
+    string BookmarkURL = 1;
+    string Category = 2;
+    string CreationDate = 3;
+    string Cuisine = 4;
+    string HeroPhotoUrl = 5;
+    bool HideFromPublicSearch = 6;
+    string ImageURL = 7;
+    string ImageURL120 = 8;
+    bool IsBookmark = 9;
+    bool IsPrivate = 10;
+    int32 MaxImageSquare = 11;
+    string Microcategory = 12;
+    BigOven.Model.API.UserInfo Poster = 13;
+    double QualityScore = 14;
+    int32 RecipeID = 15;
+    int32 ReviewCount = 16;
+    double StarRating = 17;
+    string StarRatingIMG = 18;
+    string Subcategory = 19;
+    string Title = 20;
+    int32 TotalTries = 21;
+    string WebURL = 22;
+    double YieldNumber = 23;
+}
+
+message BigOven.Model.API.RecipeNote {
+    string CreationDate = 1;
+    string Date = 2;
+    string DateDT = 3;
+    string GUID = 4;
+    int32 ID = 5;
+    string Notes = 6;
+    string People = 7;
+    int32 RecipeID = 8;
+    int32 UserID = 9;
+    string Variations = 10;
+}
+
+message BigOven.Model.API.RecipeNoteList {
+    int32 ResultCount = 1;
+    repeated BigOven.Model.API.RecipeNote Results = 2;
+}
+
+message BigOven.Model.API.Reply {
+    string Comment = 1;
+    string CreationDate = 2;
+    string ID = 3;
+    string LastModified = 4;
+    BigOven.Model.API.UserInfoTiny Poster = 5;
+    string ReviewID = 6;
+}
+
+message BigOven.Model.API.Review {
+    int32 ActiveMinutes = 1;
+    string Comment = 2;
+    string CreationDate = 3;
+    BigOven.Model.API.Reply FeaturedReply = 4;
+    string GUID = 5;
+    string ID = 6;
+    string LastModified = 7;
+    int64 ParentID = 8;
+    BigOven.Model.API.UserInfo Poster = 9;
+    repeated BigOven.Model.API.Review Replies = 10;
+    int32 ReplyCount = 11;
+    int64 ReviewID = 12;
+    double StarRating = 13;
+    int32 TotalMinutes = 14;
+}
+
+message BigOven.Model.API.UserInfo {
+    string FirstName = 1;
+    string ImageURL48 = 2;
+    bool IsKitchenHelper = 3;
+    bool IsPremium = 4;
+    bool IsUsingRecurly = 5;
+    string LastName = 6;
+    string MemberSince = 7;
+    string PhotoUrl = 8;
+    string PremiumExpiryDate = 9;
+    int32 UserID = 10;
+    string UserName = 11;
+}
+
+message BigOven.Model.API.UserInfoTiny {
+    string FirstName = 1;
+    string LastName = 2;
+    string PhotoUrl = 3;
+    int32 UserID = 4;
+    string UserName = 5;
+}
+
+message BigOven.Model.API2.CollectionInfo {
+    string Description = 1;
+    int32 ID = 2;
+    bool IsFiltered = 3;
+    bool IsSponsored = 4;
+    string MobileUrl = 5;
+    bool PRO = 6;
+    string PhotoUrl = 7;
+    repeated BigOven.Model.API2.RecipeInfox Results = 8;
+    string Title = 9;
+    string Token = 10;
+    string WebUrl = 11;
+}
+
+message BigOven.Model.API2.GroceryList {
+    repeated BigOven.Model.API.Grocery.Item Items = 1;
+    string LastModified = 2;
+    repeated BigOven.Model.API2.RecipeInfox Recipes = 3;
+    string VersionGuid = 4;
+}
+
+message BigOven.Model.API2.Photo {
+    string Caption = 1;
+    string CreationDate = 2;
+    int64 ImageID = 3;
+    bool IsPrimary = 4;
+    int32 MaxImageSquare = 5;
+    string PhotoUrl = 6;
+    BigOven.Model.API2.UserInfoTinyx Poster = 7;
+}
+
+message BigOven.Model.API2.Recipe {
+    int32 ActiveMinutes = 1;
+    string AdTags = 2;
+    int32 AdminBoost = 3;
+    string AllCategoriesText = 4;
+    string BookmarkImageURL = 5;
+    string BookmarkSiteLogo = 6;
+    string BookmarkURL = 7;
+    string Category = 8;
+    string Collection = 9;
+    int32 CollectionID = 10;
+    string CreationDate = 11;
+    string Cuisine = 12;
+    string Description = 13;
+    int32 FavoriteCount = 14;
+    repeated int32 ImageSquares = 15;
+    string ImageURL = 16;
+    repeated BigOven.Model.API.Ingredient Ingredients = 17;
+    string IngredientsTextBlock = 18;
+    string Instructions = 19;
+    bool IsBookmark = 20;
+    bool IsPrivate = 21;
+    bool IsRecipeScan = 22;
+    bool IsSponsored = 23;
+    string LastModified = 24;
+    int32 MaxImageSquare = 25;
+    int32 MedalCount = 26;
+    int32 MenuCount = 27;
+    string Microcategory = 28;
+    int32 NotesCount = 29;
+    BigOven.Model.API.NutritionInfo NutritionInfo = 30;
+    string PhotoUrl = 31;
+    BigOven.Model.API.UserInfo Poster = 32;
+    string PrimaryIngredient = 33;
+    int32 RecipeID = 34;
+    int32 ReviewCount = 35;
+    double StarRating = 36;
+    string Subcategory = 37;
+    string Title = 38;
+    int32 TotalMinutes = 39;
+    int32 VariantOfRecipeID = 40;
+    string VerifiedByClass = 41;
+    string VerifiedDateTime = 42;
+    string WebURL = 43;
+    double YieldNumber = 44;
+    string YieldUnit = 45;
+}
+
+message BigOven.Model.API2.RecipeInfox {
+    string Category = 1;
+    string CreationDate = 2;
+    string Cuisine = 3;
+    bool IsBookmark = 4;
+    bool IsPrivate = 5;
+    bool IsRecipeScan = 6;
+    string Microcategory = 7;
+    string PhotoUrl = 8;
+    BigOven.Model.API2.UserInfoTinyx Poster = 9;
+    int32 RecipeID = 10;
+    int32 ReviewCount = 11;
+    double Servings = 12;
+    double StarRating = 13;
+    string Subcategory = 14;
+    string Title = 15;
+    int32 TotalTries = 16;
+    string WebURL = 17;
+}
+
+message BigOven.Model.API2.RecipeNote {
+    string CreationDate = 1;
+    string Date = 2;
+    string DateDT = 3;
+    string GUID = 4;
+    int32 ID = 5;
+    string Notes = 6;
+    string People = 7;
+    int32 RecipeID = 8;
+    int32 UserID = 9;
+    string Variations = 10;
+}
+
+message BigOven.Model.API2.RecipeSearchResult {
+    int32 ResultCount = 1;
+    repeated BigOven.Model.API2.RecipeInfox Results = 2;
+    string SpellSuggest = 3;
+}
+
+message BigOven.Model.API2.UserInfoTinyx {
+    string FirstName = 1;
+    string LastName = 2;
+    string PhotoUrl = 3;
+    int32 UserID = 4;
+    string UserName = 5;
+}
+
+message BigOven.Model.RecipeCategory {
+    string Category = 1;
+    int32 DefaultActiveMinutes = 2;
+    int32 DefaultTotalMinutes = 3;
+    int32 ID = 4;
+    int32 ParentID = 5;
+    string PrimaryImage = 6;
+    string ShortDescription = 7;
+}
+
+message BigOven.Model.RecipeInfoDateTuple2 {
+    string date = 1;
+    BigOven.Model.API2.RecipeInfox recipeInfo = 2;
+}
+
+message BigOven.Model.RecipeInfoReviewTuple2 {
+    BigOven.Model.API2.RecipeInfox RecipeInfo = 1;
+    BigOven.Model.API.Review Review = 2;
+}
+
+message BigOven.Model.ShoppingListLine {
+    string DateAdded = 1;
+    string Dept = 2;
+    string GUID = 3;
+    string HTMLItemName = 4;
+    bool IsChecked = 5;
+    string ItemName = 6;
+    string LastModified = 7;
+    int64 ListID = 8;
+    int32 MealPlanID = 9;
+    int32 MealPlanObjectType = 10;
+    string Notes = 11;
+    bool PendingAddition = 12;
+    int32 RecipeID = 13;
+    int64 ShoppingListLineID = 14;
+    string Store = 15;
+    string TextAmt = 16;
+    string ThirdPartyHost = 17;
+    string ThirdPartyTitle = 18;
+    string ThirdPartyURL = 19;
+}
+
+message System.Object {
+}
+
+service BigOvenService {
+    // Gets a recipe collection. A recipe collection is a curated set of recipes.
+    rpc GetCollectionId(GetCollectionIdRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/collection/{id}"
+      };
+    }
+    // Gets a recipe collection metadata. A recipe collection is a curated set of recipes.
+    rpc GetCollectionIdMeta(GetCollectionIdMetaRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/collection/{id}/meta"
+      };
+    }
+    // Get the list of current, seasonal recipe collections. From here, you can use the /collection/{id} endpoint to retrieve the recipes in those collections.
+    rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse) {
+      option (google.api.http) = {
+        get: "/collections"
+      };
+    }
+    // Get food glossary article by term (e.g., asparagus). This editorial is (c) BigOven and MUST carry attribution and a link back to the glossary entry on BigOven.com.
+    rpc GetGlossaryBytermTerm(GetGlossaryBytermTermRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/glossary/byterm/{term}"
+      };
+    }
+    // Get food glossary article
+    rpc GetGlossaryId(GetGlossaryIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/glossary/{id}"
+      };
+    }
+    // Get the user's grocery list.  User is determined by Basic Authentication.
+    rpc GetGrocerylist(google.protobuf.Empty) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/grocerylist"
+      };
+    }
+    // Delete all the items on a grocery list; faster operation than a sync with deleted items.
+    rpc DeleteGrocerylist(google.protobuf.Empty) returns (System) {
+      option (google.api.http) = {
+        delete: "/grocerylist"
+      };
+    }
+    // Departmentalize a list of strings -- used for ad-hoc grocery list item addition
+    rpc PostGrocerylistDepartment(PostGrocerylistDepartmentRequest) returns (PostGrocerylistDepartmentResponse) {
+      option (google.api.http) = {
+        post: "/grocerylist/department"
+        body: "model"
+      };
+    }
+    // Add a single line item to the grocery list
+    rpc PostGrocerylistItem(PostGrocerylistItemRequest) returns (BigOven.Model) {
+      option (google.api.http) = {
+        post: "/grocerylist/item"
+        body: "newItem"
+      };
+    }
+    // Update a grocery item by GUID
+    rpc PutGrocerylistItemGuid(PutGrocerylistItemGuidRequest) returns (System) {
+      option (google.api.http) = {
+        put: "/grocerylist/item/{guid}"
+        body: "req"
+      };
+    }
+    // /grocerylist/item/{guid}  DELETE will delete this item assuming you own it.
+    rpc DeleteGrocerylistItemGuid(DeleteGrocerylistItemGuidRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/grocerylist/item/{guid}"
+      };
+    }
+    // Add a Recipe to the grocery list.  In the request data, pass in recipeId, scale (scale=1.0 says to keep the recipe the same size as originally posted), markAsPending (true/false) to indicate that
+    //             the lines in the recipe should be marked in a "pending" (unconfirmed by user) state.
+    rpc PostGrocerylistRecipe(PostGrocerylistRecipeRequest) returns (System) {
+      option (google.api.http) = {
+        post: "/grocerylist/recipe"
+        body: "data"
+      };
+    }
+    // Synchronize the grocery list.  Call this with a POST to /grocerylist/sync
+    rpc PostGrocerylistSync(PostGrocerylistSyncRequest) returns (System) {
+      option (google.api.http) = {
+        post: "/grocerylist/sync"
+        body: "req"
+      };
+    }
+    // POST: /image/avatar
+    //              
+    //             Testing with Postman (validated 11/20/2015):
+    //             1) Remove the Content-Type header; add authentication information
+    //             2) On the request, click Body and choose "form-data", then add a line item with "key" column set to "file" and on the right,
+    //             change the type of the input from Text to File.  Browse and choose a JPG.
+    rpc PostImageAvatar(google.protobuf.Empty) returns (System) {
+      option (google.api.http) = {
+        post: "/image/avatar"
+      };
+    }
+    rpc GetMe(google.protobuf.Empty) returns (API2.Models) {
+      option (google.api.http) = {
+        get: "/me"
+      };
+    }
+    rpc PutMe(PutMeRequest) returns (API2.Models) {
+      option (google.api.http) = {
+        put: "/me"
+        body: "req"
+      };
+    }
+    rpc PutMePersonal(PutMePersonalRequest) returns (API2.Models) {
+      option (google.api.http) = {
+        put: "/me/personal"
+        body: "req"
+      };
+    }
+    rpc PutMePreferences(PutMePreferencesRequest) returns (API2.Models) {
+      option (google.api.http) = {
+        put: "/me/preferences"
+        body: "req"
+      };
+    }
+    rpc GetMePreferencesOptions(google.protobuf.Empty) returns (GetMePreferencesOptionsResponse) {
+      option (google.api.http) = {
+        get: "/me/preferences/options"
+      };
+    }
+    rpc PutMeProfile(PutMeProfileRequest) returns (API2.Models) {
+      option (google.api.http) = {
+        put: "/me/profile"
+        body: "req"
+      };
+    }
+    rpc GetMeSkinny(google.protobuf.Empty) returns (API2.Models) {
+      option (google.api.http) = {
+        get: "/me/skinny"
+      };
+    }
+    // Update a recipe
+    rpc PutRecipe(PutRecipeRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        put: "/recipe"
+        body: "recipe"
+      };
+    }
+    // Add a new recipe
+    rpc PostRecipe(PostRecipeRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        post: "/recipe"
+        body: "recipe"
+      };
+    }
+    // Given a query, return recipe titles starting with query. Query must be at least 3 chars in length.
+    rpc GetRecipeAutocomplete(GetRecipeAutocompleteRequest) returns (GetRecipeAutocompleteResponse) {
+      option (google.api.http) = {
+        get: "/recipe/autocomplete"
+      };
+    }
+    // Get a list of recipe categories (the ID field can be used for include_cat in search parameters)
+    rpc GetRecipeCategories(google.protobuf.Empty) returns (GetRecipeCategoriesResponse) {
+      option (google.api.http) = {
+        get: "/recipe/categories"
+      };
+    }
+    // Update (PUT) a reply to a given review. Authenticated user must be the original one that posted the reply.
+    rpc PutRecipeReviewRepliesReplyId(PutRecipeReviewRepliesReplyIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        put: "/recipe/review/replies/{replyId}"
+        body: "data"
+      };
+    }
+    // DELETE a reply to a given review. Authenticated user must be the one who originally posted the reply.
+    rpc DeleteRecipeReviewRepliesReplyId(DeleteRecipeReviewRepliesReplyIdRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/recipe/review/replies/{replyId}"
+      };
+    }
+    // Get a given review by string-style ID. This will return a payload with FeaturedReply, ReplyCount.
+    //             Recommended display is to list top-level reviews with one featured reply underneath. 
+    //             Currently, the FeaturedReply is the most recent one for that rating.
+    rpc GetRecipeReviewReviewId(GetRecipeReviewReviewIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipe/review/{reviewId}"
+      };
+    }
+    // Update a given top-level review.
+    rpc PutRecipeReviewReviewId(PutRecipeReviewReviewIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        put: "/recipe/review/{reviewId}"
+        body: "review"
+      };
+    }
+    // Get a paged list of replies for a given review.
+    rpc GetRecipeReviewReviewIdReplies(GetRecipeReviewReviewIdRepliesRequest) returns (GetRecipeReviewReviewIdRepliesResponse) {
+      option (google.api.http) = {
+        get: "/recipe/review/{reviewId}/replies"
+      };
+    }
+    // POST a reply to a given review. The date will be set by server. Note that replies no longer have star ratings, only top-level reviews do.
+    rpc PostRecipeReviewReviewIdReplies(PostRecipeReviewReviewIdRepliesRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        post: "/recipe/review/{reviewId}/replies"
+        body: "data"
+      };
+    }
+    // POST an image as a new RecipeScan request
+    //                 1)  Fetch the filename -- DONE
+    //                 2)  Copy it to the pics/scan folder - ENSURE NO NAMING COLLISIONS -- DONE
+    //                 3)  Create 120 thumbnail size  in pics/scan/120 -- DONE
+    //                 4)  Insert the CloudTasks record
+    //                 5)  Create the HIT
+    //                 6)  Update the CloudTasks record with the HIT ID
+    //                 7)  Email the requesing user
+    //                 8)  Call out to www.bigoven.com to fetch the image and re-create the thumbnail
+    rpc PostRecipeScan(PostRecipeScanRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/recipe/scan"
+      };
+    }
+    // Return full Recipe detail. Returns 403 if the recipe is owned by someone else.
+    rpc GetRecipeId(GetRecipeIdRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/recipe/{id}"
+      };
+    }
+    // Delete a Recipe (you must be authenticated as an owner of the recipe)
+    rpc DeleteRecipeId(DeleteRecipeIdRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/recipe/{id}"
+      };
+    }
+    rpc GetRecipeIdZap(GetRecipeIdZapRequest) returns (System) {
+      option (google.api.http) = {
+        get: "/recipe/{id}/zap"
+      };
+    }
+    // Feedback on a Recipe -- for internal BigOven editors
+    rpc PostRecipeRecipeIdFeedback(PostRecipeRecipeIdFeedbackRequest) returns (System) {
+      option (google.api.http) = {
+        post: "/recipe/{recipeId}/feedback"
+        body: "data"
+      };
+    }
+    // POST: /recipe/{recipeId}/image?lat=42&amp;lng=21&amp;caption=this%20is%20my%20caption
+    //              
+    //              Note that caption, lng and lat are all optional, but must go on the request URI as params because this endpoint
+    //              needs a multipart/mime content header and will not parse JSON in the body along with it.
+    //             
+    //              Testing with Postman (validated 11/20/2015):
+    //              1) Remove the Content-Type header; add authentication information
+    //              2) On the request, click Body and choose "form-data", then add a line item with "key" column set to "file" and on the right,
+    //              change the type of the input from Text to File.  Browse and choose a JPG.
+    rpc PostRecipeRecipeIdImage(PostRecipeRecipeIdImageRequest) returns (System) {
+      option (google.api.http) = {
+        post: "/recipe/{recipeId}/image"
+      };
+    }
+    // Get all the images for a recipe. DEPRECATED. Please use /recipe/{recipeId}/photos.
+    rpc GetRecipeRecipeIdImages(GetRecipeRecipeIdImagesRequest) returns (GetRecipeRecipeIdImagesResponse) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/images"
+      };
+    }
+    // HTTP POST a new note into the system.
+    rpc PostRecipeRecipeIdNote(PostRecipeRecipeIdNoteRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        post: "/recipe/{recipeId}/note"
+        body: "note"
+      };
+    }
+    // Get a given note. Make sure you're passing authentication information in the header for the user who owns the note.
+    rpc GetRecipeRecipeIdNoteNoteId(GetRecipeRecipeIdNoteNoteIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/note/{noteId}"
+      };
+    }
+    // HTTP PUT (update) a Recipe note (RecipeNote).
+    rpc PutRecipeRecipeIdNoteNoteId(PutRecipeRecipeIdNoteNoteIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        put: "/recipe/{recipeId}/note/{noteId}"
+        body: "recipeNote"
+      };
+    }
+    // Delete a review
+    //                 do a DELETE Http request of /note/{ID}
+    rpc DeleteRecipeRecipeIdNoteNoteId(DeleteRecipeRecipeIdNoteNoteIdRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/recipe/{recipeId}/note/{noteId}"
+      };
+    }
+    // recipe/100/notes
+    rpc GetRecipeRecipeIdNotes(GetRecipeRecipeIdNotesRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/notes"
+      };
+    }
+    // Get all the photos for a recipe
+    rpc GetRecipeRecipeIdPhotos(GetRecipeRecipeIdPhotosRequest) returns (API2.Controllers.ImagesController) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/photos"
+      };
+    }
+    // Get recipes related to the given recipeId
+    rpc GetRecipeRecipeIdRelated(GetRecipeRecipeIdRelatedRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/related"
+      };
+    }
+    // Get *my* review for the recipe {recipeId}, where "me" is determined by standard authentication headers
+    rpc GetRecipeRecipeIdReview(GetRecipeRecipeIdReviewRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/review"
+      };
+    }
+    // Add a new review. Only one review can be provided per {userId, recipeId} pair. Otherwise your review will be updated.
+    rpc PostRecipeRecipeIdReview(PostRecipeRecipeIdReviewRequest) returns (System) {
+      option (google.api.http) = {
+        post: "/recipe/{recipeId}/review"
+        body: "data"
+      };
+    }
+    // Get a given review - DEPRECATED. See recipe/review/{reviewId} for the current usage.
+    //             Beginning in January 2017, BigOven moded from an integer-based ID system to a GUID-style string-based ID system for reviews and replies.
+    //             We are also supporting more of a "Google Play" style model for Reviews and Replies. That is, there are top-level Reviews and then
+    //             an unlimited list of replies (which do not carry star ratings) underneath existing reviews. Also, a given user can only have one review 
+    //             per recipe. Existing legacy endpoints will continue to work, but we strongly recommend you migrate to using the newer endpoints listed
+    //             which do NOT carry the "DEPRECATED" flag.
+    rpc GetRecipeRecipeIdReviewReviewId(GetRecipeRecipeIdReviewReviewIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/review/{reviewId}"
+      };
+    }
+    // HTTP PUT (update) a recipe review. DEPRECATED. Please see recipe/review/{reviewId} PUT for the new endpoint.
+    //             We are moving to a string-based primary key system, no longer integers, for reviews and replies.
+    rpc PutRecipeRecipeIdReviewReviewId(PutRecipeRecipeIdReviewReviewIdRequest) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        put: "/recipe/{recipeId}/review/{reviewId}"
+        body: "review"
+      };
+    }
+    // Delete a review by recipeId and reviewId. DEPRECATED. Please see recipe/review/{reviewId} for the preferred method.
+    //             (We are moving from an integer-based ID system to a GUID-style string-based ID system for reviews and replies.)
+    rpc DeleteRecipeRecipeIdReviewReviewId(DeleteRecipeRecipeIdReviewReviewIdRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/recipe/{recipeId}/review/{reviewId}"
+      };
+    }
+    // Get paged list of reviews for a recipe. Each review will have at most one FeaturedReply, as well as a ReplyCount.
+    rpc GetRecipeRecipeIdReviews(GetRecipeRecipeIdReviewsRequest) returns (GetRecipeRecipeIdReviewsResponse) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/reviews"
+      };
+    }
+    // Gets a list of RecipeScan images for the recipe. There will be at most 3 per recipe.
+    rpc GetRecipeRecipeIdScans(GetRecipeRecipeIdScansRequest) returns (GetRecipeRecipeIdScansResponse) {
+      option (google.api.http) = {
+        get: "/recipe/{recipeId}/scans"
+      };
+    }
+    // Search for recipes. There are many parameters that you can apply. Starting with the most common, use title_kw to search within a title.
+    //             Use any_kw to search across the entire recipe.
+    //             If you'd like to limit by course, set the parameter "include_primarycat" to one of (appetizers,bread,breakfast,dessert,drinks,maindish,salad,sidedish,soup,marinades,other).
+    //             If you'd like to exclude a category, set exclude_cat to one or more (comma-separated) list of those categories to exclude.
+    //             If you'd like to include a category, set include_cat to one or more (comma-separated) of those categories to include.
+    //             To explicitly include an ingredient in your search, set the parameter "include_ing" to a CSV of up to three ingredients, e.g.:include_ing=mustard,chicken,beef%20tips
+    //             To explicitly exclude an ingredient in your search, set the parameter "exclude_ing" to a CSV of up to three ingredients.
+    //             All searches must contain the paging parameters pg and rpp, which are integers, and represent the page number (1-based) and results per page (rpp).
+    //             So, to get the third page of a result set paged with 25 recipes per page, you'd pass pg=3&amp;rpp=25
+    //             If you'd like to target searches to just a single target user's recipes, set userId=the target userId (number).
+    //             Or, you can set username=theirusername
+    //             vtn;vgn;chs;glf;ntf;dyf;sff;slf;tnf;wmf;rmf;cps
+    //             cuisine
+    //             photos
+    //             filter=added,try,favorites,myrecipes\r\n\r\n
+    //             folder=FolderNameCaseSensitive
+    //             coll=ID of Collection
+    rpc GetRecipes(GetRecipesRequest) returns (BigOven.Model.API2) {
+      option (google.api.http) = {
+        get: "/recipes"
+      };
+    }
+    // Get a random, home-page-quality Recipe.
+    rpc GetRecipesRandom(google.protobuf.Empty) returns (BigOven.Model.API) {
+      option (google.api.http) = {
+        get: "/recipes/random"
+      };
+    }
+    // Get the recipe/comment tuples for those recipes with 4 or 5 star ratings
+    rpc GetRecipesRaves(GetRecipesRavesRequest) returns (GetRecipesRavesResponse) {
+      option (google.api.http) = {
+        get: "/recipes/raves"
+      };
+    }
+    // Get a list of recipes that the authenticated user has most recently viewed
+    rpc GetRecipesRecentviews(GetRecipesRecentviewsRequest) returns (GetRecipesRecentviewsResponse) {
+      option (google.api.http) = {
+        get: "/recipes/recentviews"
+      };
+    }
+}

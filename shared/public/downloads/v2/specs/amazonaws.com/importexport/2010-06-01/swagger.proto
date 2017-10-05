@@ -1,0 +1,320 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsimport/export;
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    string Signature = 3;
+    string SignatureMethod = 4;
+    string SignatureVersion = 5;
+    string Timestamp = 6;
+    string Version = 7;
+    CancelJobInput body = 8;
+}
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    string Signature = 3;
+    string SignatureMethod = 4;
+    string SignatureVersion = 5;
+    string Timestamp = 6;
+    string Version = 7;
+    CreateJobInput body = 8;
+}
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    string Signature = 3;
+    string SignatureMethod = 4;
+    string SignatureVersion = 5;
+    string Timestamp = 6;
+    string Version = 7;
+    GetShippingLabelInput body = 8;
+}
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    string Signature = 3;
+    string SignatureMethod = 4;
+    string SignatureVersion = 5;
+    string Timestamp = 6;
+    string Version = 7;
+    GetStatusInput body = 8;
+}
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    // Pagination token
+    string Marker = 3;
+    // Pagination limit
+    string MaxJobs = 4;
+    string Signature = 5;
+    string SignatureMethod = 6;
+    string SignatureVersion = 7;
+    string Timestamp = 8;
+    string Version = 9;
+    ListJobsInput body = 10;
+}
+
+message PostRequest {
+    string AWSAccessKeyId = 1;
+    string Action = 2;
+    string Signature = 3;
+    string SignatureMethod = 4;
+    string SignatureVersion = 5;
+    string Timestamp = 6;
+    string Version = 7;
+    UpdateJobInput body = 8;
+}
+
+message Artifact {
+    string Description = 1;
+    string URL = 2;
+}
+
+repeated Artifact ArtifactList = 1
+
+message BucketPermissionException {
+    string message = 1;
+}
+
+message CancelJobInput {
+    string APIVersion = 1;
+    string JobId = 2;
+}
+
+message CancelJobOutput {
+    boolean Success = 1;
+}
+
+message CanceledJobIdException {
+    string message = 1;
+}
+
+message CreateJobInput {
+    string APIVersion = 1;
+    JobType JobType = 2;
+    string Manifest = 3;
+    string ManifestAddendum = 4;
+    boolean ValidateOnly = 5;
+}
+
+message CreateJobOutput {
+    array ArtifactList = 1;
+    string JobId = 2;
+    JobType JobType = 3;
+    string Signature = 4;
+    string SignatureFileContents = 5;
+    string WarningMessage = 6;
+}
+
+message CreateJobQuotaExceededException {
+    string message = 1;
+}
+
+message ExpiredJobIdException {
+    string message = 1;
+}
+
+message GetShippingLabelInput {
+    string APIVersion = 1;
+    string city = 2;
+    string company = 3;
+    string country = 4;
+    array jobIds = 5;
+    string name = 6;
+    string phoneNumber = 7;
+    string postalCode = 8;
+    string stateOrProvince = 9;
+    string street1 = 10;
+    string street2 = 11;
+    string street3 = 12;
+}
+
+message GetShippingLabelOutput {
+    string ShippingLabelURL = 1;
+    string Warning = 2;
+}
+
+message GetStatusInput {
+    string APIVersion = 1;
+    string JobId = 2;
+}
+
+message GetStatusOutput {
+    array ArtifactList = 1;
+    string Carrier = 2;
+    string CreationDate = 3;
+    string CurrentManifest = 4;
+    integer ErrorCount = 5;
+    string JobId = 6;
+    JobType JobType = 7;
+    string LocationCode = 8;
+    string LocationMessage = 9;
+    string LogBucket = 10;
+    string LogKey = 11;
+    string ProgressCode = 12;
+    string ProgressMessage = 13;
+    string Signature = 14;
+    string SignatureFileContents = 15;
+    string TrackingNumber = 16;
+}
+
+message InvalidAccessKeyIdException {
+    string message = 1;
+}
+
+message InvalidAddressException {
+    string message = 1;
+}
+
+message InvalidCustomsException {
+    string message = 1;
+}
+
+message InvalidFileSystemException {
+    string message = 1;
+}
+
+message InvalidJobIdException {
+    string message = 1;
+}
+
+message InvalidManifestFieldException {
+    string message = 1;
+}
+
+message InvalidParameterException {
+    string message = 1;
+}
+
+message InvalidVersionException {
+    string message = 1;
+}
+
+message Job {
+    string CreationDate = 1;
+    boolean IsCanceled = 2;
+    string JobId = 3;
+    JobType JobType = 4;
+}
+
+
+
+repeated string JobIdList = 1
+
+enum JobType {
+    IMPORT = 0;
+    EXPORT = 1;
+}
+
+repeated Job JobsList = 1
+
+message ListJobsInput {
+    string APIVersion = 1;
+    string Marker = 2;
+    integer MaxJobs = 3;
+}
+
+message ListJobsOutput {
+    boolean IsTruncated = 1;
+    array Jobs = 2;
+}
+
+message MalformedManifestException {
+    string message = 1;
+}
+
+message MissingCustomsException {
+    string message = 1;
+}
+
+message MissingManifestFieldException {
+    string message = 1;
+}
+
+message MissingParameterException {
+    string message = 1;
+}
+
+message MultipleRegionsException {
+    string message = 1;
+}
+
+message NoSuchBucketException {
+    string message = 1;
+}
+
+message UnableToCancelJobIdException {
+    string message = 1;
+}
+
+message UnableToUpdateJobIdException {
+    string message = 1;
+}
+
+message UpdateJobInput {
+    string APIVersion = 1;
+    string JobId = 2;
+    JobType JobType = 3;
+    string Manifest = 4;
+    boolean ValidateOnly = 5;
+}
+
+message UpdateJobOutput {
+    array ArtifactList = 1;
+    boolean Success = 2;
+    string WarningMessage = 3;
+}
+
+service AWSImport/ExportService {
+    // This operation cancels a specified job. Only the job owner can cancel it. The operation fails if the job has already started or is complete.
+    rpc Post(PostRequest) returns (CancelJobOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=CancelJob"
+        body: "body"
+      };
+    }
+    // This operation initiates the process of scheduling an upload or download of your data. You include in the request a manifest that describes the data transfer specifics. The response to the request includes a job ID, which you can use in other operations, a signature that you use to identify your storage device, and the address where you should ship your storage device.
+    rpc Post(PostRequest) returns (CreateJobOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=CreateJob"
+        body: "body"
+      };
+    }
+    // This operation generates a pre-paid UPS shipping label that you will use to ship your device to AWS for processing.
+    rpc Post(PostRequest) returns (GetShippingLabelOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=GetShippingLabel"
+        body: "body"
+      };
+    }
+    // This operation returns information about a job, including where the job is in the processing pipeline, the status of the results, and the signature value associated with the job. You can only return information about jobs you own.
+    rpc Post(PostRequest) returns (GetStatusOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=GetStatus"
+        body: "body"
+      };
+    }
+    // This operation returns the jobs associated with the requester. AWS Import/Export lists the jobs in reverse chronological order based on the date of creation. For example if Job Test1 was created 2009Dec30 and Test2 was created 2010Feb05, the ListJobs operation would return Test2 followed by Test1.
+    rpc Post(PostRequest) returns (ListJobsOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=ListJobs"
+        body: "body"
+      };
+    }
+    // You use this operation to change the parameters specified in the original manifest file by supplying a new manifest file. The manifest file attached to this request replaces the original manifest file. You can only use the operation after a CreateJob request but before the data transfer starts and you can only use it on jobs you own.
+    rpc Post(PostRequest) returns (UpdateJobOutput) {
+      option (google.api.http) = {
+        post: "//?Operation=UpdateJob"
+        body: "body"
+      };
+    }
+}

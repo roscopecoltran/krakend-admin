@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package fasta-station_facilities_status;
+
+message GetDisruptionsRequest {
+    // equipmentnumber of the facility to fetch
+    int64 equipmentnumber = 1;
+    // stationnumber of the station to fetch
+    int64 stationnumber = 2;
+    // type of the facility to filter by
+    repeated string type = 3;
+}
+
+message GetDisruptionsResponse {
+    repeated disruption items = 1;
+}
+
+message GetDisruptionsDisruptionnumberRequest {
+    // disruptionnumber of the disruption to fetch
+    int64 disruptionnumber = 1;
+}
+
+message GetFacilitiesRequest {
+    // Geo coordinate rectangle in WGS84-format to filter by. Parameters must be 4 numbers exactly as follows: longitudeWest, latitudeSouth, longitudeEast, latitudeNorth.
+    repeated string area = 1;
+    // equipmentnumbers of the facility to filter by
+    repeated int64 equipmentnumbers = 2;
+    // the state of the facility to filter by
+    repeated string state = 3;
+    // station number to filter by
+    int64 stationnumber = 4;
+    // type of the facility to filter by
+    repeated string type = 5;
+}
+
+message GetFacilitiesResponse {
+    repeated facility items = 1;
+}
+
+message GetFacilitiesEquipmentnumberRequest {
+    // equipmentnumber of the facility to fetch
+    int64 equipmentnumber = 1;
+}
+
+message GetStationsStationnumberRequest {
+    // stationnumber of the station to fetch
+    int64 stationnumber = 1;
+}
+
+message Disruption {
+    // The local conditions of the related facility.
+    string description = 1;
+    // Unique identifier.
+    int64 disruptionnumber = 2;
+    // Identifier of the related facility.
+    int64 equipmentnumber = 3;
+    // Further information of the cause if available.
+    string furtherDescription = 4;
+    point geographicCoordinates = 5;
+    // Last time this disruption has been updated (formatted in ISO-1806).
+    string lastUpdate = 6;
+    // Time specification when the facility will not be available for planned maintenance work (formatted in ISO-1806).
+    string outOfServiceOn = 7;
+    // Cause of the disruption.
+    string outOfServiceReason = 8;
+    // Time specification when the facility will be available again after planned maintenance work (formatted in ISO-1806).
+    string outOfServiceTo = 9;
+    // Time specification when the repair is planned to be finished (formatted in ISO-1806).
+    string plannedCompletion = 10;
+    // Actual operational status.
+    enum Disruption_State {
+        DISRUPTION_STATE_INACTIVE = 0;
+    }
+    Disruption_State state = 11;
+    // Station number of the related facility.
+    int64 stationnumber = 12;
+    // The type of the related facility e.g. escalator or elevator.
+    enum Disruption_Type {
+        DISRUPTION_TYPE_ESCALATOR = 0;
+        DISRUPTION_TYPE_ELEVATOR = 1;
+    }
+    Disruption_Type type = 13;
+}
+
+message Facility {
+    // The local conditions of the facility.
+    string description = 1;
+    // Unique identifier of the facility.
+    int64 equipmentnumber = 2;
+    // longitude component of geocoordinate in WGS84 format
+    double geocoordX = 3;
+    // latitude component of geocoordinate in WGS84 format
+    double geocoordY = 4;
+    // Actual operational status.
+    enum Facility_State {
+        FACILITY_STATE_ACTIVE = 0;
+        FACILITY_STATE_INACTIVE = 1;
+    }
+    Facility_State state = 5;
+    // Number of the station where the facility is located.
+    int64 stationnumber = 6;
+    // Facility type. Currently elevator or escalator.
+    enum Facility_Type {
+        FACILITY_TYPE_ESCALATOR = 0;
+        FACILITY_TYPE_ELEVATOR = 1;
+    }
+    Facility_Type type = 7;
+}
+
+message Point {
+    // An array of numbers. First value is longitude, second latitude.
+    repeated double coordinates = 1;
+    string type = 2;
+}
+
+message Station {
+    repeated facility facilities = 1;
+    // Name of the station.
+    string name = 2;
+    // Unique identifier of the railway station.
+    int64 stationnumber = 3;
+}
+
+service FaSta-Station_Facilities_StatusService {
+    // Returns information about disruptions of facilities filtered by parameters.
+    rpc GetDisruptions(GetDisruptionsRequest) returns (GetDisruptionsResponse) {
+      option (google.api.http) = {
+        get: "/fasta/v1/disruptions"
+      };
+    }
+    // Returns information about a specific disruption of a facility
+    rpc GetDisruptionsDisruptionnumber(GetDisruptionsDisruptionnumberRequest) returns (Disruption) {
+      option (google.api.http) = {
+        get: "/fasta/v1/disruptions/{disruptionnumber}"
+      };
+    }
+    // Access to public facilities (escalators and elevators) in railway stations
+    rpc GetFacilities(GetFacilitiesRequest) returns (GetFacilitiesResponse) {
+      option (google.api.http) = {
+        get: "/fasta/v1/facilities"
+      };
+    }
+    // Returns the facility identified by its equipmentnumber
+    rpc GetFacilitiesEquipmentnumber(GetFacilitiesEquipmentnumberRequest) returns (Facility) {
+      option (google.api.http) = {
+        get: "/fasta/v1/facilities/{equipmentnumber}"
+      };
+    }
+    // Returns information about the station and its facilities identified by a stationnumber.
+    rpc GetStationsStationnumber(GetStationsStationnumberRequest) returns (Station) {
+      option (google.api.http) = {
+        get: "/fasta/v1/stations/{stationnumber}"
+      };
+    }
+}

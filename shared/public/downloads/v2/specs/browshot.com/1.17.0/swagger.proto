@@ -1,0 +1,722 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package browshot;
+
+message GetAccountInfoRequest {
+    // level of information returned
+    int32 details = 1;
+}
+
+message PostBatchCeateRequest {
+    // set a cookie for the URL requested (see Custom POST Data, Referer and Cookie) Cookies should be separated by a ; - paid screenshots only
+    string cookie = 1;
+    // number of seconds to wait after the page has loaded. This is used to let JavaScript run longer before taking the screenshot. Use delay=0 to take screenshots faster.
+    int32 delay = 2;
+    // level of information available with screenshot/info
+    int32 details = 3;
+    // text file to use
+    ;
+    // number of seconds to wait after the page has loaded if Flash elements are present. Use flash_delay=0 to take screenshots faster.
+    int32 flash_delay = 5;
+    // image as PNG or JPEG
+    enum PostBatchCeateRequest_Format {
+        POSTBATCHCEATEREQUEST_FORMAT_PNG = 0;
+        POSTBATCHCEATEREQUEST_FORMAT_JPEG = 1;
+    }
+    PostBatchCeateRequest_Format format = 6;
+    // any custom HTTP headers. (Not supported with Internet Explorer)
+    string headers = 7;
+    // thumbnail height
+    int32 height = 8;
+    // hosting option - s3 or browshot
+    enum PostBatchCeateRequest_Hosting {
+        POSTBATCHCEATEREQUEST_HOSTING_S3 = 0;
+    }
+    PostBatchCeateRequest_Hosting hosting = 9;
+    // S3 bucket to upload the screenshot or thumbnail (required for S3)
+    string hosting_bucket = 10;
+    // file name to use (for S3 only)
+    string hosting_file = 11;
+    // list of headers to add to the S3 object (for S3 only)
+    string hosting_headers = 12;
+    // maximum height of the thumbnail to host
+    int32 hosting_height = 13;
+    // scale of the thumbnail to host
+    float hosting_scale = 14;
+    // maximum height of the thumbnail to host
+    int32 hosting_width = 15;
+    // saves the HTML of the rendered page which can be retrieved by the API call screenshot/html. This feature costs *1 credit* per screenshot.
+    int32 html = 16;
+    // instance ID to use
+    int32 instance_id = 17;
+    // maximum number of seconds to wait before triggering the PageLoad event. Note that delay will still be used. (default: 0 = disabled)
+    int32 max_wait = 18;
+    // name of the batch
+    string name = 19;
+    // send a POST requests with post_data, useful for filling out forms - paid screenshots only
+    string post_data = 20;
+    // assign priority to the screenshot (for private instances only)
+    int32 priority = 21;
+    // use a custom referrer header - paid screenshots only
+    string referer = 22;
+    // height of the browser window. For desktop browsers only. (Note: full-page screenshots can have a height of up to 15,000px)
+    int32 screen_height = 23;
+    // width of the browser window. For desktop browsers only.
+    int32 screen_width = 24;
+    // URL of javascript file to execute after the page load event
+    string script = 25;
+    // screenshots size - "screen" (default) or "page"
+    enum PostBatchCeateRequest_Size {
+        POSTBATCHCEATEREQUEST_SIZE_SCREEN = 0;
+        POSTBATCHCEATEREQUEST_SIZE_PAGE = 1;
+    }
+    PostBatchCeateRequest_Size size = 26;
+    // thumbnail width.
+    int32 width = 27;
+}
+
+message PostBatchCeateResponse {
+    repeated Batch items = 1;
+}
+
+message GetBatchInfoRequest {
+    // batch ID
+    int32 id = 1;
+}
+
+message GetBrowserInfoRequest {
+    // browser ID
+    int32 id = 1;
+}
+
+message GetInstanceInfoRequest {
+    // instance ID
+    int32 id = 1;
+}
+
+message GetScreenshotCreateRequest {
+    // use a previous screenshot (same URL, same instance) if it was done within <cache_value> seconds. The default value is 24hours. Specify cache=0 if you want a new screenshot.
+    int32 cache = 1;
+    // set a cookie for the URL requested (see Custom POST Data, Referer and Cookie) Cookies should be separated by a ; - paid screenshots only
+    string cookie = 2;
+    // number of seconds to wait after the page has loaded. This is used to let JavaScript run longer before taking the screenshot. Use delay=0 to take screenshots faster.
+    int32 delay = 3;
+    // level of information available with screenshot/info
+    int32 details = 4;
+    // number of seconds to wait after the page has loaded if Flash elements are present. Use flash_delay=0 to take screenshots faster.
+    int32 flash_delay = 5;
+    // any custom HTTP headers. (Not supported with Internet Explorer)
+    string headers = 6;
+    // hosting option - s3 or browshot
+    enum GetScreenshotCreateRequest_Hosting {
+        GETSCREENSHOTCREATEREQUEST_HOSTING_S3 = 0;
+        GETSCREENSHOTCREATEREQUEST_HOSTING_BROWSHOT = 1;
+    }
+    GetScreenshotCreateRequest_Hosting hosting = 7;
+    // S3 bucket to upload the screenshot or thumbnail (required for S3)
+    string hosting_bucket = 8;
+    // file name to use (for S3 only)
+    string hosting_file = 9;
+    // list of headers to add to the S3 object (for S3 only)
+    string hosting_headers = 10;
+    // maximum height of the thumbnail to host
+    int32 hosting_height = 11;
+    // scale of the thumbnail to host
+    float hosting_scale = 12;
+    // maximum height of the thumbnail to host
+    int32 hosting_width = 13;
+    // saves the HTML of the rendered page which can be retrieved by the API call screenshot/html. This feature costs *1 credit* per screenshot.
+    int32 html = 14;
+    // instance ID to use
+    int32 instance_id = 15;
+    // maximum number of seconds to wait before triggering the PageLoad event. Note that delay will still be used. (default: 0 = disabled)
+    int32 max_wait = 16;
+    // send a POST requests with post_data, useful for filling out forms - paid screenshots only
+    string post_data = 17;
+    // assign priority to the screenshot (for private instances only)
+    int32 priority = 18;
+    // use a custom referrer header - paid screenshots only
+    string referer = 19;
+    // height of the browser window. For desktop browsers only. (Note: full-page screenshots can have a height of up to 15,000px)
+    int32 screen_height = 20;
+    // width of the browser window. For desktop browsers only.
+    int32 screen_width = 21;
+    // URL of javascript file to execute after the page load event
+    string script = 22;
+    // number of seconds between 2 screenshots
+    int32 shot_interval = 23;
+    // take multiple screenshots of the same page. This costs 1 additional credit for every 2 additional screenshots.
+    int32 shots = 24;
+    // screenshot size - "screen" (default) or "page"
+    enum GetScreenshotCreateRequest_Size {
+        GETSCREENSHOTCREATEREQUEST_SIZE_SCREEN = 0;
+        GETSCREENSHOTCREATEREQUEST_SIZE_PAGE = 1;
+    }
+    GetScreenshotCreateRequest_Size size = 25;
+    // URL of the page to get a screenshot for
+    string url = 26;
+}
+
+message GetScreenshotDeleteRequest {
+    // data to remove. You can specify multiple of them (separated by a ,): *image* (image files), *url* (url requested), *metadata* (time added, time finished, post data, cookie and referer used for the screenshot), *all* (all data and files)
+    string data = 1;
+    // screenshot ID
+    int32 id = 2;
+}
+
+message GetScreenshotDeleteResponse {
+    repeated ScreenshotShort items = 1;
+}
+
+message GetScreenshotHostRequest {
+    // S3 bucket to upload the screenshot or thumbnail - required with hosting=s3
+    string bucket = 1;
+    // file name to use - optional, used with hosting=s3
+    string file = 2;
+    // HTTP headers to add to your S3 object - optional, used with hosting=s3
+    string headers = 3;
+    // height of the thumbnail
+    int32 height = 4;
+    // hosting option: s3 or browshot
+    enum GetScreenshotHostRequest_Hosting {
+        GETSCREENSHOTHOSTREQUEST_HOSTING_S3 = 0;
+        GETSCREENSHOTHOSTREQUEST_HOSTING_BROWSHOT = 1;
+    }
+    GetScreenshotHostRequest_Hosting hosting = 5;
+    // screenshot ID
+    int32 id = 6;
+    // scale of the thumbnail
+    double scale = 7;
+    // width of the thumbnail
+    int32 width = 8;
+}
+
+message GetScreenshotHostResponse {
+    repeated ScreenshotHost items = 1;
+}
+
+message GetScreenshotHtmlRequest {
+    // screenshot ID
+    int32 id = 1;
+}
+
+message GetScreenshotInfoRequest {
+    // level of details about the screenshot and the page
+    int32 details = 1;
+    // screenshot ID received from /api/v1/screenshot/create
+    int32 id = 2;
+}
+
+message GetScreenshotInfoResponse {
+    repeated Screenshot items = 1;
+}
+
+message GetScreenshotListRequest {
+    // maximum number of screenshots' information to return
+    int32 limit = 1;
+    // get list of screenshot in a given status (error, finished, in_process)
+    enum GetScreenshotListRequest_Statu {
+        GETSCREENSHOTLISTREQUEST_STATU_ERROR = 0;
+        GETSCREENSHOTLISTREQUEST_STATU_FINISHED = 1;
+        GETSCREENSHOTLISTREQUEST_STATU_IN_PROCESS = 2;
+    }
+    GetScreenshotListRequest_Statu status = 2;
+}
+
+message GetScreenshotListResponse {
+    repeated ScreenshotList items = 1;
+}
+
+message GetScreenshotMultipleRequest {
+    // use a previous screenshot (same URL, same instance) if it was done within <cache_value> seconds. The default value is 24hours. Specify cache=0 if you want a new screenshot.
+    int32 cache = 1;
+    // set a cookie for the URL requested (see Custom POST Data, Referer and Cookie) Cookies should be separated by a ; - paid screenshots only
+    string cookie = 2;
+    // number of seconds to wait after the page has loaded. This is used to let JavaScript run longer before taking the screenshot. Use delay=0 to take screenshots faster.
+    int32 delay = 3;
+    // level of information available with screenshot/info
+    int32 details = 4;
+    // number of seconds to wait after the page has loaded if Flash elements are present. Use flash_delay=0 to take screenshots faster.
+    int32 flash_delay = 5;
+    // any custom HTTP headers. (Not supported with Internet Explorer)
+    string headers = 6;
+    // hosting option - s3 or browshot
+    enum GetScreenshotMultipleRequest_Hosting {
+        GETSCREENSHOTMULTIPLEREQUEST_HOSTING_S3 = 0;
+        GETSCREENSHOTMULTIPLEREQUEST_HOSTING_BROWSHOT = 1;
+    }
+    GetScreenshotMultipleRequest_Hosting hosting = 7;
+    // S3 bucket to upload the screenshot or thumbnail (required for S3)
+    string hosting_bucket = 8;
+    // file name to use (for S3 only)
+    string hosting_file = 9;
+    // list of headers to add to the S3 object (for S3 only)
+    string hosting_headers = 10;
+    // maximum height of the thumbnail to host
+    int32 hosting_height = 11;
+    // scale of the thumbnail to host
+    float hosting_scale = 12;
+    // maximum height of the thumbnail to host
+    int32 hosting_width = 13;
+    // saves the HTML of the rendered page which can be retrieved by the API call screenshot/html. This feature costs *1 credit* per screenshot.
+    int32 html = 14;
+    // instance ID to use. You can specify multiple instance_id parameters (up to 10).
+    int32 instance_id = 15;
+    // maximum number of seconds to wait before triggering the PageLoad event. Note that delay will still be used. (default: 0 = disabled)
+    int32 max_wait = 16;
+    // send a POST requests with post_data, useful for filling out forms - paid screenshots only
+    string post_data = 17;
+    // assign priority to the screenshot (for private instances only)
+    int32 priority = 18;
+    // use a custom referrer header - paid screenshots only
+    string referer = 19;
+    // height of the browser window. For desktop browsers only. (Note: full-page screenshots can have a height of up to 15,000px)
+    int32 screen_height = 20;
+    // width of the browser window. For desktop browsers only.
+    int32 screen_width = 21;
+    // URL of javascript file to execute after the page load event
+    string script = 22;
+    // screenshot size - "screen" (default) or "page"
+    enum GetScreenshotMultipleRequest_Size {
+        GETSCREENSHOTMULTIPLEREQUEST_SIZE_SCREEN = 0;
+        GETSCREENSHOTMULTIPLEREQUEST_SIZE_PAGE = 1;
+    }
+    GetScreenshotMultipleRequest_Size size = 23;
+    // URL of the page to get a screenshot for. You can specify multiple url parameters (up to 10).
+    string url = 24;
+}
+
+message GetScreenshotSearchRequest {
+    // maximum number of screenshots' information to return
+    int32 limit = 1;
+    // get list of screenshot in a given status (error, finished, in_process)
+    enum GetScreenshotSearchRequest_Statu {
+        GETSCREENSHOTSEARCHREQUEST_STATU_ERROR = 0;
+        GETSCREENSHOTSEARCHREQUEST_STATU_FINISHED = 1;
+        GETSCREENSHOTSEARCHREQUEST_STATU_IN_PROCESS = 2;
+    }
+    GetScreenshotSearchRequest_Statu status = 2;
+    // look for a string matching the URL requested
+    string url = 3;
+}
+
+message GetScreenshotSearchResponse {
+    repeated ScreenshotList items = 1;
+}
+
+message GetScreenshotShareRequest {
+    // screenshot ID
+    int32 id = 1;
+    // note to add on the sharing page
+    string note = 2;
+}
+
+message GetScreenshotShareResponse {
+    repeated ScreenshotHost items = 1;
+}
+
+message GetScreenshotThumbnailRequest {
+    // bottom edge of the area to be cropped
+    int32 bottom = 1;
+    // image as PNG or JPEG
+    enum GetScreenshotThumbnailRequest_Format {
+        GETSCREENSHOTTHUMBNAILREQUEST_FORMAT_PNG = 0;
+        GETSCREENSHOTTHUMBNAILREQUEST_FORMAT_JPEG = 1;
+    }
+    GetScreenshotThumbnailRequest_Format format = 2;
+    // height of the thumbnail
+    int32 height = 3;
+    // screenshot ID
+    int32 id = 4;
+    // left edge of the area to be cropped
+    int32 left = 5;
+    // JPEG quality factor (for JPEG thumbnails only)
+    int32 quality = 6;
+    // Use fit to keep the original page ration, and fill to get a thumbnail for the exact width and height.  specified. If you provide both width and height, you need to specify the ratio: fit to keep the original width/height ratio (the thumbnail might be smaller than the specified width and height), or fill to crop the image if necessary.
+    enum GetScreenshotThumbnailRequest_Ratio {
+        GETSCREENSHOTTHUMBNAILREQUEST_RATIO_FIT = 0;
+        GETSCREENSHOTTHUMBNAILREQUEST_RATIO_FILL = 1;
+    }
+    GetScreenshotThumbnailRequest_Ratio ratio = 7;
+    // right edge of the area to be cropped
+    int32 right = 8;
+    // scale of the thumbnail
+    double scale = 9;
+    // get the second or third screenshot if multiple screenshots were requested
+    int32 shot = 10;
+    // top edge of the area to be cropped
+    int32 top = 11;
+    // width of the thumbnail
+    int32 width = 12;
+    // zoom 1 to 100 percent
+    int32 zoom = 13;
+}
+
+message Account {
+    // number of credits left on your account
+    int32 balance = 1;
+    // list of custom browsers as returned by /api/v1/browser/list
+    repeated Browser browsers = 2;
+    // number of free screenshots available for the current month
+    int32 free_screenshots_left = 3;
+    // 1 is your account is authorized to request hosting on Browshot, 0 otherwise (default)
+    int32 hosting_browshot = 4;
+    // list of private instances as returned by /api/v1/instance/list
+    repeated Instance instances = 5;
+    // 1 is your account is authorized to create and use private instances, 0 otherwise (default)
+    int32 private_instances = 6;
+    // list of 10 latest screenshots requests as returned by /api/v1/screenshot/list
+    repeated Screenshot screenshots = 7;
+}
+
+message AccountError {
+    // description of the problem that occurred
+    string error = 1;
+    // status of the request - error
+    string status = 2;
+}
+
+message Batch {
+    // number of unique URLs in the batch
+    int32 count = 1;
+    // number of screenshots failed
+    int32 failed = 2;
+    // time of batch completed (UNIX timestamp)
+    int32 finished = 3;
+    // batch ID
+    int32 id = 4;
+    // number of screenshots finishe
+    int32 processed = 5;
+    // time of processing (UNIX timestamp)
+    int32 started = 6;
+    // status of the request - "in_queue", "processing", "finished", "error"
+    enum Batch_Statu {
+        BATCH_STATU_IN_QUEUE = 0;
+        BATCH_STATU_PROCESSING = 1;
+        BATCH_STATU_FINISHED = 2;
+        BATCH_STATU_ERROR = 3;
+    }
+    Batch_Statu status = 7;
+    // URLs to download the batch
+    repeated string urls = 8;
+}
+
+message BatchError {
+    // description of the problem that occurred
+    string error = 1;
+    // status of the request - "in_queue", "processing", "finished", "error"
+    string status = 2;
+}
+
+message Browser {
+    // Flash support: 1 if enabled, 0 if disabled
+    int32 flash = 1;
+    // browser ID
+    int32 id = 2;
+    // JavaScript support: 1 if enabled, 0 if disabled
+    int32 javascript = 3;
+    // Mobile browser: 1 if true, 0 if false
+    int32 mobile = 4;
+    // browser name and version: Firefox 45, etc.
+    string name = 5;
+}
+
+message BrowserError {
+    // description of the problem that occurred
+    string error = 1;
+    // status of the request - error
+    string status = 2;
+}
+
+map<string, Browser> BrowserList = 1
+
+message Instance {
+    Browser browser = 1;
+    // instance's country of origin
+    string country = 2;
+    // screen height in pixels
+    int32 height = 3;
+    // instance ID (required to requests screenshots)
+    int32 id = 4;
+    // instance load: 
+    // < 1: new screenshot requests will be processed immediately, 
+    // 1-2: new screenshot requests will be processed in about two minutes, 
+    // 2-3: new screenshot requests will be processed in about four minutes, 
+    // 3-4: new screenshot requests will be processed in about six minutes, 
+    // etc.
+    float load = 5;
+    // number of credits for each screenshot
+    int32 screenshot_cost = 6;
+    // public, shared or private
+    enum Instance_Type {
+        INSTANCE_TYPE_PUBLIC = 0;
+        INSTANCE_TYPE_SHARED = 1;
+        INSTANCE_TYPE_PRIVATE = 2;
+    }
+    Instance_Type type = 7;
+    // screen width in pixels
+    int32 width = 8;
+}
+
+message InstanceError {
+    // description of the problem that occurred
+    string error = 1;
+    // status of the request - error
+    string status = 2;
+}
+
+message InstanceList {
+    repeated Instance free = 1;
+    repeated Instance private = 2;
+    repeated Instance shared = 3;
+}
+
+message Screenshot {
+    // custom cookie used (see Custom POST Data, Referer and Cookie)
+    string cookie = 1;
+    // number of credits spent for the screenshot
+    int32 cost = 2;
+    // number of seconds to wait after page load
+    int32 delay = 3;
+    // level of details about the screenshot and the page
+    int32 details = 4;
+    // description of the problem that occurred
+    string error = 5;
+    // URL of the screenshot (redirections can occur)
+    string final_url = 6;
+    // number of seconds to wait after page load if Flash elements are present
+    int32 flash_delay = 7;
+    // screenshot height
+    int32 height = 8;
+    // screenshot ID
+    int32 id = 9;
+    // instance ID used for the screenshot
+    int32 instance_id = 10;
+    // POST data sent (see Custom POST Data, Referer and Cookie)
+    string post_data = 11;
+    // priority given to the screenshot: high (1) to low (3)
+    int32 priority = 12;
+    // custom referrer used (see Custom POST Data, Referer and Cookie)
+    string referer = 13;
+    // image scale. Always 1 for desktop browsers; mobiles may change the scale (zoom in or zoom out) to fit the page on the screen
+    double scale = 14;
+    // URL to download the screenshot
+    ;
+    // URL of optional javascript file executed after the page load event
+    string script = 16;
+    // if the screenshot was shared, show the public URL
+    string shared_url = 17;
+    // screenshot size requested
+    enum Screenshot_Size {
+        SCREENSHOT_SIZE_SCREEN = 0;
+        SCREENSHOT_SIZE_PAGE = 1;
+    }
+    Screenshot_Size size = 18;
+    // status of the request: "in_queue", "processing", "finished", "error"
+    enum Screenshot_Statu {
+        SCREENSHOT_STATU_IN_QUEUE = 0;
+        SCREENSHOT_STATU_PROCESSING = 1;
+        SCREENSHOT_STATU_FINISHED = 2;
+        SCREENSHOT_STATU_ERROR = 3;
+    }
+    Screenshot_Statu status = 19;
+    // original URL requested
+    string url = 20;
+    // screenshot width
+    int32 width = 21;
+}
+
+message ScreenshotError {
+    // number of credits taken
+    int32 cost = 1;
+    // description of the problem that occurred
+    string error = 2;
+    // priority given to the screenshot - high (1) to low (3)
+    int32 priority = 3;
+    // status of the request - "in_queue", "processing", "finished", "error"
+    string status = 4;
+}
+
+message ScreenshotHost {
+    // screenshot ID
+    int32 id = 1;
+    // status of the request: "error", "ok" or "in_queue"
+    enum ScreenshotHost_Statu {
+        SCREENSHOTHOST_STATU_ERROR = 0;
+        SCREENSHOTHOST_STATU_OK = 1;
+        SCREENSHOTHOST_STATU_IN_QUEUE = 2;
+    }
+    ScreenshotHost_Statu status = 2;
+    // URL to the hosted screenshot or thumbnail
+    string url = 3;
+}
+
+message ScreenshotInfoError {
+    // description of the problem that occurred
+    string error = 1;
+    // screenshot ID
+    int32 id = 2;
+    // status of the request - "in_queue", "processing", "finished", "error"
+    string status = 3;
+}
+
+map<string, Screenshot> ScreenshotList = 1
+
+message ScreenshotShort {
+    // screenshot ID
+    int32 id = 1;
+    // status of the request
+    enum ScreenshotShort_Statu {
+        SCREENSHOTSHORT_STATU_OK = 0;
+        SCREENSHOTSHORT_STATU_ERROR = 1;
+    }
+    ScreenshotShort_Statu status = 2;
+}
+
+service BrowshotService {
+    // Get information about your account
+    // 
+    // Get information about your account.
+    rpc GetAccountInfo(GetAccountInfoRequest) returns (Account) {
+      option (google.api.http) = {
+        get: "/api/v1/account/info"
+      };
+    }
+    // Requests thousands of screenshtos at once
+    // 
+    // Get hundreds or thousands of screenshots from a text file. You can use this API call or the dashboard. Unlike the other API calls, you must issue a POST request with the Content-Type "multipart/form-data" in order to upload the text file. The text file must contain the list of URLs to request, 1 URL per line. Failed screenshots will be tried up to 3 times before giving up.
+    rpc PostBatchCeate(PostBatchCeateRequest) returns (PostBatchCeateResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/batch/ceate"
+      };
+    }
+    // Get the batch status
+    // 
+    // Get the status of a batch requested through the API or through the dashboard.
+    rpc GetBatchInfo(GetBatchInfoRequest) returns (Batch) {
+      option (google.api.http) = {
+        get: "/api/v1/batch/info"
+      };
+    }
+    // Get information about a browser
+    // 
+    // Get information about a browser.
+    rpc GetBrowserInfo(GetBrowserInfoRequest) returns (Browser) {
+      option (google.api.http) = {
+        get: "/api/v1/browser/info"
+      };
+    }
+    // Get all browsers
+    // 
+    // Get all browsers.
+    rpc GetBrowserList(google.protobuf.Empty) returns (BrowserList) {
+      option (google.api.http) = {
+        get: "/api/v1/browser/list"
+      };
+    }
+    // Get information about an instance
+    // 
+    // Get information about an instance.
+    rpc GetInstanceInfo(GetInstanceInfoRequest) returns (Instance) {
+      option (google.api.http) = {
+        get: "/api/v1/instance/info"
+      };
+    }
+    // Get all instances
+    // 
+    // Get all instances.
+    rpc GetInstanceList(google.protobuf.Empty) returns (InstanceList) {
+      option (google.api.http) = {
+        get: "/api/v1/instance/list"
+      };
+    }
+    // Request a screenshot
+    // 
+    // Screenshots requests to private and shared instances require a positive balance.
+    // 
+    // *IMPORTANT*: Remember that you can only do 100 free screenshots per month. To used a premium instance, use instance_id=65 for example.
+    rpc GetScreenshotCreate(GetScreenshotCreateRequest) returns (Screenshot) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/create"
+      };
+    }
+    // Delete screenshot data
+    // 
+    // You can delete details of your screenshots to remove any confidential information.
+    rpc GetScreenshotDelete(GetScreenshotDeleteRequest) returns (GetScreenshotDeleteResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/delete"
+      };
+    }
+    // Host thumbnails on your own S3 account or on Browshot.
+    // 
+    // You can host screenshots and thumbnails on your own S3 account or on Browshot.
+    rpc GetScreenshotHost(GetScreenshotHostRequest) returns (GetScreenshotHostResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/host"
+      };
+    }
+    // Get the HTML code
+    // 
+    // Retrieve the HTML code of the rendered page. This API call should be used when html=1 was specified in the screenshot request.
+    rpc GetScreenshotHtml(GetScreenshotHtmlRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/html"
+      };
+    }
+    // Query screenshot status
+    // 
+    // Once a screenshot has been requested, its status must be checked until it is either "error" or "finished".
+    rpc GetScreenshotInfo(GetScreenshotInfoRequest) returns (GetScreenshotInfoResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/info"
+      };
+    }
+    // Get information about screenshots
+    // 
+    // Get information about the last 100 screenshots requested.
+    rpc GetScreenshotList(GetScreenshotListRequest) returns (GetScreenshotListResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/list"
+      };
+    }
+    // Request multiple screenshots
+    // 
+    // Request multiple screenshots in one API call. The API call accepts all the parameters supported by screenshot/create.
+    // You can specify up to 10 URLs and 10 instances for a total of 100 screenshots in one API call.
+    rpc GetScreenshotMultiple(GetScreenshotMultipleRequest) returns (ScreenshotList) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/multiple"
+      };
+    }
+    // Search for screenshots
+    // 
+    // Search for screenshots of a specific URL.
+    rpc GetScreenshotSearch(GetScreenshotSearchRequest) returns (GetScreenshotSearchResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/search"
+      };
+    }
+    // Share a screenshot
+    // 
+    // You can make your screenshots public, add notes, and share it with your friends and colleagues. Only screenshots which are successfully completed can be shared.n the thumbnail. You can take a 1024x768 screenshot, crop it to 768x768, and get it scaled down to 300x300.
+    rpc GetScreenshotShare(GetScreenshotShareRequest) returns (GetScreenshotShareResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/share"
+      };
+    }
+    // Retrieve a thumbnail image
+    // 
+    // Unlike the other API calls, this API sends back the thumbnail as a PNG file, not JSON. The HTTP response code indicates whether the screenshot was successful (200), or incomplete (404) or failed (404). If the screenshot failed or is not finished, a default image "Not found" is sent.
+    // 
+    // You can crop your screenshots. The crop is done first, then the thumbnail. You can take a 1024x768 screenshot, crop it to 768x768, and get it scaled down to 300x300.
+    rpc GetScreenshotThumbnail(GetScreenshotThumbnailRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/screenshot/thumbnail"
+      };
+    }
+}

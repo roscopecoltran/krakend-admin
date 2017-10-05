@@ -1,0 +1,167 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package articlesearch;
+
+message GetArticlesearchRequest {
+    // "Format: YYYYMMDD 
+    // 
+    // Restricts responses to results with publication dates of the date specified or later."
+    string begin_date = 1;
+    // "Format: YYYYMMDD 
+    // 
+    // Restricts responses to results with publication dates of the date specified or earlier."
+    string end_date = 2;
+    // Comma-delimited list of facets
+    // 
+    // Specifies the sets of facet values to include in the facets array at the end of response, which collects the facet values from all the search results. By default no facet fields will be returned. Below is the list of valid facets:
+    // 
+    // section_name
+    // 
+    // document_type
+    // 
+    // type_of_material
+    // 
+    // source
+    // 
+    // day_of_week
+    // 
+    // To learn more about using facets, see Using Facets.
+    string facet_field = 3;
+    // When set to true, facet counts will respect any applied filters (fq, date range, etc.) in addition to the main query term. To filter facet counts, specifying at least one facet_field is required. To learn more about using facets, see Using Facets.
+    bool facet_filter = 4;
+    // "Comma-delimited list of fields (no limit)
+    // 
+    //   Limits the fields returned in your search results. By default (unless you include an fl list in your request), the following fields are returned: 
+    //   
+    //   web_url
+    //   
+    //   snippet
+    //   
+    //   lead_paragraph
+    //   
+    //   abstract
+    //   
+    //   print_page
+    //   
+    //   blog
+    //   
+    //   source
+    //   
+    //   multimedia
+    //   
+    //   headline
+    //   
+    //   keywords
+    //   
+    //   pub_date
+    //   
+    //   document_type
+    //   
+    //   news_desk
+    //   
+    //   byline
+    //   
+    //   type_of_material
+    //   
+    //   _id
+    //   
+    //   word_count"
+    string fl = 5;
+    // "Filtered search query using standard Lucene syntax. 
+    // 
+    // The filter query can be specified with or without a limiting field: label. 
+    // 
+    // See Filtering Your Search for more information about filtering."
+    string fq = 6;
+    // Enables highlighting in search results. When set to true, the query term (q) is highlighted in the headline and lead_paragraph fields.
+    // 
+    // Note: If highlighting is enabled, snippet will be returned even if it is not specified in your fl list."
+    bool hl = 7;
+    // "The value of page corresponds to a set of 10 results (it does not indicate the starting number of the result set). For example, page=0 corresponds to records 0-9. To return records 10-19, set page to 1, not 10."
+    int32 page = 8;
+    // Search query term. Search is performed on the article body, headline and byline.
+    string q = 9;
+    // "By default, search results are sorted by their relevance to the query term (q). Use the sort parameter to sort by pub_date."
+    enum GetArticlesearchRequest_Sort {
+        GETARTICLESEARCHREQUEST_SORT_NEWEST = 0;
+        GETARTICLESEARCHREQUEST_SORT_OLDEST = 1;
+    }
+    GetArticlesearchRequest_Sort sort = 10;
+}
+
+message GetArticlesearchResponse {
+    message Response {
+        repeated Doc docs = 1;
+        message Meta {
+            int32 hits = 1;
+            int32 offset = 2;
+            int32 time = 3;
+        }
+        Meta meta = 2;
+    }
+    Response response = 1;
+}
+
+message Doc {
+    string _id = 1;
+    string abstract = 2;
+    message Blog {
+    }
+    repeated Blog blog = 3;
+    message Byline {
+        string organization = 1;
+        string original = 2;
+        message Person {
+        }
+        repeated Person person = 3;
+    }
+    Byline byline = 4;
+    string document_type = 5;
+    message Headline {
+        string kicker = 1;
+        string main = 2;
+    }
+    Headline headline = 6;
+    message Keywords {
+        string name = 1;
+        string rank = 2;
+        string value = 3;
+    }
+    Keywords keywords = 7;
+    string lead_paragraph = 8;
+    message Multimedia {
+        string caption = 1;
+        string copyright = 2;
+        string format = 3;
+        int32 height = 4;
+        string subtype = 5;
+        string type = 6;
+        string url = 7;
+        int32 width = 8;
+    }
+    repeated Multimedia multimedia = 9;
+    string news_desK = 10;
+    string print_page = 11;
+    string pub_date = 12;
+    string section_name = 13;
+    string slideshow_credits = 14;
+    string snippet = 15;
+    string source = 16;
+    string subsection_name = 17;
+    string type_of_material = 18;
+    string web_url = 19;
+    string word_count = 20;
+}
+
+service ArticleSearchService {
+    // Article Search
+    // 
+    // Article Search requests use the following URI structure:
+    rpc GetArticlesearch(GetArticlesearchRequest) returns (GetArticlesearchResponse) {
+      option (google.api.http) = {
+        get: "/svc/search/v2/articlesearch.json"
+      };
+    }
+}

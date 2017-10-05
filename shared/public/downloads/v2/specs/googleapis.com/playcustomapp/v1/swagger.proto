@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleplaycustomapppublishing;
+
+message PostAccountCustomAppsRequest {
+    // Developer account ID.
+    string account = 1;
+    alt alt = 2;
+    CustomApp body = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message CustomApp {
+    // Default listing language in BCP 47 format.
+    string languageCode = 1;
+    // Title for the Android app.
+    string title = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GooglePlayCustomAppPublishingService {
+    // Create and publish a new custom app.
+    rpc PostAccountCustomApps(PostAccountCustomAppsRequest) returns (CustomApp) {
+      option (google.api.http) = {
+        post: "/playcustomapp/v1/accounts/{account}/customApps"
+        body: "body"
+      };
+    }
+}

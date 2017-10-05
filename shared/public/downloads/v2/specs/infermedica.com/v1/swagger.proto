@@ -1,0 +1,275 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package infermedica;
+
+message GetConditionsResponse {
+    repeated Condition items = 1;
+}
+
+message GetConditionsIdRequest {
+    // condition id
+    string id = 1;
+}
+
+message PostDiagnosisRequest {
+    DiagnosisRequest body = 1;
+}
+
+message GetLookupRequest {
+    // phrase to match
+    string phrase = 1;
+    // sex filter
+    enum GetLookupRequest_Sex {
+        GETLOOKUPREQUEST_SEX_FEMALE = 0;
+        GETLOOKUPREQUEST_SEX_MALE = 1;
+    }
+    GetLookupRequest_Sex sex = 2;
+}
+
+message GetObservationsResponse {
+    repeated Observation items = 1;
+}
+
+message GetObservationsIdRequest {
+    // observation id
+    string id = 1;
+}
+
+message GetRisk_factorsResponse {
+    repeated RiskFactor items = 1;
+}
+
+message GetRisk_factorsIdRequest {
+    // risk factor id
+    string id = 1;
+}
+
+message Choice {
+    enum Choice_Id {
+        CHOICE_ID_PRESENT = 0;
+        CHOICE_ID_ABSENT = 1;
+        CHOICE_ID_UNKNOWN = 2;
+    }
+    Choice_Id id = 1;
+    string label = 2;
+}
+
+message Condition {
+    enum Condition_Acuteness {
+        CONDITION_ACUTENESS_CHRONIC = 0;
+        CONDITION_ACUTENESS_CHRONIC_WITH_EXACERBATIONS = 1;
+        CONDITION_ACUTENESS_ACUTE_POTENTIALLY_CHRONIC = 2;
+        CONDITION_ACUTENESS_ACUTE = 3;
+    }
+    Condition_Acuteness acuteness = 1;
+    repeated string categories = 2;
+    string id = 3;
+    string name = 4;
+    enum Condition_Prevalence {
+        CONDITION_PREVALENCE_VERY_RARE = 0;
+        CONDITION_PREVALENCE_RARE = 1;
+        CONDITION_PREVALENCE_MODERATE = 2;
+        CONDITION_PREVALENCE_COMMON = 3;
+    }
+    Condition_Prevalence prevalence = 5;
+    enum Condition_Severity {
+        CONDITION_SEVERITY_MILD = 0;
+        CONDITION_SEVERITY_MODERATE = 1;
+        CONDITION_SEVERITY_SEVERE = 2;
+    }
+    Condition_Severity severity = 6;
+    enum Condition_Sex_filter {
+        CONDITION_SEX_FILTER_FEMALE = 0;
+        CONDITION_SEX_FILTER_MALE = 1;
+        CONDITION_SEX_FILTER_BOTH = 2;
+    }
+    Condition_Sex_filter sex_filter = 7;
+}
+
+message ConditionProbability {
+    // condition id
+    string id = 1;
+    // condition name
+    string name = 2;
+    double probability = 3;
+}
+
+message DatabaseInfo {
+    int32 conditions_count = 1;
+    int32 observations_count = 2;
+    // time of last database update in ISO 8601 format
+    string updated_at = 3;
+}
+
+message DiagnosisRequest {
+    int32 age = 1;
+    // time when diagnosis was evaluated in ISO 8601 format
+    string evaluated_at = 2;
+    repeated Evidence evidence = 3;
+    map<string, object> extras = 4;
+    // list of ids of pursued conditions
+    repeated string pursued = 5;
+    enum DiagnosisRequest_Sex {
+        DIAGNOSISREQUEST_SEX_FEMALE = 0;
+        DIAGNOSISREQUEST_SEX_MALE = 1;
+    }
+    DiagnosisRequest_Sex sex = 6;
+}
+
+message DiagnosisResponse {
+    repeated ConditionProbability conditions = 1;
+    map<string, object> extras = 2;
+    Question question = 3;
+}
+
+message Evidence {
+    enum Evidence_Choice_id {
+        EVIDENCE_CHOICE_ID_PRESENT = 0;
+        EVIDENCE_CHOICE_ID_ABSENT = 1;
+        EVIDENCE_CHOICE_ID_UNKNOWN = 2;
+    }
+    Evidence_Choice_id choice_id = 1;
+    // id of observation, risk factor or condition
+    string id = 2;
+    // time when evidence was observed in ISO 8601 format
+    string observed_at = 3;
+}
+
+message Observation {
+    string category = 1;
+    // ids of child observations grouped by their relation with this observation
+    message Children {
+    }
+    Children children = 2;
+    string id = 3;
+    string name = 4;
+    // id of parent observation
+    string parent_id = 5;
+    // type of relation with parent observation
+    enum Observation_Parent_relation_type {
+        OBSERVATION_PARENT_RELATION_TYPE_BASE = 0;
+        OBSERVATION_PARENT_RELATION_TYPE_DURATION = 1;
+        OBSERVATION_PARENT_RELATION_TYPE_SEVERITY = 2;
+        OBSERVATION_PARENT_RELATION_TYPE_CHARACTER = 3;
+        OBSERVATION_PARENT_RELATION_TYPE_EXACERBATING_FACTOR = 4;
+        OBSERVATION_PARENT_RELATION_TYPE_DIMINISHING_FACTOR = 5;
+        OBSERVATION_PARENT_RELATION_TYPE_LOCATION = 6;
+        OBSERVATION_PARENT_RELATION_TYPE_RADIATION = 7;
+    }
+    Observation_Parent_relation_type parent_relation_type = 6;
+    enum Observation_Sex_filter {
+        OBSERVATION_SEX_FILTER_FEMALE = 0;
+        OBSERVATION_SEX_FILTER_MALE = 1;
+        OBSERVATION_SEX_FILTER_BOTH = 2;
+    }
+    Observation_Sex_filter sex_filter = 7;
+    // number of days that this observation remains valid
+    int32 valid_for = 8;
+}
+
+message Question {
+    // one or more observations to evaluate
+    repeated QuestionItem items = 1;
+    // question text
+    string text = 2;
+    enum Question_Type {
+        QUESTION_TYPE_SINGLE = 0;
+        QUESTION_TYPE_GROUP_SINGLE = 1;
+        QUESTION_TYPE_GROUP_MULTIPLE = 2;
+    }
+    Question_Type type = 3;
+}
+
+message QuestionItem {
+    // list of available answer choices
+    repeated Choice choices = 1;
+    // observation id
+    string id = 2;
+    // name or alias of observation
+    string name = 3;
+}
+
+message RiskFactor {
+    string id = 1;
+    string name = 2;
+}
+
+service InfermedicaService {
+    // List all conditions
+    // 
+    // Returns a list of all available conditions.
+    rpc GetConditions(google.protobuf.Empty) returns (GetConditionsResponse) {
+      option (google.api.http) = {
+        get: "/v1/conditions"
+      };
+    }
+    // Get condition by id
+    // 
+    // Returns details of a single condition specified by id parameter.
+    rpc GetConditionsId(GetConditionsIdRequest) returns (Condition) {
+      option (google.api.http) = {
+        get: "/v1/conditions/{id}"
+      };
+    }
+    // Query diagnostic engine
+    // 
+    // Computes possible diagnoses and relevant observations based on provided patient information.
+    rpc PostDiagnosis(PostDiagnosisRequest) returns (DiagnosisResponse) {
+      option (google.api.http) = {
+        post: "/v1/diagnosis"
+        body: "body"
+      };
+    }
+    // Get database information
+    // 
+    // Returns information about data used by diagnostic engine.
+    rpc GetInfo(google.protobuf.Empty) returns (DatabaseInfo) {
+      option (google.api.http) = {
+        get: "/v1/info"
+      };
+    }
+    // Find observation matching given phrase
+    // 
+    // Returns details of a single observation if matched by the given phrase.
+    rpc GetLookup(GetLookupRequest) returns (Observation) {
+      option (google.api.http) = {
+        get: "/v1/lookup"
+      };
+    }
+    // List all observations
+    // 
+    // Returns a list of all available observations.
+    rpc GetObservations(google.protobuf.Empty) returns (GetObservationsResponse) {
+      option (google.api.http) = {
+        get: "/v1/observations"
+      };
+    }
+    // Get observation by id
+    // 
+    // Returns details of a single observation specified by id parameter.
+    rpc GetObservationsId(GetObservationsIdRequest) returns (Observation) {
+      option (google.api.http) = {
+        get: "/v1/observations/{id}"
+      };
+    }
+    // List all risk factors
+    // 
+    // Returns a list of all available risk factors.
+    rpc GetRisk_factors(google.protobuf.Empty) returns (GetRisk_factorsResponse) {
+      option (google.api.http) = {
+        get: "/v1/risk_factors"
+      };
+    }
+    // Get risk factor by id
+    // 
+    // Returns details of a single risk factor specified by id parameter.
+    rpc GetRisk_factorsId(GetRisk_factorsIdRequest) returns (RiskFactor) {
+      option (google.api.http) = {
+        get: "/v1/risk_factors/{id}"
+      };
+    }
+}

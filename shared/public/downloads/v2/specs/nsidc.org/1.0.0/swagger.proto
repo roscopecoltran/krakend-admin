@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package nsidcwebservicedocumentationindex;
+
+message GetFacetsRequest {
+    // The number of search results per page desired by the client; OpenSearch 1.1
+    int32 count = 1;
+    // The end date in yyyy-mm-dd format
+    string endDate = 2;
+    // Describes faceted restrictions on the search. A URL-encoded JSON object where the keys are the names of the facet, and the values are arrays of the selected facet values
+    string facetFilters = 3;
+    // URL-encoded keyword or keywords desired by the client; OpenSearch 1.1
+    string searchTerms = 4;
+    // Sort the results by most relevant (default), smallest or largest spatial area, shortest or longest temporal duration, or most recently updated; partial implementation of OpenSearch SRU 1.0
+    enum GetFacetsRequest_SortKey {
+        GETFACETSREQUEST_SORTKEY_SCORE,,DESC = 0;
+        GETFACETSREQUEST_SORTKEY_SPATIAL_AREA,,ASC = 1;
+        GETFACETSREQUEST_SORTKEY_SPATIAL_AREA,,DESC = 2;
+        GETFACETSREQUEST_SORTKEY_TEMPORAL_DURATION,,ASC = 3;
+        GETFACETSREQUEST_SORTKEY_TEMPORAL_DURATION,,DESC = 4;
+        GETFACETSREQUEST_SORTKEY_UPDATED,,DESC = 5;
+    }
+    GetFacetsRequest_SortKey sortKeys = 5;
+    // Custom parameter for selecting which source to use; the Arctic Data Explorer (ADE) uses data aggregated from many sources, including, but not limited to, NSIDC
+    enum GetFacetsRequest_Source {
+        GETFACETSREQUEST_SOURCE_NSIDC = 0;
+        GETFACETSREQUEST_SOURCE_ADE = 1;
+    }
+    GetFacetsRequest_Source source = 6;
+    // 4 comma separated values - W, S, E, N; OpenSearch-Geo 1.0, "box" parameter
+    string spatial = 7;
+    // The start date in yyyy-mm-dd format
+    string startDate = 8;
+    // First search result desired by the search client; OpenSearch 1.1
+    int32 startIndex = 9;
+}
+
+message GetOpenSearchRequest {
+    // The number of search results per page desired by the client; OpenSearch 1.1
+    int32 count = 1;
+    // The end date in yyyy-mm-dd format
+    string endDate = 2;
+    // Describes faceted restrictions on the search. A URL-encoded JSON object where the keys are the names of the facet, and the values are arrays of the selected facet values
+    string facetFilters = 3;
+    // URL-encoded keyword or keywords desired by the client; OpenSearch 1.1
+    string searchTerms = 4;
+    // Sort the results by most relevant (default), smallest or largest spatial area, shortest or longest temporal duration, or most recently updated; partial implementation of OpenSearch SRU 1.0
+    enum GetOpenSearchRequest_SortKey {
+        GETOPENSEARCHREQUEST_SORTKEY_SCORE,,DESC = 0;
+        GETOPENSEARCHREQUEST_SORTKEY_SPATIAL_AREA,,ASC = 1;
+        GETOPENSEARCHREQUEST_SORTKEY_SPATIAL_AREA,,DESC = 2;
+        GETOPENSEARCHREQUEST_SORTKEY_TEMPORAL_DURATION,,ASC = 3;
+        GETOPENSEARCHREQUEST_SORTKEY_TEMPORAL_DURATION,,DESC = 4;
+        GETOPENSEARCHREQUEST_SORTKEY_UPDATED,,DESC = 5;
+    }
+    GetOpenSearchRequest_SortKey sortKeys = 5;
+    // Custom parameter for selecting which source to use; the Arctic Data Explorer (ADE) uses data aggregated from many sources, including, but not limited to, NSIDC
+    enum GetOpenSearchRequest_Source {
+        GETOPENSEARCHREQUEST_SOURCE_NSIDC = 0;
+        GETOPENSEARCHREQUEST_SOURCE_ADE = 1;
+    }
+    GetOpenSearchRequest_Source source = 6;
+    // 4 comma separated values - W, S, E, N; OpenSearch-Geo 1.0, "box" parameter
+    string spatial = 7;
+    // The start date in yyyy-mm-dd format
+    string startDate = 8;
+    // First search result desired by the search client; OpenSearch 1.1
+    int32 startIndex = 9;
+}
+
+message GetSuggestRequest {
+    // Search terms typed into the interface (minimum two characters)
+    string q = 1;
+    // Custom parameter for selecting which source to use; the Arctic Data Explorer (ADE) uses data aggregated from many sources, including, but not limited to, NSIDC
+    enum GetSuggestRequest_Source {
+        GETSUGGESTREQUEST_SOURCE_NSIDC = 0;
+        GETSUGGESTREQUEST_SOURCE_ADE = 1;
+    }
+    GetSuggestRequest_Source source = 2;
+}
+
+service NSIDCWebServiceDocumentationIndexService {
+    // View the facet information corresponding to a search
+    // 
+    // In the NSIDC Search and Arctic Data Explorer interfaces, this endpoint is used in conjunction with /OpenSearch whenever a user submits a new search. Consequently, it has the same parameters as /OpenSearch.
+    rpc GetFacets(GetFacetsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/dataset/2/Facets"
+      };
+    }
+    // Search documents using the OpenSearch 1.1 Specification
+    // 
+    // This endpoint uses parameters from the OpenSearch 1.1 specification, as well as parameters from the OpenSearch Geo (1.0) and SRU (1.0) extensions.
+    rpc GetOpenSearch(GetOpenSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/dataset/2/OpenSearch"
+      };
+    }
+    // Describes the web interface of NSIDC's data search engine
+    rpc GetOpenSearchDescription(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/dataset/2/OpenSearchDescription"
+      };
+    }
+    // Suggest search terms based on a partial query
+    // 
+    // In NSIDC Search and the Arctic Data Explorer, this endpoint is queried whenever the user types into the search terms box, and the returned suggestions are displayed in a dropdown beneath the search terms box. The q parameter and returned JSON follow the specifications of the OpenSearch Suggestions 1.0 extension.
+    rpc GetSuggest(GetSuggestRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/dataset/2/suggest"
+      };
+    }
+}

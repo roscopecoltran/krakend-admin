@@ -1,0 +1,3113 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package reverb;
+
+message PostAccountsRequest {
+    // the content of the request
+    message Body {
+            // Accept the Reverb terms of use and privacy policy
+    bool accept_terms = 1;
+            // Email address.
+    string email = 2;
+            // First Name
+    string first_name = 3;
+            // Last Name
+    string last_name = 4;
+            // Subscribe to gear deals by email
+    bool newsletter_opt_in = 5;
+            // Password (at least 8 characters).
+    string password = 6;
+    }
+    Body body = 1;
+}
+
+message GetArticlesRequest {
+    // Number of featured articles to exclude
+    int32 exclude_featured = 1;
+    int32 offset = 2;
+    int32 page = 3;
+    int32 per_page = 4;
+    // What's being searched for
+    string query = 5;
+}
+
+message GetArticlesSlugRequest {
+    string slug = 1;
+}
+
+message GetArticlesSlugRelatedListingsRequest {
+    string slug = 1;
+}
+
+message PostAuthForgot_passwordRequest {
+    // the content of the request
+    message Body {
+        string email = 1;
+    }
+    Body body = 1;
+}
+
+message PutAuthLogoutRequest {
+    // the content of the request
+    message Body {
+        string device_token = 1;
+        enum Body_Device_type {
+            BODY_DEVICE_TYPE_IOS = 0;
+            BODY_DEVICE_TYPE_ANDROID = 1;
+        }
+        Body_Device_type device_type = 2;
+    }
+    Body body = 1;
+}
+
+message PutBumpNewBidsRequest {
+    // the content of the request
+    message Body {
+            // The bid for the product as a decimal, i.e. '0.035' means a 3.5% bid
+    enum Body_Bid {
+            BODY_BID_0005 = 0;
+            BODY_BID_001 = 1;
+            BODY_BID_0015 = 2;
+            BODY_BID_002 = 3;
+            BODY_BID_0025 = 4;
+            BODY_BID_003 = 5;
+            BODY_BID_0035 = 6;
+        }
+        Body_Bid bid = 1;
+            // An array of product IDs to set bids for
+    repeated int32 products = 2;
+    }
+    Body body = 1;
+}
+
+message DeleteBumpNewBidsRequest {
+    // An array of product IDs to set bids for
+    repeated string products = 1;
+}
+
+message PostCartMove_to_watch_listCart_item_idRequest {
+    string cart_item_id = 1;
+}
+
+message PutCartIdRequest {
+    string id = 1;
+}
+
+message PostCartIdRequest {
+    string id = 1;
+}
+
+message DeleteCartIdRequest {
+    string id = 1;
+}
+
+message GetCategoriesProduct_typeCategoryRequest {
+    string category = 1;
+    string product_type = 2;
+}
+
+message GetCategoriesUuidRequest {
+    string uuid = 1;
+}
+
+message GetCollectionsSlugRequest {
+    string slug = 1;
+}
+
+message GetComparison_shopping_pagesFindRequest {
+    // ID of the comparison shopping page
+    string id = 1;
+    // Slug of the comparison shopping page
+    string slug = 2;
+}
+
+message GetComparison_shopping_pagesIdRequest {
+    string id = 1;
+}
+
+message GetComparison_shopping_pagesIdListingsRequest {
+    // Condition of the listing
+    string condition = 1;
+    string id = 2;
+}
+
+message GetComparison_shopping_pagesIdReviewsRequest {
+    string id = 1;
+}
+
+message PostConversationsIdOfferRequest {
+    // the content of the request
+    message Body {
+            // Message to include with counter offer
+    string message = 1;
+        message Price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Price_Currency {
+                PRICE_CURRENCY_USD = 0;
+                PRICE_CURRENCY_CAD = 1;
+                PRICE_CURRENCY_EUR = 2;
+                PRICE_CURRENCY_GBP = 3;
+                PRICE_CURRENCY_AUD = 4;
+                PRICE_CURRENCY_JPY = 5;
+                PRICE_CURRENCY_NZD = 6;
+                PRICE_CURRENCY_MXN = 7;
+            }
+            Price_Currency currency = 2;
+        }
+        Price price = 2;
+            // Shipping price (sellers only)
+    message Shipping_price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Shipping_price_Currency {
+                SHIPPING_PRICE_CURRENCY_USD = 0;
+                SHIPPING_PRICE_CURRENCY_CAD = 1;
+                SHIPPING_PRICE_CURRENCY_EUR = 2;
+                SHIPPING_PRICE_CURRENCY_GBP = 3;
+                SHIPPING_PRICE_CURRENCY_AUD = 4;
+                SHIPPING_PRICE_CURRENCY_JPY = 5;
+                SHIPPING_PRICE_CURRENCY_NZD = 6;
+                SHIPPING_PRICE_CURRENCY_MXN = 7;
+            }
+            Shipping_price_Currency currency = 2;
+        }
+        Shipping_price shipping_price = 3;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message GetCurated_setUser_idHandpickedRequest {
+    string user_id = 1;
+}
+
+message PutCurated_setsIdRequest {
+    // the content of the request
+    message Body {
+        message Curated_set {
+            string name = 1;
+        }
+        Curated_set curated_set = 1;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message GetCurated_setsSlugRequest {
+    string slug = 1;
+}
+
+message GetFeedbackFeedback_idRequest {
+    string feedback_id = 1;
+}
+
+message GetHandpickedSlugRequest {
+    string slug = 1;
+}
+
+message GetListingsRequest {
+    // If true, include only items that accept gift cards
+    bool accepts_gift_cards = 1;
+    // If true, only show items that can be purchased with a payment plan
+    bool accepts_payment_plans = 2;
+    // Maximum current auction price
+    float auction_price_max = 3;
+    // Category slug from /api/categories
+    string category = 4;
+    // Condition: all,new,b-stock,used,non-functioning
+    repeated string conditions = 5;
+    // The currency to be used for the price filters
+    string currency = 6;
+    // Decade: e.g. 1970s, early 70s
+    string decade = 7;
+    // If true, exclude auctions
+    bool exclude_auctions = 8;
+    // Visual finish of the item, common for guitars
+    string finish = 9;
+    // Handmade items only
+    bool handmade = 10;
+    // City where item is located
+    string item_city = 11;
+    // DEPRECATED - Country code where item is located
+    string item_country = 12;
+    // Country code where item is located
+    string item_region = 13;
+    // State or region code where item is located
+    string item_state = 14;
+    // Type of listing: auctions,offers
+    string listing_type = 15;
+    // Make(s)/brand of item (e.g. Fender). Can take a single value or an array.
+    repeated string make = 16;
+    // Model of item (e.g. Stratocaster)
+    string model = 17;
+    // Search term negation. If you want to exclude a term, add it here
+    string must_not = 18;
+    // Listing ID negation. If you want to exclude a listing, add it here.
+    repeated string not_ids = 19;
+    int32 offset = 20;
+    int32 page = 21;
+    int32 per_page = 22;
+    // If true, include only items by Reverb Preferred Sellers
+    bool preferred_seller = 23;
+    // Maximum price of search results (USD)
+    float price_max = 24;
+    // Minimum price of search results (USD)
+    float price_min = 25;
+    // Product type slug from /api/categories
+    string product_type = 26;
+    // Search query.
+    string query = 27;
+    // Limit search to items that ship to this country code
+    string ships_to = 28;
+    // Slug of shop to search
+    string shop = 29;
+    // ID of shop to search
+    string shop_id = 30;
+    // Minimum number of watchers (used to find popular items)
+    int32 watchers_count_min = 31;
+    // Maximum year of manufacture
+    int32 year_max = 32;
+    // Minumum year of manufacture
+    int32 year_min = 33;
+}
+
+message PostListingsRequest {
+    // the content of the request
+    message Body {
+        message Categorie {
+                    // UUID of the category for this listing.
+    string uuid = 1;
+        }
+        repeated Categorie categories = 1;
+            // Condition
+    message Condition {
+                    // Condition UUID
+    enum Condition_Uuid {
+                CONDITION_UUID_FBF3566896A04BAABCDEAB18D6B1B329 = 0;
+                CONDITION_UUID_6A9DFCAD600B46C89E08CE6E5057921E = 1;
+                CONDITION_UUID_9877788676D044C8865EBB40E669E934 = 2;
+                CONDITION_UUID_F7A3F48C972A44C6B01A0CD27488D3F6 = 3;
+                CONDITION_UUID_AE4D91141BD74EC5A4BA6653AF5AC84D = 4;
+                CONDITION_UUID_DF268AD1C4624BA6B6DBE007E23922EA = 5;
+                CONDITION_UUID_AC5B9C1EDC78466DB0B37CF712967A48 = 6;
+                CONDITION_UUID_6DB7DF88293B4017A1C1CDB5E599FA1A = 7;
+                CONDITION_UUID_9225283F60C24413AD181F5EBA7A856F = 8;
+                CONDITION_UUID_7C3F45DE2AE04C818400FDB6B1D74890 = 9;
+            }
+            Condition_Uuid uuid = 1;
+        }
+        Condition condition = 2;
+            // Product description. Please keep formatting to a minimum.
+    string description = 3;
+            // Finish, e.g. 'Sunburst'
+    string finish = 4;
+            // Set true if selling more than one
+    bool has_inventory = 5;
+            // Number of items available for sale. Reverb will increment and decrement automatically.
+    int32 inventory = 6;
+            // Internal note used by sellers to back reference their catalog system when entering a listing
+    string item_location = 7;
+        message Location {
+                    // Ex: US
+    string country_code = 1;
+                    // Ex: Chicago
+    string locality = 2;
+                    // Ex: IL
+    string region = 3;
+        }
+        Location location = 8;
+            // ex: Fender, Gibson
+    string make = 9;
+            // ex: Stratocaster, SG
+    string model = 10;
+            // Whether the listing accepts negotiated offers (default: true)
+    bool offers_enabled = 11;
+            // Country of origin/manufacture, ISO code (e.g: US)
+    string origin_country_code = 12;
+            // An array of image URLs. Ex: ['http://my.site.com/image.jpg']
+    repeated string photos = 13;
+        message Price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Price_Currency {
+                PRICE_CURRENCY_USD = 0;
+                PRICE_CURRENCY_CAD = 1;
+                PRICE_CURRENCY_EUR = 2;
+                PRICE_CURRENCY_GBP = 3;
+                PRICE_CURRENCY_AUD = 4;
+                PRICE_CURRENCY_JPY = 5;
+                PRICE_CURRENCY_NZD = 6;
+                PRICE_CURRENCY_MXN = 7;
+            }
+            Price_Currency currency = 2;
+        }
+        Price price = 14;
+            // Publish your listing if draft
+    bool publish = 15;
+        message Seller {
+            string paypal_email = 1;
+        }
+        Seller seller = 16;
+            // Cost of goods in your currency (internal use only, not shown to buyers)
+    string seller_cost = 17;
+        message Shipping {
+                    // True if you offer local pickup
+    bool local = 1;
+                    // List of shipping rates. Set to null to clear rates.
+    message Rate {
+                message Rate {
+                                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                                    // The currency the money will be expressed in
+    enum Rate_Currency {
+                        RATE_CURRENCY_USD = 0;
+                        RATE_CURRENCY_CAD = 1;
+                        RATE_CURRENCY_EUR = 2;
+                        RATE_CURRENCY_GBP = 3;
+                        RATE_CURRENCY_AUD = 4;
+                        RATE_CURRENCY_JPY = 5;
+                        RATE_CURRENCY_NZD = 6;
+                        RATE_CURRENCY_MXN = 7;
+                    }
+                    Rate_Currency currency = 2;
+                }
+                Rate rate = 1;
+                            // Country code or subregion/superregion code. Full list of codes at /api/shipping/regions
+    string region_code = 2;
+            }
+            repeated Rate rates = 2;
+        }
+        Shipping shipping = 18;
+            // id of a shop's shipping profile
+    string shipping_profile_id = 19;
+            // DEPRECATED, please use shipping_profile_id. Name of a shipping profile
+    string shipping_profile_name = 20;
+            // Unique identifier for product
+    string sku = 21;
+            // This item is sold As-Is and cannot be returned
+    bool sold_as_is = 22;
+            // Listing is exempt from taxes / VAT
+    bool tax_exempt = 23;
+            // Title of your listing
+    string title = 24;
+            // Valid UPC code
+    string upc = 25;
+            // True if a brand new product has no UPC code, ie for a handmade or custom item
+    string upc_does_not_apply = 26;
+            // Supports many formats. Ex: 1979, mid-70s, late 90s
+    string year = 27;
+    }
+    Body body = 1;
+}
+
+message GetListingsAllRequest {
+    // If true, include only items that accept gift cards
+    bool accepts_gift_cards = 1;
+    // If true, only show items that can be purchased with a payment plan
+    bool accepts_payment_plans = 2;
+    // Maximum current auction price
+    float auction_price_max = 3;
+    // Category slug from /api/categories
+    string category = 4;
+    // Condition: all,new,b-stock,used,non-functioning
+    repeated string conditions = 5;
+    // The currency to be used for the price filters
+    string currency = 6;
+    // Decade: e.g. 1970s, early 70s
+    string decade = 7;
+    // If true, exclude auctions
+    bool exclude_auctions = 8;
+    // Visual finish of the item, common for guitars
+    string finish = 9;
+    // Handmade items only
+    bool handmade = 10;
+    // City where item is located
+    string item_city = 11;
+    // DEPRECATED - Country code where item is located
+    string item_country = 12;
+    // Country code where item is located
+    string item_region = 13;
+    // State or region code where item is located
+    string item_state = 14;
+    // Type of listing: auctions,offers
+    string listing_type = 15;
+    // Make(s)/brand of item (e.g. Fender). Can take a single value or an array.
+    repeated string make = 16;
+    // Model of item (e.g. Stratocaster)
+    string model = 17;
+    // Search term negation. If you want to exclude a term, add it here
+    string must_not = 18;
+    // Listing ID negation. If you want to exclude a listing, add it here.
+    repeated string not_ids = 19;
+    int32 offset = 20;
+    int32 page = 21;
+    int32 per_page = 22;
+    // If true, include only items by Reverb Preferred Sellers
+    bool preferred_seller = 23;
+    // Maximum price of search results (USD)
+    float price_max = 24;
+    // Minimum price of search results (USD)
+    float price_min = 25;
+    // Product type slug from /api/categories
+    string product_type = 26;
+    // Search query.
+    string query = 27;
+    // Limit search to items that ship to this country code
+    string ships_to = 28;
+    // Slug of shop to search
+    string shop = 29;
+    // ID of shop to search
+    string shop_id = 30;
+    // Minimum number of watchers (used to find popular items)
+    int32 watchers_count_min = 31;
+    // Maximum year of manufacture
+    int32 year_max = 32;
+    // Minumum year of manufacture
+    int32 year_min = 33;
+}
+
+message GetListingsIdNegotiationRequest {
+    string id = 1;
+}
+
+message PostListingsIdOfferRequest {
+    // the content of the request
+    message Body {
+            // Message to include with counter offer
+    string message = 1;
+            // Offer price
+    string price = 2;
+            // Shipping price (sellers only)
+    string shipping_price = 3;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message GetListingsListing_idBumpRequest {
+    string listing_id = 1;
+}
+
+message PostListingsListing_idBumpBudget_typeRequest {
+    string budget_type = 1;
+    string listing_id = 2;
+}
+
+message PostListingsListing_idConversationsRequest {
+    // the content of the request
+    message Body {
+        string body = 1;
+    }
+    Body body = 1;
+    string listing_id = 2;
+}
+
+message GetListingsListing_idImagesRequest {
+    string listing_id = 1;
+}
+
+message DeleteListingsListing_idImagesImage_idRequest {
+    string image_id = 1;
+    string listing_id = 2;
+}
+
+message GetListingsListing_idProduct_bundleRequest {
+    // Pass to see non-live bundles as the seller
+    bool for_seller = 1;
+    string listing_id = 2;
+}
+
+message GetListingsListing_idSalesRequest {
+    string listing_id = 1;
+}
+
+message GetListingsSlugRequest {
+    string slug = 1;
+}
+
+message PutListingsSlugRequest {
+    // the content of the request
+    message Body {
+        message Categorie {
+                    // UUID of the category for this listing.
+    string uuid = 1;
+        }
+        repeated Categorie categories = 1;
+            // Condition
+    message Condition {
+                    // Condition UUID
+    enum Condition_Uuid {
+                CONDITION_UUID_FBF3566896A04BAABCDEAB18D6B1B329 = 0;
+                CONDITION_UUID_6A9DFCAD600B46C89E08CE6E5057921E = 1;
+                CONDITION_UUID_9877788676D044C8865EBB40E669E934 = 2;
+                CONDITION_UUID_F7A3F48C972A44C6B01A0CD27488D3F6 = 3;
+                CONDITION_UUID_AE4D91141BD74EC5A4BA6653AF5AC84D = 4;
+                CONDITION_UUID_DF268AD1C4624BA6B6DBE007E23922EA = 5;
+                CONDITION_UUID_AC5B9C1EDC78466DB0B37CF712967A48 = 6;
+                CONDITION_UUID_6DB7DF88293B4017A1C1CDB5E599FA1A = 7;
+                CONDITION_UUID_9225283F60C24413AD181F5EBA7A856F = 8;
+                CONDITION_UUID_7C3F45DE2AE04C818400FDB6B1D74890 = 9;
+            }
+            Condition_Uuid uuid = 1;
+        }
+        Condition condition = 2;
+            // Product description. Please keep formatting to a minimum.
+    string description = 3;
+            // Finish, e.g. 'Sunburst'
+    string finish = 4;
+            // Set true if selling more than one
+    bool has_inventory = 5;
+            // Number of items available for sale. Reverb will increment and decrement automatically.
+    int32 inventory = 6;
+            // Internal note used by sellers to back reference their catalog system when entering a listing
+    string item_location = 7;
+        message Location {
+                    // Ex: US
+    string country_code = 1;
+                    // Ex: Chicago
+    string locality = 2;
+                    // Ex: IL
+    string region = 3;
+        }
+        Location location = 8;
+            // ex: Fender, Gibson
+    string make = 9;
+            // ex: Stratocaster, SG
+    string model = 10;
+            // Whether the listing accepts negotiated offers (default: true)
+    bool offers_enabled = 11;
+            // Country of origin/manufacture, ISO code (e.g: US)
+    string origin_country_code = 12;
+            // An array of image URLs. Ex: ['http://my.site.com/image.jpg']
+    repeated string photos = 13;
+        message Price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Price_Currency {
+                PRICE_CURRENCY_USD = 0;
+                PRICE_CURRENCY_CAD = 1;
+                PRICE_CURRENCY_EUR = 2;
+                PRICE_CURRENCY_GBP = 3;
+                PRICE_CURRENCY_AUD = 4;
+                PRICE_CURRENCY_JPY = 5;
+                PRICE_CURRENCY_NZD = 6;
+                PRICE_CURRENCY_MXN = 7;
+            }
+            Price_Currency currency = 2;
+        }
+        Price price = 14;
+            // Publish your listing if draft
+    bool publish = 15;
+        message Seller {
+            string paypal_email = 1;
+        }
+        Seller seller = 16;
+            // Cost of goods in your currency (internal use only, not shown to buyers)
+    string seller_cost = 17;
+        message Shipping {
+                    // True if you offer local pickup
+    bool local = 1;
+                    // List of shipping rates. Set to null to clear rates.
+    message Rate {
+                message Rate {
+                                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                                    // The currency the money will be expressed in
+    enum Rate_Currency {
+                        RATE_CURRENCY_USD = 0;
+                        RATE_CURRENCY_CAD = 1;
+                        RATE_CURRENCY_EUR = 2;
+                        RATE_CURRENCY_GBP = 3;
+                        RATE_CURRENCY_AUD = 4;
+                        RATE_CURRENCY_JPY = 5;
+                        RATE_CURRENCY_NZD = 6;
+                        RATE_CURRENCY_MXN = 7;
+                    }
+                    Rate_Currency currency = 2;
+                }
+                Rate rate = 1;
+                            // Country code or subregion/superregion code. Full list of codes at /api/shipping/regions
+    string region_code = 2;
+            }
+            repeated Rate rates = 2;
+        }
+        Shipping shipping = 18;
+            // id of a shop's shipping profile
+    string shipping_profile_id = 19;
+            // DEPRECATED, please use shipping_profile_id. Name of a shipping profile
+    string shipping_profile_name = 20;
+            // Unique identifier for product
+    string sku = 21;
+            // This item is sold As-Is and cannot be returned
+    bool sold_as_is = 22;
+            // Listing is exempt from taxes / VAT
+    bool tax_exempt = 23;
+            // Title of your listing
+    string title = 24;
+            // Valid UPC code
+    string upc = 25;
+            // True if a brand new product has no UPC code, ie for a handmade or custom item
+    string upc_does_not_apply = 26;
+            // Supports many formats. Ex: 1979, mid-70s, late 90s
+    string year = 27;
+    }
+    Body body = 1;
+    string slug = 2;
+}
+
+message DeleteListingsSlugRequest {
+    string slug = 1;
+}
+
+message GetListingsSlugEditRequest {
+    string slug = 1;
+}
+
+message PostListingsSlugFlagRequest {
+    // the content of the request
+    message Body {
+            // Valid reasons: 'Sexuality/nudity', 'Hateful or inappropriate speech', 'Item not as described or potential fraud', 'Trademark infringement', 'Other'
+    string reason = 1;
+    }
+    Body body = 1;
+    string slug = 2;
+}
+
+message GetListingsSlugReviewsRequest {
+    string slug = 1;
+}
+
+message PostListingsSlugReviewsRequest {
+    string slug = 1;
+}
+
+message GetListingsSlugSimilar_listingsRequest {
+    string slug = 1;
+}
+
+message PutMyAccountRequest {
+    // the content of the request
+    message Body {
+            // The currency preference for the account
+    string currency = 1;
+            // The first name of the account holder
+    string first_name = 2;
+            // The last name of the account holder
+    string last_name = 3;
+            // The shipping region preference for the account
+    string shipping_region_code = 4;
+    }
+    Body body = 1;
+}
+
+message PutMyAddressesAddress_idRequest {
+    string address_id = 1;
+}
+
+message DeleteMyAddressesAddress_idRequest {
+    string address_id = 1;
+}
+
+message GetMyConversationsRequest {
+    int32 offset = 1;
+    int32 page = 2;
+    int32 per_page = 3;
+    // Query string to search conversations by
+    string search = 4;
+    // Show unread conversations only
+    bool unread_only = 5;
+}
+
+message PostMyConversationsRequest {
+    // the content of the request
+    message Body {
+            // The body of the message
+    string body = 1;
+            // An array of cloudinary data hashes (Reverb internal use only).
+    repeated string cloudinary_photos = 2;
+            // The id of the listing being discussed
+    int32 listing_id = 3;
+            // The id of the user you are trying to contact
+    int32 recipient_id = 4;
+    }
+    Body body = 1;
+}
+
+message PostMyConversationsConversation_idMessagesRequest {
+    // the content of the request
+    message Body {
+        string body = 1;
+    }
+    Body body = 1;
+    string conversation_id = 2;
+}
+
+message GetMyConversationsIdRequest {
+    string id = 1;
+}
+
+message PutMyConversationsIdRequest {
+    // the content of the request
+    message Body {
+            // Should the conversation be marked as read
+    bool read = 1;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message PostMyCurated_setProductProduct_idRequest {
+    string product_id = 1;
+}
+
+message DeleteMyCurated_setProductProduct_idRequest {
+    string product_id = 1;
+}
+
+message PostMyFollowsArticlesRequest {
+    // the content of the request
+    message Body {
+        string category_uuids = 1;
+    }
+    Body body = 1;
+}
+
+message GetMyFollowsBrandsSlugRequest {
+    string slug = 1;
+}
+
+message PostMyFollowsBrandsSlugRequest {
+    string slug = 1;
+}
+
+message DeleteMyFollowsBrandsSlugRequest {
+    string slug = 1;
+}
+
+message GetMyFollowsCategoriesCategorySubcategoryRequest {
+    string category = 1;
+    string subcategory = 2;
+}
+
+message PostMyFollowsCategoriesCategorySubcategoryRequest {
+    string category = 1;
+    string subcategory = 2;
+}
+
+message DeleteMyFollowsCategoriesCategorySubcategoryRequest {
+    string category = 1;
+    string subcategory = 2;
+}
+
+message GetMyFollowsCategoriesIdentifierRequest {
+    string identifier = 1;
+}
+
+message PostMyFollowsCategoriesIdentifierRequest {
+    string identifier = 1;
+}
+
+message DeleteMyFollowsCategoriesIdentifierRequest {
+    string identifier = 1;
+}
+
+message GetMyFollowsCollectionsSlugRequest {
+    string slug = 1;
+}
+
+message PostMyFollowsCollectionsSlugRequest {
+    string slug = 1;
+}
+
+message DeleteMyFollowsCollectionsSlugRequest {
+    string slug = 1;
+}
+
+message GetMyFollowsHandpickedSlugRequest {
+    string slug = 1;
+}
+
+message PostMyFollowsHandpickedSlugRequest {
+    string slug = 1;
+}
+
+message DeleteMyFollowsHandpickedSlugRequest {
+    string slug = 1;
+}
+
+message PostMyFollowsSearchRequest {
+    // the content of the request
+    message Body {
+            // If true, include only items that accept gift cards
+    bool accepts_gift_cards = 1;
+            // If true, only show items that can be purchased with a payment plan
+    bool accepts_payment_plans = 2;
+            // Maximum current auction price
+    float auction_price_max = 3;
+            // Category slug from /api/categories
+    string category = 4;
+            // Condition: all,new,b-stock,used,non-functioning
+    repeated string conditions = 5;
+            // The currency to be used for the price filters
+    enum Body_Currency {
+            BODY_CURRENCY_USD = 0;
+            BODY_CURRENCY_CAD = 1;
+            BODY_CURRENCY_EUR = 2;
+            BODY_CURRENCY_GBP = 3;
+            BODY_CURRENCY_AUD = 4;
+            BODY_CURRENCY_JPY = 5;
+            BODY_CURRENCY_NZD = 6;
+            BODY_CURRENCY_MXN = 7;
+        }
+        Body_Currency currency = 6;
+            // Decade: e.g. 1970s, early 70s
+    string decade = 7;
+            // If true, exclude auctions
+    bool exclude_auctions = 8;
+            // Visual finish of the item, common for guitars
+    string finish = 9;
+            // Handmade items only
+    bool handmade = 10;
+            // City where item is located
+    string item_city = 11;
+            // DEPRECATED - Country code where item is located
+    string item_country = 12;
+            // Country code where item is located
+    string item_region = 13;
+            // State or region code where item is located
+    string item_state = 14;
+            // Type of listing: auctions,offers
+    enum Body_Listing_type {
+            BODY_LISTING_TYPE_AUCTIONS = 0;
+            BODY_LISTING_TYPE_OFFERS = 1;
+        }
+        Body_Listing_type listing_type = 15;
+            // Make(s)/brand of item (e.g. Fender). Can take a single value or an array.
+    repeated string make = 16;
+            // Model of item (e.g. Stratocaster)
+    string model = 17;
+            // Search term negation. If you want to exclude a term, add it here
+    string must_not = 18;
+            // Listing ID negation. If you want to exclude a listing, add it here.
+    repeated int32 not_ids = 19;
+            // If true, include only items by Reverb Preferred Sellers
+    bool preferred_seller = 20;
+            // Maximum price of search results (USD)
+    float price_max = 21;
+            // Minimum price of search results (USD)
+    float price_min = 22;
+            // Product type slug from /api/categories
+    string product_type = 23;
+            // Search query.
+    string query = 24;
+            // Limit search to items that ship to this country code
+    string ships_to = 25;
+            // Slug of shop to search
+    string shop = 26;
+            // ID of shop to search
+    string shop_id = 27;
+            // Minimum number of watchers (used to find popular items)
+    int32 watchers_count_min = 28;
+            // Maximum year of manufacture
+    int32 year_max = 29;
+            // Minumum year of manufacture
+    int32 year_min = 30;
+    }
+    Body body = 1;
+}
+
+message GetMyFollowsShopsSlugRequest {
+    string slug = 1;
+}
+
+message PostMyFollowsShopsSlugRequest {
+    string slug = 1;
+}
+
+message DeleteMyFollowsShopsSlugRequest {
+    string slug = 1;
+}
+
+message DeleteMyFollowsFollow_idRequest {
+    string follow_id = 1;
+}
+
+message PostMyFollowsFollow_idAlertRequest {
+    string follow_id = 1;
+}
+
+message DeleteMyFollowsFollow_idAlertRequest {
+    string follow_id = 1;
+}
+
+message GetMyListingsRequest {
+    // If true, include only items that accept gift cards
+    bool accepts_gift_cards = 1;
+    // If true, only show items that can be purchased with a payment plan
+    bool accepts_payment_plans = 2;
+    // Maximum current auction price
+    float auction_price_max = 3;
+    // Category slug from /api/categories
+    string category = 4;
+    // Condition: all,new,b-stock,used,non-functioning
+    repeated string conditions = 5;
+    // The currency to be used for the price filters
+    string currency = 6;
+    // Decade: e.g. 1970s, early 70s
+    string decade = 7;
+    // If true, exclude auctions
+    bool exclude_auctions = 8;
+    // Visual finish of the item, common for guitars
+    string finish = 9;
+    // Handmade items only
+    bool handmade = 10;
+    // City where item is located
+    string item_city = 11;
+    // DEPRECATED - Country code where item is located
+    string item_country = 12;
+    // Country code where item is located
+    string item_region = 13;
+    // State or region code where item is located
+    string item_state = 14;
+    // Type of listing: auctions,offers
+    string listing_type = 15;
+    // Make(s)/brand of item (e.g. Fender). Can take a single value or an array.
+    repeated string make = 16;
+    // Model of item (e.g. Stratocaster)
+    string model = 17;
+    // Search term negation. If you want to exclude a term, add it here
+    string must_not = 18;
+    // Listing ID negation. If you want to exclude a listing, add it here.
+    repeated string not_ids = 19;
+    // If true, include only items by Reverb Preferred Sellers
+    bool preferred_seller = 20;
+    // Maximum price of search results (USD)
+    float price_max = 21;
+    // Minimum price of search results (USD)
+    float price_min = 22;
+    // Product type slug from /api/categories
+    string product_type = 23;
+    // Search query.
+    string query = 24;
+    // Limit search to items that ship to this country code
+    string ships_to = 25;
+    // Slug of shop to search
+    string shop = 26;
+    // ID of shop to search
+    string shop_id = 27;
+    // Find a listing by sku
+    string sku = 28;
+    // Available: ["all", "draft", "ended", "live", "ordered", "sold_out", "suspended", "seller_unavailable"]. Defaults to 'live'
+    string state = 29;
+    // Minimum number of watchers (used to find popular items)
+    int32 watchers_count_min = 30;
+    // Maximum year of manufacture
+    int32 year_max = 31;
+    // Minumum year of manufacture
+    int32 year_min = 32;
+}
+
+message GetMyListingsDraftsRequest {
+    // If true, include only items that accept gift cards
+    bool accepts_gift_cards = 1;
+    // If true, only show items that can be purchased with a payment plan
+    bool accepts_payment_plans = 2;
+    // Maximum current auction price
+    float auction_price_max = 3;
+    // Category slug from /api/categories
+    string category = 4;
+    // Condition: all,new,b-stock,used,non-functioning
+    repeated string conditions = 5;
+    // The currency to be used for the price filters
+    string currency = 6;
+    // Decade: e.g. 1970s, early 70s
+    string decade = 7;
+    // If true, exclude auctions
+    bool exclude_auctions = 8;
+    // Visual finish of the item, common for guitars
+    string finish = 9;
+    // Handmade items only
+    bool handmade = 10;
+    // City where item is located
+    string item_city = 11;
+    // DEPRECATED - Country code where item is located
+    string item_country = 12;
+    // Country code where item is located
+    string item_region = 13;
+    // State or region code where item is located
+    string item_state = 14;
+    // Type of listing: auctions,offers
+    string listing_type = 15;
+    // Make(s)/brand of item (e.g. Fender). Can take a single value or an array.
+    repeated string make = 16;
+    // Model of item (e.g. Stratocaster)
+    string model = 17;
+    // Search term negation. If you want to exclude a term, add it here
+    string must_not = 18;
+    // Listing ID negation. If you want to exclude a listing, add it here.
+    repeated string not_ids = 19;
+    // If true, include only items by Reverb Preferred Sellers
+    bool preferred_seller = 20;
+    // Maximum price of search results (USD)
+    float price_max = 21;
+    // Minimum price of search results (USD)
+    float price_min = 22;
+    // Product type slug from /api/categories
+    string product_type = 23;
+    // Search query.
+    string query = 24;
+    // Limit search to items that ship to this country code
+    string ships_to = 25;
+    // Slug of shop to search
+    string shop = 26;
+    // ID of shop to search
+    string shop_id = 27;
+    // Minimum number of watchers (used to find popular items)
+    int32 watchers_count_min = 28;
+    // Maximum year of manufacture
+    int32 year_max = 29;
+    // Minumum year of manufacture
+    int32 year_min = 30;
+}
+
+message GetMyListingsNegotiationsRequest {
+    int32 offset = 1;
+    int32 page = 2;
+    int32 per_page = 3;
+}
+
+message PutMyListingsSlugStateEndRequest {
+    // the content of the request
+    message Body {
+            // The reason this listing is being ended. Valid reasons: ["not_sold", "reverb_sale"].
+    enum Body_Reason {
+            BODY_REASON_NOT_SOLD = 0;
+            BODY_REASON_REVERB_SALE = 1;
+        }
+        Body_Reason reason = 1;
+    }
+    Body body = 1;
+    string slug = 2;
+}
+
+message GetMyNegotiationsBuyingRequest {
+    int32 offset = 1;
+    int32 page = 2;
+    int32 per_page = 3;
+}
+
+message GetMyNegotiationsIdRequest {
+    string id = 1;
+}
+
+message PostMyNegotiationsIdAcceptRequest {
+    // the content of the request
+    message Body {
+            // Message to include with accepted offer
+    string message = 1;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message PostMyNegotiationsIdCounterRequest {
+    // the content of the request
+    message Body {
+            // Message to include with counter offer
+    string message = 1;
+        message Price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Price_Currency {
+                PRICE_CURRENCY_USD = 0;
+                PRICE_CURRENCY_CAD = 1;
+                PRICE_CURRENCY_EUR = 2;
+                PRICE_CURRENCY_GBP = 3;
+                PRICE_CURRENCY_AUD = 4;
+                PRICE_CURRENCY_JPY = 5;
+                PRICE_CURRENCY_NZD = 6;
+                PRICE_CURRENCY_MXN = 7;
+            }
+            Price_Currency currency = 2;
+        }
+        Price price = 2;
+            // Shipping price (sellers only)
+    message Shipping_price {
+                    // The amount of money being expressed, as a decimal number
+    string amount = 1;
+                    // The currency the money will be expressed in
+    enum Shipping_price_Currency {
+                SHIPPING_PRICE_CURRENCY_USD = 0;
+                SHIPPING_PRICE_CURRENCY_CAD = 1;
+                SHIPPING_PRICE_CURRENCY_EUR = 2;
+                SHIPPING_PRICE_CURRENCY_GBP = 3;
+                SHIPPING_PRICE_CURRENCY_AUD = 4;
+                SHIPPING_PRICE_CURRENCY_JPY = 5;
+                SHIPPING_PRICE_CURRENCY_NZD = 6;
+                SHIPPING_PRICE_CURRENCY_MXN = 7;
+            }
+            Shipping_price_Currency currency = 2;
+        }
+        Shipping_price shipping_price = 3;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message PostMyNegotiationsIdDeclineRequest {
+    string id = 1;
+}
+
+message GetMyOrdersBuyingIdRequest {
+    string id = 1;
+}
+
+message PostMyOrdersBuyingIdMark_receivedRequest {
+    string id = 1;
+}
+
+message GetMyOrdersSellingAllRequest {
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_end_date = 1;
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_start_date = 2;
+    int32 offset = 3;
+    int32 page = 4;
+    int32 per_page = 5;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_end_date = 6;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_start_date = 7;
+}
+
+message GetMyOrdersSellingAwaiting_shipmentRequest {
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_end_date = 1;
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_start_date = 2;
+    int32 offset = 3;
+    int32 page = 4;
+    int32 per_page = 5;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_end_date = 6;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_start_date = 7;
+}
+
+message GetMyOrdersSellingBuyer_historyBuyer_idRequest {
+    string buyer_id = 1;
+}
+
+message GetMyOrdersSellingUnpaidRequest {
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_end_date = 1;
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_start_date = 2;
+    int32 offset = 3;
+    int32 page = 4;
+    int32 per_page = 5;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_end_date = 6;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_start_date = 7;
+}
+
+message GetMyOrdersSellingIdRequest {
+    string id = 1;
+}
+
+message PostMyOrdersSellingIdMark_picked_upRequest {
+    // the content of the request
+    message Body {
+            // Date the item was picked up.
+    string date = 1;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message PostMyOrdersSellingIdShipRequest {
+    // the content of the request
+    message Body {
+            // Shipping provider: One of UPS, USPS, FedEx, DHL, DHLExpress, DHLGlobalMail, DHL Germany, Canada Post, Royal Mail, PostNL, Australia Post, EMS, La Poste, China Post, GLS, Parcelforce, Purolator, Interlogistica, Correos España, Ukraine Post, Other
+    string provider = 1;
+            // Should we send an email notification to the buyer
+    bool send_notification = 2;
+            // Tracking number provided by the shipping provider
+    string tracking_number = 3;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message GetMyPaymentsSellingRequest {
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_end_date = 1;
+    // Filter by date created in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string created_start_date = 2;
+    int32 offset = 3;
+    // Look up payments by order id
+    string order_id = 4;
+    int32 page = 5;
+    int32 per_page = 6;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_end_date = 7;
+    // Filter by date modified in ISO8601 format - e.g: 2015-04-09T10:52:23-00:00
+    string updated_start_date = 8;
+}
+
+message GetMyPaymentsSellingIdRequest {
+    string id = 1;
+}
+
+message PutMyWishlistIdRequest {
+    string id = 1;
+}
+
+message DeleteMyWishlistIdRequest {
+    string id = 1;
+}
+
+message GetOrdersOrder_idFeedbackBuyerRequest {
+    string order_id = 1;
+}
+
+message PostOrdersOrder_idFeedbackBuyerRequest {
+    string order_id = 1;
+}
+
+message GetOrdersOrder_idFeedbackSellerRequest {
+    string order_id = 1;
+}
+
+message PostOrdersOrder_idFeedbackSellerRequest {
+    string order_id = 1;
+}
+
+message GetPriceguideRequest {
+    // Search query.
+    string query = 1;
+}
+
+message GetPriceguideIdRequest {
+    string id = 1;
+}
+
+message GetPriceguideIdTransactionsRequest {
+    string condition = 1;
+    string id = 2;
+}
+
+message GetPriceguideIdTransactionsSummaryRequest {
+    string condition = 1;
+    string id = 2;
+    int32 number_of_months = 3;
+}
+
+message GetPrivateShopsBy_slugSlugRequest {
+    string slug = 1;
+}
+
+message GetProductsReviewsIdRequest {
+    string id = 1;
+}
+
+message PutProductsReviewsIdRequest {
+    // the content of the request
+    message Body {
+            // Content of the review
+    string body = 1;
+            // Rating from 1 to 5
+    int32 rating = 2;
+            // Title for the review
+    string title = 3;
+    }
+    Body body = 1;
+    string id = 2;
+}
+
+message GetProductsSlugReviewsRequest {
+    string slug = 1;
+}
+
+message PostProductsSlugReviewsRequest {
+    string slug = 1;
+}
+
+message PostSalesSale_idListingsRequest {
+    string sale_id = 1;
+}
+
+message DeleteSalesSale_idListingsRequest {
+    string sale_id = 1;
+}
+
+message GetSalesSlugRequest {
+    string slug = 1;
+}
+
+message PutShopRequest {
+    // the content of the request
+    message Body {
+        message Address {
+            string country_code = 1;
+            string extended_address = 2;
+            string locality = 3;
+            string name = 4;
+            string phone = 5;
+            string postal_code = 6;
+            string region = 7;
+            string street_address = 8;
+        }
+        Address address = 1;
+        enum Body_Currency {
+            BODY_CURRENCY_USD = 0;
+            BODY_CURRENCY_CAD = 1;
+            BODY_CURRENCY_EUR = 2;
+            BODY_CURRENCY_GBP = 3;
+            BODY_CURRENCY_AUD = 4;
+            BODY_CURRENCY_JPY = 5;
+            BODY_CURRENCY_NZD = 6;
+            BODY_CURRENCY_MXN = 7;
+        }
+        Body_Currency currency = 2;
+        string description = 3;
+        enum Body_Legal_country_code {
+            BODY_LEGAL_COUNTRY_CODE_AD = 0;
+            BODY_LEGAL_COUNTRY_CODE_AE = 1;
+            BODY_LEGAL_COUNTRY_CODE_AF = 2;
+            BODY_LEGAL_COUNTRY_CODE_AG = 3;
+            BODY_LEGAL_COUNTRY_CODE_AI = 4;
+            BODY_LEGAL_COUNTRY_CODE_AL = 5;
+            BODY_LEGAL_COUNTRY_CODE_AM = 6;
+            BODY_LEGAL_COUNTRY_CODE_AO = 7;
+            BODY_LEGAL_COUNTRY_CODE_AR = 8;
+            BODY_LEGAL_COUNTRY_CODE_AS = 9;
+            BODY_LEGAL_COUNTRY_CODE_AT = 10;
+            BODY_LEGAL_COUNTRY_CODE_AU = 11;
+            BODY_LEGAL_COUNTRY_CODE_AW = 12;
+            BODY_LEGAL_COUNTRY_CODE_AX = 13;
+            BODY_LEGAL_COUNTRY_CODE_AZ = 14;
+            BODY_LEGAL_COUNTRY_CODE_BA = 15;
+            BODY_LEGAL_COUNTRY_CODE_BB = 16;
+            BODY_LEGAL_COUNTRY_CODE_BD = 17;
+            BODY_LEGAL_COUNTRY_CODE_BE = 18;
+            BODY_LEGAL_COUNTRY_CODE_BF = 19;
+            BODY_LEGAL_COUNTRY_CODE_BG = 20;
+            BODY_LEGAL_COUNTRY_CODE_BH = 21;
+            BODY_LEGAL_COUNTRY_CODE_BI = 22;
+            BODY_LEGAL_COUNTRY_CODE_BJ = 23;
+            BODY_LEGAL_COUNTRY_CODE_BL = 24;
+            BODY_LEGAL_COUNTRY_CODE_BM = 25;
+            BODY_LEGAL_COUNTRY_CODE_BN = 26;
+            BODY_LEGAL_COUNTRY_CODE_BO = 27;
+            BODY_LEGAL_COUNTRY_CODE_BQ = 28;
+            BODY_LEGAL_COUNTRY_CODE_BR = 29;
+            BODY_LEGAL_COUNTRY_CODE_BS = 30;
+            BODY_LEGAL_COUNTRY_CODE_BT = 31;
+            BODY_LEGAL_COUNTRY_CODE_BV = 32;
+            BODY_LEGAL_COUNTRY_CODE_BW = 33;
+            BODY_LEGAL_COUNTRY_CODE_BY = 34;
+            BODY_LEGAL_COUNTRY_CODE_BZ = 35;
+            BODY_LEGAL_COUNTRY_CODE_CA = 36;
+            BODY_LEGAL_COUNTRY_CODE_CC = 37;
+            BODY_LEGAL_COUNTRY_CODE_CD = 38;
+            BODY_LEGAL_COUNTRY_CODE_CF = 39;
+            BODY_LEGAL_COUNTRY_CODE_CG = 40;
+            BODY_LEGAL_COUNTRY_CODE_CH = 41;
+            BODY_LEGAL_COUNTRY_CODE_CI = 42;
+            BODY_LEGAL_COUNTRY_CODE_CK = 43;
+            BODY_LEGAL_COUNTRY_CODE_CL = 44;
+            BODY_LEGAL_COUNTRY_CODE_CM = 45;
+            BODY_LEGAL_COUNTRY_CODE_CN = 46;
+            BODY_LEGAL_COUNTRY_CODE_CO = 47;
+            BODY_LEGAL_COUNTRY_CODE_CR = 48;
+            BODY_LEGAL_COUNTRY_CODE_CU = 49;
+            BODY_LEGAL_COUNTRY_CODE_CV = 50;
+            BODY_LEGAL_COUNTRY_CODE_CW = 51;
+            BODY_LEGAL_COUNTRY_CODE_CX = 52;
+            BODY_LEGAL_COUNTRY_CODE_CY = 53;
+            BODY_LEGAL_COUNTRY_CODE_CZ = 54;
+            BODY_LEGAL_COUNTRY_CODE_DE = 55;
+            BODY_LEGAL_COUNTRY_CODE_DJ = 56;
+            BODY_LEGAL_COUNTRY_CODE_DK = 57;
+            BODY_LEGAL_COUNTRY_CODE_DM = 58;
+            BODY_LEGAL_COUNTRY_CODE_DO = 59;
+            BODY_LEGAL_COUNTRY_CODE_DZ = 60;
+            BODY_LEGAL_COUNTRY_CODE_EC = 61;
+            BODY_LEGAL_COUNTRY_CODE_EE = 62;
+            BODY_LEGAL_COUNTRY_CODE_EG = 63;
+            BODY_LEGAL_COUNTRY_CODE_EH = 64;
+            BODY_LEGAL_COUNTRY_CODE_ER = 65;
+            BODY_LEGAL_COUNTRY_CODE_ES = 66;
+            BODY_LEGAL_COUNTRY_CODE_ET = 67;
+            BODY_LEGAL_COUNTRY_CODE_FI = 68;
+            BODY_LEGAL_COUNTRY_CODE_FJ = 69;
+            BODY_LEGAL_COUNTRY_CODE_FK = 70;
+            BODY_LEGAL_COUNTRY_CODE_FM = 71;
+            BODY_LEGAL_COUNTRY_CODE_FO = 72;
+            BODY_LEGAL_COUNTRY_CODE_FR = 73;
+            BODY_LEGAL_COUNTRY_CODE_GA = 74;
+            BODY_LEGAL_COUNTRY_CODE_GB = 75;
+            BODY_LEGAL_COUNTRY_CODE_GD = 76;
+            BODY_LEGAL_COUNTRY_CODE_GE = 77;
+            BODY_LEGAL_COUNTRY_CODE_GF = 78;
+            BODY_LEGAL_COUNTRY_CODE_GG = 79;
+            BODY_LEGAL_COUNTRY_CODE_GH = 80;
+            BODY_LEGAL_COUNTRY_CODE_GI = 81;
+            BODY_LEGAL_COUNTRY_CODE_GL = 82;
+            BODY_LEGAL_COUNTRY_CODE_GM = 83;
+            BODY_LEGAL_COUNTRY_CODE_GN = 84;
+            BODY_LEGAL_COUNTRY_CODE_GP = 85;
+            BODY_LEGAL_COUNTRY_CODE_GQ = 86;
+            BODY_LEGAL_COUNTRY_CODE_GR = 87;
+            BODY_LEGAL_COUNTRY_CODE_GS = 88;
+            BODY_LEGAL_COUNTRY_CODE_GT = 89;
+            BODY_LEGAL_COUNTRY_CODE_GU = 90;
+            BODY_LEGAL_COUNTRY_CODE_GW = 91;
+            BODY_LEGAL_COUNTRY_CODE_GY = 92;
+            BODY_LEGAL_COUNTRY_CODE_HK = 93;
+            BODY_LEGAL_COUNTRY_CODE_HM = 94;
+            BODY_LEGAL_COUNTRY_CODE_HN = 95;
+            BODY_LEGAL_COUNTRY_CODE_HR = 96;
+            BODY_LEGAL_COUNTRY_CODE_HT = 97;
+            BODY_LEGAL_COUNTRY_CODE_HU = 98;
+            BODY_LEGAL_COUNTRY_CODE_ID = 99;
+            BODY_LEGAL_COUNTRY_CODE_IE = 100;
+            BODY_LEGAL_COUNTRY_CODE_IL = 101;
+            BODY_LEGAL_COUNTRY_CODE_IM = 102;
+            BODY_LEGAL_COUNTRY_CODE_IN = 103;
+            BODY_LEGAL_COUNTRY_CODE_IO = 104;
+            BODY_LEGAL_COUNTRY_CODE_IQ = 105;
+            BODY_LEGAL_COUNTRY_CODE_IR = 106;
+            BODY_LEGAL_COUNTRY_CODE_IS = 107;
+            BODY_LEGAL_COUNTRY_CODE_IT = 108;
+            BODY_LEGAL_COUNTRY_CODE_JE = 109;
+            BODY_LEGAL_COUNTRY_CODE_JM = 110;
+            BODY_LEGAL_COUNTRY_CODE_JO = 111;
+            BODY_LEGAL_COUNTRY_CODE_JP = 112;
+            BODY_LEGAL_COUNTRY_CODE_KE = 113;
+            BODY_LEGAL_COUNTRY_CODE_KG = 114;
+            BODY_LEGAL_COUNTRY_CODE_KH = 115;
+            BODY_LEGAL_COUNTRY_CODE_KI = 116;
+            BODY_LEGAL_COUNTRY_CODE_KM = 117;
+            BODY_LEGAL_COUNTRY_CODE_KN = 118;
+            BODY_LEGAL_COUNTRY_CODE_KP = 119;
+            BODY_LEGAL_COUNTRY_CODE_KR = 120;
+            BODY_LEGAL_COUNTRY_CODE_KW = 121;
+            BODY_LEGAL_COUNTRY_CODE_KY = 122;
+            BODY_LEGAL_COUNTRY_CODE_KZ = 123;
+            BODY_LEGAL_COUNTRY_CODE_LA = 124;
+            BODY_LEGAL_COUNTRY_CODE_LB = 125;
+            BODY_LEGAL_COUNTRY_CODE_LC = 126;
+            BODY_LEGAL_COUNTRY_CODE_LI = 127;
+            BODY_LEGAL_COUNTRY_CODE_LK = 128;
+            BODY_LEGAL_COUNTRY_CODE_LR = 129;
+            BODY_LEGAL_COUNTRY_CODE_LS = 130;
+            BODY_LEGAL_COUNTRY_CODE_LT = 131;
+            BODY_LEGAL_COUNTRY_CODE_LU = 132;
+            BODY_LEGAL_COUNTRY_CODE_LV = 133;
+            BODY_LEGAL_COUNTRY_CODE_LY = 134;
+            BODY_LEGAL_COUNTRY_CODE_MA = 135;
+            BODY_LEGAL_COUNTRY_CODE_MC = 136;
+            BODY_LEGAL_COUNTRY_CODE_MD = 137;
+            BODY_LEGAL_COUNTRY_CODE_ME = 138;
+            BODY_LEGAL_COUNTRY_CODE_MF = 139;
+            BODY_LEGAL_COUNTRY_CODE_MG = 140;
+            BODY_LEGAL_COUNTRY_CODE_MH = 141;
+            BODY_LEGAL_COUNTRY_CODE_MK = 142;
+            BODY_LEGAL_COUNTRY_CODE_ML = 143;
+            BODY_LEGAL_COUNTRY_CODE_MM = 144;
+            BODY_LEGAL_COUNTRY_CODE_MN = 145;
+            BODY_LEGAL_COUNTRY_CODE_MO = 146;
+            BODY_LEGAL_COUNTRY_CODE_MP = 147;
+            BODY_LEGAL_COUNTRY_CODE_MQ = 148;
+            BODY_LEGAL_COUNTRY_CODE_MR = 149;
+            BODY_LEGAL_COUNTRY_CODE_MS = 150;
+            BODY_LEGAL_COUNTRY_CODE_MT = 151;
+            BODY_LEGAL_COUNTRY_CODE_MU = 152;
+            BODY_LEGAL_COUNTRY_CODE_MV = 153;
+            BODY_LEGAL_COUNTRY_CODE_MW = 154;
+            BODY_LEGAL_COUNTRY_CODE_MX = 155;
+            BODY_LEGAL_COUNTRY_CODE_MY = 156;
+            BODY_LEGAL_COUNTRY_CODE_MZ = 157;
+            BODY_LEGAL_COUNTRY_CODE_NA = 158;
+            BODY_LEGAL_COUNTRY_CODE_NC = 159;
+            BODY_LEGAL_COUNTRY_CODE_NE = 160;
+            BODY_LEGAL_COUNTRY_CODE_NF = 161;
+            BODY_LEGAL_COUNTRY_CODE_NG = 162;
+            BODY_LEGAL_COUNTRY_CODE_NI = 163;
+            BODY_LEGAL_COUNTRY_CODE_NL = 164;
+            BODY_LEGAL_COUNTRY_CODE_NO = 165;
+            BODY_LEGAL_COUNTRY_CODE_NP = 166;
+            BODY_LEGAL_COUNTRY_CODE_NR = 167;
+            BODY_LEGAL_COUNTRY_CODE_NU = 168;
+            BODY_LEGAL_COUNTRY_CODE_NZ = 169;
+            BODY_LEGAL_COUNTRY_CODE_OM = 170;
+            BODY_LEGAL_COUNTRY_CODE_PA = 171;
+            BODY_LEGAL_COUNTRY_CODE_PE = 172;
+            BODY_LEGAL_COUNTRY_CODE_PF = 173;
+            BODY_LEGAL_COUNTRY_CODE_PG = 174;
+            BODY_LEGAL_COUNTRY_CODE_PH = 175;
+            BODY_LEGAL_COUNTRY_CODE_PK = 176;
+            BODY_LEGAL_COUNTRY_CODE_PL = 177;
+            BODY_LEGAL_COUNTRY_CODE_PM = 178;
+            BODY_LEGAL_COUNTRY_CODE_PN = 179;
+            BODY_LEGAL_COUNTRY_CODE_PS = 180;
+            BODY_LEGAL_COUNTRY_CODE_PT = 181;
+            BODY_LEGAL_COUNTRY_CODE_PW = 182;
+            BODY_LEGAL_COUNTRY_CODE_PY = 183;
+            BODY_LEGAL_COUNTRY_CODE_QA = 184;
+            BODY_LEGAL_COUNTRY_CODE_RE = 185;
+            BODY_LEGAL_COUNTRY_CODE_RO = 186;
+            BODY_LEGAL_COUNTRY_CODE_RS = 187;
+            BODY_LEGAL_COUNTRY_CODE_RU = 188;
+            BODY_LEGAL_COUNTRY_CODE_RW = 189;
+            BODY_LEGAL_COUNTRY_CODE_SA = 190;
+            BODY_LEGAL_COUNTRY_CODE_SB = 191;
+            BODY_LEGAL_COUNTRY_CODE_SC = 192;
+            BODY_LEGAL_COUNTRY_CODE_SD = 193;
+            BODY_LEGAL_COUNTRY_CODE_SE = 194;
+            BODY_LEGAL_COUNTRY_CODE_SG = 195;
+            BODY_LEGAL_COUNTRY_CODE_SH = 196;
+            BODY_LEGAL_COUNTRY_CODE_SI = 197;
+            BODY_LEGAL_COUNTRY_CODE_SJ = 198;
+            BODY_LEGAL_COUNTRY_CODE_SK = 199;
+            BODY_LEGAL_COUNTRY_CODE_SL = 200;
+            BODY_LEGAL_COUNTRY_CODE_SM = 201;
+            BODY_LEGAL_COUNTRY_CODE_SN = 202;
+            BODY_LEGAL_COUNTRY_CODE_SO = 203;
+            BODY_LEGAL_COUNTRY_CODE_SR = 204;
+            BODY_LEGAL_COUNTRY_CODE_SS = 205;
+            BODY_LEGAL_COUNTRY_CODE_ST = 206;
+            BODY_LEGAL_COUNTRY_CODE_SV = 207;
+            BODY_LEGAL_COUNTRY_CODE_SX = 208;
+            BODY_LEGAL_COUNTRY_CODE_SY = 209;
+            BODY_LEGAL_COUNTRY_CODE_SZ = 210;
+            BODY_LEGAL_COUNTRY_CODE_TC = 211;
+            BODY_LEGAL_COUNTRY_CODE_TD = 212;
+            BODY_LEGAL_COUNTRY_CODE_TF = 213;
+            BODY_LEGAL_COUNTRY_CODE_TG = 214;
+            BODY_LEGAL_COUNTRY_CODE_TH = 215;
+            BODY_LEGAL_COUNTRY_CODE_TJ = 216;
+            BODY_LEGAL_COUNTRY_CODE_TK = 217;
+            BODY_LEGAL_COUNTRY_CODE_TL = 218;
+            BODY_LEGAL_COUNTRY_CODE_TM = 219;
+            BODY_LEGAL_COUNTRY_CODE_TN = 220;
+            BODY_LEGAL_COUNTRY_CODE_TO = 221;
+            BODY_LEGAL_COUNTRY_CODE_TR = 222;
+            BODY_LEGAL_COUNTRY_CODE_TT = 223;
+            BODY_LEGAL_COUNTRY_CODE_TV = 224;
+            BODY_LEGAL_COUNTRY_CODE_TW = 225;
+            BODY_LEGAL_COUNTRY_CODE_TZ = 226;
+            BODY_LEGAL_COUNTRY_CODE_UA = 227;
+            BODY_LEGAL_COUNTRY_CODE_UG = 228;
+            BODY_LEGAL_COUNTRY_CODE_UM = 229;
+            BODY_LEGAL_COUNTRY_CODE_US = 230;
+            BODY_LEGAL_COUNTRY_CODE_UY = 231;
+            BODY_LEGAL_COUNTRY_CODE_UZ = 232;
+            BODY_LEGAL_COUNTRY_CODE_VA = 233;
+            BODY_LEGAL_COUNTRY_CODE_VC = 234;
+            BODY_LEGAL_COUNTRY_CODE_VE = 235;
+            BODY_LEGAL_COUNTRY_CODE_VG = 236;
+            BODY_LEGAL_COUNTRY_CODE_VI = 237;
+            BODY_LEGAL_COUNTRY_CODE_VN = 238;
+            BODY_LEGAL_COUNTRY_CODE_VU = 239;
+            BODY_LEGAL_COUNTRY_CODE_WF = 240;
+            BODY_LEGAL_COUNTRY_CODE_WS = 241;
+            BODY_LEGAL_COUNTRY_CODE_YE = 242;
+            BODY_LEGAL_COUNTRY_CODE_YT = 243;
+            BODY_LEGAL_COUNTRY_CODE_ZA = 244;
+            BODY_LEGAL_COUNTRY_CODE_ZM = 245;
+            BODY_LEGAL_COUNTRY_CODE_ZW = 246;
+        }
+        Body_Legal_country_code legal_country_code = 4;
+        bool legal_country_code_confirmed = 5;
+        string name = 6;
+        string payment_policy = 7;
+        string return_policy = 8;
+        string shipping_policy = 9;
+        string website = 10;
+    }
+    Body body = 1;
+}
+
+message GetShopStatsActivityRequest {
+    // Filter by date in ISO8601 format - e.g: 2015-04-09T10:52:23-05:00
+    string end_time = 1;
+    // Filter by date in ISO8601 format - e.g: 2015-04-09T10:52:23-05:00
+    string start_time = 2;
+}
+
+message GetShopsShop_idShipping_profilesRequest {
+    string shop_id = 1;
+}
+
+message GetShopsSlugRequest {
+    string slug = 1;
+}
+
+message GetShopsSlugFeedbackRequest {
+    string slug = 1;
+}
+
+message GetShopsSlugFeedbackBuyerRequest {
+    string slug = 1;
+}
+
+message GetShopsSlugFeedbackSellerRequest {
+    string slug = 1;
+}
+
+message PutWantsIdRequest {
+    string id = 1;
+}
+
+message DeleteWantsIdRequest {
+    string id = 1;
+}
+
+message PostWebhooksRegistrationsRequest {
+    // the content of the request
+    message Body {
+            // Valid values: listings/update, listings/publish, listings/bumps-ran-out, orders/create, orders/update, payments/create, payments/update, app/uninstalled
+    enum Body_Topic {
+            BODY_TOPIC_LISTINGSUPDATE = 0;
+            BODY_TOPIC_LISTINGSPUBLISH = 1;
+            BODY_TOPIC_LISTINGSBUMPSRANOUT = 2;
+            BODY_TOPIC_ORDERSCREATE = 3;
+            BODY_TOPIC_ORDERSUPDATE = 4;
+            BODY_TOPIC_PAYMENTSCREATE = 5;
+            BODY_TOPIC_PAYMENTSUPDATE = 6;
+            BODY_TOPIC_APPUNINSTALLED = 7;
+        }
+        Body_Topic topic = 1;
+        string url = 2;
+    }
+    Body body = 1;
+}
+
+message GetWebhooksRegistrationsIdRequest {
+    string id = 1;
+}
+
+message DeleteWebhooksRegistrationsIdRequest {
+    string id = 1;
+}
+
+service ReverbService {
+    // Create an account.
+    // 
+    // Create an account.
+    rpc PostAccounts(PostAccountsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/accounts"
+        body: "body"
+      };
+    }
+    rpc GetArticles(GetArticlesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles"
+      };
+    }
+    // See featured Reverb blog posts
+    // 
+    // See featured Reverb blog posts
+    rpc GetArticlesFeatured(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles/featured"
+      };
+    }
+    rpc GetArticlesMultiple(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles/multiple"
+      };
+    }
+    rpc GetArticlesRecently_featured(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles/recently_featured"
+      };
+    }
+    // Display a single article
+    // 
+    // Display a single article
+    rpc GetArticlesSlug(GetArticlesSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles/{slug}"
+      };
+    }
+    // Find listings related to an article
+    // 
+    // Find listings related to an article
+    rpc GetArticlesSlugRelatedListings(GetArticlesSlugRelatedListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/articles/{slug}/related-listings"
+      };
+    }
+    // Send a password reset email
+    // 
+    // Send a password reset email
+    rpc PostAuthForgot_password(PostAuthForgot_passwordRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/auth/forgot_password"
+        body: "body"
+      };
+    }
+    // Logout (primarily for mobile clients)
+    // 
+    // Logout (primarily for mobile clients)
+    rpc PutAuthLogout(PutAuthLogoutRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/auth/logout"
+        body: "body"
+      };
+    }
+    // Autosuggest terms for searches
+    // 
+    // Autosuggest terms for searches
+    rpc GetAutosuggest(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/autosuggest"
+      };
+    }
+    // See available tiers for bump bids
+    // 
+    // See available tiers for bump bids
+    rpc GetBumpNewBids(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/bump/new/bids"
+      };
+    }
+    // Update bump for new bids
+    // 
+    // Update bump for new bids
+    rpc PutBumpNewBids(PutBumpNewBidsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/bump/new/bids"
+        body: "body"
+      };
+    }
+    // Remove bump for new bids
+    // 
+    // Remove bump for new bids
+    rpc DeleteBumpNewBids(DeleteBumpNewBidsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/bump/new/bids"
+      };
+    }
+    // Get all cart items
+    // 
+    // Get all cart items
+    rpc GetCart(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/cart"
+      };
+    }
+    // Remove a cart item and add it to watch list
+    // 
+    // Remove a cart item and add it to watch list
+    rpc PostCartMove_to_watch_listCart_item_id(PostCartMove_to_watch_listCart_item_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/cart/move_to_watch_list/{cart_item_id}"
+      };
+    }
+    // Update cart item details
+    // 
+    // Update cart item details
+    rpc PutCartId(PutCartIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/cart/{id}"
+      };
+    }
+    // Add product to the cart
+    // 
+    // Add product to the cart
+    rpc PostCartId(PostCartIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/cart/{id}"
+      };
+    }
+    // Remove a product from the cart
+    // 
+    // Remove a product from the cart
+    rpc DeleteCartId(DeleteCartIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/cart/{id}"
+      };
+    }
+    // List of supported product categories
+    // 
+    // List of supported product categories
+    rpc GetCategories(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/categories"
+      };
+    }
+    rpc GetCategoriesFlat(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/categories/flat"
+      };
+    }
+    // Full taxonomy tree of categories including middle categories
+    // 
+    // Full taxonomy tree of categories including middle categories
+    rpc GetCategoriesTaxonomy(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/categories/taxonomy"
+      };
+    }
+    // Get subcategory details
+    // 
+    // Get subcategory details
+    rpc GetCategoriesProduct_typeCategory(GetCategoriesProduct_typeCategoryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/categories/{product_type}/{category}"
+      };
+    }
+    // Get category details
+    // 
+    // Get category details
+    rpc GetCategoriesUuid(GetCategoriesUuidRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/categories/{uuid}"
+      };
+    }
+    // List of curated collections
+    // 
+    // List of curated collections
+    rpc GetCollections(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/collections"
+      };
+    }
+    // Collection details
+    // 
+    // Collection details
+    rpc GetCollectionsSlug(GetCollectionsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/collections/{slug}"
+      };
+    }
+    // Returns a set of comparison shopping pages based on the current params
+    // 
+    // Returns a set of comparison shopping pages based on the current params
+    rpc GetComparison_shopping_pages(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages"
+      };
+    }
+    // Returns a set of comparison shopping pages that have also been purchased by similar users
+    // 
+    // Returns a set of comparison shopping pages that have also been purchased by similar users
+    rpc GetComparison_shopping_pagesAlso_purchased(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/also_purchased"
+      };
+    }
+    // Returns a set of comparison shopping pages that have also been viewed by similar users
+    // 
+    // Returns a set of comparison shopping pages that have also been viewed by similar users
+    rpc GetComparison_shopping_pagesAlso_viewed(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/also_viewed"
+      };
+    }
+    // Show comparison shopping page
+    // 
+    // Show comparison shopping page
+    rpc GetComparison_shopping_pagesFind(GetComparison_shopping_pagesFindRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/find"
+      };
+    }
+    // Returns a set of comparison shopping pages related to another one
+    // 
+    // Returns a set of comparison shopping pages related to another one
+    rpc GetComparison_shopping_pagesSimilar(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/similar"
+      };
+    }
+    rpc GetComparison_shopping_pagesId(GetComparison_shopping_pagesIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/{id}"
+      };
+    }
+    // Return new or used listings for a comparison shopping page
+    // 
+    // Return new or used listings for a comparison shopping page
+    rpc GetComparison_shopping_pagesIdListings(GetComparison_shopping_pagesIdListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/{id}/listings"
+      };
+    }
+    // View reviews of a comparison shopping page
+    // 
+    // View reviews of a comparison shopping page
+    rpc GetComparison_shopping_pagesIdReviews(GetComparison_shopping_pagesIdReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/comparison_shopping_pages/{id}/reviews"
+      };
+    }
+    // Make an offer to the other participant in the conversation
+    // 
+    // Make an offer to the other participant in the conversation
+    rpc PostConversationsIdOffer(PostConversationsIdOfferRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/conversations/{id}/offer"
+        body: "body"
+      };
+    }
+    // Retrieve a list of country codes with corresponding subregions
+    // 
+    // Retrieve a list of country codes with corresponding subregions
+    rpc GetCountries(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/countries"
+      };
+    }
+    rpc GetCurated_setUser_idHandpicked(GetCurated_setUser_idHandpickedRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/curated_set/{user_id}/handpicked"
+      };
+    }
+    rpc PutCurated_setsId(PutCurated_setsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/curated_sets/{id}"
+        body: "body"
+      };
+    }
+    rpc GetCurated_setsSlug(GetCurated_setsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/curated_sets/{slug}"
+      };
+    }
+    // List of supported display currencies for browsing listings
+    // 
+    // List of supported display currencies for browsing listings
+    rpc GetCurrenciesDisplay(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/currencies/display"
+      };
+    }
+    // List of supported listing currencies for shops
+    // 
+    // List of supported listing currencies for shops
+    rpc GetCurrenciesListing(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/currencies/listing"
+      };
+    }
+    // Feedback details
+    // 
+    // Feedback details
+    rpc GetFeedbackFeedback_id(GetFeedbackFeedback_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/feedback/{feedback_id}"
+      };
+    }
+    // Handpicked collection details
+    // 
+    // Handpicked collection details
+    rpc GetHandpickedSlug(GetHandpickedSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/handpicked/{slug}"
+      };
+    }
+    // List of supported product conditions
+    // 
+    // List of supported product conditions
+    rpc GetListing_conditions(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listing_conditions"
+      };
+    }
+    // Default search of listings includes only used & handmade. Add a filter to view all listings or use the /listings/all endpoint.
+    // 
+    // Default search of listings includes only used & handmade. Add a filter to view all listings or use the /listings/all endpoint.
+    rpc GetListings(GetListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings"
+      };
+    }
+    // Create a listing
+    // 
+    // Create a listing
+    rpc PostListings(PostListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings"
+        body: "body"
+      };
+    }
+    // All listings including used, handmade, and brand new
+    // 
+    // All listings including used, handmade, and brand new
+    rpc GetListingsAll(GetListingsAllRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/all"
+      };
+    }
+    // Returns the latest negotiation for the requesting user given a listing id
+    // 
+    // Returns the latest negotiation for the requesting user given a listing id
+    rpc GetListingsIdNegotiation(GetListingsIdNegotiationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{id}/negotiation"
+      };
+    }
+    // Make an offer to the seller of a listing
+    // 
+    // Make an offer to the seller of a listing
+    rpc PostListingsIdOffer(PostListingsIdOfferRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings/{id}/offer"
+        body: "body"
+      };
+    }
+    // View available bump tiers and stats for a listing
+    // 
+    // View available bump tiers and stats for a listing
+    rpc GetListingsListing_idBump(GetListingsListing_idBumpRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{listing_id}/bump"
+      };
+    }
+    // Bump a listing
+    // 
+    // Bump a listing
+    rpc PostListingsListing_idBumpBudget_type(PostListingsListing_idBumpBudget_typeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings/{listing_id}/bump/{budget_type}"
+      };
+    }
+    // Start a conversation with a seller
+    // 
+    // Start a conversation with a seller
+    rpc PostListingsListing_idConversations(PostListingsListing_idConversationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings/{listing_id}/conversations"
+        body: "body"
+      };
+    }
+    // View the images associated with a particular listing
+    // 
+    // View the images associated with a particular listing
+    rpc GetListingsListing_idImages(GetListingsListing_idImagesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{listing_id}/images"
+      };
+    }
+    // Delete an image from a listing
+    // 
+    // Delete an image from a listing
+    rpc DeleteListingsListing_idImagesImage_id(DeleteListingsListing_idImagesImage_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/listings/{listing_id}/images/{image_id}"
+      };
+    }
+    // Find a product bundle attached to a listing
+    // 
+    // Find a product bundle attached to a listing
+    rpc GetListingsListing_idProduct_bundle(GetListingsListing_idProduct_bundleRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{listing_id}/product_bundle"
+      };
+    }
+    // See all sales that include a listing.
+    // 
+    // See all sales that include a listing.
+    rpc GetListingsListing_idSales(GetListingsListing_idSalesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{listing_id}/sales"
+      };
+    }
+    // Listing details
+    // 
+    // Listing details
+    rpc GetListingsSlug(GetListingsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{slug}"
+      };
+    }
+    // Update a listing
+    // 
+    // Update a listing
+    rpc PutListingsSlug(PutListingsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/listings/{slug}"
+        body: "body"
+      };
+    }
+    // Delete a draft listing. Cannot be used on non-drafts.
+    // 
+    // Delete a draft listing. Cannot be used on non-drafts.
+    rpc DeleteListingsSlug(DeleteListingsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/listings/{slug}"
+      };
+    }
+    // Edit listing.
+    // 
+    // Edit listing.
+    rpc GetListingsSlugEdit(GetListingsSlugEditRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{slug}/edit"
+      };
+    }
+    // Flag a listing for inappropriate content or fraud
+    // 
+    // Flag a listing for inappropriate content or fraud
+    rpc PostListingsSlugFlag(PostListingsSlugFlagRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings/{slug}/flag"
+        body: "body"
+      };
+    }
+    // View reviews of a listing
+    // 
+    // View reviews of a listing
+    rpc GetListingsSlugReviews(GetListingsSlugReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{slug}/reviews"
+      };
+    }
+    // Create a review for a listing
+    // 
+    // Create a review for a listing
+    rpc PostListingsSlugReviews(PostListingsSlugReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/listings/{slug}/reviews"
+      };
+    }
+    // Listing details
+    // 
+    // Listing details
+    rpc GetListingsSlugSimilar_listings(GetListingsSlugSimilar_listingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/listings/{slug}/similar_listings"
+      };
+    }
+    // Get account details
+    // 
+    // Get account details
+    rpc GetMyAccount(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/account"
+      };
+    }
+    // Update account details
+    // 
+    // Update account details
+    rpc PutMyAccount(PutMyAccountRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/my/account"
+        body: "body"
+      };
+    }
+    // See all addresses in your address book
+    // 
+    // See all addresses in your address book
+    rpc GetMyAddresses(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/addresses"
+      };
+    }
+    // Create a new address in your address book
+    // 
+    // Create a new address in your address book
+    rpc PostMyAddresses(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/addresses"
+      };
+    }
+    // Update an existing address in your address book
+    // 
+    // Update an existing address in your address book
+    rpc PutMyAddressesAddress_id(PutMyAddressesAddress_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/my/addresses/{address_id}"
+      };
+    }
+    // Delete an existing address in your address book
+    // 
+    // Delete an existing address in your address book
+    rpc DeleteMyAddressesAddress_id(DeleteMyAddressesAddress_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/addresses/{address_id}"
+      };
+    }
+    // Get a list of your conversations
+    // 
+    // Get a list of your conversations
+    rpc GetMyConversations(GetMyConversationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/conversations"
+      };
+    }
+    // Start a conversation
+    // 
+    // Start a conversation
+    rpc PostMyConversations(PostMyConversationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/conversations"
+        body: "body"
+      };
+    }
+    // Send a message
+    // 
+    // Send a message
+    rpc PostMyConversationsConversation_idMessages(PostMyConversationsConversation_idMessagesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/conversations/{conversation_id}/messages"
+        body: "body"
+      };
+    }
+    // Display conversation details with messages in natural time order (oldest to newest)
+    // 
+    // Display conversation details with messages in natural time order (oldest to newest)
+    rpc GetMyConversationsId(GetMyConversationsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/conversations/{id}"
+      };
+    }
+    // Mark a conversation read/unread
+    // 
+    // Mark a conversation read/unread
+    rpc PutMyConversationsId(PutMyConversationsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/my/conversations/{id}"
+        body: "body"
+      };
+    }
+    // Get your actionable status counts
+    // 
+    // Get your actionable status counts
+    rpc GetMyCounts(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/counts"
+      };
+    }
+    rpc PostMyCurated_setProductProduct_id(PostMyCurated_setProductProduct_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/curated_set/product/{product_id}"
+      };
+    }
+    rpc DeleteMyCurated_setProductProduct_id(DeleteMyCurated_setProductProduct_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/curated_set/product/{product_id}"
+      };
+    }
+    // Get listings from your feed
+    // 
+    // Get listings from your feed
+    rpc GetMyFeed(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/feed"
+      };
+    }
+    // get your feed customization options
+    // 
+    // get your feed customization options
+    rpc GetMyFeedCustomize(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/feed/customize"
+      };
+    }
+    // get your feed
+    // 
+    // get your feed
+    rpc GetMyFeedGrid(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/feed/grid"
+      };
+    }
+    // List of received feedback
+    // 
+    // List of received feedback
+    rpc GetMyFeedbackReceived(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/feedback/received"
+      };
+    }
+    // List of sent feedback
+    // 
+    // List of sent feedback
+    rpc GetMyFeedbackSent(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/feedback/sent"
+      };
+    }
+    // See what the user is following
+    // 
+    // See what the user is following
+    rpc GetMyFollows(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows"
+      };
+    }
+    // Returns a user's ArticleCategoryFollows
+    // 
+    // Returns a user's ArticleCategoryFollows
+    rpc GetMyFollowsArticles(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/articles"
+      };
+    }
+    // Set a user's ArticleCategoryFollows
+    // 
+    // Set a user's ArticleCategoryFollows
+    rpc PostMyFollowsArticles(PostMyFollowsArticlesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/articles"
+        body: "body"
+      };
+    }
+    // Follow status for a brand
+    // 
+    // Follow status for a brand
+    rpc GetMyFollowsBrandsSlug(GetMyFollowsBrandsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/brands/{slug}"
+      };
+    }
+    // Follow a brand
+    // 
+    // Follow a brand
+    rpc PostMyFollowsBrandsSlug(PostMyFollowsBrandsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/brands/{slug}"
+      };
+    }
+    // Unfollow a brand
+    // 
+    // Unfollow a brand
+    rpc DeleteMyFollowsBrandsSlug(DeleteMyFollowsBrandsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/brands/{slug}"
+      };
+    }
+    // Follow status for a subcategory
+    // 
+    // Follow status for a subcategory
+    rpc GetMyFollowsCategoriesCategorySubcategory(GetMyFollowsCategoriesCategorySubcategoryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/categories/{category}/{subcategory}"
+      };
+    }
+    // Follow a subcategory
+    // 
+    // Follow a subcategory
+    rpc PostMyFollowsCategoriesCategorySubcategory(PostMyFollowsCategoriesCategorySubcategoryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/categories/{category}/{subcategory}"
+      };
+    }
+    // Unfollow a subcategory
+    // 
+    // Unfollow a subcategory
+    rpc DeleteMyFollowsCategoriesCategorySubcategory(DeleteMyFollowsCategoriesCategorySubcategoryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/categories/{category}/{subcategory}"
+      };
+    }
+    // Follow status for a category
+    // 
+    // Follow status for a category
+    rpc GetMyFollowsCategoriesIdentifier(GetMyFollowsCategoriesIdentifierRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/categories/{identifier}"
+      };
+    }
+    // Follow a category
+    // 
+    // Follow a category
+    rpc PostMyFollowsCategoriesIdentifier(PostMyFollowsCategoriesIdentifierRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/categories/{identifier}"
+      };
+    }
+    // Unfollow a category
+    // 
+    // Unfollow a category
+    rpc DeleteMyFollowsCategoriesIdentifier(DeleteMyFollowsCategoriesIdentifierRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/categories/{identifier}"
+      };
+    }
+    // Follow status for a collection
+    // 
+    // Follow status for a collection
+    rpc GetMyFollowsCollectionsSlug(GetMyFollowsCollectionsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/collections/{slug}"
+      };
+    }
+    // Follow a collection
+    // 
+    // Follow a collection
+    rpc PostMyFollowsCollectionsSlug(PostMyFollowsCollectionsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/collections/{slug}"
+      };
+    }
+    // Unfollow a collection
+    // 
+    // Unfollow a collection
+    rpc DeleteMyFollowsCollectionsSlug(DeleteMyFollowsCollectionsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/collections/{slug}"
+      };
+    }
+    // Follow status for a handpicked collection
+    // 
+    // Follow status for a handpicked collection
+    rpc GetMyFollowsHandpickedSlug(GetMyFollowsHandpickedSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/handpicked/{slug}"
+      };
+    }
+    // Follow a handpicked collection
+    // 
+    // Follow a handpicked collection
+    rpc PostMyFollowsHandpickedSlug(PostMyFollowsHandpickedSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/handpicked/{slug}"
+      };
+    }
+    // Unfollow a handpicked collection
+    // 
+    // Unfollow a handpicked collection
+    rpc DeleteMyFollowsHandpickedSlug(DeleteMyFollowsHandpickedSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/handpicked/{slug}"
+      };
+    }
+    // Follow status for a search
+    // 
+    // Follow status for a search
+    rpc GetMyFollowsSearch(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/search"
+      };
+    }
+    // Follow a search
+    // 
+    // Follow a search
+    rpc PostMyFollowsSearch(PostMyFollowsSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/search"
+        body: "body"
+      };
+    }
+    // Follow status for a shop
+    // 
+    // Follow status for a shop
+    rpc GetMyFollowsShopsSlug(GetMyFollowsShopsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/follows/shops/{slug}"
+      };
+    }
+    // Follow a shop
+    // 
+    // Follow a shop
+    rpc PostMyFollowsShopsSlug(PostMyFollowsShopsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/shops/{slug}"
+      };
+    }
+    // Unfollow a shop
+    // 
+    // Unfollow a shop
+    rpc DeleteMyFollowsShopsSlug(DeleteMyFollowsShopsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/shops/{slug}"
+      };
+    }
+    // Delete a follow
+    // 
+    // Delete a follow
+    rpc DeleteMyFollowsFollow_id(DeleteMyFollowsFollow_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/{follow_id}"
+      };
+    }
+    rpc PostMyFollowsFollow_idAlert(PostMyFollowsFollow_idAlertRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/follows/{follow_id}/alert"
+      };
+    }
+    rpc DeleteMyFollowsFollow_idAlert(DeleteMyFollowsFollow_idAlertRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/follows/{follow_id}/alert"
+      };
+    }
+    // Retrieve a list of live listings for the seller. To search all listings specify state=all
+    // 
+    // Retrieve a list of live listings for the seller. To search all listings specify state=all
+    rpc GetMyListings(GetMyListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/listings"
+      };
+    }
+    // Retrieve a list your draft listings
+    // 
+    // Retrieve a list your draft listings
+    rpc GetMyListingsDrafts(GetMyListingsDraftsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/listings/drafts"
+      };
+    }
+    // Get a list of active negotiations as a seller
+    // 
+    // Get a list of active negotiations as a seller
+    rpc GetMyListingsNegotiations(GetMyListingsNegotiationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/listings/negotiations"
+      };
+    }
+    // End a listing
+    // 
+    // End a listing
+    rpc PutMyListingsSlugStateEnd(PutMyListingsSlugStateEndRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/my/listings/{slug}/state/end"
+        body: "body"
+      };
+    }
+    // Get a list of your lists (wishlist, watch list, etc)
+    // 
+    // Get a list of your lists (wishlist, watch list, etc)
+    rpc GetMyLists(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/lists"
+      };
+    }
+    // Get a list of active negotiations as a buyer
+    // 
+    // Get a list of active negotiations as a buyer
+    rpc GetMyNegotiationsBuying(GetMyNegotiationsBuyingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/negotiations/buying"
+      };
+    }
+    // Get offer details
+    // 
+    // Get offer details
+    rpc GetMyNegotiationsId(GetMyNegotiationsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/negotiations/{id}"
+      };
+    }
+    // Accept an offer
+    // 
+    // Accept an offer
+    rpc PostMyNegotiationsIdAccept(PostMyNegotiationsIdAcceptRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/negotiations/{id}/accept"
+        body: "body"
+      };
+    }
+    // Counter an offer
+    // 
+    // Counter an offer
+    rpc PostMyNegotiationsIdCounter(PostMyNegotiationsIdCounterRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/negotiations/{id}/counter"
+        body: "body"
+      };
+    }
+    // Decline an offer
+    // 
+    // Decline an offer
+    rpc PostMyNegotiationsIdDecline(PostMyNegotiationsIdDeclineRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/negotiations/{id}/decline"
+      };
+    }
+    // List of orders that need feedback
+    // 
+    // List of orders that need feedback
+    rpc GetMyOrdersAwaiting_feedback(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/awaiting_feedback"
+      };
+    }
+    // Returns all orders, newest first.
+    // 
+    // Returns all orders, newest first.
+    rpc GetMyOrdersBuyingAll(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/buying/all"
+      };
+    }
+    // Returns unpaid orders, newest first.
+    // 
+    // Returns unpaid orders, newest first.
+    rpc GetMyOrdersBuyingUnpaid(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/buying/unpaid"
+      };
+    }
+    // Returns order details for a buyer
+    // 
+    // Returns order details for a buyer
+    rpc GetMyOrdersBuyingId(GetMyOrdersBuyingIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/buying/{id}"
+      };
+    }
+    // Marks an order as received by the buyer
+    // 
+    // Marks an order as received by the buyer
+    rpc PostMyOrdersBuyingIdMark_received(PostMyOrdersBuyingIdMark_receivedRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/orders/buying/{id}/mark_received"
+      };
+    }
+    // Get all seller orders, newest first.
+    // 
+    // Get all seller orders, newest first.
+    rpc GetMyOrdersSellingAll(GetMyOrdersSellingAllRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/selling/all"
+      };
+    }
+    // Get seller orders awaiting shipment, newest first.
+    // 
+    // Get seller orders awaiting shipment, newest first.
+    rpc GetMyOrdersSellingAwaiting_shipment(GetMyOrdersSellingAwaiting_shipmentRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/selling/awaiting_shipment"
+      };
+    }
+    // See previous orders from buyer
+    // 
+    // See previous orders from buyer
+    rpc GetMyOrdersSellingBuyer_historyBuyer_id(GetMyOrdersSellingBuyer_historyBuyer_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/selling/buyer_history/{buyer_id}"
+      };
+    }
+    // Get unpaid seller orders, newest first.
+    // 
+    // Get unpaid seller orders, newest first.
+    rpc GetMyOrdersSellingUnpaid(GetMyOrdersSellingUnpaidRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/selling/unpaid"
+      };
+    }
+    // Returns order details for a seller
+    // 
+    // Returns order details for a seller
+    rpc GetMyOrdersSellingId(GetMyOrdersSellingIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/orders/selling/{id}"
+      };
+    }
+    // Marks an order as picked up
+    // 
+    // Marks an order as picked up
+    rpc PostMyOrdersSellingIdMark_picked_up(PostMyOrdersSellingIdMark_picked_upRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/orders/selling/{id}/mark_picked_up"
+        body: "body"
+      };
+    }
+    // Marks an order as shipped
+    // 
+    // Marks an order as shipped
+    rpc PostMyOrdersSellingIdShip(PostMyOrdersSellingIdShipRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/my/orders/selling/{id}/ship"
+        body: "body"
+      };
+    }
+    // Get payments
+    // 
+    // Get payments
+    rpc GetMyPaymentsSelling(GetMyPaymentsSellingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/payments/selling"
+      };
+    }
+    // Get payment
+    // 
+    // Get payment
+    rpc GetMyPaymentsSellingId(GetMyPaymentsSellingIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/payments/selling/{id}"
+      };
+    }
+    // Get a list of your recently viewed listings.
+    // 
+    // Get a list of your recently viewed listings.
+    rpc GetMyViewed_listings(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/viewed_listings"
+      };
+    }
+    // Get a list of wishlisted items
+    // 
+    // Get a list of wishlisted items
+    rpc GetMyWishlist(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/my/wishlist"
+      };
+    }
+    // Add a listing to your wishlist
+    // 
+    // Add a listing to your wishlist
+    rpc PutMyWishlistId(PutMyWishlistIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/my/wishlist/{id}"
+      };
+    }
+    // Remove a listing from your wishlist
+    // 
+    // Remove a listing from your wishlist
+    rpc DeleteMyWishlistId(DeleteMyWishlistIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/my/wishlist/{id}"
+      };
+    }
+    // Feedback details for an order's buyer
+    // 
+    // Feedback details for an order's buyer
+    rpc GetOrdersOrder_idFeedbackBuyer(GetOrdersOrder_idFeedbackBuyerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/orders/{order_id}/feedback/buyer"
+      };
+    }
+    // Add feedback about an order's buyer
+    // 
+    // Add feedback about an order's buyer
+    rpc PostOrdersOrder_idFeedbackBuyer(PostOrdersOrder_idFeedbackBuyerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/orders/{order_id}/feedback/buyer"
+      };
+    }
+    // Feedback details for an order's seller
+    // 
+    // Feedback details for an order's seller
+    rpc GetOrdersOrder_idFeedbackSeller(GetOrdersOrder_idFeedbackSellerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/orders/{order_id}/feedback/seller"
+      };
+    }
+    // Add feedback about an order's seller
+    // 
+    // Add feedback about an order's seller
+    rpc PostOrdersOrder_idFeedbackSeller(PostOrdersOrder_idFeedbackSellerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/orders/{order_id}/feedback/seller"
+      };
+    }
+    // Get list of payment methods
+    // 
+    // Get list of payment methods
+    rpc GetPayment_methods(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/payment_methods"
+      };
+    }
+    // Search the Price Guide
+    // 
+    // Search the Price Guide
+    rpc GetPriceguide(GetPriceguideRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/priceguide"
+      };
+    }
+    // Retrieve a Price Guide
+    // 
+    // Retrieve a Price Guide
+    rpc GetPriceguideId(GetPriceguideIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/priceguide/{id}"
+      };
+    }
+    // Get a list of paginated transactions for a price guide.
+    // 
+    // Get a list of paginated transactions for a price guide.
+    rpc GetPriceguideIdTransactions(GetPriceguideIdTransactionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/priceguide/{id}/transactions"
+      };
+    }
+    // Get a summary of transactions for a given price guide
+    // 
+    // Get a summary of transactions for a given price guide
+    rpc GetPriceguideIdTransactionsSummary(GetPriceguideIdTransactionsSummaryRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/priceguide/{id}/transactions/summary"
+      };
+    }
+    rpc GetPrivateShopsBy_slugSlug(GetPrivateShopsBy_slugSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/private/shops/by_slug/{slug}"
+      };
+    }
+    // View a review
+    // 
+    // View a review
+    rpc GetProductsReviewsId(GetProductsReviewsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/products/reviews/{id}"
+      };
+    }
+    // Update a review
+    // 
+    // Update a review
+    rpc PutProductsReviewsId(PutProductsReviewsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/products/reviews/{id}"
+        body: "body"
+      };
+    }
+    // View reviews of a product
+    // 
+    // View reviews of a product
+    rpc GetProductsSlugReviews(GetProductsSlugReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/products/{slug}/reviews"
+      };
+    }
+    // Create a review for a product
+    // 
+    // Create a review for a product
+    rpc PostProductsSlugReviews(PostProductsSlugReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/products/{slug}/reviews"
+      };
+    }
+    // View upcoming and live Reverb official sales.
+    // 
+    // View upcoming and live Reverb official sales.
+    rpc GetSalesReverb(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/sales/reverb"
+      };
+    }
+    // View your created sales.
+    // 
+    // View your created sales.
+    rpc GetSalesSeller(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/sales/seller"
+      };
+    }
+    // Add listings to a sale
+    // 
+    // Add listings to a sale
+    rpc PostSalesSale_idListings(PostSalesSale_idListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/sales/{sale_id}/listings"
+      };
+    }
+    // Remove a listing from a sale
+    // 
+    // Remove a listing from a sale
+    rpc DeleteSalesSale_idListings(DeleteSalesSale_idListingsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/sales/{sale_id}/listings"
+      };
+    }
+    rpc GetSalesSlug(GetSalesSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/sales/{slug}"
+      };
+    }
+    // List of supported shipping providers
+    // 
+    // List of supported shipping providers
+    rpc GetShippingProviders(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shipping/providers"
+      };
+    }
+    rpc GetShippingRegions(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shipping/regions"
+      };
+    }
+    // Get your own shop details
+    // 
+    // Get your own shop details
+    rpc GetShop(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop"
+      };
+    }
+    // Update your shop profile
+    // 
+    // Update your shop profile
+    rpc PutShop(PutShopRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/shop"
+        body: "body"
+      };
+    }
+    // List of supported product conditions
+    // 
+    // List of supported product conditions
+    rpc GetShopListing_conditions(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop/listing_conditions"
+      };
+    }
+    // Get accepted payment methods
+    // 
+    // Get accepted payment methods
+    rpc GetShopPayment_methods(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop/payment_methods"
+      };
+    }
+    // Get listings stats
+    // 
+    // Get listings stats
+    rpc GetShopStats(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop/stats"
+      };
+    }
+    // Get shop activity for a particular time period
+    // 
+    // Get shop activity for a particular time period
+    rpc GetShopStatsActivity(GetShopStatsActivityRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop/stats/activity"
+      };
+    }
+    // Returns shop vacation status
+    // 
+    // Returns shop vacation status
+    rpc GetShopVacation(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shop/vacation"
+      };
+    }
+    // Enable vacation mode. All listings will be unavailable until vacation mode is turned off.
+    // 
+    // Enable vacation mode. All listings will be unavailable until vacation mode is turned off.
+    rpc PostShopVacation(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/shop/vacation"
+      };
+    }
+    // Disable vacation mode. All listings will be re-enabled.
+    // 
+    // Disable vacation mode. All listings will be re-enabled.
+    rpc DeleteShopVacation(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/shop/vacation"
+      };
+    }
+    // List of shipping profiles for your shop
+    // 
+    // List of shipping profiles for your shop
+    rpc GetShopsShop_idShipping_profiles(GetShopsShop_idShipping_profilesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shops/{shop_id}/shipping_profiles"
+      };
+    }
+    // Get details on a shop.
+    // 
+    // Get details on a shop.
+    rpc GetShopsSlug(GetShopsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shops/{slug}"
+      };
+    }
+    // Get seller's feedback
+    // 
+    // Get seller's feedback
+    rpc GetShopsSlugFeedback(GetShopsSlugFeedbackRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shops/{slug}/feedback"
+      };
+    }
+    // Get seller's feedback as a buyer
+    // 
+    // Get seller's feedback as a buyer
+    rpc GetShopsSlugFeedbackBuyer(GetShopsSlugFeedbackBuyerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shops/{slug}/feedback/buyer"
+      };
+    }
+    // Get seller's feedback as a seller
+    // 
+    // Get seller's feedback as a seller
+    rpc GetShopsSlugFeedbackSeller(GetShopsSlugFeedbackSellerRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/shops/{slug}/feedback/seller"
+      };
+    }
+    // A list of wanted items by the user
+    // 
+    // A list of wanted items by the user
+    rpc GetWants(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/wants"
+      };
+    }
+    // Mark an item wanted. Returns 200 on success or 422 on failure.
+    // 
+    // Mark an item wanted. Returns 200 on success or 422 on failure.
+    rpc PutWantsId(PutWantsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/wants/{id}"
+      };
+    }
+    // Unmark an item wanted.
+    // 
+    // Unmark an item wanted.
+    rpc DeleteWantsId(DeleteWantsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/wants/{id}"
+      };
+    }
+    // Get webhook registrations
+    // 
+    // Get webhook registrations
+    rpc GetWebhooksRegistrations(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/webhooks/registrations"
+      };
+    }
+    // Register a webhook
+    // 
+    // Register a webhook
+    rpc PostWebhooksRegistrations(PostWebhooksRegistrationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/webhooks/registrations"
+        body: "body"
+      };
+    }
+    // Get details of a webhook registration
+    // 
+    // Get details of a webhook registration
+    rpc GetWebhooksRegistrationsId(GetWebhooksRegistrationsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/webhooks/registrations/{id}"
+      };
+    }
+    // Remove a webhook
+    // 
+    // Remove a webhook
+    rpc DeleteWebhooksRegistrationsId(DeleteWebhooksRegistrationsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/webhooks/registrations/{id}"
+      };
+    }
+}

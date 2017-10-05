@@ -1,0 +1,725 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package smart-me;
+
+message PutApiAccessTokenRequest {
+    AccessTokenToPut accessTokenToPut = 1;
+}
+
+message PostApiActionsRequest {
+    // The Action Data
+    ActionToPost actionToPost = 1;
+}
+
+message GetApiActionsIdRequest {
+    // The ID of the device
+    string id = 1;
+}
+
+message GetApiActionsIdResponse {
+    repeated ActionInformation items = 1;
+}
+
+message GetApiCustomDeviceResponse {
+    repeated CustomDeviceToPost items = 1;
+}
+
+message PostApiCustomDeviceRequest {
+    // Device object with all the data
+    CustomDeviceToPost newDevice = 1;
+}
+
+message GetApiCustomDeviceIdRequest {
+    // The ID of the device
+    string id = 1;
+}
+
+message GetApiDeviceBySerialRequest {
+    // The Serial Number of the device
+    int64 serial = 1;
+}
+
+message GetApiDevicesResponse {
+    repeated Device items = 1;
+}
+
+message PostApiDevicesRequest {
+    // Device object with all the data
+    DeviceToPost newDevice = 1;
+}
+
+message GetApiDevicesIdRequest {
+    // The ID of the device
+    string id = 1;
+}
+
+message PutApiDevicesIdRequest {
+    // The ID of the device
+    string id = 1;
+    // The number of the switch if there are multiple (1 for L1, 3 for L3)
+    int32 switchNumber = 2;
+    // The new state of the switch
+    bool switchState = 3;
+}
+
+message GetApiDevicesByEnergyRequest {
+    enum GetApiDevicesByEnergyRequest_MeterEnergyType {
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEUNKNOWN = 0;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEELECTRICITY = 1;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEWATER = 2;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEGAS = 3;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEHEAT = 4;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEHCA = 5;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEALLMETERS = 6;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPETEMPERATURE = 7;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEMBUSGATEWAY = 8;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPERS485GATEWAY = 9;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPECUSTOMDEVICE = 10;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPECOMPRESSEDAIR = 11;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPESOLARLOG = 12;
+        GETAPIDEVICESBYENERGYREQUEST_METERENERGYTYPE_METERTYPEVIRTUALMETER = 13;
+    }
+    GetApiDevicesByEnergyRequest_MeterEnergyType meterEnergyType = 1;
+}
+
+message GetApiDevicesByEnergyResponse {
+    repeated Device items = 1;
+}
+
+message GetApiDevicesBySubTypeRequest {
+    enum GetApiDevicesBySubTypeRequest_MeterSubType {
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEUNKNOWN = 0;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPECOLD = 1;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEHEAT = 2;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPECHARGINGSTATION = 3;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEELECTRICITY = 4;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEWATER = 5;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEGAS = 6;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPEELECTRICITYHEAT = 7;
+        GETAPIDEVICESBYSUBTYPEREQUEST_METERSUBTYPE_METERSUBTYPETEMPERATURE = 8;
+    }
+    GetApiDevicesBySubTypeRequest_MeterSubType meterSubType = 1;
+}
+
+message GetApiDevicesBySubTypeResponse {
+    repeated Device items = 1;
+}
+
+message PostApiMBusRequest {
+    // The M-BUS Telegram
+    MBusData mbusData = 1;
+}
+
+message PostApiMeterFolderInformationRequest {
+    MeterFolderInformationToPost meterFolderInformation = 1;
+}
+
+message GetApiMeterFolderInformationIdRequest {
+    string id = 1;
+}
+
+message GetApiMeterValuesIdRequest {
+    string date = 1;
+    string id = 2;
+}
+
+message PostApiSignUpRequest {
+    // The user data
+    SignUpData signUpData = 1;
+}
+
+message GetApiVirtualBillingMeterActiveResponse {
+    repeated Device items = 1;
+}
+
+message PostApiVirtualBillingMeterActiveRequest {
+    // The Meter to activate
+    VMeterToActivate meterToActivate = 1;
+}
+
+message PostApiVirtualBillingMeterDeactivateRequest {
+    // The Meter to activate
+    VMeterToDeactivate meterToDeactivate = 1;
+}
+
+message GetApiVirtualBillingMetersResponse {
+    repeated Device items = 1;
+}
+
+message GetApiVirtualMeterCalculateFormulaRequest {
+    string formula = 1;
+}
+
+message AccessTokenToPut {
+    // The ID of the Card
+    int64 CardId = 1;
+    // The ID of the User. The credentials provided must have permission to edit the user.
+    //             If no ID is provided, the user in the credentials is taken.
+    int64 UserId = 2;
+}
+
+message ActionInformation {
+    // The Type of this action.
+    enum ActionInformation_ActionType {
+        ACTIONINFORMATION_ACTIONTYPE_ONOFFACTION = 0;
+        ACTIONINFORMATION_ACTIONTYPE_ANALOGACTION = 1;
+    }
+    ActionInformation_ActionType ActionType = 1;
+    // The maximum value of this action (e.g. for an AnalogAction)
+    double MaxValue = 2;
+    // The minimum value of this action (e.g. for an AnalogAction)
+    double MinValue = 3;
+    // The Name of this action
+    string Name = 4;
+    // The Obis Code of this action. This is used as ID.
+    string ObisCode = 5;
+}
+
+message ActionToPost {
+    // List with all Actions for this device
+    repeated ActionToPostItem Actions = 1;
+    // The ID of the Device
+    string DeviceID = 2;
+}
+
+message ActionToPostItem {
+    // The ObisCode (ID) of the Action
+    string ObisCode = 1;
+    // The Value to Post
+    double Value = 2;
+}
+
+message CustomDeviceToPost {
+    // The ID of the device
+    string Id = 1;
+    // The Name of the Device
+    string Name = 2;
+    // The Serial number
+    int64 Serial = 3;
+    // The Date of the Value (in UTC). If this is null the Server Time is used.
+    string ValueDate = 4;
+    // The Values of the custom Device
+    repeated CustomDeviceValues Values = 5;
+}
+
+message CustomDeviceValues {
+    // The Name of the Value.
+    string Name = 1;
+    // The Value
+    double Value = 2;
+}
+
+message Device {
+    // The Actvie Power or current flow rate
+    double ActivePower = 1;
+    // The Actvie Power Phase L1
+    double ActivePowerL1 = 2;
+    // The Actvie Power Phase L2
+    double ActivePowerL2 = 3;
+    // The Actvie Power Phase L3
+    double ActivePowerL3 = 4;
+    // The Unit of the Active Power Value
+    string ActivePowerUnit = 5;
+    // The Number of the Active Tariff
+    int32 ActiveTariff = 6;
+    // The Meter Counter Reading (Total Energy used)
+    double CounterReading = 7;
+    // The Meter Counter Reading Tariff 1
+    double CounterReadingT1 = 8;
+    // The Meter Counter Reading Tariff 2
+    double CounterReadingT2 = 9;
+    // The Meter Counter Reading Tariff 3
+    double CounterReadingT3 = 10;
+    // The Meter Counter Reading Tariff 4
+    double CounterReadingT4 = 11;
+    // The Unit of the Counter Reading
+    string CounterReadingUnit = 12;
+    // The Current (in A)
+    double Current = 13;
+    // The Current Phase L1 (in A)
+    double CurrentL1 = 14;
+    // The Current Phase L2 (in A)
+    double CurrentL2 = 15;
+    // The Current Phase L3 (in A)
+    double CurrentL3 = 16;
+    // The Energy Type of this device
+    enum Device_DeviceEnergyType {
+        DEVICE_DEVICEENERGYTYPE_METERTYPEUNKNOWN = 0;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEELECTRICITY = 1;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEWATER = 2;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEGAS = 3;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEHEAT = 4;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEHCA = 5;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEALLMETERS = 6;
+        DEVICE_DEVICEENERGYTYPE_METERTYPETEMPERATURE = 7;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEMBUSGATEWAY = 8;
+        DEVICE_DEVICEENERGYTYPE_METERTYPERS485GATEWAY = 9;
+        DEVICE_DEVICEENERGYTYPE_METERTYPECUSTOMDEVICE = 10;
+        DEVICE_DEVICEENERGYTYPE_METERTYPECOMPRESSEDAIR = 11;
+        DEVICE_DEVICEENERGYTYPE_METERTYPESOLARLOG = 12;
+        DEVICE_DEVICEENERGYTYPE_METERTYPEVIRTUALMETER = 13;
+    }
+    Device_DeviceEnergyType DeviceEnergyType = 17;
+    // The digital input number 1
+    bool DigitalInput1 = 18;
+    // The digital input number 2
+    bool DigitalInput2 = 19;
+    // The digital output number 1
+    bool DigitalOutput1 = 20;
+    // The digital output number 2
+    bool DigitalOutput2 = 21;
+    // The Family Type of the device.
+    enum Device_FamilyType {
+        DEVICE_FAMILYTYPE_METERFAMILYTYPEUNKNOWN = 0;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPESMARTMECONNECTV1 = 1;
+        DEVICE_FAMILYTYPE_METERFAMILIYTYPESMARTMEMETER = 2;
+        DEVICE_FAMILYTYPE_METERFAMILIYTYPESMARTMEMETERWITHSWITCH = 3;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPEMBUSGATEWAYV1 = 4;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPERS485GATEWAYV1 = 5;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPEKAMSTRUPMODULE = 6;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPESMARTME3PHASEMETER80A = 7;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPESMARTME3PHASEMETER32A = 8;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPESMARTME3PHASEMETERTRANSFORMER = 9;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPELANDISGYRMODULE = 10;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPERESTAPIMETER = 11;
+        DEVICE_FAMILYTYPE_METERFAMILYTYPEVIRTUALBILLINGMETER = 12;
+    }
+    Device_FamilyType FamilyType = 22;
+    // The ID of the device
+    string Id = 23;
+    // The Name of the Device
+    string Name = 24;
+    // The Power Factor (cos phi). Range: 0 - 1
+    double PowerFactor = 25;
+    // The Power Factor (cos phi) Phase L1. Range: 0 - 1
+    double PowerFactorL1 = 26;
+    // The Power Factor (cos phi) Phase L2. Range: 0 - 1
+    double PowerFactorL2 = 27;
+    // The Power Factor (cos phi) Phase L3. Range: 0 - 1
+    double PowerFactorL3 = 28;
+    // The Serial number
+    int64 Serial = 29;
+    // Flag if the Switch is on on this device.
+    bool SwitchOn = 30;
+    // Flag if the Phase L1 is on on this device.
+    bool SwitchPhaseL1On = 31;
+    // Flag if the Phase L2 is on on this device.
+    bool SwitchPhaseL2On = 32;
+    // Flag if the Phase L3 is on on this device.
+    bool SwitchPhaseL3On = 33;
+    // The Temperature (in degree celsius)
+    double Temperature = 34;
+    // Time of last successful connection the the smart-me Cloud.
+    string ValueDate = 35;
+    // The Voltage (in V)
+    double Voltage = 36;
+    // The Voltage Phase L1 (in V)
+    double VoltageL1 = 37;
+    // The Voltage Phase L2 (in V)
+    double VoltageL2 = 38;
+    // The Voltage Phase L3 (in V)
+    double VoltageL3 = 39;
+}
+
+message DeviceInPast {
+    // The Meter Counter Reading (Total Energy used)
+    double CounterReading = 1;
+    // The Meter Counter Reading Export
+    double CounterReadingExport = 2;
+    // The Meter Counter Reading Export Tariff 1
+    double CounterReadingExportT1 = 3;
+    // The Meter Counter Reading Export Tariff 2
+    double CounterReadingExportT2 = 4;
+    // The Meter Counter Reading Export Tariff 3
+    double CounterReadingExportT3 = 5;
+    // The Meter Counter Reading Export Tariff 4
+    double CounterReadingExportT4 = 6;
+    // The Meter Counter Reading Import
+    double CounterReadingImport = 7;
+    // The Meter Counter Reading Import Tariff 1
+    double CounterReadingImportT1 = 8;
+    // The Meter Counter Reading Import Tariff 2
+    double CounterReadingImportT2 = 9;
+    // The Meter Counter Reading Import Tariff 3
+    double CounterReadingImportT3 = 10;
+    // The Meter Counter Reading Import Tariff 4
+    double CounterReadingImportT4 = 11;
+    // The Meter Counter Reading Tariff 1
+    double CounterReadingT1 = 12;
+    // The Meter Counter Reading Tariff 2
+    double CounterReadingT2 = 13;
+    // The Meter Counter Reading Tariff 3
+    double CounterReadingT3 = 14;
+    // The Meter Counter Reading Tariff 4
+    double CounterReadingT4 = 15;
+    // The Unit of the Counter Reading
+    string CounterReadingUnit = 16;
+    // The Date of the Values
+    string Date = 17;
+    // The ID of the device
+    string Id = 18;
+    // The Serial number
+    int64 Serial = 19;
+}
+
+message DeviceToPost {
+    // The Active Power or current flow rate. In kW or m3/h
+    double ActivePower = 1;
+    // The Meter Counter Reading (Total Energy used) in kWh or m3.
+    double CounterReading = 2;
+    // The Meter Counter Reading Tariff 1 in kWh or m3.
+    double CounterReadingT1 = 3;
+    // The Meter Counter Reading Tariff 2 in kWh or m3.
+    double CounterReadingT2 = 4;
+    // The Energy Type of this device
+    enum DeviceToPost_DeviceEnergyType {
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEUNKNOWN = 0;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEELECTRICITY = 1;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEWATER = 2;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEGAS = 3;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEHEAT = 4;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEHCA = 5;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEALLMETERS = 6;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPETEMPERATURE = 7;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEMBUSGATEWAY = 8;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPERS485GATEWAY = 9;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPECUSTOMDEVICE = 10;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPECOMPRESSEDAIR = 11;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPESOLARLOG = 12;
+        DEVICETOPOST_DEVICEENERGYTYPE_METERTYPEVIRTUALMETER = 13;
+    }
+    DeviceToPost_DeviceEnergyType DeviceEnergyType = 5;
+    // The ID of the device
+    string Id = 6;
+    // The Sub Type of this Meter.
+    enum DeviceToPost_MeterSubType {
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEUNKNOWN = 0;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPECOLD = 1;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEHEAT = 2;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPECHARGINGSTATION = 3;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEELECTRICITY = 4;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEWATER = 5;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEGAS = 6;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPEELECTRICITYHEAT = 7;
+        DEVICETOPOST_METERSUBTYPE_METERSUBTYPETEMPERATURE = 8;
+    }
+    DeviceToPost_MeterSubType MeterSubType = 7;
+    // The Name of the Device
+    string Name = 8;
+    // The Serial number
+    int64 Serial = 9;
+    // The Temperature (in degree celsius)
+    double Temperature = 10;
+    // The Date of the Value (in UTC). If this is null the Server Time is used.
+    string ValueDate = 11;
+}
+
+message InputInformation {
+    // The Name of the Input
+    string Name = 1;
+    // The Number of this Input. Use this as ID to switch it on or off.
+    int32 Number = 2;
+}
+
+message MBusData {
+    // The Date of the M-BUS Telegram Readout (in UTC). If this is null the Server Time is used.
+    string Date = 1;
+    // The M-BUS Telegram as Hex string. 
+    //             Example: 68 1F 1F 68 08 02 72 78 56 34 12 24 40 01 07 55 00 00 00 03 13 15 31 00 DA 02 3B 13 01 8B 60 04 37 18 02 18 16
+    string Telegram = 2;
+}
+
+message MeterFolderInformation {
+    // The Firmware Version of a Meter
+    int32 FirmwareVersion = 1;
+    // The Hardware Version of a Meter.
+    int32 HardwareVersion = 2;
+    // Informations about the available Inputs
+    repeated InputInformation InputInformations = 3;
+    // Flag if it's a Folder or a Meter
+    bool IsFolder = 4;
+    // Name of the Meter or Folder
+    string Name = 5;
+    // Informations about the available Outputs
+    repeated OutputInformation OutputInformations = 6;
+}
+
+message MeterFolderInformationToPost {
+    // The ID of the device or folder
+    string Id = 1;
+    // Name of the Meter or Folder
+    string Name = 2;
+}
+
+message Object {
+}
+
+message OutputInformation {
+    // The Name of the Output
+    string Name = 1;
+    // The Number of this Output. Use this as ID to switch it on or off.
+    int32 Number = 2;
+    // The Obis Code for this Output
+    string ObisCode = 3;
+}
+
+message SignUpData {
+    // The Email Address to register
+    string Email = 1;
+    // The Password to register
+    string Password = 2;
+}
+
+message User {
+    // The Users created by this users.
+    repeated User ChildUsers = 1;
+    // The EMail Address of the User
+    string Email = 2;
+    // The ID of the User
+    int64 Id = 3;
+    // Flag if this User is an Admin User
+    bool IsAdmin = 4;
+    // The Username of the User
+    string Username = 5;
+}
+
+message VMeterToActivate {
+    // The Serialnumber of the Meter to activate.
+    string SerialNumber = 1;
+}
+
+message VMeterToDeactivate {
+    // The ID of the Virtual meter to deactivate
+    string ID = 1;
+}
+
+service Smart-MeService {
+    // Creates a Access Token to write on a Card (e.g. NFC)
+    // 
+    // Creates a Access Token to write on a Card (e.g. NFC)
+    rpc PutApiAccessToken(PutApiAccessTokenRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/api/AccessToken"
+        body: "accessTokenToPut"
+      };
+    }
+    // Set an action for the specified device.
+    // 
+    // Set an action for the specified device.
+    rpc PostApiActions(PostApiActionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/Actions"
+        body: "actionToPost"
+      };
+    }
+    // Gets all available Actions of a Device
+    // 
+    // Gets all available Actions of a Device
+    rpc GetApiActionsId(GetApiActionsIdRequest) returns (GetApiActionsIdResponse) {
+      option (google.api.http) = {
+        get: "/api/Actions/{id}"
+      };
+    }
+    // Gets all Custom Devices
+    // 
+    // Gets all Devices
+    rpc GetApiCustomDevice(google.protobuf.Empty) returns (GetApiCustomDeviceResponse) {
+      option (google.api.http) = {
+        get: "/api/CustomDevice"
+      };
+    }
+    // Creates or updates a Custom Device or updates it's values.
+    // 
+    // Creates or updates a Custom Device or updates it's values.
+    //             A Custom Device can be any device that like to add some measurement values to the smart-me Cloud.
+    //             Only use a custom device for all non meters.
+    //             For a new device leave the ID empty. To create a device you have to set the DeviceEnergyType.
+    //             To update values, add the ID of the device and the values you like to set.  (See the Data Type Model for more Information)
+    rpc PostApiCustomDevice(PostApiCustomDeviceRequest) returns (CustomDeviceToPost) {
+      option (google.api.http) = {
+        post: "/api/CustomDevice"
+        body: "newDevice"
+      };
+    }
+    // Gets a Custom Device by it's ID
+    // 
+    // Gets a Device by it's ID
+    rpc GetApiCustomDeviceId(GetApiCustomDeviceIdRequest) returns (CustomDeviceToPost) {
+      option (google.api.http) = {
+        get: "/api/CustomDevice/{id}"
+      };
+    }
+    // Gets a Device by it's Serial Number. The Serial is the part before the "-".
+    // 
+    // Gets a Device by it's Serial Number. The Serial is the part before the "-".
+    rpc GetApiDeviceBySerial(GetApiDeviceBySerialRequest) returns (Device) {
+      option (google.api.http) = {
+        get: "/api/DeviceBySerial"
+      };
+    }
+    // Gets all Devices
+    // 
+    // Gets all Devices
+    rpc GetApiDevices(google.protobuf.Empty) returns (GetApiDevicesResponse) {
+      option (google.api.http) = {
+        get: "/api/Devices"
+      };
+    }
+    // Creates or updates a Device or updates it's values.
+    // 
+    // Creates or updates a Device or updates it's values. 
+    //             For a new device leave the ID empty. To create a device you have to set the DeviceEnergyType.
+    //             To update values, add the ID of the device and the values you like to set.  (See the Data Type Model for more Information)
+    rpc PostApiDevices(PostApiDevicesRequest) returns (DeviceToPost) {
+      option (google.api.http) = {
+        post: "/api/Devices"
+        body: "newDevice"
+      };
+    }
+    // Gets a Device by it's ID
+    // 
+    // Gets a Device by it's ID
+    rpc GetApiDevicesId(GetApiDevicesIdRequest) returns (Device) {
+      option (google.api.http) = {
+        get: "/api/Devices/{id}"
+      };
+    }
+    // Updates the On/Off Switch on a device. 
+    //             For new implementations please use the "actions" command
+    // 
+    // Updates the On/Off Switch on a device
+    //             For new implementations please use the "actions" command
+    rpc PutApiDevicesId(PutApiDevicesIdRequest) returns (Object) {
+      option (google.api.http) = {
+        put: "/api/Devices/{id}"
+      };
+    }
+    // Gets all Devices for an Energy Type
+    // 
+    // Gets all Devices for an Energy Type
+    rpc GetApiDevicesByEnergy(GetApiDevicesByEnergyRequest) returns (GetApiDevicesByEnergyResponse) {
+      option (google.api.http) = {
+        get: "/api/DevicesByEnergy"
+      };
+    }
+    // Gets all Devices by it's Sub Type (e.g. E-Charging Station)
+    // 
+    // Gets all Devices by it's Sub Type (e.g. E-Charging Station)
+    rpc GetApiDevicesBySubType(GetApiDevicesBySubTypeRequest) returns (GetApiDevicesBySubTypeResponse) {
+      option (google.api.http) = {
+        get: "/api/DevicesBySubType"
+      };
+    }
+    // M-BUS API: Adds data of a M-BUS Meter to the smart-me Cloud.
+    //             Just send us the M-BUS Telegram (RSP_UD) and we will do the Rest.
+    // 
+    // M-BUS API: Adds data of a M-BUS Meter to the smart-me Cloud.
+    //             Just send us the M-BUS Telegram (RSP_UD) and we will do the Rest.
+    rpc PostApiMBus(PostApiMBusRequest) returns (Object) {
+      option (google.api.http) = {
+        post: "/api/MBus"
+        body: "mbusData"
+      };
+    }
+    // Sets the Name of a Meter or a Folder
+    // 
+    // Sets the Name of a Meter or a Folder
+    rpc PostApiMeterFolderInformation(PostApiMeterFolderInformationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/MeterFolderInformation"
+        body: "meterFolderInformation"
+      };
+    }
+    // Beta: Gets the General Information for a Meter or a Folder
+    // 
+    // Beta: Gets the General Information for a Meter or a Folder
+    rpc GetApiMeterFolderInformationId(GetApiMeterFolderInformationIdRequest) returns (MeterFolderInformation) {
+      option (google.api.http) = {
+        get: "/api/MeterFolderInformation/{id}"
+      };
+    }
+    // Gets the Values for a Meter at a given Date. 
+    //             The first Value found before the given Date is returned.
+    // 
+    // Gets the Values for a Meter at a given Date. The first Value found before the given Date is returned.
+    rpc GetApiMeterValuesId(GetApiMeterValuesIdRequest) returns (DeviceInPast) {
+      option (google.api.http) = {
+        get: "/api/MeterValues/{id}"
+      };
+    }
+    // Sign up a new User.
+    //             The sign up is done on the smart-me Cloud.
+    // 
+    // Sign up a new User.
+    //             The sign up is done on the smart-me Cloud.
+    rpc PostApiSignUp(PostApiSignUpRequest) returns (User) {
+      option (google.api.http) = {
+        post: "/api/SignUp"
+        body: "signUpData"
+      };
+    }
+    // Gets the informations for the user.
+    // 
+    // Gets the informations for the user.
+    rpc GetApiUser(google.protobuf.Empty) returns (User) {
+      option (google.api.http) = {
+        get: "/api/User"
+      };
+    }
+    // Beta: Gets all active virtual meters
+    // 
+    // Beta: Gets all active virtual meters.
+    rpc GetApiVirtualBillingMeterActive(google.protobuf.Empty) returns (GetApiVirtualBillingMeterActiveResponse) {
+      option (google.api.http) = {
+        get: "/api/VirtualBillingMeterActive"
+      };
+    }
+    // Beta: Virtual Meter API: Activates a Meter and add the Consumption to a Virtual Meter assosiated with the User.
+    // 
+    // Beta: Virtual Meter API: Activates a Meter and add the Consumption to a Virtual Meter assosiated with the User.
+    rpc PostApiVirtualBillingMeterActive(PostApiVirtualBillingMeterActiveRequest) returns (Device) {
+      option (google.api.http) = {
+        post: "/api/VirtualBillingMeterActive"
+        body: "meterToActivate"
+      };
+    }
+    // Beta: Virtual Meter API: Deactivates a Virtual Meter.
+    // 
+    // Beta: Virtual Meter API: Deactivates a Virtual Meter.
+    rpc PostApiVirtualBillingMeterDeactivate(PostApiVirtualBillingMeterDeactivateRequest) returns (Object) {
+      option (google.api.http) = {
+        post: "/api/VirtualBillingMeterDeactivate"
+        body: "meterToDeactivate"
+      };
+    }
+    // Beta: Gets all Meters available to activate as a Virtual Meter.
+    // 
+    // Beta: Gets all Meters available to activate as a Virtual Meter.
+    rpc GetApiVirtualBillingMeters(google.protobuf.Empty) returns (GetApiVirtualBillingMetersResponse) {
+      option (google.api.http) = {
+        get: "/api/VirtualBillingMeters"
+      };
+    }
+    // Calculates a virtual meter from a formula. 
+    //             A meter is coded as ID("METERID")
+    // 
+    // Calculates a virtual meter from a formula.
+    //             
+    //             A meter is coded as ID("METERID")
+    //             Ariphmetical operators:
+    //              ()  parentheses;  
+    //              +   plus (a + b); 
+    //              -  minus (a - b); 
+    //              *  multiplycation symbol (a * b); 
+    //              /  divide symbol (a / b); 
+    //             Example: (ID("63ac09cb-4e5f-4f3e-bd27-ad8c30bdfc0c") + ID("0209555e-9dc4-4e84-a166-a864488b4b12")) * 2
+    rpc GetApiVirtualMeterCalculateFormula(GetApiVirtualMeterCalculateFormulaRequest) returns (Device) {
+      option (google.api.http) = {
+        get: "/api/VirtualMeterCalculateFormula"
+      };
+    }
+}

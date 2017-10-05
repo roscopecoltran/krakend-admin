@@ -1,0 +1,271 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package geomarkwebservice;
+
+message PostGeomarksCopyRequest {
+    // If bufferMetres is specified, The style of buffer to use at the ends of a buffered line.
+    enum PostGeomarksCopyRequest_BufferCap {
+        POSTGEOMARKSCOPYREQUEST_BUFFERCAP_ROUND = 0;
+        POSTGEOMARKSCOPYREQUEST_BUFFERCAP_SQUARE = 1;
+        POSTGEOMARKSCOPYREQUEST_BUFFERCAP_FLAT = 2;
+    }
+    PostGeomarksCopyRequest_BufferCap bufferCap = 1;
+    // If bufferMetres is specified, The style of buffer to use for joins between the line segments for lines and polygons.
+    enum PostGeomarksCopyRequest_BufferJoin {
+        POSTGEOMARKSCOPYREQUEST_BUFFERJOIN_ROUND = 0;
+        POSTGEOMARKSCOPYREQUEST_BUFFERJOIN_MITRE = 1;
+        POSTGEOMARKSCOPYREQUEST_BUFFERJOIN_BEVEL = 2;
+    }
+    PostGeomarksCopyRequest_BufferJoin bufferJoin = 2;
+    // The amount to buffer the geometry in metres, must only contain numerical digits (e.g 10). Leave blank and no buffer will be added to input geometries. If blank then any Point, LineString, MultiPoint and MultiLineString geometries will be ignored.
+    int32 bufferMetres = 3;
+    // If bufferMetres is specified, the maximum ratio of distance from the original geometry to a mitre buffer point and the buffer amount. If the ratio is greater than this a bevel will be used instead. This prevents infinite distances when the angle between the two lines at a join is small. Must be > 0.
+    int32 bufferMitreLimit = 4;
+    // If bufferMetres is specified, the number of line segments used in each quadrant to approximate the curve for round end-cap and join styles. Must be > 0.
+    int32 bufferSegments = 5;
+    // The callback function a JSON result format would be wrapped in to support Ajax requests.
+    string callback = 6;
+    // The url to redirect if the geomark could not be created. The URL will include a <fieldName>_Error parameter with the error message for the field that caused the error.
+    string failureRedirectUrl = 7;
+    // One or more geomark URLs or identifiers to create the new geomark from.
+    string geomarkUrl = 8;
+    // The optional external URL to redirect the user to when the geomark is created rather than showing the geomark info page. The geomarkId and geomarkUrl query string parameters will be added to the redirectUrl so that the target application gets a reference to the geomark.
+    string redirectUrl = 9;
+    // The file format the geomark info resource should be returned using.
+    enum PostGeomarksCopyRequest_ResultFormat {
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_JSON = 0;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_XML = 1;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_KML = 2;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_KMZ = 3;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_SHP = 4;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_SHPZ = 5;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_GEOJSON = 6;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_GML = 7;
+        POSTGEOMARKSCOPYREQUEST_RESULTFORMAT_WKT = 8;
+    }
+    PostGeomarksCopyRequest_ResultFormat resultFormat = 10;
+}
+
+message PostGeomarksNewRequest {
+    // The binary or character content representing the geometry or geometries
+    string body = 1;
+    // If bufferMetres is specified, The style of buffer to use at the ends of a buffered line.
+    enum PostGeomarksNewRequest_BufferCap {
+        POSTGEOMARKSNEWREQUEST_BUFFERCAP_ROUND = 0;
+        POSTGEOMARKSNEWREQUEST_BUFFERCAP_SQUARE = 1;
+        POSTGEOMARKSNEWREQUEST_BUFFERCAP_FLAT = 2;
+    }
+    PostGeomarksNewRequest_BufferCap bufferCap = 2;
+    // If bufferMetres is specified, The style of buffer to use for joins between the line segments for lines and polygons.
+    enum PostGeomarksNewRequest_BufferJoin {
+        POSTGEOMARKSNEWREQUEST_BUFFERJOIN_ROUND = 0;
+        POSTGEOMARKSNEWREQUEST_BUFFERJOIN_MITRE = 1;
+        POSTGEOMARKSNEWREQUEST_BUFFERJOIN_BEVEL = 2;
+    }
+    PostGeomarksNewRequest_BufferJoin bufferJoin = 3;
+    // The amount to buffer the geometry in metres, must only contain numerical digits (e.g 10). Leave blank and no buffer will be added to input geometries. If blank then any Point, LineString, MultiPoint and MultiLineString geometries will be ignored.
+    int32 bufferMetres = 4;
+    // If bufferMetres is specified, the maximum ratio of distance from the original geometry to a mitre buffer point and the buffer amount. If the ratio is greater than this a bevel will be used instead. This prevents infinite distances when the angle between the two lines at a join is small. Must be > 0.
+    int32 bufferMitreLimit = 5;
+    // If bufferMetres is specified, the number of line segments used in each quadrant to approximate the curve for round end-cap and join styles. Must be > 0.
+    int32 bufferSegments = 6;
+    // The callback function a JSON result format would be wrapped in to support Ajax requests.
+    string callback = 7;
+    // The url to redirect if the geomark could not be created. The URL will include a <fieldName>_Error parameter with the error message for the field that caused the error.
+    string failureRedirectUrl = 8;
+    // The file format name extension of the input geometry.
+    enum PostGeomarksNewRequest_Format {
+        POSTGEOMARKSNEWREQUEST_FORMAT_JSON = 0;
+        POSTGEOMARKSNEWREQUEST_FORMAT_XML = 1;
+        POSTGEOMARKSNEWREQUEST_FORMAT_KML = 2;
+        POSTGEOMARKSNEWREQUEST_FORMAT_KMZ = 3;
+        POSTGEOMARKSNEWREQUEST_FORMAT_SHP = 4;
+        POSTGEOMARKSNEWREQUEST_FORMAT_SHPZ = 5;
+        POSTGEOMARKSNEWREQUEST_FORMAT_GEOJSON = 6;
+        POSTGEOMARKSNEWREQUEST_FORMAT_GML = 7;
+        POSTGEOMARKSNEWREQUEST_FORMAT_WKT = 8;
+    }
+    PostGeomarksNewRequest_Format format = 9;
+    // Boolean flag indicating if multiple geometries are to be used for the geomark (true) or only a single geometry from the first geometry (false).
+    bool multiple = 10;
+    // The optional external URL to redirect the user to when the geomark is created rather than showing the geomark info page. The geomarkId and geomarkUrl query string parameters will be added to the redirectUrl so that the target application gets a reference to the geomark.
+    string redirectUrl = 11;
+    // The file format the geomark info resource should be returned using.
+    enum PostGeomarksNewRequest_ResultFormat {
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_JSON = 0;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_XML = 1;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_KML = 2;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_KMZ = 3;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_SHP = 4;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_SHPZ = 5;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_GEOJSON = 6;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_GML = 7;
+        POSTGEOMARKSNEWREQUEST_RESULTFORMAT_WKT = 8;
+    }
+    PostGeomarksNewRequest_ResultFormat resultFormat = 12;
+    // The srid of the coordinate system the input geometries are in. If the file includes a coordinate system definition that will be used.
+    int32 srid = 13;
+}
+
+message GetGeomarksGeomarkIdFileFormatExtensionRequest {
+    // The file format name extension used to represent the geomark download.
+    enum GetGeomarksGeomarkIdFileFormatExtensionRequest_FileFormatExtension {
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_JSON = 0;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_XML = 1;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KML = 2;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KMZ = 3;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHP = 4;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHPZ = 5;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GEOJSON = 6;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GML = 7;
+        GETGEOMARKSGEOMARKIDFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_WKT = 8;
+    }
+    GetGeomarksGeomarkIdFileFormatExtensionRequest_FileFormatExtension fileFormatExtension = 1;
+    // The unique identifier for the geomark (e.g. gm-abcdefghijklmnopqrstuv0bcislands).
+    string geomarkId = 2;
+    // The srid of the coordinate system the geometry should be converted to.
+    int32 srid = 3;
+}
+
+message GetGeomarksGeomarkIdBoundingBoxFileFormatExtensionRequest {
+    // The file format name extension used to represent the geomark download.
+    enum GetGeomarksGeomarkIdBoundingBoxFileFormatExtensionRequest_FileFormatExtension {
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_JSON = 0;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_XML = 1;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KML = 2;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KMZ = 3;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHP = 4;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHPZ = 5;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GEOJSON = 6;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GML = 7;
+        GETGEOMARKSGEOMARKIDBOUNDINGBOXFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_WKT = 8;
+    }
+    GetGeomarksGeomarkIdBoundingBoxFileFormatExtensionRequest_FileFormatExtension fileFormatExtension = 1;
+    // The unique identifier for the geomark (e.g. gm-abcdefghijklmnopqrstuv0bcislands).
+    string geomarkId = 2;
+    // The srid of the coordinate system the geometry should be converted to.
+    int32 srid = 3;
+}
+
+message GetGeomarksGeomarkIdFeatureFileFormatExtensionRequest {
+    // The file format name extension used to represent the geomark download.
+    enum GetGeomarksGeomarkIdFeatureFileFormatExtensionRequest_FileFormatExtension {
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_JSON = 0;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_XML = 1;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KML = 2;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KMZ = 3;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHP = 4;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHPZ = 5;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GEOJSON = 6;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GML = 7;
+        GETGEOMARKSGEOMARKIDFEATUREFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_WKT = 8;
+    }
+    GetGeomarksGeomarkIdFeatureFileFormatExtensionRequest_FileFormatExtension fileFormatExtension = 1;
+    // The unique identifier for the geomark (e.g. gm-abcdefghijklmnopqrstuv0bcislands).
+    string geomarkId = 2;
+    // The srid of the coordinate system the geometry should be converted to.
+    int32 srid = 3;
+}
+
+message GetGeomarksGeomarkIdPartsFileFormatExtensionRequest {
+    // The file format name extension used to represent the geomark download.
+    enum GetGeomarksGeomarkIdPartsFileFormatExtensionRequest_FileFormatExtension {
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_JSON = 0;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_XML = 1;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KML = 2;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KMZ = 3;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHP = 4;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHPZ = 5;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GEOJSON = 6;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GML = 7;
+        GETGEOMARKSGEOMARKIDPARTSFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_WKT = 8;
+    }
+    GetGeomarksGeomarkIdPartsFileFormatExtensionRequest_FileFormatExtension fileFormatExtension = 1;
+    // The unique identifier for the geomark (e.g. gm-abcdefghijklmnopqrstuv0bcislands).
+    string geomarkId = 2;
+    // The srid of the coordinate system the geometry should be converted to.
+    int32 srid = 3;
+}
+
+message GetGeomarksGeomarkIdPointFileFormatExtensionRequest {
+    // The file format name extension used to represent the geomark download.
+    enum GetGeomarksGeomarkIdPointFileFormatExtensionRequest_FileFormatExtension {
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_JSON = 0;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_XML = 1;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KML = 2;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_KMZ = 3;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHP = 4;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_SHPZ = 5;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GEOJSON = 6;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_GML = 7;
+        GETGEOMARKSGEOMARKIDPOINTFILEFORMATEXTENSIONREQUEST_FILEFORMATEXTENSION_WKT = 8;
+    }
+    GetGeomarksGeomarkIdPointFileFormatExtensionRequest_FileFormatExtension fileFormatExtension = 1;
+    // The unique identifier for the geomark (e.g. gm-abcdefghijklmnopqrstuv0bcislands).
+    string geomarkId = 2;
+    // The srid of the coordinate system the geometry should be converted to.
+    int32 srid = 3;
+}
+
+service GeoMarkWebServiceService {
+    // Create a new geomark by copying the geometries from one or more existing geomarks from the current server.
+    // 
+    // The source geomarks can be specified by with the geomarkUrl parameter.  Repeat the parameter if sourcing from multiple geomarks
+    rpc PostGeomarksCopy(PostGeomarksCopyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/pub/geomark/geomarks/copy"
+      };
+    }
+    // Create a new geomark
+    // 
+    // Create a new geomark from the geometries read from the 'body' parameter or file.
+    rpc PostGeomarksNew(PostGeomarksNewRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/pub/geomark/geomarks/new"
+      };
+    }
+    // Get information about a particular geomark
+    // 
+    // The attribution can be downloaded as a info file format. The download files can then be processed by a client application to access the geomark info fields and to get the URLs to the geometry download resources.
+    rpc GetGeomarksGeomarkIdFileFormatExtension(GetGeomarksGeomarkIdFileFormatExtensionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/geomark/geomarks/{geomarkId}.{fileFormatExtension}"
+      };
+    }
+    // Gets the bounding box of the geomark
+    // 
+    // The source geomarks can be specified by with the geomarkUrl parameter.  Repeat the parameter if sourcing from multiple geomarks
+    rpc GetGeomarksGeomarkIdBoundingBoxFileFormatExtension(GetGeomarksGeomarkIdBoundingBoxFileFormatExtensionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/geomark/geomarks/{geomarkId}/boundingBox.{fileFormatExtension}"
+      };
+    }
+    // Get the feature and attribution of the geomark
+    // 
+    // The geomark feature resource returns a single spatial feature with either a single (Point, LineString, Polygon) or multi-part geometry (MultiPoint, MultiLineString, MultiPolygon) and the geomark attribution.  The geometry and attribution can be downloaded as a spatial download file format in a supported coordinate system. The download files can then be used in a desktop GIS application (e.g. ArcMap), Google Earth or a web mapping application.
+    rpc GetGeomarksGeomarkIdFeatureFileFormatExtension(GetGeomarksGeomarkIdFeatureFileFormatExtensionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/geomark/geomarks/{geomarkId}/feature.{fileFormatExtension}"
+      };
+    }
+    // Get the individual geometries within a multi-part geometry
+    // 
+    // The geomark parts resource returns a one or more spatial features. One for each part of the Geomark's geomerty. Each part contains a single (Point, LineString, Polygon) geometry and the geomark attribution.
+    rpc GetGeomarksGeomarkIdPartsFileFormatExtension(GetGeomarksGeomarkIdPartsFileFormatExtensionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/geomark/geomarks/{geomarkId}/parts.{fileFormatExtension}"
+      };
+    }
+    // Gets a single spatial point representative of the geomark.
+    // 
+    // The geomark point resource returns a single spatial feature with a single Point and the geomark attribution.  The point geometry will be created from the first geometry part of the Geomark. Point geomarks will return the first Point part in the geomark.  LineString geomarks will return the first coordinate of the first LineString part in the geomark. Polygon geomarks will return the centroid or another point inside the first Polygon part in the geomark. The geometry and attribution can be downloaded as a spatial download file format in a supported coordinate system. The download files can then be used in a desktop GIS application (e.g. ArcMap), Google Earth or a web mapping application.
+    rpc GetGeomarksGeomarkIdPointFileFormatExtension(GetGeomarksGeomarkIdPointFileFormatExtensionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/pub/geomark/geomarks/{geomarkId}/point.{fileFormatExtension}"
+      };
+    }
+}

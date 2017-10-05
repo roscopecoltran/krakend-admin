@@ -10,7 +10,7 @@ import (
 	"github.com/qor/validations"
 )
 
-type ClassifyCategory struct {
+type Category struct {
 	gorm.Model `storm:"-" json:"-" yaml:"-" toml:"-"`
 	l10n.Locale
 	sorting.Sorting
@@ -23,17 +23,17 @@ type ClassifyCategory struct {
 	Code        string `storm:"code" json:"code" yaml:"code" toml:"code"`
 	Slug        string `storm:"slug" json:"slug" yaml:"slug" toml:"slug"`
 
-	Categories []ClassifyCategory // `gorm:"many2many:classify_categories;" storm:"categories" json:"categories" yaml:"categories" toml:"categories"`
-	CategoryID uint               // `gorm:"column:category_id" storm:"category_id" json:"category_id" yaml:"category_id" toml:"category_id"`
+	Categories []Category // `gorm:"many2many:classify_categories;" storm:"categories" json:"categories" yaml:"categories" toml:"categories"`
+	CategoryID uint       // `gorm:"column:category_id" storm:"category_id" json:"category_id" yaml:"category_id" toml:"category_id"`
 }
 
-func (category ClassifyCategory) Validate(db *gorm.DB) {
+func (category Category) Validate(db *gorm.DB) {
 	if strings.TrimSpace(category.Name) == "" {
 		db.AddError(validations.NewError(category, "Name", "Name can not be empty"))
 	}
 }
 
-func (category ClassifyCategory) DefaultPath() string {
+func (category Category) DefaultPath() string {
 	if len(category.Code) > 0 {
 		return fmt.Sprintf("/category/%s", category.Code)
 	}

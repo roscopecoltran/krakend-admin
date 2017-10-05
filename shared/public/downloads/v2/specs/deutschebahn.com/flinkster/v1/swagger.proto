@@ -1,0 +1,356 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package flinkster_api_ng;
+
+message GetAreasRequest {
+    string expand = 1;
+    double lat = 2;
+    int32 limit = 3;
+    double lon = 4;
+    int32 offset = 5;
+    string provider = 6;
+    string providernetwork = 7;
+    int32 radius = 8;
+    string type = 9;
+}
+
+message GetAreasAreaUIDRequest {
+    // The Area UID
+    string areaUID = 1;
+    // Expand Provider
+    string expand = 2;
+}
+
+message GetBookingproposalsRequest {
+    string begin = 1;
+    string end = 2;
+    string expand = 3;
+    double lat = 4;
+    int32 limit = 5;
+    double lon = 6;
+    int32 offset = 7;
+    string providernetwork = 8;
+    int32 radius = 9;
+    string view = 10;
+}
+
+message GetProvidernetworksProvidernetworkUIDCategoriesRequest {
+    string expand = 1;
+    string providernetworkUID = 2;
+}
+
+message GetProvidernetworksProvidernetworkUIDCategoriesCategoryUIDRequest {
+    string categoryUID = 1;
+    string expand = 2;
+    // Provider Network UID
+    string providernetworkUID = 3;
+}
+
+message GetProvidernetworksProvidernetworkUIDPricesRequest {
+    string providernetworkUID = 1;
+}
+
+message GetProvidernetworksProvidernetworkUIDRentalobjectsRentalObjectUIDRequest {
+    string expand = 1;
+    string providernetworkUID = 2;
+    string rentalObjectUID = 3;
+}
+
+message GetProvidernetworksUidRequest {
+    string uid = 1;
+}
+
+message GetProvidersUidRequest {
+    string uid = 1;
+}
+
+message AddressJO {
+    string city = 1;
+    string district = 2;
+    string isoCountryCode = 3;
+    string number = 4;
+    string street = 5;
+    string zip = 6;
+}
+
+message AreaJO {
+    repeated LinkJO _links = 1;
+    AddressJO address = 2;
+    map<string, object> attributes = 3;
+    string description = 4;
+    string expand = 5;
+    GeometryJO geometry = 6;
+    string href = 7;
+    string name = 8;
+    ProviderJO provider = 9;
+    string providerAreaId = 10;
+    repeated int32 providerNetworkIds = 11;
+    enum AreaJO_Type {
+        AREAJO_TYPE_STATION = 0;
+        AREAJO_TYPE_OPERATIONAREA = 1;
+        AREAJO_TYPE_PARKINGAREA = 2;
+        AREAJO_TYPE_GASSTATION = 3;
+        AREAJO_TYPE_UNKNOWN = 4;
+    }
+    AreaJO_Type type = 12;
+    string uid = 13;
+}
+
+message BookingProposalJO {
+    repeated LinkJO _links = 1;
+    AreaJO area = 2;
+    map<string, object> attributes = 3;
+    string description = 4;
+    double distance = 5;
+    string expand = 6;
+    string href = 7;
+    string name = 8;
+    GeoJsonObject position = 9;
+    JsonCollectionPriceJO price = 10;
+    RentalObjectJO rentalObject = 11;
+    string uid = 12;
+}
+
+message CategoryJO {
+    repeated LinkJO _links = 1;
+    map<string, object> attributes = 2;
+    string description = 3;
+    string expand = 4;
+    string href = 5;
+    string name = 6;
+    repeated PriceJO price = 7;
+    string uid = 8;
+}
+
+message Crs {
+    map<string, object> properties = 1;
+    enum Crs_Type {
+        CRS_TYPE_NAME = 0;
+        CRS_TYPE_LINK = 1;
+    }
+    Crs_Type type = 2;
+}
+
+message ErrorJO {
+    map<string, string> attributes = 1;
+    int32 code = 2;
+    enum ErrorJO_Level {
+        ERRORJO_LEVEL_INFO = 0;
+        ERRORJO_LEVEL_WARNING = 1;
+        ERRORJO_LEVEL_ERROR = 2;
+    }
+    ErrorJO_Level level = 3;
+    string message = 4;
+    string name = 5;
+}
+
+message Feature {
+    repeated double bbox = 1;
+    Crs crs = 2;
+    GeoJsonObject geometry = 3;
+    string id = 4;
+    map<string, object> properties = 5;
+}
+
+message GeoJsonObject {
+    repeated double bbox = 1;
+    Crs crs = 2;
+}
+
+message GeometryJO {
+    Point centroid = 1;
+    GeoJsonObject position = 2;
+}
+
+message JsonCollection {
+    repeated LinkJO _links = 1;
+    string href = 2;
+    repeated JsonObject items = 3;
+    int32 limit = 4;
+    int32 offset = 5;
+    int64 size = 6;
+}
+
+message JsonCollectionPriceJO {
+    repeated LinkJO _links = 1;
+    string href = 2;
+    repeated PriceJO items = 3;
+    int32 limit = 4;
+    int32 offset = 5;
+    int64 size = 6;
+}
+
+message JsonObject {
+    repeated LinkJO _links = 1;
+    map<string, object> attributes = 2;
+    string description = 3;
+    string expand = 4;
+    string href = 5;
+    string name = 6;
+    string uid = 7;
+}
+
+message LinkJO {
+    string href = 1;
+    string rel = 2;
+    string verb = 3;
+}
+
+message LngLatAlt {
+    double altitude = 1;
+    double latitude = 2;
+    double longitude = 3;
+}
+
+message Point {
+    repeated double bbox = 1;
+    LngLatAlt coordinates = 2;
+    Crs crs = 3;
+}
+
+message PriceJO {
+    repeated LinkJO _links = 1;
+    map<string, object> attributes = 2;
+    string currency = 3;
+    string description = 4;
+    string expand = 5;
+    double grossamount = 6;
+    string href = 7;
+    int32 interval = 8;
+    string name = 9;
+    bool preferredprice = 10;
+    double taxrate = 11;
+    enum PriceJO_Type {
+        PRICEJO_TYPE_TIME = 0;
+        PRICEJO_TYPE_DISTANCE = 1;
+    }
+    PriceJO_Type type = 12;
+    string uid = 13;
+}
+
+message ProviderJO {
+    repeated LinkJO _links = 1;
+    map<string, object> attributes = 2;
+    string description = 3;
+    string expand = 4;
+    string href = 5;
+    string name = 6;
+    string uid = 7;
+}
+
+message RentalObjectJO {
+    repeated LinkJO _links = 1;
+    map<string, object> attributes = 2;
+    CategoryJO category = 3;
+    string description = 4;
+    string expand = 5;
+    string href = 6;
+    string name = 7;
+    ProviderJO provider = 8;
+    repeated int32 providerNetworkIds = 9;
+    string providerRentalObjectId = 10;
+    enum RentalObjectJO_RentalModel {
+        RENTALOBJECTJO_RENTALMODEL_FREEFLOATING = 0;
+        RENTALOBJECTJO_RENTALMODEL_FREEFLOATINGWITHSTATION = 1;
+        RENTALOBJECTJO_RENTALMODEL_STATIONBASED = 2;
+        RENTALOBJECTJO_RENTALMODEL_PARKINGAREA = 3;
+        RENTALOBJECTJO_RENTALMODEL_UNKNOWN = 4;
+    }
+    RentalObjectJO_RentalModel rentalModel = 11;
+    enum RentalObjectJO_Type {
+        RENTALOBJECTJO_TYPE_VEHICLE = 0;
+        RENTALOBJECTJO_TYPE_VEHICLEPOOL = 1;
+        RENTALOBJECTJO_TYPE_BIKE = 2;
+        RENTALOBJECTJO_TYPE_PEDELEC = 3;
+        RENTALOBJECTJO_TYPE_UNKNOWN = 4;
+    }
+    RentalObjectJO_Type type = 12;
+    string uid = 13;
+}
+
+service Flinkster_API_NGService {
+    // List Areas by Criteria.
+    // 
+    // Search for areas (locations of rental objects) by criteria.
+    rpc GetAreas(GetAreasRequest) returns (AreaJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/areas"
+      };
+    }
+    // Get area by UID.
+    // 
+    // Search for a specific area by UID.
+    rpc GetAreasAreaUID(GetAreasAreaUIDRequest) returns (AreaJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/areas/{areaUID}"
+      };
+    }
+    // Query for available RentalObjects of a specific view
+    // 
+    // Here you can query all bookable Rental Objects with different Parameters (Time, Location,...)
+    rpc GetBookingproposals(GetBookingproposalsRequest) returns (RentalObjectJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/bookingproposals"
+      };
+    }
+    // Show index.
+    // 
+    // Show Service index.
+    rpc GetIndex(google.protobuf.Empty) returns (JsonCollection) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/index"
+      };
+    }
+    // Lists all categories
+    // 
+    // Search for categorie.
+    rpc GetProvidernetworksProvidernetworkUIDCategories(GetProvidernetworksProvidernetworkUIDCategoriesRequest) returns (CategoryJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providernetworks/{providernetworkUID}/categories"
+      };
+    }
+    // Get a Category by UID
+    // 
+    // Search for categorie.
+    rpc GetProvidernetworksProvidernetworkUIDCategoriesCategoryUID(GetProvidernetworksProvidernetworkUIDCategoriesCategoryUIDRequest) returns (CategoryJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providernetworks/{providernetworkUID}/categories/{categoryUID}"
+      };
+    }
+    // Get information about the prices.
+    // 
+    // Prices of a rental object by query params. The params depend on the price determination strategy of the provider network.
+    rpc GetProvidernetworksProvidernetworkUIDPrices(GetProvidernetworksProvidernetworkUIDPricesRequest) returns (RentalObjectJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providernetworks/{providernetworkUID}/prices"
+      };
+    }
+    // Get information about the RentalObject.
+    // 
+    // Get information about the Rental Object.
+    rpc GetProvidernetworksProvidernetworkUIDRentalobjectsRentalObjectUID(GetProvidernetworksProvidernetworkUIDRentalobjectsRentalObjectUIDRequest) returns (RentalObjectJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providernetworks/{providernetworkUID}/rentalobjects/{rentalObjectUID}"
+      };
+    }
+    // Get information about the ProviderNetworkResources.
+    // 
+    // Get information about the ProviderNetworkResources.
+    rpc GetProvidernetworksUid(GetProvidernetworksUidRequest) returns (RentalObjectJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providernetworks/{uid}"
+      };
+    }
+    // Get information about the ProviderResourceImpl.
+    // 
+    // Get information about the ProviderResourcesCtrl.
+    rpc GetProvidersUid(GetProvidersUidRequest) returns (RentalObjectJO) {
+      option (google.api.http) = {
+        get: "/flinkster-api-ng/v1/providers/{uid}"
+      };
+    }
+}

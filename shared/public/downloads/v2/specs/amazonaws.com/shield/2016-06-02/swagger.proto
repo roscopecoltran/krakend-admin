@@ -1,0 +1,445 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsshield;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    CreateProtectionRequest body = 10;
+}
+
+message Post#CreateSubscriptionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    CreateSubscriptionRequest body = 10;
+}
+
+message Post#DeleteProtectionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteProtectionRequest body = 10;
+}
+
+message Post#DeleteSubscriptionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteSubscriptionRequest body = 10;
+}
+
+message Post#DescribeAttackRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeAttackRequest body = 10;
+}
+
+message Post#DescribeProtectionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeProtectionRequest body = 10;
+}
+
+message Post#DescribeSubscriptionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeSubscriptionRequest body = 10;
+}
+
+message Post#ListAttacksRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListAttacksRequest body = 10;
+}
+
+message Post#ListProtectionsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListProtectionsRequest body = 10;
+}
+
+message AttackDetail {
+    // List of counters that describe the attack for the specified time period.
+    array AttackCounters = 1;
+    // The unique identifier (ID) of the attack.
+    string AttackId = 2;
+    // The time the attack ended, in the format 2016-12-16T13:50Z.
+    string EndTime = 3;
+    // List of mitigation actions taken for the attack.
+    array Mitigations = 4;
+    // The ARN (Amazon Resource Name) of the resource that was attacked.
+    string ResourceArn = 5;
+    // The time the attack started, in the format 2016-12-16T13:50Z.
+    string StartTime = 6;
+    // If applicable, additional detail about the resource being attacked, for example, IP address or URL.
+    array SubResources = 7;
+}
+
+
+
+repeated AttackSummary AttackSummaries = 1
+
+message AttackSummary {
+    // The unique identifier (ID) of the attack.
+    string AttackId = 1;
+    // The list of attacks for a specified time period.
+    array AttackVectors = 2;
+    // The end time of the attack, in the format 2016-12-16T13:50Z.
+    string EndTime = 3;
+    // The ARN (Amazon Resource Name) of the resource that was attacked.
+    string ResourceArn = 4;
+    // The start time of the attack, in the format 2016-12-16T13:50Z.
+    string StartTime = 5;
+}
+
+message AttackVectorDescription {
+    // The attack type, for example, SNMP reflection or SYN flood.
+    string VectorType = 1;
+}
+
+repeated AttackVectorDescription AttackVectorDescriptionList = 1
+
+message CreateProtectionRequest {
+    // Friendly name for the <code>Protection</code> you are creating.
+    string Name = 1;
+    // The ARN (Amazon Resource Name) of the resource to be protected.
+    string ResourceArn = 2;
+}
+
+message CreateProtectionResponse {
+    // The unique identifier (ID) for the <a>Protection</a> object that is created.
+    string ProtectionId = 1;
+}
+
+message CreateSubscriptionRequest {
+}
+
+message CreateSubscriptionResponse {
+}
+
+message DeleteProtectionRequest {
+    // The unique identifier (ID) for the <a>Protection</a> object to be deleted.
+    string ProtectionId = 1;
+}
+
+message DeleteProtectionResponse {
+}
+
+message DeleteSubscriptionRequest {
+}
+
+message DeleteSubscriptionResponse {
+}
+
+message DescribeAttackRequest {
+    // The unique identifier (ID) for the attack that to be described.
+    string AttackId = 1;
+}
+
+message DescribeAttackResponse {
+    // The attack that is described.
+    AttackDetail Attack = 1;
+}
+
+message DescribeProtectionRequest {
+    // The unique identifier (ID) for the <a>Protection</a> object that is described.
+    string ProtectionId = 1;
+}
+
+message DescribeProtectionResponse {
+    // The <a>Protection</a> object that is described.
+    Protection Protection = 1;
+}
+
+message DescribeSubscriptionRequest {
+}
+
+message DescribeSubscriptionResponse {
+    // The AWS Shield Advanced subscription details for an account.
+    Subscription Subscription = 1;
+}
+
+message InternalErrorException {
+    string message = 1;
+}
+
+message InvalidOperationException {
+    string message = 1;
+}
+
+message InvalidParameterException {
+    string message = 1;
+}
+
+message InvalidResourceException {
+    string message = 1;
+}
+
+message LimitsExceededException {
+    integer Limit = 1;
+    string Type = 2;
+    string message = 3;
+}
+
+message ListAttacksRequest {
+    // The end of the time period for the attacks.
+    TimeRange EndTime = 1;
+    // The maximum number of <a>AttackSummary</a> objects to be returned. If this is left blank, the first 20 results will be returned.
+    integer MaxResults = 2;
+    // The <code>ListAttacksRequest.NextMarker</code> value from a previous call to <code>ListAttacksRequest</code>. Pass null if this is the first call.
+    string NextToken = 3;
+    // The ARN (Amazon Resource Name) of the resource that was attacked. If this is left blank, all applicable resources for this account will be included.
+    array ResourceArns = 4;
+    // The time period for the attacks.
+    TimeRange StartTime = 5;
+}
+
+message ListAttacksResponse {
+    // The attack information for the specified time range.
+    array AttackSummaries = 1;
+    // The token returned by a previous call to indicate that there is more data available. If not null, more results are available. Pass this value for the <code>NextMarker</code> parameter in a subsequent call to <code>ListAttacks</code> to retrieve the next set of items.
+    string NextToken = 2;
+}
+
+message ListProtectionsRequest {
+    // The maximum number of <a>Protection</a> objects to be returned. If this is left blank the first 20 results will be returned.
+    integer MaxResults = 1;
+    // The <code>ListProtectionsRequest.NextToken</code> value from a previous call to <code>ListProtections</code>. Pass null if this is the first call.
+    string NextToken = 2;
+}
+
+message ListProtectionsResponse {
+    // If you specify a value for <code>MaxResults</code> and you have more Protections than the value of MaxResults, AWS Shield Advanced returns a NextToken value in the response that allows you to list another group of Protections. For the second and subsequent ListProtections requests, specify the value of NextToken from the previous response to get information about another batch of Protections.
+    string NextToken = 1;
+    // The array of enabled <a>Protection</a> objects.
+    array Protections = 2;
+}
+
+message LockedSubscriptionException {
+    string message = 1;
+}
+
+message Mitigation {
+    // The name of the mitigation taken for this attack.
+    string MitigationName = 1;
+}
+
+repeated Mitigation MitigationList = 1
+
+message OptimisticLockException {
+    string message = 1;
+}
+
+message Protection {
+    // The unique identifier (ID) of the protection.
+    string Id = 1;
+    // The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+    string Name = 2;
+    // The ARN (Amazon Resource Name) of the AWS resource that is protected.
+    string ResourceArn = 3;
+}
+
+
+
+
+
+repeated Protection Protections = 1
+
+message ResourceAlreadyExistsException {
+    string message = 1;
+}
+
+
+
+repeated string ResourceArnFilterList = 1
+
+message ResourceNotFoundException {
+    string message = 1;
+}
+
+message SubResourceSummary {
+    // The list of attack types and associated counters.
+    array AttackVectors = 1;
+    // The counters that describe the details of the attack.
+    array Counters = 2;
+    // The unique identifier (ID) of the <code>SubResource</code>.
+    string Id = 3;
+    // The <code>SubResource</code> type.
+    SubResourceType Type = 4;
+}
+
+repeated SubResourceSummary SubResourceSummaryList = 1
+
+enum SubResourceType {
+    IP = 0;
+    URL = 1;
+}
+
+message Subscription {
+    // The start time of the subscription, in the format "2016-12-16T13:50Z".
+    string StartTime = 1;
+    // The length, in seconds, of the AWS Shield Advanced subscription for the account.
+    integer TimeCommitmentInSeconds = 2;
+}
+
+message SummarizedAttackVector {
+    // The list of counters that describe the details of the attack.
+    array VectorCounters = 1;
+    // The attack type, for example, SNMP reflection or SYN flood.
+    string VectorType = 2;
+}
+
+repeated SummarizedAttackVector SummarizedAttackVectorList = 1
+
+message SummarizedCounter {
+    // The average value of the counter for a specified time period.
+    number Average = 1;
+    // The maximum value of the counter for a specified time period.
+    number Max = 2;
+    // The number of counters for a specified time period.
+    integer N = 3;
+    // The counter name.
+    string Name = 4;
+    // The total of counter values for a specified time period.
+    number Sum = 5;
+    // The unit of the counters.
+    string Unit = 6;
+}
+
+repeated SummarizedCounter SummarizedCounterList = 1
+
+message TimeRange {
+    // The start time, in the format 2016-12-16T13:50Z.
+    string FromInclusive = 1;
+    // The end time, in the format 2016-12-16T15:50Z.
+    string ToExclusive = 2;
+}
+
+service AWSShieldService {
+    // Enables AWS Shield Advanced for a specific AWS resource. The resource can be an Amazon CloudFront distribution, Elastic Load Balancing load balancer, or an Amazon Route 53 hosted zone.
+    rpc Post(PostRequest) returns (CreateProtectionResponse) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // Activates AWS Shield Advanced for an account.
+    rpc Post#CreateSubscription(Post#CreateSubscriptionRequest) returns (CreateSubscriptionResponse) {
+      option (google.api.http) = {
+        post: "//#CreateSubscription"
+        body: "body"
+      };
+    }
+    // Deletes an AWS Shield Advanced <a>Protection</a>.
+    rpc Post#DeleteProtection(Post#DeleteProtectionRequest) returns (DeleteProtectionResponse) {
+      option (google.api.http) = {
+        post: "//#DeleteProtection"
+        body: "body"
+      };
+    }
+    // Removes AWS Shield Advanced from an account.
+    rpc Post#DeleteSubscription(Post#DeleteSubscriptionRequest) returns (DeleteSubscriptionResponse) {
+      option (google.api.http) = {
+        post: "//#DeleteSubscription"
+        body: "body"
+      };
+    }
+    // Describes the details of a DDoS attack.
+    rpc Post#DescribeAttack(Post#DescribeAttackRequest) returns (DescribeAttackResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeAttack"
+        body: "body"
+      };
+    }
+    // Lists the details of a <a>Protection</a> object.
+    rpc Post#DescribeProtection(Post#DescribeProtectionRequest) returns (DescribeProtectionResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeProtection"
+        body: "body"
+      };
+    }
+    // Provides details about the AWS Shield Advanced subscription for an account.
+    rpc Post#DescribeSubscription(Post#DescribeSubscriptionRequest) returns (DescribeSubscriptionResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeSubscription"
+        body: "body"
+      };
+    }
+    // Returns all ongoing DDoS attacks or all DDoS attacks during a specified time period.
+    rpc Post#ListAttacks(Post#ListAttacksRequest) returns (ListAttacksResponse) {
+      option (google.api.http) = {
+        post: "//#ListAttacks"
+        body: "body"
+      };
+    }
+    // Lists all <a>Protection</a> objects for the account.
+    rpc Post#ListProtections(Post#ListProtectionsRequest) returns (ListProtectionsResponse) {
+      option (google.api.http) = {
+        post: "//#ListProtections"
+        body: "body"
+      };
+    }
+}

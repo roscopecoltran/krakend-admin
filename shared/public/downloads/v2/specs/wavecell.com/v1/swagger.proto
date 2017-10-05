@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package wavecell.sms.api;
+
+message PostSmsV1SubAccountIdManyRequest {
+    BulkSmsRequest body = 1;
+    string subAccountId = 2;
+}
+
+message PostSmsV1SubAccountIdManyCompactRequest {
+    BulkSmsRequestCompact body = 1;
+    string subAccountId = 2;
+}
+
+message PostSmsV1SubAccountIdSingleRequest {
+    SmsRequest body = 1;
+    string subAccountId = 2;
+}
+
+message BulkSmsRequest {
+    string clientBatchId = 1;
+    bool includeMessagesInResponse = 2;
+    repeated SmsRequest messages = 3;
+    SmsTemplate template = 4;
+}
+
+message BulkSmsRequestCompact {
+    string clientBatchId = 1;
+    repeated string destinations = 2;
+    bool includeMessagesInResponse = 3;
+    SmsTemplate template = 4;
+}
+
+message BulkSmsResponse {
+    int32 acceptedCount = 1;
+    string batchId = 2;
+    string clientBatchId = 3;
+    repeated SmsResponse messages = 4;
+    int32 rejectedCount = 5;
+}
+
+message ErrorResponse {
+    int32 code = 1;
+    string errorId = 2;
+    string message = 3;
+    string timestamp = 4;
+}
+
+message SmsRequest {
+    string clientMessageId = 1;
+    string destination = 2;
+    enum SmsRequest_Encoding {
+        SMSREQUEST_ENCODING_AUTO = 0;
+        SMSREQUEST_ENCODING_GSM7BIT = 1;
+        SMSREQUEST_ENCODING_UNICODE = 2;
+    }
+    SmsRequest_Encoding encoding = 3;
+    string expiry = 4;
+    string scheduled = 5;
+    string source = 6;
+    string text = 7;
+}
+
+message SmsResponse {
+    string clientMessageId = 1;
+    string destination = 2;
+    SmsStatus status = 3;
+    string umid = 4;
+}
+
+message SmsStatus {
+    string code = 1;
+    string description = 2;
+}
+
+message SmsTemplate {
+    enum SmsTemplate_Encoding {
+        SMSTEMPLATE_ENCODING_AUTO = 0;
+        SMSTEMPLATE_ENCODING_GSM7BIT = 1;
+        SMSTEMPLATE_ENCODING_UNICODE = 2;
+    }
+    SmsTemplate_Encoding encoding = 1;
+    string expiry = 2;
+    string scheduled = 3;
+    string source = 4;
+    string text = 5;
+}
+
+service Wavecell.Sms.ApiService {
+    rpc GetSmsV1Status(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//sms/v1/status"
+      };
+    }
+    rpc PostSmsV1SubAccountIdMany(PostSmsV1SubAccountIdManyRequest) returns (BulkSmsResponse) {
+      option (google.api.http) = {
+        post: "//sms/v1/{subAccountId}/many"
+        body: "body"
+      };
+    }
+    rpc PostSmsV1SubAccountIdManyCompact(PostSmsV1SubAccountIdManyCompactRequest) returns (BulkSmsResponse) {
+      option (google.api.http) = {
+        post: "//sms/v1/{subAccountId}/many/compact"
+        body: "body"
+      };
+    }
+    rpc PostSmsV1SubAccountIdSingle(PostSmsV1SubAccountIdSingleRequest) returns (SmsResponse) {
+      option (google.api.http) = {
+        post: "//sms/v1/{subAccountId}/single"
+        body: "body"
+      };
+    }
+}

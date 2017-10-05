@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package fahrplan-free;
+
+message GetArrivalBoardIdRequest {
+    // Date and time in ISO-8601 format, yyyy-mm-ddThh:mm:ss, example: 2017-04-01 or 2017-04-01T10:30
+    string date = 1;
+    // Id of location. Use attribute 'id' from the result of 'location'
+    string id = 2;
+}
+
+message GetDepartureBoardIdRequest {
+    // Date and time in ISO-8601 format, yyyy-mm-ddThh:mm:ss, example: 2017-04-01 or 2017-04-01T10:30
+    string date = 1;
+    // Id of a location. Use attribute 'id' from the result of 'location'
+    string id = 2;
+}
+
+message GetJourneyDetailsIdRequest {
+    // Id of a journey. Use attribute 'detailsId' from the result of  'arrivalBoard' or 'departureBoard'
+    string id = 1;
+}
+
+message GetLocationNameRequest {
+    // Name or name fragment of a location
+    string name = 1;
+}
+
+message Board {
+    string boardId = 1;
+    string dateTime = 2;
+    string detailsId = 3;
+    // Name of train
+    string name = 4;
+    string origin = 5;
+    string stopId = 6;
+    string stopName = 7;
+    string track = 8;
+    string type = 9;
+}
+
+message BoardResponse {
+    repeated Board boards = 1;
+}
+
+message ErrorModel {
+    int32 code = 1;
+    int32 internal_code = 2;
+    string internal_message = 3;
+    string message = 4;
+}
+
+message JourneyResponse {
+    repeated TrainLocation train_locs = 1;
+}
+
+message Location {
+    // id of location (eva-number), example: 8000105
+    string id = 1;
+    // latitude, example: 50.107149
+    int32 lat = 2;
+    // longitude, example: 8.663785
+    int32 lon = 3;
+    // Name of location, example: Frankfurt(Main)Hbf
+    string name = 4;
+}
+
+message LocationResponse {
+    repeated Location locations = 1;
+}
+
+message TrainLocation {
+    string arrTime = 1;
+    string depTime = 2;
+    int32 lat = 3;
+    int32 lon = 4;
+    string operator = 5;
+    string stopId = 6;
+    string stopName = 7;
+    string train = 8;
+    string type = 9;
+}
+
+service Fahrplan-FreeService {
+    // Get arrival board of a location
+    // 
+    // Get arrival board at a given location at a given daten and time.
+    rpc GetArrivalBoardId(GetArrivalBoardIdRequest) returns (BoardResponse) {
+      option (google.api.http) = {
+        get: "/freeplan/v1/arrivalBoard/{id}"
+      };
+    }
+    // Get departure board of a location
+    // 
+    // Get departure board at a given location at a given daten and time.
+    rpc GetDepartureBoardId(GetDepartureBoardIdRequest) returns (BoardResponse) {
+      option (google.api.http) = {
+        get: "/freeplan/v1/departureBoard/{id}"
+      };
+    }
+    // Get details about a single journey
+    // 
+    // Retrieve details of a journey. The id of journey should come from an arrival board or a departure board.
+    rpc GetJourneyDetailsId(GetJourneyDetailsIdRequest) returns (JourneyResponse) {
+      option (google.api.http) = {
+        get: "/freeplan/v1/journeyDetails/{id}"
+      };
+    }
+    // Get location information
+    // 
+    // Get information about locations matching the given name or name fragment
+    rpc GetLocationName(GetLocationNameRequest) returns (LocationResponse) {
+      option (google.api.http) = {
+        get: "/freeplan/v1/location/{name}"
+      };
+    }
+}

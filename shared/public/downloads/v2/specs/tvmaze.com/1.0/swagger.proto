@@ -1,0 +1,413 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package tvmazeuser;
+
+message GetUserEpisodesRequest {
+    // Only return episodes from this specific show
+    int32 show_id = 1;
+}
+
+message GetUserEpisodesResponse {
+    repeated MarkedEpisode items = 1;
+}
+
+message GetUserEpisodesEpisode_idRequest {
+    int32 episode_id = 1;
+}
+
+message PutUserEpisodesEpisode_idRequest {
+    MarkedEpisode body = 1;
+    int32 episode_id = 2;
+}
+
+message DeleteUserEpisodesEpisode_idRequest {
+    int32 episode_id = 1;
+}
+
+message GetUserFollowsNetworksRequest {
+    // Embed full network info
+    enum GetUserFollowsNetworksRequest_Embed {
+        GETUSERFOLLOWSNETWORKSREQUEST_EMBED_NETWORK = 0;
+    }
+    GetUserFollowsNetworksRequest_Embed embed = 1;
+}
+
+message GetUserFollowsNetworksResponse {
+    repeated NetworkFollow items = 1;
+}
+
+message GetUserFollowsNetworksNetwork_idRequest {
+    int32 network_id = 1;
+}
+
+message PutUserFollowsNetworksNetwork_idRequest {
+    int32 network_id = 1;
+}
+
+message DeleteUserFollowsNetworksNetwork_idRequest {
+    int32 network_id = 1;
+}
+
+message GetUserFollowsPeopleRequest {
+    // Embed full person info
+    enum GetUserFollowsPeopleRequest_Embed {
+        GETUSERFOLLOWSPEOPLEREQUEST_EMBED_PERSON = 0;
+    }
+    GetUserFollowsPeopleRequest_Embed embed = 1;
+}
+
+message GetUserFollowsPeopleResponse {
+    repeated PersonFollow items = 1;
+}
+
+message GetUserFollowsPeoplePerson_idRequest {
+    int32 person_id = 1;
+}
+
+message PutUserFollowsPeoplePerson_idRequest {
+    int32 person_id = 1;
+}
+
+message DeleteUserFollowsPeoplePerson_idRequest {
+    int32 person_id = 1;
+}
+
+message GetUserFollowsShowsRequest {
+    // Embed full show info
+    enum GetUserFollowsShowsRequest_Embed {
+        GETUSERFOLLOWSSHOWSREQUEST_EMBED_SHOW = 0;
+    }
+    GetUserFollowsShowsRequest_Embed embed = 1;
+}
+
+message GetUserFollowsShowsResponse {
+    repeated ShowFollow items = 1;
+}
+
+message GetUserFollowsShowsShow_idRequest {
+    int32 show_id = 1;
+}
+
+message PutUserFollowsShowsShow_idRequest {
+    int32 show_id = 1;
+}
+
+message DeleteUserFollowsShowsShow_idRequest {
+    int32 show_id = 1;
+}
+
+message GetUserFollowsWebchannelsRequest {
+    // Embed full webchannel info
+    enum GetUserFollowsWebchannelsRequest_Embed {
+        GETUSERFOLLOWSWEBCHANNELSREQUEST_EMBED_WEBCHANNEL = 0;
+    }
+    GetUserFollowsWebchannelsRequest_Embed embed = 1;
+}
+
+message GetUserFollowsWebchannelsResponse {
+    repeated WebchannelFollow items = 1;
+}
+
+message GetUserFollowsWebchannelsWebchannel_idRequest {
+    int32 webchannel_id = 1;
+}
+
+message PutUserFollowsWebchannelsWebchannel_idRequest {
+    int32 webchannel_id = 1;
+}
+
+message DeleteUserFollowsWebchannelsWebchannel_idRequest {
+    int32 webchannel_id = 1;
+}
+
+message GetUserVotesEpisodesResponse {
+    repeated EpisodeVote items = 1;
+}
+
+message GetUserVotesEpisodesEpisode_idRequest {
+    int32 episode_id = 1;
+}
+
+message PutUserVotesEpisodesEpisode_idRequest {
+    EpisodeVote body = 1;
+    int32 episode_id = 2;
+}
+
+message DeleteUserVotesEpisodesEpisode_idRequest {
+    int32 episode_id = 1;
+}
+
+message GetUserVotesShowsRequest {
+    // Embed full show info
+    enum GetUserVotesShowsRequest_Embed {
+        GETUSERVOTESSHOWSREQUEST_EMBED_SHOW = 0;
+    }
+    GetUserVotesShowsRequest_Embed embed = 1;
+}
+
+message GetUserVotesShowsResponse {
+    repeated ShowVote items = 1;
+}
+
+message GetUserVotesShowsShow_idRequest {
+    int32 show_id = 1;
+}
+
+message PutUserVotesShowsShow_idRequest {
+    ShowVote body = 1;
+    int32 show_id = 2;
+}
+
+message DeleteUserVotesShowsShow_idRequest {
+    int32 show_id = 1;
+}
+
+message EpisodeVote {
+    int32 episode_id = 1;
+    // The vote number
+    int32 vote = 2;
+    // Epoch timestamp for when the user voted for the episode
+    int32 voted_at = 3;
+}
+
+message MarkedEpisode {
+    int32 episode_id = 1;
+    // Epoch timestamp for when the user watched the episode, or 0 for unknown.
+    int32 marked_at = 2;
+    // 0 for watched, 1 for acquired, 2 for skipped
+    int32 type = 3;
+}
+
+message Network {
+}
+
+message NetworkFollow {
+    message _embedded {
+        Network network = 1;
+    }
+    _embedded _embedded = 1;
+    int32 network_id = 2;
+}
+
+message Person {
+}
+
+message PersonFollow {
+    message _embedded {
+        Person person = 1;
+    }
+    _embedded _embedded = 1;
+    int32 person_id = 2;
+}
+
+message Show {
+}
+
+message ShowFollow {
+    message _embedded {
+        Show show = 1;
+    }
+    _embedded _embedded = 1;
+    int32 show_id = 2;
+}
+
+message ShowVote {
+    int32 show_id = 1;
+    // The vote number
+    int32 vote = 2;
+    // Epoch timestamp for when the user voted for the episode
+    int32 voted_at = 3;
+}
+
+message Webchannel {
+}
+
+message WebchannelFollow {
+    message _embedded {
+        Webchannel webchannel = 1;
+    }
+    _embedded _embedded = 1;
+    int32 webchannel_id = 2;
+}
+
+service TVmazeUserService {
+    // List the marked episodes
+    rpc GetUserEpisodes(GetUserEpisodesRequest) returns (GetUserEpisodesResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/episodes"
+      };
+    }
+    // Check if an episode is marked
+    rpc GetUserEpisodesEpisode_id(GetUserEpisodesEpisode_idRequest) returns (MarkedEpisode) {
+      option (google.api.http) = {
+        get: "/v1/user/episodes/{episode_id}"
+      };
+    }
+    // Mark an episode
+    // 
+    // Set `marked_at` to `NULL` or leave it out to use the current time.
+    rpc PutUserEpisodesEpisode_id(PutUserEpisodesEpisode_idRequest) returns (MarkedEpisode) {
+      option (google.api.http) = {
+        put: "/v1/user/episodes/{episode_id}"
+        body: "body"
+      };
+    }
+    // Unmark an episode
+    rpc DeleteUserEpisodesEpisode_id(DeleteUserEpisodesEpisode_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/episodes/{episode_id}"
+      };
+    }
+    // List the followed networks
+    rpc GetUserFollowsNetworks(GetUserFollowsNetworksRequest) returns (GetUserFollowsNetworksResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/networks"
+      };
+    }
+    // Check if a network is followed
+    rpc GetUserFollowsNetworksNetwork_id(GetUserFollowsNetworksNetwork_idRequest) returns (NetworkFollow) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/networks/{network_id}"
+      };
+    }
+    // Follow a network
+    rpc PutUserFollowsNetworksNetwork_id(PutUserFollowsNetworksNetwork_idRequest) returns (NetworkFollow) {
+      option (google.api.http) = {
+        put: "/v1/user/follows/networks/{network_id}"
+      };
+    }
+    // Unfollow a network
+    rpc DeleteUserFollowsNetworksNetwork_id(DeleteUserFollowsNetworksNetwork_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/follows/networks/{network_id}"
+      };
+    }
+    // List the followed people
+    rpc GetUserFollowsPeople(GetUserFollowsPeopleRequest) returns (GetUserFollowsPeopleResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/people"
+      };
+    }
+    // Check if a person is followed
+    rpc GetUserFollowsPeoplePerson_id(GetUserFollowsPeoplePerson_idRequest) returns (PersonFollow) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/people/{person_id}"
+      };
+    }
+    // Follow a person
+    rpc PutUserFollowsPeoplePerson_id(PutUserFollowsPeoplePerson_idRequest) returns (PersonFollow) {
+      option (google.api.http) = {
+        put: "/v1/user/follows/people/{person_id}"
+      };
+    }
+    // Unfollow a person
+    rpc DeleteUserFollowsPeoplePerson_id(DeleteUserFollowsPeoplePerson_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/follows/people/{person_id}"
+      };
+    }
+    // List the followed shows
+    rpc GetUserFollowsShows(GetUserFollowsShowsRequest) returns (GetUserFollowsShowsResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/shows"
+      };
+    }
+    // Check if a show is followed
+    rpc GetUserFollowsShowsShow_id(GetUserFollowsShowsShow_idRequest) returns (ShowFollow) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/shows/{show_id}"
+      };
+    }
+    // Follow a show
+    rpc PutUserFollowsShowsShow_id(PutUserFollowsShowsShow_idRequest) returns (ShowFollow) {
+      option (google.api.http) = {
+        put: "/v1/user/follows/shows/{show_id}"
+      };
+    }
+    // Unfollow a show
+    rpc DeleteUserFollowsShowsShow_id(DeleteUserFollowsShowsShow_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/follows/shows/{show_id}"
+      };
+    }
+    // List the followed webchannels
+    rpc GetUserFollowsWebchannels(GetUserFollowsWebchannelsRequest) returns (GetUserFollowsWebchannelsResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/webchannels"
+      };
+    }
+    // Check if a webchannel is followed
+    rpc GetUserFollowsWebchannelsWebchannel_id(GetUserFollowsWebchannelsWebchannel_idRequest) returns (WebchannelFollow) {
+      option (google.api.http) = {
+        get: "/v1/user/follows/webchannels/{webchannel_id}"
+      };
+    }
+    // Follow a webchannel
+    rpc PutUserFollowsWebchannelsWebchannel_id(PutUserFollowsWebchannelsWebchannel_idRequest) returns (WebchannelFollow) {
+      option (google.api.http) = {
+        put: "/v1/user/follows/webchannels/{webchannel_id}"
+      };
+    }
+    // Unfollow a webchannel
+    rpc DeleteUserFollowsWebchannelsWebchannel_id(DeleteUserFollowsWebchannelsWebchannel_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/follows/webchannels/{webchannel_id}"
+      };
+    }
+    // List the episodes voted for
+    rpc GetUserVotesEpisodes(google.protobuf.Empty) returns (GetUserVotesEpisodesResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/votes/episodes"
+      };
+    }
+    // Check if an episode is voted for
+    rpc GetUserVotesEpisodesEpisode_id(GetUserVotesEpisodesEpisode_idRequest) returns (EpisodeVote) {
+      option (google.api.http) = {
+        get: "/v1/user/votes/episodes/{episode_id}"
+      };
+    }
+    // Vote for an episode
+    rpc PutUserVotesEpisodesEpisode_id(PutUserVotesEpisodesEpisode_idRequest) returns (EpisodeVote) {
+      option (google.api.http) = {
+        put: "/v1/user/votes/episodes/{episode_id}"
+        body: "body"
+      };
+    }
+    // Remove an episode vote
+    rpc DeleteUserVotesEpisodesEpisode_id(DeleteUserVotesEpisodesEpisode_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/votes/episodes/{episode_id}"
+      };
+    }
+    // List the shows voted for
+    rpc GetUserVotesShows(GetUserVotesShowsRequest) returns (GetUserVotesShowsResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/votes/shows"
+      };
+    }
+    // Check if a show is voted for
+    rpc GetUserVotesShowsShow_id(GetUserVotesShowsShow_idRequest) returns (ShowVote) {
+      option (google.api.http) = {
+        get: "/v1/user/votes/shows/{show_id}"
+      };
+    }
+    // Vote for a show
+    // 
+    // Set `voted_at` to `NULL` or leave it out to use the current time.
+    rpc PutUserVotesShowsShow_id(PutUserVotesShowsShow_idRequest) returns (ShowVote) {
+      option (google.api.http) = {
+        put: "/v1/user/votes/shows/{show_id}"
+        body: "body"
+      };
+    }
+    // Remove a show vote
+    rpc DeleteUserVotesShowsShow_id(DeleteUserVotesShowsShow_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/user/votes/shows/{show_id}"
+      };
+    }
+}

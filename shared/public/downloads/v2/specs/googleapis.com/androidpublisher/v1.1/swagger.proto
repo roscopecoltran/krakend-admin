@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package googleplaydeveloper;
+
+message GetPackageNameInappProductIdPurchasesTokenRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // The package name of the application the inapp product was sold in (for example, 'com.some.thing').
+    string packageName = 5;
+    boolean prettyPrint = 6;
+    // The inapp product SKU (for example, 'com.some.thing.inapp1').
+    string productId = 7;
+    string quotaUser = 8;
+    // The token provided to the user's device when the inapp product was purchased.
+    string token = 9;
+    string userIp = 10;
+}
+
+message GetPackageNameSubscriptionsSubscriptionIdPurchasesTokenRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // The package name of the application for which this subscription was purchased (for example, 'com.some.thing').
+    string packageName = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // The purchased subscription ID (for example, 'monthly001').
+    string subscriptionId = 8;
+    // The token provided to the user's device when the subscription was purchased.
+    string token = 9;
+    string userIp = 10;
+}
+
+message PostPackageNameSubscriptionsSubscriptionIdPurchasesTokenCancelRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // The package name of the application for which this subscription was purchased (for example, 'com.some.thing').
+    string packageName = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // The purchased subscription ID (for example, 'monthly001').
+    string subscriptionId = 8;
+    // The token provided to the user's device when the subscription was purchased.
+    string token = 9;
+    string userIp = 10;
+}
+
+message InappPurchase {
+    // The consumption state of the inapp product. Possible values are:  
+    // - Yet to be consumed 
+    // - Consumed
+    int32 consumptionState = 1;
+    // A developer-specified string that contains supplemental information about an order.
+    string developerPayload = 2;
+    // This kind represents an inappPurchase object in the androidpublisher service.
+    string kind = 3;
+    // The order id associated with the purchase of the inapp product.
+    string orderId = 4;
+    // The purchase state of the order. Possible values are:  
+    // - Purchased 
+    // - Cancelled
+    int32 purchaseState = 5;
+    // The time the product was purchased, in milliseconds since the epoch (Jan 1, 1970).
+    string purchaseTime = 6;
+}
+
+message SubscriptionPurchase {
+    // Whether the subscription will automatically be renewed when it reaches its current expiry time.
+    bool autoRenewing = 1;
+    // Time at which the subscription was granted, in milliseconds since the Epoch.
+    string initiationTimestampMsec = 2;
+    // This kind represents a subscriptionPurchase object in the androidpublisher service.
+    string kind = 3;
+    // Time at which the subscription will expire, in milliseconds since the Epoch.
+    string validUntilTimestampMsec = 4;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GooglePlayDeveloperService {
+    // Checks the purchase and consumption status of an inapp item.
+    rpc GetPackageNameInappProductIdPurchasesToken(GetPackageNameInappProductIdPurchasesTokenRequest) returns (InappPurchase) {
+      option (google.api.http) = {
+        get: "/androidpublisher/v1.1/applications/{packageName}/inapp/{productId}/purchases/{token}"
+      };
+    }
+    // Checks whether a user's subscription purchase is valid and returns its expiry time.
+    rpc GetPackageNameSubscriptionsSubscriptionIdPurchasesToken(GetPackageNameSubscriptionsSubscriptionIdPurchasesTokenRequest) returns (SubscriptionPurchase) {
+      option (google.api.http) = {
+        get: "/androidpublisher/v1.1/applications/{packageName}/subscriptions/{subscriptionId}/purchases/{token}"
+      };
+    }
+    // Cancels a user's subscription purchase. The subscription remains valid until its expiration time.
+    rpc PostPackageNameSubscriptionsSubscriptionIdPurchasesTokenCancel(PostPackageNameSubscriptionsSubscriptionIdPurchasesTokenCancelRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/androidpublisher/v1.1/applications/{packageName}/subscriptions/{subscriptionId}/purchases/{token}/cancel"
+      };
+    }
+}

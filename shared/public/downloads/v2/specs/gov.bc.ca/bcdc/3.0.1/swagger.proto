@@ -1,0 +1,333 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package bcdatacatalogue;
+
+message GetActionOrganization_activity_listRequest {
+    // The id or name of the organization
+    string id = 1;
+}
+
+message GetActionOrganization_activity_list_htmlRequest {
+    // The id or name of the organization
+    string id = 1;
+}
+
+message GetActionOrganization_autocompleteRequest {
+    // The maximum number of organizations to return (optional)
+    int32 limit = 1;
+    // The string to search for
+    string q = 2;
+}
+
+message GetActionOrganization_follower_countRequest {
+    // The id or name of the organization
+    string id = 1;
+}
+
+message GetActionOrganization_follower_listRequest {
+    // The id or name of the organization
+    string id = 1;
+}
+
+message GetActionOrganization_listRequest {
+    // The number of organizations to be returned per page
+    int32 limit = 1;
+    // The offset (index) of the first organizations to return
+    int32 offset = 2;
+}
+
+message GetActionOrganization_list_for_userRequest {
+    // The permission the user has against the returned organization
+    string permission = 1;
+}
+
+message GetActionOrganization_revision_listRequest {
+    // The name or id of the organization
+    string id = 1;
+}
+
+message GetActionOrganization_showRequest {
+    // The id or name of the organization
+    string id = 1;
+    // include a list of the organization's datasets
+    bool include_datasets = 2;
+}
+
+message GetActionPackage_activity_listRequest {
+    // The id or name of the package
+    string id = 1;
+    // The maximum number of activities to return
+    int32 limit = 2;
+    // Where to start getting activity items from
+    int32 offset = 3;
+}
+
+message GetActionPackage_activity_list_htmlRequest {
+    // The id or name of the package
+    string id = 1;
+    // The maximum number of activities to return
+    int32 limit = 2;
+    // Where to start getting activity items from
+    int32 offset = 3;
+}
+
+message GetActionPackage_autocompleteRequest {
+    // The maximum number of resource formats to return
+    int32 limit = 1;
+    // The string to query
+    string q = 2;
+}
+
+message GetActionPackage_listRequest {
+    // The number of packages to be returned per page
+    int32 limit = 1;
+    // The offset (index) of the first package to return
+    int32 offset = 2;
+}
+
+message GetActionPackage_relationships_listRequest {
+    // The id or name of the first package
+    string id = 1;
+    // The id or name of the second package
+    string id2 = 2;
+    // relationship as string
+    string rel = 3;
+}
+
+message GetActionPackage_revision_listRequest {
+    // The id or name of the dataset
+    string id = 1;
+}
+
+message GetActionPackage_searchRequest {
+    // A query string
+    string q = 1;
+}
+
+message GetActionPackage_showRequest {
+    // The package name
+    string id = 1;
+}
+
+message GetActionRelated_listRequest {
+    // Dataset dictionary of the dataset (optional)
+    string dataset = 1;
+    // whether or not to restrict the results to only featured items
+    string featured = 2;
+    // id or name of the dataset (optional)
+    string id = 3;
+    // The order to sort the related items in
+    string sort = 4;
+    // The type of related item to show (optional)
+    string type_filter = 5;
+}
+
+message GetActionResource_searchRequest {
+    // Depreciated
+    string fields = 1;
+    // Apply a limit to the query
+    int32 limit = 2;
+    // Apply an offset to the query
+    int32 offset = 3;
+    // A field on the resource model that orders the results
+    string order_by = 4;
+    // The search criteria string or list of strings of the form ``{field}:{term1}``
+    string query = 5;
+}
+
+message GetActionResource_showRequest {
+    // The id of the resource
+    string id = 1;
+    // Add tracking information to dataset
+    bool include_tracking = 2;
+}
+
+message GetActionTag_listRequest {
+    // The number of tags to be returned per page
+    int32 limit = 1;
+    // The offset (index) of the first tag to return
+    int32 offset = 2;
+}
+
+service BCDataCatalogueService {
+    // Get the activity stream of an organization
+    // 
+    // Return an organization's activity stream
+    rpc GetActionOrganization_activity_list(GetActionOrganization_activity_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_activity_list"
+      };
+    }
+    // Get the activity stream of an organization, HTML format
+    // 
+    // Return an organization's activity stream as HTML
+    rpc GetActionOrganization_activity_list_html(GetActionOrganization_activity_list_htmlRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_activity_list_html"
+      };
+    }
+    // Get names of organizations that match a query string
+    // 
+    // Return a list of organization names that contain a string
+    rpc GetActionOrganization_autocomplete(GetActionOrganization_autocompleteRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_autocomplete"
+      };
+    }
+    // Get number of followers of an organization
+    // 
+    // Return the number of followers of an organization
+    rpc GetActionOrganization_follower_count(GetActionOrganization_follower_countRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_follower_count"
+      };
+    }
+    // Get users following an organization
+    // 
+    // Return a list of users that are following a given organization
+    rpc GetActionOrganization_follower_list(GetActionOrganization_follower_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_follower_list"
+      };
+    }
+    // Get names of all organizations
+    // 
+    // Returns the names of all indexed organizations
+    rpc GetActionOrganization_list(GetActionOrganization_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_list"
+      };
+    }
+    // Get organizations that a user has a given permission for
+    // 
+    // Return the organizations that the user has a given permission for
+    rpc GetActionOrganization_list_for_user(GetActionOrganization_list_for_userRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_list_for_user"
+      };
+    }
+    // Get organization revisions
+    // 
+    // Return an organization's revisions
+    rpc GetActionOrganization_revision_list(GetActionOrganization_revision_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_revision_list"
+      };
+    }
+    // Get details of a specific organization
+    // 
+    // Return the details of an organization
+    rpc GetActionOrganization_show(GetActionOrganization_showRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/organization_show"
+      };
+    }
+    // Get the activity stream of a package (dataset)
+    // 
+    // Returns a package's activity stream
+    rpc GetActionPackage_activity_list(GetActionPackage_activity_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_activity_list"
+      };
+    }
+    // Get the activity stream of a package (dataset), HTML format
+    // 
+    // The activity stream is rendered as a snippet of HTML meant to be included in an HTML pag, i.e it doesn't have any header or footer.
+    rpc GetActionPackage_activity_list_html(GetActionPackage_activity_list_htmlRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_activity_list_html"
+      };
+    }
+    // Find packages (datasets) matching a query
+    // 
+    // Return a list of datasets that match a string
+    rpc GetActionPackage_autocomplete(GetActionPackage_autocompleteRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_autocomplete"
+      };
+    }
+    // Get a list of all packages (datasets)
+    // 
+    // Returns the names of all indexed packages (datasets)
+    rpc GetActionPackage_list(GetActionPackage_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_list"
+      };
+    }
+    // Get package (dataset) relationships
+    // 
+    // Return a dataset's relationships
+    rpc GetActionPackage_relationships_list(GetActionPackage_relationships_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_relationships_list"
+      };
+    }
+    // Get list of revisions for a package (dataset)
+    // 
+    // Return a dataset's revision as a list of dictionaries
+    rpc GetActionPackage_revision_list(GetActionPackage_revision_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_revision_list"
+      };
+    }
+    // Find packages (datasets) matching query terms
+    // 
+    // Searches for packages (datasets) matching the specified query terms
+    rpc GetActionPackage_search(GetActionPackage_searchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_search"
+      };
+    }
+    // Get metadata about one specific package (dataset)
+    // 
+    // Returns metadata about the package (dataset) corresponding to the specified unique name
+    rpc GetActionPackage_show(GetActionPackage_showRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/package_show"
+      };
+    }
+    // Gets items related to a package (dataset)
+    // 
+    // Returns a dataset's related items.
+    rpc GetActionRelated_list(GetActionRelated_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/related_list"
+      };
+    }
+    // Find resources
+    // 
+    // Returns a dictionary with two fields ``count`` and ``results``.             The ``count`` field contains the total number of Resources                found without the limit or query parameters having an effect.             The ``results`` field is a list of dictized Resource objects.             The query parameter is a required field. It is a string in                the form ``{field}:{term}`` or a list of strings, each of the             same form. Within each string, ``{field}`` is a field or extra             field on the Resource domain object.
+    rpc GetActionResource_search(GetActionResource_searchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/resource_search"
+      };
+    }
+    // Get metadata for a specific resource
+    // 
+    // Return the metadata of a resource
+    rpc GetActionResource_show(GetActionResource_showRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/resource_show"
+      };
+    }
+    // Get the site status
+    // 
+    // Returns the site status
+    rpc GetActionStatus_show(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/status_show"
+      };
+    }
+    // Get a list of tags
+    // 
+    // Returns the names of all indexed tags
+    rpc GetActionTag_list(GetActionTag_listRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/3/action/tag_list"
+      };
+    }
+}

@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package spectrocoinmerchant;
+
+message PostApiCreateOrderRequest {
+    // Request to create order
+    Order_request_class_used_to_provide_order_specific_information body = 1;
+}
+
+message Order_information_class {
+    // Payment deposit address
+    string depositAddress = 1;
+    // Merchant provided or generated order id
+    string orderId = 2;
+    // Generated unique order request id
+    int64 orderRequestId = 3;
+    // Amount of payment currency to be paid by merchant customer
+    int32 payAmount = 4;
+    // Currency to be paid with
+    string payCurrency = 5;
+    // Amount of receive currency to be funded to merchant account
+    int32 receiveAmount = 6;
+    // Currency to be funded to merchant account
+    string receiveCurrency = 7;
+    // SpectroCoin payment window url where merchant customer may be redirected
+    string redirectUrl = 8;
+    // Timestamp until when order is valid
+    int64 validUntil = 9;
+}
+
+message Order_request_class_used_to_provide_order_specific_information {
+    // API ID of specific API you have configured on your merchant account
+    int64 apiId = 1;
+    // Url of merchant endpoint callback about order status to be returned
+    string callbackUrl = 2;
+    // Merchant customer culture payment window to be presented
+    enum Order_request_class_used_to_provide_order_specific_information_Culture {
+        ORDER_REQUEST_CLASS_USED_TO_PROVIDE_ORDER_SPECIFIC_INFORMATION_CULTURE_EN = 0;
+        ORDER_REQUEST_CLASS_USED_TO_PROVIDE_ORDER_SPECIFIC_INFORMATION_CULTURE_LT = 1;
+        ORDER_REQUEST_CLASS_USED_TO_PROVIDE_ORDER_SPECIFIC_INFORMATION_CULTURE_RU = 2;
+        ORDER_REQUEST_CLASS_USED_TO_PROVIDE_ORDER_SPECIFIC_INFORMATION_CULTURE_DE = 3;
+    }
+    Order_request_class_used_to_provide_order_specific_information_Culture culture = 3;
+    // Order description. Will be presented for merchant customer at payment window
+    string description = 4;
+    // Url of merchant page customer should be redirected after unsuccessful payment
+    string failureUrl = 5;
+    // Merchant ID assigned to your account
+    int64 merchantId = 6;
+    // Custom order ID. Must be unique per API. If not provided it will be generated.
+    string orderId = 7;
+    // Pay amount in pay currency of value which should be paid by merchant customer. If not provided receive amount will be used to calculate pay amount
+    int32 payAmount = 8;
+    // Currency of pay amount
+    string payCurrency = 9;
+    // Specified payer email.
+    string payerEmail = 10;
+    // Specified payer name.
+    string payerName = 11;
+    // Specified payer surname.
+    string payerSurname = 12;
+    // Receive amount in receive currency of value that merchant will be funded after merchant customers payment approval. If not provided pay amount will be used to calculate receive amount
+    int32 receiveAmount = 13;
+    // Currency of receive amount
+    string receiveCurrency = 14;
+    // Signature required for signing create order request
+    string sign = 15;
+    // Url of merchant page customer should be redirected after successful payment
+    string successUrl = 16;
+}
+
+service SpectroCoinMerchantService {
+    // Create merchant order
+    rpc PostApiCreateOrder(PostApiCreateOrderRequest) returns (Order_information_class) {
+      option (google.api.http) = {
+        post: "/api/merchant/1/api/createOrder"
+        body: "body"
+      };
+    }
+}

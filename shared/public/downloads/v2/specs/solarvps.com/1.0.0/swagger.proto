@@ -1,0 +1,274 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package solarvps;
+
+message GetDnsDomainRequest {
+    // Domain name you want to get records for
+    string domain = 1;
+}
+
+message PostDnsDomainAddRequest {
+    // Content for DNS record
+    string content = 1;
+    // Domain you want to add records for
+    string domain = 2;
+    // Fully qualified DNS name
+    string name = 3;
+    // Priority of DNS record
+    string prio = 4;
+    // Time To Live for DNS record
+    string ttl = 5;
+    // Type of DNS record
+    string type = 6;
+}
+
+message PostDnsDomainDeleteRequest {
+    // Domain name you want to get records for
+    string domain = 1;
+    // Id of the DNS Record
+    string id = 2;
+}
+
+message PostDnsDomainUpdateRequest {
+    // Content for the DNS Record
+    string content = 1;
+    // Domain name to add record under
+    string domain = 2;
+    // Id of DNS record
+    string id = 3;
+    // Fully qualified name for the DNS record
+    string name = 4;
+    // Priority of the DNS record
+    string prio = 5;
+    // Time To Live for DNS record
+    string ttl = 6;
+    // Type for DNS record
+    string type = 7;
+}
+
+message PostDomainsAddRequest {
+    // Domain to add to SolarVPS Distributed DNS
+    string domain = 1;
+}
+
+message PostDomainsDeleteRequest {
+    // Domain to delete from SolarVPS Distributed DNS
+    string domain = 1;
+}
+
+message GetKeyGenerateRequest {
+    // Password used to login to SolarSystem
+    string password = 1;
+    // Email address used to login to SolarSystem
+    string username = 2;
+}
+
+message GetKeyGetRequest {
+    // Password used to login to SolarSystem
+    string password = 1;
+    // Email address used to login to SolarSystem
+    string username = 2;
+}
+
+message GetPodsPodIdRequest {
+    // Id of the pod you want to perform actions on
+    int32 podId = 1;
+}
+
+message GetPodsPodIdPingRequest {
+    // Id of the pod you want to ping check
+    int32 podId = 1;
+}
+
+message GetPodsPodIdActionRequest {
+    // Action to perform on selected pod
+    string action = 1;
+    // Id of the pod you want to perform actions on
+    int32 podId = 2;
+}
+
+message PostTicketsDepartmentAddRequest {
+    // Message reply being sent
+    string contents = 1;
+    // Department you want to open a ticket with
+    string department = 2;
+    // Subject of the ticket you are opening
+    string subject = 3;
+}
+
+message GetTicketsTicketIdRequest {
+    // TicketId you want to see
+    int32 ticketId = 1;
+}
+
+message PostTicketsTicketidUpdateRequest {
+    // Message reply being sent
+    string contents = 1;
+    // TicketId of the ticket you want to post an update to
+    int32 ticketid = 2;
+}
+
+service SolarVPSService {
+    // View all contacts under your account
+    // 
+    // Shows all contacts under the client account.
+    rpc GetContacts(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//contacts"
+      };
+    }
+    // View all your records for a given domain
+    // 
+    // Shows all your records for a specific domain. You can try example.com below.
+    rpc GetDnsDomain(GetDnsDomainRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//dns/{domain}"
+      };
+    }
+    // Add dns record for given domain
+    // 
+    // You can try example.com below. Types allowed are: A CNAME NS TXT MX SRV SPF
+    rpc PostDnsDomainAdd(PostDnsDomainAddRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//dns/{domain}/add"
+      };
+    }
+    // Delete dns record for a given domain
+    // 
+    // Shows all your records for a specific domain. You can try example.com below.
+    rpc PostDnsDomainDelete(PostDnsDomainDeleteRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//dns/{domain}/delete"
+      };
+    }
+    // Update dns record for a given domain
+    // 
+    // You can try example.com below.
+    rpc PostDnsDomainUpdate(PostDnsDomainUpdateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//dns/{domain}/update"
+      };
+    }
+    // View all your domains managed by SolarVPS Distributed DNS
+    // 
+    // Shows all your domains
+    rpc GetDomains(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//domains"
+      };
+    }
+    // Add domain to be managed by SolarVPS Distributed DNS
+    // 
+    // Adds domain to SolarVPS Distributed DNS
+    rpc PostDomainsAdd(PostDomainsAddRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//domains/add"
+      };
+    }
+    // Delete domain from SolarVPS Distributed DNS
+    // 
+    // Deletes domain from SolarVPS Distributed DNS
+    rpc PostDomainsDelete(PostDomainsDeleteRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//domains/delete"
+      };
+    }
+    // Generate API Key
+    // 
+    // API Key is regenerated if it already exists
+    rpc GetKeyGenerate(GetKeyGenerateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//key/generate"
+      };
+    }
+    // Get API Key
+    // 
+    // Gets the API Key for user
+    rpc GetKeyGet(GetKeyGetRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//key/get"
+      };
+    }
+    // View all your pods
+    // 
+    // Shows all your pods
+    rpc GetPods(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//pods"
+      };
+    }
+    // View information on a specific pod
+    // 
+    // Shows details of a specific pod. Enter 1 below to see an example
+    rpc GetPodsPodId(GetPodsPodIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//pods/{podId}"
+      };
+    }
+    // Ping your specified pod
+    // 
+    // Returns the ping response from your server.
+    rpc GetPodsPodIdPing(GetPodsPodIdPingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//pods/{podId}/ping"
+      };
+    }
+    // Perform action on a specific pod
+    // 
+    // Allowed actions are reboot, shutdown, boot
+    rpc GetPodsPodIdAction(GetPodsPodIdActionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//pods/{podId}/{action}"
+      };
+    }
+    // View all your monitors
+    // 
+    // Shows all your monitors
+    rpc GetSolarray(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//solarray"
+      };
+    }
+    // View all your critical notifications
+    // 
+    // Shows all your critical notifications
+    rpc GetSolarrayCritical(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//solarray/critical"
+      };
+    }
+    // View all your tickets
+    // 
+    // Shows all your tickets
+    rpc GetTickets(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//tickets"
+      };
+    }
+    // Open ticket with desired department
+    // 
+    // Available departments are support, billing, sales
+    rpc PostTicketsDepartmentAdd(PostTicketsDepartmentAddRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//tickets/{department}/add"
+      };
+    }
+    // View details on a specific ticket
+    // 
+    // Shows all information of a specific ticketId
+    rpc GetTicketsTicketId(GetTicketsTicketIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//tickets/{ticketId}"
+      };
+    }
+    // Post a reply to a ticket
+    rpc PostTicketsTicketidUpdate(PostTicketsTicketidUpdateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//tickets/{ticketid}/update"
+      };
+    }
+}

@@ -1,0 +1,841 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlecloudtesting;
+
+message PostV1ProjectsProjectIdTestMatricesRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    TestMatrix body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    // The GCE project under which this job will run.
+    string projectId = 12;
+    string quotaUser = 13;
+    // A string id used to detect duplicated requests.
+    // Ids are automatically scoped to a project, so
+    // users should ensure the ID is unique per-project.
+    // A UUID is recommended.
+    // 
+    // Optional, but strongly recommended.
+    string requestId = 14;
+    string uploadType = 15;
+    string upload_protocol = 16;
+}
+
+message GetV1ProjectsProjectIdTestMatricesTestMatrixIdRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean pp = 9;
+    boolean prettyPrint = 10;
+    // Cloud project that owns the test matrix.
+    string projectId = 11;
+    string quotaUser = 12;
+    // Unique test matrix id which was assigned by the service.
+    string testMatrixId = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ProjectsProjectIdTestMatricesTestMatrixId:CancelRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean pp = 9;
+    boolean prettyPrint = 10;
+    // Cloud project that owns the test.
+    string projectId = 11;
+    string quotaUser = 12;
+    // Test matrix that will be canceled.
+    string testMatrixId = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV1TestEnvironmentCatalogEnvironmentTypeRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    // The type of environment that should be listed.
+    // Required
+    enum GetV1TestEnvironmentCatalogEnvironmentTypeRequest_EnvironmentType {
+        GETV1TESTENVIRONMENTCATALOGENVIRONMENTTYPEREQUEST_ENVIRONMENTTYPE_ENVIRONMENT_TYPE_UNSPECIFIED = 0;
+        GETV1TESTENVIRONMENTCATALOGENVIRONMENTTYPEREQUEST_ENVIRONMENTTYPE_ANDROID = 1;
+        GETV1TESTENVIRONMENTCATALOGENVIRONMENTTYPEREQUEST_ENVIRONMENTTYPE_NETWORK_CONFIGURATION = 2;
+    }
+    GetV1TestEnvironmentCatalogEnvironmentTypeRequest_EnvironmentType environmentType = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    // For authorization, the cloud project requesting the TestEnvironmentCatalog.
+    // Optional
+    string projectId = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message Account {
+    // An automatic google login account
+    GoogleAuto googleAuto = 1;
+}
+
+message AndroidDevice {
+    // The id of the Android device to be used.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    string androidModelId = 1;
+    // The id of the Android OS version to be used.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    string androidVersionId = 2;
+    // The locale the test device used for testing.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    string locale = 3;
+    // How the device is oriented during the test.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    string orientation = 4;
+}
+
+message AndroidDeviceCatalog {
+    // The set of supported Android device models.
+    // @OutputOnly
+    repeated AndroidModel models = 1;
+    // The set of supported runtime configurations.
+    // @OutputOnly
+    AndroidRuntimeConfiguration runtimeConfiguration = 2;
+    // The set of supported Android OS versions.
+    // @OutputOnly
+    repeated AndroidVersion versions = 3;
+}
+
+message AndroidDeviceList {
+    // A list of Android devices
+    // Required
+    repeated AndroidDevice androidDevices = 1;
+}
+
+message AndroidInstrumentationTest {
+    // The APK for the application under test.
+    // Required
+    FileReference appApk = 1;
+    // The java package for the application under test.
+    // Optional, default is determined by examining the application's manifest.
+    string appPackageId = 2;
+    // The option of whether running each test within its own invocation of
+    // instrumentation with Android Test Orchestrator or not.
+    // ** Orchestrator is only compatible with AndroidJUnitRunner version 1.0 or
+    // higher! **
+    // Orchestrator offers the following benefits:
+    //  - No shared state
+    //  - Crashes are isolated
+    //  - Logs are scoped per test
+    // 
+    // See
+    // <https://developer.android.com/training/testing/junit-runner.html#using-android-test-orchestrator>
+    // for more information about Android Test Orchestrator.
+    // 
+    // Optional, if empty, test will be run without orchestrator.
+    enum AndroidInstrumentationTest_OrchestratorOption {
+        ANDROIDINSTRUMENTATIONTEST_ORCHESTRATOROPTION_ORCHESTRATOR_OPTION_UNSPECIFIED = 0;
+        ANDROIDINSTRUMENTATIONTEST_ORCHESTRATOROPTION_USE_ORCHESTRATOR = 1;
+        ANDROIDINSTRUMENTATIONTEST_ORCHESTRATOROPTION_DO_NOT_USE_ORCHESTRATOR = 2;
+    }
+    AndroidInstrumentationTest_OrchestratorOption orchestratorOption = 3;
+    // The APK containing the test code to be executed.
+    // Required
+    FileReference testApk = 4;
+    // The java package for the test to be executed.
+    // Optional, default is determined by examining the application's manifest.
+    string testPackageId = 5;
+    // The InstrumentationTestRunner class.
+    // Optional, default is determined by examining the application's manifest.
+    string testRunnerClass = 6;
+    // Each target must be fully qualified with the package name or class name,
+    // in one of these formats:
+    //  - "package package_name"
+    //  - "class package_name.class_name"
+    //  - "class package_name.class_name#method_name"
+    // 
+    // Optional, if empty, all targets in the module will be run.
+    repeated string testTargets = 7;
+}
+
+message AndroidMatrix {
+    // The ids of the set of Android device to be used.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    repeated string androidModelIds = 1;
+    // The ids of the set of Android OS version to be used.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    repeated string androidVersionIds = 2;
+    // The set of locales the test device will enable for testing.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    repeated string locales = 3;
+    // The set of orientations to test with.
+    // Use the EnvironmentDiscoveryService to get supported options.
+    // Required
+    repeated string orientations = 4;
+}
+
+message AndroidModel {
+    // The company that this device is branded with.
+    // Example: "Google", "Samsung"
+    // @OutputOnly
+    string brand = 1;
+    // The name of the industrial design.
+    // This corresponds to android.os.Build.DEVICE
+    // @OutputOnly
+    string codename = 2;
+    // Whether this device is virtual or physical.
+    // @OutputOnly
+    enum AndroidModel_Form {
+        ANDROIDMODEL_FORM_DEVICE_FORM_UNSPECIFIED = 0;
+        ANDROIDMODEL_FORM_VIRTUAL = 1;
+        ANDROIDMODEL_FORM_PHYSICAL = 2;
+    }
+    AndroidModel_Form form = 3;
+    // The unique opaque id for this model.
+    // Use this for invoking the TestExecutionService.
+    // @OutputOnly
+    string id = 4;
+    // The manufacturer of this device.
+    // @OutputOnly
+    string manufacturer = 5;
+    // The human-readable marketing name for this device model.
+    // Examples: "Nexus 5", "Galaxy S5"
+    // @OutputOnly
+    string name = 6;
+    // Screen density in DPI.
+    // This corresponds to ro.sf.lcd_density
+    // @OutputOnly
+    int32 screenDensity = 7;
+    // Screen size in the horizontal (X) dimension measured in pixels.
+    // @OutputOnly
+    int32 screenX = 8;
+    // Screen size in the vertical (Y) dimension measured in pixels.
+    // @OutputOnly
+    int32 screenY = 9;
+    // The list of supported ABIs for this device.
+    // This corresponds to either android.os.Build.SUPPORTED_ABIS (for API level
+    // 21 and above) or android.os.Build.CPU_ABI/CPU_ABI2.
+    // The most preferred ABI is the first element in the list.
+    // 
+    // Elements are optionally prefixed by "version_id:" (where version_id is
+    // the id of an AndroidVersion), denoting an ABI that is supported only on
+    // a particular version.
+    // @OutputOnly
+    repeated string supportedAbis = 10;
+    // The set of Android versions this device supports.
+    // @OutputOnly
+    repeated string supportedVersionIds = 11;
+    // Tags for this dimension.
+    // Examples: "default", "preview", "deprecated"
+    repeated string tags = 12;
+}
+
+message AndroidRoboTest {
+    // The APK for the application under test.
+    // Required
+    FileReference appApk = 1;
+    // The initial activity that should be used to start the app.
+    // Optional
+    string appInitialActivity = 2;
+    // The java package for the application under test.
+    // Optional, default is determined by examining the application's manifest.
+    string appPackageId = 3;
+    // The max depth of the traversal stack Robo can explore. Needs to be at least
+    // 2 to make Robo explore the app beyond the first activity.
+    // Default is 50.
+    // Optional
+    int32 maxDepth = 4;
+    // The max number of steps Robo can execute.
+    // Default is no limit.
+    // Optional
+    int32 maxSteps = 5;
+    // A set of directives Robo should apply during the crawl.
+    // This allows users to customize the crawl. For example, the username and
+    // password for a test account can be provided.
+    // Optional
+    repeated RoboDirective roboDirectives = 6;
+}
+
+message AndroidRuntimeConfiguration {
+    // The set of available locales.
+    // @OutputOnly
+    repeated Locale locales = 1;
+    // The set of available orientations.
+    // @OutputOnly
+    repeated Orientation orientations = 2;
+}
+
+message AndroidTestLoop {
+    // The APK for the application under test.
+    // Required
+    FileReference appApk = 1;
+    // The java package for the application under test.
+    // Optional, default is determined by examining the application's manifest.
+    string appPackageId = 2;
+    // The list of scenario labels that should be run during the test.
+    // The scenario labels should map to labels defined in the application's
+    // manifest. For example, player_experience and
+    // com.google.test.loops.player_experience add all of the loops labeled in the
+    // manifest with the com.google.test.loops.player_experience name to the
+    // execution.
+    // Optional. Scenarios can also be specified in the scenarios field.
+    repeated string scenarioLabels = 3;
+    // The list of scenarios that should be run during the test.
+    // Optional, default is all test loops, derived from the application's
+    // manifest.
+    repeated int32 scenarios = 4;
+}
+
+message AndroidVersion {
+    // The API level for this Android version.
+    // Examples: 18, 19
+    // @OutputOnly
+    int32 apiLevel = 1;
+    // The code name for this Android version.
+    // Examples: "JellyBean", "KitKat"
+    // @OutputOnly
+    string codeName = 2;
+    // Market share for this version.
+    // @OutputOnly
+    Distribution distribution = 3;
+    // An opaque id for this Android version.
+    // Use this id to invoke the TestExecutionService.
+    // @OutputOnly
+    string id = 4;
+    // The date this Android version became available in the market.
+    // @OutputOnly
+    Date releaseDate = 5;
+    // Tags for this dimension.
+    // Examples: "default", "preview", "deprecated"
+    repeated string tags = 6;
+    // A string representing this version of the Android OS.
+    // Examples: "4.3", "4.4"
+    // @OutputOnly
+    string versionString = 7;
+}
+
+message CancelTestMatrixResponse {
+    // The current rolled-up state of the test matrix.
+    // If this state is already final, then the cancelation request will
+    // have no effect.
+    enum CancelTestMatrixResponse_TestState {
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_TEST_STATE_UNSPECIFIED = 0;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_VALIDATING = 1;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_PENDING = 2;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_RUNNING = 3;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_FINISHED = 4;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_ERROR = 5;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_UNSUPPORTED_ENVIRONMENT = 6;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_INCOMPATIBLE_ENVIRONMENT = 7;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_INCOMPATIBLE_ARCHITECTURE = 8;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_CANCELLED = 9;
+        CANCELTESTMATRIXRESPONSE_TESTSTATE_INVALID = 10;
+    }
+    CancelTestMatrixResponse_TestState testState = 1;
+}
+
+message ClientInfo {
+    // The list of detailed information about client.
+    repeated ClientInfoDetail clientInfoDetails = 1;
+    // Client name, such as gcloud.
+    // Required
+    string name = 2;
+}
+
+message ClientInfoDetail {
+    // The key of detailed client information.
+    // Required
+    string key = 1;
+    // The value of detailed client information.
+    // Required
+    string value = 2;
+}
+
+message Date {
+    // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
+    // if specifying a year/month where the day is not significant.
+    int32 day = 1;
+    // Month of year. Must be from 1 to 12.
+    int32 month = 2;
+    // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
+    // a year.
+    int32 year = 3;
+}
+
+message DeviceFile {
+    // A reference to an opaque binary blob file
+    ObbFile obbFile = 1;
+}
+
+message Distribution {
+    // The estimated fraction (0-1) of the total market with this configuration.
+    // @OutputOnly
+    double marketShare = 1;
+    // The time this distribution was measured.
+    // @OutputOnly
+    string measurementTime = 2;
+}
+
+message Environment {
+    // An Android device which must be used with an Android test.
+    AndroidDevice androidDevice = 1;
+}
+
+message EnvironmentMatrix {
+    // A list of Android devices; the test will be run only on the specified
+    // devices.
+    AndroidDeviceList androidDeviceList = 1;
+    // A matrix of Android devices.
+    AndroidMatrix androidMatrix = 2;
+}
+
+message EnvironmentVariable {
+    // Key for the environment variable
+    string key = 1;
+    // Value for the environment variable
+    string value = 2;
+}
+
+message FileReference {
+    // A path to a file in Google Cloud Storage.
+    // Example: gs://build-app-1414623860166/app-debug-unaligned.apk
+    string gcsPath = 1;
+}
+
+message GoogleAuto {
+}
+
+message GoogleCloudStorage {
+    // The path to a directory in GCS that will
+    // eventually contain the results for this test.
+    // The requesting user must have write access on the bucket in the supplied
+    // path.
+    // Required
+    string gcsPath = 1;
+}
+
+message Locale {
+    // The id for this locale.
+    // Example: "en_US"
+    // @OutputOnly
+    string id = 1;
+    // A human-friendly name for this language/locale.
+    // Example: "English"
+    // @OutputOnly
+    string name = 2;
+    // A human-friendy string representing the region for this locale.
+    // Example: "United States"
+    // Not present for every locale.
+    // @OutputOnly
+    string region = 3;
+    // Tags for this dimension.
+    // Examples: "default"
+    repeated string tags = 4;
+}
+
+message NetworkConfiguration {
+    // The emulation rule applying to the download traffic
+    TrafficRule downRule = 1;
+    // The unique opaque id for this network traffic configuration
+    // @OutputOnly
+    string id = 2;
+    // The emulation rule applying to the upload traffic
+    TrafficRule upRule = 3;
+}
+
+message NetworkConfigurationCatalog {
+    repeated NetworkConfiguration configurations = 1;
+}
+
+message ObbFile {
+    // Opaque Binary Blob (OBB) file(s) to install on the device
+    // Required
+    FileReference obb = 1;
+    // OBB file name which must conform to the format as specified by
+    // Android
+    // e.g. [main|patch].0300110.com.example.android.obb
+    // which will be installed into
+    //   <shared-storage>/Android/obb/<package-name>/
+    // on the device
+    // Required
+    string obbFileName = 2;
+}
+
+message Orientation {
+    // The id for this orientation.
+    // Example: "portrait"
+    // @OutputOnly
+    string id = 1;
+    // A human-friendly name for this orientation.
+    // Example: "portrait"
+    // @OutputOnly
+    string name = 2;
+    // Tags for this dimension.
+    // Examples: "default"
+    repeated string tags = 3;
+}
+
+message ResultStorage {
+    // Required.
+    GoogleCloudStorage googleCloudStorage = 1;
+    // The tool results execution that results are written to.
+    // @OutputOnly
+    ToolResultsExecution toolResultsExecution = 2;
+    // The tool results history that contains the tool results execution that
+    // results are written to.
+    // 
+    // Optional, if not provided the service will choose an appropriate value.
+    ToolResultsHistory toolResultsHistory = 3;
+}
+
+message RoboDirective {
+    // The type of action that Robo should perform on the specified element.
+    // Required.
+    enum RoboDirective_ActionType {
+        ROBODIRECTIVE_ACTIONTYPE_ACTION_TYPE_UNSPECIFIED = 0;
+        ROBODIRECTIVE_ACTIONTYPE_SINGLE_CLICK = 1;
+        ROBODIRECTIVE_ACTIONTYPE_ENTER_TEXT = 2;
+    }
+    RoboDirective_ActionType actionType = 1;
+    // The text that Robo is directed to set. If left empty, the directive will be
+    // treated as a CLICK on the element matching the resource_name.
+    // Optional
+    string inputText = 2;
+    // The android resource name of the target UI element
+    // For example,
+    //    in Java: R.string.foo
+    //    in xml: @string/foo
+    // Only the “foo” part is needed.
+    // Reference doc:
+    // https://developer.android.com/guide/topics/resources/accessing-resources.html
+    // Required
+    string resourceName = 3;
+}
+
+message TestDetails {
+    // If the TestState is ERROR, then this string will contain human-readable
+    // details about the error.
+    // @OutputOnly
+    string errorMessage = 1;
+    // Human-readable, detailed descriptions of the test's progress.
+    // For example: "Provisioning a device", "Starting Test".
+    // 
+    // During the course of execution new data may be appended
+    // to the end of progress_messages.
+    // @OutputOnly
+    repeated string progressMessages = 2;
+}
+
+message TestEnvironmentCatalog {
+    // Android devices suitable for running Android Instrumentation Tests.
+    AndroidDeviceCatalog androidDeviceCatalog = 1;
+    // Supported network configurations
+    NetworkConfigurationCatalog networkConfigurationCatalog = 2;
+}
+
+message TestExecution {
+    // How the host machine(s) are configured.
+    // @OutputOnly
+    Environment environment = 1;
+    // Unique id set by the backend.
+    // @OutputOnly
+    string id = 2;
+    // Id of the containing TestMatrix.
+    // @OutputOnly
+    string matrixId = 3;
+    // The cloud project that owns the test execution.
+    // @OutputOnly
+    string projectId = 4;
+    // Indicates the current progress of the test execution (e.g., FINISHED).
+    // @OutputOnly
+    enum TestExecution_State {
+        TESTEXECUTION_STATE_TEST_STATE_UNSPECIFIED = 0;
+        TESTEXECUTION_STATE_VALIDATING = 1;
+        TESTEXECUTION_STATE_PENDING = 2;
+        TESTEXECUTION_STATE_RUNNING = 3;
+        TESTEXECUTION_STATE_FINISHED = 4;
+        TESTEXECUTION_STATE_ERROR = 5;
+        TESTEXECUTION_STATE_UNSUPPORTED_ENVIRONMENT = 6;
+        TESTEXECUTION_STATE_INCOMPATIBLE_ENVIRONMENT = 7;
+        TESTEXECUTION_STATE_INCOMPATIBLE_ARCHITECTURE = 8;
+        TESTEXECUTION_STATE_CANCELLED = 9;
+        TESTEXECUTION_STATE_INVALID = 10;
+    }
+    TestExecution_State state = 5;
+    // Additional details about the running test.
+    // @OutputOnly
+    TestDetails testDetails = 6;
+    // How to run the test.
+    // @OutputOnly
+    TestSpecification testSpecification = 7;
+    // The time this test execution was initially created.
+    // @OutputOnly
+    string timestamp = 8;
+    // Where the results for this execution are written.
+    // @OutputOnly
+    ToolResultsStep toolResultsStep = 9;
+}
+
+message TestMatrix {
+    // Information about the client which invoked the test.
+    // Optional
+    ClientInfo clientInfo = 1;
+    // How the host machine(s) are configured.
+    // Required
+    EnvironmentMatrix environmentMatrix = 2;
+    // Describes why the matrix is considered invalid.
+    // Only useful for matrices in the INVALID state.
+    // @OutputOnly
+    enum TestMatrix_InvalidMatrixDetail {
+        TESTMATRIX_INVALIDMATRIXDETAIL_INVALID_MATRIX_DETAILS_UNSPECIFIED = 0;
+        TESTMATRIX_INVALIDMATRIXDETAIL_DETAILS_UNAVAILABLE = 1;
+        TESTMATRIX_INVALIDMATRIXDETAIL_MALFORMED_APK = 2;
+        TESTMATRIX_INVALIDMATRIXDETAIL_MALFORMED_TEST_APK = 3;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_MANIFEST = 4;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_PACKAGE_NAME = 5;
+        TESTMATRIX_INVALIDMATRIXDETAIL_TEST_SAME_AS_APP = 6;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_INSTRUMENTATION = 7;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_SIGNATURE = 8;
+        TESTMATRIX_INVALIDMATRIXDETAIL_INSTRUMENTATION_ORCHESTRATOR_INCOMPATIBLE = 9;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_TEST_RUNNER_CLASS = 10;
+        TESTMATRIX_INVALIDMATRIXDETAIL_NO_LAUNCHER_ACTIVITY = 11;
+        TESTMATRIX_INVALIDMATRIXDETAIL_FORBIDDEN_PERMISSIONS = 12;
+        TESTMATRIX_INVALIDMATRIXDETAIL_INVALID_ROBO_DIRECTIVES = 13;
+        TESTMATRIX_INVALIDMATRIXDETAIL_TEST_LOOP_INTENT_FILTER_NOT_FOUND = 14;
+        TESTMATRIX_INVALIDMATRIXDETAIL_SCENARIO_LABEL_NOT_DECLARED = 15;
+        TESTMATRIX_INVALIDMATRIXDETAIL_SCENARIO_LABEL_MALFORMED = 16;
+        TESTMATRIX_INVALIDMATRIXDETAIL_SCENARIO_NOT_DECLARED = 17;
+        TESTMATRIX_INVALIDMATRIXDETAIL_DEVICE_ADMIN_RECEIVER = 18;
+        TESTMATRIX_INVALIDMATRIXDETAIL_TEST_ONLY_APK = 19;
+    }
+    TestMatrix_InvalidMatrixDetail invalidMatrixDetails = 3;
+    // The cloud project that owns the test matrix.
+    // @OutputOnly
+    string projectId = 4;
+    // Where the results for the matrix are written.
+    // Required
+    ResultStorage resultStorage = 5;
+    // Indicates the current progress of the test matrix (e.g., FINISHED)
+    // @OutputOnly
+    enum TestMatrix_State {
+        TESTMATRIX_STATE_TEST_STATE_UNSPECIFIED = 0;
+        TESTMATRIX_STATE_VALIDATING = 1;
+        TESTMATRIX_STATE_PENDING = 2;
+        TESTMATRIX_STATE_RUNNING = 3;
+        TESTMATRIX_STATE_FINISHED = 4;
+        TESTMATRIX_STATE_ERROR = 5;
+        TESTMATRIX_STATE_UNSUPPORTED_ENVIRONMENT = 6;
+        TESTMATRIX_STATE_INCOMPATIBLE_ENVIRONMENT = 7;
+        TESTMATRIX_STATE_INCOMPATIBLE_ARCHITECTURE = 8;
+        TESTMATRIX_STATE_CANCELLED = 9;
+        TESTMATRIX_STATE_INVALID = 10;
+    }
+    TestMatrix_State state = 6;
+    // The list of test executions that the service creates for this matrix.
+    // @OutputOnly
+    repeated TestExecution testExecutions = 7;
+    // Unique id set by the service.
+    // @OutputOnly
+    string testMatrixId = 8;
+    // How to run the test.
+    // Required
+    TestSpecification testSpecification = 9;
+    // The time this test matrix was initially created.
+    // @OutputOnly
+    string timestamp = 10;
+}
+
+message TestSetup {
+    // The device will be logged in on this account for the duration of the test.
+    // Optional
+    Account account = 1;
+    // The directories on the device to upload to GCS at the end of the test;
+    // they must be absolute, whitelisted paths.
+    // Refer to RegularFile for whitelisted paths.
+    // Optional
+    repeated string directoriesToPull = 2;
+    // Environment variables to set for the test (only applicable for
+    // instrumentation tests).
+    repeated EnvironmentVariable environmentVariables = 3;
+    // Optional
+    repeated DeviceFile filesToPush = 4;
+    // The network traffic profile used for running the test.
+    // Optional
+    string networkProfile = 5;
+}
+
+message TestSpecification {
+    // An Android instrumentation test.
+    AndroidInstrumentationTest androidInstrumentationTest = 1;
+    // An Android robo test.
+    AndroidRoboTest androidRoboTest = 2;
+    // An Android Application with a Test Loop
+    AndroidTestLoop androidTestLoop = 3;
+    // Enables automatic Google account login.
+    // If set, the service will automatically generate a Google test account and
+    // add it to the device, before executing the test. Note that test accounts
+    // might be reused.
+    // Many applications show their full set of functionalities when an account is
+    // present on the device. Logging into the device with these generated
+    // accounts allows testing more functionalities.
+    // Default is false.
+    // Optional
+    bool autoGoogleLogin = 4;
+    // Disables performance metrics recording; may reduce test latency.
+    bool disablePerformanceMetrics = 5;
+    // Disables video recording; may reduce test latency.
+    bool disableVideoRecording = 6;
+    // Test setup requirements e.g. files to install, bootstrap scripts
+    // Optional
+    TestSetup testSetup = 7;
+    // Max time a test execution is allowed to run before it is
+    // automatically cancelled.
+    // Optional, default is 5 min.
+    string testTimeout = 8;
+}
+
+message ToolResultsExecution {
+    // A tool results execution ID.
+    // @OutputOnly
+    string executionId = 1;
+    // A tool results history ID.
+    // @OutputOnly
+    string historyId = 2;
+    // The cloud project that owns the tool results execution.
+    // @OutputOnly
+    string projectId = 3;
+}
+
+message ToolResultsHistory {
+    // A tool results history ID.
+    // Required
+    string historyId = 1;
+    // The cloud project that owns the tool results history.
+    // Required
+    string projectId = 2;
+}
+
+message ToolResultsStep {
+    // A tool results execution ID.
+    // @OutputOnly
+    string executionId = 1;
+    // A tool results history ID.
+    // @OutputOnly
+    string historyId = 2;
+    // The cloud project that owns the tool results step.
+    // @OutputOnly
+    string projectId = 3;
+    // A tool results step ID.
+    // @OutputOnly
+    string stepId = 4;
+}
+
+message TrafficRule {
+    // Bandwidth in kbits/second
+    float bandwidth = 1;
+    // Burst size in kbits
+    float burst = 2;
+    // Packet delay, must be >= 0
+    string delay = 3;
+    // Packet duplication ratio (0.0 - 1.0)
+    float packetDuplicationRatio = 4;
+    // Packet loss ratio (0.0 - 1.0)
+    float packetLossRatio = 5;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudTestingService {
+    // Request to run a matrix of tests according to the given specifications.
+    // Unsupported environments will be returned in the state UNSUPPORTED.
+    // Matrices are limited to at most 200 supported executions.
+    // 
+    // May return any of the following canonical error codes:
+    // 
+    // - PERMISSION_DENIED - if the user is not authorized to write to project
+    // - INVALID_ARGUMENT - if the request is malformed or if the matrix expands
+    //                      to more than 200 supported executions
+    rpc PostV1ProjectsProjectIdTestMatrices(PostV1ProjectsProjectIdTestMatricesRequest) returns (TestMatrix) {
+      option (google.api.http) = {
+        post: "//v1/projects/{projectId}/testMatrices"
+        body: "body"
+      };
+    }
+    // Check the status of a test matrix.
+    // 
+    // May return any of the following canonical error codes:
+    // 
+    // - PERMISSION_DENIED - if the user is not authorized to read project
+    // - INVALID_ARGUMENT - if the request is malformed
+    // - NOT_FOUND - if the Test Matrix does not exist
+    rpc GetV1ProjectsProjectIdTestMatricesTestMatrixId(GetV1ProjectsProjectIdTestMatricesTestMatrixIdRequest) returns (TestMatrix) {
+      option (google.api.http) = {
+        get: "//v1/projects/{projectId}/testMatrices/{testMatrixId}"
+      };
+    }
+    // Cancels unfinished test executions in a test matrix.
+    // This call returns immediately and cancellation proceeds asychronously.
+    // If the matrix is already final, this operation will have no effect.
+    // 
+    // May return any of the following canonical error codes:
+    // 
+    // - PERMISSION_DENIED - if the user is not authorized to read project
+    // - INVALID_ARGUMENT - if the request is malformed
+    // - NOT_FOUND - if the Test Matrix does not exist
+    rpc PostV1ProjectsProjectIdTestMatricesTestMatrixId:Cancel(PostV1ProjectsProjectIdTestMatricesTestMatrixId:CancelRequest) returns (CancelTestMatrixResponse) {
+      option (google.api.http) = {
+        post: "//v1/projects/{projectId}/testMatrices/{testMatrixId}:cancel"
+      };
+    }
+    // Get the catalog of supported test environments.
+    // 
+    // May return any of the following canonical error codes:
+    // 
+    // - INVALID_ARGUMENT - if the request is malformed
+    // - NOT_FOUND - if the environment type does not exist
+    // - INTERNAL - if an internal error occurred
+    rpc GetV1TestEnvironmentCatalogEnvironmentType(GetV1TestEnvironmentCatalogEnvironmentTypeRequest) returns (TestEnvironmentCatalog) {
+      option (google.api.http) = {
+        get: "//v1/testEnvironmentCatalog/{environmentType}"
+      };
+    }
+}

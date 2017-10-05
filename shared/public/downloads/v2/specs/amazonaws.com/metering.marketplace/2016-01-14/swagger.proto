@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsmarketplacemetering;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    BatchMeterUsageRequest body = 10;
+}
+
+message Post#MeterUsageRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    MeterUsageRequest body = 10;
+}
+
+message Post#ResolveCustomerRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ResolveCustomerRequest body = 10;
+}
+
+message BatchMeterUsageRequest {
+    // Product code is used to uniquely identify a product in AWS Marketplace. The product code should be the same as the one used during the publishing of a new product.
+    string ProductCode = 1;
+    // The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+    array UsageRecords = 2;
+}
+
+message BatchMeterUsageResult {
+    // Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace Metering Service or were invalid.
+    array Results = 1;
+    // Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can retry the failed request by making another BatchMeterUsage call with this list as input in the BatchMeterUsageRequest.
+    array UnprocessedRecords = 2;
+}
+
+message DuplicateRequestException {
+    string message = 1;
+}
+
+message ExpiredTokenException {
+    string message = 1;
+}
+
+message InternalServiceErrorException {
+    string message = 1;
+}
+
+message InvalidCustomerIdentifierException {
+    string message = 1;
+}
+
+message InvalidEndpointRegionException {
+    string message = 1;
+}
+
+message InvalidProductCodeException {
+    string message = 1;
+}
+
+message InvalidTokenException {
+    string message = 1;
+}
+
+message InvalidUsageDimensionException {
+    string message = 1;
+}
+
+message MeterUsageRequest {
+    // Checks whether you have the permissions required for the action, but does not make the request. If you have the permissions, the request returns DryRunOperation; otherwise, it returns UnauthorizedException.
+    boolean DryRun = 1;
+    // Product code is used to uniquely identify a product in AWS Marketplace. The product code should be the same as the one used during the publishing of a new product.
+    string ProductCode = 2;
+    // Timestamp of the hour, recorded in UTC. The seconds and milliseconds portions of the timestamp will be ignored.
+    string Timestamp = 3;
+    // It will be one of the fcp dimension name provided during the publishing of the product.
+    string UsageDimension = 4;
+    // Consumption value for the hour.
+    integer UsageQuantity = 5;
+}
+
+message MeterUsageResult {
+    string MeteringRecordId = 1;
+}
+
+message ResolveCustomerRequest {
+    // When a buyer visits your website during the registration process, the buyer submits a registration token through the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+    string RegistrationToken = 1;
+}
+
+message ResolveCustomerResult {
+    // The CustomerIdentifier is used to identify an individual customer in your application. Calls to BatchMeterUsage require CustomerIdentifiers for each UsageRecord.
+    string CustomerIdentifier = 1;
+    // The product code is returned to confirm that the buyer is registering for your product. Subsequent BatchMeterUsage calls should be made using this product code.
+    string ProductCode = 2;
+}
+
+message ThrottlingException {
+    string message = 1;
+}
+
+message TimestampOutOfBoundsException {
+    string message = 1;
+}
+
+message UsageRecord {
+    // The CustomerIdentifier is obtained through the ResolveCustomer operation and represents an individual buyer in your application.
+    string CustomerIdentifier = 1;
+    // During the process of registering a product on AWS Marketplace, up to eight dimensions are specified. These represent different units of value in your application.
+    string Dimension = 2;
+    // The quantity of usage consumed by the customer for the given dimension and time.
+    integer Quantity = 3;
+    // <p>Timestamp of the hour, recorded in UTC. The seconds and milliseconds portions of the timestamp will be ignored.</p> <p>Your application can meter usage for up to one hour in the past.</p>
+    string Timestamp = 4;
+}
+
+repeated UsageRecord UsageRecordList = 1
+
+message UsageRecordResult {
+    // The MeteringRecordId is a unique identifier for this metering event.
+    string MeteringRecordId = 1;
+    // <p>The UsageRecordResult Status indicates the status of an individual UsageRecord processed by BatchMeterUsage.</p> <ul> <li> <p> <i>Success</i>- The UsageRecord was accepted and honored by BatchMeterUsage.</p> </li> <li> <p> <i>CustomerNotSubscribed</i>- The CustomerIdentifier specified is not subscribed to your product. The UsageRecord was not honored. Future UsageRecords for this customer will fail until the customer subscribes to your product.</p> </li> <li> <p> <i>DuplicateRecord</i>- Indicates that the UsageRecord was invalid and not honored. A previously metered UsageRecord had the same customer, dimension, and time, but a different quantity.</p> </li> </ul>
+    UsageRecordResultStatus Status = 2;
+    // The UsageRecord that was part of the BatchMeterUsage request.
+    UsageRecord UsageRecord = 3;
+}
+
+repeated UsageRecordResult UsageRecordResultList = 1
+
+enum UsageRecordResultStatu {
+    SUCCESS = 0;
+    CUSTOMERNOTSUBSCRIBED = 1;
+    DUPLICATERECORD = 2;
+}
+
+service AWSMarketplaceMeteringService {
+    // <p>BatchMeterUsage is called from a SaaS application listed on the AWS Marketplace to post metering records for a set of customers.</p> <p>For identical requests, the API is idempotent; requests can be retried with the same records or a subset of the input records.</p> <p>Every request to BatchMeterUsage is for one product. If you need to meter usage for multiple products, you must make multiple calls to BatchMeterUsage.</p> <p>BatchMeterUsage can process up to 25 UsageRecords at a time.</p>
+    rpc Post(PostRequest) returns (BatchMeterUsageResult) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // <p>API to emit metering records. For identical requests, the API is idempotent. It simply returns the metering record ID.</p> <p>MeterUsage is authenticated on the buyer's AWS account, generally when running from an EC2 instance on the AWS Marketplace.</p>
+    rpc Post#MeterUsage(Post#MeterUsageRequest) returns (MeterUsageResult) {
+      option (google.api.http) = {
+        post: "//#MeterUsage"
+        body: "body"
+      };
+    }
+    // ResolveCustomer is called by a SaaS application during the registration process. When a buyer visits your website during the registration process, the buyer submits a registration token through their browser. The registration token is resolved through this API to obtain a CustomerIdentifier and product code.
+    rpc Post#ResolveCustomer(Post#ResolveCustomerRequest) returns (ResolveCustomerResult) {
+      option (google.api.http) = {
+        post: "//#ResolveCustomer"
+        body: "body"
+      };
+    }
+}

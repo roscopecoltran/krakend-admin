@@ -1,0 +1,1554 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package busrouteandstopmethods;
+
+message GetBusPositionsRequest {
+    // Center point Latitude, required if Longitude and Radius are specified.
+    string Lat = 1;
+    // Center point Longitude, required if Latitude and Radius are specified.
+    string Lon = 2;
+    // Radius (meters) to include in the search area, required if Latitude and Longitude are specified.
+    string Radius = 3;
+    // Bus route, e.g.: B30, 10A.
+    enum GetBusPositionsRequest_RouteID {
+        GETBUSPOSITIONSREQUEST_ROUTEID_B30 = 0;
+    }
+    GetBusPositionsRequest_RouteID RouteID = 4;
+}
+
+message GetRouteDetailsRequest {
+    // Date in YYYY-MM-DD format for which to retrieve route and stop information.  Defaults to today's date unless specified.
+    string Date = 1;
+    // Bus route variant, e.g.: B30, 10A, 10Av1.
+    enum GetRouteDetailsRequest_RouteID {
+        GETROUTEDETAILSREQUEST_ROUTEID_B30 = 0;
+    }
+    GetRouteDetailsRequest_RouteID RouteID = 2;
+}
+
+message GetRouteScheduleRequest {
+    // Date in YYYY-MM-DD format for which to retrieve schedule.  Defaults to today's date unless specified.
+    string Date = 1;
+    // Whether or not to include variations.  For example, if B30 is specified, include all variations such as B30v1, B30v2, etc.
+    bool IncludingVariations = 2;
+    // Bus route variant, e.g.: B30, 10A, 10Av1.
+    enum GetRouteScheduleRequest_RouteID {
+        GETROUTESCHEDULEREQUEST_ROUTEID_B30 = 0;
+    }
+    GetRouteScheduleRequest_RouteID RouteID = 3;
+}
+
+message GetStopScheduleRequest {
+    // Date in YYYY-MM-DD format for which to retrieve schedule.  Defaults to today's date unless specified.
+    string Date = 1;
+    // 7-digit regional stop ID.
+    enum GetStopScheduleRequest_StopID {
+        GETSTOPSCHEDULEREQUEST_STOPID_3002578 = 0;
+    }
+    GetStopScheduleRequest_StopID StopID = 2;
+}
+
+message GetStopsRequest {
+    // Center point Latitude, required if Longitude and Radius are specified.
+    enum GetStopsRequest_Lat {
+        GETSTOPSREQUEST_LAT_38878586 = 0;
+    }
+    GetStopsRequest_Lat Lat = 1;
+    // Center point Longitude, required if Latitude and Radius are specified.
+    enum GetStopsRequest_Lon {
+        GETSTOPSREQUEST_LON_76989626 = 0;
+    }
+    GetStopsRequest_Lon Lon = 2;
+    // Radius (feet) to include in the search area, required if Latitude and Longitude are specified.
+    enum GetStopsRequest_Radiu {
+        GETSTOPSREQUEST_RADIU_500 = 0;
+    }
+    GetStopsRequest_Radiu Radius = 3;
+}
+
+message GetJsonJBusPositionsRequest {
+    // Center point Latitude, required if Longitude and Radius are specified.
+    int32 Lat = 1;
+    // Center point Longitude, required if Latitude and Radius are specified.
+    int32 Lon = 2;
+    // Radius (meters) to include in the search area, required if Latitude and Longitude are specified.
+    int32 Radius = 3;
+    // Base bus route, e.g.: B30, 10A.
+    enum GetJsonJBusPositionsRequest_RouteID {
+        GETJSONJBUSPOSITIONSREQUEST_ROUTEID_B30 = 0;
+    }
+    GetJsonJBusPositionsRequest_RouteID RouteID = 4;
+}
+
+message GetJsonJRouteDetailsRequest {
+    // Date in YYYY-MM-DD format for which to retrieve route and stop information.  Defaults to today's date unless specified.
+    string Date = 1;
+    // Bus route variant, e.g.: B30, 10A, 10Av1.
+    enum GetJsonJRouteDetailsRequest_RouteID {
+        GETJSONJROUTEDETAILSREQUEST_ROUTEID_B30 = 0;
+    }
+    GetJsonJRouteDetailsRequest_RouteID RouteID = 2;
+}
+
+message GetJsonJRouteScheduleRequest {
+    // Date in YYYY-MM-DD format for which to retrieve schedule.  Defaults to today's date unless specified.
+    string Date = 1;
+    // Whether or not to include variations if a base route is specified in RouteID.  For example, if B30 is specified and IncludingVariations is set to true, data for all variations of B30 such as B30v1, B30v2, etc. will be returned.
+    bool IncludingVariations = 2;
+    // Bus route variant, e.g.: B30, 10A, 10Av1, etc.
+    enum GetJsonJRouteScheduleRequest_RouteID {
+        GETJSONJROUTESCHEDULEREQUEST_ROUTEID_B30 = 0;
+    }
+    GetJsonJRouteScheduleRequest_RouteID RouteID = 3;
+}
+
+message GetJsonJStopScheduleRequest {
+    // Date in YYYY-MM-DD format for which to retrieve schedule.  Defaults to today's date unless specified.
+    string Date = 1;
+    // 7-digit regional stop ID.
+    enum GetJsonJStopScheduleRequest_StopID {
+        GETJSONJSTOPSCHEDULEREQUEST_STOPID_3002578 = 0;
+    }
+    GetJsonJStopScheduleRequest_StopID StopID = 2;
+}
+
+message GetJsonJStopsRequest {
+    // Center point Latitude, required if Longitude and Radius are specified.
+    int32 Lat = 1;
+    // Center point Longitude, required if Latitude and Radius are specified.
+    int32 Lon = 2;
+    // Radius (meters) to include in the search area, required if Latitude and Longitude are specified.
+    int32 Radius = 3;
+}
+
+service BusRouteAndStopMethodsService {
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns bus positions for the given route, with an optional search radius.
+    // If no parameters are specified, all bus positions are returned.</p>
+    // 
+    // <p>Note that the RouteID parameter accepts only base route names and no
+    // variations, i.e.: use 10A instead of 10Av1 or 10Av2.</p>
+    // 
+    // <p>Bus positions are refreshed approximately every <span style="text-decoration: line-through">20 to 30</span> 7 to 10 seconds.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>BusPositions</td>
+    // 
+    // <td>
+    // Array containing bus position information (<a href=
+    // "#BusPosition">BusPositions</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="BusPosition" name="BusPosition">BusPosition
+    // Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DateTime</td>
+    // 
+    // <td>Date and time (Eastern Standard Time) of last position update.
+    // Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:23:40).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Deviation</td>
+    // 
+    // <td>Deviation, in minutes, from schedule. Positive values indicate
+    // that the bus is running late while negative ones are for buses
+    // running ahead of schedule.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // 
+    // <td><span class="text-danger">Deprecated.</span> Use the
+    // DirectionText for a customer-friendly description of
+    // direction.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DirectionText</td>
+    // 
+    // <td>General direction of the trip, not the bus itself (e.g.: NORTH,
+    // SOUTH, EAST, WEST).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Last reported Latitude of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Last reported Longitude of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Base route name as shown on the bus. Note that the base route
+    // name could also refer to any variant, so a RouteID of 10A could
+    // refer to 10A, 10Av1, 10Av2, etc.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripEndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) of the
+    // bus's current trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Unique trip ID. This can be correlated with the data returned
+    // from the schedule-related methods.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripStartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) of the
+    // bus's current trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T12:40:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>VehicleID</td>
+    // 
+    // <td>Unique identifier for the bus. This is usually visible on the
+    // bus itself.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetBusPositions(GetBusPositionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/BusPositions"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // <p>For a given date, returns the set of ordered latitude/longitude points along route variant along with the list of stops served.</p>
+    // <h4 class="text-primary">Response Elements</h4>
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // <tbody>
+    // <tr>
+    // <td>Direction0/Direction1</td>
+    // <td>
+    // Structures describing <a href="#Direction">path/stop</a>information.<br>
+    // <br>
+    // Most routes will return content in both Direction0 and Direction1 elements, though a few will return NULL for Direction0 or for Direction1.<br>
+    // <br>
+    // 0 or 1 are binary properties. There is no specific mapping to direction, but a different value for the same route signifies that the route is in an opposite direction.
+    // </td>
+    // </tr>
+    // <tr>
+    // <td>Name</td>
+    // <td>Descriptive name for the route.</td>
+    // </tr>
+    // <tr>
+    // <td>RouteID</td>
+    // <td>Bus route variant (e.g.: 10A, 10Av1, etc.).</td>
+    // </tr>
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Direction" name="Direction">Direction0/Direction1 Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // <td><span class="text-danger">Deprecated.</span> Use the DirectionText element to denote the general direction of the route variant.</td>
+    // </tr>
+    // <tr>
+    // <td>DirectionText</td>
+    // <td>General direction of the route variant (NORTH, SOUTH, EAST, WEST, LOOP, etc.).</td>
+    // </tr>
+    // <tr>
+    // <td>Shape</td>
+    // <td>
+    // Array containing shape point information (<a href="#ShapePoint">ShapePoint</a>).
+    // </td>
+    // </tr>
+    // <tr>
+    // <td>Stops</td>
+    // <td>
+    // Array containing stop information (<a href="#Stop">Stop</a>).
+    // </td>
+    // </tr>
+    // <tr>
+    // <td>TripHeadsign</td>
+    // <td>Descriptive text of where the bus is headed. This is similar, but not necessarily identical, to what is displayed on the bus.</td>
+    // </tr>
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="ShapePoint" name="ShapePoint">ShapePoint Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // <tr>
+    // <td>Lat</td>
+    // <td>Latitude.</td>
+    // </tr>
+    // <tr>
+    // <td>Lon</td>
+    // <td>Longitude.</td>
+    // </tr>
+    // <tr>
+    // <td>SeqNum</td>
+    // <td>Order of the point in the sequence of ShapePoints.</td>
+    // </tr>
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em"> 
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // <tr>
+    // <td>Lat</td>
+    // <td>Latitude.</td>
+    // </tr>
+    // <tr>
+    // <td>Lon</td>
+    // <td>Longitude.</td>
+    // </tr>
+    // <tr>
+    // <td>Name</td>
+    // <td>Stop name. May be slightly different from what is spoken or displayed in the bus.</td>
+    // </tr>
+    // <tr>
+    // <td>Routes</td>
+    // <td>String array of route variants which provide service at this stop. Note that these are not date-specific; any route variant which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // <tr>
+    // <td>StopID</td>
+    // <td>7-digit regional ID which can be used in various bus-related methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetRouteDetails(GetRouteDetailsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/RouteDetails"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns schedules for a given route variant for a given date.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Direction0/Direction1</td>
+    // 
+    // <td>
+    // Arrays containing trip information (<a href=
+    // "#Trip">Trip</a>).<br>
+    // <br>
+    // Most routes will return content in both Direction0 and
+    // Direction1 elements, though a few (especially ones which run in
+    // a loop, such as the U8) will return content only for Direction0
+    // and NULL content for Direction1.<br>
+    // <br>
+    // 0 or 1 are binary properties. There is no specific mapping to
+    // direction, but a different value for the same route signifies
+    // that the route is in an opposite direction.
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Descriptive name for the route.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Trip" name="Trip">Trip Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // 
+    // <td><span class="text-danger">Deprecated.</span> Use the
+    // TripDirectionText element to denote the general direction of the
+    // trip.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>EndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Bus route variant. This can be used in several other bus
+    // methods which accept variants.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopTimes</td>
+    // 
+    // <td>
+    // Array containing location and time information (<a href=
+    // "#StopTime">StopTime</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripDirectionText</td>
+    // 
+    // <td>General direction of the trip (NORTH, SOUTH, EAST, WEST, LOOP,
+    // etc.).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Descriptive text of where the bus is headed. This is similar,
+    // but not necessarily identical, to what is displayed on the
+    // bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Unique trip ID. This can be correlated with the data returned
+    // from the schedule-related methods.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="StopTime" name="StopTime">StopTime Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopName</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopSeq</td>
+    // 
+    // <td>Order of the stop in the sequence of StopTimes.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Time</td>
+    // 
+    // <td>Scheduled departure date and time (Eastern Standard Time) from
+    // this stop. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetRouteSchedule(GetRouteScheduleRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/RouteSchedule"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a list of all bus route variants (patterns). For example, the 10A
+    // and 10Av1 are the same route, but may stop at slightly different locations.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>
+    // Array containing route variant information (<a href=
+    // "#Route">Route</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Route" name="Route">Route Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Descriptive name of the route variant.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Unique identifier for a given route variant. Can be used in
+    // various other bus-related methods.</td>
+    // </tr>
+    // 
+    // 
+    // <tr>
+    // <td>LineDescription</td>
+    // 
+    // <td>Denotes the route variant’s grouping – lines are a combination of routes which lie in the same corridor and which have significant portions of their paths along the same roadways.</td>
+    // </tr> 
+    // </tbody>
+    // </table>
+    rpc GetRoutes(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/Routes"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a set of buses scheduled at a stop for a given date.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>ScheduleArrivals</td>
+    // 
+    // <td>
+    // Array containing scheduled arrival information (<a href=
+    // "#ScheduleArrival">ScheduleArrival</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Stop</td>
+    // 
+    // <td>
+    // Structure describing <a href="#Stop">stop</a> information.
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="ScheduleArrival" name=
+    // "ScheduleArrival">ScheduleArrival Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DirectionNum</td>
+    // 
+    // <td>Denotes a binary direction (0 or 1) of the bus. There is no
+    // specific mapping to direction, but a different value for the same
+    // route signifies that the buses are traveling in opposite
+    // directions. Use the TripDirectionText element to show the actual
+    // destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>EndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Bus route variant identifier (pattern). This variant can be
+    // used in several other bus methods which accept variants. Note that
+    // customers will never see anything other than the base route name,
+    // so variants 10A, 10Av1, 10Av2, etc. will be displayed as 10A on the
+    // bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>ScheduleTime</td>
+    // 
+    // <td>Date and time (Eastern Standard Time) when the bus is scheduled
+    // to stop at this location. Will be in YYYY-MM-DDTHH:mm:ss format
+    // (e.g.: 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripDirectionText</td>
+    // 
+    // <td>General direction of the trip (e.g.: NORTH, SOUTH, EAST,
+    // WEST).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Trip identifier. This can be correlated with the data in our
+    // bus schedule information as well as bus positions.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>String array of route variants which provide service at this
+    // stop. Note that these are not date-specific; any route variant
+    // which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetStopSchedule(GetStopScheduleRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/StopSchedule"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a list of nearby bus stops based on latitude, longitude, and radius.
+    // Omit all parameters to retrieve a list of all stops.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Stops</td>
+    // 
+    // <td>
+    // Array containing stop information (<a href="#Stop">Stop</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>String array of route variants which provide service at this
+    // stop. Note that these are not date-specific; any route variant
+    // which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetStops(GetStopsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/Stops"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns bus positions for the given route, with an optional search radius.
+    // If no parameters are specified, all bus positions are returned.</p>
+    // 
+    // <p>Note that the RouteID parameter accepts only base route names and no
+    // variations, i.e.: use 10A instead of 10Av1 or 10Av2.</p>
+    // 
+    // <p>Bus positions are refreshed approximately every <span style="text-decoration: line-through">20 to 30</span> 7 to 10 seconds.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>BusPositions</td>
+    // 
+    // <td>
+    // Array containing bus position information (<a href=
+    // "#BusPosition">BusPositions</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="BusPosition" name="BusPosition">BusPosition
+    // Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DateTime</td>
+    // 
+    // <td>Date and time (Eastern Standard Time) of last position update.
+    // Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:23:40).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Deviation</td>
+    // 
+    // <td>Deviation, in minutes, from schedule. Positive values indicate
+    // that the bus is running late while negative ones are for buses
+    // running ahead of schedule.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // 
+    // <td><span class="text-danger">Deprecated.</span> Use the
+    // DirectionText for a customer-friendly description of
+    // direction.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DirectionText</td>
+    // 
+    // <td>General direction of the trip, not the bus itself (e.g.: NORTH,
+    // SOUTH, EAST, WEST).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Last reported Latitude of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Last reported Longitude of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Base route name as shown on the bus. Note that the base route
+    // name could also refer to any variant, so a RouteID of 10A could
+    // refer to 10A, 10Av1, 10Av2, etc.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripEndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) of the
+    // bus's current trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Unique trip ID. This can be correlated with the data returned
+    // from the schedule-related methods.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripStartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) of the
+    // bus's current trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T12:40:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>VehicleID</td>
+    // 
+    // <td>Unique identifier for the bus. This is usually visible on the
+    // bus itself.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetJsonJBusPositions(GetJsonJBusPositionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jBusPositions"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>For a given date, returns the set of ordered latitude/longitude points along
+    // a route variant along with the list of stops served.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Direction0/Direction1</td>
+    // 
+    // <td>
+    // Structures describing <a href="#Direction">path/stop</a>
+    // information.<br>
+    // <br>
+    // Most routes will return content in both Direction0 and
+    // Direction1 elements, though a few will return NULL for Direction0 or for Direction1.<br>
+    // <br>
+    // 0 or 1 are binary properties. There is no specific mapping to
+    // direction, but a different value for the same route signifies
+    // that the route is in an opposite direction.
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Descriptive name for the route.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Bus route variant (e.g.: 10A, 10Av1, etc.).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Direction" name="Direction">Direction0/Direction1
+    // Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // 
+    // <td><span class="text-danger">Deprecated.</span> Use the
+    // DirectionText element to denote the general direction of the route
+    // variant.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DirectionText</td>
+    // 
+    // <td>General direction of the route variant (NORTH, SOUTH, EAST,
+    // WEST, LOOP, etc.).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Shape</td>
+    // 
+    // <td>
+    // Array containing shape point information (<a href=
+    // "#ShapePoint">ShapePoint</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Stops</td>
+    // 
+    // <td>
+    // Array containing stop information (<a href="#Stop">Stop</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Descriptive text of where the bus is headed. This is similar,
+    // but not necessarily identical, to what is displayed on the
+    // bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="ShapePoint" name="ShapePoint">ShapePoint
+    // Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>SeqNum</td>
+    // 
+    // <td>Order of the point in the sequence of ShapePoints.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>String array of route variants which provide service at this
+    // stop. Note that these are not date-specific; any route variant
+    // which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetJsonJRouteDetails(GetJsonJRouteDetailsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jRouteDetails"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns schedules for a given route variant for a given date.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Direction0/Direction1</td>
+    // 
+    // <td>
+    // Arrays containing trip information (<a href=
+    // "#Trip">Trip</a>).<br>
+    // <br>
+    // Most routes will return content in both Direction0 and
+    // Direction1 elements, though a few (especially ones which run in
+    // a loop, such as the U8) will return content only for Direction0
+    // and NULL content for Direction1.<br>
+    // <br>
+    // 0 or 1 are binary properties. There is no specific mapping to
+    // direction, but a different value for the same route signifies
+    // that the route is in an opposite direction.
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Descriptive name for the route.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Trip" name="Trip">Trip Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td style="text-decoration: line-through">DirectionNum</td>
+    // 
+    // <td><span class="text-danger">Deprecated.</span> Use the
+    // TripDirectionText element to denote the general direction of the
+    // trip.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>EndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Bus route variant. This can be used in several other bus
+    // methods which accept variants.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopTimes</td>
+    // 
+    // <td>
+    // Array containing location and time information (<a href=
+    // "#StopTime">StopTime</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripDirectionText</td>
+    // 
+    // <td>General direction of the trip (NORTH, SOUTH, EAST, WEST, LOOP,
+    // etc.).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Descriptive text of where the bus is headed. This is similar,
+    // but not necessarily identical, to what is displayed on the
+    // bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Unique trip ID. This can be correlated with the data returned
+    // from the schedule-related methods.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="StopTime" name="StopTime">StopTime Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopName</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopSeq</td>
+    // 
+    // <td>Order of the stop in the sequence of StopTimes.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Time</td>
+    // 
+    // <td>Scheduled departure date and time (Eastern Standard Time) from
+    // this stop. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetJsonJRouteSchedule(GetJsonJRouteScheduleRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jRouteSchedule"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a list of all bus route variants (patterns). For example, the 10A
+    // and 10Av1 are the same route, but may stop at slightly different locations.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>
+    // Array containing route variant information (<a href=
+    // "#Route">Route</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Route" name="Route">Route Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Descriptive name of the route variant.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Unique identifier for a given route variant. Can be used in
+    // various other bus-related methods.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>LineDescription</td>
+    // 
+    // <td>Denotes the route variant’s grouping – lines are a combination of routes which lie in the same corridor and which have significant portions of their paths along the same roadways.</td>
+    // </tr> 
+    // </tbody>
+    // </table>
+    rpc GetJsonJRoutes(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jRoutes"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a set of buses scheduled at a stop for a given date.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>ScheduleArrivals</td>
+    // 
+    // <td>
+    // Array containing scheduled arrival information (<a href=
+    // "#ScheduleArrival">ScheduleArrival</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Stop</td>
+    // 
+    // <td>
+    // Structure describing <a href="#Stop">stop</a> information.
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="ScheduleArrival" name=
+    // "ScheduleArrival">ScheduleArrival Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>DirectionNum</td>
+    // 
+    // <td>Denotes a binary direction (0 or 1) of the bus. There is no
+    // specific mapping to direction, but a different value for the same
+    // route signifies that the buses are traveling in opposite
+    // directions. Use the TripDirectionText element to show the actual
+    // destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>EndTime</td>
+    // 
+    // <td>Scheduled end date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>RouteID</td>
+    // 
+    // <td>Bus route variant identifier (pattern). This variant can be
+    // used in several other bus methods which accept variants. Note that
+    // customers will never see anything other than the base route name,
+    // so variants 10A, 10Av1, 10Av2, etc. will be displayed as 10A on the
+    // bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>ScheduleTime</td>
+    // 
+    // <td>Date and time (Eastern Standard Time) when the bus is scheduled
+    // to stop at this location. Will be in YYYY-MM-DDTHH:mm:ss format
+    // (e.g.: 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StartTime</td>
+    // 
+    // <td>Scheduled start date and time (Eastern Standard Time) for this
+    // trip. Will be in YYYY-MM-DDTHH:mm:ss format (e.g.:
+    // 2014-10-27T13:17:00).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripDirectionText</td>
+    // 
+    // <td>General direction of the trip (e.g.: NORTH, SOUTH, EAST,
+    // WEST).</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripHeadsign</td>
+    // 
+    // <td>Destination of the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>TripID</td>
+    // 
+    // <td>Trip identifier. This can be correlated with the data in our
+    // bus schedule information as well as bus positions.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>String array of route variants which provide service at this
+    // stop. Note that these are not date-specific; any route variant
+    // which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetJsonJStopSchedule(GetJsonJStopScheduleRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jStopSchedule"
+      };
+    }
+    // <h4 class="text-primary">Description</h4>
+    // 
+    // <p>Returns a list of nearby bus stops based on latitude, longitude, and radius.
+    // Omit all parameters to retrieve a list of all stops.</p>
+    // 
+    // <h4 class="text-primary">Response Elements</h4>
+    // 
+    // <table class="table table-condensed table-hover">
+    // <thead>
+    // <tr>
+    // <th class="col-md-3">Element</th>
+    // 
+    // <th>Description</th>
+    // </tr>
+    // </thead>
+    // 
+    // <tbody>
+    // <tr>
+    // <td>Stops</td>
+    // 
+    // <td>
+    // Array containing stop information (<a href="#Stop">Stop</a>).
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td colspan="2">
+    // <div class="text-primary" style="margin-top: 1em">
+    // <a id="Stop" name="Stop">Stop Elements</a>
+    // </div>
+    // </td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lat</td>
+    // 
+    // <td>Latitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Lon</td>
+    // 
+    // <td>Longitude.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Name</td>
+    // 
+    // <td>Stop name. May be slightly different from what is spoken or
+    // displayed in the bus.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>Routes</td>
+    // 
+    // <td>String array of route variants which provide service at this
+    // stop. Note that these are not date-specific; any route variant
+    // which stops at this stop on any day will be listed.</td>
+    // </tr>
+    // 
+    // <tr>
+    // <td>StopID</td>
+    // 
+    // <td>7-digit regional ID which can be used in various bus-related
+    // methods. If unavailable, the StopID will be 0 or NULL.</td>
+    // </tr>
+    // </tbody>
+    // </table>
+    rpc GetJsonJStops(GetJsonJStopsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/Bus.svc/json/jStops"
+      };
+    }
+}

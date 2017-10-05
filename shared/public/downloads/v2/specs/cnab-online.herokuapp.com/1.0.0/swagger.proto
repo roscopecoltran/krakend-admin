@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package cnabonline;
+
+message PostFileRequest {
+    // Arquivo CNAB
+    ;
+}
+
+message PostFileResponse {
+    File data = 1;
+}
+
+message GetFileFileIdRequest {
+    // ID Temporário gerado no endpoint file
+    string fileId = 1;
+}
+
+message GetFileFileIdResponse {
+    File data = 1;
+}
+
+message GetFileFileIdLinesRequest {
+    // ID Temporário gerado no endpoint file
+    string fileId = 1;
+}
+
+message GetFileFileIdLinesResponse {
+    repeated Line data = 1;
+}
+
+message GetFileFileIdOccurrencesRequest {
+    // ID Temporário gerado no endpoint file
+    string fileId = 1;
+}
+
+message GetFileFileIdOccurrencesResponse {
+    repeated Occurrence data = 1;
+}
+
+message Error {
+    message Error {
+        string detail = 1;
+        string title = 2;
+    }
+    repeated Error errors = 1;
+}
+
+message File {
+    ;
+    // Id temporário gerado para o arquivo
+    string id = 2;
+    // Sempre 'files' para seguir a especificação JSON API
+    string type = 3;
+}
+
+message Line {
+    ;
+    // Posição desta linha em relação as outras
+    string id = 2;
+    // Sempre 'lines' para seguir a especificação JSON API
+    string type = 3;
+}
+
+message Occurrence {
+    ;
+    // Posição da ocorrência em relação às outras ocorrências processadas neste mesmo arquivo
+    int32 id = 2;
+    // Sempre 'occurrences' para seguir a especificação JSON API
+    string type = 3;
+}
+
+service CnabOnlineService {
+    // Faz o upload de um arquivo
+    // 
+    // Processa um arquivo CNAB para obter informações sobre o mesmo. Retorna um ID temporário para o mesmo.
+    rpc PostFile(PostFileRequest) returns (PostFileResponse) {
+      option (google.api.http) = {
+        post: "/v1/file"
+      };
+    }
+    // Retorna as informações básicas de um arquivo previamente processado
+    rpc GetFileFileId(GetFileFileIdRequest) returns (GetFileFileIdResponse) {
+      option (google.api.http) = {
+        get: "/v1/file/{fileId}"
+      };
+    }
+    // Retorna todas as linhas e seus respectivos campos (de forma não processada, apenas indicando os campos reconhecidos)
+    rpc GetFileFileIdLines(GetFileFileIdLinesRequest) returns (GetFileFileIdLinesResponse) {
+      option (google.api.http) = {
+        get: "/v1/file/{fileId}/lines"
+      };
+    }
+    // Retorna as informações de baixa de boletos e outros tipos de ocorrências
+    rpc GetFileFileIdOccurrences(GetFileFileIdOccurrencesRequest) returns (GetFileFileIdOccurrencesResponse) {
+      option (google.api.http) = {
+        get: "/v1/file/{fileId}/occurrences"
+      };
+    }
+}

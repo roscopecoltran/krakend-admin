@@ -1,0 +1,318 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package giphy;
+
+message GetGifsRequest {
+    string ids = 1;
+}
+
+message GetGifsResponse {
+    repeated Gif data = 1;
+    Meta meta = 2;
+    Pagination pagination = 3;
+}
+
+message GetGifsRandomRequest {
+    string rating = 1;
+    string tag = 2;
+}
+
+message GetGifsRandomResponse {
+    Gif data = 1;
+    Meta meta = 2;
+}
+
+message GetGifsSearchRequest {
+    string lang = 1;
+    integer limit = 2;
+    integer offset = 3;
+    string q = 4;
+    string rating = 5;
+}
+
+message GetGifsSearchResponse {
+    repeated Gif data = 1;
+    Meta meta = 2;
+    Pagination pagination = 3;
+}
+
+message GetGifsTranslateRequest {
+    string s = 1;
+}
+
+message GetGifsTranslateResponse {
+    Gif data = 1;
+    Meta meta = 2;
+}
+
+message GetGifsTrendingRequest {
+    integer limit = 1;
+    integer offset = 2;
+    string rating = 3;
+}
+
+message GetGifsTrendingResponse {
+    repeated Gif data = 1;
+    Meta meta = 2;
+    Pagination pagination = 3;
+}
+
+message GetGifsGifIdRequest {
+    integer gifId = 1;
+}
+
+message GetGifsGifIdResponse {
+    Gif data = 1;
+    Meta meta = 2;
+}
+
+message GetStickersRandomRequest {
+    string rating = 1;
+    string tag = 2;
+}
+
+message GetStickersRandomResponse {
+    Gif data = 1;
+    Meta meta = 2;
+}
+
+message GetStickersSearchRequest {
+    string lang = 1;
+    integer limit = 2;
+    integer offset = 3;
+    string q = 4;
+    string rating = 5;
+}
+
+message GetStickersSearchResponse {
+    repeated Gif data = 1;
+    Meta meta = 2;
+    Pagination pagination = 3;
+}
+
+message GetStickersTranslateRequest {
+    string s = 1;
+}
+
+message GetStickersTranslateResponse {
+    Gif data = 1;
+    Meta meta = 2;
+}
+
+message GetStickersTrendingRequest {
+    integer limit = 1;
+    integer offset = 2;
+    string rating = 3;
+}
+
+message GetStickersTrendingResponse {
+    repeated Gif data = 1;
+    Meta meta = 2;
+    Pagination pagination = 3;
+}
+
+message Gif {
+    // The unique bit.ly URL for this GIF
+    string bitly_url = 1;
+    // Currently unused
+    string content_url = 2;
+    // The date this GIF was added to the GIPHY database.
+    string create_datetime = 3;
+    // A URL used for embedding this GIF
+    string embded_url = 4;
+    // An array of featured tags for this GIF (Note: Not available when using the Public Beta Key)
+    repeated string featured_tags = 5;
+    // This GIF's unique ID
+    string id = 6;
+    // An object containing data for various available formats and sizes of this GIF.
+    message Images {
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+    }
+    Images images = 7;
+    // The creation or upload date from this GIF's source.
+    string import_datetime = 8;
+    // The MPAA-style rating for this content. Examples include Y, G, PG, PG-13 and R
+    string rating = 9;
+    // The unique slug used in this GIF's URL
+    string slug = 10;
+    // The page on which this GIF was found
+    string source = 11;
+    // The URL of the webpage on which this GIF was found.
+    string source_post_url = 12;
+    // The top level domain of the source URL.
+    string source_tld = 13;
+    // An array of tags for this GIF (Note: Not available when using the Public Beta Key)
+    repeated string tags = 14;
+    // The date on which this gif was marked trending, if applicable.
+    string trending_datetime = 15;
+    // Type of the gif. By default, this is almost always gif
+    enum Gif_Type {
+        GIF_TYPE_GIF = 0;
+    }
+    Gif_Type type = 16;
+    // The date on which this GIF was last updated.
+    string update_datetime = 17;
+    // The unique URL for this GIF
+    string url = 18;
+    User user = 19;
+    // The username this GIF is attached to, if applicable
+    string username = 20;
+}
+
+message Image {
+    // The number of frames in this GIF.
+    string frames = 1;
+    // The height of this GIF in pixels.
+    string height = 2;
+    // The URL for this GIF in .MP4 format.
+    string mp4 = 3;
+    // The size in bytes of the .MP4 file corresponding to this GIF.
+    string mp4_size = 4;
+    // The size of this GIF in bytes.
+    string size = 5;
+    // The publicly-accessible direct URL for this GIF.
+    string url = 6;
+    // The URL for this GIF in .webp format.
+    string webp = 7;
+    // The size in bytes of the .webp file corresponding to this GIF.
+    string webp_size = 8;
+    // The width of this GIF in pixels.
+    string width = 9;
+}
+
+message Meta {
+    // HTTP Response Message
+    string msg = 1;
+    // A unique ID paired with this response from the API.
+    string response_id = 2;
+    // HTTP Response Code
+    int32 status = 3;
+}
+
+message Pagination {
+    // Total number of items returned.
+    int32 count = 1;
+    // Position in pagination.
+    int32 offset = 2;
+    // Total number of items available.
+    int32 total_count = 3;
+}
+
+message User {
+    // The URL for this user's avatar image.
+    string avatar_url = 1;
+    // The URL for the banner image that appears atop this user's profile page.
+    string banner_url = 2;
+    // The display name associated with this user (contains formatting the base username might not).
+    string display_name = 3;
+    // The URL for this user's profile.
+    string profile_url = 4;
+    // The Twitter username associated with this user, if applicable.
+    string twitter = 5;
+    // The username associated with this user.
+    string username = 6;
+}
+
+service GiphyService {
+    // Get GIFs by ID
+    // 
+    // A multiget version of the get GIF by ID endpoint.
+    rpc GetGifs(GetGifsRequest) returns (GetGifsResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs"
+      };
+    }
+    // Random GIF
+    // 
+    // Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the GIPHY catalog.
+    rpc GetGifsRandom(GetGifsRandomRequest) returns (GetGifsRandomResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs/random"
+      };
+    }
+    // Search GIFs
+    // 
+    // Search all GIPHY GIFs for a word or phrase. Punctuation will be stripped and ignored.  Use a plus or url encode for phrases. Example paul+rudd, ryan+gosling or american+psycho.
+    rpc GetGifsSearch(GetGifsSearchRequest) returns (GetGifsSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs/search"
+      };
+    }
+    // Translate phrase to GIF
+    // 
+    // The translate API draws on search, but uses the GIPHY `special sauce` to handle translating from one vocabulary to another. In this case, words and phrases to GIF
+    rpc GetGifsTranslate(GetGifsTranslateRequest) returns (GetGifsTranslateResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs/translate"
+      };
+    }
+    // Trending GIFs
+    // 
+    // Fetch GIFs currently trending online. Hand curated by the GIPHY editorial team.  The data returned mirrors the GIFs showcased on the GIPHY homepage. Returns 25 results by default.
+    rpc GetGifsTrending(GetGifsTrendingRequest) returns (GetGifsTrendingResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs/trending"
+      };
+    }
+    // Get GIF by Id
+    // 
+    // Returns a GIF given that GIF's unique ID
+    rpc GetGifsGifId(GetGifsGifIdRequest) returns (GetGifsGifIdResponse) {
+      option (google.api.http) = {
+        get: "/v1/gifs/{gifId}"
+      };
+    }
+    // Random Sticker
+    // 
+    // Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the GIPHY catalog.
+    rpc GetStickersRandom(GetStickersRandomRequest) returns (GetStickersRandomResponse) {
+      option (google.api.http) = {
+        get: "/v1/stickers/random"
+      };
+    }
+    // Search Stickers
+    // 
+    // Replicates the functionality and requirements of the classic GIPHY search, but returns animated stickers rather than GIFs.
+    rpc GetStickersSearch(GetStickersSearchRequest) returns (GetStickersSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/stickers/search"
+      };
+    }
+    // Translate phrase to Sticker
+    // 
+    // The translate API draws on search, but uses the GIPHY `special sauce` to handle translating from one vocabulary to another. In this case, words and phrases to GIFs.
+    rpc GetStickersTranslate(GetStickersTranslateRequest) returns (GetStickersTranslateResponse) {
+      option (google.api.http) = {
+        get: "/v1/stickers/translate"
+      };
+    }
+    // Trending Stickers
+    // 
+    // Fetch Stickers currently trending online. Hand curated by the GIPHY editorial team. Returns 25 results by default.
+    rpc GetStickersTrending(GetStickersTrendingRequest) returns (GetStickersTrendingResponse) {
+      option (google.api.http) = {
+        get: "/v1/stickers/trending"
+      };
+    }
+}

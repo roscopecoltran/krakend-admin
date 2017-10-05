@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package bikewiseapiv2;
+
+message GetV2IncidentsRequest {
+    // <p>Only incidents of specific type</p>
+    enum GetV2IncidentsRequest_Incident_type {
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_CRASH = 0;
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_HAZARD = 1;
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_THEFT = 2;
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_UNCONFIRMED = 3;
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_INFRASTRUCTURE_ISSUE = 4;
+        GETV2INCIDENTSREQUEST_INCIDENT_TYPE_CHOP_SHOP = 5;
+    }
+    GetV2IncidentsRequest_Incident_type incident_type = 1;
+    // <p>Start of period</p>
+    int32 occurred_after = 2;
+    // <p>End of period</p>
+    int32 occurred_before = 3;
+    // <p>Page of results to fetch.</p>
+    int32 page = 4;
+    // <p>Number of results to return per page.</p>
+    int32 per_page = 5;
+    // <p>Center of location for proximity search</p>
+    string proximity = 6;
+    // <p>Size of the proximity search</p>
+    int32 proximity_square = 7;
+    // <p>Full text search of incidents</p>
+    string query = 8;
+}
+
+message GetV2IncidentsIdRequest {
+    // <p>Incident ID</p>
+    int32 id = 1;
+}
+
+message GetV2LocationsRequest {
+    // <p>Give ‘em all to me. Will ignore limit</p>
+    bool all = 1;
+    // <p>Only incidents of specific type</p>
+    enum GetV2LocationsRequest_Incident_type {
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_CRASH = 0;
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_HAZARD = 1;
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_THEFT = 2;
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_UNCONFIRMED = 3;
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_INFRASTRUCTURE_ISSUE = 4;
+        GETV2LOCATIONSREQUEST_INCIDENT_TYPE_CHOP_SHOP = 5;
+    }
+    GetV2LocationsRequest_Incident_type incident_type = 2;
+    // <p>Max number of results to return. Defaults to 100</p>
+    int32 limit = 3;
+    // <p>Start of period</p>
+    int32 occurred_after = 4;
+    // <p>End of period</p>
+    int32 occurred_before = 5;
+    // <p>Center of location for proximity search</p>
+    string proximity = 6;
+    // <p>Size of the proximity search</p>
+    int32 proximity_square = 7;
+    // <p>Full text search of incidents</p>
+    string query = 8;
+}
+
+message GetV2LocationsMarkersRequest {
+    // <p>Give ‘em all to me. Will ignore limit</p>
+    bool all = 1;
+    // <p>Only incidents of specific type</p>
+    enum GetV2LocationsMarkersRequest_Incident_type {
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_CRASH = 0;
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_HAZARD = 1;
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_THEFT = 2;
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_UNCONFIRMED = 3;
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_INFRASTRUCTURE_ISSUE = 4;
+        GETV2LOCATIONSMARKERSREQUEST_INCIDENT_TYPE_CHOP_SHOP = 5;
+    }
+    GetV2LocationsMarkersRequest_Incident_type incident_type = 2;
+    // <p>Max number of results to return. Defaults to 100</p>
+    int32 limit = 3;
+    // <p>Start of period</p>
+    int32 occurred_after = 4;
+    // <p>End of period</p>
+    int32 occurred_before = 5;
+    // <p>Center of location for proximity search</p>
+    string proximity = 6;
+    // <p>Size of the proximity search</p>
+    int32 proximity_square = 7;
+    // <p>Full text search of incidents</p>
+    string query = 8;
+}
+
+service BikeWiseAPIV2Service {
+    // Paginated incidents matching parameters
+    // 
+    // 
+    // <p>If you’d like more detailed information about bike incidents, use this endpoint. For mapping, <code>locations</code> is probably a better bet.</p>
+    // 
+    // <p><strong>Notes on location searching</strong>: <br />
+    // - <code>proximity</code> accepts an ip address, an address, zipcode, city, or latitude,longitude - i.e. <code>70.210.133.87</code>, <code>210 NW 11th Ave, Portland, OR</code>, <code>60647</code>, <code>Chicago, IL</code>, and <code>45.521728,-122.67326</code> are all acceptable<br />
+    // - <code>proximity_square</code> sets the length of the sides of the square to find matches inside of. The square is centered on the location specified by <code>proximity</code>. It defaults to 100.</p>
+    rpc GetV2Incidents(GetV2IncidentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/incidents"
+      };
+    }
+    rpc GetV2IncidentsId(GetV2IncidentsIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/incidents/{id}"
+      };
+    }
+    // Unpaginated geojson response
+    // 
+    // <p><strong>This endpoint behaves exactly like</strong> <code>incidents</code>, but returns a valid geojson <code>FeatureCollection</code> that looks like this:</p>
+    // 
+    // <pre><code>{
+    //   type: "FeatureCollection",
+    //   features: [
+    //     {
+    //       type: "Feature",
+    //       properties: {
+    //       id: 4474199,
+    //       type: "Theft",
+    //       occurred_at: 1428536937
+    //     },
+    //       geometry: {
+    //       type: "Point",
+    //       coordinates: [ -122.6244177, 45.5164386 ]
+    //     }
+    //   }
+    // }
+    // </code></pre>
+    // 
+    // <p>It doesn’t paginate. If you pass the <code>all</code> parameter it returns all matches (which can be big, &gt; 4mb), otherwise it returns the 100 most recent.</p>
+    // 
+    // <p><strong>Go forth and make maps!</strong></p>
+    rpc GetV2Locations(GetV2LocationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/locations"
+      };
+    }
+    // Unpaginated geojson response with simplestyled markers
+    // 
+    // <p>This behaves exactly like the root <code>locations</code> endpoint, but returns <a href="https://github.com/mapbox/simplestyle-spec">simplestyled markers</a> (<a href="https://www.mapbox.com/guides/markers/#simple-style">mapbox styled markers</a>)</p>
+    // 
+    // <p><strong>Go forth and make maps!</strong></p>
+    rpc GetV2LocationsMarkers(GetV2LocationsMarkersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v2/locations/markers"
+      };
+    }
+}

@@ -1,0 +1,1376 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package drive;
+
+message GetAboutRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetChangesRequest {
+    alt alt = 1;
+    string fields = 2;
+    // Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file.
+    bool includeCorpusRemovals = 3;
+    // Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access.
+    bool includeRemoved = 4;
+    // Whether Team Drive files or changes should be included in results.
+    bool includeTeamDriveItems = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // The maximum number of changes to return per page.
+    int32 pageSize = 8;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive.
+    bool restrictToMyDrive = 12;
+    // A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.
+    string spaces = 13;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 14;
+    // The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier.
+    string teamDriveId = 15;
+    string userIp = 16;
+}
+
+message GetChangesStartPageTokenRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 7;
+    // The ID of the Team Drive for which the starting pageToken for listing future changes from that Team Drive will be returned.
+    string teamDriveId = 8;
+    string userIp = 9;
+}
+
+message PostChangesWatchRequest {
+    alt alt = 1;
+    string fields = 2;
+    // Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file.
+    bool includeCorpusRemovals = 3;
+    // Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access.
+    bool includeRemoved = 4;
+    // Whether Team Drive files or changes should be included in results.
+    bool includeTeamDriveItems = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // The maximum number of changes to return per page.
+    int32 pageSize = 8;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    Channel resource = 12;
+    // Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive.
+    bool restrictToMyDrive = 13;
+    // A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.
+    string spaces = 14;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 15;
+    // The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier.
+    string teamDriveId = 16;
+    string userIp = 17;
+}
+
+message PostChannelsStopRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    Channel resource = 7;
+    string userIp = 8;
+}
+
+message GetFilesRequest {
+    alt alt = 1;
+    // Comma-separated list of bodies of items (files/documents) to which the query applies. Supported bodies are 'user', 'domain', 'teamDrive' and 'allTeamDrives'. 'allTeamDrives' must be combined with 'user'; all other values must be used in isolation. Prefer 'user' or 'teamDrive' to 'allTeamDrives' for efficiency.
+    string corpora = 2;
+    // The source of files to list. Deprecated: use 'corpora' instead.
+    enum GetFilesRequest_Corpu {
+        GETFILESREQUEST_CORPU_DOMAIN = 0;
+        GETFILESREQUEST_CORPU_USER = 1;
+    }
+    GetFilesRequest_Corpu corpus = 3;
+    string fields = 4;
+    // Whether Team Drive items should be included in results.
+    bool includeTeamDriveItems = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'name_natural', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored.
+    string orderBy = 8;
+    // The maximum number of files to return per page. Partial or empty result pages are possible even before the end of the files list has been reached.
+    int32 pageSize = 9;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+    string pageToken = 10;
+    boolean prettyPrint = 11;
+    // A query for filtering the file results. See the "Search for Files" guide for supported syntax.
+    string q = 12;
+    string quotaUser = 13;
+    // A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.
+    string spaces = 14;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 15;
+    // ID of Team Drive to search.
+    string teamDriveId = 16;
+    string userIp = 17;
+}
+
+message PostFilesRequest {
+    alt alt = 1;
+    File body = 2;
+    string fields = 3;
+    // Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.
+    bool ignoreDefaultVisibility = 4;
+    // Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive.
+    bool keepRevisionForever = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // A language hint for OCR processing during image import (ISO 639-1 code).
+    string ocrLanguage = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 11;
+    // Whether to use the uploaded content as indexable text.
+    bool useContentAsIndexableText = 12;
+    string userIp = 13;
+}
+
+message GetFilesGenerateIdsRequest {
+    alt alt = 1;
+    // The number of IDs to return.
+    int32 count = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // The space in which the IDs can be used to create new files. Supported values are 'drive' and 'appDataFolder'.
+    string space = 8;
+    string userIp = 9;
+}
+
+message DeleteFilesTrashRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetFilesFileIdRequest {
+    // Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media.
+    bool acknowledgeAbuse = 1;
+    alt alt = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 9;
+    string userIp = 10;
+}
+
+message DeleteFilesFileIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 8;
+    string userIp = 9;
+}
+
+message GetFilesFileIdCommentsRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    // Whether to include deleted comments. Deleted comments will not include their original content.
+    bool includeDeleted = 4;
+    string key = 5;
+    string oauth_token = 6;
+    // The maximum number of comments to return per page.
+    int32 pageSize = 7;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+    string pageToken = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // The minimum value of 'modifiedTime' for the result comments (RFC 3339 date-time).
+    string startModifiedTime = 11;
+    string userIp = 12;
+}
+
+message PostFilesFileIdCommentsRequest {
+    alt alt = 1;
+    Comment body = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetFilesFileIdCommentsCommentIdRequest {
+    alt alt = 1;
+    // The ID of the comment.
+    string commentId = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    // Whether to return deleted comments. Deleted comments will not include their original content.
+    bool includeDeleted = 5;
+    string key = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message DeleteFilesFileIdCommentsCommentIdRequest {
+    alt alt = 1;
+    // The ID of the comment.
+    string commentId = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetFilesFileIdCommentsCommentIdRepliesRequest {
+    alt alt = 1;
+    // The ID of the comment.
+    string commentId = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    // Whether to include deleted replies. Deleted replies will not include their original content.
+    bool includeDeleted = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // The maximum number of replies to return per page.
+    int32 pageSize = 8;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    string userIp = 12;
+}
+
+message PostFilesFileIdCommentsCommentIdRepliesRequest {
+    alt alt = 1;
+    Reply body = 2;
+    // The ID of the comment.
+    string commentId = 3;
+    string fields = 4;
+    // The ID of the file.
+    string fileId = 5;
+    string key = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message GetFilesFileIdCommentsCommentIdRepliesReplyIdRequest {
+    alt alt = 1;
+    // The ID of the comment.
+    string commentId = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    // Whether to return deleted replies. Deleted replies will not include their original content.
+    bool includeDeleted = 5;
+    string key = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // The ID of the reply.
+    string replyId = 10;
+    string userIp = 11;
+}
+
+message DeleteFilesFileIdCommentsCommentIdRepliesReplyIdRequest {
+    alt alt = 1;
+    // The ID of the comment.
+    string commentId = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // The ID of the reply.
+    string replyId = 9;
+    string userIp = 10;
+}
+
+message PostFilesFileIdCopyRequest {
+    alt alt = 1;
+    File body = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    // Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.
+    bool ignoreDefaultVisibility = 5;
+    // Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive.
+    bool keepRevisionForever = 6;
+    string key = 7;
+    string oauth_token = 8;
+    // A language hint for OCR processing during image import (ISO 639-1 code).
+    string ocrLanguage = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 12;
+    string userIp = 13;
+}
+
+message GetFilesFileIdExportRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    string key = 4;
+    // The MIME type of the format requested for this export.
+    string mimeType = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetFilesFileIdPermissionsRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file or Team Drive.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The maximum number of permissions to return per page. When not set for files in a Team Drive, at most 100 results will be returned. When not set for files that are not in a Team Drive, the entire list will be returned.
+    int32 pageSize = 6;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 10;
+    string userIp = 11;
+}
+
+message PostFilesFileIdPermissionsRequest {
+    alt alt = 1;
+    Permission body = 2;
+    // A custom message to include in the notification email.
+    string emailMessage = 3;
+    string fields = 4;
+    // The ID of the file or Team Drive.
+    string fileId = 5;
+    string key = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // Whether to send a notification email when sharing to users or groups. This defaults to true for users and groups, and is not allowed for other requests. It must not be disabled for ownership transfers.
+    bool sendNotificationEmail = 10;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 11;
+    // Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect.
+    bool transferOwnership = 12;
+    string userIp = 13;
+}
+
+message GetFilesFileIdPermissionsPermissionIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The ID of the permission.
+    string permissionId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 9;
+    string userIp = 10;
+}
+
+message DeleteFilesFileIdPermissionsPermissionIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file or Team Drive.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The ID of the permission.
+    string permissionId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 9;
+    string userIp = 10;
+}
+
+message GetFilesFileIdRevisionsRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The maximum number of revisions to return per page.
+    int32 pageSize = 6;
+    // The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message GetFilesFileIdRevisionsRevisionIdRequest {
+    // Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media.
+    bool acknowledgeAbuse = 1;
+    alt alt = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // The ID of the revision.
+    string revisionId = 9;
+    string userIp = 10;
+}
+
+message DeleteFilesFileIdRevisionsRevisionIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The ID of the file.
+    string fileId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // The ID of the revision.
+    string revisionId = 8;
+    string userIp = 9;
+}
+
+message PostFilesFileIdWatchRequest {
+    // Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media.
+    bool acknowledgeAbuse = 1;
+    alt alt = 2;
+    string fields = 3;
+    // The ID of the file.
+    string fileId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    Channel resource = 9;
+    // Whether the requesting application supports Team Drives.
+    bool supportsTeamDrives = 10;
+    string userIp = 11;
+}
+
+message GetTeamdrivesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // Maximum number of Team Drives to return.
+    int32 pageSize = 5;
+    // Page token for Team Drives.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message PostTeamdrivesRequest {
+    alt alt = 1;
+    TeamDrive body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409 error will be returned.
+    string requestId = 8;
+    string userIp = 9;
+}
+
+message GetTeamdrivesTeamDriveIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The ID of the Team Drive
+    string teamDriveId = 7;
+    string userIp = 8;
+}
+
+message DeleteTeamdrivesTeamDriveIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The ID of the Team Drive
+    string teamDriveId = 7;
+    string userIp = 8;
+}
+
+message About {
+    // Whether the user has installed the requesting app.
+    bool appInstalled = 1;
+    // A map of source MIME type to possible targets for all supported exports.
+    map<string, array> exportFormats = 2;
+    // The currently supported folder colors as RGB hex strings.
+    repeated string folderColorPalette = 3;
+    // A map of source MIME type to possible targets for all supported imports.
+    map<string, array> importFormats = 4;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#about".
+    string kind = 5;
+    // A map of maximum import sizes by MIME type, in bytes.
+    map<string, string> maxImportSizes = 6;
+    // The maximum upload size in bytes.
+    string maxUploadSize = 7;
+    // The user's storage quota limits and usage. All fields are measured in bytes.
+    message StorageQuota {
+            // The usage limit, if applicable. This will not be present if the user has unlimited storage.
+    string limit = 1;
+            // The total usage across all services.
+    string usage = 2;
+            // The usage by all files in Google Drive.
+    string usageInDrive = 3;
+            // The usage by trashed files in Google Drive.
+    string usageInDriveTrash = 4;
+    }
+    StorageQuota storageQuota = 8;
+    // A list of themes that are supported for Team Drives.
+    message TeamDriveTheme {
+            // A link to this Team Drive theme's background image.
+    string backgroundImageLink = 1;
+            // The color of this Team Drive theme as an RGB hex string.
+    string colorRgb = 2;
+            // The ID of the theme.
+    string id = 3;
+    }
+    repeated TeamDriveTheme teamDriveThemes = 9;
+    // The authenticated user.
+    User user = 10;
+}
+
+message Change {
+    // The updated state of the file. Present if the type is file and the file has not been removed from this list of changes.
+    File file = 1;
+    // The ID of the file which has changed.
+    string fileId = 2;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#change".
+    string kind = 3;
+    // Whether the file or Team Drive has been removed from this list of changes, for example by deletion or loss of access.
+    bool removed = 4;
+    // The updated state of the Team Drive. Present if the type is teamDrive, the user is still a member of the Team Drive, and the Team Drive has not been removed.
+    TeamDrive teamDrive = 5;
+    // The ID of the Team Drive associated with this change.
+    string teamDriveId = 6;
+    // The time of this change (RFC 3339 date-time).
+    string time = 7;
+    // The type of the change. Possible values are file and teamDrive.
+    string type = 8;
+}
+
+message ChangeList {
+    // The list of changes. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated Change changes = 1;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#changeList".
+    string kind = 2;
+    // The starting page token for future changes. This will be present only if the end of the current changes list has been reached.
+    string newStartPageToken = 3;
+    // The page token for the next page of changes. This will be absent if the end of the changes list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 4;
+}
+
+message Channel {
+    // The address where notifications are delivered for this channel.
+    string address = 1;
+    // Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.
+    string expiration = 2;
+    // A UUID or similar unique string that identifies this channel.
+    string id = 3;
+    // Identifies this as a notification channel used to watch for changes to a resource. Value: the fixed string "api#channel".
+    string kind = 4;
+    // Additional parameters controlling delivery channel behavior. Optional.
+    map<string, string> params = 5;
+    // A Boolean value to indicate whether payload is wanted. Optional.
+    bool payload = 6;
+    // An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.
+    string resourceId = 7;
+    // A version-specific identifier for the watched resource.
+    string resourceUri = 8;
+    // An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
+    string token = 9;
+    // The type of delivery mechanism used for this channel.
+    string type = 10;
+}
+
+message Comment {
+    // A region of the document represented as a JSON string. See anchor documentation for details on how to define and interpret anchor properties.
+    string anchor = 1;
+    // The user who created the comment.
+    User author = 2;
+    // The plain text content of the comment. This field is used for setting the content, while htmlContent should be displayed.
+    string content = 3;
+    // The time at which the comment was created (RFC 3339 date-time).
+    string createdTime = 4;
+    // Whether the comment has been deleted. A deleted comment has no content.
+    bool deleted = 5;
+    // The content of the comment with HTML formatting.
+    string htmlContent = 6;
+    // The ID of the comment.
+    string id = 7;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#comment".
+    string kind = 8;
+    // The last time the comment or any of its replies was modified (RFC 3339 date-time).
+    string modifiedTime = 9;
+    // The file content to which the comment refers, typically within the anchor region. For a text file, for example, this would be the text at the location of the comment.
+    message QuotedFileContent {
+            // The MIME type of the quoted content.
+    string mimeType = 1;
+            // The quoted content itself. This is interpreted as plain text if set through the API.
+    string value = 2;
+    }
+    QuotedFileContent quotedFileContent = 10;
+    // The full list of replies to the comment in chronological order.
+    repeated Reply replies = 11;
+    // Whether the comment has been resolved by one of its replies.
+    bool resolved = 12;
+}
+
+message CommentList {
+    // The list of comments. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated Comment comments = 1;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#commentList".
+    string kind = 2;
+    // The page token for the next page of comments. This will be absent if the end of the comments list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 3;
+}
+
+message File {
+    // A collection of arbitrary key-value pairs which are private to the requesting app.
+    // Entries with null values are cleared in update and copy requests.
+    map<string, string> appProperties = 1;
+    // Capabilities the current user has on this file. Each capability corresponds to a fine-grained action that a user may take.
+    message Capabilities {
+            // Whether the current user can add children to this folder. This is always false when the item is not a folder.
+    bool canAddChildren = 1;
+            // Whether the current user can change whether viewers can copy the contents of this file.
+    bool canChangeViewersCanCopyContent = 2;
+            // Whether the current user can comment on this file.
+    bool canComment = 3;
+            // Whether the current user can copy this file. For a Team Drive item, whether the current user can copy non-folder descendants of this item, or this item itself if it is not a folder.
+    bool canCopy = 4;
+            // Whether the current user can delete this file.
+    bool canDelete = 5;
+            // Whether the current user can download this file.
+    bool canDownload = 6;
+            // Whether the current user can edit this file.
+    bool canEdit = 7;
+            // Whether the current user can list the children of this folder. This is always false when the item is not a folder.
+    bool canListChildren = 8;
+            // Whether the current user can move this item into a Team Drive. If the item is in a Team Drive, this field is equivalent to canMoveTeamDriveItem.
+    bool canMoveItemIntoTeamDrive = 9;
+            // Whether the current user can move this Team Drive item by changing its parent. Note that a request to change the parent for this item may still fail depending on the new parent that is being added. Only populated for Team Drive files.
+    bool canMoveTeamDriveItem = 10;
+            // Whether the current user can read the revisions resource of this file. For a Team Drive item, whether revisions of non-folder descendants of this item, or this item itself if it is not a folder, can be read.
+    bool canReadRevisions = 11;
+            // Whether the current user can read the Team Drive to which this file belongs. Only populated for Team Drive files.
+    bool canReadTeamDrive = 12;
+            // Whether the current user can remove children from this folder. This is always false when the item is not a folder.
+    bool canRemoveChildren = 13;
+            // Whether the current user can rename this file.
+    bool canRename = 14;
+            // Whether the current user can modify the sharing settings for this file.
+    bool canShare = 15;
+            // Whether the current user can move this file to trash.
+    bool canTrash = 16;
+            // Whether the current user can restore this file from trash.
+    bool canUntrash = 17;
+    }
+    Capabilities capabilities = 2;
+    // Additional information about the content of the file. These fields are never populated in responses.
+    message ContentHints {
+            // Text to be indexed for the file to improve fullText queries. This is limited to 128KB in length and may contain HTML elements.
+    string indexableText = 1;
+            // A thumbnail for the file. This will only be used if Drive cannot generate a standard thumbnail.
+    message Thumbnail {
+                    // The thumbnail data encoded with URL-safe Base64 (RFC 4648 section 5).
+    string image = 1;
+                    // The MIME type of the thumbnail.
+    string mimeType = 2;
+        }
+        Thumbnail thumbnail = 2;
+    }
+    ContentHints contentHints = 3;
+    // The time at which the file was created (RFC 3339 date-time).
+    string createdTime = 4;
+    // A short description of the file.
+    string description = 5;
+    // Whether the file has been explicitly trashed, as opposed to recursively trashed from a parent folder.
+    bool explicitlyTrashed = 6;
+    // The final component of fullFileExtension. This is only available for files with binary content in Drive.
+    string fileExtension = 7;
+    // The color for a folder as an RGB hex string. The supported colors are published in the folderColorPalette field of the About resource.
+    // If an unsupported color is specified, the closest color in the palette will be used instead.
+    string folderColorRgb = 8;
+    // The full file extension extracted from the name field. May contain multiple concatenated extensions, such as "tar.gz". This is only available for files with binary content in Drive.
+    // This is automatically updated when the name field changes, however it is not cleared if the new name does not contain a valid extension.
+    string fullFileExtension = 9;
+    // Whether any users are granted file access directly on this file. This field is only populated for Team Drive files.
+    bool hasAugmentedPermissions = 10;
+    // Whether this file has a thumbnail. This does not indicate whether the requesting app has access to the thumbnail. To check access, look for the presence of the thumbnailLink field.
+    bool hasThumbnail = 11;
+    // The ID of the file's head revision. This is currently only available for files with binary content in Drive.
+    string headRevisionId = 12;
+    // A static, unauthenticated link to the file's icon.
+    string iconLink = 13;
+    // The ID of the file.
+    string id = 14;
+    // Additional metadata about image media, if available.
+    message ImageMediaMetadata {
+            // The aperture used to create the photo (f-number).
+    float aperture = 1;
+            // The make of the camera used to create the photo.
+    string cameraMake = 2;
+            // The model of the camera used to create the photo.
+    string cameraModel = 3;
+            // The color space of the photo.
+    string colorSpace = 4;
+            // The exposure bias of the photo (APEX value).
+    float exposureBias = 5;
+            // The exposure mode used to create the photo.
+    string exposureMode = 6;
+            // The length of the exposure, in seconds.
+    float exposureTime = 7;
+            // Whether a flash was used to create the photo.
+    bool flashUsed = 8;
+            // The focal length used to create the photo, in millimeters.
+    float focalLength = 9;
+            // The height of the image in pixels.
+    int32 height = 10;
+            // The ISO speed used to create the photo.
+    int32 isoSpeed = 11;
+            // The lens used to create the photo.
+    string lens = 12;
+            // Geographic location information stored in the image.
+    message Location {
+                    // The altitude stored in the image.
+    double altitude = 1;
+                    // The latitude stored in the image.
+    double latitude = 2;
+                    // The longitude stored in the image.
+    double longitude = 3;
+        }
+        Location location = 13;
+            // The smallest f-number of the lens at the focal length used to create the photo (APEX value).
+    float maxApertureValue = 14;
+            // The metering mode used to create the photo.
+    string meteringMode = 15;
+            // The rotation in clockwise degrees from the image's original orientation.
+    int32 rotation = 16;
+            // The type of sensor used to create the photo.
+    string sensor = 17;
+            // The distance to the subject of the photo, in meters.
+    int32 subjectDistance = 18;
+            // The date and time the photo was taken (EXIF DateTime).
+    string time = 19;
+            // The white balance mode used to create the photo.
+    string whiteBalance = 20;
+            // The width of the image in pixels.
+    int32 width = 21;
+    }
+    ImageMediaMetadata imageMediaMetadata = 15;
+    // Whether the file was created or opened by the requesting app.
+    bool isAppAuthorized = 16;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#file".
+    string kind = 17;
+    // The last user to modify the file.
+    User lastModifyingUser = 18;
+    // The MD5 checksum for the content of the file. This is only applicable to files with binary content in Drive.
+    string md5Checksum = 19;
+    // The MIME type of the file.
+    // Drive will attempt to automatically detect an appropriate value from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
+    // If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. The supported import formats are published in the About resource.
+    string mimeType = 20;
+    // Whether the file has been modified by this user.
+    bool modifiedByMe = 21;
+    // The last time the file was modified by the user (RFC 3339 date-time).
+    string modifiedByMeTime = 22;
+    // The last time the file was modified by anyone (RFC 3339 date-time).
+    // Note that setting modifiedTime will also update modifiedByMeTime for the user.
+    string modifiedTime = 23;
+    // The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the top level folders of Team Drives, My Drive root folder, and Application Data folder the name is constant.
+    string name = 24;
+    // The original filename of the uploaded content if available, or else the original value of the name field. This is only available for files with binary content in Drive.
+    string originalFilename = 25;
+    // Whether the user owns the file. Not populated for Team Drive files.
+    bool ownedByMe = 26;
+    // The owners of the file. Currently, only certain legacy files may have more than one owner. Not populated for Team Drive files.
+    repeated User owners = 27;
+    // The IDs of the parent folders which contain the file.
+    // If not specified as part of a create request, the file will be placed directly in the My Drive folder. Update requests must use the addParents and removeParents parameters to modify the values.
+    repeated string parents = 28;
+    // List of permission IDs for users with access to this file.
+    repeated string permissionIds = 29;
+    // The full list of permissions for the file. This is only available if the requesting user can share the file. Not populated for Team Drive files.
+    repeated Permission permissions = 30;
+    // A collection of arbitrary key-value pairs which are visible to all apps.
+    // Entries with null values are cleared in update and copy requests.
+    map<string, string> properties = 31;
+    // The number of storage quota bytes used by the file. This includes the head revision as well as previous revisions with keepForever enabled.
+    string quotaBytesUsed = 32;
+    // Whether the file has been shared. Not populated for Team Drive files.
+    bool shared = 33;
+    // The time at which the file was shared with the user, if applicable (RFC 3339 date-time).
+    string sharedWithMeTime = 34;
+    // The user who shared the file with the requesting user, if applicable.
+    User sharingUser = 35;
+    // The size of the file's content in bytes. This is only applicable to files with binary content in Drive.
+    string size = 36;
+    // The list of spaces which contain the file. The currently supported values are 'drive', 'appDataFolder' and 'photos'.
+    repeated string spaces = 37;
+    // Whether the user has starred the file.
+    bool starred = 38;
+    // ID of the Team Drive the file resides in.
+    string teamDriveId = 39;
+    // A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours. Only populated when the requesting app can access the file's content.
+    string thumbnailLink = 40;
+    // The thumbnail version for use in thumbnail cache invalidation.
+    string thumbnailVersion = 41;
+    // Whether the file has been trashed, either explicitly or from a trashed parent folder. Only the owner may trash a file, and other users cannot see files in the owner's trash.
+    bool trashed = 42;
+    // The time that the item was trashed (RFC 3339 date-time). Only populated for Team Drive files.
+    string trashedTime = 43;
+    // If the file has been explicitly trashed, the user who trashed it. Only populated for Team Drive files.
+    User trashingUser = 44;
+    // A monotonically increasing version number for the file. This reflects every change made to the file on the server, even those not visible to the user.
+    string version = 45;
+    // Additional metadata about video media. This may not be available immediately upon upload.
+    message VideoMediaMetadata {
+            // The duration of the video in milliseconds.
+    string durationMillis = 1;
+            // The height of the video in pixels.
+    int32 height = 2;
+            // The width of the video in pixels.
+    int32 width = 3;
+    }
+    VideoMediaMetadata videoMediaMetadata = 46;
+    // Whether the file has been viewed by this user.
+    bool viewedByMe = 47;
+    // The last time the file was viewed by the user (RFC 3339 date-time).
+    string viewedByMeTime = 48;
+    // Whether users with only reader or commenter permission can copy the file's content. This affects copy, download, and print operations.
+    bool viewersCanCopyContent = 49;
+    // A link for downloading the content of the file in a browser. This is only available for files with binary content in Drive.
+    string webContentLink = 50;
+    // A link for opening the file in a relevant Google editor or viewer in a browser.
+    string webViewLink = 51;
+    // Whether users with only writer permission can modify the file's permissions. Not populated for Team Drive files.
+    bool writersCanShare = 52;
+}
+
+message FileList {
+    // The list of files. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated File files = 1;
+    // Whether the search process was incomplete. If true, then some search results may be missing, since all documents were not searched. This may occur when searching multiple Team Drives with the "user,allTeamDrives" corpora, but all corpora could not be searched. When this happens, it is suggested that clients narrow their query by choosing a different corpus such as "user" or "teamDrive".
+    bool incompleteSearch = 2;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#fileList".
+    string kind = 3;
+    // The page token for the next page of files. This will be absent if the end of the files list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 4;
+}
+
+message GeneratedIds {
+    // The IDs generated for the requesting user in the specified space.
+    repeated string ids = 1;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#generatedIds".
+    string kind = 2;
+    // The type of file that can be created with these IDs.
+    string space = 3;
+}
+
+message Permission {
+    // Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone.
+    bool allowFileDiscovery = 1;
+    // Whether the account associated with this permission has been deleted. This field only pertains to user and group permissions.
+    bool deleted = 2;
+    // A displayable name for users, groups or domains.
+    string displayName = 3;
+    // The domain to which this permission refers.
+    string domain = 4;
+    // The email address of the user or group to which this permission refers.
+    string emailAddress = 5;
+    // The time at which this permission will expire (RFC 3339 date-time). Expiration times have the following restrictions:  
+    // - They can only be set on user and group permissions 
+    // - The time must be in the future 
+    // - The time cannot be more than a year in the future
+    string expirationTime = 6;
+    // The ID of this permission. This is a unique identifier for the grantee, and is published in User resources as permissionId.
+    string id = 7;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#permission".
+    string kind = 8;
+    // A link to the user's profile photo, if available.
+    string photoLink = 9;
+    // The role granted by this permission. While new values may be supported in the future, the following are currently allowed:  
+    // - organizer 
+    // - owner 
+    // - writer 
+    // - commenter 
+    // - reader
+    string role = 10;
+    // Details of whether the permissions on this Team Drive item are inherited or directly on this item. This is an output-only field which is present only for Team Drive items.
+    message TeamDrivePermissionDetail {
+            // Whether this permission is inherited. This field is always populated. This is an output-only field.
+    bool inherited = 1;
+            // The ID of the item from which this permission is inherited. This is an output-only field and is only populated for members of the Team Drive.
+    string inheritedFrom = 2;
+            // The primary role for this user. While new values may be added in the future, the following are currently possible:  
+    // - organizer 
+    // - writer 
+    // - commenter 
+    // - reader
+    string role = 3;
+            // The Team Drive permission type for this user. While new values may be added in future, the following are currently possible:  
+    // - file 
+    // - member
+    string teamDrivePermissionType = 4;
+    }
+    repeated TeamDrivePermissionDetail teamDrivePermissionDetails = 11;
+    // The type of the grantee. Valid values are:  
+    // - user 
+    // - group 
+    // - domain 
+    // - anyone
+    string type = 12;
+}
+
+message PermissionList {
+    // Identifies what kind of resource this is. Value: the fixed string "drive#permissionList".
+    string kind = 1;
+    // The page token for the next page of permissions. This field will be absent if the end of the permissions list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 2;
+    // The list of permissions. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated Permission permissions = 3;
+}
+
+message Reply {
+    // The action the reply performed to the parent comment. Valid values are:  
+    // - resolve 
+    // - reopen
+    string action = 1;
+    // The user who created the reply.
+    User author = 2;
+    // The plain text content of the reply. This field is used for setting the content, while htmlContent should be displayed. This is required on creates if no action is specified.
+    string content = 3;
+    // The time at which the reply was created (RFC 3339 date-time).
+    string createdTime = 4;
+    // Whether the reply has been deleted. A deleted reply has no content.
+    bool deleted = 5;
+    // The content of the reply with HTML formatting.
+    string htmlContent = 6;
+    // The ID of the reply.
+    string id = 7;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#reply".
+    string kind = 8;
+    // The last time the reply was modified (RFC 3339 date-time).
+    string modifiedTime = 9;
+}
+
+message ReplyList {
+    // Identifies what kind of resource this is. Value: the fixed string "drive#replyList".
+    string kind = 1;
+    // The page token for the next page of replies. This will be absent if the end of the replies list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 2;
+    // The list of replies. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated Reply replies = 3;
+}
+
+message Revision {
+    // The ID of the revision.
+    string id = 1;
+    // Whether to keep this revision forever, even if it is no longer the head revision. If not set, the revision will be automatically purged 30 days after newer content is uploaded. This can be set on a maximum of 200 revisions for a file.
+    // This field is only applicable to files with binary content in Drive.
+    bool keepForever = 2;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#revision".
+    string kind = 3;
+    // The last user to modify this revision.
+    User lastModifyingUser = 4;
+    // The MD5 checksum of the revision's content. This is only applicable to files with binary content in Drive.
+    string md5Checksum = 5;
+    // The MIME type of the revision.
+    string mimeType = 6;
+    // The last time the revision was modified (RFC 3339 date-time).
+    string modifiedTime = 7;
+    // The original filename used to create this revision. This is only applicable to files with binary content in Drive.
+    string originalFilename = 8;
+    // Whether subsequent revisions will be automatically republished. This is only applicable to Google Docs.
+    bool publishAuto = 9;
+    // Whether this revision is published. This is only applicable to Google Docs.
+    bool published = 10;
+    // Whether this revision is published outside the domain. This is only applicable to Google Docs.
+    bool publishedOutsideDomain = 11;
+    // The size of the revision's content in bytes. This is only applicable to files with binary content in Drive.
+    string size = 12;
+}
+
+message RevisionList {
+    // Identifies what kind of resource this is. Value: the fixed string "drive#revisionList".
+    string kind = 1;
+    // The page token for the next page of revisions. This will be absent if the end of the revisions list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 2;
+    // The list of revisions. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated Revision revisions = 3;
+}
+
+message StartPageToken {
+    // Identifies what kind of resource this is. Value: the fixed string "drive#startPageToken".
+    string kind = 1;
+    // The starting page token for listing changes.
+    string startPageToken = 2;
+}
+
+message TeamDrive {
+    // An image file and cropping parameters from which a background image for this Team Drive is set. This is a write only field; it can only be set on drive.teamdrives.update requests that don't set themeId. When specified, all fields of the backgroundImageFile must be set.
+    message BackgroundImageFile {
+            // The ID of an image file in Drive to use for the background image.
+    string id = 1;
+            // The width of the cropped image in the closed range of 0 to 1. This value represents the width of the cropped image divided by the width of the entire image. The height is computed by applying a width to height aspect ratio of 80 to 9. The resulting image must be at least 1280 pixels wide and 144 pixels high.
+    float width = 2;
+            // The X coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value represents the horizontal distance from the left side of the entire image to the left side of the cropping area divided by the width of the entire image.
+    float xCoordinate = 3;
+            // The Y coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value represents the vertical distance from the top side of the entire image to the top side of the cropping area divided by the height of the entire image.
+    float yCoordinate = 4;
+    }
+    BackgroundImageFile backgroundImageFile = 1;
+    // A short-lived link to this Team Drive's background image.
+    string backgroundImageLink = 2;
+    // Capabilities the current user has on this Team Drive.
+    message Capabilities {
+            // Whether the current user can add children to folders in this Team Drive.
+    bool canAddChildren = 1;
+            // Whether the current user can change the background of this Team Drive.
+    bool canChangeTeamDriveBackground = 2;
+            // Whether the current user can comment on files in this Team Drive.
+    bool canComment = 3;
+            // Whether the current user can copy files in this Team Drive.
+    bool canCopy = 4;
+            // Whether the current user can delete this Team Drive. Attempting to delete the Team Drive may still fail if there are untrashed items inside the Team Drive.
+    bool canDeleteTeamDrive = 5;
+            // Whether the current user can download files in this Team Drive.
+    bool canDownload = 6;
+            // Whether the current user can edit files in this Team Drive
+    bool canEdit = 7;
+            // Whether the current user can list the children of folders in this Team Drive.
+    bool canListChildren = 8;
+            // Whether the current user can add members to this Team Drive or remove them or change their role.
+    bool canManageMembers = 9;
+            // Whether the current user can read the revisions resource of files in this Team Drive.
+    bool canReadRevisions = 10;
+            // Whether the current user can remove children from folders in this Team Drive.
+    bool canRemoveChildren = 11;
+            // Whether the current user can rename files or folders in this Team Drive.
+    bool canRename = 12;
+            // Whether the current user can rename this Team Drive.
+    bool canRenameTeamDrive = 13;
+            // Whether the current user can share files or folders in this Team Drive.
+    bool canShare = 14;
+    }
+    Capabilities capabilities = 3;
+    // The color of this Team Drive as an RGB hex string. It can only be set on a drive.teamdrives.update request that does not set themeId.
+    string colorRgb = 4;
+    // The ID of this Team Drive which is also the ID of the top level folder for this Team Drive.
+    string id = 5;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#teamDrive".
+    string kind = 6;
+    // The name of this Team Drive.
+    string name = 7;
+    // The ID of the theme from which the background image and color will be set. The set of possible teamDriveThemes can be retrieved from a drive.about.get response. When not specified on a drive.teamdrives.create request, a random theme is chosen from which the background image and color are set. This is a write-only field; it can only be set on requests that don't set colorRgb or backgroundImageFile.
+    string themeId = 8;
+}
+
+message TeamDriveList {
+    // Identifies what kind of resource this is. Value: the fixed string "drive#teamDriveList".
+    string kind = 1;
+    // The page token for the next page of Team Drives. This will be absent if the end of the Team Drives list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+    string nextPageToken = 2;
+    // The list of Team Drives. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+    repeated TeamDrive teamDrives = 3;
+}
+
+message User {
+    // A plain text displayable name for this user.
+    string displayName = 1;
+    // The email address of the user. This may not be present in certain contexts if the user has not made their email address visible to the requester.
+    string emailAddress = 2;
+    // Identifies what kind of resource this is. Value: the fixed string "drive#user".
+    string kind = 3;
+    // Whether this user is the requesting user.
+    bool me = 4;
+    // The user's ID as visible in Permission resources.
+    string permissionId = 5;
+    // A link to the user's profile photo, if available.
+    string photoLink = 6;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service DriveService {
+    // Gets information about the user, the user's Drive, and system capabilities.
+    rpc GetAbout(GetAboutRequest) returns (About) {
+      option (google.api.http) = {
+        get: "/drive/v3/about"
+      };
+    }
+    // Lists the changes for a user or Team Drive.
+    rpc GetChanges(GetChangesRequest) returns (ChangeList) {
+      option (google.api.http) = {
+        get: "/drive/v3/changes"
+      };
+    }
+    // Gets the starting pageToken for listing future changes.
+    rpc GetChangesStartPageToken(GetChangesStartPageTokenRequest) returns (StartPageToken) {
+      option (google.api.http) = {
+        get: "/drive/v3/changes/startPageToken"
+      };
+    }
+    // Subscribes to changes for a user.
+    rpc PostChangesWatch(PostChangesWatchRequest) returns (Channel) {
+      option (google.api.http) = {
+        post: "/drive/v3/changes/watch"
+        body: "resource"
+      };
+    }
+    // Stop watching resources through this channel
+    rpc PostChannelsStop(PostChannelsStopRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/drive/v3/channels/stop"
+        body: "resource"
+      };
+    }
+    // Lists or searches files.
+    rpc GetFiles(GetFilesRequest) returns (FileList) {
+      option (google.api.http) = {
+        get: "/drive/v3/files"
+      };
+    }
+    // Creates a new file.
+    rpc PostFiles(PostFilesRequest) returns (File) {
+      option (google.api.http) = {
+        post: "/drive/v3/files"
+        body: "body"
+      };
+    }
+    // Generates a set of file IDs which can be provided in create requests.
+    rpc GetFilesGenerateIds(GetFilesGenerateIdsRequest) returns (GeneratedIds) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/generateIds"
+      };
+    }
+    // Permanently deletes all of the user's trashed files.
+    rpc DeleteFilesTrash(DeleteFilesTrashRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/trash"
+      };
+    }
+    // Gets a file's metadata or content by ID.
+    rpc GetFilesFileId(GetFilesFileIdRequest) returns (File) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}"
+      };
+    }
+    // Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a Team Drive the user must be an organizer on the parent. If the target is a folder, all descendants owned by the user are also deleted.
+    rpc DeleteFilesFileId(DeleteFilesFileIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/{fileId}"
+      };
+    }
+    // Lists a file's comments.
+    rpc GetFilesFileIdComments(GetFilesFileIdCommentsRequest) returns (CommentList) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/comments"
+      };
+    }
+    // Creates a new comment on a file.
+    rpc PostFilesFileIdComments(PostFilesFileIdCommentsRequest) returns (Comment) {
+      option (google.api.http) = {
+        post: "/drive/v3/files/{fileId}/comments"
+        body: "body"
+      };
+    }
+    // Gets a comment by ID.
+    rpc GetFilesFileIdCommentsCommentId(GetFilesFileIdCommentsCommentIdRequest) returns (Comment) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/comments/{commentId}"
+      };
+    }
+    // Deletes a comment.
+    rpc DeleteFilesFileIdCommentsCommentId(DeleteFilesFileIdCommentsCommentIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/{fileId}/comments/{commentId}"
+      };
+    }
+    // Lists a comment's replies.
+    rpc GetFilesFileIdCommentsCommentIdReplies(GetFilesFileIdCommentsCommentIdRepliesRequest) returns (ReplyList) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/comments/{commentId}/replies"
+      };
+    }
+    // Creates a new reply to a comment.
+    rpc PostFilesFileIdCommentsCommentIdReplies(PostFilesFileIdCommentsCommentIdRepliesRequest) returns (Reply) {
+      option (google.api.http) = {
+        post: "/drive/v3/files/{fileId}/comments/{commentId}/replies"
+        body: "body"
+      };
+    }
+    // Gets a reply by ID.
+    rpc GetFilesFileIdCommentsCommentIdRepliesReplyId(GetFilesFileIdCommentsCommentIdRepliesReplyIdRequest) returns (Reply) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/comments/{commentId}/replies/{replyId}"
+      };
+    }
+    // Deletes a reply.
+    rpc DeleteFilesFileIdCommentsCommentIdRepliesReplyId(DeleteFilesFileIdCommentsCommentIdRepliesReplyIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/{fileId}/comments/{commentId}/replies/{replyId}"
+      };
+    }
+    // Creates a copy of a file and applies any requested updates with patch semantics.
+    rpc PostFilesFileIdCopy(PostFilesFileIdCopyRequest) returns (File) {
+      option (google.api.http) = {
+        post: "/drive/v3/files/{fileId}/copy"
+        body: "body"
+      };
+    }
+    // Exports a Google Doc to the requested MIME type and returns the exported content. Please note that the exported content is limited to 10MB.
+    rpc GetFilesFileIdExport(GetFilesFileIdExportRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/export"
+      };
+    }
+    // Lists a file's or Team Drive's permissions.
+    rpc GetFilesFileIdPermissions(GetFilesFileIdPermissionsRequest) returns (PermissionList) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/permissions"
+      };
+    }
+    // Creates a permission for a file or Team Drive.
+    rpc PostFilesFileIdPermissions(PostFilesFileIdPermissionsRequest) returns (Permission) {
+      option (google.api.http) = {
+        post: "/drive/v3/files/{fileId}/permissions"
+        body: "body"
+      };
+    }
+    // Gets a permission by ID.
+    rpc GetFilesFileIdPermissionsPermissionId(GetFilesFileIdPermissionsPermissionIdRequest) returns (Permission) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/permissions/{permissionId}"
+      };
+    }
+    // Deletes a permission.
+    rpc DeleteFilesFileIdPermissionsPermissionId(DeleteFilesFileIdPermissionsPermissionIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/{fileId}/permissions/{permissionId}"
+      };
+    }
+    // Lists a file's revisions.
+    rpc GetFilesFileIdRevisions(GetFilesFileIdRevisionsRequest) returns (RevisionList) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/revisions"
+      };
+    }
+    // Gets a revision's metadata or content by ID.
+    rpc GetFilesFileIdRevisionsRevisionId(GetFilesFileIdRevisionsRevisionIdRequest) returns (Revision) {
+      option (google.api.http) = {
+        get: "/drive/v3/files/{fileId}/revisions/{revisionId}"
+      };
+    }
+    // Permanently deletes a revision. This method is only applicable to files with binary content in Drive.
+    rpc DeleteFilesFileIdRevisionsRevisionId(DeleteFilesFileIdRevisionsRevisionIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/files/{fileId}/revisions/{revisionId}"
+      };
+    }
+    // Subscribes to changes to a file
+    rpc PostFilesFileIdWatch(PostFilesFileIdWatchRequest) returns (Channel) {
+      option (google.api.http) = {
+        post: "/drive/v3/files/{fileId}/watch"
+        body: "resource"
+      };
+    }
+    // Lists the user's Team Drives.
+    rpc GetTeamdrives(GetTeamdrivesRequest) returns (TeamDriveList) {
+      option (google.api.http) = {
+        get: "/drive/v3/teamdrives"
+      };
+    }
+    // Creates a new Team Drive.
+    rpc PostTeamdrives(PostTeamdrivesRequest) returns (TeamDrive) {
+      option (google.api.http) = {
+        post: "/drive/v3/teamdrives"
+        body: "body"
+      };
+    }
+    // Gets a Team Drive's metadata by ID.
+    rpc GetTeamdrivesTeamDriveId(GetTeamdrivesTeamDriveIdRequest) returns (TeamDrive) {
+      option (google.api.http) = {
+        get: "/drive/v3/teamdrives/{teamDriveId}"
+      };
+    }
+    // Permanently deletes a Team Drive for which the user is an organizer. The Team Drive cannot contain any untrashed items.
+    rpc DeleteTeamdrivesTeamDriveId(DeleteTeamdrivesTeamDriveIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/drive/v3/teamdrives/{teamDriveId}"
+      };
+    }
+}

@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package enterpriselicensemanager;
+
+message PostProductIdSkuSkuIdUserRequest {
+    alt alt = 1;
+    LicenseAssignmentInsert body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // Name for product
+    string productId = 7;
+    string quotaUser = 8;
+    // Name for sku
+    string skuId = 9;
+    string userIp = 10;
+}
+
+message GetProductIdSkuSkuIdUserUserIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Name for product
+    string productId = 6;
+    string quotaUser = 7;
+    // Name for sku
+    string skuId = 8;
+    // email id or unique Id of the user
+    string userId = 9;
+    string userIp = 10;
+}
+
+message PutProductIdSkuSkuIdUserUserIdRequest {
+    alt alt = 1;
+    LicenseAssignment body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // Name for product
+    string productId = 7;
+    string quotaUser = 8;
+    // Name for sku for which license would be revoked
+    string skuId = 9;
+    // email id or unique Id of the user
+    string userId = 10;
+    string userIp = 11;
+}
+
+message DeleteProductIdSkuSkuIdUserUserIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Name for product
+    string productId = 6;
+    string quotaUser = 7;
+    // Name for sku
+    string skuId = 8;
+    // email id or unique Id of the user
+    string userId = 9;
+    string userIp = 10;
+}
+
+message GetProductIdSkuSkuIdUsersRequest {
+    alt alt = 1;
+    // CustomerId represents the customer for whom licenseassignments are queried
+    string customerId = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of campaigns to return at one time. Must be positive. Optional. Default value is 100.
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    // Token to fetch the next page.Optional. By default server will return first page
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    // Name for product
+    string productId = 9;
+    string quotaUser = 10;
+    // Name for sku
+    string skuId = 11;
+    string userIp = 12;
+}
+
+message GetProductIdUsersRequest {
+    alt alt = 1;
+    // CustomerId represents the customer for whom licenseassignments are queried
+    string customerId = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of campaigns to return at one time. Must be positive. Optional. Default value is 100.
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    // Token to fetch the next page.Optional. By default server will return first page
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    // Name for product
+    string productId = 9;
+    string quotaUser = 10;
+    string userIp = 11;
+}
+
+message LicenseAssignment {
+    // ETag of the resource.
+    string etags = 1;
+    // Identifies the resource as a LicenseAssignment.
+    string kind = 2;
+    // Id of the product.
+    string productId = 3;
+    // Display Name of the product.
+    string productName = 4;
+    // Link to this page.
+    string selfLink = 5;
+    // Id of the sku of the product.
+    string skuId = 6;
+    // Display Name of the sku of the product.
+    string skuName = 7;
+    // Email id of the user.
+    string userId = 8;
+}
+
+message LicenseAssignmentInsert {
+    // Email id of the user
+    string userId = 1;
+}
+
+message LicenseAssignmentList {
+    // ETag of the resource.
+    string etag = 1;
+    // The LicenseAssignments in this page of results.
+    repeated LicenseAssignment items = 2;
+    // Identifies the resource as a collection of LicenseAssignments.
+    string kind = 3;
+    // The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results.
+    string nextPageToken = 4;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service EnterpriseLicenseManagerService {
+    // Assign License.
+    rpc PostProductIdSkuSkuIdUser(PostProductIdSkuSkuIdUserRequest) returns (LicenseAssignment) {
+      option (google.api.http) = {
+        post: "/apps/licensing/v1/product/{productId}/sku/{skuId}/user"
+        body: "body"
+      };
+    }
+    // Get license assignment of a particular product and sku for a user
+    rpc GetProductIdSkuSkuIdUserUserId(GetProductIdSkuSkuIdUserUserIdRequest) returns (LicenseAssignment) {
+      option (google.api.http) = {
+        get: "/apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}"
+      };
+    }
+    // Assign License.
+    rpc PutProductIdSkuSkuIdUserUserId(PutProductIdSkuSkuIdUserUserIdRequest) returns (LicenseAssignment) {
+      option (google.api.http) = {
+        put: "/apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}"
+        body: "body"
+      };
+    }
+    // Revoke License.
+    rpc DeleteProductIdSkuSkuIdUserUserId(DeleteProductIdSkuSkuIdUserUserIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}"
+      };
+    }
+    // List license assignments for given product and sku of the customer.
+    rpc GetProductIdSkuSkuIdUsers(GetProductIdSkuSkuIdUsersRequest) returns (LicenseAssignmentList) {
+      option (google.api.http) = {
+        get: "/apps/licensing/v1/product/{productId}/sku/{skuId}/users"
+      };
+    }
+    // List license assignments for given product of the customer.
+    rpc GetProductIdUsers(GetProductIdUsersRequest) returns (LicenseAssignmentList) {
+      option (google.api.http) = {
+        get: "/apps/licensing/v1/product/{productId}/users"
+      };
+    }
+}

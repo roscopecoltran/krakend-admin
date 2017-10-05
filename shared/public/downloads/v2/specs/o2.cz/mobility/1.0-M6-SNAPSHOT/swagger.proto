@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package mobility;
+
+message GetTransitFromToRequest {
+    // source basic residential unit
+    string from = 1;
+    // occurence type in the source basic residential unit (1 - transit, 2 - visit, 0 - both)
+    string fromType = 2;
+    // destination basic residential unit
+    string to = 3;
+    // occurence type in the destination basic residential unit (1 - transit, 2 - visit, 0 - both)
+    string toType = 4;
+    // all or only uniques (0 - all, 1 - uniques)
+    string uniques = 5;
+}
+
+message CountResult {
+    // Final count as the result of the request
+    string count = 1;
+}
+
+message ErrorResult {
+    // Error response message content
+    string message = 1;
+}
+
+message InfoResult {
+    // Application name
+    string appName = 1;
+    // Application vendor
+    string appVendor = 2;
+    // Application version
+    string appVersion = 3;
+    // Backend application name
+    string backendAppName = 4;
+    // Backend application vendor
+    string backendAppVendor = 5;
+    // Backend application version
+    string backendAppVersion = 6;
+    // For which day are data valid
+    string backendDataFrom = 7;
+}
+
+service MobilityService {
+    // Information about versions of application and data.
+    rpc GetInfo(google.protobuf.Empty) returns (InfoResult) {
+      option (google.api.http) = {
+        get: "/mobility/sandbox/api/info"
+      };
+    }
+    // Transit between basic residential units
+    // 
+    // Get count of objects that were moving between basic residential units or objects that were visiting these basic residential units. Specific object's occurence type in the base residential unit can be requested. If none occurence type is present in the request or both occurence types are zero, the result will be aggregation of all types of occurence for given base residential units. More about base residential units can be found at https://www.czso.cz/csu/rso/zsj_rso (czech).
+    rpc GetTransitFromTo(GetTransitFromToRequest) returns (CountResult) {
+      option (google.api.http) = {
+        get: "/mobility/sandbox/api/transit/{from}/{to}"
+      };
+    }
+}

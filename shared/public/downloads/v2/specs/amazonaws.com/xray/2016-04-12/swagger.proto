@@ -1,0 +1,527 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsx-ray;
+
+message PostServiceGraphRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetServiceGraphRequest body = 10;
+}
+
+message PostTelemetryRecordsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    PutTelemetryRecordsRequest body = 10;
+}
+
+message PostTraceGraphRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetTraceGraphRequest body = 10;
+}
+
+message PostTraceSegmentsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    PutTraceSegmentsRequest body = 10;
+}
+
+message PostTraceSummariesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetTraceSummariesRequest body = 10;
+}
+
+message PostTracesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    BatchGetTracesRequest body = 10;
+}
+
+message Alias {
+    // The canonical name of the alias.
+    string Name = 1;
+    // A list of names for the alias, including the canonical name.
+    array Names = 2;
+    // The type of the alias.
+    string Type = 3;
+}
+
+repeated Alias AliasList = 1
+
+repeated string AliasNames = 1
+
+
+
+message AnnotationValue {
+    // Value for a Boolean annotation.
+    boolean BooleanValue = 1;
+    // Value for a Number annotation.
+    number NumberValue = 2;
+    // Value for a String annotation.
+    string StringValue = 3;
+}
+
+message Annotation {
+    string key = 1;
+    array value = 2;
+}
+repeated Annotation Annotations = 1
+
+message BackendConnectionErrors {
+    // <p/>
+    integer ConnectionRefusedCount = 1;
+    // <p/>
+    integer HTTPCode4XXCount = 2;
+    // <p/>
+    integer HTTPCode5XXCount = 3;
+    // <p/>
+    integer OtherCount = 4;
+    // <p/>
+    integer TimeoutCount = 5;
+    // <p/>
+    integer UnknownHostCount = 6;
+}
+
+message BatchGetTracesRequest {
+    // Pagination token. Not used.
+    string NextToken = 1;
+    // Specify the trace IDs of requests for which to retrieve segments.
+    array TraceIds = 2;
+}
+
+message BatchGetTracesResult {
+    // Pagination token. Not used.
+    string NextToken = 1;
+    // Full traces for the specified requests.
+    array Traces = 2;
+    // Trace IDs of requests that haven't been processed.
+    array UnprocessedTraceIds = 3;
+}
+
+message Edge {
+    // Aliases for the edge.
+    array Aliases = 1;
+    // The end time of the last segment on the edge.
+    string EndTime = 2;
+    // Identifier of the edge. Unique within a service map.
+    integer ReferenceId = 3;
+    // A histogram that maps the spread of client response times on an edge.
+    array ResponseTimeHistogram = 4;
+    // The start time of the first segment on the edge.
+    string StartTime = 5;
+    // Response statistics for segments on the edge.
+    EdgeStatistics SummaryStatistics = 6;
+}
+
+repeated Edge EdgeList = 1
+
+message EdgeStatistics {
+    // Information about requests that failed with a 4xx Client Error status code.
+    ErrorStatistics ErrorStatistics = 1;
+    // Information about requests that failed with a 5xx Server Error status code.
+    FaultStatistics FaultStatistics = 2;
+    // The number of requests that completed with a 2xx Success status code.
+    integer OkCount = 3;
+    // The total number of completed requests.
+    integer TotalCount = 4;
+    // The aggregate response time of completed requests.
+    number TotalResponseTime = 5;
+}
+
+message ErrorStatistics {
+    // The number of requests that failed with untracked 4xx Client Error status codes.
+    integer OtherCount = 1;
+    // The number of requests that failed with a 419 throttling status code.
+    integer ThrottleCount = 2;
+    // The total number of requests that failed with a 4xx Client Error status code.
+    integer TotalCount = 3;
+}
+
+message FaultStatistics {
+    // The number of requests that failed with untracked 5xx Server Error status codes.
+    integer OtherCount = 1;
+    // The total number of requests that failed with a 5xx Server Error status code.
+    integer TotalCount = 2;
+}
+
+message GetServiceGraphRequest {
+    // The end of the time frame for which to generate a graph.
+    string EndTime = 1;
+    // Pagination token. Not used.
+    string NextToken = 2;
+    // The start of the time frame for which to generate a graph.
+    string StartTime = 3;
+}
+
+message GetServiceGraphResult {
+    // The end of the time frame for which the graph was generated.
+    string EndTime = 1;
+    // Pagination token. Not used.
+    string NextToken = 2;
+    // The services that have processed a traced request during the specified time frame.
+    array Services = 3;
+    // The start of the time frame for which the graph was generated.
+    string StartTime = 4;
+}
+
+message GetTraceGraphRequest {
+    // Pagination token. Not used.
+    string NextToken = 1;
+    // Trace IDs of requests for which to generate a service graph.
+    array TraceIds = 2;
+}
+
+message GetTraceGraphResult {
+    // Pagination token. Not used.
+    string NextToken = 1;
+    // The services that have processed one of the specified requests.
+    array Services = 2;
+}
+
+message GetTraceSummariesRequest {
+    // The end of the time frame for which to retrieve traces.
+    string EndTime = 1;
+    // Specify a filter expression to retrieve trace summaries for services or requests that meet certain requirements.
+    string FilterExpression = 2;
+    // Specify the pagination token returned by a previous request to retrieve the next page of results.
+    string NextToken = 3;
+    // Set to <code>true</code> to get summaries for only a subset of available traces.
+    boolean Sampling = 4;
+    // The start of the time frame for which to retrieve traces.
+    string StartTime = 5;
+}
+
+message GetTraceSummariesResult {
+    // The start time of this page of results.
+    string ApproximateTime = 1;
+    // If the requested time frame contained more than one page of results, you can use this token to retrieve the next page. The first page contains the most most recent results, closest to the end of the time frame.
+    string NextToken = 2;
+    // Trace IDs and metadata for traces that were found in the specified time frame.
+    array TraceSummaries = 3;
+    // The number of traces that were processed to get this set of summaries.
+    integer TracesProcessedCount = 4;
+}
+
+repeated HistogramEntry Histogram = 1
+
+message HistogramEntry {
+    // The prevalence of the entry.
+    integer Count = 1;
+    // The value of the entry.
+    number Value = 2;
+}
+
+message Http {
+    // The IP address of the requestor.
+    string ClientIp = 1;
+    // The request method.
+    string HttpMethod = 2;
+    // The response status.
+    integer HttpStatus = 3;
+    // The request URL.
+    string HttpURL = 4;
+    // The request's user agent string.
+    string UserAgent = 5;
+}
+
+message InvalidRequestException {
+}
+
+message PutTelemetryRecordsRequest {
+    // <p/>
+    string EC2InstanceId = 1;
+    // <p/>
+    string Hostname = 2;
+    // <p/>
+    string ResourceARN = 3;
+    // <p/>
+    array TelemetryRecords = 4;
+}
+
+message PutTelemetryRecordsResult {
+}
+
+message PutTraceSegmentsRequest {
+    // A string containing a JSON document defining one or more segments or subsegments.
+    array TraceSegmentDocuments = 1;
+}
+
+message PutTraceSegmentsResult {
+    // Segments that failed processing.
+    array UnprocessedTraceSegments = 1;
+}
+
+message Segment {
+    // The segment document
+    string Document = 1;
+    // The segment's ID.
+    string Id = 2;
+}
+
+
+
+
+
+repeated Segment SegmentList = 1
+
+message Service {
+    // Identifier of the AWS account in which the service runs.
+    string AccountId = 1;
+    // A histogram that maps the spread of service durations.
+    array DurationHistogram = 2;
+    // Connections to downstream services.
+    array Edges = 3;
+    // The end time of the last segment that the service generated.
+    string EndTime = 4;
+    // The canonical name of the service.
+    string Name = 5;
+    // A list of names for the service, including the canonical name.
+    array Names = 6;
+    // Identifier for the service. Unique within the service map.
+    integer ReferenceId = 7;
+    // A histogram that maps the spread of service response times.
+    array ResponseTimeHistogram = 8;
+    // Indicates that the service was the first service to process a request.
+    boolean Root = 9;
+    // The start time of the first segment that the service generated.
+    string StartTime = 10;
+    // The service's state.
+    string State = 11;
+    // Aggregated statistics for the service.
+    ServiceStatistics SummaryStatistics = 12;
+    // <p>The type of service.</p> <ul> <li> <p>AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application used.</p> </li> <li> <p>AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon DynamoDB that didn't target a specific table.</p> </li> <li> <p> <code>client</code> - Represents the clients that sent requests to a root service.</p> </li> <li> <p> <code>remote</code> - A downstream service of indeterminate type.</p> </li> </ul>
+    string Type = 13;
+}
+
+message ServiceId {
+    // <p/>
+    string AccountId = 1;
+    // <p/>
+    string Name = 2;
+    // <p/>
+    array Names = 3;
+    // <p/>
+    string Type = 4;
+}
+
+repeated ServiceId ServiceIds = 1
+
+repeated Service ServiceList = 1
+
+repeated string ServiceNames = 1
+
+message ServiceStatistics {
+    // Information about requests that failed with a 4xx Client Error status code.
+    ErrorStatistics ErrorStatistics = 1;
+    // Information about requests that failed with a 5xx Server Error status code.
+    FaultStatistics FaultStatistics = 2;
+    // The number of requests that completed with a 2xx Success status code.
+    integer OkCount = 3;
+    // The total number of completed requests.
+    integer TotalCount = 4;
+    // The aggregate response time of completed requests.
+    number TotalResponseTime = 5;
+}
+
+message TelemetryRecord {
+    // <p/>
+    BackendConnectionErrors BackendConnectionErrors = 1;
+    // <p/>
+    integer SegmentsReceivedCount = 2;
+    // <p/>
+    integer SegmentsRejectedCount = 3;
+    // <p/>
+    integer SegmentsSentCount = 4;
+    // <p/>
+    integer SegmentsSpilloverCount = 5;
+    // <p/>
+    string Timestamp = 6;
+}
+
+repeated TelemetryRecord TelemetryRecordList = 1
+
+message ThrottledException {
+}
+
+message Trace {
+    // The length of time in seconds between the start time of the root segment and the end time of the last segment that completed.
+    number Duration = 1;
+    // The unique identifier for the request that generated the trace's segments and subsegments.
+    string Id = 2;
+    // Segment documents for the segments and subsegments that comprise the trace.
+    array Segments = 3;
+}
+
+
+
+repeated string TraceIdList = 1
+
+repeated Trace TraceList = 1
+
+
+
+repeated string TraceSegmentDocumentList = 1
+
+message TraceSummary {
+    // Annotations from the trace's segment documents.
+    array Annotations = 1;
+    // The length of time in seconds between the start time of the root segment and the end time of the last segment that completed.
+    number Duration = 2;
+    // One or more of the segment documents has a 400 series error.
+    boolean HasError = 3;
+    // One or more of the segment documents has a 500 series error.
+    boolean HasFault = 4;
+    // One or more of the segment documents has a 429 throttling error.
+    boolean HasThrottle = 5;
+    // Information about the HTTP request served by the trace.
+    Http Http = 6;
+    // The unique identifier for the request that generated the trace's segments and subsegments.
+    string Id = 7;
+    // One or more of the segment documents is in progress.
+    boolean IsPartial = 8;
+    // The length of time in seconds between the start and end times of the root segment. If the service performs work asynchronously, the response time measures the time before the response is sent to the user, while the duration measures the amount of time before the last traced activity completes.
+    number ResponseTime = 9;
+    // Service IDs from the trace's segment documents.
+    array ServiceIds = 10;
+    // Users from the trace's segment documents.
+    array Users = 11;
+}
+
+repeated TraceSummary TraceSummaryList = 1
+
+message TraceUser {
+    // Services that the user's request hit.
+    array ServiceIds = 1;
+    // The user's name.
+    string UserName = 2;
+}
+
+repeated TraceUser TraceUsers = 1
+
+repeated string UnprocessedTraceIdList = 1
+
+message UnprocessedTraceSegment {
+    // The error that caused processing to fail.
+    string ErrorCode = 1;
+    // The segment's ID.
+    string Id = 2;
+    // The error message.
+    string Message = 3;
+}
+
+repeated UnprocessedTraceSegment UnprocessedTraceSegmentList = 1
+
+message ValueWithServiceIds {
+    // Values of the annotation.
+    AnnotationValue AnnotationValue = 1;
+    // Services to which the annotation applies.
+    array ServiceIds = 2;
+}
+
+repeated ValueWithServiceIds ValuesWithServiceIds = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+service AWSX-RayService {
+    // Retrieves a document that describes services that process incoming requests, and downstream services that they call as a result. Root services process incoming requests and make calls to downstream services. Root services are applications that use the AWS X-Ray SDK. Downstream services can be other applications, AWS resources, HTTP web APIs, or SQL databases.
+    rpc PostServiceGraph(PostServiceGraphRequest) returns (GetServiceGraphResult) {
+      option (google.api.http) = {
+        post: "//ServiceGraph"
+        body: "body"
+      };
+    }
+    // Used by the AWS X-Ray daemon to upload telemetry.
+    rpc PostTelemetryRecords(PostTelemetryRecordsRequest) returns (PutTelemetryRecordsResult) {
+      option (google.api.http) = {
+        post: "//TelemetryRecords"
+        body: "body"
+      };
+    }
+    // Retrieves a service graph for one or more specific trace IDs.
+    rpc PostTraceGraph(PostTraceGraphRequest) returns (GetTraceGraphResult) {
+      option (google.api.http) = {
+        post: "//TraceGraph"
+        body: "body"
+      };
+    }
+    // <p>Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment documents and sends them to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or an array of subsegments.</p> <p>Segments must include the following fields. For the full segment document schema, see <a href="http://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">AWS X-Ray Segment Documents</a> in the <i>AWS X-Ray Developer Guide</i>.</p> <p class="title"> <b>Required Segment Document Fields</b> </p> <ul> <li> <p> <code>name</code> - The name of the service that handled the request.</p> </li> <li> <p> <code>id</code> - A 64-bit identifier for the segment, unique among segments in the same trace, in 16 hexadecimal digits.</p> </li> <li> <p> <code>trace_id</code> - A unique identifier that connects all segments and subsegments originating from a single client request.</p> </li> <li> <p> <code>start_time</code> - Time the segment or subsegment was created, in floating point seconds in epoch time, accurate to milliseconds. For example, <code>1480615200.010</code> or <code>1.480615200010E9</code>.</p> </li> <li> <p> <code>end_time</code> - Time the segment or subsegment was closed. For example, <code>1480615200.090</code> or <code>1.480615200090E9</code>. Specify either an <code>end_time</code> or <code>in_progress</code>.</p> </li> <li> <p> <code>in_progress</code> - Set to <code>true</code> instead of specifying an <code>end_time</code> to record that a segment has been started, but is not complete. Send an in progress segment when your application receives a request that will take a long time to serve, to trace the fact that the request was received. When the response is sent, send the complete segment to overwrite the in-progress segment.</p> </li> </ul> <p>A <code>trace_id</code> consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. This includes:</p> <p class="title"> <b>Trace ID Format</b> </p> <ul> <li> <p>The version number, i.e. <code>1</code>.</p> </li> <li> <p>The time of the original request, in Unix epoch time, in 8 hexadecimal digits. For example, 10:00AM December 2nd, 2016 PST in epoch time is <code>1480615200</code> seconds, or <code>58406520</code> in hexadecimal.</p> </li> <li> <p>A 96-bit identifier for the trace, globally unique, in 24 hexadecimal digits.</p> </li> </ul>
+    rpc PostTraceSegments(PostTraceSegmentsRequest) returns (PutTraceSegmentsResult) {
+      option (google.api.http) = {
+        post: "//TraceSegments"
+        body: "body"
+      };
+    }
+    // <p>Retrieves IDs and metadata for traces available for a specified time frame using an optional filter. To get the full traces, pass the trace IDs to <code>BatchGetTraces</code>.</p> <p>A filter expression can target traced requests that hit specific service nodes or edges, have errors, or come from a known user. For example, the following filter expression targets traces that pass through <code>api.example.com</code>:</p> <p> <code>service("api.example.com")</code> </p> <p>This filter expression finds traces that have an annotation named <code>account</code> with the value <code>12345</code>:</p> <p> <code>annotation.account = "12345"</code> </p> <p>For a full list of indexed fields and keywords that you can use in filter expressions, see <a href="http://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html">Using Filter Expressions</a> in the <i>AWS X-Ray Developer Guide</i>.</p>
+    rpc PostTraceSummaries(PostTraceSummariesRequest) returns (GetTraceSummariesResult) {
+      option (google.api.http) = {
+        post: "//TraceSummaries"
+        body: "body"
+      };
+    }
+    // Retrieves a list of traces specified by ID. Each trace is a collection of segment documents that originates from a single request. Use <code>GetTraceSummaries</code> to get a list of trace IDs.
+    rpc PostTraces(PostTracesRequest) returns (BatchGetTracesResult) {
+      option (google.api.http) = {
+        post: "//Traces"
+        body: "body"
+      };
+    }
+}

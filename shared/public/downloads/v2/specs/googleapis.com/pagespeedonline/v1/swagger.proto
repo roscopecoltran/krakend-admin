@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package pagespeedinsights;
+
+message GetRunPagespeedRequest {
+    alt alt = 1;
+    string fields = 2;
+    // Indicates if third party resources should be filtered out before PageSpeed analysis.
+    bool filter_third_party_resources = 3;
+    string key = 4;
+    // The locale used to localize formatted results
+    string locale = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // A PageSpeed rule to run; if none are given, all rules are run
+    repeated string rule = 9;
+    // Indicates if binary data containing a screenshot should be included
+    bool screenshot = 10;
+    // The analysis strategy to use
+    enum GetRunPagespeedRequest_Strategy {
+        GETRUNPAGESPEEDREQUEST_STRATEGY_DESKTOP = 0;
+        GETRUNPAGESPEEDREQUEST_STRATEGY_MOBILE = 1;
+    }
+    GetRunPagespeedRequest_Strategy strategy = 11;
+    // The URL to fetch and analyze
+    string url = 12;
+    string userIp = 13;
+}
+
+message Result {
+    // Localized PageSpeed results. Contains a ruleResults entry for each PageSpeed rule instantiated and run by the server.
+    message FormattedResults {
+            // The locale of the formattedResults, e.g. "en_US".
+    string locale = 1;
+            // Dictionary of formatted rule results, with one entry for each PageSpeed rule instantiated and run by the server.
+    map<string, object> ruleResults = 2;
+    }
+    FormattedResults formattedResults = 1;
+    // Canonicalized and final URL for the document, after following page redirects (if any).
+    string id = 2;
+    // List of rules that were specified in the request, but which the server did not know how to instantiate.
+    repeated string invalidRules = 3;
+    // Kind of result.
+    string kind = 4;
+    // Summary statistics for the page, such as number of JavaScript bytes, number of HTML bytes, etc.
+    message PageStats {
+            // Number of uncompressed response bytes for CSS resources on the page.
+    string cssResponseBytes = 1;
+            // Number of response bytes for flash resources on the page.
+    string flashResponseBytes = 2;
+            // Number of uncompressed response bytes for the main HTML document and all iframes on the page.
+    string htmlResponseBytes = 3;
+            // Number of response bytes for image resources on the page.
+    string imageResponseBytes = 4;
+            // Number of uncompressed response bytes for JS resources on the page.
+    string javascriptResponseBytes = 5;
+            // Number of CSS resources referenced by the page.
+    int32 numberCssResources = 6;
+            // Number of unique hosts referenced by the page.
+    int32 numberHosts = 7;
+            // Number of JavaScript resources referenced by the page.
+    int32 numberJsResources = 8;
+            // Number of HTTP resources loaded by the page.
+    int32 numberResources = 9;
+            // Number of static (i.e. cacheable) resources on the page.
+    int32 numberStaticResources = 10;
+            // Number of response bytes for other resources on the page.
+    string otherResponseBytes = 11;
+            // Number of uncompressed response bytes for text resources not covered by other statistics (i.e non-HTML, non-script, non-CSS resources) on the page.
+    string textResponseBytes = 12;
+            // Total size of all request bytes sent by the page.
+    string totalRequestBytes = 13;
+    }
+    PageStats pageStats = 5;
+    // Response code for the document. 200 indicates a normal page load. 4xx/5xx indicates an error.
+    int32 responseCode = 6;
+    // The PageSpeed Score (0-100), which indicates how much faster a page could be. A high score indicates little room for improvement, while a lower score indicates more room for improvement.
+    int32 score = 7;
+    // Base64-encoded screenshot of the page that was analyzed.
+    message Screenshot {
+            // Image data base64 encoded.
+    string data = 1;
+            // Height of screenshot in pixels.
+    int32 height = 2;
+            // Mime type of image data. E.g. "image/jpeg".
+    string mime_type = 3;
+            // Width of screenshot in pixels.
+    int32 width = 4;
+    }
+    Screenshot screenshot = 8;
+    // Title of the page, as displayed in the browser's title bar.
+    string title = 9;
+    // The version of PageSpeed used to generate these results.
+    message Version {
+            // The major version number of PageSpeed used to generate these results.
+    int32 major = 1;
+            // The minor version number of PageSpeed used to generate these results.
+    int32 minor = 2;
+    }
+    Version version = 10;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service PageSpeedInsightsService {
+    // Runs PageSpeed analysis on the page at the specified URL, and returns a PageSpeed score, a list of suggestions to make that page faster, and other information.
+    rpc GetRunPagespeed(GetRunPagespeedRequest) returns (Result) {
+      option (google.api.http) = {
+        get: "/pagespeedonline/v1/runPagespeed"
+      };
+    }
+}

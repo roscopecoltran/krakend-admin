@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package sentencepieceapis(wikipedia);
+
+message GetSentencepieceBpeWikiGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [up to 400 characters]
+    string text = 2;
+}
+
+message GetSentencepieceUnigramWikiGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [up to 400 characters]
+    string text = 2;
+}
+
+message SPTokenEntity {
+    // Token
+    string token = 1;
+    // Word ID
+    int64 wid = 2;
+}
+
+message SentencePieceTokenResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Start date
+    string startTime = 4;
+    // SentencePiece Tokens
+    repeated SPTokenEntity tokens = 5;
+}
+
+service SentencePieceAPIs(Wikipedia)Service {
+    // SentencePiece (bpe)
+    // 
+    // SentencePiece (bpe).<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/sentencepiece-response">sentencepiece-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.sentencepiece.SentencePieceTokenResponseEntity<BR />
+    rpc GetSentencepieceBpeWikiGet(GetSentencepieceBpeWikiGetRequest) returns (SentencePieceTokenResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/37/sentencepiece-bpe-wiki/get"
+      };
+    }
+    // SentencePiece (unigram)
+    // 
+    // SentencePiece (unigram).<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/sentencepiece-response">sentencepiece-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.sentencepiece.SentencePieceTokenResponseEntity<BR />
+    rpc GetSentencepieceUnigramWikiGet(GetSentencepieceUnigramWikiGetRequest) returns (SentencePieceTokenResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/37/sentencepiece-unigram-wiki/get"
+      };
+    }
+}

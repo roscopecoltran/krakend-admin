@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package import.io;
+
+message GetExtractorExtractorIdRunsRequest {
+    // The id of the extractor to start get the crawl run data
+    string extractorId = 1;
+}
+
+message GetExtractorExtractorIdRunsResponse {
+}
+
+message APIError {
+    // Internal error code
+    int code = 1;
+    // (deprecated) A message containing a brief description of the error
+    string error = 2;
+    // A message containing a brief description of the error
+    string message = 3;
+}
+
+message CrawlRun {
+    string extractorId = 1;
+    int32 failedUrlCount = 2;
+    string guid = 3;
+    int32 rowCount = 4;
+    string runtimeConfigId = 5;
+    int64 startedAt = 6;
+    string state = 7;
+    int64 stoppedAt = 8;
+    int32 successUrlCount = 9;
+    int32 totalUrlCount = 10;
+    string urlListId = 11;
+}
+
+message ObjectStoreSearchResult {
+    message Hits {
+        message Hit {
+            string _id = 1;
+            int32 _score = 2;
+            string _type = 3;
+            CrawlRun fields = 4;
+        }
+        repeated Hit hits = 1;
+        int32 total = 2;
+    }
+    Hits hits = 1;
+    bool timed_out = 2;
+    int32 took = 3;
+}
+
+message QueryResponse {
+    string error = 1;
+    string exceptionType = 2;
+    message ExtractorData {
+    }
+    ExtractorData extractorData = 3;
+    message PageData {
+    }
+    PageData pageData = 4;
+    string runtimeConfigId = 5;
+    int32 sequenceNumber = 6;
+    int64 timestamp = 7;
+    string url = 8;
+}
+
+message Schedule {
+    string extractorId = 1;
+    string interval = 2;
+    message IntervalData {
+        string minutes = 1;
+        string time = 2;
+        string type = 3;
+    }
+    IntervalData intervalData = 3;
+    int64 nextRunAt = 4;
+    string ownerId = 5;
+    int64 startTimestamp = 6;
+}
+
+message ScheduleRequest {
+    string extractorId = 1;
+    string interval = 2;
+    int64 startTimestamp = 3;
+}
+
+service Import.IoService {
+    // Get a feed of the runs performed on an extractor
+    rpc GetExtractorExtractorIdRuns(GetExtractorExtractorIdRunsRequest) returns (GetExtractorExtractorIdRunsResponse) {
+      option (google.api.http) = {
+        get: "//extractor/{extractorId}/runs"
+      };
+    }
+}

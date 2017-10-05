@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package orghunter;
+
+message PostV1CharitybasicRequest {
+    // ein (Employer Identification Number)
+    string ein = 1;
+}
+
+message PostV1CharityfinancialRequest {
+    // ein (Employer Identification Number)
+    string ein = 1;
+}
+
+message PostV1CharitygeolocationRequest {
+    // ein (Employer Identification Number)
+    string ein = 1;
+}
+
+message PostV1CharitypremiumRequest {
+    // ein (Employer Identification Number)
+    string ein = 1;
+}
+
+message PostV1CharitysearchRequest {
+    // Category Value Selected from Categories API
+    string category = 1;
+    // City Name. Example: Miami
+    string city = 2;
+    // Employer Identification Number (EIN)
+    string ein = 3;
+    // eligible=1 will return only organizations that are tax deductible and in good standing with the IRS
+    string eligible = 4;
+    // Records Per Page. Default Value = 20
+    string rows = 5;
+    // Charity Name or Keyword. Example: humane society or cancer
+    string searchTerm = 6;
+    // Record Set Start Position
+    string start = 7;
+    // State Name - Two letter state abbreviation
+    string state = 8;
+    // Zipcode Value - 5 digit zipcode value
+    string zipCode = 9;
+}
+
+service OrgHunterService {
+    // Get categories!
+    // 
+    // <p>This operation provides a list of categories.</p>
+    rpc PostV1Categories(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/categories"
+      };
+    }
+    // Get details!
+    // 
+    // <p>This operation detail data.</p>
+    rpc PostV1Charitybasic(PostV1CharitybasicRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/charitybasic"
+      };
+    }
+    // Get details!
+    // 
+    // <p>This operation detail data.</p>
+    rpc PostV1Charityfinancial(PostV1CharityfinancialRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/charityfinancial"
+      };
+    }
+    // Get details!
+    // 
+    // <p>This operation detail data.</p>
+    rpc PostV1Charitygeolocation(PostV1CharitygeolocationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/charitygeolocation"
+      };
+    }
+    // Get details!
+    // 
+    // <p>This operation detail data.</p>
+    rpc PostV1Charitypremium(PostV1CharitypremiumRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/charitypremium"
+      };
+    }
+    // Get summary data!
+    // 
+    // <p>This operation provides summary data.</p>
+    rpc PostV1Charitysearch(PostV1CharitysearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//v1/charitysearch"
+      };
+    }
+}

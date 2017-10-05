@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlesearchconsoleurltestingtools;
+
+message PostV1UrlTestingToolsMobileFriendlyTest:RunRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    RunMobileFriendlyTestRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message BlockedResource {
+    // URL of the blocked resource.
+    string url = 1;
+}
+
+message Image {
+    // Image data in format determined by the mime type. Currently, the format
+    // will always be "image/png", but this might change in the future.
+    string data = 1;
+    // The mime-type of the image data.
+    string mimeType = 2;
+}
+
+message MobileFriendlyIssue {
+    // Rule violated.
+    enum MobileFriendlyIssue_Rule {
+        MOBILEFRIENDLYISSUE_RULE_MOBILE_FRIENDLY_RULE_UNSPECIFIED = 0;
+        MOBILEFRIENDLYISSUE_RULE_USES_INCOMPATIBLE_PLUGINS = 1;
+        MOBILEFRIENDLYISSUE_RULE_CONFIGURE_VIEWPORT = 2;
+        MOBILEFRIENDLYISSUE_RULE_FIXED_WIDTH_VIEWPORT = 3;
+        MOBILEFRIENDLYISSUE_RULE_SIZE_CONTENT_TO_VIEWPORT = 4;
+        MOBILEFRIENDLYISSUE_RULE_USE_LEGIBLE_FONT_SIZES = 5;
+        MOBILEFRIENDLYISSUE_RULE_TAP_TARGETS_TOO_CLOSE = 6;
+    }
+    MobileFriendlyIssue_Rule rule = 1;
+}
+
+message ResourceIssue {
+    // Describes a blocked resource issue.
+    BlockedResource blockedResource = 1;
+}
+
+message RunMobileFriendlyTestRequest {
+    // Whether or not screenshot is requested. Default is false.
+    bool requestScreenshot = 1;
+    // URL for inspection.
+    string url = 2;
+}
+
+message RunMobileFriendlyTestResponse {
+    // Test verdict, whether the page is mobile friendly or not.
+    enum RunMobileFriendlyTestResponse_MobileFriendliness {
+        RUNMOBILEFRIENDLYTESTRESPONSE_MOBILEFRIENDLINESS_MOBILE_FRIENDLY_TEST_RESULT_UNSPECIFIED = 0;
+        RUNMOBILEFRIENDLYTESTRESPONSE_MOBILEFRIENDLINESS_MOBILE_FRIENDLY = 1;
+        RUNMOBILEFRIENDLYTESTRESPONSE_MOBILEFRIENDLINESS_NOT_MOBILE_FRIENDLY = 2;
+    }
+    RunMobileFriendlyTestResponse_MobileFriendliness mobileFriendliness = 1;
+    // List of mobile-usability issues.
+    repeated MobileFriendlyIssue mobileFriendlyIssues = 2;
+    // Information about embedded resources issues.
+    repeated ResourceIssue resourceIssues = 3;
+    // Screenshot of the requested URL.
+    Image screenshot = 4;
+    // Final state of the test, can be either complete or an error.
+    TestStatus testStatus = 5;
+}
+
+message TestStatus {
+    // Error details if applicable.
+    string details = 1;
+    // Status of the test.
+    enum TestStatus_Statu {
+        TESTSTATUS_STATU_TEST_STATUS_UNSPECIFIED = 0;
+        TESTSTATUS_STATU_COMPLETE = 1;
+        TESTSTATUS_STATU_INTERNAL_ERROR = 2;
+        TESTSTATUS_STATU_PAGE_UNREACHABLE = 3;
+    }
+    TestStatus_Statu status = 2;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleSearchConsoleURLTestingToolsService {
+    // Runs Mobile-Friendly Test for a given URL.
+    rpc PostV1UrlTestingToolsMobileFriendlyTest:Run(PostV1UrlTestingToolsMobileFriendlyTest:RunRequest) returns (RunMobileFriendlyTestResponse) {
+      option (google.api.http) = {
+        post: "//v1/urlTestingTools/mobileFriendlyTest:run"
+        body: "body"
+      };
+    }
+}

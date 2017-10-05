@@ -1,0 +1,351 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package box2.0uploads;
+
+message PostFilesContentRequest {
+    // File attributes
+    string attributes = 1;
+    // File to upload
+    ;
+}
+
+message PostFilesUpload_sessionsRequest {
+    FileUploadSessionRequest body = 1;
+}
+
+message GetFilesUpload_sessionsSESSION_IDRequest {
+    string SESSION_ID = 1;
+}
+
+message PutFilesUpload_sessionsSESSION_IDRequest {
+    // Byte range of part within overall file. E.g: bytes 8388608-16777215/445856194. It must not overlap with the range of a part already uploaded to this session.
+    string Content_Range = 1;
+    // The message digest of the partbody, formatted as specified by RFC 3230. The usage is sha=BASE64_ENCODED_DIGEST. Currently only SHA-1 is supported.As per RFC 3230, the output from SHA-1 algorithm must be Base64 encoded.
+    string Digest = 2;
+    string SESSION_ID = 3;
+    // Part bytes
+    string bytes = 4;
+}
+
+message DeleteFilesUpload_sessionsSESSION_IDRequest {
+    string SESSION_ID = 1;
+}
+
+message PostFilesUpload_sessionsSESSION_IDCommitRequest {
+    // The message digest of the file, formatted as specified by RFC 3230. The usage is sha=BASE64_ENCODED_DIGEST. Currently only SHA-1 is supported.As per RFC 3230, the output from SHA-1 algorithm must be Base64 encoded.
+    string Digest = 1;
+    // This is in the ‘etag’ field of the file object. See https://developer.box.com/v2.0/reference#if-match
+    string If_Match = 2;
+    // This is in the ‘etag’ field of the file object. See https://developer.box.com/v2.0/reference#if-match
+    string If_Non_Match = 3;
+    string SESSION_ID = 4;
+    CommitRequest body = 5;
+}
+
+message GetFilesUpload_sessionsSESSION_IDPartsRequest {
+    string SESSION_ID = 1;
+    // How many parts to return. Defaults to 1000 if not specified, which is also the maximum value allowed.
+    int32 limit = 2;
+    // Zero-based index of first part to return. Defaults to zero, if not specified.
+    int32 offset = 3;
+}
+
+message PostFilesFILE_IDContentRequest {
+    string FILE_ID = 1;
+    // This is in the ‘etag’ field of the file object
+    string If_Match = 2;
+    // File attributes
+    string attributes = 3;
+    // File to upload
+    ;
+}
+
+message PostFilesFILE_IDUpload_sessionsRequest {
+    string FILE_ID = 1;
+    VersionUploadSessionRequest body = 2;
+}
+
+message BoxFile {
+}
+
+message Collection {
+}
+
+message CommitRequest {
+    // Optional. An array of attributes to set on the created file. See https://box-content.readme.io/reference#file-object
+    map<string, object> attributes = 1;
+    // An arrayof Part objects. MUST be ordered by offset.
+    repeated Part parts = 2;
+}
+
+message Error {
+    string code = 1;
+    message Context_info {
+        message Error {
+            string message = 1;
+            string name = 2;
+            string reason = 3;
+        }
+        repeated Error errors = 1;
+    }
+    Context_info context_info = 2;
+    string help_url = 3;
+    string message = 4;
+    string request_id = 5;
+    int32 status = 6;
+    enum Error_Type {
+        ERROR_TYPE_ERROR = 0;
+    }
+    Error_Type type = 7;
+}
+
+message FileList {
+}
+
+message FilePermissions {
+    bool can_download = 1;
+    bool can_invite_collaborator = 2;
+    bool can_preview = 3;
+    bool can_rename = 4;
+    bool can_set_share_access = 5;
+    bool can_share = 6;
+    bool can_upload = 7;
+    bool cand_delete = 8;
+}
+
+message FileReference {
+}
+
+message FileUploadSessionRequest {
+    // Name of new file
+    string file_name = 1;
+    // The total number of bytes in the file to be uploaded
+    int64 file_size = 2;
+    // The ID of the folder that will contain the new file
+    string folder_id = 3;
+}
+
+message FileVersionReference {
+}
+
+message ItemReference {
+}
+
+message Lock {
+}
+
+message Pagination {
+    int64 limit = 1;
+    int64 offset = 2;
+    message Order {
+        string by = 1;
+        string direction = 2;
+    }
+    repeated Order order = 3;
+    int64 total_count = 4;
+}
+
+message Part {
+    int64 offset = 1;
+    string part_id = 2;
+    string sha1 = 3;
+    int64 size = 4;
+}
+
+message PartList {
+    // An array of parts
+    repeated Part entries = 1;
+    // The limit that was used for these entries. This will be the same as the limit query parameter unless that value exceeded the maximum value allowed.
+    int32 limit = 2;
+    // The 0-based offset of the first entry in this set. This will be the same as the offset query parameter.
+    int32 offset = 3;
+    // This will always be equal to the number of expected parts in the session (i.e. ceiling(file size / part size)).
+    int32 total_count = 4;
+}
+
+message PathCollection {
+}
+
+message Reference {
+    string id = 1;
+    enum Reference_Type {
+        REFERENCE_TYPE_FOLDER = 0;
+        REFERENCE_TYPE_FILE = 1;
+        REFERENCE_TYPE_USER = 2;
+        REFERENCE_TYPE_FILE_VERSION = 3;
+        REFERENCE_TYPE_LOCK = 4;
+        REFERENCE_TYPE_COLLABORATION = 5;
+        REFERENCE_TYPE_COMMENT = 6;
+        REFERENCE_TYPE_TASK = 7;
+        REFERENCE_TYPE_WEB_LINK = 8;
+        REFERENCE_TYPE_COLLECTION = 9;
+        REFERENCE_TYPE_TASK_ASSIGNMENT = 10;
+        REFERENCE_TYPE_EVENT = 11;
+        REFERENCE_TYPE_REALTIME_SERVER = 12;
+        REFERENCE_TYPE_WEBHOOK_EVENT = 13;
+        REFERENCE_TYPE_WEBHOOK = 14;
+        REFERENCE_TYPE_ENTERPRISE = 15;
+        REFERENCE_TYPE_INVITE = 16;
+        REFERENCE_TYPE_EMAIL_ALIAS = 17;
+        REFERENCE_TYPE_GROUP = 18;
+        REFERENCE_TYPE_GROUP_MEMBERSHIP = 19;
+        REFERENCE_TYPE_DEVICE_PINNER = 20;
+        REFERENCE_TYPE_RETENTION_POLICY = 21;
+        REFERENCE_TYPE_RETENTION_POLICY_ASSIGNMENT = 22;
+        REFERENCE_TYPE_FILE_VERSION_RETENTION = 23;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY = 24;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY_ASSIGNMENT = 25;
+        REFERENCE_TYPE_LEGAL_HOLD = 26;
+        REFERENCE_TYPE_UPLOAD_SESSION = 27;
+    }
+    Reference_Type type = 2;
+}
+
+message SharedLink {
+    string access = 1;
+    int64 download_count = 2;
+    string download_url = 3;
+    string effective_access = 4;
+    bool is_password_enabled = 5;
+    string password = 6;
+    SharedLinkPermissions permissions = 7;
+    int64 preview_count = 8;
+    string unshared_at = 9;
+    string url = 10;
+    string vanity_url = 11;
+}
+
+message SharedLinkPermissions {
+    bool can_download = 1;
+    bool can_preview = 2;
+}
+
+message UploadPartResponse {
+    Part part = 1;
+}
+
+message UploadSession {
+}
+
+message UploadSessionEndpoints {
+    // The URL for abort API.
+    string abort = 1;
+    // The URL for commit API.
+    string commit = 2;
+    // The URL for list parts API.
+    string list_parts = 3;
+    // The URL for log event API.
+    string log_event = 4;
+    // The URL for status API.
+    string status = 5;
+    // The URL for upload part API.
+    string upload_part = 6;
+}
+
+message UserReference {
+    // Unqiue string identifying this user.
+    string id = 1;
+    // The email address this user uses to login.
+    string login = 2;
+    // Name of this user
+    string name = 3;
+    enum UserReference_Type {
+        USERREFERENCE_TYPE_USER = 0;
+    }
+    UserReference_Type type = 4;
+}
+
+message VersionUploadSessionRequest {
+    // Name of new file
+    string file_name = 1;
+    // The total number of bytes in the file to be uploaded
+    int64 file_size = 2;
+}
+
+message WatermarkInfo {
+    bool is_watermarked = 1;
+}
+repeated WatermarkInfo WatermarkInfo = 1
+
+service Box2.0UploadsService {
+    // Upload File
+    // 
+    // Use the Uploads API to allow users to add a new file.
+    rpc PostFilesContent(PostFilesContentRequest) returns (FileList) {
+      option (google.api.http) = {
+        post: "/api/2.0/files/content"
+      };
+    }
+    // Create File Upload Session
+    // 
+    // Use the Uploads API to create a new session to upload a new file.
+    rpc PostFilesUpload_sessions(PostFilesUpload_sessionsRequest) returns (UploadSession) {
+      option (google.api.http) = {
+        post: "/api/2.0/files/upload_sessions"
+        body: "body"
+      };
+    }
+    // Upload Session Details
+    // 
+    // Return the information about this session.
+    rpc GetFilesUpload_sessionsSESSION_ID(GetFilesUpload_sessionsSESSION_IDRequest) returns (UploadSession) {
+      option (google.api.http) = {
+        get: "/api/2.0/files/upload_sessions/{SESSION_ID}"
+      };
+    }
+    // Upload Part
+    // 
+    // Upload a part of the file to this session.
+    rpc PutFilesUpload_sessionsSESSION_ID(PutFilesUpload_sessionsSESSION_IDRequest) returns (UploadPartResponse) {
+      option (google.api.http) = {
+        put: "/api/2.0/files/upload_sessions/{SESSION_ID}"
+        body: "bytes"
+      };
+    }
+    // Abort Upload Session
+    // 
+    // Abort the upload session and discard all data uploaded. This cannot be reversed.
+    rpc DeleteFilesUpload_sessionsSESSION_ID(DeleteFilesUpload_sessionsSESSION_IDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/2.0/files/upload_sessions/{SESSION_ID}"
+      };
+    }
+    // Commit Upload
+    // 
+    // Create a Box file comprised of the uploaded parts.
+    rpc PostFilesUpload_sessionsSESSION_IDCommit(PostFilesUpload_sessionsSESSION_IDCommitRequest) returns (FileList) {
+      option (google.api.http) = {
+        post: "/api/2.0/files/upload_sessions/{SESSION_ID}/commit"
+        body: "body"
+      };
+    }
+    // List Parts
+    // 
+    // Return the list of parts uploaded so far for this session.
+    rpc GetFilesUpload_sessionsSESSION_IDParts(GetFilesUpload_sessionsSESSION_IDPartsRequest) returns (PartList) {
+      option (google.api.http) = {
+        get: "/api/2.0/files/upload_sessions/{SESSION_ID}/parts"
+      };
+    }
+    // Upload File Version
+    // 
+    // This method is used to upload a new version of an existing file in a user’s account.
+    rpc PostFilesFILE_IDContent(PostFilesFILE_IDContentRequest) returns (FileList) {
+      option (google.api.http) = {
+        post: "/api/2.0/files/{FILE_ID}/content"
+      };
+    }
+    // Create File Upload Session
+    // 
+    // Use the Uploads API to create a new session to upload a new version of existing file.
+    rpc PostFilesFILE_IDUpload_sessions(PostFilesFILE_IDUpload_sessionsRequest) returns (UploadSession) {
+      option (google.api.http) = {
+        post: "/api/2.0/files/{FILE_ID}/upload_sessions"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package betriebsstellen;
+
+message GetBetriebsstellenRequest {
+    // A station name or part of it
+    string name = 1;
+}
+
+message GetBetriebsstellenAbbrevRequest {
+    // Station or stop abbrevation
+    string abbrev = 1;
+}
+
+message Error {
+    int32 code = 1;
+    string message = 2;
+}
+
+message Station {
+    // Regional code
+    int32 RB = 1;
+    // UIC RICS code
+    string UIC = 2;
+    // Abbrevation name of station or halt
+    string abbrev = 3;
+    // Station is at a country border
+    bool borderStation = 4;
+    // Identifying number
+    int32 id = 5;
+    // Primary location code
+    string locationCode = 6;
+    // Long name of station or halt
+    string name = 7;
+    // Short name of station or halt
+    string short = 8;
+    // State of operation
+    enum Station_Statu {
+        STATION_STATU_IN_USE = 0;
+        STATION_STATU_OUT_OF_SERVICE = 1;
+        STATION_STATU_FORMERLY = 2;
+        STATION_STATU_PLANNED = 3;
+        STATION_STATU_STUDY = 4;
+    }
+    Station_Statu status = 9;
+    // Relevant for time table
+    bool timeTableRelevant = 10;
+    // Type of station or halt
+    enum Station_Type {
+        STATION_TYPE_ABZW = 0;
+        STATION_TYPE_ANST = 1;
+        STATION_TYPE_AWANST = 2;
+        STATION_TYPE_BF = 3;
+    }
+    Station_Type type = 11;
+    // Start date for validity
+    string validFrom = 12;
+    // End date for validity or null if still valid
+    string validTill = 13;
+}
+
+repeated Station StationList = 1
+
+service BetriebsstellenService {
+    // Get information of stations matching a given text
+    // 
+    // Get all station and stop infos
+    rpc GetBetriebsstellen(GetBetriebsstellenRequest) returns (StationList) {
+      option (google.api.http) = {
+        get: "/betriebsstellen/v1/betriebsstellen"
+      };
+    }
+    // Get information about a specific station or stop by abbrevation
+    // 
+    // Get information about a specific station or stop by abbrevation
+    rpc GetBetriebsstellenAbbrev(GetBetriebsstellenAbbrevRequest) returns (Station) {
+      option (google.api.http) = {
+        get: "/betriebsstellen/v1/betriebsstellen/{abbrev}"
+      };
+    }
+}

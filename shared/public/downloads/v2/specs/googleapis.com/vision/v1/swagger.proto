@@ -1,0 +1,712 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlecloudvision;
+
+message PostV1Images:AnnotateRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    BatchAnnotateImagesRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AnnotateImageRequest {
+    // Requested features.
+    repeated Feature features = 1;
+    // The image to be processed.
+    Image image = 2;
+    // Additional context that may accompany the image.
+    ImageContext imageContext = 3;
+}
+
+message AnnotateImageResponse {
+    // If present, crop hints have completed successfully.
+    CropHintsAnnotation cropHintsAnnotation = 1;
+    // If set, represents the error message for the operation.
+    // Note that filled-in image annotations are guaranteed to be
+    // correct, even when `error` is set.
+    Status error = 2;
+    // If present, face detection has completed successfully.
+    repeated FaceAnnotation faceAnnotations = 3;
+    // If present, text (OCR) detection or document (OCR) text detection has
+    // completed successfully.
+    // This annotation provides the structural hierarchy for the OCR detected
+    // text.
+    TextAnnotation fullTextAnnotation = 4;
+    // If present, image properties were extracted successfully.
+    ImageProperties imagePropertiesAnnotation = 5;
+    // If present, label detection has completed successfully.
+    repeated EntityAnnotation labelAnnotations = 6;
+    // If present, landmark detection has completed successfully.
+    repeated EntityAnnotation landmarkAnnotations = 7;
+    // If present, logo detection has completed successfully.
+    repeated EntityAnnotation logoAnnotations = 8;
+    // If present, safe-search annotation has completed successfully.
+    SafeSearchAnnotation safeSearchAnnotation = 9;
+    // If present, text (OCR) detection has completed successfully.
+    repeated EntityAnnotation textAnnotations = 10;
+    // If present, web detection has completed successfully.
+    WebDetection webDetection = 11;
+}
+
+message BatchAnnotateImagesRequest {
+    // Individual image annotation requests for this batch.
+    repeated AnnotateImageRequest requests = 1;
+}
+
+message BatchAnnotateImagesResponse {
+    // Individual responses to image annotation requests within the batch.
+    repeated AnnotateImageResponse responses = 1;
+}
+
+message Block {
+    // Detected block type (text, image etc) for this block.
+    enum Block_BlockType {
+        BLOCK_BLOCKTYPE_UNKNOWN = 0;
+        BLOCK_BLOCKTYPE_TEXT = 1;
+        BLOCK_BLOCKTYPE_TABLE = 2;
+        BLOCK_BLOCKTYPE_PICTURE = 3;
+        BLOCK_BLOCKTYPE_RULER = 4;
+        BLOCK_BLOCKTYPE_BARCODE = 5;
+    }
+    Block_BlockType blockType = 1;
+    // The bounding box for the block.
+    // The vertices are in the order of top-left, top-right, bottom-right,
+    // bottom-left. When a rotation of the bounding box is detected the rotation
+    // is represented as around the top-left corner as defined when the text is
+    // read in the 'natural' orientation.
+    // For example:
+    //   * when the text is horizontal it might look like:
+    //      0----1
+    //      |    |
+    //      3----2
+    //   * when it's rotated 180 degrees around the top-left corner it becomes:
+    //      2----3
+    //      |    |
+    //      1----0
+    //   and the vertice order will still be (0, 1, 2, 3).
+    BoundingPoly boundingBox = 2;
+    // List of paragraphs in this block (if this blocks is of type text).
+    repeated Paragraph paragraphs = 3;
+    // Additional information detected for the block.
+    TextProperty property = 4;
+}
+
+message BoundingPoly {
+    // The bounding polygon vertices.
+    repeated Vertex vertices = 1;
+}
+
+message Color {
+    // The fraction of this color that should be applied to the pixel. That is,
+    // the final pixel color is defined by the equation:
+    // 
+    //   pixel color = alpha * (this color) + (1.0 - alpha) * (background color)
+    // 
+    // This means that a value of 1.0 corresponds to a solid color, whereas
+    // a value of 0.0 corresponds to a completely transparent color. This
+    // uses a wrapper message rather than a simple float scalar so that it is
+    // possible to distinguish between a default value and the value being unset.
+    // If omitted, this color object is to be rendered as a solid color
+    // (as if the alpha value had been explicitly given with a value of 1.0).
+    float alpha = 1;
+    // The amount of blue in the color as a value in the interval [0, 1].
+    float blue = 2;
+    // The amount of green in the color as a value in the interval [0, 1].
+    float green = 3;
+    // The amount of red in the color as a value in the interval [0, 1].
+    float red = 4;
+}
+
+message ColorInfo {
+    // RGB components of the color.
+    Color color = 1;
+    // The fraction of pixels the color occupies in the image.
+    // Value in range [0, 1].
+    float pixelFraction = 2;
+    // Image-specific score for this color. Value in range [0, 1].
+    float score = 3;
+}
+
+message CropHint {
+    // The bounding polygon for the crop region. The coordinates of the bounding
+    // box are in the original image's scale, as returned in `ImageParams`.
+    BoundingPoly boundingPoly = 1;
+    // Confidence of this being a salient region.  Range [0, 1].
+    float confidence = 2;
+    // Fraction of importance of this salient region with respect to the original
+    // image.
+    float importanceFraction = 3;
+}
+
+message CropHintsAnnotation {
+    // Crop hint results.
+    repeated CropHint cropHints = 1;
+}
+
+message CropHintsParams {
+    // Aspect ratios in floats, representing the ratio of the width to the height
+    // of the image. For example, if the desired aspect ratio is 4/3, the
+    // corresponding float value should be 1.33333.  If not specified, the
+    // best possible crop is returned. The number of provided aspect ratios is
+    // limited to a maximum of 16; any aspect ratios provided after the 16th are
+    // ignored.
+    repeated float aspectRatios = 1;
+}
+
+message DetectedBreak {
+    // True if break prepends the element.
+    bool isPrefix = 1;
+    // Detected break type.
+    enum DetectedBreak_Type {
+        DETECTEDBREAK_TYPE_UNKNOWN = 0;
+        DETECTEDBREAK_TYPE_SPACE = 1;
+        DETECTEDBREAK_TYPE_SURE_SPACE = 2;
+        DETECTEDBREAK_TYPE_EOL_SURE_SPACE = 3;
+        DETECTEDBREAK_TYPE_HYPHEN = 4;
+        DETECTEDBREAK_TYPE_LINE_BREAK = 5;
+    }
+    DetectedBreak_Type type = 2;
+}
+
+message DetectedLanguage {
+    // Confidence of detected language. Range [0, 1].
+    float confidence = 1;
+    // The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+    // information, see
+    // http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+    string languageCode = 2;
+}
+
+message DominantColorsAnnotation {
+    // RGB color values with their score and pixel fraction.
+    repeated ColorInfo colors = 1;
+}
+
+message EntityAnnotation {
+    // Image region to which this entity belongs. Not produced
+    // for `LABEL_DETECTION` features.
+    BoundingPoly boundingPoly = 1;
+    // The accuracy of the entity detection in an image.
+    // For example, for an image in which the "Eiffel Tower" entity is detected,
+    // this field represents the confidence that there is a tower in the query
+    // image. Range [0, 1].
+    float confidence = 2;
+    // Entity textual description, expressed in its `locale` language.
+    string description = 3;
+    // The language code for the locale in which the entity textual
+    // `description` is expressed.
+    string locale = 4;
+    // The location information for the detected entity. Multiple
+    // `LocationInfo` elements can be present because one location may
+    // indicate the location of the scene in the image, and another location
+    // may indicate the location of the place where the image was taken.
+    // Location information is usually present for landmarks.
+    repeated LocationInfo locations = 5;
+    // Opaque entity ID. Some IDs may be available in
+    // [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
+    string mid = 6;
+    // Some entities may have optional user-supplied `Property` (name/value)
+    // fields, such a score or string that qualifies the entity.
+    repeated Property properties = 7;
+    // Overall score of the result. Range [0, 1].
+    float score = 8;
+    // The relevancy of the ICA (Image Content Annotation) label to the
+    // image. For example, the relevancy of "tower" is likely higher to an image
+    // containing the detected "Eiffel Tower" than to an image containing a
+    // detected distant towering building, even though the confidence that
+    // there is a tower in each image may be the same. Range [0, 1].
+    float topicality = 9;
+}
+
+message FaceAnnotation {
+    // Anger likelihood.
+    enum FaceAnnotation_AngerLikelihood {
+        FACEANNOTATION_ANGERLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_ANGERLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_ANGERLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_ANGERLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_ANGERLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_ANGERLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_AngerLikelihood angerLikelihood = 1;
+    // Blurred likelihood.
+    enum FaceAnnotation_BlurredLikelihood {
+        FACEANNOTATION_BLURREDLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_BLURREDLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_BLURREDLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_BLURREDLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_BLURREDLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_BLURREDLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_BlurredLikelihood blurredLikelihood = 2;
+    // The bounding polygon around the face. The coordinates of the bounding box
+    // are in the original image's scale, as returned in `ImageParams`.
+    // The bounding box is computed to "frame" the face in accordance with human
+    // expectations. It is based on the landmarker results.
+    // Note that one or more x and/or y coordinates may not be generated in the
+    // `BoundingPoly` (the polygon will be unbounded) if only a partial face
+    // appears in the image to be annotated.
+    BoundingPoly boundingPoly = 3;
+    // Detection confidence. Range [0, 1].
+    float detectionConfidence = 4;
+    // The `fd_bounding_poly` bounding polygon is tighter than the
+    // `boundingPoly`, and encloses only the skin part of the face. Typically, it
+    // is used to eliminate the face from any image analysis that detects the
+    // "amount of skin" visible in an image. It is not based on the
+    // landmarker results, only on the initial face detection, hence
+    // the <code>fd</code> (face detection) prefix.
+    BoundingPoly fdBoundingPoly = 5;
+    // Headwear likelihood.
+    enum FaceAnnotation_HeadwearLikelihood {
+        FACEANNOTATION_HEADWEARLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_HEADWEARLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_HEADWEARLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_HEADWEARLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_HEADWEARLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_HEADWEARLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_HeadwearLikelihood headwearLikelihood = 6;
+    // Joy likelihood.
+    enum FaceAnnotation_JoyLikelihood {
+        FACEANNOTATION_JOYLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_JOYLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_JOYLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_JOYLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_JOYLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_JOYLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_JoyLikelihood joyLikelihood = 7;
+    // Face landmarking confidence. Range [0, 1].
+    float landmarkingConfidence = 8;
+    // Detected face landmarks.
+    repeated Landmark landmarks = 9;
+    // Yaw angle, which indicates the leftward/rightward angle that the face is
+    // pointing relative to the vertical plane perpendicular to the image. Range
+    // [-180,180].
+    float panAngle = 10;
+    // Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
+    // of the face relative to the image vertical about the axis perpendicular to
+    // the face. Range [-180,180].
+    float rollAngle = 11;
+    // Sorrow likelihood.
+    enum FaceAnnotation_SorrowLikelihood {
+        FACEANNOTATION_SORROWLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_SORROWLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_SORROWLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_SORROWLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_SORROWLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_SORROWLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_SorrowLikelihood sorrowLikelihood = 12;
+    // Surprise likelihood.
+    enum FaceAnnotation_SurpriseLikelihood {
+        FACEANNOTATION_SURPRISELIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_SURPRISELIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_SURPRISELIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_SURPRISELIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_SURPRISELIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_SURPRISELIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_SurpriseLikelihood surpriseLikelihood = 13;
+    // Pitch angle, which indicates the upwards/downwards angle that the face is
+    // pointing relative to the image's horizontal plane. Range [-180,180].
+    float tiltAngle = 14;
+    // Under-exposed likelihood.
+    enum FaceAnnotation_UnderExposedLikelihood {
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_UNKNOWN = 0;
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_VERY_UNLIKELY = 1;
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_UNLIKELY = 2;
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_POSSIBLE = 3;
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_LIKELY = 4;
+        FACEANNOTATION_UNDEREXPOSEDLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    FaceAnnotation_UnderExposedLikelihood underExposedLikelihood = 15;
+}
+
+message Feature {
+    // Maximum number of results of this type.
+    int32 maxResults = 1;
+    // The feature type.
+    enum Feature_Type {
+        FEATURE_TYPE_TYPE_UNSPECIFIED = 0;
+        FEATURE_TYPE_FACE_DETECTION = 1;
+        FEATURE_TYPE_LANDMARK_DETECTION = 2;
+        FEATURE_TYPE_LOGO_DETECTION = 3;
+        FEATURE_TYPE_LABEL_DETECTION = 4;
+        FEATURE_TYPE_TEXT_DETECTION = 5;
+        FEATURE_TYPE_DOCUMENT_TEXT_DETECTION = 6;
+        FEATURE_TYPE_SAFE_SEARCH_DETECTION = 7;
+        FEATURE_TYPE_IMAGE_PROPERTIES = 8;
+        FEATURE_TYPE_CROP_HINTS = 9;
+        FEATURE_TYPE_WEB_DETECTION = 10;
+    }
+    Feature_Type type = 2;
+}
+
+message Image {
+    // Image content, represented as a stream of bytes.
+    // Note: as with all `bytes` fields, protobuffers use a pure binary
+    // representation, whereas JSON representations use base64.
+    string content = 1;
+    // Google Cloud Storage image location. If both `content` and `source`
+    // are provided for an image, `content` takes precedence and is
+    // used to perform the image annotation request.
+    ImageSource source = 2;
+}
+
+message ImageContext {
+    // Parameters for crop hints annotation request.
+    CropHintsParams cropHintsParams = 1;
+    // List of languages to use for TEXT_DETECTION. In most cases, an empty value
+    // yields the best results since it enables automatic language detection. For
+    // languages based on the Latin alphabet, setting `language_hints` is not
+    // needed. In rare cases, when the language of the text in the image is known,
+    // setting a hint will help get better results (although it will be a
+    // significant hindrance if the hint is wrong). Text detection returns an
+    // error if one or more of the specified languages is not one of the
+    // [supported languages](/vision/docs/languages).
+    repeated string languageHints = 2;
+    // lat/long rectangle that specifies the location of the image.
+    LatLongRect latLongRect = 3;
+}
+
+message ImageProperties {
+    // If present, dominant colors completed successfully.
+    DominantColorsAnnotation dominantColors = 1;
+}
+
+message ImageSource {
+    // NOTE: For new code `image_uri` below is preferred.
+    // Google Cloud Storage image URI, which must be in the following form:
+    // `gs://bucket_name/object_name` (for details, see
+    // [Google Cloud Storage Request
+    // URIs](https://cloud.google.com/storage/docs/reference-uris)).
+    // NOTE: Cloud Storage object versioning is not supported.
+    string gcsImageUri = 1;
+    // Image URI which supports:
+    // 1) Google Cloud Storage image URI, which must be in the following form:
+    // `gs://bucket_name/object_name` (for details, see
+    // [Google Cloud Storage Request
+    // URIs](https://cloud.google.com/storage/docs/reference-uris)).
+    // NOTE: Cloud Storage object versioning is not supported.
+    // 2) Publicly accessible image HTTP/HTTPS URL.
+    // This is preferred over the legacy `gcs_image_uri` above. When both
+    // `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
+    // precedence.
+    string imageUri = 2;
+}
+
+message Landmark {
+    // Face landmark position.
+    Position position = 1;
+    // Face landmark type.
+    enum Landmark_Type {
+        LANDMARK_TYPE_UNKNOWN_LANDMARK = 0;
+        LANDMARK_TYPE_LEFT_EYE = 1;
+        LANDMARK_TYPE_RIGHT_EYE = 2;
+        LANDMARK_TYPE_LEFT_OF_LEFT_EYEBROW = 3;
+        LANDMARK_TYPE_RIGHT_OF_LEFT_EYEBROW = 4;
+        LANDMARK_TYPE_LEFT_OF_RIGHT_EYEBROW = 5;
+        LANDMARK_TYPE_RIGHT_OF_RIGHT_EYEBROW = 6;
+        LANDMARK_TYPE_MIDPOINT_BETWEEN_EYES = 7;
+        LANDMARK_TYPE_NOSE_TIP = 8;
+        LANDMARK_TYPE_UPPER_LIP = 9;
+        LANDMARK_TYPE_LOWER_LIP = 10;
+        LANDMARK_TYPE_MOUTH_LEFT = 11;
+        LANDMARK_TYPE_MOUTH_RIGHT = 12;
+        LANDMARK_TYPE_MOUTH_CENTER = 13;
+        LANDMARK_TYPE_NOSE_BOTTOM_RIGHT = 14;
+        LANDMARK_TYPE_NOSE_BOTTOM_LEFT = 15;
+        LANDMARK_TYPE_NOSE_BOTTOM_CENTER = 16;
+        LANDMARK_TYPE_LEFT_EYE_TOP_BOUNDARY = 17;
+        LANDMARK_TYPE_LEFT_EYE_RIGHT_CORNER = 18;
+        LANDMARK_TYPE_LEFT_EYE_BOTTOM_BOUNDARY = 19;
+        LANDMARK_TYPE_LEFT_EYE_LEFT_CORNER = 20;
+        LANDMARK_TYPE_RIGHT_EYE_TOP_BOUNDARY = 21;
+        LANDMARK_TYPE_RIGHT_EYE_RIGHT_CORNER = 22;
+        LANDMARK_TYPE_RIGHT_EYE_BOTTOM_BOUNDARY = 23;
+        LANDMARK_TYPE_RIGHT_EYE_LEFT_CORNER = 24;
+        LANDMARK_TYPE_LEFT_EYEBROW_UPPER_MIDPOINT = 25;
+        LANDMARK_TYPE_RIGHT_EYEBROW_UPPER_MIDPOINT = 26;
+        LANDMARK_TYPE_LEFT_EAR_TRAGION = 27;
+        LANDMARK_TYPE_RIGHT_EAR_TRAGION = 28;
+        LANDMARK_TYPE_LEFT_EYE_PUPIL = 29;
+        LANDMARK_TYPE_RIGHT_EYE_PUPIL = 30;
+        LANDMARK_TYPE_FOREHEAD_GLABELLA = 31;
+        LANDMARK_TYPE_CHIN_GNATHION = 32;
+        LANDMARK_TYPE_CHIN_LEFT_GONION = 33;
+        LANDMARK_TYPE_CHIN_RIGHT_GONION = 34;
+    }
+    Landmark_Type type = 2;
+}
+
+message LatLng {
+    // The latitude in degrees. It must be in the range [-90.0, +90.0].
+    double latitude = 1;
+    // The longitude in degrees. It must be in the range [-180.0, +180.0].
+    double longitude = 2;
+}
+
+message LatLongRect {
+    // Max lat/long pair.
+    LatLng maxLatLng = 1;
+    // Min lat/long pair.
+    LatLng minLatLng = 2;
+}
+
+message LocationInfo {
+    // lat/long location coordinates.
+    LatLng latLng = 1;
+}
+
+message Page {
+    // List of blocks of text, images etc on this page.
+    repeated Block blocks = 1;
+    // Page height in pixels.
+    int32 height = 2;
+    // Additional information detected on the page.
+    TextProperty property = 3;
+    // Page width in pixels.
+    int32 width = 4;
+}
+
+message Paragraph {
+    // The bounding box for the paragraph.
+    // The vertices are in the order of top-left, top-right, bottom-right,
+    // bottom-left. When a rotation of the bounding box is detected the rotation
+    // is represented as around the top-left corner as defined when the text is
+    // read in the 'natural' orientation.
+    // For example:
+    //   * when the text is horizontal it might look like:
+    //      0----1
+    //      |    |
+    //      3----2
+    //   * when it's rotated 180 degrees around the top-left corner it becomes:
+    //      2----3
+    //      |    |
+    //      1----0
+    //   and the vertice order will still be (0, 1, 2, 3).
+    BoundingPoly boundingBox = 1;
+    // Additional information detected for the paragraph.
+    TextProperty property = 2;
+    // List of words in this paragraph.
+    repeated Word words = 3;
+}
+
+message Position {
+    // X coordinate.
+    float x = 1;
+    // Y coordinate.
+    float y = 2;
+    // Z coordinate (or depth).
+    float z = 3;
+}
+
+message Property {
+    // Name of the property.
+    string name = 1;
+    // Value of numeric properties.
+    string uint64Value = 2;
+    // Value of the property.
+    string value = 3;
+}
+
+message SafeSearchAnnotation {
+    // Represents the adult content likelihood for the image.
+    enum SafeSearchAnnotation_Adult {
+        SAFESEARCHANNOTATION_ADULT_UNKNOWN = 0;
+        SAFESEARCHANNOTATION_ADULT_VERY_UNLIKELY = 1;
+        SAFESEARCHANNOTATION_ADULT_UNLIKELY = 2;
+        SAFESEARCHANNOTATION_ADULT_POSSIBLE = 3;
+        SAFESEARCHANNOTATION_ADULT_LIKELY = 4;
+        SAFESEARCHANNOTATION_ADULT_VERY_LIKELY = 5;
+    }
+    SafeSearchAnnotation_Adult adult = 1;
+    // Likelihood that this is a medical image.
+    enum SafeSearchAnnotation_Medical {
+        SAFESEARCHANNOTATION_MEDICAL_UNKNOWN = 0;
+        SAFESEARCHANNOTATION_MEDICAL_VERY_UNLIKELY = 1;
+        SAFESEARCHANNOTATION_MEDICAL_UNLIKELY = 2;
+        SAFESEARCHANNOTATION_MEDICAL_POSSIBLE = 3;
+        SAFESEARCHANNOTATION_MEDICAL_LIKELY = 4;
+        SAFESEARCHANNOTATION_MEDICAL_VERY_LIKELY = 5;
+    }
+    SafeSearchAnnotation_Medical medical = 2;
+    // Spoof likelihood. The likelihood that an modification
+    // was made to the image's canonical version to make it appear
+    // funny or offensive.
+    enum SafeSearchAnnotation_Spoof {
+        SAFESEARCHANNOTATION_SPOOF_UNKNOWN = 0;
+        SAFESEARCHANNOTATION_SPOOF_VERY_UNLIKELY = 1;
+        SAFESEARCHANNOTATION_SPOOF_UNLIKELY = 2;
+        SAFESEARCHANNOTATION_SPOOF_POSSIBLE = 3;
+        SAFESEARCHANNOTATION_SPOOF_LIKELY = 4;
+        SAFESEARCHANNOTATION_SPOOF_VERY_LIKELY = 5;
+    }
+    SafeSearchAnnotation_Spoof spoof = 3;
+    // Violence likelihood.
+    enum SafeSearchAnnotation_Violence {
+        SAFESEARCHANNOTATION_VIOLENCE_UNKNOWN = 0;
+        SAFESEARCHANNOTATION_VIOLENCE_VERY_UNLIKELY = 1;
+        SAFESEARCHANNOTATION_VIOLENCE_UNLIKELY = 2;
+        SAFESEARCHANNOTATION_VIOLENCE_POSSIBLE = 3;
+        SAFESEARCHANNOTATION_VIOLENCE_LIKELY = 4;
+        SAFESEARCHANNOTATION_VIOLENCE_VERY_LIKELY = 5;
+    }
+    SafeSearchAnnotation_Violence violence = 4;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+message Symbol {
+    // The bounding box for the symbol.
+    // The vertices are in the order of top-left, top-right, bottom-right,
+    // bottom-left. When a rotation of the bounding box is detected the rotation
+    // is represented as around the top-left corner as defined when the text is
+    // read in the 'natural' orientation.
+    // For example:
+    //   * when the text is horizontal it might look like:
+    //      0----1
+    //      |    |
+    //      3----2
+    //   * when it's rotated 180 degrees around the top-left corner it becomes:
+    //      2----3
+    //      |    |
+    //      1----0
+    //   and the vertice order will still be (0, 1, 2, 3).
+    BoundingPoly boundingBox = 1;
+    // Additional information detected for the symbol.
+    TextProperty property = 2;
+    // The actual UTF-8 representation of the symbol.
+    string text = 3;
+}
+
+message TextAnnotation {
+    // List of pages detected by OCR.
+    repeated Page pages = 1;
+    // UTF-8 text detected on the pages.
+    string text = 2;
+}
+
+message TextProperty {
+    // Detected start or end of a text segment.
+    DetectedBreak detectedBreak = 1;
+    // A list of detected languages together with confidence.
+    repeated DetectedLanguage detectedLanguages = 2;
+}
+
+message Vertex {
+    // X coordinate.
+    int32 x = 1;
+    // Y coordinate.
+    int32 y = 2;
+}
+
+message WebDetection {
+    // Fully matching images from the Internet.
+    // Can include resized copies of the query image.
+    repeated WebImage fullMatchingImages = 1;
+    // Web pages containing the matching images from the Internet.
+    repeated WebPage pagesWithMatchingImages = 2;
+    // Partial matching images from the Internet.
+    // Those images are similar enough to share some key-point features. For
+    // example an original image will likely have partial matching for its crops.
+    repeated WebImage partialMatchingImages = 3;
+    // The visually similar image results.
+    repeated WebImage visuallySimilarImages = 4;
+    // Deduced entities from similar images on the Internet.
+    repeated WebEntity webEntities = 5;
+}
+
+message WebEntity {
+    // Canonical description of the entity, in English.
+    string description = 1;
+    // Opaque entity ID.
+    string entityId = 2;
+    // Overall relevancy score for the entity.
+    // Not normalized and not comparable across different image queries.
+    float score = 3;
+}
+
+message WebImage {
+    // (Deprecated) Overall relevancy score for the image.
+    float score = 1;
+    // The result image URL.
+    string url = 2;
+}
+
+message WebPage {
+    // (Deprecated) Overall relevancy score for the web page.
+    float score = 1;
+    // The result web page URL.
+    string url = 2;
+}
+
+message Word {
+    // The bounding box for the word.
+    // The vertices are in the order of top-left, top-right, bottom-right,
+    // bottom-left. When a rotation of the bounding box is detected the rotation
+    // is represented as around the top-left corner as defined when the text is
+    // read in the 'natural' orientation.
+    // For example:
+    //   * when the text is horizontal it might look like:
+    //      0----1
+    //      |    |
+    //      3----2
+    //   * when it's rotated 180 degrees around the top-left corner it becomes:
+    //      2----3
+    //      |    |
+    //      1----0
+    //   and the vertice order will still be (0, 1, 2, 3).
+    BoundingPoly boundingBox = 1;
+    // Additional information detected for the word.
+    TextProperty property = 2;
+    // List of symbols in the word.
+    // The order of the symbols follows the natural reading order.
+    repeated Symbol symbols = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudVisionService {
+    // Run image detection and annotation for a batch of images.
+    rpc PostV1Images:Annotate(PostV1Images:AnnotateRequest) returns (BatchAnnotateImagesResponse) {
+      option (google.api.http) = {
+        post: "//v1/images:annotate"
+        body: "body"
+      };
+    }
+}

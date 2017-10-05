@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package timesnewswire;
+
+message GetContentRequest {
+    // The complete URL of a specific news item, URL-encoded or backslash-escaped
+    string url = 1;
+}
+
+message GetContentResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Article results = 3;
+    string status = 4;
+}
+
+message GetSourceSectionRequest {
+    // Limits the number of results, between 1 and 20
+    int32 limit = 1;
+    // Sets the starting point of the result set
+    int32 offset = 2;
+    // Limits the set of items by one or more sections
+    // all | One or more section names, separated by semicolons
+    // 
+    //  To get all sections, specify all. To get a particular section or sections, use the section names returned by this request:
+    //  http://api.nytimes.com/svc/news/v3/content/section-list.json
+    string section = 3;
+    // Limits the set of items by originating source
+    // 
+    // all = items from both The New York Times and The International New York Times
+    // nyt = New York Times items only
+    // iht = International New York Times items only
+    enum GetSourceSectionRequest_Source {
+        GETSOURCESECTIONREQUEST_SOURCE_ALL = 0;
+        GETSOURCESECTIONREQUEST_SOURCE_NYT = 1;
+        GETSOURCESECTIONREQUEST_SOURCE_IHT = 2;
+    }
+    GetSourceSectionRequest_Source source = 4;
+}
+
+message GetSourceSectionResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Article results = 3;
+    string status = 4;
+}
+
+message GetSourceSectionTimePeriodRequest {
+    // Limits the number of results, between 1 and 20
+    int32 limit = 1;
+    // Sets the starting point of the result set
+    int32 offset = 2;
+    // Limits the set of items by one or more sections
+    // all | One or more section names, separated by semicolons
+    // 
+    //  To get all sections, specify all. To get a particular section or sections, use the section names returned by this request:
+    //  http://api.nytimes.com/svc/news/v3/content/section-list.json
+    string section = 3;
+    // Limits the set of items by originating source
+    // 
+    // all = items from both The New York Times and The International New York Times
+    // nyt = New York Times items only
+    // iht = International New York Times items only
+    enum GetSourceSectionTimePeriodRequest_Source {
+        GETSOURCESECTIONTIMEPERIODREQUEST_SOURCE_ALL = 0;
+        GETSOURCESECTIONTIMEPERIODREQUEST_SOURCE_NYT = 1;
+        GETSOURCESECTIONTIMEPERIODREQUEST_SOURCE_IHT = 2;
+    }
+    GetSourceSectionTimePeriodRequest_Source source = 4;
+    // Limits the set of items by time published, integer in number of hours
+    int32 time_period = 5;
+}
+
+message GetSourceSectionTimePeriodResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Article results = 3;
+    string status = 4;
+}
+
+message Article {
+    string abstract = 1;
+    string blog_name = 2;
+    string byline = 3;
+    string created_date = 4;
+    repeated string des_facet = 5;
+    repeated string geo_facet = 6;
+    string headline = 7;
+    string item_type = 8;
+    string kicker = 9;
+    string material_type_facet = 10;
+    message Multimedia {
+        string caption = 1;
+        string copyright = 2;
+        string format = 3;
+        int32 height = 4;
+        string subtype = 5;
+        string type = 6;
+        string url = 7;
+        int32 width = 8;
+    }
+    repeated Multimedia multimedia = 11;
+    string org_facet = 12;
+    repeated string per_facet = 13;
+    string published_date = 14;
+    message Related_url {
+        string suggested_link_text = 1;
+        string url = 2;
+    }
+    repeated Related_url related_urls = 15;
+    string section = 16;
+    string short_url = 17;
+    string source = 18;
+    string subsection = 19;
+    string thumbnail_standard = 20;
+    string title = 21;
+    string updated_date = 22;
+    string url = 23;
+}
+
+service TimesNewswireService {
+    rpc GetContent(GetContentRequest) returns (GetContentResponse) {
+      option (google.api.http) = {
+        get: "/svc/news/v3/content/content.json"
+      };
+    }
+    rpc GetSourceSection(GetSourceSectionRequest) returns (GetSourceSectionResponse) {
+      option (google.api.http) = {
+        get: "/svc/news/v3/content/{source}/{section}.json"
+      };
+    }
+    rpc GetSourceSectionTimePeriod(GetSourceSectionTimePeriodRequest) returns (GetSourceSectionTimePeriodResponse) {
+      option (google.api.http) = {
+        get: "/svc/news/v3/content/{source}/{section}/{time-period}.json"
+      };
+    }
+}

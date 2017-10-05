@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package airportsapi;
+
+message GetAirportsapiV1AirportsIcao_codeRequest {
+    string icao_code = 1;
+}
+
+message ApiEndpointsAirportResponse {
+    string ICAO = 1;
+    string last_update = 2;
+    string name = 3;
+    string url = 4;
+}
+
+service AirportsapiService {
+    rpc GetAirportsapiV1AirportsIcao_code(GetAirportsapiV1AirportsIcao_codeRequest) returns (ApiEndpointsAirportResponse) {
+      option (google.api.http) = {
+        get: "/_ah/api/airportsapi/v1/airports/{icao_code}"
+      };
+    }
+}

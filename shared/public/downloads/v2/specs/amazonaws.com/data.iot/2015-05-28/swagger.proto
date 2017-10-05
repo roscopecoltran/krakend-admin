@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package awsiotdataplane;
+
+message PostThingsThingNameShadowRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    UpdateThingShadowRequest body = 10;
+    string thingName = 11;
+}
+
+message PostTopicsTopicRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    PublishRequest body = 10;
+    string topic = 11;
+}
+
+message ConflictException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message DeleteThingShadowRequest {
+}
+
+message DeleteThingShadowResponse {
+    // The state information, in JSON format.
+    string payload = 1;
+}
+
+message GetThingShadowRequest {
+}
+
+message GetThingShadowResponse {
+    // The state information, in JSON format.
+    string payload = 1;
+}
+
+message InternalFailureException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message InvalidRequestException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message MethodNotAllowedException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message PublishRequest {
+    // The state information, in JSON format.
+    string payload = 1;
+}
+
+message RequestEntityTooLargeException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message ResourceNotFoundException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message ServiceUnavailableException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message ThrottlingException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message UnauthorizedException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message UnsupportedDocumentEncodingException {
+    // The message for the exception.
+    string message = 1;
+}
+
+message UpdateThingShadowRequest {
+    // The state information, in JSON format.
+    string payload = 1;
+}
+
+message UpdateThingShadowResponse {
+    // The state information, in JSON format.
+    string payload = 1;
+}
+
+service AWSIoTDataPlaneService {
+    // <p>Updates the thing shadow for the specified thing.</p> <p>For more information, see <a href="http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html">UpdateThingShadow</a> in the <i>AWS IoT Developer Guide</i>.</p>
+    rpc PostThingsThingNameShadow(PostThingsThingNameShadowRequest) returns (UpdateThingShadowResponse) {
+      option (google.api.http) = {
+        post: "//things/{thingName}/shadow"
+        body: "body"
+      };
+    }
+    // <p>Publishes state information.</p> <p>For more information, see <a href="http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http">HTTP Protocol</a> in the <i>AWS IoT Developer Guide</i>.</p>
+    rpc PostTopicsTopic(PostTopicsTopicRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//topics/{topic}"
+        body: "body"
+      };
+    }
+}

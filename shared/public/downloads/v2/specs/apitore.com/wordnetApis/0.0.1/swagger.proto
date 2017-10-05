@@ -1,0 +1,261 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package wordnetapis;
+
+message GetWordnetSenseBysynsetRequest {
+    // Access Token
+    string access_token = 1;
+    // Language. [jpn:japanese,eng:english]
+    string lang = 2;
+    // Synset
+    string synset = 3;
+}
+
+message GetWordnetSenseBywordidRequest {
+    // Access Token
+    string access_token = 1;
+    // Word ID
+    int32 wordid = 2;
+}
+
+message GetWordnetSynlinkBysynsetRequest {
+    // Access Token
+    string access_token = 1;
+    // Link. You can specify several link by csv format. [also, syns, hype, inst, hypo, hasi, mero, mmem, msub, mprt, holo, hmem, hsub, hprt, attr, sim, enta, caus, dmnc, dmnu, dmnr, dmtc, dmtu, dmtr, ants]
+    string link = 2;
+    // Synset
+    string synset = 3;
+}
+
+message GetWordnetSynsetBynameRequest {
+    // Access Token
+    string access_token = 1;
+    // Name
+    string name = 2;
+    // Part-of-speech. [n:noun,v:verb,a:adjective,r:adverb]
+    string pos = 3;
+}
+
+message GetWordnetSynsetBysynsetRequest {
+    // Access Token
+    string access_token = 1;
+    // Synset
+    string synset = 2;
+}
+
+message GetWordnetSynsetdefBysynsetRequest {
+    // Access Token
+    string access_token = 1;
+    // Language. [jpn:japanese,eng:english]
+    string lang = 2;
+    // Synset
+    string synset = 3;
+}
+
+message GetWordnetWordBylemmaRequest {
+    // Access Token
+    string access_token = 1;
+    // Lemma
+    string lemma = 2;
+    // Part-of-speech. You can specify several pos by csv format. [n:noun,v:verb,a:adjective,r:adverb]
+    string pos = 3;
+}
+
+message GetWordnetWordBywordidRequest {
+    // Access Token
+    string access_token = 1;
+    // Word ID
+    int32 wordid = 2;
+}
+
+message SenseEntity {
+    // Freq
+    int32 freq = 1;
+    // Language
+    string lang = 2;
+    // Lexicon ID
+    int32 lexid = 3;
+    // Rank
+    int32 rank = 4;
+    // Src
+    string src = 5;
+    // Synset
+    string synset = 6;
+    // Word ID
+    int32 wordid = 7;
+}
+
+message SenseResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated SenseEntity entries = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+}
+
+message SynlinkEntity {
+    // Link
+    string link = 1;
+    // Src
+    string src = 2;
+    // Synset1
+    string synset1 = 3;
+    // Synset2
+    string synset2 = 4;
+}
+
+message SynlinkResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated SynlinkEntity entries = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+}
+
+message SynsetDefResponseEntity {
+    // Definition
+    string def = 1;
+    // End date
+    string endTime = 2;
+    // Language
+    string lang = 3;
+    // Log message
+    string log = 4;
+    // Process time [millisecond]
+    string processTime = 5;
+    // sid
+    int32 sid = 6;
+    // Start date
+    string startTime = 7;
+    // Synset
+    string synset = 8;
+}
+
+message SynsetEntity {
+    // Name
+    string name = 1;
+    // Part-of-speech
+    string pos = 2;
+    // Src
+    string src = 3;
+    // Synset
+    string synset = 4;
+}
+
+message SynsetResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated SynsetEntity entries = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+}
+
+message WordEntity {
+    // Language
+    string lang = 1;
+    // Lemma
+    string lemma = 2;
+    // Part-of-speech
+    string pos = 3;
+    // Pron
+    string pron = 4;
+    // Word ID
+    int32 wordid = 5;
+}
+
+message WordResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated WordEntity entries = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+}
+
+service WordNetAPIsService {
+    // WordNet WebAPI. Return Sense object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSenseBysynset(GetWordnetSenseBysynsetRequest) returns (SenseResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/sense/bysynset"
+      };
+    }
+    // WordNet WebAPI. Return Sense object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSenseBywordid(GetWordnetSenseBywordidRequest) returns (SenseResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/sense/bywordid"
+      };
+    }
+    // WordNet WebAPI. Return SynLink object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSynlinkBysynset(GetWordnetSynlinkBysynsetRequest) returns (SynlinkResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/synlink/bysynset"
+      };
+    }
+    // WordNet WebAPI. Return Synset object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSynsetByname(GetWordnetSynsetBynameRequest) returns (SynsetResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/synset/byname"
+      };
+    }
+    // WordNet WebAPI. Return Synset object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSynsetBysynset(GetWordnetSynsetBysynsetRequest) returns (SynsetResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/synset/bysynset"
+      };
+    }
+    // WordNet WebAPI. Return SynsetDef object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetSynsetdefBysynset(GetWordnetSynsetdefBysynsetRequest) returns (SynsetDefResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/synsetdef/bysynset"
+      };
+    }
+    // WordNet WebAPI. Return Word object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetWordBylemma(GetWordnetWordBylemmaRequest) returns (WordResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/word/bylemma"
+      };
+    }
+    // WordNet WebAPI. Return Word object.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />
+    rpc GetWordnetWordBywordid(GetWordnetWordBywordidRequest) returns (WordResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/46/wordnet/word/bywordid"
+      };
+    }
+}

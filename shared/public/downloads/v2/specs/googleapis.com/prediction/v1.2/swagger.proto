@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package prediction;
+
+message PostHostedmodelsHostedModelNamePredictRequest {
+    alt alt = 1;
+    Input body = 2;
+    string fields = 3;
+    // The name of a hosted model
+    string hostedModelName = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message PostTrainingRequest {
+    alt alt = 1;
+    Training body = 2;
+    // mybucket/mydata resource in Google Storage
+    string data = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetTrainingDataRequest {
+    alt alt = 1;
+    // mybucket/mydata resource in Google Storage
+    string data = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PutTrainingDataRequest {
+    alt alt = 1;
+    Update body = 2;
+    // mybucket/mydata resource in Google Storage
+    string data = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message DeleteTrainingDataRequest {
+    alt alt = 1;
+    // mybucket/mydata resource in Google Storage
+    string data = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostTrainingDataPredictRequest {
+    alt alt = 1;
+    Input body = 2;
+    // mybucket%2Fmydata resource in Google Storage
+    string data = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message Input {
+    message Input {
+        message CsvInstance {
+        }
+        repeated CsvInstance csvInstance = 1;
+    }
+    Input input = 1;
+}
+
+message Output {
+    string id = 1;
+    string kind = 2;
+    string outputLabel = 3;
+    message OutputMulti {
+        string label = 1;
+        double score = 2;
+    }
+    repeated OutputMulti outputMulti = 4;
+    double outputValue = 5;
+    string selfLink = 6;
+}
+
+message Training {
+    string id = 1;
+    string kind = 2;
+    message ModelInfo {
+        double classificationAccuracy = 1;
+        double meanSquaredError = 2;
+        string modelType = 3;
+    }
+    ModelInfo modelInfo = 3;
+    string selfLink = 4;
+    string trainingStatus = 5;
+}
+
+message Update {
+    // The true class label of this instance
+    string classLabel = 1;
+    // The input features for this instance
+    message CsvInstance {
+    }
+    repeated CsvInstance csvInstance = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service PredictionService {
+    // Submit input and request an output against a hosted model
+    rpc PostHostedmodelsHostedModelNamePredict(PostHostedmodelsHostedModelNamePredictRequest) returns (Output) {
+      option (google.api.http) = {
+        post: "/prediction/v1.2/hostedmodels/{hostedModelName}/predict"
+        body: "body"
+      };
+    }
+    // Begin training your model
+    rpc PostTraining(PostTrainingRequest) returns (Training) {
+      option (google.api.http) = {
+        post: "/prediction/v1.2/training"
+        body: "body"
+      };
+    }
+    // Check training status of your model
+    rpc GetTrainingData(GetTrainingDataRequest) returns (Training) {
+      option (google.api.http) = {
+        get: "/prediction/v1.2/training/{data}"
+      };
+    }
+    // Add new data to a trained model
+    rpc PutTrainingData(PutTrainingDataRequest) returns (Training) {
+      option (google.api.http) = {
+        put: "/prediction/v1.2/training/{data}"
+        body: "body"
+      };
+    }
+    // Delete a trained model
+    rpc DeleteTrainingData(DeleteTrainingDataRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/prediction/v1.2/training/{data}"
+      };
+    }
+    // Submit data and request a prediction
+    rpc PostTrainingDataPredict(PostTrainingDataPredictRequest) returns (Output) {
+      option (google.api.http) = {
+        post: "/prediction/v1.2/training/{data}/predict"
+        body: "body"
+      };
+    }
+}

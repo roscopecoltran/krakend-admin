@@ -1,0 +1,508 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlecivicinformation;
+
+message GetDivisionsRequest {
+    alt alt = 1;
+    DivisionSearchRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // The search query. Queries can cover any parts of a OCD ID or a human readable division name. All words given in the query are treated as required patterns. In addition to that, most query operators of the Apache Lucene library are supported. See http://lucene.apache.org/core/2_9_4/queryparsersyntax.html
+    string query = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetElectionsRequest {
+    alt alt = 1;
+    ElectionsQueryRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetRepresentativesRequest {
+    // The address to look up. May only be specified if the field ocdId is not given in the URL.
+    string address = 1;
+    alt alt = 2;
+    RepresentativeInfoRequest body = 3;
+    string fields = 4;
+    // Whether to return information about offices and officials. If false, only the top-level district information will be returned.
+    bool includeOffices = 5;
+    string key = 6;
+    // A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching office will not be returned.
+    repeated string levels = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned.
+    repeated string roles = 11;
+    string userIp = 12;
+}
+
+message GetRepresentativesOcdIdRequest {
+    alt alt = 1;
+    DivisionRepresentativeInfoRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    // A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching office will not be returned.
+    repeated string levels = 5;
+    string oauth_token = 6;
+    // The Open Civic Data division identifier of the division to look up.
+    string ocdId = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // If true, information about all divisions contained in the division requested will be included as well. For example, if querying ocd-division/country:us/district:dc, this would also return all DC's wards and ANCs.
+    bool recursive = 10;
+    // A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned.
+    repeated string roles = 11;
+    string userIp = 12;
+}
+
+message GetVoterinfoRequest {
+    // The registered address of the voter to look up.
+    string address = 1;
+    alt alt = 2;
+    VoterInfoRequest body = 3;
+    // The unique ID of the election to look up. A list of election IDs can be obtained at https://www.googleapis.com/civicinfo/{version}/elections
+    string electionId = 4;
+    string fields = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // If set to true, only data from official state sources will be returned.
+    bool officialOnly = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // If set to true, the query will return the success codeand include any partial information when it is unable to determine a matching address or unable to determine the election for electionId=0 queries.
+    bool returnAllAvailableData = 11;
+    string userIp = 12;
+}
+
+message AdministrationRegion {
+    // The election administration body for this area.
+    AdministrativeBody electionAdministrationBody = 1;
+    // An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page.
+    string id = 2;
+    // The city or county that provides election information for this voter. This object can have the same elements as state.
+    AdministrationRegion local_jurisdiction = 3;
+    // The name of the jurisdiction.
+    string name = 4;
+    // A list of sources for this area. If multiple sources are listed the data has been aggregated from those sources.
+    repeated Source sources = 5;
+}
+
+message AdministrativeBody {
+    // A URL provided by this administrative body for information on absentee voting.
+    string absenteeVotingInfoUrl = 1;
+    repeated string addressLines = 2;
+    // A URL provided by this administrative body to give contest information to the voter.
+    string ballotInfoUrl = 3;
+    // The mailing address of this administrative body.
+    SimpleAddressType correspondenceAddress = 4;
+    // A URL provided by this administrative body for looking up general election information.
+    string electionInfoUrl = 5;
+    // The election officials for this election administrative body.
+    repeated ElectionOfficial electionOfficials = 6;
+    // A URL provided by this administrative body for confirming that the voter is registered to vote.
+    string electionRegistrationConfirmationUrl = 7;
+    // A URL provided by this administrative body for looking up how to register to vote.
+    string electionRegistrationUrl = 8;
+    // A URL provided by this administrative body describing election rules to the voter.
+    string electionRulesUrl = 9;
+    // A description of the hours of operation for this administrative body.
+    string hoursOfOperation = 10;
+    // The name of this election administrative body.
+    string name = 11;
+    // The physical address of this administrative body.
+    SimpleAddressType physicalAddress = 12;
+    // A description of the services this administrative body may provide.
+    repeated string voter_services = 13;
+    // A URL provided by this administrative body for looking up where to vote.
+    string votingLocationFinderUrl = 14;
+}
+
+message Candidate {
+    // The URL for the candidate's campaign web site.
+    string candidateUrl = 1;
+    // A list of known (social) media channels for this candidate.
+    repeated Channel channels = 2;
+    // The email address for the candidate's campaign.
+    string email = 3;
+    // The candidate's name. If this is a joint ticket it will indicate the name of the candidate at the top of a ticket followed by a / and that name of candidate at the bottom of the ticket. e.g. "Mitt Romney / Paul Ryan"
+    string name = 4;
+    // The order the candidate appears on the ballot for this contest.
+    string orderOnBallot = 5;
+    // The full name of the party the candidate is a member of.
+    string party = 6;
+    // The voice phone number for the candidate's campaign office.
+    string phone = 7;
+    // A URL for a photo of the candidate.
+    string photoUrl = 8;
+}
+
+message Channel {
+    // The unique public identifier for the candidate's channel.
+    string id = 1;
+    // The type of channel. The following is a list of types of channels, but is not exhaustive. More channel types may be added at a later time. One of: GooglePlus, YouTube, Facebook, Twitter
+    string type = 2;
+}
+
+message Contest {
+    // A number specifying the position of this contest on the voter's ballot.
+    string ballotPlacement = 1;
+    // The candidate choices for this contest.
+    repeated Candidate candidates = 2;
+    // Information about the electoral district that this contest is in.
+    ElectoralDistrict district = 3;
+    // A description of any additional eligibility requirements for voting in this contest.
+    string electorateSpecifications = 4;
+    // An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page.
+    string id = 5;
+    // The levels of government of the office for this contest. There may be more than one in cases where a jurisdiction effectively acts at two different levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2" and "administrative-area-1".
+    repeated string level = 6;
+    // The number of candidates that will be elected to office in this contest.
+    string numberElected = 7;
+    // The number of candidates that a voter may vote for in this contest.
+    string numberVotingFor = 8;
+    // The name of the office for this contest.
+    string office = 9;
+    // If this is a partisan election, the name of the party it is for.
+    string primaryParty = 10;
+    // The set of ballot responses for the referendum. A ballot response represents a line on the ballot. Common examples might include "yes" or "no" for referenda. This field is only populated for contests of type 'Referendum'.
+    repeated string referendumBallotResponses = 11;
+    // Specifies a short summary of the referendum that is typically on the ballot below the title but above the text. This field is only populated for contests of type 'Referendum'.
+    string referendumBrief = 12;
+    // A statement in opposition to the referendum. It does not necessarily appear on the ballot. This field is only populated for contests of type 'Referendum'.
+    string referendumConStatement = 13;
+    // Specifies what effect abstaining (not voting) on the proposition will have (i.e. whether abstaining is considered a vote against it). This field is only populated for contests of type 'Referendum'.
+    string referendumEffectOfAbstain = 14;
+    // The threshold of votes that the referendum needs in order to pass, e.g. "two-thirds". This field is only populated for contests of type 'Referendum'.
+    string referendumPassageThreshold = 15;
+    // A statement in favor of the referendum. It does not necessarily appear on the ballot. This field is only populated for contests of type 'Referendum'.
+    string referendumProStatement = 16;
+    // A brief description of the referendum. This field is only populated for contests of type 'Referendum'.
+    string referendumSubtitle = 17;
+    // The full text of the referendum. This field is only populated for contests of type 'Referendum'.
+    string referendumText = 18;
+    // The title of the referendum (e.g. 'Proposition 42'). This field is only populated for contests of type 'Referendum'.
+    string referendumTitle = 19;
+    // A link to the referendum. This field is only populated for contests of type 'Referendum'.
+    string referendumUrl = 20;
+    // The roles which this office fulfills.
+    repeated string roles = 21;
+    // A list of sources for this contest. If multiple sources are listed, the data has been aggregated from those sources.
+    repeated Source sources = 22;
+    // "Yes" or "No" depending on whether this a contest being held outside the normal election cycle.
+    string special = 23;
+    // The type of contest. Usually this will be 'General', 'Primary', or 'Run-off' for contests with candidates. For referenda this will be 'Referendum'. For Retention contests this will typically be 'Retention'.
+    string type = 24;
+}
+
+message ContextParams {
+    string clientProfile = 1;
+}
+
+message DivisionRepresentativeInfoRequest {
+    ContextParams contextParams = 1;
+}
+
+message DivisionSearchRequest {
+    ContextParams contextParams = 1;
+}
+
+message DivisionSearchResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "civicinfo#divisionSearchResponse".
+    string kind = 1;
+    repeated DivisionSearchResult results = 2;
+}
+
+message DivisionSearchResult {
+    // Other Open Civic Data identifiers that refer to the same division -- for example, those that refer to other political divisions whose boundaries are defined to be coterminous with this one. For example, ocd-division/country:us/state:wy will include an alias of ocd-division/country:us/state:wy/cd:1, since Wyoming has only one Congressional district.
+    repeated string aliases = 1;
+    // The name of the division.
+    string name = 2;
+    // The unique Open Civic Data identifier for this division.
+    string ocdId = 3;
+}
+
+message Election {
+    // Day of the election in YYYY-MM-DD format.
+    string electionDay = 1;
+    // The unique ID of this election.
+    string id = 2;
+    // A displayable name for the election.
+    string name = 3;
+    // The political division of the election. Represented as an OCD Division ID. Voters within these political jurisdictions are covered by this election. This is typically a state such as ocd-division/country:us/state:ca or for the midterms or general election the entire US (i.e. ocd-division/country:us).
+    string ocdDivisionId = 4;
+}
+
+message ElectionOfficial {
+    // The email address of the election official.
+    string emailAddress = 1;
+    // The fax number of the election official.
+    string faxNumber = 2;
+    // The full name of the election official.
+    string name = 3;
+    // The office phone number of the election official.
+    string officePhoneNumber = 4;
+    // The title of the election official.
+    string title = 5;
+}
+
+message ElectionsQueryRequest {
+    ContextParams contextParams = 1;
+}
+
+message ElectionsQueryResponse {
+    // A list of available elections
+    repeated Election elections = 1;
+    // Identifies what kind of resource this is. Value: the fixed string "civicinfo#electionsQueryResponse".
+    string kind = 2;
+}
+
+message ElectoralDistrict {
+    // An identifier for this district, relative to its scope. For example, the 34th State Senate district would have id "34" and a scope of stateUpper.
+    string id = 1;
+    string kgForeignKey = 2;
+    // The name of the district.
+    string name = 3;
+    // The geographic scope of this district. If unspecified the district's geography is not known. One of: national, statewide, congressional, stateUpper, stateLower, countywide, judicial, schoolBoard, cityWide, township, countyCouncil, cityCouncil, ward, special
+    string scope = 4;
+}
+
+message GeographicDivision {
+    // Any other valid OCD IDs that refer to the same division.
+    // 
+    // Because OCD IDs are meant to be human-readable and at least somewhat predictable, there are occasionally several identifiers for a single division. These identifiers are defined to be equivalent to one another, and one is always indicated as the primary identifier. The primary identifier will be returned in ocd_id above, and any other equivalent valid identifiers will be returned in this list.
+    // 
+    // For example, if this division's OCD ID is ocd-division/country:us/district:dc, this will contain ocd-division/country:us/state:dc.
+    repeated string alsoKnownAs = 1;
+    // The name of the division.
+    string name = 2;
+    // List of indices in the offices array, one for each office elected from this division. Will only be present if includeOffices was true (or absent) in the request.
+    repeated uint32 officeIndices = 3;
+}
+
+message Office {
+    // The OCD ID of the division with which this office is associated.
+    string divisionId = 1;
+    // The levels of government of which this office is part. There may be more than one in cases where a jurisdiction effectively acts at two different levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2" and "administrative-area-1".
+    repeated string levels = 2;
+    // The human-readable name of the office.
+    string name = 3;
+    // List of indices in the officials array of people who presently hold this office.
+    repeated uint32 officialIndices = 4;
+    // The roles which this office fulfills. Roles are not meant to be exhaustive, or to exactly specify the entire set of responsibilities of a given office, but are meant to be rough categories that are useful for general selection from or sorting of a list of offices.
+    repeated string roles = 5;
+    // A list of sources for this office. If multiple sources are listed, the data has been aggregated from those sources.
+    repeated Source sources = 6;
+}
+
+message Official {
+    // Addresses at which to contact the official.
+    repeated SimpleAddressType address = 1;
+    // A list of known (social) media channels for this official.
+    repeated Channel channels = 2;
+    // The direct email addresses for the official.
+    repeated string emails = 3;
+    // The official's name.
+    string name = 4;
+    // The full name of the party the official belongs to.
+    string party = 5;
+    // The official's public contact phone numbers.
+    repeated string phones = 6;
+    // A URL for a photo of the official.
+    string photoUrl = 7;
+    // The official's public website URLs.
+    repeated string urls = 8;
+}
+
+message PollingLocation {
+    // The address of the location.
+    SimpleAddressType address = 1;
+    // The last date that this early vote site or drop off location may be used. This field is not populated for polling locations.
+    string endDate = 2;
+    // An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page.
+    string id = 3;
+    // The name of the early vote site or drop off location. This field is not populated for polling locations.
+    string name = 4;
+    // Notes about this location (e.g. accessibility ramp or entrance to use).
+    string notes = 5;
+    // A description of when this location is open.
+    string pollingHours = 6;
+    // A list of sources for this location. If multiple sources are listed the data has been aggregated from those sources.
+    repeated Source sources = 7;
+    // The first date that this early vote site or drop off location may be used. This field is not populated for polling locations.
+    string startDate = 8;
+    // The services provided by this early vote site or drop off location. This field is not populated for polling locations.
+    string voterServices = 9;
+}
+
+message PostalAddress {
+    repeated string addressLines = 1;
+    string administrativeAreaName = 2;
+    string countryName = 3;
+    string countryNameCode = 4;
+    string dependentLocalityName = 5;
+    string dependentThoroughfareLeadingType = 6;
+    string dependentThoroughfareName = 7;
+    string dependentThoroughfarePostDirection = 8;
+    string dependentThoroughfarePreDirection = 9;
+    string dependentThoroughfareTrailingType = 10;
+    string dependentThoroughfaresConnector = 11;
+    string dependentThoroughfaresIndicator = 12;
+    string dependentThoroughfaresType = 13;
+    string firmName = 14;
+    bool isDisputed = 15;
+    string languageCode = 16;
+    string localityName = 17;
+    string postBoxNumber = 18;
+    string postalCodeNumber = 19;
+    string postalCodeNumberExtension = 20;
+    string premiseName = 21;
+    string recipientName = 22;
+    string sortingCode = 23;
+    string subAdministrativeAreaName = 24;
+    string subPremiseName = 25;
+    string thoroughfareLeadingType = 26;
+    string thoroughfareName = 27;
+    string thoroughfareNumber = 28;
+    string thoroughfarePostDirection = 29;
+    string thoroughfarePreDirection = 30;
+    string thoroughfareTrailingType = 31;
+}
+
+message RepresentativeInfoData {
+    // Political geographic divisions that contain the requested address.
+    map<string, GeographicDivision> divisions = 1;
+    // Elected offices referenced by the divisions listed above. Will only be present if includeOffices was true in the request.
+    repeated Office offices = 2;
+    // Officials holding the offices listed above. Will only be present if includeOffices was true in the request.
+    repeated Official officials = 3;
+}
+
+message RepresentativeInfoRequest {
+    ContextParams contextParams = 1;
+}
+
+message RepresentativeInfoResponse {
+    // Political geographic divisions that contain the requested address.
+    map<string, GeographicDivision> divisions = 1;
+    // Identifies what kind of resource this is. Value: the fixed string "civicinfo#representativeInfoResponse".
+    string kind = 2;
+    // The normalized version of the requested address
+    SimpleAddressType normalizedInput = 3;
+    // Elected offices referenced by the divisions listed above. Will only be present if includeOffices was true in the request.
+    repeated Office offices = 4;
+    // Officials holding the offices listed above. Will only be present if includeOffices was true in the request.
+    repeated Official officials = 5;
+}
+
+message SimpleAddressType {
+    // The city or town for the address.
+    string city = 1;
+    // The street name and number of this address.
+    string line1 = 2;
+    // The second line the address, if needed.
+    string line2 = 3;
+    // The third line of the address, if needed.
+    string line3 = 4;
+    // The name of the location.
+    string locationName = 5;
+    // The US two letter state abbreviation of the address.
+    string state = 6;
+    // The US Postal Zip Code of the address.
+    string zip = 7;
+}
+
+message Source {
+    // The name of the data source.
+    string name = 1;
+    // Whether this data comes from an official government source.
+    bool official = 2;
+}
+
+message VoterInfoRequest {
+    ContextParams contextParams = 1;
+    VoterInfoSegmentResult voterInfoSegmentResult = 2;
+}
+
+message VoterInfoResponse {
+    // Contests that will appear on the voter's ballot.
+    repeated Contest contests = 1;
+    // Locations where a voter is eligible to drop off a completed ballot. The voter must have received and completed a ballot prior to arriving at the location. The location may not have ballots available on the premises. These locations could be open on or before election day as indicated in the pollingHours field.
+    repeated PollingLocation dropOffLocations = 2;
+    // Locations where the voter is eligible to vote early, prior to election day.
+    repeated PollingLocation earlyVoteSites = 3;
+    // The election that was queried.
+    Election election = 4;
+    // Identifies what kind of resource this is. Value: the fixed string "civicinfo#voterInfoResponse".
+    string kind = 5;
+    // Specifies whether voters in the precinct vote only by mailing their ballots (with the possible option of dropping off their ballots as well).
+    bool mailOnly = 6;
+    // The normalized version of the requested address
+    SimpleAddressType normalizedInput = 7;
+    // If no election ID was specified in the query, and there was more than one election with data for the given voter, this will contain information about the other elections that could apply.
+    repeated Election otherElections = 8;
+    // Locations where the voter is eligible to vote on election day.
+    repeated PollingLocation pollingLocations = 9;
+    string precinctId = 10;
+    // Local Election Information for the state that the voter votes in. For the US, there will only be one element in this array.
+    repeated AdministrationRegion state = 11;
+}
+
+message VoterInfoSegmentResult {
+    string generatedMillis = 1;
+    PostalAddress postalAddress = 2;
+    VoterInfoRequest request = 3;
+    VoterInfoResponse response = 4;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GoogleCivicInformationService {
+    // Searches for political divisions by their natural name or OCD ID.
+    rpc GetDivisions(GetDivisionsRequest) returns (DivisionSearchResponse) {
+      option (google.api.http) = {
+        get: "/civicinfo/v2/divisions"
+        body: "body"
+      };
+    }
+    // List of available elections to query.
+    rpc GetElections(GetElectionsRequest) returns (ElectionsQueryResponse) {
+      option (google.api.http) = {
+        get: "/civicinfo/v2/elections"
+        body: "body"
+      };
+    }
+    // Looks up political geography and representative information for a single address.
+    rpc GetRepresentatives(GetRepresentativesRequest) returns (RepresentativeInfoResponse) {
+      option (google.api.http) = {
+        get: "/civicinfo/v2/representatives"
+        body: "body"
+      };
+    }
+    // Looks up representative information for a single geographic division.
+    rpc GetRepresentativesOcdId(GetRepresentativesOcdIdRequest) returns (RepresentativeInfoData) {
+      option (google.api.http) = {
+        get: "/civicinfo/v2/representatives/{ocdId}"
+        body: "body"
+      };
+    }
+    // Looks up information relevant to a voter based on the voter's registered address.
+    rpc GetVoterinfo(GetVoterinfoRequest) returns (VoterInfoResponse) {
+      option (google.api.http) = {
+        get: "/civicinfo/v2/voterinfo"
+        body: "body"
+      };
+    }
+}

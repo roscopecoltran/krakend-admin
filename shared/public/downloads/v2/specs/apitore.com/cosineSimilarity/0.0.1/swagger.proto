@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package cosinesimilarity;
+
+message PostCosineSimilarityVecVecRequest {
+    // Access Token
+    string access_token = 1;
+    // Input two vectors; vec1, vec2
+    VecvecRequestEntity req = 2;
+}
+
+message PostCosineSimilarityVecWordRequest {
+    // Access Token
+    string access_token = 1;
+    // Input vector and word. Word is transformed to wordvector.
+    VecwordRequestEntity req = 2;
+}
+
+message SimilarityResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Score
+    double score = 4;
+    // Start date
+    string startTime = 5;
+}
+
+message VecvecRequestEntity {
+    // Vector1
+    repeated double vec1 = 1;
+    // Vector2
+    repeated double vec2 = 2;
+}
+
+message VecwordRequestEntity {
+    // Vector
+    repeated double vec = 1;
+    // Word
+    string word = 2;
+}
+
+service CosineSimilarityService {
+    // Calclate similarity
+    // 
+    // Cosine similarity.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/clustering-response">clustering-response</a><BR />&nbsp; Class: com.apitore.banana.response.clustering.SimilarityResponseEntity<BR />
+    rpc PostCosineSimilarityVecVec(PostCosineSimilarityVecVecRequest) returns (SimilarityResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/49/cosine-similarity/vec-vec"
+        body: "req"
+      };
+    }
+    // Calclate similarity by word
+    // 
+    // Cosine similarity.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/clustering-response">clustering-response</a><BR />&nbsp; Class: com.apitore.banana.response.clustering.SimilarityResponseEntity<BR />
+    rpc PostCosineSimilarityVecWord(PostCosineSimilarityVecWordRequest) returns (SimilarityResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/49/cosine-similarity/vec-word"
+        body: "req"
+      };
+    }
+}

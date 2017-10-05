@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package buymarketing;
+
+message GetMerchandised_productRequest {
+    // The aspect name/value pairs used to further refine product results. For example: &nbsp;&nbsp;&nbsp;/buy/marketing/v1_beta/merchandised_product?category_id=31388&amp;metric_name=BEST_SELLING&amp;aspect_filter=Brand:Canon You can use the Browse API search call with the fieldgroups=ASPECT_REFINEMENTS field to return the aspects of a product. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/buy-marketing/types/MarketingAspectFilter.html
+    string aspect_filter = 1;
+    // This query parameter limits the products returned to a specific eBay category. The list of eBay category Ids is not published and category Ids are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API. Use the Browse API and submit the following call to get the dominantCategoryId for an item. /buy/browse/v1/item_summary/search?q=keyword&amp;fieldgroups=ASPECT_REFINEMENTS Maximum: 1 Required: 1
+    string category_id = 2;
+    // This value specifies the maximum number of products in a result set. Note: Maximum value means the call will return up to that many products per set, but it can be less than this value. If the number of products found is less than this value, the call will return all of the products matching the criteria. Default: 8 Maximum: 100
+    string limit = 3;
+    // This value filters the result set by the specified metric. Only products in this metric are returned. Currently, the only metric supported is BEST_SELLING. Default: BEST_SELLING Maximum: 1 Required: 1
+    string metric_name = 4;
+}
+
+message Amount {
+    // A three-letter ISO 4217 code that indicates the currency of the amount in the value field. For implementation help, refer to <a href='https://developer.ebay.com/devzone/rest/api-ref/buy-marketing/types/CurrencyCodeEnum.html'>eBay API documentation</a>
+    string currency = 1;
+    // The monetary amount, in the currency specified by the currency field.
+    string value = 2;
+}
+
+message BestSellingProductResponse {
+    // An array of containers for the products.
+    repeated MerchandisedProduct merchandisedProducts = 1;
+    // The container with all the warnings for the input request.
+    repeated Error warnings = 2;
+}
+
+message Error {
+    // This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors.
+    string category = 1;
+    // The name of the primary system where the error occurred. This is relevant for application errors.
+    string domain = 2;
+    // A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+    int32 errorId = 3;
+    // An array of reference Ids that identify the specific request elements most closely associated to the error or warning, if any.
+    repeated string inputRefIds = 4;
+    // A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.
+    string longMessage = 5;
+    // A description of the condition that caused the error or warning.
+    string message = 6;
+    // An array of reference Ids that identify the specific response elements most closely associated to the error or warning, if any.
+    repeated string outputRefIds = 7;
+    // An array of warning and error messages that return one or more variables contextual information about the error or warning. This is often the field or value that triggered the error or warning.
+    repeated ErrorParameter parameters = 8;
+    // The name of the subdomain in which the error or warning occurred.
+    string subdomain = 9;
+}
+
+message ErrorParameter {
+    // This is the name of input field that caused an issue with the call request.
+    string name = 1;
+    // This is the actual value that was passed in for the element specified in the name field.
+    string value = 2;
+}
+
+message Image {
+    // Reserved for future use.
+    int32 height = 1;
+    // A string that is the URL of the image.
+    string imageUrl = 2;
+    // Reserved for future use.
+    int32 width = 3;
+}
+
+message MarketPriceDetail {
+    // The name for the condition of the product. For example: NEW
+    string conditionGroup = 1;
+    // An array of condition identifiers for the product.
+    repeated string conditionIds = 2;
+    Amount estimatedStartPrice = 3;
+}
+
+message MerchandisedProduct {
+    // The average rating for the product based on eBay user ratings.
+    string averageRating = 1;
+    // The eBay product identifier of a product from the eBay product catalog. You can use this value in the Browse API search call to retrieve items for this product.
+    string epid = 2;
+    Image image = 3;
+    // An array of containers for the product market price details, such as condition and market price.
+    repeated MarketPriceDetail marketPriceDetails = 4;
+    // An array of containers for ratings of the product aspects, such as &quot;Is it a good value&quot;.
+    repeated RatingAspect ratingAspects = 5;
+    // The total number of eBay users that rated the product.
+    int32 ratingCount = 6;
+    // The total number of eBay users that wrote a review for the product.
+    int32 reviewCount = 7;
+    // The title of the product.
+    string title = 8;
+}
+
+message RatingAspect {
+    // The number of eBay users that rated the product on this aspect.
+    int32 count = 1;
+    // The name of the rating aspect. Camping tent examples: Is it lightweight? or Is it easy to set up?
+    string description = 2;
+    // The answer or value of the rating aspect. Camping tent examples: Lightweight or Easy to set up
+    string name = 3;
+    // The container for the details of the aspect rating. The details show the aspect rating value, usually TRUE or FALSE and the user count and percentage.
+    repeated RatingAspectDistribution ratingAspectDistributions = 4;
+}
+
+message RatingAspectDistribution {
+    // The number of eBay users that choose this rating aspect value.
+    int32 count = 1;
+    // The percentage of the aspect rating value. ratingAspectDistributions.percentage = ratingAspectDistributions.count / ratingAspects.count
+    string percentage = 2;
+    // The rating aspect. For example: TRUE or FALSE
+    string value = 3;
+}
+
+service BuyMarketingService {
+    // Returns an array of products based on the category and metric specified.
+    // 
+    // This call returns an array of products based on the category and metric specified. This includes details of the product, such as the eBay product ID (EPID), title, and user reviews and ratings for the product. You can use the epid returned by this call in the Browse API search call to retrieve items for this product. Restrictions For a list of supported sites and other restrictions, see API Restrictions.
+    rpc GetMerchandised_product(GetMerchandised_productRequest) returns (BestSellingProductResponse) {
+      option (google.api.http) = {
+        get: "/buy/marketing/v1_beta/merchandised_product"
+      };
+    }
+}

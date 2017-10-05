@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package urlshortener;
+
+message GetUrlRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Additional information to return.
+    enum GetUrlRequest_Projection {
+        GETURLREQUEST_PROJECTION_ANALYTICS_CLICKS = 0;
+        GETURLREQUEST_PROJECTION_ANALYTICS_TOP_STRINGS = 1;
+        GETURLREQUEST_PROJECTION_FULL = 2;
+    }
+    GetUrlRequest_Projection projection = 6;
+    string quotaUser = 7;
+    // The short URL, including the protocol.
+    string shortUrl = 8;
+    string userIp = 9;
+}
+
+message PostUrlRequest {
+    alt alt = 1;
+    Url body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetUrlHistoryRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Additional information to return.
+    enum GetUrlHistoryRequest_Projection {
+        GETURLHISTORYREQUEST_PROJECTION_ANALYTICS_CLICKS = 0;
+        GETURLHISTORYREQUEST_PROJECTION_FULL = 1;
+    }
+    GetUrlHistoryRequest_Projection projection = 6;
+    string quotaUser = 7;
+    // Token for requesting successive pages of results.
+    string start_token = 8;
+    string userIp = 9;
+}
+
+message AnalyticsSnapshot {
+    // Top browsers, e.g. "Chrome"; sorted by (descending) click counts. Only present if this data is available.
+    repeated StringCount browsers = 1;
+    // Top countries (expressed as country codes), e.g. "US" or "DE"; sorted by (descending) click counts. Only present if this data is available.
+    repeated StringCount countries = 2;
+    // Number of clicks on all goo.gl short URLs pointing to this long URL.
+    string longUrlClicks = 3;
+    // Top platforms or OSes, e.g. "Windows"; sorted by (descending) click counts. Only present if this data is available.
+    repeated StringCount platforms = 4;
+    // Top referring hosts, e.g. "www.google.com"; sorted by (descending) click counts. Only present if this data is available.
+    repeated StringCount referrers = 5;
+    // Number of clicks on this short URL.
+    string shortUrlClicks = 6;
+}
+
+message AnalyticsSummary {
+    // Click analytics over all time.
+    AnalyticsSnapshot allTime = 1;
+    // Click analytics over the last day.
+    AnalyticsSnapshot day = 2;
+    // Click analytics over the last month.
+    AnalyticsSnapshot month = 3;
+    // Click analytics over the last two hours.
+    AnalyticsSnapshot twoHours = 4;
+    // Click analytics over the last week.
+    AnalyticsSnapshot week = 5;
+}
+
+message StringCount {
+    // Number of clicks for this top entry, e.g. for this particular country or browser.
+    string count = 1;
+    // Label assigned to this top entry, e.g. "US" or "Chrome".
+    string id = 2;
+}
+
+message Url {
+    // A summary of the click analytics for the short and long URL. Might not be present if not requested or currently unavailable.
+    AnalyticsSummary analytics = 1;
+    // Time the short URL was created; ISO 8601 representation using the yyyy-MM-dd'T'HH:mm:ss.SSSZZ format, e.g. "2010-10-14T19:01:24.944+00:00".
+    string created = 2;
+    // Short URL, e.g. "http://goo.gl/l6MS".
+    string id = 3;
+    // The fixed string "urlshortener#url".
+    string kind = 4;
+    // Long URL, e.g. "http://www.google.com/". Might not be present if the status is "REMOVED".
+    string longUrl = 5;
+    // Status of the target URL. Possible values: "OK", "MALWARE", "PHISHING", or "REMOVED". A URL might be marked "REMOVED" if it was flagged as spam, for example.
+    string status = 6;
+}
+
+message UrlHistory {
+    // A list of URL resources.
+    repeated Url items = 1;
+    // Number of items returned with each full "page" of results. Note that the last page could have fewer items than the "itemsPerPage" value.
+    int32 itemsPerPage = 2;
+    // The fixed string "urlshortener#urlHistory".
+    string kind = 3;
+    // A token to provide to get the next page of results.
+    string nextPageToken = 4;
+    // Total number of short URLs associated with this user (may be approximate).
+    int32 totalItems = 5;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service URLShortenerService {
+    // Expands a short URL or gets creation time and analytics.
+    rpc GetUrl(GetUrlRequest) returns (Url) {
+      option (google.api.http) = {
+        get: "/urlshortener/v1/url"
+      };
+    }
+    // Creates a new short URL.
+    rpc PostUrl(PostUrlRequest) returns (Url) {
+      option (google.api.http) = {
+        post: "/urlshortener/v1/url"
+        body: "body"
+      };
+    }
+    // Retrieves a list of URLs shortened by a user.
+    rpc GetUrlHistory(GetUrlHistoryRequest) returns (UrlHistory) {
+      option (google.api.http) = {
+        get: "/urlshortener/v1/url/history"
+      };
+    }
+}

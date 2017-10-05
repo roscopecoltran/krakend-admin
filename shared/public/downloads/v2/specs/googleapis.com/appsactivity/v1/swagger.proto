@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package gsuiteactivity;
+
+message GetActivitiesRequest {
+    alt alt = 1;
+    // Identifies the Drive folder containing the items for which to return activities.
+    string drive.ancestorId = 2;
+    // Identifies the Drive item to return activities for.
+    string drive.fileId = 3;
+    string fields = 4;
+    // Indicates the strategy to use when grouping singleEvents items in the associated combinedEvent object.
+    enum GetActivitiesRequest_GroupingStrategy {
+        GETACTIVITIESREQUEST_GROUPINGSTRATEGY_DRIVEUI = 0;
+        GETACTIVITIESREQUEST_GROUPINGSTRATEGY_NONE = 1;
+    }
+    GetActivitiesRequest_GroupingStrategy groupingStrategy = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // The maximum number of events to return on a page. The response includes a continuation token if there are more events.
+    int32 pageSize = 8;
+    // A token to retrieve a specific page of results.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // The Google service from which to return activities. Possible values of source are: 
+    // - drive.google.com
+    string source = 12;
+    // Indicates the user to return activity for. Use the special value me to indicate the currently authenticated user.
+    string userId = 13;
+    string userIp = 14;
+}
+
+message Activity {
+    // The fields common to all of the singleEvents that make up the Activity.
+    Event combinedEvent = 1;
+    // A list of all the Events that make up the Activity.
+    repeated Event singleEvents = 2;
+}
+
+message Event {
+    // Additional event types. Some events may have multiple types when multiple actions are part of a single event. For example, creating a document, renaming it, and sharing it may be part of a single file-creation event.
+    repeated string additionalEventTypes = 1;
+    // The time at which the event occurred formatted as Unix time in milliseconds.
+    string eventTimeMillis = 2;
+    // Whether this event is caused by a user being deleted.
+    bool fromUserDeletion = 3;
+    // Extra information for move type events, such as changes in an object's parents.
+    Move move = 4;
+    // Extra information for permissionChange type events, such as the user or group the new permission applies to.
+    repeated PermissionChange permissionChanges = 5;
+    // The main type of event that occurred.
+    enum Event_PrimaryEventType {
+        EVENT_PRIMARYEVENTTYPE_COMMENT = 0;
+        EVENT_PRIMARYEVENTTYPE_CREATE = 1;
+        EVENT_PRIMARYEVENTTYPE_EDIT = 2;
+        EVENT_PRIMARYEVENTTYPE_EMPTYTRASH = 3;
+        EVENT_PRIMARYEVENTTYPE_MOVE = 4;
+        EVENT_PRIMARYEVENTTYPE_PERMISSIONCHANGE = 5;
+        EVENT_PRIMARYEVENTTYPE_RENAME = 6;
+        EVENT_PRIMARYEVENTTYPE_TRASH = 7;
+        EVENT_PRIMARYEVENTTYPE_UNKNOWN = 8;
+        EVENT_PRIMARYEVENTTYPE_UNTRASH = 9;
+        EVENT_PRIMARYEVENTTYPE_UPLOAD = 10;
+    }
+    Event_PrimaryEventType primaryEventType = 6;
+    // Extra information for rename type events, such as the old and new names.
+    Rename rename = 7;
+    // Information specific to the Target object modified by the event.
+    Target target = 8;
+    // Represents the user responsible for the event.
+    User user = 9;
+}
+
+message ListActivitiesResponse {
+    // List of activities.
+    repeated Activity activities = 1;
+    // Token for the next page of results.
+    string nextPageToken = 2;
+}
+
+message Move {
+    // The added parent(s).
+    repeated Parent addedParents = 1;
+    // The removed parent(s).
+    repeated Parent removedParents = 2;
+}
+
+message Parent {
+    // The parent's ID.
+    string id = 1;
+    // Whether this is the root folder.
+    bool isRoot = 2;
+    // The parent's title.
+    string title = 3;
+}
+
+message Permission {
+    // The name of the user or group the permission applies to.
+    string name = 1;
+    // The ID for this permission. Corresponds to the Drive API's permission ID returned as part of the Drive Permissions resource.
+    string permissionId = 2;
+    // Indicates the Google Drive permissions role. The role determines a user's ability to read, write, or comment on the file.
+    enum Permission_Role {
+        PERMISSION_ROLE_COMMENTER = 0;
+        PERMISSION_ROLE_OWNER = 1;
+        PERMISSION_ROLE_READER = 2;
+        PERMISSION_ROLE_WRITER = 3;
+    }
+    Permission_Role role = 3;
+    // Indicates how widely permissions are granted.
+    enum Permission_Type {
+        PERMISSION_TYPE_ANYONE = 0;
+        PERMISSION_TYPE_DOMAIN = 1;
+        PERMISSION_TYPE_GROUP = 2;
+        PERMISSION_TYPE_USER = 3;
+    }
+    Permission_Type type = 4;
+    // The user's information if the type is USER.
+    User user = 5;
+    // Whether the permission requires a link to the file.
+    bool withLink = 6;
+}
+
+message PermissionChange {
+    // Lists all Permission objects added.
+    repeated Permission addedPermissions = 1;
+    // Lists all Permission objects removed.
+    repeated Permission removedPermissions = 2;
+}
+
+message Photo {
+    // The URL of the photo.
+    string url = 1;
+}
+
+message Rename {
+    // The new title.
+    string newTitle = 1;
+    // The old title.
+    string oldTitle = 2;
+}
+
+message Target {
+    // The ID of the target. For example, in Google Drive, this is the file or folder ID.
+    string id = 1;
+    // The MIME type of the target.
+    string mimeType = 2;
+    // The name of the target. For example, in Google Drive, this is the title of the file.
+    string name = 3;
+}
+
+message User {
+    // A boolean which indicates whether the specified User was deleted. If true, name, photo and permission_id will be omitted.
+    bool isDeleted = 1;
+    // Whether the user is the authenticated user.
+    bool isMe = 2;
+    // The displayable name of the user.
+    string name = 3;
+    // The permission ID associated with this user. Equivalent to the Drive API's permission ID for this user, returned as part of the Drive Permissions resource.
+    string permissionId = 4;
+    // The profile photo of the user. Not present if the user has no profile photo.
+    Photo photo = 5;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GSuiteActivityService {
+    // Returns a list of activities visible to the current logged in user. Visible activities are determined by the visiblity settings of the object that was acted on, e.g. Drive files a user can see. An activity is a record of past events. Multiple events may be merged if they are similar. A request is scoped to activities from a given Google service using the source parameter.
+    rpc GetActivities(GetActivitiesRequest) returns (ListActivitiesResponse) {
+      option (google.api.http) = {
+        get: "/appsactivity/v1/activities"
+      };
+    }
+}

@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package rss2jsonapis;
+
+message GetRomeRss2jsonRequest {
+    // Access Token
+    string access_token = 1;
+    // RSS
+    string rss = 2;
+}
+
+message SyndEntryEntity {
+    // Author
+    string author = 1;
+    // Description
+    string description = 2;
+    // Link
+    string link = 3;
+    // Published Date
+    int64 pubDate = 4;
+    // Title
+    string title = 5;
+}
+
+message SyndFeedResponseEntity {
+    // Author
+    string author = 1;
+    // Description
+    string description = 2;
+    // End date
+    string endTime = 3;
+    // Entries
+    repeated SyndEntryEntity entries = 4;
+    // Link
+    string link = 5;
+    // Log message
+    string log = 6;
+    // Num
+    int32 num = 7;
+    // Process time [millisecond]
+    string processTime = 8;
+    // Published Date
+    int64 pubDate = 9;
+    // Input RSS
+    string rss = 10;
+    // Start date
+    string startTime = 11;
+    // Title
+    string title = 12;
+}
+
+service RSS2JSONAPIsService {
+    // RSS to JSON
+    // 
+    // RSS to Json.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/rome-response">rome-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.rome.SyndFeedResponseEntity<BR />
+    rpc GetRomeRss2json(GetRomeRss2jsonRequest) returns (SyndFeedResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/28/rome/rss2json"
+      };
+    }
+}

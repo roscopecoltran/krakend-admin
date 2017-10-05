@@ -1,0 +1,355 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package googlecloudspeech;
+
+message GetV1beta1OperationsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // The standard list filter.
+    string filter = 7;
+    string key = 8;
+    // The name of the operation's parent resource.
+    string name = 9;
+    string oauth_token = 10;
+    // The standard list page size.
+    int32 pageSize = 11;
+    // The standard list page token.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message GetV1beta1OperationsNameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the operation resource.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message DeleteV1beta1OperationsNameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the operation resource to be deleted.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1beta1OperationsName:CancelRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the operation resource to be cancelled.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1beta1Speech:AsyncrecognizeRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    AsyncRecognizeRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1beta1Speech:SyncrecognizeRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    SyncRecognizeRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AsyncRecognizeRequest {
+    // *Required* The audio data to be recognized.
+    RecognitionAudio audio = 1;
+    // *Required* Provides information to the recognizer that specifies how to
+    // process the request.
+    RecognitionConfig config = 2;
+}
+
+message Empty {
+}
+
+message ListOperationsResponse {
+    // The standard List next-page token.
+    string nextPageToken = 1;
+    // A list of operations that matches the specified filter in the request.
+    repeated Operation operations = 2;
+}
+
+message Operation {
+    // If the value is `false`, it means the operation is still in progress.
+    // If `true`, the operation is completed, and either `error` or `response` is
+    // available.
+    bool done = 1;
+    // The error result of the operation in case of failure or cancellation.
+    Status error = 2;
+    // Service-specific metadata associated with the operation.  It typically
+    // contains progress information and common metadata such as create time.
+    // Some services might not provide such metadata.  Any method that returns a
+    // long-running operation should document the metadata type, if any.
+    map<string, > metadata = 3;
+    // The server-assigned name, which is only unique within the same service that
+    // originally returns it. If you use the default HTTP mapping, the
+    // `name` should have the format of `operations/some/unique/name`.
+    string name = 4;
+    // The normal response of the operation in case of success.  If the original
+    // method returns no data on success, such as `Delete`, the response is
+    // `google.protobuf.Empty`.  If the original method is standard
+    // `Get`/`Create`/`Update`, the response should be the resource.  For other
+    // methods, the response should have the type `XxxResponse`, where `Xxx`
+    // is the original method name.  For example, if the original method name
+    // is `TakeSnapshot()`, the inferred response type is
+    // `TakeSnapshotResponse`.
+    map<string, > response = 5;
+}
+
+message RecognitionAudio {
+    // The audio data bytes encoded as specified in
+    // `RecognitionConfig`. Note: as with all bytes fields, protobuffers use a
+    // pure binary representation, whereas JSON representations use base64.
+    string content = 1;
+    // URI that points to a file that contains audio data bytes as specified in
+    // `RecognitionConfig`. Currently, only Google Cloud Storage URIs are
+    // supported, which must be specified in the following format:
+    // `gs://bucket_name/object_name` (other URI formats return
+    // google.rpc.Code.INVALID_ARGUMENT). For more information, see
+    // [Request URIs](https://cloud.google.com/storage/docs/reference-uris).
+    string uri = 2;
+}
+
+message RecognitionConfig {
+    // *Required* Encoding of audio data sent in all `RecognitionAudio` messages.
+    enum RecognitionConfig_Encoding {
+        RECOGNITIONCONFIG_ENCODING_ENCODING_UNSPECIFIED = 0;
+        RECOGNITIONCONFIG_ENCODING_LINEAR16 = 1;
+        RECOGNITIONCONFIG_ENCODING_FLAC = 2;
+        RECOGNITIONCONFIG_ENCODING_MULAW = 3;
+        RECOGNITIONCONFIG_ENCODING_AMR = 4;
+        RECOGNITIONCONFIG_ENCODING_AMR_WB = 5;
+    }
+    RecognitionConfig_Encoding encoding = 1;
+    // *Optional* The language of the supplied audio as a BCP-47 language tag.
+    // Example: "en-GB"  https://www.rfc-editor.org/rfc/bcp/bcp47.txt
+    // If omitted, defaults to "en-US". See
+    // [Language Support](https://cloud.google.com/speech/docs/languages)
+    // for a list of the currently supported language codes.
+    string languageCode = 2;
+    // *Optional* Maximum number of recognition hypotheses to be returned.
+    // Specifically, the maximum number of `SpeechRecognitionAlternative` messages
+    // within each `SpeechRecognitionResult`.
+    // The server may return fewer than `max_alternatives`.
+    // Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of
+    // one. If omitted, will return a maximum of one.
+    int32 maxAlternatives = 3;
+    // *Optional* If set to `true`, the server will attempt to filter out
+    // profanities, replacing all but the initial character in each filtered word
+    // with asterisks, e.g. "f***". If set to `false` or omitted, profanities
+    // won't be filtered out.
+    bool profanityFilter = 4;
+    // *Required* Sample rate in Hertz of the audio data sent in all
+    // `RecognitionAudio` messages. Valid values are: 8000-48000.
+    // 16000 is optimal. For best results, set the sampling rate of the audio
+    // source to 16000 Hz. If that's not possible, use the native sample rate of
+    // the audio source (instead of re-sampling).
+    int32 sampleRate = 5;
+    // *Optional* A means to provide context to assist the speech recognition.
+    SpeechContext speechContext = 6;
+}
+
+message SpeechContext {
+    // *Optional* A list of strings containing words and phrases "hints" so that
+    // the speech recognition is more likely to recognize them. This can be used
+    // to improve the accuracy for specific words and phrases, for example, if
+    // specific commands are typically spoken by the user. This can also be used
+    // to add additional words to the vocabulary of the recognizer. See
+    // [usage limits](https://cloud.google.com/speech/limits#content).
+    repeated string phrases = 1;
+}
+
+message SpeechRecognitionAlternative {
+    // *Output-only* The confidence estimate between 0.0 and 1.0. A higher number
+    // indicates an estimated greater likelihood that the recognized words are
+    // correct. This field is typically provided only for the top hypothesis, and
+    // only for `is_final=true` results. Clients should not rely on the
+    // `confidence` field as it is not guaranteed to be accurate, or even set, in
+    // any of the results.
+    // The default of 0.0 is a sentinel value indicating `confidence` was not set.
+    float confidence = 1;
+    // *Output-only* Transcript text representing the words that the user spoke.
+    string transcript = 2;
+}
+
+message SpeechRecognitionResult {
+    // *Output-only* May contain one or more recognition hypotheses (up to the
+    // maximum specified in `max_alternatives`).
+    repeated SpeechRecognitionAlternative alternatives = 1;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+message SyncRecognizeRequest {
+    // *Required* The audio data to be recognized.
+    RecognitionAudio audio = 1;
+    // *Required* Provides information to the recognizer that specifies how to
+    // process the request.
+    RecognitionConfig config = 2;
+}
+
+message SyncRecognizeResponse {
+    // *Output-only* Sequential list of transcription results corresponding to
+    // sequential portions of audio.
+    repeated SpeechRecognitionResult results = 1;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudSpeechService {
+    // Lists operations that match the specified filter in the request. If the
+    // server doesn't support this method, it returns `UNIMPLEMENTED`.
+    // 
+    // NOTE: the `name` binding allows API services to override the binding
+    // to use different resource name schemes, such as `users/*/operations`. To
+    // override the binding, API services can add a binding such as
+    // `"/v1/{name=users/*}/operations"` to their service configuration.
+    // For backwards compatibility, the default name includes the operations
+    // collection id, however overriding users must ensure the name binding
+    // is the parent resource, without the operations collection id.
+    rpc GetV1beta1Operations(GetV1beta1OperationsRequest) returns (ListOperationsResponse) {
+      option (google.api.http) = {
+        get: "//v1beta1/operations"
+      };
+    }
+    // Gets the latest state of a long-running operation.  Clients can use this
+    // method to poll the operation result at intervals as recommended by the API
+    // service.
+    rpc GetV1beta1OperationsName(GetV1beta1OperationsNameRequest) returns (Operation) {
+      option (google.api.http) = {
+        get: "//v1beta1/operations/{name}"
+      };
+    }
+    // Deletes a long-running operation. This method indicates that the client is
+    // no longer interested in the operation result. It does not cancel the
+    // operation. If the server doesn't support this method, it returns
+    // `google.rpc.Code.UNIMPLEMENTED`.
+    rpc DeleteV1beta1OperationsName(DeleteV1beta1OperationsNameRequest) returns (Empty) {
+      option (google.api.http) = {
+        delete: "//v1beta1/operations/{name}"
+      };
+    }
+    // Starts asynchronous cancellation on a long-running operation.  The server
+    // makes a best effort to cancel the operation, but success is not
+    // guaranteed.  If the server doesn't support this method, it returns
+    // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+    // Operations.GetOperation or
+    // other methods to check whether the cancellation succeeded or whether the
+    // operation completed despite cancellation. On successful cancellation,
+    // the operation is not deleted; instead, it becomes an operation with
+    // an Operation.error value with a google.rpc.Status.code of 1,
+    // corresponding to `Code.CANCELLED`.
+    rpc PostV1beta1OperationsName:Cancel(PostV1beta1OperationsName:CancelRequest) returns (Empty) {
+      option (google.api.http) = {
+        post: "//v1beta1/operations/{name}:cancel"
+      };
+    }
+    // Performs asynchronous speech recognition: receive results via the
+    // [google.longrunning.Operations]
+    // (/speech/reference/rest/v1beta1/operations#Operation)
+    // interface. Returns either an
+    // `Operation.error` or an `Operation.response` which contains
+    // an `AsyncRecognizeResponse` message.
+    rpc PostV1beta1Speech:Asyncrecognize(PostV1beta1Speech:AsyncrecognizeRequest) returns (Operation) {
+      option (google.api.http) = {
+        post: "//v1beta1/speech:asyncrecognize"
+        body: "body"
+      };
+    }
+    // Performs synchronous speech recognition: receive results after all audio
+    // has been sent and processed.
+    rpc PostV1beta1Speech:Syncrecognize(PostV1beta1Speech:SyncrecognizeRequest) returns (SyncRecognizeResponse) {
+      option (google.api.http) = {
+        post: "//v1beta1/speech:syncrecognize"
+        body: "body"
+      };
+    }
+}

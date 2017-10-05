@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package highperformancebuildingdatabase;
+
+message GetProjectOutput_formatRequest {
+    // City
+    string city = 1;
+    // Response Format
+    enum GetProjectOutput_formatRequest_Output_format {
+        GETPROJECTOUTPUT_FORMATREQUEST_OUTPUT_FORMAT_JSON = 0;
+        GETPROJECTOUTPUT_FORMATREQUEST_OUTPUT_FORMAT_XML = 1;
+    }
+    GetProjectOutput_formatRequest_Output_format output_format = 2;
+    // Page Number
+    int32 page = 3;
+    // Portal ID
+    string portal = 4;
+    // State or Province (ex: 'CO', 'AZ')
+    string province = 5;
+    // Climate Region.  Use integer from mapping (256: '1A: Very Hot - Humid', 257: '1B: Very Hot - Dry', 258: '2A: Hot - Humid', 259: '2B: Hot - Dry', 260: '3A: Warm - Humid', 261: '3B: Warm - Dry', 262: '3C: Warm - Marine', 263: '4A: Mixed - Humid', 264: '4B: Mixed - Dry', 265: '4C: Mixed - Marine', 266: '5A: Cool - Humid', 267: '5B: Cool - Dry', 268: '5C: Cool - Marine', 269: '6A: Cold - Humid', 270: '6B: Cold - Dry', 271: '7: Very Cold', 272: '8: Subarctic')
+    string region = 6;
+    // Search Text
+    string search = 7;
+}
+
+message GetProjectProject_idOutput_formatRequest {
+    // Response Format
+    enum GetProjectProject_idOutput_formatRequest_Output_format {
+        GETPROJECTPROJECT_IDOUTPUT_FORMATREQUEST_OUTPUT_FORMAT_JSON = 0;
+        GETPROJECTPROJECT_IDOUTPUT_FORMATREQUEST_OUTPUT_FORMAT_XML = 1;
+    }
+    GetProjectProject_idOutput_formatRequest_Output_format output_format = 1;
+    // Project ID
+    int32 project_id = 2;
+}
+
+service HighPerformanceBuildingDatabaseService {
+    // A filterable list of projects.
+    rpc GetProjectOutput_format(GetProjectOutput_formatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/building-case-studies/project.{output_format}"
+      };
+    }
+    // Project Details
+    // 
+    // This API allows users to request metadata associated with the specific Document.
+    rpc GetProjectProject_idOutput_format(GetProjectProject_idOutput_formatRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/building-case-studies/project/{project_id}.{output_format}"
+      };
+    }
+}

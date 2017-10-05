@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package sentencepieceapis(tweet);
+
+message GetSentencepieceBpeTweetGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [up to 400 characters]
+    string text = 2;
+}
+
+message SPTokenEntity {
+    // Token
+    string token = 1;
+    // Word ID
+    int64 wid = 2;
+}
+
+message SentencePieceTokenResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Start date
+    string startTime = 4;
+    // SentencePiece Tokens
+    repeated SPTokenEntity tokens = 5;
+}
+
+service SentencePieceAPIs(Tweet)Service {
+    // SentencePiece (bpe)
+    // 
+    // SentencePiece (bpe).<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/sentencepiece-response">sentencepiece-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.sentencepiece.SentencePieceTokenResponseEntity<BR />
+    rpc GetSentencepieceBpeTweetGet(GetSentencepieceBpeTweetGetRequest) returns (SentencePieceTokenResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/38/sentencepiece-bpe-tweet/get"
+      };
+    }
+}

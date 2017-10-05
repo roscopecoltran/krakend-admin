@@ -1,0 +1,359 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package microsoftsecurityupdates;
+
+message GetUpdatesRequest {
+    string api_version = 1;
+}
+
+message GetUpdates'Id'Request {
+    string api_version = 1;
+    string id = 2;
+}
+
+message GetCvrfIdRequest {
+    string api_version = 1;
+    string id = 2;
+}
+
+message UpdatesReturnTypes200 {
+    string @odata.context = 1;
+    // array of files returned
+    message Value {
+        string Alias = 1;
+        string CurrentReleaseDate = 2;
+        string CvrfUrl = 3;
+        string DocumentTitle = 4;
+        string ID = 5;
+        string InitialReleaseData = 6;
+        string Severity = 7;
+    }
+    repeated Value value = 2;
+}
+
+message CvrfReturnTypes200 {
+    message DocumentNote {
+        string Audience = 1;
+        string Ordinal = 2;
+        string Title = 3;
+        int32 Type = 4;
+        string Value = 5;
+    }
+    repeated DocumentNote DocumentNotes = 1;
+    message DocumentPublisher {
+        message ContactDetails {
+            string Value = 1;
+        }
+        ContactDetails ContactDetails = 1;
+        message IssuingAthority {
+            string Value = 1;
+        }
+        IssuingAthority IssuingAthority = 2;
+        int32 Type = 3;
+    }
+    DocumentPublisher DocumentPublisher = 2;
+    message DocumentTitle {
+        string Value = 1;
+    }
+    DocumentTitle DocumentTitle = 3;
+    message DocumentTracking {
+        string CurrentReleaseDate = 1;
+        message Identification {
+            message Alias {
+                string Value = 1;
+            }
+            Alias Alias = 1;
+            message ID {
+                string Value = 1;
+            }
+            ID ID = 2;
+        }
+        Identification Identification = 2;
+        string InitialReleaseDate = 3;
+        message RevisionHistory {
+            string Date = 1;
+            message Description {
+                string Value = 1;
+            }
+            Description Description = 2;
+            string Number = 3;
+        }
+        repeated RevisionHistory RevisionHistory = 4;
+        int32 Status = 5;
+        string Version = 6;
+    }
+    DocumentTracking DocumentTracking = 4;
+    message DocumentType {
+        string Value = 1;
+    }
+    DocumentType DocumentType = 5;
+    message ProductTree {
+        message Branch {
+            message Item {
+                message Item {
+                    string ProductID = 1;
+                    string Value = 2;
+                }
+                repeated Item Items = 1;
+                string Name = 2;
+                int32 Type = 3;
+            }
+            repeated Item Items = 1;
+        }
+        repeated Branch Branch = 1;
+        message FullProductName {
+            string ProductID = 1;
+            string Value = 2;
+        }
+        repeated FullProductName FullProductName = 2;
+    }
+    ProductTree ProductTree = 6;
+    message Vulnerability {
+        message Acknowledgement {
+            message Name {
+                string Value = 1;
+            }
+            repeated Name Name = 1;
+            repeated string URL = 2;
+        }
+        repeated Acknowledgement Acknowledgements = 1;
+        string CVE = 2;
+        message CVSSScoreSet {
+            int32 BaseScore = 1;
+            repeated string ProductID = 2;
+            int32 TemporalScore = 3;
+            string Vector = 4;
+        }
+        repeated CVSSScoreSet CVSSScoreSets = 3;
+        bool DiscoveryDateSpecified = 4;
+        message Note {
+            string Ordinal = 1;
+            string Title = 2;
+            int32 Type = 3;
+            string Value = 4;
+        }
+        repeated Note Notes = 5;
+        string Ordinal = 6;
+        message ProductStatuse {
+            repeated string ProductID = 1;
+            int32 Type = 2;
+        }
+        repeated ProductStatuse ProductStatuses = 7;
+        bool ReleaseDateSpecified = 8;
+        message Remediation {
+            message AffectedFile {
+                string FileArchitecture = 1;
+                string FileLastModified = 2;
+                string FileName = 3;
+                string FilePath = 4;
+                string FileVersion = 5;
+                string ProductId = 6;
+            }
+            repeated AffectedFile AffectedFiles = 1;
+            bool DateSpecified = 2;
+            message Description {
+                string Value = 1;
+            }
+            Description Description = 3;
+            repeated string ProductID = 4;
+            message RestartRequired {
+                string Value = 1;
+            }
+            RestartRequired RestartRequired = 5;
+            string SubType = 6;
+            string Supercedence = 7;
+            int32 Type = 8;
+            string URL = 9;
+        }
+        repeated Remediation Remediations = 9;
+        message RevisionHistory {
+            string Date = 1;
+            message Description {
+                string Value = 1;
+            }
+            Description Description = 2;
+            string Number = 3;
+        }
+        repeated RevisionHistory RevisionHistory = 10;
+        message Threat {
+            bool DateSpecified = 1;
+            message Description {
+                string Value = 1;
+            }
+            Description Description = 2;
+            repeated string ProductID = 3;
+            int32 Type = 4;
+        }
+        repeated Threat Threats = 11;
+        message Title {
+            string Value = 1;
+        }
+        Title Title = 12;
+    }
+    repeated Vulnerability Vulnerability = 7;
+}
+
+message CvrfReturnTypes200_xml {
+    message Cvrfdoc {
+        message DocumentNote {
+                    // has a string in <Note>...</Note>
+    message Note {
+                string Audience = 1;
+                string Ordinal = 2;
+                string Title = 3;
+                string Type = 4;
+            }
+            Note Note = 1;
+        }
+        repeated DocumentNote DocumentNotes = 1;
+        message DocumentPublisher {
+            string ContactDetails = 1;
+            string IssuingAuthority = 2;
+            string Type = 3;
+        }
+        DocumentPublisher DocumentPublisher = 2;
+        string DocumentTitle = 3;
+        message DocumentTracking {
+            string CurrentReleaseDate = 1;
+            message Identification {
+                string Alias = 1;
+                string ID = 2;
+            }
+            Identification Identification = 2;
+            string InitialReleaseDate = 3;
+            message RevisionHistory {
+                message Revision {
+                    string Date = 1;
+                    string Description = 2;
+                    int32 Number = 3;
+                }
+                Revision Revision = 1;
+            }
+            RevisionHistory RevisionHistory = 4;
+            string Status = 5;
+            int32 Version = 6;
+        }
+        DocumentTracking DocumentTracking = 4;
+        string DocumentType = 5;
+        message ProductTree {
+            message Branch {
+                message Branch {
+                    message FullProductName {
+                        string ProductID = 1;
+                    }
+                    repeated FullProductName FullProductName = 1;
+                    string Name = 2;
+                    string Type = 3;
+                }
+                repeated Branch Branch = 1;
+                string Name = 2;
+                string Type = 3;
+            }
+            repeated Branch Branch = 1;
+            message FullProductName {
+                string ProductID = 1;
+            }
+            repeated FullProductName FullProductName = 2;
+        }
+        ProductTree ProductTree = 6;
+        message Vulnerability {
+            message Acknowledgement {
+                string Name = 1;
+                string URL = 2;
+            }
+            repeated Acknowledgement Acknowledgements = 1;
+            string CVE = 2;
+            message CVSSScoreSet {
+                int32 BaseScore = 1;
+                int32 ProductID = 2;
+                int32 TemporalScore = 3;
+                string Vector = 4;
+            }
+            repeated CVSSScoreSet CVSSScoreSets = 3;
+            message Notes {
+                            // has a string in <Note>...</Note>
+    message Note {
+                    string Ordianl = 1;
+                    string Title = 2;
+                    string Type = 3;
+                }
+                Note Note = 1;
+            }
+            Notes Notes = 4;
+            string Ordinal = 5;
+            message ProductStatuse {
+                string ProductID = 1;
+                string Type = 2;
+            }
+            repeated ProductStatuse ProductStatuses = 6;
+            message Remediation {
+                message AffectedFile {
+                    string FileArchitecture = 1;
+                    string FileLastModified = 2;
+                    string FileName = 3;
+                    string FilePath = 4;
+                    string FileVersion = 5;
+                    string ProductId = 6;
+                }
+                repeated AffectedFile AffectedFiles = 1;
+                int32 Description = 2;
+                repeated string ProductID = 3;
+                string RestartRequired = 4;
+                string SubType = 5;
+                string Supercedence = 6;
+                string Type = 7;
+                string URL = 8;
+            }
+            repeated Remediation Remediations = 7;
+            message RevisionHistory {
+                string Date = 1;
+                string Description = 2;
+                int32 Number = 3;
+            }
+            repeated RevisionHistory RevisionHistory = 8;
+            message Threat {
+                message Threat {
+                    string Description = 1;
+                    string ProductID = 2;
+                    string Type = 3;
+                }
+                Threat Threat = 1;
+            }
+            repeated Threat Threats = 9;
+            string Title = 10;
+        }
+        Vulnerability Vulnerability = 7;
+    }
+    Cvrfdoc cvrfdoc = 1;
+}
+
+service MicrosoftSecurityUpdatesService {
+    // Get all updates with a link to the CVRF document
+    rpc GetUpdates(GetUpdatesRequest) returns (UpdatesReturnTypes200) {
+      option (google.api.http) = {
+        get: "/Updates"
+      };
+    }
+    // Get updates with a link to the CVRF document for a particular ID.
+    // 
+    // ID can be:
+    // 
+    //   * Update ID (ie: 2016-Aug)
+    //   * Vulnerability ID (ie: CVE-2016-0128)
+    //   * Year (ie: 2016)
+    rpc GetUpdates'Id'(GetUpdates'Id'Request) returns (UpdatesReturnTypes200) {
+      option (google.api.http) = {
+        get: "/Updates('{id}')"
+      };
+    }
+    // Gets a CVRF document by ID (ie: 2016-Aug)
+    // 
+    // Note: to view the correct XML response, please change *$ref: '#/definitions/cvrfReturnTypes200'* to *$ref: '#/definitions/cvrfReturnTypes200_xml'* in the swagger.json or swagger.yaml file
+    rpc GetCvrfId(GetCvrfIdRequest) returns (CvrfReturnTypes200) {
+      option (google.api.http) = {
+        get: "/cvrf/{id}"
+      };
+    }
+}

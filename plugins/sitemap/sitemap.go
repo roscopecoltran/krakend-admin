@@ -21,7 +21,7 @@ import (
 	//	"net/url"
 	//	"strconv"
 	//	"strings"
-	"github.com/roscopecoltran/krakend-admin/sitemap/netrule"
+	"github.com/roscopecoltran/krakend-admin/plugins/sitemap/netrule"
 	"github.com/roscopecoltran/krakend-admin/utils"
 	//"time"
 	//"io/ioutil"

@@ -1,0 +1,316 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package sandbox;
+
+message Get1ActivitySearchRequest {
+    // Flag to return all types of activity, defaults to just Requests
+    bool allTypes = 1;
+    // Timestamp to start search from, epoch time in milliseconds.
+    int64 fromTimestamp = 2;
+    // A keyword to search activities by, will match any part of the ActivityMessage.
+    string keyword = 3;
+    // Maximum number of results to return
+    int32 maxResults = 4;
+    // Comma-separated list of Sandbox names to search.
+    string sourceSandboxes = 5;
+}
+
+message Get1ActivitySearchResponse {
+    repeated ActivityMessage items = 1;
+}
+
+message Get1SandboxesRequest {
+    string filterType = 1;
+}
+
+message Get1SandboxesResponse {
+    repeated Sandbox items = 1;
+}
+
+message Post1SandboxesRequest {
+    // Sandbox to be created
+    CreateSandbox body = 1;
+}
+
+message Get1SandboxesSandboxNameRequest {
+    // Name of the Sandbox
+    string sandboxName = 1;
+}
+
+message Put1SandboxesSandboxNameRequest {
+    // Fields to updated on given Sandbox
+    Sandbox body = 1;
+    // Name of the Sandbox
+    string sandboxName = 2;
+}
+
+message Delete1SandboxesSandboxNameRequest {
+    // Name of the Sandbox
+    string sandboxName = 1;
+}
+
+message Get1SandboxesSandboxNameForkRequest {
+    // Name of the Sandbox
+    string sandboxName = 1;
+}
+
+message Get1SandboxesSandboxNameStateRequest {
+    // Name of the Sandbox
+    string sandboxName = 1;
+}
+
+message Delete1SandboxesSandboxNameStateRequest {
+    // Name of the Sandbox
+    string sandboxName = 1;
+}
+
+message ActivityMessage {
+    // Epoch time in milliseconds when the message was created
+    int64 createdTimestamp = 1;
+    // The details of the message when type is 'log'
+    string message = 2;
+    // The details of the message when type is 'request'
+    RuntimeTransaction messageObject = 3;
+    enum ActivityMessage_MessageType {
+        ACTIVITYMESSAGE_MESSAGETYPE_REQUEST = 0;
+        ACTIVITYMESSAGE_MESSAGETYPE_LOG = 1;
+    }
+    ActivityMessage_MessageType messageType = 4;
+    // The ID of the sandbox that generated this message
+    string sandboxId = 5;
+}
+
+message ConfiguredRouteDetails {
+    // Whether error overrides are enabled or not.
+    bool activeErrorOverride = 1;
+    // Whether latency delays are enabled or not.
+    bool activeLatency = 2;
+    // A delay in milliseconds applied to requests at a 'normal' level.
+    int32 defaultLatency = 3;
+    // The type of error override applied to this route.
+    enum ConfiguredRouteDetails_ErrorOverrideType {
+        CONFIGUREDROUTEDETAILS_ERROROVERRIDETYPE_NONE = 0;
+        CONFIGUREDROUTEDETAILS_ERROROVERRIDETYPE_TIMEOUT = 1;
+        CONFIGUREDROUTEDETAILS_ERROROVERRIDETYPE_SERVICE_DOWN = 2;
+    }
+    ConfiguredRouteDetails_ErrorOverrideType errorOverrideType = 4;
+    // A delay in milliseconds applied to requests at a 'high' level.
+    int32 loadLatency = 5;
+    // The threshold in transactions/second to signify 'high' load
+    int32 loadThreshold = 6;
+    string method = 7;
+    string path = 8;
+    map<string, string> properties = 9;
+    RouteConfig routeConfig = 10;
+    string transport = 11;
+}
+
+message CreateSandbox {
+    // Whether to commit the example Sandbox definition upon creation.
+    bool commitBaseTemplate = 1;
+    // Text describing this Sandbox.
+    string description = 2;
+    // Optional name to give the Sandbox, will be generated if omitted.
+    string name = 3;
+    // Name of the team this Sandbox should be created under.
+    string ownerOrganisationName = 4;
+    // Name of the Sandbox this should be created under, if exists will be a 'clone'.
+    string parentSandboxName = 5;
+    enum CreateSandbox_TransportType {
+        CREATESANDBOX_TRANSPORTTYPE_HTTP = 0;
+        CREATESANDBOX_TRANSPORTTYPE_JMS = 1;
+    }
+    CreateSandbox_TransportType transportType = 6;
+}
+
+message Error {
+    string code = 1;
+    // Longer message describing the error.
+    string detailedMessage = 2;
+    // Message describing which field the error relates to.
+    string field = 3;
+    // Short message describing the error.
+    string message = 4;
+}
+
+message RouteConfig {
+    enum RouteConfig_ErrorStrategy {
+        ROUTECONFIG_ERRORSTRATEGY_NONE = 0;
+        ROUTECONFIG_ERRORSTRATEGY_TIMEOUT = 1;
+        ROUTECONFIG_ERRORSTRATEGY_SERVICE_DOWN = 2;
+    }
+    RouteConfig_ErrorStrategy errorStrategy = 1;
+    int32 latencyMs = 2;
+    int32 latencyMultiplier = 3;
+    enum RouteConfig_LatencyType {
+        ROUTECONFIG_LATENCYTYPE_NONE = 0;
+        ROUTECONFIG_LATENCYTYPE_CONSTANT = 1;
+        ROUTECONFIG_LATENCYTYPE_LINEAR = 2;
+    }
+    RouteConfig_LatencyType latencyType = 4;
+    string method = 5;
+    string path = 6;
+}
+
+message RuntimeRequest {
+    // The body of the given request.
+    string body = 1;
+    // The content type of the body, for example 'application/json'.
+    string contentType = 2;
+    // The parent ID of the Sandbox that received the request.
+    string fullSandboxId = 3;
+    // The parent name of the Sandbox that received the request.
+    string fullSandboxName = 4;
+    // Transport headers for the given request.
+    map<string, string> headers = 5;
+    // The requestor IP address.
+    string ip = 6;
+    map<string, string> properties = 7;
+    // The epoch time in milliseconds when the request was received.
+    int64 receivedTimestamp = 8;
+    // The ID of the Sandbox that received the request.
+    string sandboxId = 9;
+    // The name of the Sandbox that received the request.
+    string sandboxName = 10;
+    // Which transport the request was for, 'HTTP' or 'JMS'.
+    string transport = 11;
+}
+
+message RuntimeResponse {
+    // The body of the given response.
+    string body = 1;
+    // Duration in milliseconds of the processing time in Sandbox.
+    int64 durationMillis = 2;
+    // Error if there is a problem during Sandbox execution.
+    Error error = 3;
+    // Transport headers for the given response.
+    map<string, string> headers = 4;
+    // The epoch time in milliseconds when the response was sent.
+    int64 respondedTimestamp = 5;
+    // Which transport the request was for, 'HTTP' or 'JMS'.
+    string transport = 6;
+}
+
+message RuntimeTransaction {
+    RuntimeRequest request = 1;
+    repeated RuntimeResponse responses = 2;
+    // The source sandbox name.
+    string sandboxName = 3;
+}
+
+message Sandbox {
+    // The import source of this Sandbox.
+    enum Sandbox_ApiDefinition {
+        SANDBOX_APIDEFINITION_NONE = 0;
+        SANDBOX_APIDEFINITION_APIARY = 1;
+        SANDBOX_APIDEFINITION_SWAGGER_V2_JSON = 2;
+        SANDBOX_APIDEFINITION_RAML_V08 = 3;
+        SANDBOX_APIDEFINITION_WSDL = 4;
+    }
+    Sandbox_ApiDefinition apiDefinition = 1;
+    // Clones of this Sandbox.
+    repeated Sandbox childSandboxes = 2;
+    // Extra configuration applied to some routes, delays, overrides etc.
+    repeated ConfiguredRouteDetails configuredRoutes = 3;
+    string description = 4;
+    string gitAccessToken = 5;
+    // The git clone URL.
+    string gitUrl = 6;
+    // Whether this Sandbox has a git repository or not.
+    bool hasRepository = 7;
+    // The ID of the Sandbox.
+    string id = 8;
+    // The list of IPs allowed to make requests, all allowed if omitted.
+    repeated string ipWhitelist = 9;
+    string name = 10;
+    // If the Sandbox is a clone, which is it a clone of.
+    Sandbox parentSandbox = 11;
+    map<string, object> properties = 12;
+    // The listener status.
+    enum Sandbox_ProxyStatu {
+        SANDBOX_PROXYSTATU_STARTED = 0;
+        SANDBOX_PROXYSTATU_STOPPED = 1;
+    }
+    Sandbox_ProxyStatu proxyStatus = 13;
+    // The library version of this Sandbox.
+    enum Sandbox_RuntimeVersion {
+        SANDBOX_RUNTIMEVERSION_VERSION_1 = 0;
+        SANDBOX_RUNTIMEVERSION_VERSION_2 = 1;
+    }
+    Sandbox_RuntimeVersion runtimeVersion = 14;
+    // The request URL for this Sandbox.
+    string sandboxUrl = 15;
+    enum Sandbox_StackType {
+        SANDBOX_STACKTYPE_JAVASCRIPT = 0;
+    }
+    Sandbox_StackType stackType = 16;
+    // The listener transport.
+    enum Sandbox_TransportType {
+        SANDBOX_TRANSPORTTYPE_HTTP = 0;
+        SANDBOX_TRANSPORTTYPE_JMS = 1;
+    }
+    Sandbox_TransportType transportType = 17;
+}
+
+service SandboxService {
+    // searchActivity
+    rpc Get1ActivitySearch(Get1ActivitySearchRequest) returns (Get1ActivitySearchResponse) {
+      option (google.api.http) = {
+        get: "/api//1/activity/search"
+      };
+    }
+    // getSandboxes
+    rpc Get1Sandboxes(Get1SandboxesRequest) returns (Get1SandboxesResponse) {
+      option (google.api.http) = {
+        get: "/api//1/sandboxes"
+      };
+    }
+    // createSandbox
+    rpc Post1Sandboxes(Post1SandboxesRequest) returns (Sandbox) {
+      option (google.api.http) = {
+        post: "/api//1/sandboxes"
+        body: "body"
+      };
+    }
+    // getSandbox
+    rpc Get1SandboxesSandboxName(Get1SandboxesSandboxNameRequest) returns (Sandbox) {
+      option (google.api.http) = {
+        get: "/api//1/sandboxes/{sandboxName}"
+      };
+    }
+    // updateSandbox
+    rpc Put1SandboxesSandboxName(Put1SandboxesSandboxNameRequest) returns (Sandbox) {
+      option (google.api.http) = {
+        put: "/api//1/sandboxes/{sandboxName}"
+        body: "body"
+      };
+    }
+    // deleteSandbox
+    rpc Delete1SandboxesSandboxName(Delete1SandboxesSandboxNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api//1/sandboxes/{sandboxName}"
+      };
+    }
+    // forkSandbox
+    rpc Get1SandboxesSandboxNameFork(Get1SandboxesSandboxNameForkRequest) returns (Sandbox) {
+      option (google.api.http) = {
+        get: "/api//1/sandboxes/{sandboxName}/fork"
+      };
+    }
+    // getSandboxState
+    rpc Get1SandboxesSandboxNameState(Get1SandboxesSandboxNameStateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api//1/sandboxes/{sandboxName}/state"
+      };
+    }
+    // deleteSandboxState
+    rpc Delete1SandboxesSandboxNameState(Delete1SandboxesSandboxNameStateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api//1/sandboxes/{sandboxName}/state"
+      };
+    }
+}

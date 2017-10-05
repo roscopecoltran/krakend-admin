@@ -1,0 +1,535 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awscloudhsmv2;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    CreateClusterRequest body = 10;
+}
+
+message Post#CreateHsmRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    CreateHsmRequest body = 10;
+}
+
+message Post#DeleteClusterRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteClusterRequest body = 10;
+}
+
+message Post#DeleteHsmRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteHsmRequest body = 10;
+}
+
+message Post#DescribeBackupsRequest {
+    string Action = 1;
+    // Pagination limit
+    string MaxResults = 2;
+    // Pagination token
+    string NextToken = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    DescribeBackupsRequest body = 12;
+}
+
+message Post#DescribeClustersRequest {
+    string Action = 1;
+    // Pagination limit
+    string MaxResults = 2;
+    // Pagination token
+    string NextToken = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    DescribeClustersRequest body = 12;
+}
+
+message Post#InitializeClusterRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    InitializeClusterRequest body = 10;
+}
+
+message Post#ListTagsRequest {
+    string Action = 1;
+    // Pagination limit
+    string MaxResults = 2;
+    // Pagination token
+    string NextToken = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    ListTagsRequest body = 12;
+}
+
+message Post#TagResourceRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    TagResourceRequest body = 10;
+}
+
+message Post#UntagResourceRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    UntagResourceRequest body = 10;
+}
+
+message Backup {
+    // The identifier (ID) of the backup.
+    string BackupId = 1;
+    // The state of the backup.
+    BackupState BackupState = 2;
+    // The identifier (ID) of the cluster that was backed up.
+    string ClusterId = 3;
+    // The date and time when the backup was created.
+    string CreateTimestamp = 4;
+}
+
+enum BackupPolicy {
+    DEFAULT = 0;
+}
+
+enum BackupState {
+    CREATE_IN_PROGRESS = 0;
+    READY = 1;
+    DELETED = 2;
+}
+
+repeated Backup Backups = 1
+
+
+
+message Certificates {
+    // The HSM hardware certificate issued (signed) by AWS CloudHSM.
+    string AwsHardwareCertificate = 1;
+    // The cluster certificate issued (signed) by the issuing certificate authority (CA) of the cluster's owner.
+    string ClusterCertificate = 2;
+    // The cluster's certificate signing request (CSR). The CSR exists only when the cluster's state is <code>UNINITIALIZED</code>.
+    string ClusterCsr = 3;
+    // The HSM certificate issued (signed) by the HSM hardware.
+    string HsmCertificate = 4;
+    // The HSM hardware certificate issued (signed) by the hardware manufacturer.
+    string ManufacturerHardwareCertificate = 5;
+}
+
+message CloudHsmAccessDeniedException {
+    string Message = 1;
+}
+
+message CloudHsmInternalFailureException {
+    string Message = 1;
+}
+
+message CloudHsmInvalidRequestException {
+    string Message = 1;
+}
+
+message CloudHsmResourceNotFoundException {
+    string Message = 1;
+}
+
+message CloudHsmServiceException {
+    string Message = 1;
+}
+
+message Cluster {
+    // The cluster's backup policy.
+    BackupPolicy BackupPolicy = 1;
+    // Contains one or more certificates or a certificate signing request (CSR).
+    Certificates Certificates = 2;
+    // The cluster's identifier (ID).
+    string ClusterId = 3;
+    // The date and time when the cluster was created.
+    string CreateTimestamp = 4;
+    // The type of HSM that the cluster contains.
+    string HsmType = 5;
+    // Contains information about the HSMs in the cluster.
+    array Hsms = 6;
+    // The default password for the cluster's Pre-Crypto Officer (PRECO) user.
+    string PreCoPassword = 7;
+    // The identifier (ID) of the cluster's security group.
+    string SecurityGroup = 8;
+    // The identifier (ID) of the backup used to create the cluster. This value exists only when the cluster was created from a backup.
+    string SourceBackupId = 9;
+    // The cluster's state.
+    ClusterState State = 10;
+    // A description of the cluster's state.
+    string StateMessage = 11;
+    // A map of the cluster's subnets and their corresponding Availability Zones.
+    array SubnetMapping = 12;
+    // The identifier (ID) of the virtual private cloud (VPC) that contains the cluster.
+    string VpcId = 13;
+}
+
+enum ClusterState {
+    CREATE_IN_PROGRESS = 0;
+    UNINITIALIZED = 1;
+    INITIALIZE_IN_PROGRESS = 2;
+    INITIALIZED = 3;
+    ACTIVE = 4;
+    UPDATE_IN_PROGRESS = 5;
+    DELETE_IN_PROGRESS = 6;
+    DELETED = 7;
+    DEGRADED = 8;
+}
+
+repeated Cluster Clusters = 1
+
+message CreateClusterRequest {
+    // The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+    string HsmType = 1;
+    // The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup instead of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
+    string SourceBackupId = 2;
+    // <p>The identifiers (IDs) of the subnets where you are creating the cluster. You must specify at least one subnet. If you specify multiple subnets, they must meet the following criteria:</p> <ul> <li> <p>All subnets must be in the same virtual private cloud (VPC).</p> </li> <li> <p>You can specify only one subnet per Availability Zone.</p> </li> </ul>
+    array SubnetIds = 3;
+}
+
+message CreateClusterResponse {
+    // Information about the cluster that was created.
+    Cluster Cluster = 1;
+}
+
+message CreateHsmRequest {
+    // The Availability Zone where you are creating the HSM. To find the cluster's Availability Zones, use <a>DescribeClusters</a>.
+    string AvailabilityZone = 1;
+    // The identifier (ID) of the HSM's cluster. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ClusterId = 2;
+    // The HSM's IP address. If you specify an IP address, use an available address from the subnet that maps to the Availability Zone where you are creating the HSM. If you don't specify an IP address, one is chosen for you from that subnet.
+    string IpAddress = 3;
+}
+
+message CreateHsmResponse {
+    // Information about the HSM that was created.
+    Hsm Hsm = 1;
+}
+
+message DeleteClusterRequest {
+    // The identifier (ID) of the cluster that you are deleting. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ClusterId = 1;
+}
+
+message DeleteClusterResponse {
+    // Information about the cluster that was deleted.
+    Cluster Cluster = 1;
+}
+
+message DeleteHsmRequest {
+    // The identifier (ID) of the cluster that contains the HSM that you are deleting.
+    string ClusterId = 1;
+    // The identifier (ID) of the elastic network interface (ENI) of the HSM that you are deleting.
+    string EniId = 2;
+    // The IP address of the elastic network interface (ENI) of the HSM that you are deleting.
+    string EniIp = 3;
+    // The identifier (ID) of the HSM that you are deleting.
+    string HsmId = 4;
+}
+
+message DeleteHsmResponse {
+    // The identifier (ID) of the HSM that was deleted.
+    string HsmId = 1;
+}
+
+message DescribeBackupsRequest {
+    // <p>One or more filters to limit the items returned in the response.</p> <p>Use the <code>backupIds</code> filter to return only the specified backups. Specify backups by their backup identifier (ID).</p> <p>Use the <code>clusterIds</code> filter to return only the backups for the specified clusters. Specify clusters by their cluster identifier (ID).</p> <p>Use the <code>states</code> filter to return only backups that match the specified state.</p>
+    array Filters = 1;
+    // The maximum number of backups to return in the response. When there are more backups than the number you specify, the response contains a <code>NextToken</code> value.
+    integer MaxResults = 2;
+    // The <code>NextToken</code> value that you received in the previous response. Use this value to get more backups.
+    string NextToken = 3;
+}
+
+message DescribeBackupsResponse {
+    // A list of backups.
+    array Backups = 1;
+    // An opaque string that indicates that the response contains only a subset of backups. Use this value in a subsequent <code>DescribeBackups</code> request to get more backups.
+    string NextToken = 2;
+}
+
+message DescribeClustersRequest {
+    // <p>One or more filters to limit the items returned in the response.</p> <p>Use the <code>clusterIds</code> filter to return only the specified clusters. Specify clusters by their cluster identifier (ID).</p> <p>Use the <code>vpcIds</code> filter to return only the clusters in the specified virtual private clouds (VPCs). Specify VPCs by their VPC identifier (ID).</p> <p>Use the <code>states</code> filter to return only clusters that match the specified state.</p>
+    array Filters = 1;
+    // The maximum number of clusters to return in the response. When there are more clusters than the number you specify, the response contains a <code>NextToken</code> value.
+    integer MaxResults = 2;
+    // The <code>NextToken</code> value that you received in the previous response. Use this value to get more clusters.
+    string NextToken = 3;
+}
+
+message DescribeClustersResponse {
+    // A list of clusters.
+    array Clusters = 1;
+    // An opaque string that indicates that the response contains only a subset of clusters. Use this value in a subsequent <code>DescribeClusters</code> request to get more clusters.
+    string NextToken = 2;
+}
+
+message ExternalSubnetMapping {
+    string key = 1;
+    string value = 2;
+}
+repeated ExternalSubnetMapping ExternalSubnetMapping = 1
+
+
+
+message Filter {
+    string key = 1;
+    array value = 2;
+}
+repeated Filter Filters = 1
+
+message Hsm {
+    // The Availability Zone that contains the HSM.
+    string AvailabilityZone = 1;
+    // The identifier (ID) of the cluster that contains the HSM.
+    string ClusterId = 2;
+    // The identifier (ID) of the HSM's elastic network interface (ENI).
+    string EniId = 3;
+    // The IP address of the HSM's elastic network interface (ENI).
+    string EniIp = 4;
+    // The HSM's identifier (ID).
+    string HsmId = 5;
+    // The HSM's state.
+    HsmState State = 6;
+    // A description of the HSM's state.
+    string StateMessage = 7;
+    // The subnet that contains the HSM's elastic network interface (ENI).
+    string SubnetId = 8;
+}
+
+enum HsmState {
+    CREATE_IN_PROGRESS = 0;
+    ACTIVE = 1;
+    DEGRADED = 2;
+    DELETE_IN_PROGRESS = 3;
+    DELETED = 4;
+}
+
+
+
+repeated Hsm Hsms = 1
+
+message InitializeClusterRequest {
+    // The identifier (ID) of the cluster that you are claiming. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ClusterId = 1;
+    // The cluster certificate issued (signed) by your issuing certificate authority (CA). The certificate must be in PEM format.
+    string SignedCert = 2;
+    // The issuing certificate of the issuing certificate authority (CA) that issued (signed) the cluster certificate. This can be a root (self-signed) certificate or a certificate chain that begins with the certificate that issued the cluster certificate and ends with a root certificate. The certificate or certificate chain must be in PEM format.
+    string TrustAnchor = 3;
+}
+
+message InitializeClusterResponse {
+    // The cluster's state.
+    ClusterState State = 1;
+    // A description of the cluster's state.
+    string StateMessage = 2;
+}
+
+message ListTagsRequest {
+    // The maximum number of tags to return in the response. When there are more tags than the number you specify, the response contains a <code>NextToken</code> value.
+    integer MaxResults = 1;
+    // The <code>NextToken</code> value that you received in the previous response. Use this value to get more tags.
+    string NextToken = 2;
+    // The cluster identifier (ID) for the cluster whose tags you are getting. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ResourceId = 3;
+}
+
+message ListTagsResponse {
+    // An opaque string that indicates that the response contains only a subset of tags. Use this value in a subsequent <code>ListTags</code> request to get more tags.
+    string NextToken = 1;
+    // A list of tags.
+    array TagList = 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+repeated string Strings = 1
+
+
+
+repeated string SubnetIds = 1
+
+message Tag {
+    // The key of the tag.
+    string Key = 1;
+    // The value of the tag.
+    string Value = 2;
+}
+
+
+
+repeated string TagKeyList = 1
+
+repeated Tag TagList = 1
+
+message TagResourceRequest {
+    // The cluster identifier (ID) for the cluster that you are tagging. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ResourceId = 1;
+    // A list of one or more tags.
+    array TagList = 2;
+}
+
+message TagResourceResponse {
+}
+
+message UntagResourceRequest {
+    // The cluster identifier (ID) for the cluster whose tags you are removing. To find the cluster ID, use <a>DescribeClusters</a>.
+    string ResourceId = 1;
+    // A list of one or more tag keys for the tags that you are removing. Specify only the tag keys, not the tag values.
+    array TagKeyList = 2;
+}
+
+message UntagResourceResponse {
+}
+
+service AWSCloudHSMV2Service {
+    // Creates a new AWS CloudHSM cluster.
+    rpc Post(PostRequest) returns (CreateClusterResponse) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // Creates a new hardware security module (HSM) in the specified AWS CloudHSM cluster.
+    rpc Post#CreateHsm(Post#CreateHsmRequest) returns (CreateHsmResponse) {
+      option (google.api.http) = {
+        post: "//#CreateHsm"
+        body: "body"
+      };
+    }
+    // Deletes the specified AWS CloudHSM cluster. Before you can delete a cluster, you must delete all HSMs in the cluster. To see if the cluster contains any HSMs, use <a>DescribeClusters</a>. To delete an HSM, use <a>DeleteHsm</a>.
+    rpc Post#DeleteCluster(Post#DeleteClusterRequest) returns (DeleteClusterResponse) {
+      option (google.api.http) = {
+        post: "//#DeleteCluster"
+        body: "body"
+      };
+    }
+    // Deletes the specified HSM. To specify an HSM, you can use its identifier (ID), the IP address of the HSM's elastic network interface (ENI), or the ID of the HSM's ENI. You need to specify only one of these values. To find these values, use <a>DescribeClusters</a>.
+    rpc Post#DeleteHsm(Post#DeleteHsmRequest) returns (DeleteHsmResponse) {
+      option (google.api.http) = {
+        post: "//#DeleteHsm"
+        body: "body"
+      };
+    }
+    // <p>Gets information about backups of AWS CloudHSM clusters.</p> <p>This is a paginated operation, which means that each response might contain only a subset of all the backups. When the response contains only a subset of backups, it includes a <code>NextToken</code> value. Use this value in a subsequent <code>DescribeBackups</code> request to get more backups. When you receive a response with no <code>NextToken</code> (or an empty or null value), that means there are no more backups to get.</p>
+    rpc Post#DescribeBackups(Post#DescribeBackupsRequest) returns (DescribeBackupsResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeBackups"
+        body: "body"
+      };
+    }
+    // <p>Gets information about AWS CloudHSM clusters.</p> <p>This is a paginated operation, which means that each response might contain only a subset of all the clusters. When the response contains only a subset of clusters, it includes a <code>NextToken</code> value. Use this value in a subsequent <code>DescribeClusters</code> request to get more clusters. When you receive a response with no <code>NextToken</code> (or an empty or null value), that means there are no more clusters to get.</p>
+    rpc Post#DescribeClusters(Post#DescribeClustersRequest) returns (DescribeClustersResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeClusters"
+        body: "body"
+      };
+    }
+    // Claims an AWS CloudHSM cluster by submitting the cluster certificate issued by your issuing certificate authority (CA) and the CA's root certificate. Before you can claim a cluster, you must sign the cluster's certificate signing request (CSR) with your issuing CA. To get the cluster's CSR, use <a>DescribeClusters</a>.
+    rpc Post#InitializeCluster(Post#InitializeClusterRequest) returns (InitializeClusterResponse) {
+      option (google.api.http) = {
+        post: "//#InitializeCluster"
+        body: "body"
+      };
+    }
+    // <p>Gets a list of tags for the specified AWS CloudHSM cluster.</p> <p>This is a paginated operation, which means that each response might contain only a subset of all the tags. When the response contains only a subset of tags, it includes a <code>NextToken</code> value. Use this value in a subsequent <code>ListTags</code> request to get more tags. When you receive a response with no <code>NextToken</code> (or an empty or null value), that means there are no more tags to get.</p>
+    rpc Post#ListTags(Post#ListTagsRequest) returns (ListTagsResponse) {
+      option (google.api.http) = {
+        post: "//#ListTags"
+        body: "body"
+      };
+    }
+    // Adds or overwrites one or more tags for the specified AWS CloudHSM cluster.
+    rpc Post#TagResource(Post#TagResourceRequest) returns (TagResourceResponse) {
+      option (google.api.http) = {
+        post: "//#TagResource"
+        body: "body"
+      };
+    }
+    // Removes the specified tag or tags from the specified AWS CloudHSM cluster.
+    rpc Post#UntagResource(Post#UntagResourceRequest) returns (UntagResourceResponse) {
+      option (google.api.http) = {
+        post: "//#UntagResource"
+        body: "body"
+      };
+    }
+}

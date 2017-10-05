@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package passwordutility.web;
+
+message PostApiPasswordGenerateRequest {
+    bool digits = 1;
+    int32 length = 2;
+    bool specialCharacters = 3;
+    bool upperCase = 4;
+}
+
+message PostApiPasswordValidateRequest {
+    string password = 1;
+}
+
+message Object {
+}
+
+service PasswordUtility.WebService {
+    rpc PostApiPasswordGenerate(PostApiPasswordGenerateRequest) returns (Object) {
+      option (google.api.http) = {
+        post: "/api/password/generate"
+      };
+    }
+    rpc PostApiPasswordValidate(PostApiPasswordValidateRequest) returns (Object) {
+      option (google.api.http) = {
+        post: "/api/password/validate"
+      };
+    }
+}

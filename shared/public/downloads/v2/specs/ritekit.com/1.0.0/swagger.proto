@@ -1,0 +1,195 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package ritekit;
+
+message GetV1EmojiAutoEmojifyRequest {
+    // Text of the post
+    string text = 1;
+}
+
+message GetV1EmojiSuggestionsRequest {
+    // Text of the post
+    string text = 1;
+}
+
+message GetV1ImagesLogoRequest {
+    // URL of the company
+    string domain = 1;
+}
+
+message GetV1ImagesQuoteRequest {
+    // Name of the author/source
+    string author = 1;
+    // Font-family used for author name
+    string authorFont = 2;
+    // Font color of the author
+    string authorFontColor = 3;
+    // Background color for solid background type
+    string backgroundColor = 4;
+    // Background type (gradient/solid)
+    string bgType = 5;
+    // URL of the brand logo
+    string brandLogo = 6;
+    // Enable highlight on quote text
+    int32 enableHighlight = 7;
+    // Font size for the quote (author font size is calculated automatically)
+    int32 fontSize = 8;
+    // First color for gradient background type
+    string gradientColor1 = 9;
+    // Second color for gradient background type
+    string gradientColor2 = 10;
+    // Type of gradient background (linear/radial)
+    string gradientType = 11;
+    // Color used for highlight
+    string highlightColor = 12;
+    // Text of the quote
+    string quote = 13;
+    // Font-family used for quote text
+    string quoteFont = 14;
+    // Font color of the quote text
+    string quoteFontColor = 15;
+}
+
+message GetV1InfluencersHashtagHashtagRequest {
+    // Hashtag without # mark
+    string hashtag = 1;
+}
+
+message GetV1LinkShortLinkRequest {
+    // cta id
+    int32 cta = 1;
+    // URL
+    string url = 2;
+}
+
+message GetV1SearchTrendingRequest {
+    // Restrict results only to green hashtags. Hides overused (red) hashtags.
+    bool green = 1;
+    // Restrict results only to hashtags with latin characters
+    bool latin = 2;
+}
+
+message GetV1StatsAutoHashtagRequest {
+    // Text of the post
+    string post = 1;
+}
+
+message GetV1StatsHashtagSuggestionsTopicRequest {
+    // Topic
+    string topic = 1;
+}
+
+message GetV1StatsHistoryHashtagRequest {
+    // Hashtag without # mark
+    string hashtag = 1;
+}
+
+message GetV1StatsMultipleHashtagsRequest {
+    // Hashtag(s) without # mark
+    message Tag {
+    }
+    repeated Tag tags = 1;
+}
+
+service RiteKitService {
+    // Auto-Emojify
+    // 
+    // Returns text of the post with emoji added
+    rpc GetV1EmojiAutoEmojify(GetV1EmojiAutoEmojifyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/emoji/auto-emojify"
+      };
+    }
+    // Emoji Suggestions
+    // 
+    // Returns list of emoji suggestions for a given text of the post
+    rpc GetV1EmojiSuggestions(GetV1EmojiSuggestionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/emoji/suggestions"
+      };
+    }
+    // Company Logo
+    // 
+    // Returns a company logo based on website domain.
+    rpc GetV1ImagesLogo(GetV1ImagesLogoRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/images/logo"
+      };
+    }
+    // Text to Image
+    // 
+    // Returns URL of an image created from text according to given style parameters
+    rpc GetV1ImagesQuote(GetV1ImagesQuoteRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/images/quote"
+      };
+    }
+    // Influencers for a Hashtag
+    // 
+    // Returns list of Twitter influencers for a given hashtag
+    rpc GetV1InfluencersHashtagHashtag(GetV1InfluencersHashtagHashtagRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/influencers/hashtag/{hashtag}"
+      };
+    }
+    // List of CTAs
+    // 
+    // Returns list of available CTA for current user. Requires each user to authenticate with RiteKit
+    rpc GetV1LinkCta(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/link/cta"
+      };
+    }
+    // Shorten Link
+    // 
+    // Returns a shorten link with a given CTA.
+    rpc GetV1LinkShortLink(GetV1LinkShortLinkRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/link/short-link"
+      };
+    }
+    // Trending Hashtags
+    // 
+    // Returns list of hashtags currently trending on Twitter
+    rpc GetV1SearchTrending(GetV1SearchTrendingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/search/trending"
+      };
+    }
+    // Auto-Hashtag
+    // 
+    // Returns auto-hashtagged text of the post.
+    rpc GetV1StatsAutoHashtag(GetV1StatsAutoHashtagRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/stats/auto-hashtag?post={post}"
+      };
+    }
+    // Hashtag Suggestions
+    // 
+    // Returns list of hashtag suggestions and their real-time stats for a given topic
+    rpc GetV1StatsHashtagSuggestionsTopic(GetV1StatsHashtagSuggestionsTopicRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/stats/hashtag-suggestions/{topic}"
+      };
+    }
+    // Hashtag History
+    // 
+    // Returns historical stats for a given hashtag from the last 30 days
+    rpc GetV1StatsHistoryHashtag(GetV1StatsHistoryHashtagRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/stats/history/{hashtag}"
+      };
+    }
+    // Hashtag Stats
+    // 
+    // Returns real-time stats for up to 100 hashtags (updated hourly).
+    rpc GetV1StatsMultipleHashtags(GetV1StatsMultipleHashtagsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//v1/stats/multiple-hashtags"
+      };
+    }
+}

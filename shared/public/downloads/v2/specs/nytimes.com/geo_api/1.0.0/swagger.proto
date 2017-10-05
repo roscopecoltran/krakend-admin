@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package geographic;
+
+message GetQueryRequest {
+    // Start date to end date in the following format- YYYY-MM-DD:YYYY-MM-DD
+    string date_range = 1;
+    // The elevation of the specified place, in meters.
+    int32 elevation = 2;
+    // When facets is set to 1, a count of all facets will be included in the response.
+    int32 facets = 3;
+    // Filters search results based on the facets provided.  For more information on the values you can filter on, see Facets.
+    string filter = 4;
+    // The latitude of the specified place.
+    string latitude = 5;
+    // Limits the number of results returned
+    int32 limit = 6;
+    // The longitude of the specified place.
+    string longitude = 7;
+    // A displayable name for the specified place.
+    string name = 8;
+    // Sets the starting point of the result set
+    int32 offset = 9;
+    // Search keywords to perform a text search on the fields: web_description, event_name and venue_name. 'AND' searches can be performed by wrapping query terms in quotes. If you do not specify a query, all results will be returned.
+    string query = 10;
+    // Sorts your results on the fields specified. <br/> `sort_value1+[asc | desc],sort_value2+[asc|desc],[...]`<br/> Appending +asc to a facet or response will sort results on that value in ascending order. Appending +desc to a facet or response  will sort results in descending order. You can sort on multiple fields. You can sort on any facet. For the list of responses you can sort on, see the Sortable Field column in the Response table. <br/><br/>If you are doing a spatial search with the ll parameter, you can also sort by the distance from the center of the search: dist+[asc | desc] <br/> **Note:** either +asc or +desc is required when using the sort parameter.
+    string sort = 11;
+    // Along with ne, forms a bounded box using the longitude and latitude coordinates specified as the southwest corner. The search results are limited to the resulting box. Two float values, separated by a comma `latitude,longitude` <br/> The ne parameter is required to use this parameter.
+    string sw = 12;
+}
+
+message GetQueryResponse {
+    repeated Event results = 1;
+}
+
+message Event {
+    string city = 1;
+    string critic_name = 2;
+    string event_detail_url = 3;
+    int32 event_id = 4;
+    string event_name = 5;
+    int32 event_schedule_id = 6;
+    bool festival = 7;
+    bool film_rating = 8;
+    bool free = 9;
+    bool kid_friendly = 10;
+    bool last_chance = 11;
+    string last_modified = 12;
+    bool long_running_show = 13;
+    bool previews_and_openings = 14;
+    repeated string recur_days = 15;
+    string recurring_start_date = 16;
+    string state = 17;
+    bool times_pick = 18;
+    string web_description = 19;
+}
+
+service GeographicService {
+    // Geographic API
+    // 
+    // Geographic API
+    rpc GetQuery(GetQueryRequest) returns (GetQueryResponse) {
+      option (google.api.http) = {
+        get: "/svc/semantic/v2/geocodes/query.json"
+      };
+    }
+}

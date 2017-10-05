@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package dweet.io;
+
+message GetAlertWhoWhenThingConditionRequest {
+    // A condition that returns a string or a true value if a condition is met.
+    string condition = 1;
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 2;
+    // A unique name of a thing. It is recommended that you use a GUID as to avoid name collisions.
+    string thing = 3;
+    // A comma separated list of Email addresses to send the alert to.
+    string who = 4;
+}
+
+message PostDweetForThingRequest {
+    // The actual content of the string. Can be any valid JSON string.
+    string content = 1;
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 2;
+    // A unique name of a thing. It is recommended that you use a GUID as to avoid name collisions.
+    string thing = 3;
+}
+
+message PostDweetQuietlyForThingRequest {
+    // The actual content of the string. Can be any valid JSON string.
+    string content = 1;
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 2;
+    // A unique name of a thing. It is recommended that you use a GUID as to avoid name collisions.
+    string thing = 3;
+}
+
+message GetGetAlertForThingRequest {
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 1;
+    // A unique name of a thing.
+    string thing = 2;
+}
+
+message GetGetDweetsForThingRequest {
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 1;
+    // A unique name of a thing.
+    string thing = 2;
+}
+
+message GetGetLatestDweetForThingRequest {
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 1;
+    // A unique name of a thing.
+    string thing = 2;
+}
+
+message GetGetStoredAlertsForThingRequest {
+    // The calendar date (YYYY-MM-DD) from which you'd like to start your query.  The response will be a maximum of one day.
+    string date = 1;
+    // The hour of the day represented in the date parameter in 24-hour (00-23) format.  If this parameter is included, a maximum of 1 hour will be returned starting at this hour.
+    string hour = 2;
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 3;
+    // Current valid parameters for this are 'csv' and 'json'.  If this parameter is left blank, all responses default to hapi-json dweet-speak.
+    string responseType = 4;
+    // A unique name of a thing.
+    string thing = 5;
+}
+
+message GetGetStoredDweetsForThingRequest {
+    // The calendar date (YYYY-MM-DD) from which you'd like to start your query.  The response will be a maximum of one day.
+    string date = 1;
+    // The hour of the day represented in the date parameter in 24-hour (00-23) format.  If this parameter is included, a maximum of 1 hour will be returned starting at this hour.
+    string hour = 2;
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 3;
+    // Current valid parameters for this are 'csv' and 'json'.  If this parameter is left blank, all responses default to hapi-json dweet-speak.
+    string responseType = 4;
+    // A unique name of a thing.
+    string thing = 5;
+}
+
+message GetListenForDweetsFromThingRequest {
+    string thing = 1;
+}
+
+message GetLockThingRequest {
+    // A valid dweet.io master key.
+    string key = 1;
+    // A valid dweet.io lock.
+    string lock = 2;
+    // A unique name of a thing.
+    string thing = 3;
+}
+
+message GetRemoveAlertForThingRequest {
+    // A valid key for a locked thing. If the thing is not locked, this can be ignored.
+    string key = 1;
+    // A unique name of a thing.
+    string thing = 2;
+}
+
+message GetRemoveLockLockRequest {
+    // A valid dweet.io master key.
+    string key = 1;
+    // A valid dweet.io lock.
+    string lock = 2;
+}
+
+message GetUnlockThingRequest {
+    // A valid dweet.io master key.
+    string key = 1;
+    // A unique name of a thing.
+    string thing = 2;
+}
+
+service Dweet.IoService {
+    // Create an alert for a thing. A thing must be locked before an alert can be set.
+    rpc GetAlertWhoWhenThingCondition(GetAlertWhoWhenThingConditionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//alert/{who}/when/{thing}/{condition}"
+      };
+    }
+    // Create a dweet for a thing.
+    rpc PostDweetForThing(PostDweetForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//dweet/for/{thing}"
+        body: "content"
+      };
+    }
+    // Create a dweet for a thing.  This method differs from /dweet/for/{thing} only in that successful dweets result in an HTTP 204 response rather than the typical verbose response.
+    rpc PostDweetQuietlyForThing(PostDweetQuietlyForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//dweet/quietly/for/{thing}"
+        body: "content"
+      };
+    }
+    // Get the alert attached to a thing.
+    rpc GetGetAlertForThing(GetGetAlertForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//get/alert/for/{thing}"
+      };
+    }
+    // Read the last 5 cached dweets for a thing.
+    rpc GetGetDweetsForThing(GetGetDweetsForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//get/dweets/for/{thing}"
+      };
+    }
+    // Read the latest dweet for a thing.
+    rpc GetGetLatestDweetForThing(GetGetLatestDweetForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//get/latest/dweet/for/{thing}"
+      };
+    }
+    // Read all the saved alerts for a thing from long term storage.  You can query a maximum of 1 day per request and a granularly of 1 hour.
+    rpc GetGetStoredAlertsForThing(GetGetStoredAlertsForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//get/stored/alerts/for/{thing}"
+      };
+    }
+    // Read all the saved dweets for a thing from long term storage.  You can query a maximum of 1 day per request and a granularly of 1 hour.
+    rpc GetGetStoredDweetsForThing(GetGetStoredDweetsForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//get/stored/dweets/for/{thing}"
+      };
+    }
+    // Listen for dweets from a thing.
+    // 
+    // Sorry, this function uses HTTP chunked responses and cannot be tested here. Try something like: <pre>curl --raw https://dweet.io/listen/for/dweets/from/{thing}</pre>
+    rpc GetListenForDweetsFromThing(GetListenForDweetsFromThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//listen/for/dweets/from/{thing}"
+      };
+    }
+    // Reserve and lock a thing.
+    rpc GetLockThing(GetLockThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//lock/{thing}"
+      };
+    }
+    // Remove an alert for a thing.
+    rpc GetRemoveAlertForThing(GetRemoveAlertForThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//remove/alert/for/{thing}"
+      };
+    }
+    // Remove a lock from thing.
+    rpc GetRemoveLockLock(GetRemoveLockLockRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//remove/lock/{lock}"
+      };
+    }
+    // Unlock a thing.
+    rpc GetUnlockThing(GetUnlockThingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//unlock/{thing}"
+      };
+    }
+}

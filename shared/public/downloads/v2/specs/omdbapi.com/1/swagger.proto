@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package omdb;
+
+message GetRequest {
+    // JSONP callback name.
+    string callback = 1;
+    // A valid IMDb ID (e.g. tt1285016). One of t, i or s is required.
+    string i = 2;
+    // Page number to return.
+    int32 page = 3;
+    // Return short or full plot.
+    enum GetRequest_Plot {
+        GETREQUEST_PLOT_SHORT = 0;
+        GETREQUEST_PLOT_FULL = 1;
+    }
+    GetRequest_Plot plot = 4;
+    // The data type to return.
+    enum GetRequest_R {
+        GETREQUEST_R_JSON = 0;
+        GETREQUEST_R_XML = 1;
+    }
+    GetRequest_R r = 5;
+    // Movie title to search for. One of t, i or s is required.
+    string s = 6;
+    // Movie title to search for. One of t, i or s is required.
+    string t = 7;
+    // Include Rotten Tomatoes ratings.
+    bool tomatoes = 8;
+    // Type of result to return.
+    enum GetRequest_Type {
+        GETREQUEST_TYPE_MOVIE = 0;
+        GETREQUEST_TYPE_SERIES = 1;
+        GETREQUEST_TYPE_EPISODE = 2;
+    }
+    GetRequest_Type type = 9;
+    // API version (reserved for future use).
+    int32 v = 10;
+    // Year of release.
+    int32 y = 11;
+}
+
+message CombinedResult {
+    string Actors = 1;
+    string Awards = 2;
+    string BoxOffice = 3;
+    string Country = 4;
+    string DVD = 5;
+    string Director = 6;
+    string Genre = 7;
+    string Language = 8;
+    string Metascore = 9;
+    string Plot = 10;
+    string Poster = 11;
+    string Production = 12;
+    string Rated = 13;
+    string Released = 14;
+    string Response = 15;
+    string Runtime = 16;
+    message Search {
+        string Poster = 1;
+        string Title = 2;
+        string Type = 3;
+        string Year = 4;
+        string imdbID = 5;
+    }
+    repeated Search Search = 17;
+    string Title = 18;
+    string Type = 19;
+    string Website = 20;
+    string Writer = 21;
+    string Year = 22;
+    string imdbID = 23;
+    string imdbRating = 24;
+    string imdbVotes = 25;
+    string tomatoConsensus = 26;
+    string tomatoFresh = 27;
+    string tomatoImage = 28;
+    string tomatoMeter = 29;
+    string tomatoRating = 30;
+    string tomatoReviews = 31;
+    string tomatoRotten = 32;
+    string tomatoURL = 33;
+    string tomatoUserMeter = 34;
+    string tomatoUserRating = 35;
+    string tomatoUserReviews = 36;
+    string totalResults = 37;
+    string totalSeasons = 38;
+}
+
+service OMDbService {
+    // OMDb Search
+    // 
+    // Find a movie, series or episode from the OMDb by title, IMDb-id or by free-text search
+    rpc Get(GetRequest) returns (CombinedResult) {
+      option (google.api.http) = {
+        get: "//"
+      };
+    }
+}

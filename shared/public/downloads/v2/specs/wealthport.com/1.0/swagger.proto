@@ -1,0 +1,482 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package wealthport;
+
+message GetFoldersResponse {
+    repeated Existing_Folder items = 1;
+}
+
+message PostFoldersRequest {
+    // JSON
+    Folder_Request body = 1;
+}
+
+message GetFoldersIdRequest {
+    // Folder ID of the Folder to retrieve
+    string id = 1;
+}
+
+message PutFoldersIdRequest {
+    // JSON
+    Folder_Request body = 1;
+    // Folder ID of the Folder to update
+    string id = 2;
+}
+
+message DeleteFoldersIdRequest {
+    // Folder ID of the Folder to delete, including any Sources contained
+    string id = 1;
+}
+
+message GetFoldersIdSourcesRequest {
+    // Folder ID of the Folder to retrieve its Sources from
+    string id = 1;
+}
+
+message DeleteFoldersIdSourcesRequest {
+    // Folder ID of the Folder to delete all Sources from
+    string id = 1;
+}
+
+message GetJobsIdResultRequest {
+    // Job ID of the job to retrieve its result
+    string id = 1;
+}
+
+message GetJobsIdStatusRequest {
+    // Job ID of the job to retrieve its status
+    string id = 1;
+}
+
+message GetOrdersResponse {
+    repeated Existing_Order items = 1;
+}
+
+message PostOrdersRequest {
+    // JSON
+    Order_Request body = 1;
+}
+
+message GetOrdersIdRequest {
+    // Order ID of the order to retrieve
+    string id = 1;
+}
+
+message PutOrdersIdRequest {
+    // JSON
+    Order_Request body = 1;
+    // Order ID of the order to update
+    string id = 2;
+}
+
+message DeleteOrdersIdRequest {
+    // Order ID of the order to delete
+    string id = 1;
+}
+
+message PostOrdersIdSubmitRequest {
+    // Order ID of the order to submit for processing
+    string id = 1;
+}
+
+message GetRecipesResponse {
+    repeated Existing_Recipe items = 1;
+}
+
+message GetRecipesIdRequest {
+    // Recipe ID of the recipe to retrieve
+    string id = 1;
+}
+
+message GetRecipesIdInstructionsRequest {
+    // Recipe ID of the recipe whose instructions to retrieve
+    string id = 1;
+}
+
+message PutRecipesIdInstructionsRequest {
+    // JSON instructions to update the Recipe
+    string body = 1;
+    // Recipe ID of the recipe whose instructions to update
+    string id = 2;
+}
+
+message GetSourcesResponse {
+    repeated Existing_Source items = 1;
+}
+
+message PostSourcesRequest {
+    // JSON
+    Source_Request body = 1;
+}
+
+message PutSourcesUploadRequest {
+    // MIME type of the source file
+    string contentType = 1;
+    // Encoding of the source file
+    string encoding = 2;
+    // Folder ID where to upload source to
+    string folder = 3;
+    // Name of the source to create. The name must correspond to the exact file name of the file being uploaded.
+    string name = 4;
+    // Existing source ID to create a new version from
+    string source = 5;
+}
+
+message GetSourcesIdRequest {
+    // Source ID of the source to retrieve
+    string id = 1;
+}
+
+message PutSourcesIdRequest {
+    // JSON
+    Source_Request body = 1;
+    // Source ID of Source to update
+    string id = 2;
+}
+
+message DeleteSourcesIdRequest {
+    // Source ID of the Source to delete
+    string id = 1;
+}
+
+message GetSourcesIdDownloadRequest {
+    // Source ID of file to download
+    string id = 1;
+}
+
+message Archivable_Object {
+    bool archived = 1;
+    string id = 2;
+}
+
+message Existing_Folder {
+    // Size of the folder (in bytes)
+    int64 bytes = 1;
+    // ISO 8601 Date when he folder has been created
+    string created = 2;
+    // User ID of the user who created the folder
+    string creator = 3;
+    // Unique ID of the folder
+    string id = 4;
+    // Name of the folder
+    string name = 5;
+}
+
+message Existing_Order {
+    // Size of the order (in bytes)
+    int64 bytes = 1;
+    // ISO 8601 Date when the order has been created
+    string created = 2;
+    // User ID of the user who created the order
+    string creator = 3;
+    // Array of folder IDs to be referenced by the order
+    repeated string folders = 4;
+    // Unique ID of the order
+    string id = 5;
+    // Name of the order
+    string name = 6;
+    // Recipe to use when processing the order
+    string recipe = 7;
+    // Array of source IDs to be referenced by the order
+    repeated string sources = 8;
+}
+
+message Existing_Recipe {
+    // ISO 8601 Date when the recipe has been created
+    string created = 1;
+    // User ID of the user who created the recipe
+    string creator = 2;
+    // Unique ID of the recipe
+    string id = 3;
+    // Name of the recipe
+    string name = 4;
+}
+
+message Existing_Source {
+    // Size of the source (in bytes)
+    int64 bytes = 1;
+    // ISO 8601 Date when the source has been created
+    string created = 2;
+    // User ID of the user that created the source
+    string creator = 3;
+    // Encoding of the source
+    string encoding = 4;
+    // Optional folder ID of the folder containing the source
+    string folder = 5;
+    string folderName = 6;
+    // Unique ID of the source
+    string id = 7;
+    // MIME type of the source
+    enum Existing_Source_Mime {
+        EXISTING_SOURCE_MIME_TEXTCSV = 0;
+        EXISTING_SOURCE_MIME_TEXTTABSEPARATEDVALUES = 1;
+        EXISTING_SOURCE_MIME_TEXTXBARSEPARATEDVALUES = 2;
+        EXISTING_SOURCE_MIME_TEXTXSEMICOLONSEPARATEDVALUES = 3;
+        EXISTING_SOURCE_MIME_APPLICATIONXLDJSON = 4;
+        EXISTING_SOURCE_MIME_APPLICATIONXML = 5;
+        EXISTING_SOURCE_MIME_APPLICATIONVNDMSEXCEL = 6;
+        EXISTING_SOURCE_MIME_APPLICATIONVNDOPENXMLFORMATSOFFICEDOCUMENTSPREADSHEETMLSHEET = 7;
+    }
+    Existing_Source_Mime mime = 8;
+    // Name of the source
+    string name = 9;
+}
+
+message Folder_Request {
+    // Name of the folder
+    string name = 1;
+}
+
+message Order_Request {
+    // Array of folder IDs to be referenced by the order
+    repeated string folders = 1;
+    // Name of the order
+    string name = 2;
+    // Recipe to use when processing the order
+    string recipe = 3;
+    // Array of source IDs to be referenced by the order
+    repeated string sources = 4;
+}
+
+message Source_Request {
+    // Encoding of the source
+    string encoding = 1;
+    // Folder ID of the folder containing the source
+    string folder = 2;
+    // MIME type of the source
+    enum Source_Request_Mime {
+        SOURCE_REQUEST_MIME_TEXTCSV = 0;
+        SOURCE_REQUEST_MIME_TEXTTABSEPARATEDVALUES = 1;
+        SOURCE_REQUEST_MIME_TEXTXBARSEPARATEDVALUES = 2;
+        SOURCE_REQUEST_MIME_TEXTXSEMICOLONSEPARATEDVALUES = 3;
+        SOURCE_REQUEST_MIME_APPLICATIONXLDJSON = 4;
+        SOURCE_REQUEST_MIME_APPLICATIONXML = 5;
+        SOURCE_REQUEST_MIME_APPLICATIONVNDMSEXCEL = 6;
+        SOURCE_REQUEST_MIME_APPLICATIONVNDOPENXMLFORMATSOFFICEDOCUMENTSPREADSHEETMLSHEET = 7;
+    }
+    Source_Request_Mime mime = 3;
+    // Name of the source
+    string name = 4;
+}
+
+service WealthportService {
+    // Retrieve Folders
+    // 
+    // Retrieves all Folders in the Data Inventory.
+    rpc GetFolders(google.protobuf.Empty) returns (GetFoldersResponse) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/folders"
+      };
+    }
+    // Create Folder
+    // 
+    // Creates the specified Folder in the Data Inventory.
+    rpc PostFolders(PostFoldersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/gateway/public/endpoints/1.0/folders"
+        body: "body"
+      };
+    }
+    // Retrieve Folder
+    // 
+    // Retrieves the specified Folder.
+    rpc GetFoldersId(GetFoldersIdRequest) returns (Existing_Folder) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/folders/{id}"
+      };
+    }
+    // Update Folder
+    // 
+    // Updates the specified Folder.
+    rpc PutFoldersId(PutFoldersIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/gateway/public/endpoints/1.0/folders/{id}"
+        body: "body"
+      };
+    }
+    // Delete Folder
+    // 
+    // Deletes the specified Folder and all contained Sources from the Data Inventory.
+    rpc DeleteFoldersId(DeleteFoldersIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/gateway/public/endpoints/1.0/folders/{id}"
+      };
+    }
+    // Retrieve Sources
+    // 
+    // Retrieves all Sources of the specified Folder.
+    rpc GetFoldersIdSources(GetFoldersIdSourcesRequest) returns (Existing_Source) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/folders/{id}/sources"
+      };
+    }
+    // Delete Sources
+    // 
+    // Deletes all Sources in the specified Folder.
+    rpc DeleteFoldersIdSources(DeleteFoldersIdSourcesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/gateway/public/endpoints/1.0/folders/{id}/sources"
+      };
+    }
+    // Get Result
+    // 
+    // Returns the result of a finished Job.
+    rpc GetJobsIdResult(GetJobsIdResultRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/jobs/{id}/result"
+      };
+    }
+    // Get Status
+    // 
+    // Retrieves the status of a Job.
+    rpc GetJobsIdStatus(GetJobsIdStatusRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/jobs/{id}/status"
+      };
+    }
+    // Retrieve Orders
+    // 
+    // Retrieves all previously submitted Orders.
+    rpc GetOrders(google.protobuf.Empty) returns (GetOrdersResponse) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/orders"
+      };
+    }
+    // Create Order
+    // 
+    // Creates a new Order to be submitted.<p>Orders reference one or more Sources, e.g. uploaded files, as well as one or more Folders (which again can contain Sources).The Recipe describes what to do with the referenced sources and where to publish the processing result to.</p>
+    rpc PostOrders(PostOrdersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/gateway/public/endpoints/1.0/orders"
+        body: "body"
+      };
+    }
+    // Retrieve Order
+    // 
+    // Retrieves the specified Order.
+    rpc GetOrdersId(GetOrdersIdRequest) returns (Existing_Order) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/orders/{id}"
+      };
+    }
+    // Update Order
+    // 
+    // Updates the specified Order.
+    rpc PutOrdersId(PutOrdersIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/gateway/public/endpoints/1.0/orders/{id}"
+        body: "body"
+      };
+    }
+    // Delete Order
+    // 
+    // Deletes the specified Order.
+    rpc DeleteOrdersId(DeleteOrdersIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/gateway/public/endpoints/1.0/orders/{id}"
+      };
+    }
+    // Submit Order
+    // 
+    // Submits the specified Order for processing and launches a corresponding job.
+    rpc PostOrdersIdSubmit(PostOrdersIdSubmitRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/gateway/public/endpoints/1.0/orders/{id}/submit"
+      };
+    }
+    // Retrieve Recipes
+    // 
+    // Retrieves all available Recipes.
+    rpc GetRecipes(google.protobuf.Empty) returns (GetRecipesResponse) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/recipes"
+      };
+    }
+    // Retrieve Recipe
+    // 
+    // Retrieves the specified Recipe.
+    rpc GetRecipesId(GetRecipesIdRequest) returns (Existing_Recipe) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/recipes/{id}"
+      };
+    }
+    // Retrieve Instructions
+    // 
+    // Retrieves the instructions of the specified Recipe.
+    rpc GetRecipesIdInstructions(GetRecipesIdInstructionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/recipes/{id}/instructions"
+      };
+    }
+    // Update Instructions
+    // 
+    // Updates the instructions of the specified Recipe.
+    rpc PutRecipesIdInstructions(PutRecipesIdInstructionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/gateway/public/endpoints/1.0/recipes/{id}/instructions"
+        body: "body"
+      };
+    }
+    // Retrieve Sources
+    // 
+    // Retrieves all Sources stored in the Data Inventory.
+    rpc GetSources(google.protobuf.Empty) returns (GetSourcesResponse) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/sources"
+      };
+    }
+    // Create Source
+    // 
+    // Creates the specified Source.<p>Sources are either uploaded files or a reference to a database. They are referenced in orders to specify which data needs processing.</p><p>Most clients should probably use the Upload File API which implicitly creates a new source on successful file upload.</p>
+    rpc PostSources(PostSourcesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/gateway/public/endpoints/1.0/sources"
+        body: "body"
+      };
+    }
+    // Upload File
+    // 
+    // Initiates a file upload and returns the URL where to upload the file to.<p>Calling this API generates a secure, unique and time-restricted URL where the file can be uploaded to. The URL is available in the <pre>Location</pre> HTTP header of the response. The temporal validity of the URL is available in the <pre>Cache-Control</pre> HTTP header of the response.Clients may perform a <pre>HTTP PUT</pre> request on the URL to upload the file using a form where a file <pre>sample.csv</pre> is passed as property <pre>file=sample.csv</pre>. For security reasons, clients must pass all HTTP headers as returned by the <pre>X-WP-Upload-Headers</pre> in the response, together with their values. This procedure ensures a secure, encrypted file upload.</p><p>Note that calling this API automatically generates a Source, there is no need to call the Create Source API.</p>
+    rpc PutSourcesUpload(PutSourcesUploadRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/gateway/public/endpoints/1.0/sources/upload"
+      };
+    }
+    // Retrieve Source
+    // 
+    // Retrieves the specified Source.
+    rpc GetSourcesId(GetSourcesIdRequest) returns (Existing_Source) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/sources/{id}"
+      };
+    }
+    // Update Source
+    // 
+    // Updates the specified Source.
+    rpc PutSourcesId(PutSourcesIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "/gateway/public/endpoints/1.0/sources/{id}"
+        body: "body"
+      };
+    }
+    // Delete Source
+    // 
+    // Deletes the specified Source.
+    rpc DeleteSourcesId(DeleteSourcesIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/gateway/public/endpoints/1.0/sources/{id}"
+      };
+    }
+    // Download File
+    // 
+    // Initiates a file download and returns the URL where to download the file from.<p>Calling this API generates a secure, unique and time-restricted URL where the file can be downloaded from. The URL is available in the <pre>Location</pre> HTTP header of the response. The time restriction of the URL is availablein the <pre>Cache-Control</pre> HTTP header of the response.Clients may perform a <pre>HTTP GET</pre> request on the URL to download the file.</p>
+    rpc GetSourcesIdDownload(GetSourcesIdDownloadRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/gateway/public/endpoints/1.0/sources/{id}/download"
+      };
+    }
+}

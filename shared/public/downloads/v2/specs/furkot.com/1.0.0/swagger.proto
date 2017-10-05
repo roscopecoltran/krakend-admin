@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package furkottrips;
+
+message GetTripResponse {
+    repeated Trip items = 1;
+}
+
+message GetTripTrip_idStopRequest {
+    // id of the trip
+    string trip_id = 1;
+}
+
+message GetTripTrip_idStopResponse {
+    repeated Step items = 1;
+}
+
+message Step {
+    // address of the stop
+    string address = 1;
+    // arrival at the stop in its local timezone as YYYY-MM-DDThh:mm
+    string arrival = 2;
+    // geographical coordinates of the stop
+    message Coordinates {
+            // latitude
+    float lat = 1;
+            // longitude
+    float lon = 2;
+    }
+    Coordinates coordinates = 3;
+    // departure from the stop in its local timezone as YYYY-MM-DDThh:mm
+    string departure = 4;
+    // name of the stop
+    string name = 5;
+    // number of nights
+    int64 nights = 6;
+    // route leading to the stop
+    message Route {
+            // route distance in meters
+    int64 distance = 1;
+            // route duration in seconds
+    int64 duration = 2;
+            // travel mode
+    enum Route_Mode {
+            ROUTE_MODE_CAR = 0;
+            ROUTE_MODE_MOTORCYCLE = 1;
+            ROUTE_MODE_BICYCLE = 2;
+            ROUTE_MODE_WALK = 3;
+            ROUTE_MODE_OTHER = 4;
+        }
+        Route_Mode mode = 3;
+            // route path compatible with Google polyline encoding algorithm
+    string polyline = 4;
+    }
+    Route route = 7;
+    // url of the page with more information about the stop
+    string url = 8;
+}
+
+message Trip {
+    // begin of the trip in its local timezone as YYYY-MM-DDThh:mm
+    string begin = 1;
+    // description of the trip (truncated to 200 characters)
+    string description = 2;
+    // end of the trip in its local timezone as YYYY-MM-DDThh:mm
+    string end = 3;
+    // Unique ID of the trip
+    string id = 4;
+    // name of the trip
+    string name = 5;
+}
+
+service FurkotTripsService {
+    // list user's trips
+    rpc GetTrip(google.protobuf.Empty) returns (GetTripResponse) {
+      option (google.api.http) = {
+        get: "/pub/api/trip"
+      };
+    }
+    // list stops for a trip identified by {trip_id}
+    rpc GetTripTrip_idStop(GetTripTrip_idStopRequest) returns (GetTripTrip_idStopResponse) {
+      option (google.api.http) = {
+        get: "/pub/api/trip/{trip_id}/stop"
+      };
+    }
+}

@@ -1,0 +1,287 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package lhpublic;
+
+message GetOffersLoungesLocationRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Cabin class: 'M', 'E', 'C', 'F' (Acceptable values are: "", "M", "E", "C", "F")
+    string cabinClass = 2;
+    // Language code.
+    string lang = 3;
+    // 3-leter IATA airport or city code (e.g. 'ZRH')
+    string location = 4;
+    // Frequent flyer level ('FTL', 'SGC', 'SEN', 'HON') (Acceptable values are: "", "FTL", "SGC", "SEN", "HON")
+    string tierCode = 5;
+}
+
+message GetOffersSeatmapsFlightNumberOriginDestinationDateCabinClassRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes (Acceptable values are: "M", "E", "C", "F")
+    string cabinClass = 2;
+    // Departure date (YYYY-MM-DD)
+    string date = 3;
+    // Destination airport. 3-letter IATA airport code (e.g. 'MUC')
+    string destination = 4;
+    // Flight number including carrier code and any suffix (e.g. 'LH2037')
+    string flightNumber = 5;
+    // Departure airport. 3-letter IATA airport code (e.g. 'TXL')
+    string origin = 6;
+}
+
+message GetOperationsFlightstatusArrivalsAirportCodeFromDateTimeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 3-letter IATA aiport code (e.g. 'ZRH')
+    string airportCode = 2;
+    // Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm)
+    string fromDateTime = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+}
+
+message GetOperationsFlightstatusDeparturesAirportCodeFromDateTimeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Departure airport. 3-letter IATA airport code (e.g. 'HAM')
+    string airportCode = 2;
+    // Start of time range in local time of departure airport (YYYY-MM-DDTHH:mm)
+    string fromDateTime = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+}
+
+message GetOperationsFlightstatusRouteOriginDestinationDateRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Departure date (YYYY-MM-DD) in local time of departure airport
+    string date = 2;
+    // 3-letter IATA airport code (e.g. 'JFK')
+    string destination = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+    // 3-letter IATA airport (e.g. 'FRA')
+    string origin = 6;
+}
+
+message GetOperationsFlightstatusFlightNumberDateRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // The departure date (YYYY-MM-DD) in the local time of the departure airport
+    string date = 2;
+    // Flight number including carrier code and any suffix (e.g. 'LH400')
+    string flightNumber = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+}
+
+message GetOperationsSchedulesOriginDestinationFromDateTimeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Destination airport. 3-letter IATA airport code (e.g. 'FRA')
+    string destination = 2;
+    // Show only direct flights (false=0, true=1). Default is false
+    bool directFlights = 3;
+    // Local departure date and optionally departure time (YYYY-MM-DD or YYYY-MM-DDTHH:mm). When not provided, time is assumed to be 00:01
+    string fromDateTime = 4;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 5;
+    // Number of records skipped. Defaults to 0
+    string offset = 6;
+    // Departure airport. 3-letter IATA airport code (e.g. 'ZRH')
+    string origin = 7;
+}
+
+message GetReferencesAircraftAircraftCodeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 3-character IATA aircraft code
+    string aircraftCode = 2;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 3;
+    // Number of records skipped. Defaults to 0
+    string offset = 4;
+}
+
+message GetReferencesAirlinesAirlineCodeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 2-character IATA airline/carrier code
+    string airlineCode = 2;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 3;
+    // Number of records skipped. Defaults to 0
+    string offset = 4;
+}
+
+message GetReferencesAirportsNearestLatitude,LongitudeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 2 letter ISO 3166-1 language code
+    string lang = 2;
+    // Latitude in decimal format to at most 3 decimal places
+    int32 latitude = 3;
+    // Longitude in decimal format to at most 3 decimal places
+    int32 longitude = 4;
+}
+
+message GetReferencesAirportsAirportCodeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // Restrict the results to locations with flights operated by LH (false=0, true=1)
+    bool LHoperated = 2;
+    // 3-letter IATA airport code
+    string airportCode = 3;
+    // 2-letter ISO 3166-1 language code
+    string lang = 4;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 5;
+    // Number of records skipped. Defaults to 0
+    string offset = 6;
+}
+
+message GetReferencesCitiesCityCodeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 3-letter IATA city code
+    string cityCode = 2;
+    // 2 letter ISO 3166-1 language code
+    string lang = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+}
+
+message GetReferencesCountriesCountryCodeRequest {
+    // http header: application/json or application/xml (Acceptable values are: "application/json", "application/xml")
+    string Accept = 1;
+    // 2-letter ISO 3166-1 country code
+    string countryCode = 2;
+    // 2 letter ISO 3166-1 language code
+    string lang = 3;
+    // Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)
+    string limit = 4;
+    // Number of records skipped. Defaults to 0
+    string offset = 5;
+}
+
+service LHPublicService {
+    // Lounges
+    // 
+    // Lounge information
+    rpc GetOffersLoungesLocation(GetOffersLoungesLocationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/offers/lounges/{location}"
+      };
+    }
+    // Seat Maps
+    // 
+    // Cabin layout and seat characteristics.
+    rpc GetOffersSeatmapsFlightNumberOriginDestinationDateCabinClass(GetOffersSeatmapsFlightNumberOriginDestinationDateCabinClassRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/offers/seatmaps/{flightNumber}/{origin}/{destination}/{date}/{cabinClass}"
+      };
+    }
+    // Flight Status at Arrival Airport
+    // 
+    // Status of all arrivals at a given airport up to 4 hours from the provided date time.
+    rpc GetOperationsFlightstatusArrivalsAirportCodeFromDateTime(GetOperationsFlightstatusArrivalsAirportCodeFromDateTimeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/operations/flightstatus/arrivals/{airportCode}/{fromDateTime}"
+      };
+    }
+    // Flight Status at Departure Airport
+    // 
+    // Status of all departures from a given airport up to 4 hours from the provided date time.
+    rpc GetOperationsFlightstatusDeparturesAirportCodeFromDateTime(GetOperationsFlightstatusDeparturesAirportCodeFromDateTimeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/operations/flightstatus/departures/{airportCode}/{fromDateTime}"
+      };
+    }
+    // Flight Status by Route
+    // 
+    // Status of flights between a given origin and destination on a given date.
+    rpc GetOperationsFlightstatusRouteOriginDestinationDate(GetOperationsFlightstatusRouteOriginDestinationDateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/operations/flightstatus/route/{origin}/{destination}/{date}"
+      };
+    }
+    // Flight Status
+    // 
+    // Status of a particular flight (boarding, delayed, etc.).
+    rpc GetOperationsFlightstatusFlightNumberDate(GetOperationsFlightstatusFlightNumberDateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/operations/flightstatus/{flightNumber}/{date}"
+      };
+    }
+    // Flight Schedules
+    // 
+    // Scheduled flights between given airports on a given date.
+    rpc GetOperationsSchedulesOriginDestinationFromDateTime(GetOperationsSchedulesOriginDestinationFromDateTimeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/operations/schedules/{origin}/{destination}/{fromDateTime}"
+      };
+    }
+    // Aircraft
+    // 
+    // List all aircraft types or one specific aircraft type.
+    rpc GetReferencesAircraftAircraftCode(GetReferencesAircraftAircraftCodeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/aircraft/{aircraftCode}"
+      };
+    }
+    // Airlines
+    // 
+    // List all airlines or one specific airline.
+    rpc GetReferencesAirlinesAirlineCode(GetReferencesAirlinesAirlineCodeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/airlines/{airlineCode}"
+      };
+    }
+    // Nearest Airports
+    // 
+    // List the 5 closest airports to the given latitude and longitude, irrespective of the radius of the reference point.
+    rpc GetReferencesAirportsNearestLatitude,Longitude(GetReferencesAirportsNearestLatitude,LongitudeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/airports/nearest/{latitude},{longitude}"
+      };
+    }
+    // Airports
+    // 
+    // List all airports or one specific airport. All airports response is very large. It is possible to request the response in a specific language.
+    rpc GetReferencesAirportsAirportCode(GetReferencesAirportsAirportCodeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/airports/{airportCode}"
+      };
+    }
+    // Cities
+    // 
+    // List all cities or one specific city. It is possible to request the response in a specific language.
+    rpc GetReferencesCitiesCityCode(GetReferencesCitiesCityCodeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/cities/{cityCode}"
+      };
+    }
+    // Countries
+    // 
+    // List all countries or one specific country. It is possible to request the response in a specific language.
+    rpc GetReferencesCountriesCountryCode(GetReferencesCountriesCountryCodeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/v1/references/countries/{countryCode}"
+      };
+    }
+}

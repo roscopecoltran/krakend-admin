@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package box2.0oauth2token;
+
+message PostRevokeRequest {
+    // The client ID of the application requesting authentication.
+    string client_id = 1;
+    // The client secret of the application requesting authentication.
+    string client_secret = 2;
+    string token = 3;
+}
+
+message PostTokenRequest {
+    // Full url path to the file that the token should be generated for example, https://api.box.com/2.0/files/{file_id}
+    string actor_token = 1;
+    // Full url path to the file that the token should be generated for example, https://api.box.com/2.0/files/{file_id}
+    enum PostTokenRequest_Actor_token_type {
+        POSTTOKENREQUEST_ACTOR_TOKEN_TYPE_URN:IETF:PARAMS:OAUTH:TOKENTYPE:ID_TOKEN = 0;
+    }
+    PostTokenRequest_Actor_token_type actor_token_type = 2;
+    // The client ID of the application requesting authentication.
+    string client_id = 3;
+    // The client secret of the application requesting authentication.
+    string client_secret = 4;
+    // The authorization code returned by Box in response to a successfull authentication request.
+    string code = 5;
+    string grant_type = 6;
+    // The refresh_token that is used to get the new access_token
+    string refresh_token = 7;
+    // Full url path to the file that the token should be generated for example, https://api.box.com/2.0/files/{file_id}
+    string resource = 8;
+    // This is the primary/secondary application token you will exchange for the file token.
+    string subject_token = 9;
+    // The subject token type is urn:ietf:params:oauth:token-type:access_token
+    string subject_token_type = 10;
+}
+
+message AccessToken {
+    string access_token = 1;
+    int64 expires_in = 2;
+    string issued_token_type = 3;
+    string refresh_token = 4;
+    repeated RestrictedTo restricted_to = 5;
+    enum AccessToken_Token_type {
+        ACCESSTOKEN_TOKEN_TYPE_BEARER = 0;
+    }
+    AccessToken_Token_type token_type = 6;
+}
+
+message FileReference {
+}
+
+message ItemReference {
+}
+
+message OAuthError {
+    string error = 1;
+    string error_description = 2;
+    string error_uri = 3;
+    string state = 4;
+}
+
+message Reference {
+    string id = 1;
+    enum Reference_Type {
+        REFERENCE_TYPE_FOLDER = 0;
+        REFERENCE_TYPE_FILE = 1;
+        REFERENCE_TYPE_USER = 2;
+        REFERENCE_TYPE_FILE_VERSION = 3;
+        REFERENCE_TYPE_LOCK = 4;
+        REFERENCE_TYPE_COLLABORATION = 5;
+        REFERENCE_TYPE_COMMENT = 6;
+        REFERENCE_TYPE_TASK = 7;
+        REFERENCE_TYPE_WEB_LINK = 8;
+        REFERENCE_TYPE_COLLECTION = 9;
+        REFERENCE_TYPE_TASK_ASSIGNMENT = 10;
+        REFERENCE_TYPE_EVENT = 11;
+        REFERENCE_TYPE_REALTIME_SERVER = 12;
+        REFERENCE_TYPE_WEBHOOK_EVENT = 13;
+        REFERENCE_TYPE_WEBHOOK = 14;
+        REFERENCE_TYPE_ENTERPRISE = 15;
+        REFERENCE_TYPE_INVITE = 16;
+        REFERENCE_TYPE_EMAIL_ALIAS = 17;
+        REFERENCE_TYPE_GROUP = 18;
+        REFERENCE_TYPE_GROUP_MEMBERSHIP = 19;
+        REFERENCE_TYPE_DEVICE_PINNER = 20;
+        REFERENCE_TYPE_RETENTION_POLICY = 21;
+        REFERENCE_TYPE_RETENTION_POLICY_ASSIGNMENT = 22;
+        REFERENCE_TYPE_FILE_VERSION_RETENTION = 23;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY = 24;
+        REFERENCE_TYPE_LEGAL_HOLD_POLICY_ASSIGNMENT = 25;
+        REFERENCE_TYPE_LEGAL_HOLD = 26;
+        REFERENCE_TYPE_UPLOAD_SESSION = 27;
+    }
+    Reference_Type type = 2;
+}
+
+message RestrictedTo {
+    FileReference object = 1;
+    string scope = 2;
+}
+
+service Box2.0OAuth2TokenService {
+    // Revoke token
+    // 
+    // This is the URL of the Box revoke endpoint, the endpoint that revokes access tokens, or to put it another way, the endpoint that ends sessions, logging users out.
+    rpc PostRevoke(PostRevokeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/oauth2/revoke"
+      };
+    }
+    // Generate Access token
+    // 
+    // This is the URL of the Box token endpoint, the endpoint that returns access tokens. An access token is a data string that enables Box to verify that a request belongs to an authorized session.
+    rpc PostToken(PostTokenRequest) returns (AccessToken) {
+      option (google.api.http) = {
+        post: "/oauth2/token"
+      };
+    }
+}

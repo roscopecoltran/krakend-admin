@@ -1,0 +1,410 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package surveys;
+
+message GetMobileAppPanelsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    int32 startIndex = 8;
+    string token = 9;
+    string userIp = 10;
+}
+
+message GetMobileAppPanelsPanelIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // External URL ID for the panel.
+    string panelId = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PutMobileAppPanelsPanelIdRequest {
+    alt alt = 1;
+    MobileAppPanel body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // External URL ID for the panel.
+    string panelId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetSurveysRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    int32 startIndex = 8;
+    string token = 9;
+    string userIp = 10;
+}
+
+message PostSurveysRequest {
+    alt alt = 1;
+    Survey body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostSurveysResourceIdStartRequest {
+    alt alt = 1;
+    SurveysStartRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string resourceId = 8;
+    string userIp = 9;
+}
+
+message PostSurveysResourceIdStopRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string resourceId = 7;
+    string userIp = 8;
+}
+
+message GetSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // External URL ID for the survey.
+    string surveyUrlId = 7;
+    string userIp = 8;
+}
+
+message PutSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    Survey body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // External URL ID for the survey.
+    string surveyUrlId = 8;
+    string userIp = 9;
+}
+
+message DeleteSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // External URL ID for the survey.
+    string surveyUrlId = 7;
+    string userIp = 8;
+}
+
+message GetSurveysSurveyUrlIdResultsRequest {
+    alt alt = 1;
+    ResultsGetRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // External URL ID for the survey.
+    string surveyUrlId = 8;
+    string userIp = 9;
+}
+
+message FieldMask {
+    repeated FieldMask fields = 1;
+    int32 id = 2;
+}
+
+message MobileAppPanel {
+    // Country code for the country of the users that the panel contains. Uses standard ISO 3166-1 2-character language codes. For instance, 'US' for the United States, and 'GB' for the United Kingdom. Any survey created targeting this panel must also target the corresponding country.
+    string country = 1;
+    // Whether or not the panel is accessible to all API users.
+    bool isPublicPanel = 2;
+    // Language code that the panel can target. For instance, 'en-US'. Uses standard BCP47 language codes. See specification. Any survey created targeting this panel must also target the corresponding language.
+    string language = 3;
+    // Unique panel ID string. This corresponds to the mobile_app_panel_id used in Survey Insert requests.
+    string mobileAppPanelId = 4;
+    // Human readable name of the audience panel.
+    string name = 5;
+    // List of email addresses for users who can target members of this panel. Must contain at least the address of the user making the API call for panels that are not public. This field will be empty for public panels.
+    repeated string owners = 6;
+}
+
+message MobileAppPanelsListResponse {
+    PageInfo pageInfo = 1;
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 2;
+    // An individual predefined panel of Opinion Rewards mobile users.
+    repeated MobileAppPanel resources = 3;
+    TokenPagination tokenPagination = 4;
+}
+
+message PageInfo {
+    int32 resultPerPage = 1;
+    int32 startIndex = 2;
+    int32 totalResults = 3;
+}
+
+message ResultsGetRequest {
+    ResultsMask resultMask = 1;
+}
+
+message ResultsMask {
+    repeated FieldMask fields = 1;
+    string projection = 2;
+}
+
+message Survey {
+    // Targeting-criteria message containing demographic information
+    SurveyAudience audience = 1;
+    // Cost to run the survey and collect the necessary number of responses.
+    SurveyCost cost = 2;
+    // Additional information to store on behalf of the API consumer and associate with this question. This binary blob is treated as opaque. This field is limited to 64K bytes.
+    string customerData = 3;
+    // Text description of the survey.
+    string description = 4;
+    // List of email addresses for survey owners. Must contain at least the address of the user making the API call.
+    repeated string owners = 5;
+    // List of questions defining the survey.
+    repeated SurveyQuestion questions = 6;
+    // Reason for the survey being rejected. Only present if the survey state is rejected.
+    SurveyRejection rejectionReason = 7;
+    // State that the survey is in.
+    string state = 8;
+    // Unique survey ID, that is viewable in the URL of the Survey Creator UI
+    string surveyUrlId = 9;
+    // Optional name that will be given to the survey.
+    string title = 10;
+    // Number of responses desired for the survey.
+    int32 wantedResponseCount = 11;
+}
+
+message SurveyAudience {
+    // Optional list of age buckets to target. Supported age buckets are: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+']
+    repeated string ages = 1;
+    // Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2 character language codes. For instance, 'US' for the United States, and 'GB' for the United Kingdom.
+    string country = 2;
+    // Country subdivision (states/provinces/etc) that surveys should be targeted to. For all countries except GB, ISO-3166-2 subdivision code is required (eg. 'US-OH' for Ohio, United States). For GB, NUTS 1 statistical region codes for the United Kingdom is required (eg. 'UK-UKC' for North East England).
+    string countrySubdivision = 3;
+    // Optional gender to target.
+    string gender = 4;
+    // Language code that surveys should be targeted to. For instance, 'en-US'. Surveys may target bilingual users by specifying a list of language codes (for example, 'de' and 'en-US'). In that case, all languages will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See specification.
+    repeated string languages = 5;
+    // Key for predefined panel that causes survey to be sent to a predefined set of Opinion Rewards App users. You must set PopulationSource to ANDROID_APP_PANEL to use this field.
+    string mobileAppPanelId = 6;
+    // Online population source where the respondents are sampled from.
+    string populationSource = 7;
+}
+
+message SurveyCost {
+    // Cost per survey response in nano units of the given currency. To get the total cost for a survey, multiply this value by wanted_response_count.
+    string costPerResponseNanos = 1;
+    // Currency code that the cost is given in.
+    string currencyCode = 2;
+    // Threshold to start a survey automatically if the quoted price is at most this value. When a survey has a Screener (threshold) question, it must go through an incidence pricing test to determine the final cost per response. Typically you will have to make a followup call to start the survey giving the final computed cost per response. If the survey has no threshold_answers, setting this property will return an error. By specifying this property, you indicate the max price per response you are willing to pay in advance of the incidence test. If the price turns out to be lower than the specified value, the survey will begin immediately and you will be charged at the rate determined by the incidence pricing test. If the price turns out to be greater than the specified value the survey will not be started and you will instead be notified what price was determined by the incidence test. At that point, you must raise the value of this property to be greater than or equal to that cost before attempting to start the survey again. This will immediately start the survey as long the incidence test was run within the last 21 days.
+    string maxCostPerResponseNanos = 3;
+    // Cost of survey in nano units of the given currency. DEPRECATED in favor of cost_per_response_nanos
+    string nanos = 4;
+}
+
+message SurveyQuestion {
+    // The randomization option for multiple choice and multi-select questions. If not specified, this option defaults to randomize.
+    string answerOrder = 1;
+    // Required list of answer options for a question.
+    repeated string answers = 2;
+    // Option to allow open-ended text box for Single Answer and Multiple Answer question types. This can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE question types.
+    bool hasOther = 3;
+    // For rating questions, the text for the higher end of the scale, such as 'Best'. For numeric questions, a string representing a floating-point that is the maximum allowed number for a response.
+    string highValueLabel = 4;
+    repeated SurveyQuestionImage images = 5;
+    // Currently only support pinning an answer option to the last position.
+    bool lastAnswerPositionPinned = 6;
+    // For rating questions, the text for the lower end of the scale, such as 'Worst'. For numeric questions, a string representing a floating-point that is the minimum allowed number for a response.
+    string lowValueLabel = 7;
+    // Option to force the user to pick one of the open text suggestions. This requires that suggestions are provided for this question.
+    bool mustPickSuggestion = 8;
+    // Number of stars to use for ratings questions.
+    string numStars = 9;
+    // Placeholder text for an open text question.
+    string openTextPlaceholder = 10;
+    // A list of suggested answers for open text question auto-complete. This is only valid if single_line_response is true.
+    repeated string openTextSuggestions = 11;
+    // Required question text shown to the respondent.
+    string question = 12;
+    // Used by the Rating Scale with Text question type. This text goes along with the question field that is presented to the respondent, and is the actual text that the respondent is asked to rate.
+    string sentimentText = 13;
+    // Option to allow multiple line open text responses instead of a single line response. Note that we don't show auto-complete suggestions with multiple line responses.
+    bool singleLineResponse = 14;
+    // The threshold/screener answer options, which will screen a user into the rest of the survey. These will be a subset of the answer option strings.
+    repeated string thresholdAnswers = 15;
+    // Required field defining the question type. For details about configuring different type of questions, consult the question configuration guide.
+    string type = 16;
+    // Optional unit of measurement for display (for example: hours, people, miles).
+    string unitOfMeasurementLabel = 17;
+    // The YouTube video ID to be show in video questions.
+    string videoId = 18;
+}
+
+message SurveyQuestionImage {
+    // The alt text property used in image tags is required for all images.
+    string altText = 1;
+    // Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types.
+    string data = 2;
+    // The read-only URL for the hosted images.
+    string url = 3;
+}
+
+message SurveyRejection {
+    // A human-readable explanation of what was wrong with the survey.
+    string explanation = 1;
+    // Which category of rejection this was. See the  Google Surveys Help Center for additional details on each category.
+    string type = 2;
+}
+
+message SurveyResults {
+    // Human readable string describing the status of the request.
+    string status = 1;
+    // External survey ID as viewable by survey owners in the editor view.
+    string surveyUrlId = 2;
+}
+
+message SurveysDeleteResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message SurveysListResponse {
+    PageInfo pageInfo = 1;
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 2;
+    // An individual survey resource.
+    repeated Survey resources = 3;
+    TokenPagination tokenPagination = 4;
+}
+
+message SurveysStartRequest {
+    // Threshold to start a survey automically if the quoted prices is less than or equal to this value. See Survey.Cost for more details.
+    string maxCostPerResponseNanos = 1;
+}
+
+message SurveysStartResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message SurveysStopResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message TokenPagination {
+    string nextPageToken = 1;
+    string previousPageToken = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service SurveysService {
+    // Lists the MobileAppPanels available to the authenticated user.
+    rpc GetMobileAppPanels(GetMobileAppPanelsRequest) returns (MobileAppPanelsListResponse) {
+      option (google.api.http) = {
+        get: "/surveys/v2/mobileAppPanels"
+      };
+    }
+    // Retrieves a MobileAppPanel that is available to the authenticated user.
+    rpc GetMobileAppPanelsPanelId(GetMobileAppPanelsPanelIdRequest) returns (MobileAppPanel) {
+      option (google.api.http) = {
+        get: "/surveys/v2/mobileAppPanels/{panelId}"
+      };
+    }
+    // Updates a MobileAppPanel. Currently the only property that can be updated is the owners property.
+    rpc PutMobileAppPanelsPanelId(PutMobileAppPanelsPanelIdRequest) returns (MobileAppPanel) {
+      option (google.api.http) = {
+        put: "/surveys/v2/mobileAppPanels/{panelId}"
+        body: "body"
+      };
+    }
+    // Lists the surveys owned by the authenticated user.
+    rpc GetSurveys(GetSurveysRequest) returns (SurveysListResponse) {
+      option (google.api.http) = {
+        get: "/surveys/v2/surveys"
+      };
+    }
+    // Creates a survey.
+    rpc PostSurveys(PostSurveysRequest) returns (Survey) {
+      option (google.api.http) = {
+        post: "/surveys/v2/surveys"
+        body: "body"
+      };
+    }
+    // Begins running a survey.
+    rpc PostSurveysResourceIdStart(PostSurveysResourceIdStartRequest) returns (SurveysStartResponse) {
+      option (google.api.http) = {
+        post: "/surveys/v2/surveys/{resourceId}/start"
+        body: "body"
+      };
+    }
+    // Stops a running survey.
+    rpc PostSurveysResourceIdStop(PostSurveysResourceIdStopRequest) returns (SurveysStopResponse) {
+      option (google.api.http) = {
+        post: "/surveys/v2/surveys/{resourceId}/stop"
+      };
+    }
+    // Retrieves information about the specified survey.
+    rpc GetSurveysSurveyUrlId(GetSurveysSurveyUrlIdRequest) returns (Survey) {
+      option (google.api.http) = {
+        get: "/surveys/v2/surveys/{surveyUrlId}"
+      };
+    }
+    // Updates a survey. Currently the only property that can be updated is the owners property.
+    rpc PutSurveysSurveyUrlId(PutSurveysSurveyUrlIdRequest) returns (Survey) {
+      option (google.api.http) = {
+        put: "/surveys/v2/surveys/{surveyUrlId}"
+        body: "body"
+      };
+    }
+    // Removes a survey from view in all user GET requests.
+    rpc DeleteSurveysSurveyUrlId(DeleteSurveysSurveyUrlIdRequest) returns (SurveysDeleteResponse) {
+      option (google.api.http) = {
+        delete: "/surveys/v2/surveys/{surveyUrlId}"
+      };
+    }
+    // Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add "?alt=media" to the URL as an argument to get results.
+    rpc GetSurveysSurveyUrlIdResults(GetSurveysSurveyUrlIdResultsRequest) returns (SurveyResults) {
+      option (google.api.http) = {
+        get: "/surveys/v2/surveys/{surveyUrlId}/results"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package moonbyaiweiwei&olafureliasson;
+
+message GetApiHashtagsRequest {
+    // Hashtag to search for
+    string tag = 1;
+}
+
+message GetApiMarksRequest {
+    // Before ID (pagination purposes)
+    string before = 1;
+    // Collection ID
+    string collection = 2;
+    // Featured marks
+    bool featured = 3;
+    // Last popular ID (for pagination purposes)
+    string last_popular_id = 4;
+    // Popular marks
+    bool popular = 5;
+    // Created by user ID
+    string user = 6;
+    // X coordinate
+    int32 x = 7;
+    // Y coordinate
+    int32 y = 8;
+}
+
+service MoonByAiWeiwei&OlafurEliassonService {
+    // Fetches popular hashtags or marks tagged with specified hashtag
+    // 
+    // Search for specified tag (no pound sign necessary). If <b>tag</b> is empty, the 50 most popular hashtags will be returned.
+    rpc GetApiHashtags(GetApiHashtagsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//api/hashtags"
+      };
+    }
+    // Fetches marks
+    // 
+    // The main method for querying the marks database. You may use the following options:
+    //         <ol style='list-style-type: lower-roman;'>
+    //         <li>No parameters to retrieve all marks in descending chronological order (use <b>before</b> for pagination)</li>
+    //         <li><b>popular</b> (and optionally <b>last_popular_id</b>) to retrieve all popular marks</li>
+    //         <li><b>featured</b> to retrieve all featured marks</li>
+    //         <li><b>x & y</b> to retrieve mark at specific coordinate</li>
+    //         <li><b>user</b> to retrieve all marks created by the specified user</li>
+    //         <li><b>collection</b> to retrieve all marks collected by the specified user</li>
+    //         </ol>
+    rpc GetApiMarks(GetApiMarksRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//api/marks"
+      };
+    }
+}

@@ -1,0 +1,1096 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleservicecontrol;
+
+message PostV1ServicesServiceName:AllocateQuotaRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    AllocateQuotaRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // Name of the service as specified in the service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See google.api.Service for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ServicesServiceName:CheckRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    CheckRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // The service name as specified in its service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See
+    // [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
+    // for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ServicesServiceName:EndReconciliationRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    EndReconciliationRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // Name of the service as specified in the service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See google.api.Service for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ServicesServiceName:ReleaseQuotaRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    ReleaseQuotaRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // Name of the service as specified in the service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See google.api.Service for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ServicesServiceName:ReportRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    ReportRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // The service name as specified in its service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See
+    // [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
+    // for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV1ServicesServiceName:StartReconciliationRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    StartReconciliationRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // Name of the service as specified in the service configuration. For example,
+    // `"pubsub.googleapis.com"`.
+    // 
+    // See google.api.Service for the definition of a service name.
+    string serviceName = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AllocateInfo {
+    // A list of label keys that were unused by the server in processing the
+    // request. Thus, for similar requests repeated in a certain future time
+    // window, the caller can choose to ignore these labels in the requests
+    // to achieve better client-side cache hits and quota aggregation.
+    repeated string unusedArguments = 1;
+}
+
+message AllocateQuotaRequest {
+    // Operation that describes the quota allocation.
+    QuotaOperation allocateOperation = 1;
+    // Specifies which version of service configuration should be used to process
+    // the request. If unspecified or no matching version can be found, the latest
+    // one will be used.
+    string serviceConfigId = 2;
+}
+
+message AllocateQuotaResponse {
+    // Indicates the decision of the allocate.
+    repeated QuotaError allocateErrors = 1;
+    // WARNING: DO NOT use this field until this warning message is removed.
+    AllocateInfo allocateInfo = 2;
+    // The same operation_id value used in the AllocateQuotaRequest. Used for
+    // logging and diagnostics purposes.
+    string operationId = 3;
+    // Quota metrics to indicate the result of allocation. Depending on the
+    // request, one or more of the following metrics will be included:
+    // 
+    // 1. For rate quota, per quota group or per quota metric incremental usage
+    // will be specified using the following delta metric:
+    //   "serviceruntime.googleapis.com/api/consumer/quota_used_count"
+    // 
+    // 2. For allocation quota, per quota metric total usage will be specified
+    // using the following gauge metric:
+    //   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+    // 
+    // 3. For both rate quota and allocation quota, the quota limit reached
+    // condition will be specified using the following boolean metric:
+    //   "serviceruntime.googleapis.com/quota/exceeded"
+    // 
+    // 4. For allocation quota, value for each quota limit associated with
+    // the metrics will be specified using the following gauge metric:
+    //   "serviceruntime.googleapis.com/quota/limit"
+    repeated MetricValueSet quotaMetrics = 4;
+    // ID of the actual config used to process the request.
+    string serviceConfigId = 5;
+}
+
+message AuditLog {
+    // Authentication information.
+    AuthenticationInfo authenticationInfo = 1;
+    // Authorization information. If there are multiple
+    // resources or permissions involved, then there is
+    // one AuthorizationInfo element for each {resource, permission} tuple.
+    repeated AuthorizationInfo authorizationInfo = 2;
+    // Other service-specific data about the request, response, and other
+    // information associated with the current audited event.
+    message Metadata {
+    }
+    repeated Metadata metadata = 3;
+    // The name of the service method or operation.
+    // For API calls, this should be the name of the API method.
+    // For example,
+    // 
+    //     "google.datastore.v1.Datastore.RunQuery"
+    //     "google.logging.v1.LoggingService.DeleteLog"
+    string methodName = 4;
+    // The number of items returned from a List or Query API method,
+    // if applicable.
+    string numResponseItems = 5;
+    // The operation request. This may not include all request parameters,
+    // such as those that are too large, privacy-sensitive, or duplicated
+    // elsewhere in the log record.
+    // It should never include user-generated data, such as file contents.
+    // When the JSON object represented here has a proto equivalent, the proto
+    // name will be indicated in the `@type` property.
+    map<string, > request = 6;
+    // Metadata about the operation.
+    RequestMetadata requestMetadata = 7;
+    // The resource or collection that is the target of the operation.
+    // The name is a scheme-less URI, not including the API service name.
+    // For example:
+    // 
+    //     "shelves/SHELF_ID/books"
+    //     "shelves/SHELF_ID/books/BOOK_ID"
+    string resourceName = 8;
+    // The operation response. This may not include all response elements,
+    // such as those that are too large, privacy-sensitive, or duplicated
+    // elsewhere in the log record.
+    // It should never include user-generated data, such as file contents.
+    // When the JSON object represented here has a proto equivalent, the proto
+    // name will be indicated in the `@type` property.
+    map<string, > response = 9;
+    // Deprecated, use `metadata` field instead.
+    // Other service-specific data about the request, response, and other
+    // activities.
+    map<string, > serviceData = 10;
+    // The name of the API service performing the operation. For example,
+    // `"datastore.googleapis.com"`.
+    string serviceName = 11;
+    // The status of the overall operation.
+    Status status = 12;
+}
+
+message AuthenticationInfo {
+    // The authority selector specified by the requestor, if any.
+    // It is not guaranteed that the principal was allowed to use this authority.
+    string authoritySelector = 1;
+    // The email address of the authenticated user (or service account on behalf
+    // of third party principal) making the request. For privacy reasons, the
+    // principal email address is redacted for all read-only operations that fail
+    // with a "permission denied" error.
+    string principalEmail = 2;
+    // The third party identification (if any) of the authenticated user making
+    // the request.
+    // When the JSON object represented here has a proto equivalent, the proto
+    // name will be indicated in the `@type` property.
+    map<string, > thirdPartyPrincipal = 3;
+}
+
+message AuthorizationInfo {
+    // Whether or not authorization for `resource` and `permission`
+    // was granted.
+    bool granted = 1;
+    // The required IAM permission.
+    string permission = 2;
+    // The resource being accessed, as a REST-style string. For example:
+    // 
+    //     bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID
+    string resource = 3;
+}
+
+message CheckError {
+    // The error code.
+    enum CheckError_Code {
+        CHECKERROR_CODE_ERROR_CODE_UNSPECIFIED = 0;
+        CHECKERROR_CODE_NOT_FOUND = 1;
+        CHECKERROR_CODE_PERMISSION_DENIED = 2;
+        CHECKERROR_CODE_RESOURCE_EXHAUSTED = 3;
+        CHECKERROR_CODE_BUDGET_EXCEEDED = 4;
+        CHECKERROR_CODE_DENIAL_OF_SERVICE_DETECTED = 5;
+        CHECKERROR_CODE_LOAD_SHEDDING = 6;
+        CHECKERROR_CODE_ABUSER_DETECTED = 7;
+        CHECKERROR_CODE_SERVICE_NOT_ACTIVATED = 8;
+        CHECKERROR_CODE_VISIBILITY_DENIED = 9;
+        CHECKERROR_CODE_BILLING_DISABLED = 10;
+        CHECKERROR_CODE_PROJECT_DELETED = 11;
+        CHECKERROR_CODE_PROJECT_INVALID = 12;
+        CHECKERROR_CODE_IP_ADDRESS_BLOCKED = 13;
+        CHECKERROR_CODE_REFERER_BLOCKED = 14;
+        CHECKERROR_CODE_CLIENT_APP_BLOCKED = 15;
+        CHECKERROR_CODE_API_TARGET_BLOCKED = 16;
+        CHECKERROR_CODE_API_KEY_INVALID = 17;
+        CHECKERROR_CODE_API_KEY_EXPIRED = 18;
+        CHECKERROR_CODE_API_KEY_NOT_FOUND = 19;
+        CHECKERROR_CODE_SPATULA_HEADER_INVALID = 20;
+        CHECKERROR_CODE_LOAS_ROLE_INVALID = 21;
+        CHECKERROR_CODE_NO_LOAS_PROJECT = 22;
+        CHECKERROR_CODE_LOAS_PROJECT_DISABLED = 23;
+        CHECKERROR_CODE_SECURITY_POLICY_VIOLATED = 24;
+        CHECKERROR_CODE_NAMESPACE_LOOKUP_UNAVAILABLE = 25;
+        CHECKERROR_CODE_SERVICE_STATUS_UNAVAILABLE = 26;
+        CHECKERROR_CODE_BILLING_STATUS_UNAVAILABLE = 27;
+        CHECKERROR_CODE_QUOTA_CHECK_UNAVAILABLE = 28;
+        CHECKERROR_CODE_LOAS_PROJECT_LOOKUP_UNAVAILABLE = 29;
+        CHECKERROR_CODE_CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE = 30;
+        CHECKERROR_CODE_SECURITY_POLICY_BACKEND_UNAVAILABLE = 31;
+    }
+    CheckError_Code code = 1;
+    // Free-form text providing details on the error cause of the error.
+    string detail = 2;
+}
+
+message CheckInfo {
+    // Consumer info of this check.
+    ConsumerInfo consumerInfo = 1;
+    // A list of fields and label keys that are ignored by the server.
+    // The client doesn't need to send them for following requests to improve
+    // performance and allow better aggregation.
+    repeated string unusedArguments = 2;
+}
+
+message CheckRequest {
+    // The operation to be checked.
+    Operation operation = 1;
+    // Requests the project settings to be returned as part of the check response.
+    bool requestProjectSettings = 2;
+    // Specifies which version of service configuration should be used to process
+    // the request.
+    // 
+    // If unspecified or no matching version can be found, the
+    // latest one will be used.
+    string serviceConfigId = 3;
+    // Indicates if service activation check should be skipped for this request.
+    // Default behavior is to perform the check and apply relevant quota.
+    bool skipActivationCheck = 4;
+}
+
+message CheckResponse {
+    // Indicate the decision of the check.
+    // 
+    // If no check errors are present, the service should process the operation.
+    // Otherwise the service should use the list of errors to determine the
+    // appropriate action.
+    repeated CheckError checkErrors = 1;
+    // Feedback data returned from the server during processing a Check request.
+    CheckInfo checkInfo = 2;
+    // The same operation_id value used in the CheckRequest.
+    // Used for logging and diagnostics purposes.
+    string operationId = 3;
+    // Quota information for the check request associated with this response.
+    QuotaInfo quotaInfo = 4;
+    // The actual config id used to process the request.
+    string serviceConfigId = 5;
+}
+
+message ConsumerInfo {
+    // The Google cloud project number, e.g. 1234567890. A value of 0 indicates
+    // no project number is found.
+    string projectNumber = 1;
+}
+
+message Distribution {
+    // The number of samples in each histogram bucket. `bucket_counts` are
+    // optional. If present, they must sum to the `count` value.
+    // 
+    // The buckets are defined below in `bucket_option`. There are N buckets.
+    // `bucket_counts[0]` is the number of samples in the underflow bucket.
+    // `bucket_counts[1]` to `bucket_counts[N-1]` are the numbers of samples
+    // in each of the finite buckets. And `bucket_counts[N] is the number
+    // of samples in the overflow bucket. See the comments of `bucket_option`
+    // below for more details.
+    // 
+    // Any suffix of trailing zeros may be omitted.
+    repeated string bucketCounts = 1;
+    // The total number of samples in the distribution. Must be >= 0.
+    string count = 2;
+    // Buckets with arbitrary user-provided width.
+    ExplicitBuckets explicitBuckets = 3;
+    // Buckets with exponentially growing width.
+    ExponentialBuckets exponentialBuckets = 4;
+    // Buckets with constant width.
+    LinearBuckets linearBuckets = 5;
+    // The maximum of the population of values. Ignored if `count` is zero.
+    double maximum = 6;
+    // The arithmetic mean of the samples in the distribution. If `count` is
+    // zero then this field must be zero.
+    double mean = 7;
+    // The minimum of the population of values. Ignored if `count` is zero.
+    double minimum = 8;
+    // The sum of squared deviations from the mean:
+    //   Sum[i=1..count]((x_i - mean)^2)
+    // where each x_i is a sample values. If `count` is zero then this field
+    // must be zero, otherwise validation of the request fails.
+    double sumOfSquaredDeviation = 9;
+}
+
+message EndReconciliationRequest {
+    // Operation that describes the quota reconciliation.
+    QuotaOperation reconciliationOperation = 1;
+    // Specifies which version of service configuration should be used to process
+    // the request. If unspecified or no matching version can be found, the latest
+    // one will be used.
+    string serviceConfigId = 2;
+}
+
+message EndReconciliationResponse {
+    // The same operation_id value used in the EndReconciliationRequest. Used for
+    // logging and diagnostics purposes.
+    string operationId = 1;
+    // Metric values as tracked by One Platform before the adjustment was made.
+    // The following metrics will be included:
+    // 
+    // 1. Per quota metric total usage will be specified using the following gauge
+    // metric:
+    //   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+    // 
+    // 2. Value for each quota limit associated with the metrics will be specified
+    // using the following gauge metric:
+    //   "serviceruntime.googleapis.com/quota/limit"
+    // 
+    // 3. Delta value of the usage after the reconciliation for limits associated
+    // with the metrics will be specified using the following metric:
+    //   "serviceruntime.googleapis.com/allocation/reconciliation_delta"
+    // The delta value is defined as:
+    //   new_usage_from_client - existing_value_in_spanner.
+    // This metric is not defined in serviceruntime.yaml or in Cloud Monarch.
+    // This metric is meant for callers' use only. Since this metric is not
+    // defined in the monitoring backend, reporting on this metric will result in
+    // an error.
+    repeated MetricValueSet quotaMetrics = 2;
+    // Indicates the decision of the reconciliation end.
+    repeated QuotaError reconciliationErrors = 3;
+    // ID of the actual config used to process the request.
+    string serviceConfigId = 4;
+}
+
+message ExplicitBuckets {
+    // 'bound' is a list of strictly increasing boundaries between
+    // buckets. Note that a list of length N-1 defines N buckets because
+    // of fenceposting. See comments on `bucket_options` for details.
+    // 
+    // The i'th finite bucket covers the interval
+    //   [bound[i-1], bound[i])
+    // where i ranges from 1 to bound_size() - 1. Note that there are no
+    // finite buckets at all if 'bound' only contains a single element; in
+    // that special case the single bound defines the boundary between the
+    // underflow and overflow buckets.
+    // 
+    // bucket number                   lower bound    upper bound
+    //  i == 0 (underflow)              -inf           bound[i]
+    //  0 < i < bound_size()            bound[i-1]     bound[i]
+    //  i == bound_size() (overflow)    bound[i-1]     +inf
+    repeated double bounds = 1;
+}
+
+message ExponentialBuckets {
+    // The i'th exponential bucket covers the interval
+    //   [scale * growth_factor^(i-1), scale * growth_factor^i)
+    // where i ranges from 1 to num_finite_buckets inclusive.
+    // Must be larger than 1.0.
+    double growthFactor = 1;
+    // The number of finite buckets. With the underflow and overflow buckets,
+    // the total number of buckets is `num_finite_buckets` + 2.
+    // See comments on `bucket_options` for details.
+    int32 numFiniteBuckets = 2;
+    // The i'th exponential bucket covers the interval
+    //   [scale * growth_factor^(i-1), scale * growth_factor^i)
+    // where i ranges from 1 to num_finite_buckets inclusive.
+    // Must be > 0.
+    double scale = 3;
+}
+
+message LinearBuckets {
+    // The number of finite buckets. With the underflow and overflow buckets,
+    // the total number of buckets is `num_finite_buckets` + 2.
+    // See comments on `bucket_options` for details.
+    int32 numFiniteBuckets = 1;
+    // The i'th linear bucket covers the interval
+    //   [offset + (i-1) * width, offset + i * width)
+    // where i ranges from 1 to num_finite_buckets, inclusive.
+    double offset = 2;
+    // The i'th linear bucket covers the interval
+    //   [offset + (i-1) * width, offset + i * width)
+    // where i ranges from 1 to num_finite_buckets, inclusive.
+    // Must be strictly positive.
+    double width = 3;
+}
+
+message LogEntry {
+    // A unique ID for the log entry used for deduplication. If omitted,
+    // the implementation will generate one based on operation_id.
+    string insertId = 1;
+    // A set of user-defined (key, value) data that provides additional
+    // information about the log entry.
+    map<string, string> labels = 2;
+    // Required. The log to which this log entry belongs. Examples: `"syslog"`,
+    // `"book_log"`.
+    string name = 3;
+    // The log entry payload, represented as a protocol buffer that is
+    // expressed as a JSON object. The only accepted type currently is
+    // AuditLog.
+    map<string, > protoPayload = 4;
+    // The severity of the log entry. The default value is
+    // `LogSeverity.DEFAULT`.
+    enum LogEntry_Severity {
+        LOGENTRY_SEVERITY_DEFAULT = 0;
+        LOGENTRY_SEVERITY_DEBUG = 1;
+        LOGENTRY_SEVERITY_INFO = 2;
+        LOGENTRY_SEVERITY_NOTICE = 3;
+        LOGENTRY_SEVERITY_WARNING = 4;
+        LOGENTRY_SEVERITY_ERROR = 5;
+        LOGENTRY_SEVERITY_CRITICAL = 6;
+        LOGENTRY_SEVERITY_ALERT = 7;
+        LOGENTRY_SEVERITY_EMERGENCY = 8;
+    }
+    LogEntry_Severity severity = 5;
+    // The log entry payload, represented as a structure that
+    // is expressed as a JSON object.
+    map<string, > structPayload = 6;
+    // The log entry payload, represented as a Unicode string (UTF-8).
+    string textPayload = 7;
+    // The time the event described by the log entry occurred. If
+    // omitted, defaults to operation start time.
+    string timestamp = 8;
+}
+
+message MetricValue {
+    // A boolean value.
+    bool boolValue = 1;
+    // A distribution value.
+    Distribution distributionValue = 2;
+    // A double precision floating point value.
+    double doubleValue = 3;
+    // The end of the time period over which this metric value's measurement
+    // applies.
+    string endTime = 4;
+    // A signed 64-bit integer value.
+    string int64Value = 5;
+    // The labels describing the metric value.
+    // See comments on google.api.servicecontrol.v1.Operation.labels for
+    // the overriding relationship.
+    map<string, string> labels = 6;
+    // A money value.
+    Money moneyValue = 7;
+    // The start of the time period over which this metric value's measurement
+    // applies. The time period has different semantics for different metric
+    // types (cumulative, delta, and gauge). See the metric definition
+    // documentation in the service configuration for details.
+    string startTime = 8;
+    // A text string value.
+    string stringValue = 9;
+}
+
+message MetricValueSet {
+    // The metric name defined in the service configuration.
+    string metricName = 1;
+    // The values in this metric.
+    repeated MetricValue metricValues = 2;
+}
+
+message Money {
+    // The 3-letter currency code defined in ISO 4217.
+    string currencyCode = 1;
+    // Number of nano (10^-9) units of the amount.
+    // The value must be between -999,999,999 and +999,999,999 inclusive.
+    // If `units` is positive, `nanos` must be positive or zero.
+    // If `units` is zero, `nanos` can be positive, zero, or negative.
+    // If `units` is negative, `nanos` must be negative or zero.
+    // For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
+    int32 nanos = 2;
+    // The whole units of the amount.
+    // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
+    string units = 3;
+}
+
+message Operation {
+    // Identity of the consumer who is using the service.
+    // This field should be filled in for the operations initiated by a
+    // consumer, but not for service-initiated operations that are
+    // not related to a specific consumer.
+    // 
+    // This can be in one of the following formats:
+    //   project:<project_id>,
+    //   project_number:<project_number>,
+    //   api_key:<api_key>.
+    string consumerId = 1;
+    // End time of the operation.
+    // Required when the operation is used in ServiceController.Report,
+    // but optional when the operation is used in ServiceController.Check.
+    string endTime = 2;
+    // DO NOT USE. This is an experimental field.
+    enum Operation_Importance {
+        OPERATION_IMPORTANCE_LOW = 0;
+        OPERATION_IMPORTANCE_HIGH = 1;
+        OPERATION_IMPORTANCE_DEBUG = 2;
+    }
+    Operation_Importance importance = 3;
+    // Labels describing the operation. Only the following labels are allowed:
+    // 
+    // - Labels describing monitored resources as defined in
+    //   the service configuration.
+    // - Default labels of metric values. When specified, labels defined in the
+    //   metric value override these default.
+    // - The following labels defined by Google Cloud Platform:
+    //     - `cloud.googleapis.com/location` describing the location where the
+    //        operation happened,
+    //     - `servicecontrol.googleapis.com/user_agent` describing the user agent
+    //        of the API request,
+    //     - `servicecontrol.googleapis.com/service_agent` describing the service
+    //        used to handle the API request (e.g. ESP),
+    //     - `servicecontrol.googleapis.com/platform` describing the platform
+    //        where the API is served (e.g. GAE, GCE, GKE).
+    map<string, string> labels = 4;
+    // Represents information to be logged.
+    repeated LogEntry logEntries = 5;
+    // Represents information about this operation. Each MetricValueSet
+    // corresponds to a metric defined in the service configuration.
+    // The data type used in the MetricValueSet must agree with
+    // the data type specified in the metric definition.
+    // 
+    // Within a single operation, it is not allowed to have more than one
+    // MetricValue instances that have the same metric names and identical
+    // label value combinations. If a request has such duplicated MetricValue
+    // instances, the entire request is rejected with
+    // an invalid argument error.
+    repeated MetricValueSet metricValueSets = 6;
+    // Identity of the operation. This must be unique within the scope of the
+    // service that generated the operation. If the service calls
+    // Check() and Report() on the same operation, the two calls should carry
+    // the same id.
+    // 
+    // UUID version 4 is recommended, though not required.
+    // In scenarios where an operation is computed from existing information
+    // and an idempotent id is desirable for deduplication purpose, UUID version 5
+    // is recommended. See RFC 4122 for details.
+    string operationId = 7;
+    // Fully qualified name of the operation. Reserved for future use.
+    string operationName = 8;
+    // Represents the properties needed for quota check. Applicable only if this
+    // operation is for a quota check request. If this is not specified, no quota
+    // check will be performed.
+    QuotaProperties quotaProperties = 9;
+    // DO NOT USE. This field is deprecated, use "resources" field instead.
+    // The resource name of the parent of a resource in the resource hierarchy.
+    // 
+    // This can be in one of the following formats:
+    //     - “projects/<project-id or project-number>”
+    //     - “folders/<folder-id>”
+    //     - “organizations/<organization-id>”
+    string resourceContainer = 10;
+    // The resources that are involved in the operation.
+    repeated ResourceInfo resources = 11;
+    // Required. Start time of the operation.
+    string startTime = 12;
+    // User defined labels for the resource that this operation is associated
+    // with. Only a combination of 1000 user labels per consumer project are
+    // allowed.
+    map<string, string> userLabels = 13;
+}
+
+message QuotaError {
+    // Error code.
+    enum QuotaError_Code {
+        QUOTAERROR_CODE_UNSPECIFIED = 0;
+        QUOTAERROR_CODE_RESOURCE_EXHAUSTED = 1;
+        QUOTAERROR_CODE_OUT_OF_RANGE = 2;
+        QUOTAERROR_CODE_BILLING_NOT_ACTIVE = 3;
+        QUOTAERROR_CODE_PROJECT_DELETED = 4;
+        QUOTAERROR_CODE_API_KEY_INVALID = 5;
+        QUOTAERROR_CODE_API_KEY_EXPIRED = 6;
+        QUOTAERROR_CODE_SPATULA_HEADER_INVALID = 7;
+        QUOTAERROR_CODE_LOAS_ROLE_INVALID = 8;
+        QUOTAERROR_CODE_NO_LOAS_PROJECT = 9;
+        QUOTAERROR_CODE_PROJECT_STATUS_UNAVAILABLE = 10;
+        QUOTAERROR_CODE_SERVICE_STATUS_UNAVAILABLE = 11;
+        QUOTAERROR_CODE_BILLING_STATUS_UNAVAILABLE = 12;
+        QUOTAERROR_CODE_QUOTA_SYSTEM_UNAVAILABLE = 13;
+    }
+    QuotaError_Code code = 1;
+    // Free-form text that provides details on the cause of the error.
+    string description = 2;
+    // Subject to whom this error applies. See the specific enum for more details
+    // on this field. For example, "clientip:<ip address of client>" or
+    // "project:<Google developer project id>".
+    string subject = 3;
+}
+
+message QuotaInfo {
+    // Quota Metrics that have exceeded quota limits.
+    // For QuotaGroup-based quota, this is QuotaGroup.name
+    // For QuotaLimit-based quota, this is QuotaLimit.name
+    // See: google.api.Quota
+    // Deprecated: Use quota_metrics to get per quota group limit exceeded status.
+    repeated string limitExceeded = 1;
+    // Map of quota group name to the actual number of tokens consumed. If the
+    // quota check was not successful, then this will not be populated due to no
+    // quota consumption.
+    // 
+    // We are not merging this field with 'quota_metrics' field because of the
+    // complexity of scaling in Chemist client code base. For simplicity, we will
+    // keep this field for Castor (that scales quota usage) and 'quota_metrics'
+    // for SuperQuota (that doesn't scale quota usage).
+    map<string, integer> quotaConsumed = 2;
+    // Quota metrics to indicate the usage. Depending on the check request, one or
+    // more of the following metrics will be included:
+    // 
+    // 1. For rate quota, per quota group or per quota metric incremental usage
+    // will be specified using the following delta metric:
+    //   "serviceruntime.googleapis.com/api/consumer/quota_used_count"
+    // 
+    // 2. For allocation quota, per quota metric total usage will be specified
+    // using the following gauge metric:
+    //   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+    // 
+    // 3. For both rate quota and allocation quota, the quota limit reached
+    // condition will be specified using the following boolean metric:
+    //   "serviceruntime.googleapis.com/quota/exceeded"
+    repeated MetricValueSet quotaMetrics = 3;
+}
+
+message QuotaOperation {
+    // Identity of the consumer for whom this quota operation is being performed.
+    // 
+    // This can be in one of the following formats:
+    //   project:<project_id>,
+    //   project_number:<project_number>,
+    //   api_key:<api_key>.
+    string consumerId = 1;
+    // Labels describing the operation.
+    map<string, string> labels = 2;
+    // Fully qualified name of the API method for which this quota operation is
+    // requested. This name is used for matching quota rules or metric rules and
+    // billing status rules defined in service configuration. This field is not
+    // required if the quota operation is performed on non-API resources.
+    // 
+    // Example of an RPC method name:
+    //     google.example.library.v1.LibraryService.CreateShelf
+    string methodName = 3;
+    // Identity of the operation. This is expected to be unique within the scope
+    // of the service that generated the operation, and guarantees idempotency in
+    // case of retries.
+    // 
+    // UUID version 4 is recommended, though not required. In scenarios where an
+    // operation is computed from existing information and an idempotent id is
+    // desirable for deduplication purpose, UUID version 5 is recommended. See
+    // RFC 4122 for details.
+    string operationId = 4;
+    // Represents information about this operation. Each MetricValueSet
+    // corresponds to a metric defined in the service configuration.
+    // The data type used in the MetricValueSet must agree with
+    // the data type specified in the metric definition.
+    // 
+    // Within a single operation, it is not allowed to have more than one
+    // MetricValue instances that have the same metric names and identical
+    // label value combinations. If a request has such duplicated MetricValue
+    // instances, the entire request is rejected with
+    // an invalid argument error.
+    repeated MetricValueSet quotaMetrics = 5;
+    // Quota mode for this operation.
+    enum QuotaOperation_QuotaMode {
+        QUOTAOPERATION_QUOTAMODE_UNSPECIFIED = 0;
+        QUOTAOPERATION_QUOTAMODE_NORMAL = 1;
+        QUOTAOPERATION_QUOTAMODE_BEST_EFFORT = 2;
+        QUOTAOPERATION_QUOTAMODE_CHECK_ONLY = 3;
+    }
+    QuotaOperation_QuotaMode quotaMode = 6;
+}
+
+message QuotaProperties {
+    // Quota mode for this operation.
+    enum QuotaProperties_QuotaMode {
+        QUOTAPROPERTIES_QUOTAMODE_ACQUIRE = 0;
+        QUOTAPROPERTIES_QUOTAMODE_ACQUIRE_BEST_EFFORT = 1;
+        QUOTAPROPERTIES_QUOTAMODE_CHECK = 2;
+        QUOTAPROPERTIES_QUOTAMODE_RELEASE = 3;
+    }
+    QuotaProperties_QuotaMode quotaMode = 1;
+}
+
+message ReleaseQuotaRequest {
+    // Operation that describes the quota release.
+    QuotaOperation releaseOperation = 1;
+    // Specifies which version of service configuration should be used to process
+    // the request. If unspecified or no matching version can be found, the latest
+    // one will be used.
+    string serviceConfigId = 2;
+}
+
+message ReleaseQuotaResponse {
+    // The same operation_id value used in the ReleaseQuotaRequest. Used for
+    // logging and diagnostics purposes.
+    string operationId = 1;
+    // Quota metrics to indicate the result of release. Depending on the
+    // request, one or more of the following metrics will be included:
+    // 
+    // 1. For rate quota, per quota group or per quota metric released amount
+    // will be specified using the following delta metric:
+    //   "serviceruntime.googleapis.com/api/consumer/quota_refund_count"
+    // 
+    // 2. For allocation quota, per quota metric total usage will be specified
+    // using the following gauge metric:
+    //   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+    // 
+    // 3. For allocation quota, value for each quota limit associated with
+    // the metrics will be specified using the following gauge metric:
+    //   "serviceruntime.googleapis.com/quota/limit"
+    repeated MetricValueSet quotaMetrics = 2;
+    // Indicates the decision of the release.
+    repeated QuotaError releaseErrors = 3;
+    // ID of the actual config used to process the request.
+    string serviceConfigId = 4;
+}
+
+message ReportError {
+    // The Operation.operation_id value from the request.
+    string operationId = 1;
+    // Details of the error when processing the Operation.
+    Status status = 2;
+}
+
+message ReportInfo {
+    // The Operation.operation_id value from the request.
+    string operationId = 1;
+    // Quota usage info when processing the `Operation`.
+    QuotaInfo quotaInfo = 2;
+}
+
+message ReportRequest {
+    // Operations to be reported.
+    // 
+    // Typically the service should report one operation per request.
+    // Putting multiple operations into a single request is allowed, but should
+    // be used only when multiple operations are natually available at the time
+    // of the report.
+    // 
+    // If multiple operations are in a single request, the total request size
+    // should be no larger than 1MB. See ReportResponse.report_errors for
+    // partial failure behavior.
+    repeated Operation operations = 1;
+    // Specifies which version of service config should be used to process the
+    // request.
+    // 
+    // If unspecified or no matching version can be found, the
+    // latest one will be used.
+    string serviceConfigId = 2;
+}
+
+message ReportResponse {
+    // Partial failures, one for each `Operation` in the request that failed
+    // processing. There are three possible combinations of the RPC status:
+    // 
+    // 1. The combination of a successful RPC status and an empty `report_errors`
+    //    list indicates a complete success where all `Operations` in the
+    //    request are processed successfully.
+    // 2. The combination of a successful RPC status and a non-empty
+    //    `report_errors` list indicates a partial success where some
+    //    `Operations` in the request succeeded. Each
+    //    `Operation` that failed processing has a corresponding item
+    //    in this list.
+    // 3. A failed RPC status indicates a general non-deterministic failure.
+    //    When this happens, it's impossible to know which of the
+    //    'Operations' in the request succeeded or failed.
+    repeated ReportError reportErrors = 1;
+    // Quota usage for each quota release `Operation` request.
+    // 
+    // Fully or partially failed quota release request may or may not be present
+    // in `report_quota_info`. For example, a failed quota release request will
+    // have the current quota usage info when precise quota library returns the
+    // info. A deadline exceeded quota request will not have quota usage info.
+    // 
+    // If there is no quota release request, report_quota_info will be empty.
+    repeated ReportInfo reportInfos = 2;
+    // The actual config id used to process the request.
+    string serviceConfigId = 3;
+}
+
+message RequestMetadata {
+    // The IP address of the caller.
+    // For caller from internet, this will be public IPv4 or IPv6 address.
+    // For caller from a Compute Engine VM with external IP address, this
+    // will be the VM's external IP address. For caller from a Compute
+    // Engine VM without external IP address, if the VM is in the same
+    // organization (or project) as the accessed resource, `caller_ip` will
+    // be the VM's internal IPv4 address, otherwise the `caller_ip` will be
+    // redacted to "gce-internal-ip".
+    // See https://cloud.google.com/compute/docs/vpc/ for more information.
+    string callerIp = 1;
+    // The network of the caller.
+    // Set only if the network host project is part of the same GCP organization
+    // (or project) as the accessed resource.
+    // See https://cloud.google.com/compute/docs/vpc/ for more information.
+    // This is a scheme-less URI full resource name. For example:
+    // 
+    //     "//compute.googleapis.com/projects/PROJECT_ID/global/networks/NETWORK_ID"
+    string callerNetwork = 2;
+    // The user agent of the caller.
+    // This information is not authenticated and should be treated accordingly.
+    // For example:
+    // 
+    // +   `google-api-python-client/1.4.0`:
+    //     The request was made by the Google API client for Python.
+    // +   `Cloud SDK Command Line Tool apitools-client/1.0 gcloud/0.9.62`:
+    //     The request was made by the Google Cloud SDK CLI (gcloud).
+    // +   `AppEngine-Google; (+http://code.google.com/appengine; appid: s~my-project`:
+    //     The request was made from the `my-project` App Engine app.
+    // NOLINT
+    string callerSuppliedUserAgent = 3;
+}
+
+message ResourceInfo {
+    // The identifier of the parent of this resource instance.
+    // Must be in one of the following formats:
+    //     - “projects/<project-id or project-number>”
+    //     - “folders/<folder-id>”
+    //     - “organizations/<organization-id>”
+    string resourceContainer = 1;
+    // Name of the resource. This is used for auditing purposes.
+    string resourceName = 2;
+}
+
+message StartReconciliationRequest {
+    // Operation that describes the quota reconciliation.
+    QuotaOperation reconciliationOperation = 1;
+    // Specifies which version of service configuration should be used to process
+    // the request. If unspecified or no matching version can be found, the latest
+    // one will be used.
+    string serviceConfigId = 2;
+}
+
+message StartReconciliationResponse {
+    // The same operation_id value used in the StartReconciliationRequest. Used
+    // for logging and diagnostics purposes.
+    string operationId = 1;
+    // Metric values as tracked by One Platform before the start of
+    // reconciliation. The following metrics will be included:
+    // 
+    // 1. Per quota metric total usage will be specified using the following gauge
+    // metric:
+    //   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+    // 
+    // 2. Value for each quota limit associated with the metrics will be specified
+    // using the following gauge metric:
+    //   "serviceruntime.googleapis.com/quota/limit"
+    repeated MetricValueSet quotaMetrics = 2;
+    // Indicates the decision of the reconciliation start.
+    repeated QuotaError reconciliationErrors = 3;
+    // ID of the actual config used to process the request.
+    string serviceConfigId = 4;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleServiceControlService {
+    // Attempts to allocate quota for the specified consumer. It should be called
+    // before the operation is executed.
+    // 
+    // This method requires the `servicemanagement.services.quota`
+    // permission on the specified service. For more information, see
+    // [Cloud IAM](https://cloud.google.com/iam).
+    // 
+    // **NOTE:** The client **must** fail-open on server errors `INTERNAL`,
+    // `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+    // reliability, the server may inject these errors to prohibit any hard
+    // dependency on the quota functionality.
+    rpc PostV1ServicesServiceName:AllocateQuota(PostV1ServicesServiceName:AllocateQuotaRequest) returns (AllocateQuotaResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:allocateQuota"
+        body: "body"
+      };
+    }
+    // Checks an operation with Google Service Control to decide whether
+    // the given operation should proceed. It should be called before the
+    // operation is executed.
+    // 
+    // If feasible, the client should cache the check results and reuse them for
+    // 60 seconds. In case of server errors, the client can rely on the cached
+    // results for longer time.
+    // 
+    // NOTE: the CheckRequest has the size limit of 64KB.
+    // 
+    // This method requires the `servicemanagement.services.check` permission
+    // on the specified service. For more information, see
+    // [Google Cloud IAM](https://cloud.google.com/iam).
+    rpc PostV1ServicesServiceName:Check(PostV1ServicesServiceName:CheckRequest) returns (CheckResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:check"
+        body: "body"
+      };
+    }
+    // Signals the quota controller that service ends the ongoing usage
+    // reconciliation.
+    // 
+    // This method requires the `servicemanagement.services.quota`
+    // permission on the specified service. For more information, see
+    // [Google Cloud IAM](https://cloud.google.com/iam).
+    rpc PostV1ServicesServiceName:EndReconciliation(PostV1ServicesServiceName:EndReconciliationRequest) returns (EndReconciliationResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:endReconciliation"
+        body: "body"
+      };
+    }
+    // Releases previously allocated quota done through AllocateQuota method.
+    // 
+    // This method requires the `servicemanagement.services.quota`
+    // permission on the specified service. For more information, see
+    // [Cloud IAM](https://cloud.google.com/iam).
+    // 
+    // 
+    // **NOTE:** The client **must** fail-open on server errors `INTERNAL`,
+    // `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+    // reliability, the server may inject these errors to prohibit any hard
+    // dependency on the quota functionality.
+    rpc PostV1ServicesServiceName:ReleaseQuota(PostV1ServicesServiceName:ReleaseQuotaRequest) returns (ReleaseQuotaResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:releaseQuota"
+        body: "body"
+      };
+    }
+    // Reports operation results to Google Service Control, such as logs and
+    // metrics. It should be called after an operation is completed.
+    // 
+    // If feasible, the client should aggregate reporting data for up to 5
+    // seconds to reduce API traffic. Limiting aggregation to 5 seconds is to
+    // reduce data loss during client crashes. Clients should carefully choose
+    // the aggregation time window to avoid data loss risk more than 0.01%
+    // for business and compliance reasons.
+    // 
+    // NOTE: the ReportRequest has the size limit of 1MB.
+    // 
+    // This method requires the `servicemanagement.services.report` permission
+    // on the specified service. For more information, see
+    // [Google Cloud IAM](https://cloud.google.com/iam).
+    rpc PostV1ServicesServiceName:Report(PostV1ServicesServiceName:ReportRequest) returns (ReportResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:report"
+        body: "body"
+      };
+    }
+    // Unlike rate quota, allocation quota does not get refilled periodically.
+    // So, it is possible that the quota usage as seen by the service differs from
+    // what the One Platform considers the usage is. This is expected to happen
+    // only rarely, but over time this can accumulate. Services can invoke
+    // StartReconciliation and EndReconciliation to correct this usage drift, as
+    // described below:
+    // 1. Service sends StartReconciliation with a timestamp in future for each
+    //    metric that needs to be reconciled. The timestamp being in future allows
+    //    to account for in-flight AllocateQuota and ReleaseQuota requests for the
+    //    same metric.
+    // 2. One Platform records this timestamp and starts tracking subsequent
+    //    AllocateQuota and ReleaseQuota requests until EndReconciliation is
+    //    called.
+    // 3. At or after the time specified in the StartReconciliation, service
+    //    sends EndReconciliation with the usage that needs to be reconciled to.
+    // 4. One Platform adjusts its own record of usage for that metric to the
+    //    value specified in EndReconciliation by taking in to account any
+    //    allocation or release between StartReconciliation and EndReconciliation.
+    // 
+    // Signals the quota controller that the service wants to perform a usage
+    // reconciliation as specified in the request.
+    // 
+    // This method requires the `servicemanagement.services.quota`
+    // permission on the specified service. For more information, see
+    // [Google Cloud IAM](https://cloud.google.com/iam).
+    rpc PostV1ServicesServiceName:StartReconciliation(PostV1ServicesServiceName:StartReconciliationRequest) returns (StartReconciliationResponse) {
+      option (google.api.http) = {
+        post: "//v1/services/{serviceName}:startReconciliation"
+        body: "body"
+      };
+    }
+}

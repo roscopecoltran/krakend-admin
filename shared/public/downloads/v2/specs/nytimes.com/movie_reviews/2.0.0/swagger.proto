@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package moviereviews;
+
+message GetCriticsResourceTypeRequest {
+    // all | full-time | part-time | [reviewer-name]
+    // 
+    // Specify all to get all Times reviewers, or specify full-time or part-time to get that subset. Specify a reviewer's name to get details about a particular reviewer.
+    string resource_type = 1;
+}
+
+message GetCriticsResourceTypeResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Critic results = 3;
+    string status = 4;
+}
+
+message GetReviewsSearchRequest {
+    // Set this parameter to Y to limit the results to NYT Critics' Picks. To get only those movies that have not been highlighted by Times critics, specify critics-pick=N. (To get all reviews regardless of critics-pick status, simply omit this parameter.)
+    enum GetReviewsSearchRequest_Critics_pick {
+        GETREVIEWSSEARCHREQUEST_CRITICS_PICK_Y = 0;
+        GETREVIEWSSEARCHREQUEST_CRITICS_PICK_N = 1;
+    }
+    GetReviewsSearchRequest_Critics_pick critics_pick = 1;
+    // Positive integer, multiple of 20
+    int32 offset = 2;
+    // Single date: YYYY-MM-DD
+    // 
+    // Start and end date: YYYY-MM-DD;YYYY-MM-DD
+    // 
+    // The opening-date is the date the movie's opening date in the New York region.
+    string opening_date = 3;
+    // Sets the sort order of the results.
+    // 
+    // Results ordered by-title are in ascending alphabetical order. Results ordered by one of the date parameters are in reverse chronological order.
+    // 
+    // If you do not specify a sort order, the results will be ordered by publication-date.
+    string order = 4;
+    // Single date: YYYY-MM-DD
+    // 
+    // Start and end date: YYYY-MM-DD;YYYY-MM-DD
+    // 
+    // The publication-date is the date the review was first published in The Times.
+    string publication_date = 5;
+    // Search keywords; matches movie title and indexed terms
+    // 
+    // To limit your search to exact matches only, surround your search string with single quotation marks (e.g., query='28+days+later'). Otherwise, responses will include partial matches ("head words") as well as exact matches (e.g., president will match president, presidents and presidential).
+    //   
+    //   If you specify multiple terms without quotation marks, they will be combined in an OR search.
+    //   
+    //   If you omit the query parameter, your request will be equivalent to a reviews and NYT Critics' Picks request.
+    string query = 6;
+    // Include this parameter to limit your results to reviews by a specific critic. Reviewer names should be formatted like this: Manohla Dargis.
+    string reviewer = 7;
+}
+
+message GetReviewsSearchResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Movie results = 3;
+    string status = 4;
+}
+
+message GetReviewsResourceTypeRequest {
+    // Positive integer, multiple of 20
+    int32 offset = 1;
+    // Sets the sort order of the results.
+    // 
+    // Results ordered by-title are in ascending alphabetical order. Results ordered by one of the date parameters are in reverse chronological order.
+    // 
+    // If you do not specify a sort order, the results will be ordered by publication-date.
+    enum GetReviewsResourceTypeRequest_Order {
+        GETREVIEWSRESOURCETYPEREQUEST_ORDER_BYTITLE = 0;
+        GETREVIEWSRESOURCETYPEREQUEST_ORDER_BYPUBLICATIONDATE = 1;
+        GETREVIEWSRESOURCETYPEREQUEST_ORDER_BYOPENINGDATE = 2;
+    }
+    GetReviewsResourceTypeRequest_Order order = 2;
+    // Specify all to retrieve all reviews, including NYT Critics' Picks.
+    // 
+    // Specify picks to get NYT Critics' Picks currently in theaters.
+    // 
+    enum GetReviewsResourceTypeRequest_Resource_type {
+        GETREVIEWSRESOURCETYPEREQUEST_RESOURCE_TYPE_ALL = 0;
+        GETREVIEWSRESOURCETYPEREQUEST_RESOURCE_TYPE_PICKS = 1;
+    }
+    GetReviewsResourceTypeRequest_Resource_type resource_type = 3;
+}
+
+message GetReviewsResourceTypeResponse {
+    string copyright = 1;
+    int32 num_results = 2;
+    repeated Movie results = 3;
+    string status = 4;
+}
+
+message Critic {
+    string bio = 1;
+    string display_name = 2;
+    message Multimedia {
+        message Resource {
+            string credit = 1;
+            int32 height = 2;
+            string src = 3;
+            string type = 4;
+            int32 width = 5;
+        }
+        Resource resource = 1;
+    }
+    Multimedia multimedia = 3;
+    string seo_name = 4;
+    string sort_name = 5;
+    string status = 6;
+}
+
+message Movie {
+    string byline = 1;
+    int32 critics_pick = 2;
+    string date_updated = 3;
+    string display_title = 4;
+    string headline = 5;
+    message Link {
+        string suggested_link_text = 1;
+        string type = 2;
+        string url = 3;
+    }
+    Link link = 6;
+    string mpaa_rating = 7;
+    message Multimedia {
+        message Resource {
+            int32 height = 1;
+            string src = 2;
+            string type = 3;
+            int32 width = 4;
+        }
+        Resource resource = 1;
+    }
+    Multimedia multimedia = 8;
+    string opening_date = 9;
+    string publication_date = 10;
+    string summary_short = 11;
+}
+
+service MovieReviewsService {
+    rpc GetCriticsResourceType(GetCriticsResourceTypeRequest) returns (GetCriticsResourceTypeResponse) {
+      option (google.api.http) = {
+        get: "/svc/movies/v2/critics/{resource-type}.json"
+      };
+    }
+    rpc GetReviewsSearch(GetReviewsSearchRequest) returns (GetReviewsSearchResponse) {
+      option (google.api.http) = {
+        get: "/svc/movies/v2/reviews/search.json"
+      };
+    }
+    rpc GetReviewsResourceType(GetReviewsResourceTypeRequest) returns (GetReviewsResourceTypeResponse) {
+      option (google.api.http) = {
+        get: "/svc/movies/v2/reviews/{resource-type}.json"
+      };
+    }
+}

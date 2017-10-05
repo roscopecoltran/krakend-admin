@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package peeltune-inapi;
+
+message GetHashtagRelatedRequest {
+    // Unique ID for a show
+    string showID = 1;
+    // Time window in seconds (default is 2 hours)
+    string timeWindow = 2;
+}
+
+message GetHashtagTrendingShowsRequest {
+    // Number of trending shows (default is 20)
+    string limit = 1;
+    // Time window in seconds (default is 2 hours)
+    string timeWindow = 2;
+}
+
+message GetHashtagTuneinlinksRequest {
+    // Comma separated list of hashtags and @mentions
+    string hashtags = 1;
+    // Unique ID for a show
+    string showID = 2;
+    // Text from a social networking conversation
+    string tweet = 3;
+}
+
+message GetStatusShowIDRequest {
+    // Unique ID for a show
+    string showID = 1;
+}
+
+service PeelTune-InAPIService {
+    // Gets related hashtags for a show.
+    // 
+    // Returns any official hashtag and any hashtags which were learned within the most recent time window for the show.
+    rpc GetHashtagRelated(GetHashtagRelatedRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//hashtag/related"
+      };
+    }
+    // Gets trending shows.
+    rpc GetHashtagTrendingShows(GetHashtagTrendingShowsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//hashtag/trendingShows"
+      };
+    }
+    // Gets tunein URLs (links) from either a tweet, hashtags, @mentions, or show ID.
+    // 
+    // Either use <b>tweet</b>, <b>hashtags</b>, or <b>showID</b> as the parameter. The tunein URLs that match best are returned in order of best match.<br/><br/>A <b>tweet</b> in this context is shorthand for text from a social networking conversation, e.g., it could be from Facebook, Twitter, LinkedIn, etc., and be greater than 140 characters.
+    rpc GetHashtagTuneinlinks(GetHashtagTuneinlinksRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//hashtag/tuneinlinks"
+      };
+    }
+    // Get health of Tune-in service (which includes its uptime).
+    rpc GetHealth(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//health"
+      };
+    }
+    // Gets the last 100 statuses for this show.
+    // 
+    // For Twitter, statuses are synonymous with tweets.
+    rpc GetStatusShowID(GetStatusShowIDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//status/{showID}"
+      };
+    }
+}

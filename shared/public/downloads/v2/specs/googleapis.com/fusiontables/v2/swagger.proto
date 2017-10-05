@@ -1,0 +1,944 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package fusiontables;
+
+message GetQueryRequest {
+    alt alt = 1;
+    string fields = 2;
+    // Whether column names are included (in the first row). Default is true.
+    bool hdrs = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // A SQL statement which can be any of 
+    // - SELECT
+    // - SHOW
+    // - DESCRIBE
+    string sql = 8;
+    // Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true.
+    bool typed = 9;
+    string userIp = 10;
+}
+
+message PostQueryRequest {
+    alt alt = 1;
+    string fields = 2;
+    // Whether column names are included in the first row. Default is true.
+    bool hdrs = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // A Fusion Tables SQL statement, which can be any of 
+    // - SELECT
+    // - INSERT
+    // - UPDATE
+    // - DELETE
+    // - SHOW
+    // - DESCRIBE
+    // - CREATE
+    string sql = 8;
+    // Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true.
+    bool typed = 9;
+    string userIp = 10;
+}
+
+message GetTablesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of tables to return. Default is 5.
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    // Continuation token specifying which result page to return.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message PostTablesRequest {
+    alt alt = 1;
+    Table body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostTablesImportRequest {
+    alt alt = 1;
+    // The delimiter used to separate cell values. This can only consist of a single character. Default is ,.
+    string delimiter = 2;
+    // The encoding of the content. Default is UTF-8. Use auto-detect if you are unsure of the encoding.
+    string encoding = 3;
+    string fields = 4;
+    string key = 5;
+    // The name to be assigned to the new table.
+    string name = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message GetTablesTableIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Identifier for the table being requested.
+    string tableId = 7;
+    string userIp = 8;
+}
+
+message PutTablesTableIdRequest {
+    alt alt = 1;
+    Table body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Whether the view definition is also updated. The specified view definition replaces the existing one. Only a view can be updated with a new definition.
+    bool replaceViewDefinition = 8;
+    // ID of the table that is being updated.
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message DeleteTablesTableIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of the table to be deleted.
+    string tableId = 7;
+    string userIp = 8;
+}
+
+message GetTablesTableIdColumnsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of columns to return. Default is 5.
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    // Continuation token specifying which result page to return.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Table whose columns are being listed.
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message PostTablesTableIdColumnsRequest {
+    alt alt = 1;
+    Column body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table for which a new column is being added.
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message GetTablesTableIdColumnsColumnIdRequest {
+    alt alt = 1;
+    // Name or identifier for the column that is being requested.
+    string columnId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table to which the column belongs.
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message PutTablesTableIdColumnsColumnIdRequest {
+    alt alt = 1;
+    Column body = 2;
+    // Name or identifier for the column that is being updated.
+    string columnId = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Table for which the column is being updated.
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message DeleteTablesTableIdColumnsColumnIdRequest {
+    alt alt = 1;
+    // Name or identifier for the column being deleted.
+    string columnId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table from which the column is being deleted.
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message PostTablesTableIdCopyRequest {
+    alt alt = 1;
+    // Whether to also copy tabs, styles, and templates. Default is false.
+    bool copyPresentation = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // ID of the table that is being copied.
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message PostTablesTableIdImportRequest {
+    alt alt = 1;
+    // The delimiter used to separate cell values. This can only consist of a single character. Default is ,.
+    string delimiter = 2;
+    // The encoding of the content. Default is UTF-8. Use auto-detect if you are unsure of the encoding.
+    string encoding = 3;
+    // The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines.
+    int32 endLine = 4;
+    string fields = 5;
+    // Whether the imported CSV must have the same number of values for each row. If false, rows with fewer values will be padded with empty values. Default is true.
+    bool isStrict = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // The index of the first line from which to start importing, inclusive. Default is 0.
+    int32 startLine = 11;
+    // The table into which new rows are being imported.
+    string tableId = 12;
+    string userIp = 13;
+}
+
+message PostTablesTableIdReplaceRequest {
+    alt alt = 1;
+    // The delimiter used to separate cell values. This can only consist of a single character. Default is ,.
+    string delimiter = 2;
+    // The encoding of the content. Default is UTF-8. Use 'auto-detect' if you are unsure of the encoding.
+    string encoding = 3;
+    // The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines.
+    int32 endLine = 4;
+    string fields = 5;
+    // Whether the imported CSV must have the same number of column values for each row. If true, throws an exception if the CSV does not have the same number of columns. If false, rows with fewer column values will be padded with empty values. Default is true.
+    bool isStrict = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // The index of the first line from which to start importing, inclusive. Default is 0.
+    int32 startLine = 11;
+    // Table whose rows will be replaced.
+    string tableId = 12;
+    string userIp = 13;
+}
+
+message GetTablesTableIdStylesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of styles to return. Optional. Default is 5.
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    // Continuation token specifying which result page to return. Optional.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Table whose styles are being listed
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message PostTablesTableIdStylesRequest {
+    alt alt = 1;
+    StyleSetting body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table for which a new style is being added
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message GetTablesTableIdStylesStyleIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Identifier (integer) for a specific style in a table
+    int32 styleId = 7;
+    // Table to which the requested style belongs
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message PutTablesTableIdStylesStyleIdRequest {
+    alt alt = 1;
+    StyleSetting body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Identifier (within a table) for the style being updated.
+    int32 styleId = 8;
+    // Table whose style is being updated.
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message DeleteTablesTableIdStylesStyleIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Identifier (within a table) for the style being deleted
+    int32 styleId = 7;
+    // Table from which the style is being deleted
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message GetTablesTableIdTasksRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of tasks to return. Default is 5.
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    // Continuation token specifying which result page to return.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Index of the first result returned in the current page.
+    int32 startIndex = 9;
+    // Table whose tasks are being listed.
+    string tableId = 10;
+    string userIp = 11;
+}
+
+message GetTablesTableIdTasksTaskIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Table to which the task belongs.
+    string tableId = 7;
+    // The identifier of the task to get.
+    string taskId = 8;
+    string userIp = 9;
+}
+
+message DeleteTablesTableIdTasksTaskIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Table from which the task is being deleted.
+    string tableId = 7;
+    // The identifier of the task to delete.
+    string taskId = 8;
+    string userIp = 9;
+}
+
+message GetTablesTableIdTemplatesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of templates to return. Optional. Default is 5.
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    // Continuation token specifying which results page to return. Optional.
+    string pageToken = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // Identifier for the table whose templates are being requested
+    string tableId = 9;
+    string userIp = 10;
+}
+
+message PostTablesTableIdTemplatesRequest {
+    alt alt = 1;
+    Template body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table for which a new template is being created
+    string tableId = 8;
+    string userIp = 9;
+}
+
+message GetTablesTableIdTemplatesTemplateIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Table to which the template belongs
+    string tableId = 7;
+    // Identifier for the template that is being requested
+    int32 templateId = 8;
+    string userIp = 9;
+}
+
+message PutTablesTableIdTemplatesTemplateIdRequest {
+    alt alt = 1;
+    Template body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Table to which the updated template belongs
+    string tableId = 8;
+    // Identifier for the template that is being updated
+    int32 templateId = 9;
+    string userIp = 10;
+}
+
+message DeleteTablesTableIdTemplatesTemplateIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Table from which the template is being deleted
+    string tableId = 7;
+    // Identifier for the template which is being deleted
+    int32 templateId = 8;
+    string userIp = 9;
+}
+
+message Bucket {
+    // Color of line or the interior of a polygon in #RRGGBB format.
+    string color = 1;
+    // Icon name used for a point.
+    string icon = 2;
+    // Maximum value in the selected column for a row to be styled according to the bucket color, opacity, icon, or weight.
+    double max = 3;
+    // Minimum value in the selected column for a row to be styled according to the bucket color, opacity, icon, or weight.
+    double min = 4;
+    // Opacity of the color: 0.0 (transparent) to 1.0 (opaque).
+    double opacity = 5;
+    // Width of a line (in pixels).
+    int32 weight = 6;
+}
+
+message Column {
+    // Identifier of the base column. If present, this column is derived from the specified base column.
+    message BaseColumn {
+            // The id of the column in the base table from which this column is derived.
+    int32 columnId = 1;
+            // Offset to the entry in the list of base tables in the table definition.
+    int32 tableIndex = 2;
+    }
+    BaseColumn baseColumn = 1;
+    // Identifier for the column.
+    int32 columnId = 2;
+    // JSON schema for interpreting JSON in this column.
+    string columnJsonSchema = 3;
+    // JSON object containing custom column properties.
+    string columnPropertiesJson = 4;
+    // Column description.
+    string description = 5;
+    // Format pattern.
+    // Acceptable values are DT_DATE_MEDIUMe.g Dec 24, 2008 DT_DATE_SHORTfor example 12/24/08 DT_DATE_TIME_MEDIUMfor example Dec 24, 2008 8:30:45 PM DT_DATE_TIME_SHORTfor example 12/24/08 8:30 PM DT_DAY_MONTH_2_DIGIT_YEARfor example 24/12/08 DT_DAY_MONTH_2_DIGIT_YEAR_TIMEfor example 24/12/08 20:30 DT_DAY_MONTH_2_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/08 8:30 PM DT_DAY_MONTH_4_DIGIT_YEARfor example 24/12/2008 DT_DAY_MONTH_4_DIGIT_YEAR_TIMEfor example 24/12/2008 20:30 DT_DAY_MONTH_4_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/2008 8:30 PM DT_ISO_YEAR_MONTH_DAYfor example 2008-12-24 DT_ISO_YEAR_MONTH_DAY_TIMEfor example 2008-12-24 20:30:45 DT_MONTH_DAY_4_DIGIT_YEARfor example 12/24/2008 DT_TIME_LONGfor example 8:30:45 PM UTC-6 DT_TIME_MEDIUMfor example 8:30:45 PM DT_TIME_SHORTfor example 8:30 PM DT_YEAR_ONLYfor example 2008 HIGHLIGHT_UNTYPED_CELLSHighlight cell data that does not match the data type NONENo formatting (default) NUMBER_CURRENCYfor example $1234.56 NUMBER_DEFAULTfor example 1,234.56 NUMBER_INTEGERfor example 1235 NUMBER_NO_SEPARATORfor example 1234.56 NUMBER_PERCENTfor example 123,456% NUMBER_SCIENTIFICfor example 1E3 STRING_EIGHT_LINE_IMAGEDisplays thumbnail images as tall as eight lines of text STRING_FOUR_LINE_IMAGEDisplays thumbnail images as tall as four lines of text STRING_JSON_TEXTAllows editing of text as JSON in UI STRING_JSON_LISTAllows editing of text as a JSON list in UI STRING_LINKTreats cell as a link (must start with http:// or https://) STRING_ONE_LINE_IMAGEDisplays thumbnail images as tall as one line of text STRING_VIDEO_OR_MAPDisplay a video or map thumbnail
+    string formatPattern = 6;
+    // Column graph predicate.
+    // Used to map table to graph data model (subject,predicate,object)
+    // See W3C Graph-based Data Model.
+    string graphPredicate = 7;
+    // The kind of item this is. For a column, this is always fusiontables#column.
+    string kind = 8;
+    // Name of the column.
+    string name = 9;
+    // Type of the column.
+    string type = 10;
+    // List of valid values used to validate data and supply a drop-down list of values in the web application.
+    repeated string validValues = 11;
+    // If true, data entered via the web application is validated.
+    bool validateData = 12;
+}
+
+message ColumnList {
+    // List of all requested columns.
+    repeated Column items = 1;
+    // The kind of item this is. For a column list, this is always fusiontables#columnList.
+    string kind = 2;
+    // Token used to access the next page of this result. No token is displayed if there are no more pages left.
+    string nextPageToken = 3;
+    // Total number of columns for the table.
+    int32 totalItems = 4;
+}
+
+message Geometry {
+    // The list of geometries in this geometry collection.
+    message Geometrie {
+    }
+    repeated Geometrie geometries = 1;
+    ;
+    // Type: A collection of geometries.
+    string type = 3;
+}
+
+message Import {
+    // The kind of item this is. For an import, this is always fusiontables#import.
+    string kind = 1;
+    // The number of rows received from the import request.
+    string numRowsReceived = 2;
+}
+
+message Line {
+    // The coordinates that define the line.
+    message Coordinate {
+    }
+    repeated Coordinate coordinates = 1;
+    // Type: A line geometry.
+    string type = 2;
+}
+
+message LineStyle {
+    // Color of the line in #RRGGBB format.
+    string strokeColor = 1;
+    // Column-value, gradient or buckets styler that is used to determine the line color and opacity.
+    StyleFunction strokeColorStyler = 2;
+    // Opacity of the line : 0.0 (transparent) to 1.0 (opaque).
+    double strokeOpacity = 3;
+    // Width of the line in pixels.
+    int32 strokeWeight = 4;
+    // Column-value or bucket styler that is used to determine the width of the line.
+    StyleFunction strokeWeightStyler = 5;
+}
+
+message Point {
+    // The coordinates that define the point.
+    repeated double coordinates = 1;
+    // Point: A point geometry.
+    string type = 2;
+}
+
+message PointStyle {
+    // Name of the icon. Use values defined in http://www.google.com/fusiontables/DataSource?dsrcid=308519
+    string iconName = 1;
+    // Column or a bucket value from which the icon name is to be determined.
+    StyleFunction iconStyler = 2;
+}
+
+message Polygon {
+    // The coordinates that define the polygon.
+    message Coordinate {
+    }
+    repeated Coordinate coordinates = 1;
+    // Type: A polygon geometry.
+    string type = 2;
+}
+
+message PolygonStyle {
+    // Color of the interior of the polygon in #RRGGBB format.
+    string fillColor = 1;
+    // Column-value, gradient, or bucket styler that is used to determine the interior color and opacity of the polygon.
+    StyleFunction fillColorStyler = 2;
+    // Opacity of the interior of the polygon: 0.0 (transparent) to 1.0 (opaque).
+    double fillOpacity = 3;
+    // Color of the polygon border in #RRGGBB format.
+    string strokeColor = 4;
+    // Column-value, gradient or buckets styler that is used to determine the border color and opacity.
+    StyleFunction strokeColorStyler = 5;
+    // Opacity of the polygon border: 0.0 (transparent) to 1.0 (opaque).
+    double strokeOpacity = 6;
+    // Width of the polyon border in pixels.
+    int32 strokeWeight = 7;
+    // Column-value or bucket styler that is used to determine the width of the polygon border.
+    StyleFunction strokeWeightStyler = 8;
+}
+
+message Sqlresponse {
+    // Columns in the table.
+    repeated string columns = 1;
+    // The kind of item this is. For responses to SQL queries, this is always fusiontables#sqlresponse.
+    string kind = 2;
+    // The rows in the table. For each cell we print out whatever cell value (e.g., numeric, string) exists. Thus it is important that each cell contains only one value.
+    message Row {
+    }
+    repeated Row rows = 3;
+}
+
+message StyleFunction {
+    // Bucket function that assigns a style based on the range a column value falls into.
+    repeated Bucket buckets = 1;
+    // Name of the column whose value is used in the style.
+    string columnName = 2;
+    // Gradient function that interpolates a range of colors based on column value.
+    message Gradient {
+            // Array with two or more colors.
+    message Color {
+                    // Color in #RRGGBB format.
+    string color = 1;
+                    // Opacity of the color: 0.0 (transparent) to 1.0 (opaque).
+    double opacity = 2;
+        }
+        repeated Color colors = 1;
+            // Higher-end of the interpolation range: rows with this value will be assigned to colors[n-1].
+    double max = 2;
+            // Lower-end of the interpolation range: rows with this value will be assigned to colors[0].
+    double min = 3;
+    }
+    Gradient gradient = 3;
+    // Stylers can be one of three kinds: "fusiontables#fromColumn if the column value is to be used as is, i.e., the column values can have colors in #RRGGBBAA format or integer line widths or icon names; fusiontables#gradient if the styling of the row is to be based on applying the gradient function on the column value; or fusiontables#buckets if the styling is to based on the bucket into which the the column value falls.
+    string kind = 4;
+}
+
+message StyleSetting {
+    // The kind of item this is. A StyleSetting contains the style definitions for points, lines, and polygons in a table. Since a table can have any one or all of them, a style definition can have point, line and polygon style definitions.
+    string kind = 1;
+    // Style definition for points in the table.
+    PointStyle markerOptions = 2;
+    // Optional name for the style setting.
+    string name = 3;
+    // Style definition for polygons in the table.
+    PolygonStyle polygonOptions = 4;
+    // Style definition for lines in the table.
+    LineStyle polylineOptions = 5;
+    // Identifier for the style setting (unique only within tables).
+    int32 styleId = 6;
+    // Identifier for the table.
+    string tableId = 7;
+}
+
+message StyleSettingList {
+    // All requested style settings.
+    repeated StyleSetting items = 1;
+    // The kind of item this is. For a style list, this is always fusiontables#styleSettingList .
+    string kind = 2;
+    // Token used to access the next page of this result. No token is displayed if there are no more styles left.
+    string nextPageToken = 3;
+    // Total number of styles for the table.
+    int32 totalItems = 4;
+}
+
+message Table {
+    // Attribution assigned to the table.
+    string attribution = 1;
+    // Optional link for attribution.
+    string attributionLink = 2;
+    // Base table identifier if this table is a view or merged table.
+    repeated string baseTableIds = 3;
+    // Default JSON schema for validating all JSON column properties.
+    string columnPropertiesJsonSchema = 4;
+    // Columns in the table.
+    repeated Column columns = 5;
+    // Description assigned to the table.
+    string description = 6;
+    // Variable for whether table is exportable.
+    bool isExportable = 7;
+    // The kind of item this is. For a table, this is always fusiontables#table.
+    string kind = 8;
+    // Name assigned to a table.
+    string name = 9;
+    // SQL that encodes the table definition for derived tables.
+    string sql = 10;
+    // Encrypted unique alphanumeric identifier for the table.
+    string tableId = 11;
+    // JSON object containing custom table properties.
+    string tablePropertiesJson = 12;
+    // JSON schema for validating the JSON table properties.
+    string tablePropertiesJsonSchema = 13;
+}
+
+message TableList {
+    // List of all requested tables.
+    repeated Table items = 1;
+    // The kind of item this is. For table list, this is always fusiontables#tableList.
+    string kind = 2;
+    // Token used to access the next page of this result. No token is displayed if there are no more pages left.
+    string nextPageToken = 3;
+}
+
+message Task {
+    // Type of the resource. This is always "fusiontables#task".
+    string kind = 1;
+    // Task percentage completion.
+    string progress = 2;
+    // false while the table is busy with some other task. true if this background task is currently running.
+    bool started = 3;
+    // Identifier for the task.
+    string taskId = 4;
+    // Type of background task.
+    string type = 5;
+}
+
+message TaskList {
+    // List of all requested tasks.
+    repeated Task items = 1;
+    // Type of the resource. This is always "fusiontables#taskList".
+    string kind = 2;
+    // Token used to access the next page of this result. No token is displayed if there are no more pages left.
+    string nextPageToken = 3;
+    // Total number of tasks for the table.
+    int32 totalItems = 4;
+}
+
+message Template {
+    // List of columns from which the template is to be automatically constructed. Only one of body or automaticColumns can be specified.
+    repeated string automaticColumnNames = 1;
+    // Body of the template. It contains HTML with {column_name} to insert values from a particular column. The body is sanitized to remove certain tags, e.g., script. Only one of body or automaticColumns can be specified.
+    string body = 2;
+    // The kind of item this is. For a template, this is always fusiontables#template.
+    string kind = 3;
+    // Optional name assigned to a template.
+    string name = 4;
+    // Identifier for the table for which the template is defined.
+    string tableId = 5;
+    // Identifier for the template, unique within the context of a particular table.
+    int32 templateId = 6;
+}
+
+message TemplateList {
+    // List of all requested templates.
+    repeated Template items = 1;
+    // The kind of item this is. For a template list, this is always fusiontables#templateList .
+    string kind = 2;
+    // Token used to access the next page of this result. No token is displayed if there are no more pages left.
+    string nextPageToken = 3;
+    // Total number of templates for the table.
+    int32 totalItems = 4;
+}
+
+enum Alt {
+    CSV = 0;
+    JSON = 1;
+}
+
+service FusionTablesService {
+    // Executes a SQL statement which can be any of 
+    // - SELECT
+    // - SHOW
+    // - DESCRIBE
+    rpc GetQuery(GetQueryRequest) returns (Sqlresponse) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/query"
+      };
+    }
+    // Executes a Fusion Tables SQL statement, which can be any of 
+    // - SELECT
+    // - INSERT
+    // - UPDATE
+    // - DELETE
+    // - SHOW
+    // - DESCRIBE
+    // - CREATE statement.
+    rpc PostQuery(PostQueryRequest) returns (Sqlresponse) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/query"
+      };
+    }
+    // Retrieves a list of tables a user owns.
+    rpc GetTables(GetTablesRequest) returns (TableList) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables"
+      };
+    }
+    // Creates a new table.
+    rpc PostTables(PostTablesRequest) returns (Table) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables"
+        body: "body"
+      };
+    }
+    // Imports a new table.
+    rpc PostTablesImport(PostTablesImportRequest) returns (Table) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/import"
+      };
+    }
+    // Retrieves a specific table by its ID.
+    rpc GetTablesTableId(GetTablesTableIdRequest) returns (Table) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}"
+      };
+    }
+    // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
+    rpc PutTablesTableId(PutTablesTableIdRequest) returns (Table) {
+      option (google.api.http) = {
+        put: "/fusiontables/v2/tables/{tableId}"
+        body: "body"
+      };
+    }
+    // Deletes a table.
+    rpc DeleteTablesTableId(DeleteTablesTableIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/fusiontables/v2/tables/{tableId}"
+      };
+    }
+    // Retrieves a list of columns.
+    rpc GetTablesTableIdColumns(GetTablesTableIdColumnsRequest) returns (ColumnList) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/columns"
+      };
+    }
+    // Adds a new column to the table.
+    rpc PostTablesTableIdColumns(PostTablesTableIdColumnsRequest) returns (Column) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/columns"
+        body: "body"
+      };
+    }
+    // Retrieves a specific column by its ID.
+    rpc GetTablesTableIdColumnsColumnId(GetTablesTableIdColumnsColumnIdRequest) returns (Column) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/columns/{columnId}"
+      };
+    }
+    // Updates the name or type of an existing column.
+    rpc PutTablesTableIdColumnsColumnId(PutTablesTableIdColumnsColumnIdRequest) returns (Column) {
+      option (google.api.http) = {
+        put: "/fusiontables/v2/tables/{tableId}/columns/{columnId}"
+        body: "body"
+      };
+    }
+    // Deletes the specified column.
+    rpc DeleteTablesTableIdColumnsColumnId(DeleteTablesTableIdColumnsColumnIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/fusiontables/v2/tables/{tableId}/columns/{columnId}"
+      };
+    }
+    // Copies a table.
+    rpc PostTablesTableIdCopy(PostTablesTableIdCopyRequest) returns (Table) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/copy"
+      };
+    }
+    // Imports more rows into a table.
+    rpc PostTablesTableIdImport(PostTablesTableIdImportRequest) returns (Import) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/import"
+      };
+    }
+    // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
+    rpc PostTablesTableIdReplace(PostTablesTableIdReplaceRequest) returns (Task) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/replace"
+      };
+    }
+    // Retrieves a list of styles.
+    rpc GetTablesTableIdStyles(GetTablesTableIdStylesRequest) returns (StyleSettingList) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/styles"
+      };
+    }
+    // Adds a new style for the table.
+    rpc PostTablesTableIdStyles(PostTablesTableIdStylesRequest) returns (StyleSetting) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/styles"
+        body: "body"
+      };
+    }
+    // Gets a specific style.
+    rpc GetTablesTableIdStylesStyleId(GetTablesTableIdStylesStyleIdRequest) returns (StyleSetting) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/styles/{styleId}"
+      };
+    }
+    // Updates an existing style.
+    rpc PutTablesTableIdStylesStyleId(PutTablesTableIdStylesStyleIdRequest) returns (StyleSetting) {
+      option (google.api.http) = {
+        put: "/fusiontables/v2/tables/{tableId}/styles/{styleId}"
+        body: "body"
+      };
+    }
+    // Deletes a style.
+    rpc DeleteTablesTableIdStylesStyleId(DeleteTablesTableIdStylesStyleIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/fusiontables/v2/tables/{tableId}/styles/{styleId}"
+      };
+    }
+    // Retrieves a list of tasks.
+    rpc GetTablesTableIdTasks(GetTablesTableIdTasksRequest) returns (TaskList) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/tasks"
+      };
+    }
+    // Retrieves a specific task by its ID.
+    rpc GetTablesTableIdTasksTaskId(GetTablesTableIdTasksTaskIdRequest) returns (Task) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/tasks/{taskId}"
+      };
+    }
+    // Deletes a specific task by its ID, unless that task has already started running.
+    rpc DeleteTablesTableIdTasksTaskId(DeleteTablesTableIdTasksTaskIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/fusiontables/v2/tables/{tableId}/tasks/{taskId}"
+      };
+    }
+    // Retrieves a list of templates.
+    rpc GetTablesTableIdTemplates(GetTablesTableIdTemplatesRequest) returns (TemplateList) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/templates"
+      };
+    }
+    // Creates a new template for the table.
+    rpc PostTablesTableIdTemplates(PostTablesTableIdTemplatesRequest) returns (Template) {
+      option (google.api.http) = {
+        post: "/fusiontables/v2/tables/{tableId}/templates"
+        body: "body"
+      };
+    }
+    // Retrieves a specific template by its id
+    rpc GetTablesTableIdTemplatesTemplateId(GetTablesTableIdTemplatesTemplateIdRequest) returns (Template) {
+      option (google.api.http) = {
+        get: "/fusiontables/v2/tables/{tableId}/templates/{templateId}"
+      };
+    }
+    // Updates an existing template
+    rpc PutTablesTableIdTemplatesTemplateId(PutTablesTableIdTemplatesTemplateIdRequest) returns (Template) {
+      option (google.api.http) = {
+        put: "/fusiontables/v2/tables/{tableId}/templates/{templateId}"
+        body: "body"
+      };
+    }
+    // Deletes a template
+    rpc DeleteTablesTableIdTemplatesTemplateId(DeleteTablesTableIdTemplatesTemplateIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/fusiontables/v2/tables/{tableId}/templates/{templateId}"
+      };
+    }
+}

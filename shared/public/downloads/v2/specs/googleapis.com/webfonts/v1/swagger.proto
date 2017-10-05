@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlefontsdeveloper;
+
+message GetWebfontsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // Enables sorting of the list
+    enum GetWebfontsRequest_Sort {
+        GETWEBFONTSREQUEST_SORT_ALPHA = 0;
+        GETWEBFONTSREQUEST_SORT_DATE = 1;
+        GETWEBFONTSREQUEST_SORT_POPULARITY = 2;
+        GETWEBFONTSREQUEST_SORT_STYLE = 3;
+        GETWEBFONTSREQUEST_SORT_TRENDING = 4;
+    }
+    GetWebfontsRequest_Sort sort = 7;
+    string userIp = 8;
+}
+
+message Webfont {
+    // The category of the font.
+    string category = 1;
+    // The name of the font.
+    string family = 2;
+    // The font files (with all supported scripts) for each one of the available variants, as a key : value map.
+    map<string, string> files = 3;
+    // This kind represents a webfont object in the webfonts service.
+    string kind = 4;
+    // The date (format "yyyy-MM-dd") the font was modified for the last time.
+    string lastModified = 5;
+    // The scripts supported by the font.
+    repeated string subsets = 6;
+    // The available variants for the font.
+    repeated string variants = 7;
+    // The font version.
+    string version = 8;
+}
+
+message WebfontList {
+    // The list of fonts currently served by the Google Fonts API.
+    repeated Webfont items = 1;
+    // This kind represents a list of webfont objects in the webfonts service.
+    string kind = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GoogleFontsDeveloperService {
+    // Retrieves the list of fonts currently served by the Google Fonts Developer API
+    rpc GetWebfonts(GetWebfontsRequest) returns (WebfontList) {
+      option (google.api.http) = {
+        get: "/webfonts/v1/webfonts"
+      };
+    }
+}

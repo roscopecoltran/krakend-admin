@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package apimaticapitransformer;
+
+message PostTransformRequest {
+    enum PostTransformRequest_Format {
+        POSTTRANSFORMREQUEST_FORMAT_SWAGGER10 = 0;
+        POSTTRANSFORMREQUEST_FORMAT_SWAGGER20 = 1;
+        POSTTRANSFORMREQUEST_FORMAT_SWAGGERYAML = 2;
+        POSTTRANSFORMREQUEST_FORMAT_APIBLUEPRINT = 3;
+        POSTTRANSFORMREQUEST_FORMAT_WADL2009 = 4;
+        POSTTRANSFORMREQUEST_FORMAT_RAML = 5;
+        POSTTRANSFORMREQUEST_FORMAT_APIMATIC = 6;
+    }
+    PostTransformRequest_Format format = 1;
+    string url = 2;
+}
+
+message PostTransformResponse {
+}
+
+service APIMATICAPITransformerService {
+    // Transform API Descriptions from/to various formats
+    // 
+    // Transform API Descriptions from/to various formats e.g., Swagger, API Blueprint, RAML, WADL, Google Discovery, I/O Docs.
+    // 
+    // ### INPUTS
+    // * API Blueprint
+    // * Swagger 1.0 - 1.2
+    // * Swagger 2.0 JSON
+    // * Swagger 2.0 YAML
+    // * WADL - W3C 2009
+    // * Google Discovery
+    // * RAML 0.8
+    // * I/O Docs - Mashery
+    // * HAR 1.2
+    // * Postman Collection 1.0 - 2.0
+    // * APIMATIC Format
+    // * Mashape
+    // 
+    // ### OUTPUTS
+    // * API Blueprint
+    // * Swagger 1.2
+    // * Swagger 2.0 JSON
+    // * Swagger 2.0 YAML
+    // * WADL - W3C 2009
+    // * RAML 0.8 - 1.0
+    // * APIMATIC Format
+    rpc PostTransform(PostTransformRequest) returns (PostTransformResponse) {
+      option (google.api.http) = {
+        post: "/api/transform/transform"
+      };
+    }
+}

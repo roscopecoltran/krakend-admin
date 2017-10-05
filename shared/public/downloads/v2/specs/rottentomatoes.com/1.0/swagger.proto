@@ -1,0 +1,217 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package rottentomatoes;
+
+message GetListsDvdsCurrent_releasesRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // The selected page of current DVD releases
+    string page = 2;
+    // The amount of new release dvds to show per page
+    string page_limit = 3;
+}
+
+message GetListsDvdsNew_releasesRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // The selected page of new release DVDs
+    string page = 2;
+    // The amount of new release dvds to show per page
+    string page_limit = 3;
+}
+
+message GetListsDvdsTop_rentalsRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // Limits the number of top rentals returned
+    string limit = 2;
+}
+
+message GetListsDvdsUpcomingRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // The selected page of upcoming DVDs
+    string page = 2;
+    // The amount of upcoming dvds to show per page
+    string page_limit = 3;
+}
+
+message GetListsMoviesBox_officeRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // Limits the number of movies returned
+    string limit = 2;
+}
+
+message GetListsMoviesIn_theatersRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // The selected page of in theaters movies
+    string page = 2;
+    // The amount of movies in theaters to show per page
+    string page_limit = 3;
+}
+
+message GetListsMoviesOpeningRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // Limits the number of opening movies returned
+    string limit = 2;
+}
+
+message GetListsMoviesUpcomingRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // The selected page of upcoming movies
+    string page = 2;
+    // The amount of upcoming movies to show per page
+    string page_limit = 3;
+}
+
+message GetMovie_aliasRequest {
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 1;
+    // Only supports imdb lookup at this time
+    string type = 2;
+}
+
+message GetMoviesRequest {
+    // The selected page of movie search results
+    string page = 1;
+    // The amount of movie search results to show per page
+    string page_limit = 2;
+    // The plain text search query to search for a movie. Remember to URI encode this!
+    string q = 3;
+}
+
+message GetMoviesIdRequest {
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 1;
+}
+
+message GetMoviesIdCastRequest {
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 1;
+}
+
+message GetMoviesIdClipsRequest {
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 1;
+}
+
+message GetMoviesIdReviewsRequest {
+    // Provides localized data for the selected country (ISO 3166-1 alpha-2) if available. Otherwise, returns US data.
+    string country = 1;
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 2;
+    // The selected page of reviews
+    string page = 3;
+    // The number of reviews to show per page
+    string page_limit = 4;
+    // 3 different review types are possible: 'all', 'top_critic' and 'dvd'. 'top_critic' shows all the Rotten Tomatoes designated top critics. 'dvd' pulls the reviews given on the DVD of the movie. 'all' as the name implies retrieves all reviews.
+    string review_type = 5;
+}
+
+message GetMoviesIdSimilarRequest {
+    // Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID
+    string id = 1;
+    // Limit the number of similar movies to show
+    string limit = 2;
+}
+
+service RottenTomatoesService {
+    rpc GetLists(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists.json"
+      };
+    }
+    rpc GetListsDvds(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/dvds.json"
+      };
+    }
+    rpc GetListsDvdsCurrent_releases(GetListsDvdsCurrent_releasesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/dvds/current_releases.json"
+      };
+    }
+    rpc GetListsDvdsNew_releases(GetListsDvdsNew_releasesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/dvds/new_releases.json"
+      };
+    }
+    rpc GetListsDvdsTop_rentals(GetListsDvdsTop_rentalsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/dvds/top_rentals.json"
+      };
+    }
+    rpc GetListsDvdsUpcoming(GetListsDvdsUpcomingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/dvds/upcoming.json"
+      };
+    }
+    rpc GetListsMovies(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/movies.json"
+      };
+    }
+    rpc GetListsMoviesBox_office(GetListsMoviesBox_officeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/movies/box_office.json"
+      };
+    }
+    rpc GetListsMoviesIn_theaters(GetListsMoviesIn_theatersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/movies/in_theaters.json"
+      };
+    }
+    rpc GetListsMoviesOpening(GetListsMoviesOpeningRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/movies/opening.json"
+      };
+    }
+    rpc GetListsMoviesUpcoming(GetListsMoviesUpcomingRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/lists/movies/upcoming.json"
+      };
+    }
+    rpc GetMovie_alias(GetMovie_aliasRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movie_alias.json"
+      };
+    }
+    rpc GetMovies(GetMoviesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies.json"
+      };
+    }
+    rpc GetMoviesId(GetMoviesIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies/{id}.json"
+      };
+    }
+    rpc GetMoviesIdCast(GetMoviesIdCastRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies/{id}/cast.json"
+      };
+    }
+    rpc GetMoviesIdClips(GetMoviesIdClipsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies/{id}/clips.json"
+      };
+    }
+    rpc GetMoviesIdReviews(GetMoviesIdReviewsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies/{id}/reviews.json"
+      };
+    }
+    rpc GetMoviesIdSimilar(GetMoviesIdSimilarRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/public/v1.0/movies/{id}/similar.json"
+      };
+    }
+}

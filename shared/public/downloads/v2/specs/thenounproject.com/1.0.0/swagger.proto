@@ -1,0 +1,210 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package thenounproject;
+
+message GetCollectionIdRequest {
+    // Collection id
+    int32 id = 1;
+}
+
+message GetCollectionIdIconsRequest {
+    // Collection id
+    int32 id = 1;
+    // Maximum number of results
+    int32 limit = 2;
+    // Number of results to displace or skip over
+    int32 offset = 3;
+    // Number of results of limit length to displace or skip over
+    int32 page = 4;
+}
+
+message GetCollectionSlugRequest {
+    // Collection slug
+    string slug = 1;
+}
+
+message GetCollectionSlugIconsRequest {
+    // Maximum number of results
+    int32 limit = 1;
+    // Number of results to displace or skip over
+    int32 offset = 2;
+    // Number of results of limit length to displace or skip over
+    int32 page = 3;
+    // Collection slug
+    string slug = 4;
+}
+
+message GetCollectionsRequest {
+    // Maximum number of results
+    int32 limit = 1;
+    // Number of results to displace or skip over
+    int32 offset = 2;
+    // Number of results of limit length to displace or skip over
+    int32 page = 3;
+}
+
+message GetIconIdRequest {
+    // Icon id
+    int32 id = 1;
+}
+
+message GetIconTermRequest {
+    // Icon term
+    string term = 1;
+}
+
+message GetIconsRecent_uploadsRequest {
+    // Maximum number of results
+    int32 limit = 1;
+    // Number of results to displace or skip over
+    int32 offset = 2;
+    // Number of results of limit length to displace or skip over
+    int32 page = 3;
+}
+
+message GetIconsTermRequest {
+    // Maximum number of results
+    int32 limit = 1;
+    // Limit results to public domain icons only
+    int32 limit_to_public_domain = 2;
+    // Number of results to displace or skip over
+    int32 offset = 3;
+    // Number of results of limit length to displace or skip over
+    int32 page = 4;
+    // Icon term
+    string term = 5;
+}
+
+message GetUserUser_idCollectionsRequest {
+    // User id
+    int32 user_id = 1;
+}
+
+message GetUserUser_idCollectionsSlugRequest {
+    // Collection slug
+    string slug = 1;
+    // User id
+    int32 user_id = 2;
+}
+
+message GetUserUsernameUploadsRequest {
+    // Maximum number of results
+    int32 limit = 1;
+    // Number of results to displace or skip over
+    int32 offset = 2;
+    // Number of results of limit length to displace or skip over
+    int32 page = 3;
+    // Username
+    string username = 4;
+}
+
+service TheNounProjectService {
+    // Get collection by id
+    // 
+    // Returns a single collection
+    rpc GetCollectionId(GetCollectionIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//collection/{id}"
+      };
+    }
+    // Get collection icons by id
+    // 
+    // Returns a list of icons associated with a collection
+    rpc GetCollectionIdIcons(GetCollectionIdIconsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//collection/{id}/icons"
+      };
+    }
+    // Get collection by slug
+    // 
+    // Returns a single collection
+    rpc GetCollectionSlug(GetCollectionSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//collection/{slug}"
+      };
+    }
+    // Get collection icons by slug
+    // 
+    // Returns a list of icons associated with a collection
+    rpc GetCollectionSlugIcons(GetCollectionSlugIconsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//collection/{slug}/icons"
+      };
+    }
+    // Get all collections
+    // 
+    // Return's a list of all collections
+    rpc GetCollections(GetCollectionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//collections"
+      };
+    }
+    // Get icon by id
+    // 
+    // Returns a single icon
+    rpc GetIconId(GetIconIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//icon/{id}"
+      };
+    }
+    // Get icon by term
+    // 
+    // Returns a single icon
+    rpc GetIconTerm(GetIconTermRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//icon/{term}"
+      };
+    }
+    // Get recent icons
+    // 
+    // Returns list of most recently uploaded icons
+    rpc GetIconsRecent_uploads(GetIconsRecent_uploadsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//icons/recent_uploads"
+      };
+    }
+    // Get icons by term
+    // 
+    // Returns a list of icons
+    rpc GetIconsTerm(GetIconsTermRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//icons/{term}"
+      };
+    }
+    // Get api quota status
+    // 
+    // Returns current oauth usage and limits
+    rpc GetOauthUsage(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//oauth/usage"
+      };
+    }
+    // Get user collections
+    // 
+    // Returns a list of collections associated with a user
+    rpc GetUserUser_idCollections(GetUserUser_idCollectionsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//user/{user_id}/collections"
+      };
+    }
+    // Get user collection
+    // 
+    // Returns a single collection associated with a user
+    rpc GetUserUser_idCollectionsSlug(GetUserUser_idCollectionsSlugRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//user/{user_id}/collections/{slug}"
+      };
+    }
+    // Get user uploads with user
+    // 
+    // Returns a list of uploads associated with a user
+    rpc GetUserUsernameUploads(GetUserUsernameUploadsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//user/{username}/uploads"
+      };
+    }
+}

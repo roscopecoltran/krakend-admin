@@ -1,6 +1,18 @@
+# Snippets fro shell/bash:
+# gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" $(glide novendor)
 
-gox:
+default: server
+
+generate:
+	go generate
+	# go generate ./data
+	# go install
+
+all:
 	@gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" $(shell glide novendor)
+
+server:
+	@gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" ./cmd/server/...
 
 dev:
 	@go build -v $(shell glide novendor) && ./convert 

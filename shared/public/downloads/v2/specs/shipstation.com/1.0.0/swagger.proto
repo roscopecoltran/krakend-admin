@@ -1,0 +1,995 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package shipstationdeveloperportal;
+
+message GetCarriersGetcarrierRequest {
+    // The code for the carrier account to retrieve.
+    string carrierCode = 1;
+}
+
+message GetCarriersListpackagesRequest {
+    // The carrier's code
+    string carrierCode = 1;
+}
+
+message GetCarriersListservicesRequest {
+    // The carrier's code
+    string carrierCode = 1;
+}
+
+message GetCustomersCustomerIdRequest {
+    // The system generated identifier for the Customer.
+    int32 customerId = 1;
+}
+
+message GetCustomersRequest {
+    // Returns customers that reside in the specified countryCode.
+    string countryCode = 1;
+    // Returns customers that purchased items from the specified marketplaceId.
+    int32 marketplaceId = 2;
+    // Page number.
+    int32 page = 3;
+    // Requested page size. Max value is 500.
+    int32 pageSize = 4;
+    // Sorts the order of the response based off the specified value.
+    enum GetCustomersRequest_SortBy {
+        GETCUSTOMERSREQUEST_SORTBY_NAME = 0;
+        GETCUSTOMERSREQUEST_SORTBY_MODIFYDATE = 1;
+        GETCUSTOMERSREQUEST_SORTBY_CREATEDATE = 2;
+    }
+    GetCustomersRequest_SortBy sortBy = 5;
+    // Sets the direction of the sort order.
+    enum GetCustomersRequest_SortDir {
+        GETCUSTOMERSREQUEST_SORTDIR_ASC = 0;
+        GETCUSTOMERSREQUEST_SORTDIR_DESC = 1;
+    }
+    GetCustomersRequest_SortDir sortDir = 6;
+    // Returns customers that reside in the specified stateCode.
+    string stateCode = 7;
+    // Returns customers that have been tagged with the specified tagId.
+    int32 tagId = 8;
+}
+
+message GetFulfillmentsRequest {
+    // Returns fulfillments created on or before the specified ``createDate``
+    string createDateEnd = 1;
+    // Returns fulfillments created on or after the specified ``createDate``
+    string createDateStart = 2;
+    // Returns the fulfillment with the specified fulfillment ID.
+    int32 fulfillmentId = 3;
+    // Returns fulfillments whose orders have the specified order ID.
+    int32 orderId = 4;
+    // Returns fulfillments whose orders have the specified order number.
+    string orderNumber = 5;
+    // page number.
+    int32 page = 6;
+    // page size.
+    int32 pageSize = 7;
+    // Returns fulfillments shipped to the specified recipient name.
+    string recipientName = 8;
+    // Returns fulfillments with the ``shipDate`` on or before the specified date
+    string shipDateEnd = 9;
+    // Returns fulfillments with the ``shipDate`` on or after the specified date
+    string shipDateStart = 10;
+    // Sort the responses by a set value.  The response will be sorted based off the ascending dates (oldest to most current.)  If left empty, the response will be sorted by ascending ``createDate``.
+    enum GetFulfillmentsRequest_SortBy {
+        GETFULFILLMENTSREQUEST_SORTBY_SHIPDATE = 0;
+        GETFULFILLMENTSREQUEST_SORTBY_CREATEDATE = 1;
+    }
+    GetFulfillmentsRequest_SortBy sortBy = 11;
+    // Sets the direction of the sort order.
+    enum GetFulfillmentsRequest_SortDir {
+        GETFULFILLMENTSREQUEST_SORTDIR_ASC = 0;
+        GETFULFILLMENTSREQUEST_SORTDIR_DESC = 1;
+    }
+    GetFulfillmentsRequest_SortDir sortDir = 12;
+    // Returns fulfillments with the specified tracking number.
+    string trackingNumber = 13;
+}
+
+message GetOrdersListbytagRequest {
+    // The order's status.
+    enum GetOrdersListbytagRequest_OrderStatu {
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_AWAITING_PAYMENT = 0;
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_AWAITING_SHIPMENT = 1;
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_PENDING_FULFILLMENT = 2;
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_SHIPPED = 3;
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_ON_HOLD = 4;
+        GETORDERSLISTBYTAGREQUEST_ORDERSTATU_CANCELLED = 5;
+    }
+    GetOrdersListbytagRequest_OrderStatu orderStatus = 1;
+    // Page number
+    string page = 2;
+    // Requested page size. Max value is 500.
+    string pageSize = 3;
+    // ID of the tag. Call Accounts/ListTags to obtain a list of tags for this account.
+    int32 tagId = 4;
+}
+
+message GetOrdersOrderIdRequest {
+    // The system generated identifier for the order.
+    string orderId = 1;
+}
+
+message DeleteOrdersOrderIdRequest {
+    // The system generated identifier for the order.
+    string orderId = 1;
+}
+
+message GetOrdersRequest {
+    // Returns orders that were created in ShipStation before the specified date
+    string createDateEnd = 1;
+    // Returns orders that were created in ShipStation after the specified date
+    string createDateStart = 2;
+    // Returns orders that match the specified name.
+    string customerName = 3;
+    // Returns orders that contain items that match the specified keyword. Fields searched are Sku, Description, and Options
+    string itemKeyword = 4;
+    // Returns orders that were modified before the specified date
+    string modifyDateEnd = 5;
+    // Returns orders that were modified after the specified date
+    string modifyDateStart = 6;
+    // Returns orders less than or equal to the specified date
+    string orderDateEnd = 7;
+    // Returns orders greater than the specified date
+    string orderDateStart = 8;
+    // Filter by order number, performs a "starts with" search.
+    string orderNumber = 9;
+    // Filter by order status.  If left empty, orders of all statuses are returned.
+    enum GetOrdersRequest_OrderStatu {
+        GETORDERSREQUEST_ORDERSTATU_AWAITING_PAYMENT = 0;
+        GETORDERSREQUEST_ORDERSTATU_AWAITING_SHIPMENT = 1;
+        GETORDERSREQUEST_ORDERSTATU_PENDING_FULFILLMENT = 2;
+        GETORDERSREQUEST_ORDERSTATU_SHIPPED = 3;
+        GETORDERSREQUEST_ORDERSTATU_ON_HOLD = 4;
+        GETORDERSREQUEST_ORDERSTATU_CANCELLED = 5;
+    }
+    GetOrdersRequest_OrderStatu orderStatus = 10;
+    // Page number
+    string page = 11;
+    // Requested page size. Max value is 500.
+    string pageSize = 12;
+    // Returns orders that were paid before the specified date
+    string paymentDateEnd = 13;
+    // Returns orders that were paid after the specified date
+    string paymentDateStart = 14;
+    // Sort the responses by a set value.  The response will be sorted based off the ascending dates (oldest to most current.)  If left empty, the response will be sorted by ascending ``orderId``.
+    enum GetOrdersRequest_SortBy {
+        GETORDERSREQUEST_SORTBY_ORDERDATE = 0;
+        GETORDERSREQUEST_SORTBY_MODIFYDATE = 1;
+        GETORDERSREQUEST_SORTBY_CREATEDATE = 2;
+    }
+    GetOrdersRequest_SortBy sortBy = 15;
+    // Sets the direction of the sort order.
+    enum GetOrdersRequest_SortDir {
+        GETORDERSREQUEST_SORTDIR_ASC = 0;
+        GETORDERSREQUEST_SORTDIR_DESC = 1;
+    }
+    GetOrdersRequest_SortDir sortDir = 16;
+    // Filters orders to a single store. Call List Stores to obtain a list of store Ids.
+    int32 storeId = 17;
+}
+
+message GetProductsProductIdRequest {
+    // The system generated identifier for the Product.
+    int32 productId = 1;
+}
+
+message PutProductsProductIdRequest {
+    // The system generated identifier for the Product.
+    int32 productId = 1;
+}
+
+message GetProductsRequest {
+    // Returns products that were created before the specified date.
+    string endDate = 1;
+    // Returns products that match the specified product name.
+    string name = 2;
+    // Page number.
+    string page = 3;
+    // Requested page size. Max value is 500.
+    string pageSize = 4;
+    // Returns products that match the specified productCategoryId.
+    string productCategoryId = 5;
+    // Returns products that match the specified productTypeId.
+    string productTypeId = 6;
+    // Specifies whether the list should include inactive products.
+    string showInactive = 7;
+    // Returns products that match the specified SKU.
+    string sku = 8;
+    // Sorts the order of the response based off the specified value.
+    enum GetProductsRequest_SortBy {
+        GETPRODUCTSREQUEST_SORTBY_SKU = 0;
+        GETPRODUCTSREQUEST_SORTBY_MODIFYDATE = 1;
+        GETPRODUCTSREQUEST_SORTBY_CREATEDATE = 2;
+    }
+    GetProductsRequest_SortBy sortBy = 9;
+    // Sets the direction of the sort order.
+    enum GetProductsRequest_SortDir {
+        GETPRODUCTSREQUEST_SORTDIR_ASC = 0;
+        GETPRODUCTSREQUEST_SORTDIR_DESC = 1;
+    }
+    GetProductsRequest_SortDir sortDir = 10;
+    // Returns products that were created after the specified date.
+    string startDate = 11;
+    // Returns products that match the specified tagId.
+    string tagId = 12;
+}
+
+message GetShipmentsRequest {
+    // Returns shipments shipped with the specified carrier.
+    string carrierCode = 1;
+    // Returns shipments created on or before the specified ``createDate``
+    string createDateEnd = 2;
+    // Returns shipments created on or after the specified ``createDate``
+    string createDateStart = 3;
+    // Specifies whether to include shipment items with results Default value: false.
+    bool includeShipmentItems = 4;
+    // Returns shipments whose orders have the specified order ID.
+    int32 orderId = 5;
+    // Returns shipments whose orders have the specified order number.
+    string orderNumber = 6;
+    // page number.
+    int32 page = 7;
+    // page size.
+    int32 pageSize = 8;
+    // Returns shipments shipped to the specified country code.
+    string recipientCountryCode = 9;
+    // Returns shipments shipped to the specified recipient name.
+    string recipientName = 10;
+    // Returns shipments shipped with the specified shipping service.
+    string serviceCode = 11;
+    // Returns shipments with the ``shipDate`` on or before the specified date
+    string shipDateEnd = 12;
+    // Returns shipments with the ``shipDate`` on or after the specified date
+    string shipDateStart = 13;
+    // Sort the responses by a set value.  The response will be sorted based off the ascending dates (oldest to most current.)  If left empty, the response will be sorted by ascending ``createDate``.
+    enum GetShipmentsRequest_SortBy {
+        GETSHIPMENTSREQUEST_SORTBY_SHIPDATE = 0;
+        GETSHIPMENTSREQUEST_SORTBY_CREATEDATE = 1;
+    }
+    GetShipmentsRequest_SortBy sortBy = 14;
+    // Sets the direction of the sort order.
+    enum GetShipmentsRequest_SortDir {
+        GETSHIPMENTSREQUEST_SORTDIR_ASC = 0;
+        GETSHIPMENTSREQUEST_SORTDIR_DESC = 1;
+    }
+    GetShipmentsRequest_SortDir sortDir = 15;
+    // Returns shipments with the specified tracking number.
+    string trackingNumber = 16;
+    // Returns shipments voided on or before the specified date
+    string voidDateEnd = 17;
+    // Returns shipments voided on or after the specified date
+    string voidDateStart = 18;
+}
+
+message GetStoresGetrefreshstatusRequest {
+    // Specifies the store whose status will be retrieved.
+    int32 storeId = 1;
+}
+
+message PostStoresRefreshstoreRequest {
+    // Specifies the starting date for new order imports.  If the refreshDate is not specified, ShipStation will use the last recorded refreshDate for that store.
+    string refreshDate = 1;
+    // Specifies the store which will get refreshed.  If the storeId is not specified, a store refresh will be initiated for all refreshable stores on that account.
+    int32 storeId = 2;
+}
+
+message GetStoresStoreIdRequest {
+    // A unique ID generated by ShipStation and assigned to each store.
+    int32 storeId = 1;
+}
+
+message PutStoresStoreIdRequest {
+    Get~1Update_StoreModel body = 1;
+    // A unique ID generated by ShipStation and assigned to each store.
+    int32 storeId = 2;
+}
+
+message GetStoresRequest {
+    // Returns stores of this marketplace type.
+    int32 marketplaceId = 1;
+    // Determines whether inactive stores will be returned in the list of stores.
+    bool showInactive = 2;
+}
+
+message GetUsersRequest {
+    // Determines whether inactive users will be returned in the response.
+    bool showInactive = 1;
+}
+
+message GetWarehousesWarehouseIdRequest {
+    // A unique ID generated by ShipStation and assigned to each Ship From Location (formerly known as warehouse).
+    int32 warehouseId = 1;
+}
+
+message PutWarehousesWarehouseIdRequest {
+    Get~1Update_WarehouseModel body = 1;
+    // A unique ID generated by ShipStation and assigned to each Ship From Location (formerly known as warehouse).
+    int32 warehouseId = 2;
+}
+
+message DeleteWebhooksWebhookIdRequest {
+    // A unique ID generated by ShipStation and assigned to each webhook.
+    int32 webhookId = 1;
+}
+
+service ShipStationDeveloperPortalService {
+    // List Tags
+    // 
+    // Lists all tags defined for this account.
+    rpc GetAccountsListtags(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//accounts/listtags"
+      };
+    }
+    // Register Account
+    // 
+    // Creates a new ShipStation account and generates an apiKey and apiSecret to be used by the newly created account. PLEASE NOTE: This endpoint does not require API key and API Secret credentials.  The Authorization header can be left off. Use of this specific endpoint requires approval, and is meant only for direct partners of ShipStation. This is the only endpoint to require approval. All other endpoints listed in this document can be accessed by submitting proper authorization credentials in the header of the request. To become a direct partner of ShipStation, or to request more information on becoming a direct partner, we recommend reaching out to our Partners and Integrations team here: https://info.shipstation.com/become-a-partner-api-and-custom-store-integrations
+    // 
+    // The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``firstName``  | string, required | First Name
+    // ``lastName`` | string, required | Last Name
+    // ``email`` | string, required | Email address. This will also be the username of the account.
+    // ``password`` | string, required | Password to set for account access.
+    // ``companyName`` | string, optional | Name of Company.
+    // ``addr1`` | string, optional | Company Address - Street 1
+    // ``addr2`` | string, optional | Company Address - Street 2
+    // ``city`` | string, optional | Company Address - City
+    // ``state`` | string, optional | Company Address - State 
+    // ``zip`` | string, optional | Company Address - Zip Code
+    // ``countryCode`` |string, optional | Company Address - Country.  Please use a 2-character country code.
+    // ``phone`` | string, optional | Company Phone number.
+    rpc PostAccountsRegisteraccount(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//accounts/registeraccount"
+      };
+    }
+    // List Carriers
+    // 
+    // Lists all shipping providers connected to this account.
+    rpc GetCarriers(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//carriers"
+      };
+    }
+    // Add Funds
+    // 
+    // Adds funds to a carrier account using the payment information on file. The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``carrierCode`` | string, required |  The carrier to add funds to.
+    //  ``amount`` | number, required | The dollar amount to add to the account.  The minimum value that can be added is $10.00.  The maximum value is $10,000.00.
+    rpc PostCarriersAddfunds(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//carriers/addfunds"
+      };
+    }
+    // Get Carrier
+    // 
+    // Retrieves the shipping carrier account details for the specified carrierCode. Use this method to determine a carrier's account balance.
+    rpc GetCarriersGetcarrier(GetCarriersGetcarrierRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//carriers/getcarrier?carrierCode={carrierCode}"
+      };
+    }
+    // List Packages
+    // 
+    // Retrieves a list of packages for the specified carrier
+    rpc GetCarriersListpackages(GetCarriersListpackagesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//carriers/listpackages?carrierCode={carrierCode}"
+      };
+    }
+    // List Services
+    // 
+    // Retrieves the list of available shipping services provided by the specified carrier
+    rpc GetCarriersListservices(GetCarriersListservicesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//carriers/listservices?carrierCode={carrierCode}"
+      };
+    }
+    // Get Customer
+    rpc GetCustomersCustomerId(GetCustomersCustomerIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//customers/{customerId}"
+      };
+    }
+    // List Customers
+    // 
+    // Obtains a list of customers that match the specified criteria.
+    rpc GetCustomers(GetCustomersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//customers?stateCode={stateCode}&countryCode={countryCode}&tagId={tagId}&marketplaceId={marketplaceId}&sortBy={sortBy}&sortDir={sortDir}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // List Fulfillments w/o parameters
+    rpc GetFulfillments(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//fulfillments"
+      };
+    }
+    // List Fulfillments with parameters
+    // 
+    // Obtains a list of fulfillments that match the specified criteria.  Please note the following:
+    // 
+    // - Orders that have been marked as shipped either through the UI or the API will appear in the response as they are considered fulfillments.
+    // 
+    // All of the available filters are optional.  They do not need to be included in the URL.  If you do include them, here's what the URL may look like:
+    // 
+    // Url format with filters:
+    // 
+    // ```
+    // fulfillments?fulfillmentId={fulfillmentId}
+    // &orderId={orderId}
+    // &orderNumber={orderNumber}
+    // &trackingNumber={trackingNumber}
+    // &recipientName={recipientName}
+    // &createDateStart={createDateStart}
+    // &createDateEnd={createDateEnd}
+    // &shipDateStart={shipDateStart}
+    // &shipDateEnd={shipDateEnd}
+    // &sortBy={sortBy}
+    // &sortDir={sortDir}
+    // &page={page}
+    // &pageSize={pageSize}
+    // ```
+    rpc GetFulfillments(GetFulfillmentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//fulfillments?fulfillmentId={fulfillmentId}&orderId={orderId}&orderNumber={orderNumber}&trackingNumber={trackingNumber}&recipientName={recipientName}&createDateStart={createDateStart}&createDateEnd={createDateEnd}&shipDateStart={shipDateStart}&shipDateEnd={shipDateEnd}&sortBy={sortBy}&sortDir={sortDir}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // List Orders w/o parameters
+    rpc GetOrders(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//orders"
+      };
+    }
+    // Add Tag to Order
+    // 
+    // Adds a tag to an order.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderId`` | number, required | Identifies the order that will be tagged.
+    // ``tagId`` | number, required | Identifies the tag that will be applied to the order.
+    rpc PostOrdersAddtag(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/addtag"
+      };
+    }
+    // Assign User to Order
+    // 
+    // Assigns a user to an order.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderIds`` | number, required | Identifies set of orders that will be assigned the user.  Please note that if ANY of the orders within the array are not found, no orders will have a user assigned to them.
+    // ``userId`` | number, required | Identifies the user that will be applied to the orders.  It should contain a GUID of the user to be assigned to the array of orders.
+    rpc PostOrdersAssignuser(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/assignuser"
+      };
+    }
+    // Create Label for Order
+    // 
+    // Creates a shipping label for a given order.  The ``labelData`` field returned in the response is a base64 encoded PDF value. Simply decode and save the output as a PDF file to retrieve a printable label.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderId`` | number, required | Identifies the order that will be shipped.
+    // ``carrierCode`` | string, required | The code for the carrier that is to be used for the label.
+    // ``serviceCode`` | string, required | The code for the shipping service that is to be used for the label.
+    // ``confirmation`` | string, required | The type of delivery confirmation that is to be used once the shipment is created.  Possible values: ``none``, ``delivery``, ``signature``, ``adult_signature``, and ``direct_signature``.  ``direct_signature`` is available for FedEx only.
+    // ``shipDate`` | string, required | The date the order should be shipped.
+    // ``weight`` | Weight, optional | Weight of the order.  Use the [**Weight**](http://www.shipstation.com/developer-api/#/reference/model-weight) model.
+    // ``dimensions`` | Dimensions, optional | Dimensions of the order.  Use [**Dimensions**](http://www.shipstation.com/developer-api/#/reference/model-dimensions) model.
+    // ``insuranceOptions`` | InsuranceOptions, optional | The shipping insurance information associated with this label.  Use the [**InsuranceOptions**](http://www.shipstation.com/developer-api/#/reference/model-insuranceoptions) model.
+    // ``internationalOptions`` | InternationalOptions, optional | Customs information that can be used to generate customs documents for international orders.  Use the [**InternationalOptions**](http://www.shipstation.com/developer-api/#/reference/model-internationaloptions) model.
+    // ``advancedOptions`` | AdvancedOptions, optional | Various advanced options that may be available depending on the shipping carrier that is used to ship the order. Use the Customs information that can be used to generate customs documents for international orders.  Use the [**AdvancedOptions**](http://www.shipstation.com/developer-api/#/reference/model-advancedoptions) model.
+    // ``testLabel`` | boolean, required | Specifies whether a test label should be created.
+    rpc PostOrdersCreatelabelfororder(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/createlabelfororder"
+      };
+    }
+    // Create/Update Order
+    // 
+    // If the ``orderKey`` is specified, the method becomes idempotent and the existing order with that key will be updated. Note: Only orders in an open status in ShipStation (``awaiting_payment``,``awaiting_shipment``, and ``on_hold``) can be updated through this method. ``cancelled`` and ``shipped`` are locked from modification through the API.  The body of this request should specify an [**Order**](https://www.shipstation.com/developer-api/#/reference/model-order) object:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderNumber`` | string, required | A user-defined order number used to identify an order.
+    // ``orderKey`` | string, optional | A user-provided key that should be unique to each order.  If an orderKey is not provided, ShipStation will create a new order and generate a unique orderKey for that order.  If the orderKey *is* provided, the **createorder** method will either: create a new order if the provided orderKey is not found, or, update the existing order if the orderKey is found.
+    // ``orderDate`` | string, required | The date the order was placed.
+    // ``paymentDate`` | string, optional | The date the order was paid for.
+    // ``shipByDate`` | string, optional | The date the order is to be shipped before or on. This field is a suggested value generated by the order source/platform/cart and passed to ShipStation.
+    // ``orderStatus`` | string, required | The order's status. Possible values: ``awaiting_payment``, ``awaiting_shipment``, ``shipped``, ``on_hold``, ``cancelled``
+    // ``customerUsername`` | string, optional | The customer's username.
+    // ``customerEmail`` | string, optional | The customer's email address.
+    // ``billTo`` | Address, required | The recipients billing address. Use the [**Address**](https://www.shipstation.com/developer-api/#/reference/model-address) model.
+    // ``shipTo`` | Address, required | The recipient's shipping address. Use the [**Address**](http://www.shipstation.com/developer-api/#/reference/model-address) model.
+    // ``items`` | OrderItem, optional | An array of item objects.  Use an array of [**OrderItem**](http://www.shipstation.com/developer-api/#/reference/model-orderitem) models.
+    // ``amountPaid`` | number, optional | The total amount paid for the Order.
+    // ``taxAmount`` | number, optional | The total tax amount for the Order.
+    // ``shippingAmount`` | number, optional | Shipping amount paid by the customer, if any.
+    // ``customerNotes`` | string, optional | Notes left by the customer when placing the order.
+    // ``internalNotes`` | string, optional | Private notes that are only visible to the seller.
+    // ``gift`` | boolean, optional | Specifies whether or not this Order is a gift
+    // ``giftMessage`` | string, optional | Gift message left by the customer when placing the order.
+    // ``paymentMethod`` | string, optional | Identifies the shipping service selected by the customer when placing this order.
+    // ``requestedShippingService`` | string, optional |Identifies the shipping service selected by the customer when placing this order. This value is given to ShipStation by the marketplace/cart and helps identify what shipping service the customer selected upon checkout.
+    // ``carrierCode`` | string, optional | The code for the carrier that is to be used(or was used) when this order is shipped(was shipped).
+    // ``serviceCode`` | string, optional | The code for the shipping service that is to be used(or was used) when this order is shipped(was shipped).
+    // ``packageCode`` | string, optional | The code for the package type that is to be used(or was used) when this order is shipped(was shipped).
+    // ``confirmation`` | string, optional | The type of delivery confirmation that is to be used(or was used) when this order is shipped(was shipped). Possible values: ``none``, ``delivery``, ``signature``, ``adult_signature``, and ``direct_signature``.  ``direct_signature`` is available for FedEx only.  
+    // ``shipDate`` | string, optional | The date the order was shipped.
+    // ``weight`` | Weight, optional | Weight of the order.  Use the [**Weight**](http://www.shipstation.com/developer-api/#/reference/model-weight) model.
+    // ``dimensions`` | Dimensions, optional | Dimensions of the order.  Use the [**Dimensions**](http://www.shipstation.com/developer-api/#/reference/model-dimensions) model.
+    // ``insuranceOptions`` | InsuranceOptions, optional | The shipping insurance information associated with this order.  Use the [**InsuranceOptions**](http://www.shipstation.com/developer-api/#/reference/model-insuranceoptions) model.
+    // ``internationalOptions`` | InternationalOptions, optional | Customs information that can be used to generate customs documents for international orders.  Use the [**InternationalOptions**](http://www.shipstation.com/developer-api/#/reference/model-internationaloptions) model.
+    // ``advancedOptions`` | AdvancedOptions, optional | Various advanced options that may be available depending on the shipping carrier that is used to ship the order. Use the [**AdvancedOptions**](http://www.shipstation.com/developer-api/#/reference/model-advancedoptions) model.
+    rpc PostOrdersCreateorder(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/createorder"
+      };
+    }
+    // Create/Update Multiple Orders
+    // 
+    // This endpoint can be used to create or update multiple orders in one request. If the ``orderKey`` is specified in an order, the existing order with that key will be updated. Note: Only orders in an open status in ShipStation (``awaiting_payment``,``awaiting_shipment``, and ``on_hold``) can be updated through this method. ``cancelled`` and ``shipped`` are locked from modification through the API.
+    // 
+    // Data Type          |Description
+    // -------------------|-------------------
+    // Order, required | An array of [**Order**](http://www.shipstation.com/developer-api/#/reference/model-order) objects (maximum of 100 per request)
+    rpc PostOrdersCreateorders(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/createorders"
+      };
+    }
+    // Hold Order Until
+    // 
+    // This method will change the status of the given order to On Hold until the date specified, when the status will automatically change to Awaiting Shipment.
+    // 
+    // The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderId`` | number, required | Identifies the order that will be held.
+    // ``holdUntilDate`` | string, required | Date when order is moved from ``on_hold`` status to ``awaiting_shipment``.
+    rpc PostOrdersHolduntil(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/holduntil"
+      };
+    }
+    // List Orders by Tag
+    // 
+    // Lists all orders that match the specified status and tag ID.
+    // 
+    // Url format with filters:
+    // 
+    // ```
+    // /listbytag?orderStatus={orderStatus}
+    // &tagId={tagId}
+    // &page={page}
+    // &pageSize={pageSize}
+    // ```
+    rpc GetOrdersListbytag(GetOrdersListbytagRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//orders/listbytag?orderStatus={orderStatus}&tagId={tagId}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // Mark an Order as Shipped
+    // 
+    // Marks an order as shipped without creating a label in ShipStation. The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``orderId`` | number, required | Identifies the order that will be marked as shipped.
+    //  ``carrierCode`` | string, required | Code of the carrier that is marked as having shipped the order.
+    //  ``shipDate`` | string, optional | Date order was shipped.
+    //  ``trackingNumber`` | string, optional | Tracking number of shipment.
+    //  ``notifyCustomer``  | boolean, optional | Specifies whether the customer should be notified of the shipment. Default value: false
+    //  ``notifySalesChannel`` | boolean, optional | Specifies whether the sales channel should be notified of the shipment. Default value: false
+    rpc PostOrdersMarkasshipped(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/markasshipped"
+      };
+    }
+    // Remove Tag from Order
+    // 
+    // Removes a tag from the specified order.  The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderId`` | number, required | Identifies the order whose tag will be removed.
+    // ``tagId`` | number, required | Identifies the tag to remove.
+    rpc PostOrdersRemovetag(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/removetag"
+      };
+    }
+    // Restore Order from On Hold
+    // 
+    // This method will change the status of the given order from On Hold to Awaiting Shipment. This endpoint is used when a holdUntil Date is attached to an order.
+    // 
+    // The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderId`` | number, required | Identifies the order that will be restored to ``awaiting_shipment`` from ``on_hold``.
+    rpc PostOrdersRestorefromhold(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/restorefromhold"
+      };
+    }
+    // Unassign User from Order
+    // 
+    // Unassigns a user from an order.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``orderIds`` | number, required | Identifies set of orders that will have the user unassigned.  Please note that if ANY of the orders within the array are not found, then no orders will have their users unassigned.
+    rpc PostOrdersUnassignuser(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//orders/unassignuser"
+      };
+    }
+    // Get Order
+    // 
+    // Retrieves a single order from the database.
+    rpc GetOrdersOrderId(GetOrdersOrderIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//orders/{orderId}"
+      };
+    }
+    // Delete Order
+    // 
+    // Removes order from ShipStation's UI. Note this is a "soft" delete action so the order will still exist in the database, but will be set to ``inactive``
+    rpc DeleteOrdersOrderId(DeleteOrdersOrderIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//orders/{orderId}"
+      };
+    }
+    // List Orders with parameters
+    // 
+    // Obtains a list of orders that match the specified criteria.  All of the available filters are optional.  They do not need to be included in the URL.  If you do include them, here's what the URL may look like:
+    // 
+    // Url format with filters:
+    // 
+    // ```
+    // /orders?customerName={customerName}
+    // &itemKeyword={itemKeyword}
+    // &createDateStart={createDateStart}
+    // &createDateEnd={createDateEnd}
+    // &modifyDateStart={modifyDateStart}
+    // &modifyDateEnd={modifyDateEnd}
+    // &orderDateStart={orderDateStart}
+    // &orderDateEnd={orderDateEnd}
+    // &orderNumber={orderNumber}
+    // &orderStatus={orderStatus}
+    // &paymentDateStart={paymentDateStart}
+    // &paymentDateEnd={paymentDateEnd}
+    // &storeId={storeId}
+    // &sortBy={sortBy}
+    // &sortDir={sortDir}
+    // &page={page}
+    // &pageSize={pageSize}
+    // ```
+    rpc GetOrders(GetOrdersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//orders?customerName={customerName}&itemKeyword={itemKeyword}&createDateStart={createDateStart}&createDateEnd={createDateEnd}&modifyDateStart={modifyDateStart}&modifyDateEnd={modifyDateEnd}&orderDateStart={orderDateStart}&orderDateEnd={orderDateEnd}&orderNumber={orderNumber}&orderStatus={orderStatus}&paymentDateStart={paymentDateStart}&paymentDateEnd={paymentDateEnd}&storeId={storeId}&sortBy={sortBy}&sortDir={sortDir}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // List Products w/o parameters
+    rpc GetProducts(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//products"
+      };
+    }
+    // Get Product
+    rpc GetProductsProductId(GetProductsProductIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//products/{productId}"
+      };
+    }
+    // Update Product
+    // 
+    // Updates an existing product. This call does not currently support partial updates. The entire resource must be provided in the body of the request.
+    rpc PutProductsProductId(PutProductsProductIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "//products/{productId}"
+      };
+    }
+    // List Products with parameters
+    // 
+    // Obtains a list of products that match the specified criteria.  All of the available filters are optional.  They do not need to be included in the URL.  If you do include them, here's what the URL may look like:
+    // 
+    // Url format with filters:
+    // 
+    // ```
+    // /products?sku={sku}
+    // &name={name}
+    // &productCategoryId={productCategoryId}
+    // &productTypeId={productTypeId}
+    // &tagId={tagId}
+    // &startDate={startDate}
+    // &endDate={endDate}
+    // &showInactive={showInactive}
+    // &sortBy={sortBy}
+    // &sortDir={sortDir}
+    // &page={page}
+    // &pageSize={pageSize}
+    // ```
+    rpc GetProducts(GetProductsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//products?sku={sku}&name={name}&productCategoryId={productCategoryId}&productTypeId={productTypeId}&tagId={tagId}&startDate={startDate}&endDate={endDate}&showInactive={showInactive}&sortBy={sortBy}&sortDir={sortDir}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // List Shipments w/o parameters
+    rpc GetShipments(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//shipments"
+      };
+    }
+    // Create Shipment Label
+    // 
+    // Creates a shipping label.  The ``labelData`` field returned in the response is a base64 encoded PDF value. Simply decode and save the output as a PDF file to retrieve a printable label.  The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``carrierCode`` | string, required | Identifies the carrier to be used for this label.
+    //  ``serviceCode`` | string, required | Identifies the shipping service to be used for this label.
+    //  ``packageCode`` | string, required | Identifies the packing type that should be used for this label.
+    //  ``confirmation`` | string, optional | Identifies the delivery confirmation type to be used for this label.
+    //  ``shipDate`` | string, required | The date the shipment will be shipped.
+    //  ``weight`` | Weight, required | Shipment's weight.  Use the [**Weight**](https://www.shipstation.com/developer-api/#/reference/model-weight) model.
+    //  ``dimensions`` | Dimensions, optional | Shipment's dimensions.  Use the [**Dimensions**](https://www.shipstation.com/developer-api/#/reference/model-dimensions) model.
+    //  ``shipFrom`` | Address, required | Address indicating shipment's origin.  Use the [**Address**](https://www.shipstation.com/developer-api/#/reference/model-address) model.
+    //  ``shipTo`` | Address, required | Address indicating shipment's destination.  Use the [**Address**](https://www.shipstation.com/developer-api/#/reference/model-address) model.
+    //  ``insuranceOptions`` | InsuranceOptions, optional | The shipping insurance information associated with this order.  
+    //  ``internationalOptions`` | InternationalOptions, optional | Customs information that can be used to generate customs documents for international orders.  Use the [**InternationalOptions**](https://www.shipstation.com/developer-api/#/reference/model-internationaloptions) model.
+    //  ``advancedOptions`` | AdvancedOptions, optional | Various advanced options that may be available depending on the shipping carrier that is used to ship the order.  Use the [**AdvancedOptions**](https://www.shipstation.com/developer-api/#/reference/model-advancedoptions) model. 
+    //  ``testLabel`` | boolean, optional | Specifies whether a test label should be created. Default value: false.
+    rpc PostShipmentsCreatelabel(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//shipments/createlabel"
+      };
+    }
+    // Get Rates
+    // 
+    // Retrieves shipping rates for the specified shipping details.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``carrierCode`` | string, required | Returns rates for the specified carrier.
+    //  ``serviceCode`` | string, optional | Returns rates for the specified shipping service.
+    //  ``packageCode`` | string, optional | Returns rates for the specified package type.
+    //  ``fromPostalCode`` | string, required | Originating postal code.
+    //  ``toState`` | string, optional | Destination State/Province. Please use two-character state/province abbreviation. Note this field is required for the following carriers: UPS
+    //  ``toCountry`` | string, required | Destination Country.  Please use the two-character ISO country code.
+    //  ``toPostalCode`` | string, required | Destination Postal Code.
+    //  ``toCity`` | string, optional | Destination City.
+    //  ``weight`` | Weight, required | Shipment's weight.  Use ``Weight`` object.
+    //  ``dimensions`` | Dimensions, optional | Shipment's dimensions.  Use ``Dimensions`` object. 
+    //  ``confirmation`` | string, optional | Returns rates that account for the specified delivery confirmation type.
+    //  ``residential`` | boolean, optional | Returns rates that account for the specified delivery confirmation type. Default value: false
+    rpc PostShipmentsGetrates(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//shipments/getrates"
+      };
+    }
+    // Void Label
+    // 
+    // Voids the specified label by shipmentId.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``shipmentId`` | number, required | ID of the shipment to void.
+    rpc PostShipmentsVoidlabel(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//shipments/voidlabel"
+      };
+    }
+    // List Shipments with parameters
+    // 
+    // Obtains a list of shipments that match the specified criteria.  Please note the following:
+    // 
+    // - Only valid shipments with labels generated in ShipStation will be returned in the response. Orders that have been marked as shipped either through the UI or the API will not appear as they are considered external shipments.
+    // 
+    // - To include every shipment's associated shipmentItems in the response, be sure to set the `includeShipmentItems` parameter to `true`.
+    // 
+    // All of the available filters are optional.  They do not need to be included in the URL.  If you do include them, here's what the URL may look like:
+    // 
+    // Url format with filters:
+    // 
+    // ```
+    // shipments?recipientName={recipientName}
+    // &recipientCountryCode={recipientCountryCode}
+    // &orderNumber={orderNumber}
+    // &orderId={orderId}
+    // &carrierCode={carrierCode}
+    // &serviceCode={serviceCode}
+    // &trackingNumber={trackingNumber}
+    // &createDateStart={createDateStart}
+    // &createDateEnd={createDateEnd}
+    // &shipDateStart={shipDateStart}
+    // &shipDateEnd={shipDateEnd}
+    // &voidDateStart={voidDateStart}
+    // &voidDateEnd={voidDateEnd}
+    // &includeShipmentItems={includeShipmentItems}
+    // &sortBy={sortBy}
+    // &sortDir={sortDir}
+    // &page={page}
+    // &pageSize={pageSize}
+    // ```
+    rpc GetShipments(GetShipmentsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//shipments?recipientName={recipientName}&recipientCountryCode={recipientCountryCode}&orderNumber={orderNumber}&orderId={orderId}&carrierCode={carrierCode}&serviceCode={serviceCode}&trackingNumber={trackingNumber}&createDateStart={createDateStart}&createDateEnd={createDateEnd}&shipDateStart={shipDateStart}&shipDateEnd={shipDateEnd}&voidDateStart={voidDateStart}&voidDateEnd={voidDateEnd}&includeShipmentItems={includeShipmentItems}&sortBy={sortBy}&sortDir={sortDir}&page={page}&pageSize={pageSize}"
+      };
+    }
+    // Deactivate Store
+    // 
+    // Deactivates the specified store.
+    // 
+    // The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``storeId``  | number, required | ID of the store to deactivate.
+    rpc PostStoresDeactivate(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//stores/deactivate"
+      };
+    }
+    // Get Store Refresh Status
+    // 
+    // Retrieves the refresh status of a given store.
+    rpc GetStoresGetrefreshstatus(GetStoresGetrefreshstatusRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//stores/getrefreshstatus?storeId={storeId}"
+      };
+    }
+    // List Marketplaces
+    // 
+    // Lists the marketplaces that can be integrated with ShipStation.
+    rpc GetStoresMarketplaces(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//stores/marketplaces"
+      };
+    }
+    // Reactivate Store
+    // 
+    // Reactivates the specified store. Note: stores are active by default
+    // 
+    // The body of this request has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``storeId``  | number, required | ID of the store to reactivate.
+    rpc PostStoresReactivate(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//stores/reactivate"
+      };
+    }
+    // Refresh Store
+    // 
+    // Initiates a store refresh.
+    rpc PostStoresRefreshstore(PostStoresRefreshstoreRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//stores/refreshstore?storeId={storeId}&refreshDate={refreshDate}"
+      };
+    }
+    // Get Store
+    rpc GetStoresStoreId(GetStoresStoreIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//stores/{storeId}"
+      };
+    }
+    // Update Store
+    // 
+    // Updates an existing store. This call does not currently support partial updates. The entire resource must be provided in the body of the request.
+    rpc PutStoresStoreId(PutStoresStoreIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "//stores/{storeId}"
+        body: "body"
+      };
+    }
+    // List Stores
+    // 
+    // Retrieve the list of installed stores on the account.
+    rpc GetStores(GetStoresRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//stores?showInactive={showInactive}&marketplaceId={marketplaceId}"
+      };
+    }
+    // List Users
+    rpc GetUsers(GetUsersRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//users?showInactive={showInactive}"
+      };
+    }
+    // List Warehouses
+    // 
+    // Retrieves a list of your Ship From Locations (formerly known as warehouses).
+    rpc GetWarehouses(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//warehouses"
+      };
+    }
+    // Create Warehouse
+    // 
+    // Adds a Ship From Location (formerly known as warehouse) to your account.  The body of this request should specify the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    //  ``warehouseName`` | string, optional | Name of Ship From Location.
+    //  ``originAddress`` | Address, required | The origin address.  Shipping rates will be calculated from this address.  Use the [**Address**](https://www.shipstation.com/developer-api/#/reference/model-address) model.
+    //  ``returnAddress`` | Address, optional | The return address.  If a "returnAddress" is not specified, your "originAddress" will be used as your "returnAddress". Use the [**Address**](https://www.shipstation.com/developer-api/#/reference/model-address) model.
+    //  ``isDefault`` | boolean, optional | Specifies whether or not this will be your default Ship From Location.
+    rpc PostWarehousesCreatewarehouse(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//warehouses/createwarehouse"
+      };
+    }
+    // Get Warehouse
+    // 
+    // Returns a list of active Ship From Locations (formerly known as warehouses) on the ShipStation account. Warehouses are now called "Ship From Locations" in the UI.
+    rpc GetWarehousesWarehouseId(GetWarehousesWarehouseIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//warehouses/{warehouseId}"
+      };
+    }
+    // Update Warehouse
+    // 
+    // Updates an existing Ship From Location (formerly known as warehouse). This call does not currently support partial updates. The entire resource must be provided in the body of the request. If a "returnAddress" object is not specified, your "originAddress" will be used as your "returnAddress".
+    rpc PutWarehousesWarehouseId(PutWarehousesWarehouseIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "//warehouses/{warehouseId}"
+        body: "body"
+      };
+    }
+    // List Webhooks
+    // 
+    // Retrieves a list of registered webhooks for the account
+    rpc GetWebhooks(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//webhooks"
+      };
+    }
+    // Subscribe to Webhook
+    // 
+    // Subscribes to a specific type of webhook. If a ``store_id`` is passed in, the webhooks will only be triggered for that specific ``store_id``.
+    // The ``event`` type that is passed in will determine what type of webhooks will be sent.
+    // 
+    // NOTE: Webhooks will be sent to the URL specified in the ``target_url``. The HTTP request will be sent via POST and will contain a [**webhook JSON object**](https://www.shipstation.com/developer-api/#/reference/model-webhook) in the body.
+    // 
+    // The body of this request to subscribe has the following attributes:
+    // 
+    // Name               |Data Type          |Description
+    // -------------------|-------------------|-------------------
+    // ``target_url``  | string, required | The URL to send the webhooks to
+    // ``event`` | string, required | The type of webhook to subscribe to. Must contain one of the following values: ORDER_NOTIFY, ITEM_ORDER_NOTIFY, SHIP_NOTIFY, ITEM_SHIP_NOTIFY
+    // ``store_id`` | int, optional | If passed in, the webhooks will only be triggered for this ``store_id``
+    // ``friendly_name`` | string, optional | Display name for the webhook
+    rpc PostWebhooksSubscribe(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//webhooks/subscribe"
+      };
+    }
+    // Unsubscribe to Webhook
+    // 
+    // Unsubscribes from a certain webhook.
+    rpc DeleteWebhooksWebhookId(DeleteWebhooksWebhookIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//webhooks/{webhookId}"
+      };
+    }
+}

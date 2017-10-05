@@ -1,0 +1,358 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsmobile;
+
+message GetBundlesRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListBundlesRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message PostBundlesBundleIdRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ExportBundleRequest body = 10;
+    string bundleId = 11;
+}
+
+message PostExportsProjectIdRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ExportProjectRequest body = 10;
+    string projectId = 11;
+}
+
+message GetProjectRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeProjectRequest body = 10;
+}
+
+message GetProjectsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListProjectsRequest body = 10;
+    // Pagination limit
+    string maxResults = 11;
+    // Pagination token
+    string nextToken = 12;
+}
+
+message DeleteProjectsProjectIdRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteProjectRequest body = 10;
+    string projectId = 11;
+}
+
+message PostUpdateRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    UpdateProjectRequest body = 10;
+}
+
+message AccountActionRequiredException {
+    string message = 1;
+}
+
+message Attribute {
+    string key = 1;
+    string value = 2;
+}
+repeated Attribute Attributes = 1
+
+message BadRequestException {
+    string message = 1;
+}
+
+message BundleDetails {
+    array availablePlatforms = 1;
+    string bundleId = 2;
+    string description = 3;
+    string iconUrl = 4;
+    string title = 5;
+    string version = 6;
+}
+
+
+
+repeated BundleDetails BundleList = 1
+
+
+
+
+
+
+
+
+
+message CreateProjectRequest {
+    //  ZIP or YAML file which contains configuration settings to be used when creating the project. This may be the contents of the file downloaded from the URL provided in an export project operation.
+    string contents = 1;
+}
+
+message CreateProjectResult {
+    //  Detailed information about the created AWS Mobile Hub project.
+    ProjectDetails details = 1;
+}
+
+message DeleteProjectRequest {
+}
+
+message DeleteProjectResult {
+    //  Resources which were deleted.
+    array deletedResources = 1;
+    //  Resources which were not deleted, due to a risk of losing potentially important data or files.
+    array orphanedResources = 2;
+}
+
+message DescribeBundleRequest {
+}
+
+message DescribeBundleResult {
+    //  The details of the bundle.
+    BundleDetails details = 1;
+}
+
+message DescribeProjectRequest {
+}
+
+message DescribeProjectResult {
+    ProjectDetails details = 1;
+}
+
+message ExportBundleRequest {
+}
+
+message ExportBundleResult {
+    //  URL which contains the custom-generated SDK and tool packages used to integrate the client mobile app or web app with the AWS resources created by the AWS Mobile Hub project.
+    string downloadUrl = 1;
+}
+
+message ExportProjectRequest {
+}
+
+message ExportProjectResult {
+    //  URL which can be used to download the exported project configuation file(s).
+    string downloadUrl = 1;
+    //  URL which can be shared to allow other AWS users to create their own project in AWS Mobile Hub with the same configuration as the specified project. This URL pertains to a snapshot in time of the project configuration that is created when this API is called. If you want to share additional changes to your project configuration, then you will need to create and share a new snapshot by calling this method again.
+    string shareUrl = 2;
+    //  Unique identifier for the exported snapshot of the project configuration. This snapshot identifier is included in the share URL.
+    string snapshotId = 3;
+}
+
+message InternalFailureException {
+    string message = 1;
+}
+
+message LimitExceededException {
+    string message = 1;
+}
+
+message ListBundlesRequest {
+}
+
+message ListBundlesResult {
+    //  A list of bundles.
+    array bundleList = 1;
+    //  Pagination token. If non-null pagination token is returned in a result, then pass its value in another request to fetch more entries.
+    string nextToken = 2;
+}
+
+message ListProjectsRequest {
+}
+
+message ListProjectsResult {
+    string nextToken = 1;
+    array projects = 2;
+}
+
+message NotFoundException {
+    string message = 1;
+}
+
+enum Platform {
+    OSX = 0;
+    WINDOWS = 1;
+    LINUX = 2;
+    OBJC = 3;
+    SWIFT = 4;
+    ANDROID = 5;
+    JAVASCRIPT = 6;
+}
+
+repeated Platform Platforms = 1
+
+message ProjectDetails {
+    //  Website URL for this project in the AWS Mobile Hub console.
+    string consoleUrl = 1;
+    //  Date the project was created.
+    string createdDate = 2;
+    //  Date of the last modification of the project.
+    string lastUpdatedDate = 3;
+    string name = 4;
+    string projectId = 5;
+    string region = 6;
+    array resources = 7;
+    ProjectState state = 8;
+}
+
+enum ProjectState {
+    NORMAL = 0;
+    SYNCING = 1;
+    IMPORTING = 2;
+}
+
+repeated ProjectSummary ProjectSummaries = 1
+
+message ProjectSummary {
+    //  Name of the project.
+    string name = 1;
+    //  Unique project identifier.
+    string projectId = 2;
+}
+
+message Resource {
+    string arn = 1;
+    array attributes = 2;
+    string feature = 3;
+    string name = 4;
+    string type = 5;
+}
+
+
+
+
+
+
+
+repeated Resource Resources = 1
+
+message ServiceUnavailableException {
+    string message = 1;
+}
+
+message TooManyRequestsException {
+    string message = 1;
+}
+
+message UnauthorizedException {
+    string message = 1;
+}
+
+message UpdateProjectRequest {
+    //  ZIP or YAML file which contains project configuration to be updated. This should be the contents of the file downloaded from the URL provided in an export project operation.
+    string contents = 1;
+}
+
+message UpdateProjectResult {
+    //  Detailed information about the updated AWS Mobile Hub project.
+    ProjectDetails details = 1;
+}
+
+service AWSMobileService {
+    //  List all available bundles.
+    rpc GetBundles(GetBundlesRequest) returns (ListBundlesResult) {
+      option (google.api.http) = {
+        get: "//bundles"
+        body: "body"
+      };
+    }
+    //  Generates customized software development kit (SDK) and or tool packages used to integrate mobile web or mobile app clients with backend AWS resources.
+    rpc PostBundlesBundleId(PostBundlesBundleIdRequest) returns (ExportBundleResult) {
+      option (google.api.http) = {
+        post: "//bundles/{bundleId}"
+        body: "body"
+      };
+    }
+    //  Exports project configuration to a snapshot which can be downloaded and shared. Note that mobile app push credentials are encrypted in exported projects, so they can only be shared successfully within the same AWS account.
+    rpc PostExportsProjectId(PostExportsProjectIdRequest) returns (ExportProjectResult) {
+      option (google.api.http) = {
+        post: "//exports/{projectId}"
+        body: "body"
+      };
+    }
+    //  Gets details about a project in AWS Mobile Hub.
+    rpc GetProject(GetProjectRequest) returns (DescribeProjectResult) {
+      option (google.api.http) = {
+        get: "//project"
+        body: "body"
+      };
+    }
+    //  Lists projects in AWS Mobile Hub.
+    rpc GetProjects(GetProjectsRequest) returns (ListProjectsResult) {
+      option (google.api.http) = {
+        get: "//projects"
+        body: "body"
+      };
+    }
+    //  Delets a project in AWS Mobile Hub.
+    rpc DeleteProjectsProjectId(DeleteProjectsProjectIdRequest) returns (DeleteProjectResult) {
+      option (google.api.http) = {
+        delete: "//projects/{projectId}"
+        body: "body"
+      };
+    }
+    //  Update an existing project.
+    rpc PostUpdate(PostUpdateRequest) returns (UpdateProjectResult) {
+      option (google.api.http) = {
+        post: "//update"
+        body: "body"
+      };
+    }
+}

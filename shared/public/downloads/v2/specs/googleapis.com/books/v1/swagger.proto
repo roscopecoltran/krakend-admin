@@ -1,0 +1,2305 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package books;
+
+message PostCloudloadingAddBookRequest {
+    alt alt = 1;
+    // A drive document id. The upload_client_token must not be set.
+    string drive_document_id = 2;
+    string fields = 3;
+    string key = 4;
+    // The document MIME type. It can be set only if the drive_document_id is set.
+    string mime_type = 5;
+    // The document name. It can be set only if the drive_document_id is set.
+    string name = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string upload_client_token = 10;
+    string userIp = 11;
+}
+
+message PostCloudloadingDeleteBookRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+    // The id of the book to be removed.
+    string volumeId = 8;
+}
+
+message PostCloudloadingUpdateBookRequest {
+    alt alt = 1;
+    BooksCloudloadingResource body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetDictionaryListOfflineMetadataRequest {
+    alt alt = 1;
+    // The device/version ID from which to request the data.
+    string cpksver = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetMyconfigGetUserSettingsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message PostMyconfigReleaseDownloadAccessRequest {
+    alt alt = 1;
+    // The device/version ID from which to release the restriction.
+    string cpksver = 2;
+    string fields = 3;
+    string key = 4;
+    // ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US.
+    string locale = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+    // The volume(s) to release restrictions for.
+    repeated string volumeIds = 11;
+}
+
+message PostMyconfigRequestAccessRequest {
+    alt alt = 1;
+    // The device/version ID from which to request the restrictions.
+    string cpksver = 2;
+    string fields = 3;
+    string key = 4;
+    // The type of access license to request. If not specified, the default is BOTH.
+    enum PostMyconfigRequestAccessRequest_LicenseType {
+        POSTMYCONFIGREQUESTACCESSREQUEST_LICENSETYPE_BOTH = 0;
+        POSTMYCONFIGREQUESTACCESSREQUEST_LICENSETYPE_CONCURRENT = 1;
+        POSTMYCONFIGREQUESTACCESSREQUEST_LICENSETYPE_DOWNLOAD = 2;
+    }
+    PostMyconfigRequestAccessRequest_LicenseType licenseTypes = 5;
+    // ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US.
+    string locale = 6;
+    // The client nonce value.
+    string nonce = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // String to identify the originator of this request.
+    string source = 11;
+    string userIp = 12;
+    // The volume to request concurrent/download restrictions for.
+    string volumeId = 13;
+}
+
+message PostMyconfigSyncVolumeLicensesRequest {
+    alt alt = 1;
+    // The device/version ID from which to release the restriction.
+    string cpksver = 2;
+    // List of features supported by the client, i.e., 'RENTALS'
+    repeated string features = 3;
+    string fields = 4;
+    // Set to true to include non-comics series. Defaults to false.
+    bool includeNonComicsSeries = 5;
+    string key = 6;
+    // ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US.
+    string locale = 7;
+    // The client nonce value.
+    string nonce = 8;
+    string oauth_token = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Set to true to show pre-ordered books. Defaults to false.
+    bool showPreorders = 12;
+    // String to identify the originator of this request.
+    string source = 13;
+    string userIp = 14;
+    // The volume(s) to request download restrictions for.
+    repeated string volumeIds = 15;
+}
+
+message PostMyconfigUpdateUserSettingsRequest {
+    alt alt = 1;
+    Usersettings body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetMylibraryAnnotationsRequest {
+    alt alt = 1;
+    // The content version for the requested volume.
+    string contentVersion = 2;
+    string fields = 3;
+    string key = 4;
+    // The layer ID to limit annotation by.
+    string layerId = 5;
+    // The layer ID(s) to limit annotation by.
+    repeated string layerIds = 6;
+    // Maximum number of results to return
+    int32 maxResults = 7;
+    string oauth_token = 8;
+    // The value of the nextToken from the previous page.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false.
+    bool showDeleted = 12;
+    // String to identify the originator of this request.
+    string source = 13;
+    // RFC 3339 timestamp to restrict to items updated prior to this timestamp (exclusive).
+    string updatedMax = 14;
+    // RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive).
+    string updatedMin = 15;
+    string userIp = 16;
+    // The volume to restrict annotations to.
+    string volumeId = 17;
+}
+
+message PostMylibraryAnnotationsRequest {
+    alt alt = 1;
+    // The ID for the annotation to insert.
+    string annotationId = 2;
+    Annotation body = 3;
+    // ISO-3166-1 code to override the IP-based location.
+    string country = 4;
+    string fields = 5;
+    string key = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // Requests that only the summary of the specified layer be provided in the response.
+    bool showOnlySummaryInResponse = 10;
+    // String to identify the originator of this request.
+    string source = 11;
+    string userIp = 12;
+}
+
+message PostMylibraryAnnotationsSummaryRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Array of layer IDs to get the summary for.
+    repeated string layerIds = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+    // Volume id to get the summary for.
+    string volumeId = 9;
+}
+
+message PutMylibraryAnnotationsAnnotationIdRequest {
+    alt alt = 1;
+    // The ID for the annotation to update.
+    string annotationId = 2;
+    Annotation body = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+}
+
+message DeleteMylibraryAnnotationsAnnotationIdRequest {
+    alt alt = 1;
+    // The ID for the annotation to delete.
+    string annotationId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    string userIp = 9;
+}
+
+message GetMylibraryBookshelvesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // String to identify the originator of this request.
+    string source = 7;
+    string userIp = 8;
+}
+
+message GetMylibraryBookshelvesShelfRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of bookshelf to retrieve.
+    string shelf = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    string userIp = 9;
+}
+
+message PostMylibraryBookshelvesShelfAddVolumeRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The reason for which the book is added to the library.
+    enum PostMylibraryBookshelvesShelfAddVolumeRequest_Reason {
+        POSTMYLIBRARYBOOKSHELVESSHELFADDVOLUMEREQUEST_REASON_IOS_PREX = 0;
+        POSTMYLIBRARYBOOKSHELVESSHELFADDVOLUMEREQUEST_REASON_IOS_SEARCH = 1;
+        POSTMYLIBRARYBOOKSHELVESSHELFADDVOLUMEREQUEST_REASON_ONBOARDING = 2;
+    }
+    PostMylibraryBookshelvesShelfAddVolumeRequest_Reason reason = 7;
+    // ID of bookshelf to which to add a volume.
+    string shelf = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+    // ID of volume to add.
+    string volumeId = 11;
+}
+
+message PostMylibraryBookshelvesShelfClearVolumesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of bookshelf from which to remove a volume.
+    string shelf = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    string userIp = 9;
+}
+
+message PostMylibraryBookshelvesShelfMoveVolumeRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of bookshelf with the volume.
+    string shelf = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    string userIp = 9;
+    // ID of volume to move.
+    string volumeId = 10;
+    // Position on shelf to move the item (0 puts the item before the current first item, 1 puts it between the first and the second and so on.)
+    int32 volumePosition = 11;
+}
+
+message PostMylibraryBookshelvesShelfRemoveVolumeRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The reason for which the book is removed from the library.
+    enum PostMylibraryBookshelvesShelfRemoveVolumeRequest_Reason {
+        POSTMYLIBRARYBOOKSHELVESSHELFREMOVEVOLUMEREQUEST_REASON_ONBOARDING = 0;
+    }
+    PostMylibraryBookshelvesShelfRemoveVolumeRequest_Reason reason = 7;
+    // ID of bookshelf from which to remove a volume.
+    string shelf = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+    // ID of volume to remove.
+    string volumeId = 11;
+}
+
+message GetMylibraryBookshelvesShelfVolumesRequest {
+    alt alt = 1;
+    // ISO-3166-1 code to override the IP-based location.
+    string country = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of results to return
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    // Restrict information returned to a set of selected fields.
+    enum GetMylibraryBookshelvesShelfVolumesRequest_Projection {
+        GETMYLIBRARYBOOKSHELVESSHELFVOLUMESREQUEST_PROJECTION_FULL = 0;
+        GETMYLIBRARYBOOKSHELVESSHELFVOLUMESREQUEST_PROJECTION_LITE = 1;
+    }
+    GetMylibraryBookshelvesShelfVolumesRequest_Projection projection = 8;
+    // Full-text search query string in this bookshelf.
+    string q = 9;
+    string quotaUser = 10;
+    // The bookshelf ID or name retrieve volumes for.
+    string shelf = 11;
+    // Set to true to show pre-ordered books. Defaults to false.
+    bool showPreorders = 12;
+    // String to identify the originator of this request.
+    string source = 13;
+    // Index of the first element to return (starts at 0)
+    int32 startIndex = 14;
+    string userIp = 15;
+}
+
+message GetMylibraryReadingpositionsVolumeIdRequest {
+    alt alt = 1;
+    // Volume content version for which this reading position is requested.
+    string contentVersion = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    string userIp = 9;
+    // ID of volume for which to retrieve a reading position.
+    string volumeId = 10;
+}
+
+message PostMylibraryReadingpositionsVolumeIdSetPositionRequest {
+    // Action that caused this reading position to be set.
+    enum PostMylibraryReadingpositionsVolumeIdSetPositionRequest_Action {
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_BOOKMARK = 0;
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_CHAPTER = 1;
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_NEXTPAGE = 2;
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_PREVPAGE = 3;
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_SCROLL = 4;
+        POSTMYLIBRARYREADINGPOSITIONSVOLUMEIDSETPOSITIONREQUEST_ACTION_SEARCH = 5;
+    }
+    PostMylibraryReadingpositionsVolumeIdSetPositionRequest_Action action = 1;
+    alt alt = 2;
+    // Volume content version for which this reading position applies.
+    string contentVersion = 3;
+    // Random persistent device cookie optional on set position.
+    string deviceCookie = 4;
+    string fields = 5;
+    string key = 6;
+    string oauth_token = 7;
+    // Position string for the new volume reading position.
+    string position = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // String to identify the originator of this request.
+    string source = 11;
+    // RFC 3339 UTC format timestamp associated with this reading position.
+    string timestamp = 12;
+    string userIp = 13;
+    // ID of volume for which to update the reading position.
+    string volumeId = 14;
+}
+
+message GetNotificationGetRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating notification title and body.
+    string locale = 4;
+    // String to identify the notification.
+    string notification_id = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+}
+
+message GetOnboardingListCategoriesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset.
+    string locale = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetOnboardingListCategoryVolumesRequest {
+    alt alt = 1;
+    // List of category ids requested.
+    repeated string categoryId = 2;
+    string fields = 3;
+    string key = 4;
+    // ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset.
+    string locale = 5;
+    // The maximum allowed maturity rating of returned volumes. Books with a higher maturity rating are filtered out.
+    enum GetOnboardingListCategoryVolumesRequest_MaxAllowedMaturityRating {
+        GETONBOARDINGLISTCATEGORYVOLUMESREQUEST_MAXALLOWEDMATURITYRATING_MATURE = 0;
+        GETONBOARDINGLISTCATEGORYVOLUMESREQUEST_MAXALLOWEDMATURITYRATING_NOTMATURE = 1;
+    }
+    GetOnboardingListCategoryVolumesRequest_MaxAllowedMaturityRating maxAllowedMaturityRating = 6;
+    string oauth_token = 7;
+    // Number of maximum results per page to be included in the response.
+    int32 pageSize = 8;
+    // The value of the nextToken from the previous page.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    string userIp = 12;
+}
+
+message GetPersonalizedstreamGetRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations.
+    string locale = 4;
+    // The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out.
+    enum GetPersonalizedstreamGetRequest_MaxAllowedMaturityRating {
+        GETPERSONALIZEDSTREAMGETREQUEST_MAXALLOWEDMATURITYRATING_MATURE = 0;
+        GETPERSONALIZEDSTREAMGETREQUEST_MAXALLOWEDMATURITYRATING_NOTMATURE = 1;
+    }
+    GetPersonalizedstreamGetRequest_MaxAllowedMaturityRating maxAllowedMaturityRating = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+}
+
+message PostPromoofferAcceptRequest {
+    alt alt = 1;
+    // device android_id
+    string androidId = 2;
+    // device device
+    string device = 3;
+    string fields = 4;
+    string key = 5;
+    // device manufacturer
+    string manufacturer = 6;
+    // device model
+    string model = 7;
+    string oauth_token = 8;
+    string offerId = 9;
+    boolean prettyPrint = 10;
+    // device product
+    string product = 11;
+    string quotaUser = 12;
+    // device serial
+    string serial = 13;
+    string userIp = 14;
+    // Volume id to exercise the offer
+    string volumeId = 15;
+}
+
+message PostPromoofferDismissRequest {
+    alt alt = 1;
+    // device android_id
+    string androidId = 2;
+    // device device
+    string device = 3;
+    string fields = 4;
+    string key = 5;
+    // device manufacturer
+    string manufacturer = 6;
+    // device model
+    string model = 7;
+    string oauth_token = 8;
+    // Offer to dimiss
+    string offerId = 9;
+    boolean prettyPrint = 10;
+    // device product
+    string product = 11;
+    string quotaUser = 12;
+    // device serial
+    string serial = 13;
+    string userIp = 14;
+}
+
+message GetPromoofferGetRequest {
+    alt alt = 1;
+    // device android_id
+    string androidId = 2;
+    // device device
+    string device = 3;
+    string fields = 4;
+    string key = 5;
+    // device manufacturer
+    string manufacturer = 6;
+    // device model
+    string model = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    // device product
+    string product = 10;
+    string quotaUser = 11;
+    // device serial
+    string serial = 12;
+    string userIp = 13;
+}
+
+message GetSeriesGetRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // String that identifies the series
+    repeated string series_id = 7;
+    string userIp = 8;
+}
+
+message GetSeriesMembershipGetRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // Number of maximum results per page to be included in the response.
+    int32 page_size = 5;
+    // The value of the nextToken from the previous page.
+    string page_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String that identifies the series
+    string series_id = 9;
+    string userIp = 10;
+}
+
+message GetUsersUserIdBookshelvesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // String to identify the originator of this request.
+    string source = 7;
+    // ID of user for whom to retrieve bookshelves.
+    string userId = 8;
+    string userIp = 9;
+}
+
+message GetUsersUserIdBookshelvesShelfRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of bookshelf to retrieve.
+    string shelf = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    // ID of user for whom to retrieve bookshelves.
+    string userId = 9;
+    string userIp = 10;
+}
+
+message GetUsersUserIdBookshelvesShelfVolumesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // Maximum number of results to return
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // ID of bookshelf to retrieve volumes.
+    string shelf = 8;
+    // Set to true to show pre-ordered books. Defaults to false.
+    bool showPreorders = 9;
+    // String to identify the originator of this request.
+    string source = 10;
+    // Index of the first element to return (starts at 0)
+    int32 startIndex = 11;
+    // ID of user for whom to retrieve bookshelf volumes.
+    string userId = 12;
+    string userIp = 13;
+}
+
+message GetVolumesRequest {
+    alt alt = 1;
+    // Restrict to volumes by download availability.
+    enum GetVolumesRequest_Download {
+        GETVOLUMESREQUEST_DOWNLOAD_EPUB = 0;
+    }
+    GetVolumesRequest_Download download = 2;
+    string fields = 3;
+    // Filter search results.
+    enum GetVolumesRequest_Filter {
+        GETVOLUMESREQUEST_FILTER_EBOOKS = 0;
+        GETVOLUMESREQUEST_FILTER_FREEEBOOKS = 1;
+        GETVOLUMESREQUEST_FILTER_FULL = 2;
+        GETVOLUMESREQUEST_FILTER_PAIDEBOOKS = 3;
+        GETVOLUMESREQUEST_FILTER_PARTIAL = 4;
+    }
+    GetVolumesRequest_Filter filter = 4;
+    string key = 5;
+    // Restrict results to books with this language code.
+    string langRestrict = 6;
+    // Restrict search to this user's library.
+    enum GetVolumesRequest_LibraryRestrict {
+        GETVOLUMESREQUEST_LIBRARYRESTRICT_MYLIBRARY = 0;
+        GETVOLUMESREQUEST_LIBRARYRESTRICT_NORESTRICT = 1;
+    }
+    GetVolumesRequest_LibraryRestrict libraryRestrict = 7;
+    // The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out.
+    enum GetVolumesRequest_MaxAllowedMaturityRating {
+        GETVOLUMESREQUEST_MAXALLOWEDMATURITYRATING_MATURE = 0;
+        GETVOLUMESREQUEST_MAXALLOWEDMATURITYRATING_NOTMATURE = 1;
+    }
+    GetVolumesRequest_MaxAllowedMaturityRating maxAllowedMaturityRating = 8;
+    // Maximum number of results to return.
+    int32 maxResults = 9;
+    string oauth_token = 10;
+    // Sort search results.
+    enum GetVolumesRequest_OrderBy {
+        GETVOLUMESREQUEST_ORDERBY_NEWEST = 0;
+        GETVOLUMESREQUEST_ORDERBY_RELEVANCE = 1;
+    }
+    GetVolumesRequest_OrderBy orderBy = 11;
+    // Restrict and brand results for partner ID.
+    string partner = 12;
+    boolean prettyPrint = 13;
+    // Restrict to books or magazines.
+    enum GetVolumesRequest_PrintType {
+        GETVOLUMESREQUEST_PRINTTYPE_ALL = 0;
+        GETVOLUMESREQUEST_PRINTTYPE_BOOKS = 1;
+        GETVOLUMESREQUEST_PRINTTYPE_MAGAZINES = 2;
+    }
+    GetVolumesRequest_PrintType printType = 14;
+    // Restrict information returned to a set of selected fields.
+    enum GetVolumesRequest_Projection {
+        GETVOLUMESREQUEST_PROJECTION_FULL = 0;
+        GETVOLUMESREQUEST_PROJECTION_LITE = 1;
+    }
+    GetVolumesRequest_Projection projection = 15;
+    // Full-text search query string.
+    string q = 16;
+    string quotaUser = 17;
+    // Set to true to show books available for preorder. Defaults to false.
+    bool showPreorders = 18;
+    // String to identify the originator of this request.
+    string source = 19;
+    // Index of the first result to return (starts at 0)
+    int32 startIndex = 20;
+    string userIp = 21;
+}
+
+message GetVolumesMybooksRequest {
+    // How the book was acquired
+    repeated string acquireMethod = 1;
+    alt alt = 2;
+    // ISO-3166-1 code to override the IP-based location.
+    string country = 3;
+    string fields = 4;
+    string key = 5;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex:'en_US'. Used for generating recommendations.
+    string locale = 6;
+    // Maximum number of results to return.
+    int32 maxResults = 7;
+    string oauth_token = 8;
+    boolean prettyPrint = 9;
+    // The processing state of the user uploaded volumes to be returned. Applicable only if the UPLOADED is specified in the acquireMethod.
+    repeated string processingState = 10;
+    string quotaUser = 11;
+    // String to identify the originator of this request.
+    string source = 12;
+    // Index of the first result to return (starts at 0)
+    int32 startIndex = 13;
+    string userIp = 14;
+}
+
+message GetVolumesRecommendedRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations.
+    string locale = 4;
+    // The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out.
+    enum GetVolumesRecommendedRequest_MaxAllowedMaturityRating {
+        GETVOLUMESRECOMMENDEDREQUEST_MAXALLOWEDMATURITYRATING_MATURE = 0;
+        GETVOLUMESRECOMMENDEDREQUEST_MAXALLOWEDMATURITYRATING_NOTMATURE = 1;
+    }
+    GetVolumesRecommendedRequest_MaxAllowedMaturityRating maxAllowedMaturityRating = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+}
+
+message PostVolumesRecommendedRateRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations.
+    string locale = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // Rating to be given to the volume.
+    enum PostVolumesRecommendedRateRequest_Rating {
+        POSTVOLUMESRECOMMENDEDRATEREQUEST_RATING_HAVE_IT = 0;
+        POSTVOLUMESRECOMMENDEDRATEREQUEST_RATING_NOT_INTERESTED = 1;
+    }
+    PostVolumesRecommendedRateRequest_Rating rating = 8;
+    // String to identify the originator of this request.
+    string source = 9;
+    string userIp = 10;
+    // ID of the source volume.
+    string volumeId = 11;
+}
+
+message GetVolumesUseruploadedRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations.
+    string locale = 4;
+    // Maximum number of results to return.
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    // The processing state of the user uploaded volumes to be returned.
+    repeated string processingState = 8;
+    string quotaUser = 9;
+    // String to identify the originator of this request.
+    string source = 10;
+    // Index of the first result to return (starts at 0)
+    int32 startIndex = 11;
+    string userIp = 12;
+    // The ids of the volumes to be returned. If not specified all that match the processingState are returned.
+    repeated string volumeId = 13;
+}
+
+message GetVolumesVolumeIdRequest {
+    alt alt = 1;
+    // ISO-3166-1 code to override the IP-based location.
+    string country = 2;
+    string fields = 3;
+    // Set to true to include non-comics series. Defaults to false.
+    bool includeNonComicsSeries = 4;
+    string key = 5;
+    string oauth_token = 6;
+    // Brand results for partner ID.
+    string partner = 7;
+    boolean prettyPrint = 8;
+    // Restrict information returned to a set of selected fields.
+    enum GetVolumesVolumeIdRequest_Projection {
+        GETVOLUMESVOLUMEIDREQUEST_PROJECTION_FULL = 0;
+        GETVOLUMESVOLUMEIDREQUEST_PROJECTION_LITE = 1;
+    }
+    GetVolumesVolumeIdRequest_Projection projection = 9;
+    string quotaUser = 10;
+    // String to identify the originator of this request.
+    string source = 11;
+    string userIp = 12;
+    bool user_library_consistent_read = 13;
+    // ID of volume to retrieve.
+    string volumeId = 14;
+}
+
+message GetVolumesVolumeIdAssociatedRequest {
+    alt alt = 1;
+    // Association type.
+    enum GetVolumesVolumeIdAssociatedRequest_Association {
+        GETVOLUMESVOLUMEIDASSOCIATEDREQUEST_ASSOCIATION_ENDOFSAMPLE = 0;
+        GETVOLUMESVOLUMEIDASSOCIATEDREQUEST_ASSOCIATION_ENDOFVOLUME = 1;
+        GETVOLUMESVOLUMEIDASSOCIATEDREQUEST_ASSOCIATION_RELATEDFORPLAY = 2;
+    }
+    GetVolumesVolumeIdAssociatedRequest_Association association = 2;
+    string fields = 3;
+    string key = 4;
+    // ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations.
+    string locale = 5;
+    // The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out.
+    enum GetVolumesVolumeIdAssociatedRequest_MaxAllowedMaturityRating {
+        GETVOLUMESVOLUMEIDASSOCIATEDREQUEST_MAXALLOWEDMATURITYRATING_MATURE = 0;
+        GETVOLUMESVOLUMEIDASSOCIATEDREQUEST_MAXALLOWEDMATURITYRATING_NOTMATURE = 1;
+    }
+    GetVolumesVolumeIdAssociatedRequest_MaxAllowedMaturityRating maxAllowedMaturityRating = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // String to identify the originator of this request.
+    string source = 10;
+    string userIp = 11;
+    // ID of the source volume.
+    string volumeId = 12;
+}
+
+message GetVolumesVolumeIdLayersLayerIdRequest {
+    alt alt = 1;
+    // The content version for the requested volume.
+    string contentVersion = 2;
+    // The end offset to end retrieving data from.
+    string endOffset = 3;
+    // The end position to end retrieving data from.
+    string endPosition = 4;
+    string fields = 5;
+    string key = 6;
+    // The ID for the layer to get the annotations.
+    string layerId = 7;
+    // The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'.
+    string locale = 8;
+    // Maximum number of results to return
+    int32 maxResults = 9;
+    string oauth_token = 10;
+    // The value of the nextToken from the previous page.
+    string pageToken = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    // Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false.
+    bool showDeleted = 14;
+    // String to identify the originator of this request.
+    string source = 15;
+    // The start offset to start retrieving data from.
+    string startOffset = 16;
+    // The start position to start retrieving data from.
+    string startPosition = 17;
+    // RFC 3339 timestamp to restrict to items updated prior to this timestamp (exclusive).
+    string updatedMax = 18;
+    // RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive).
+    string updatedMin = 19;
+    string userIp = 20;
+    // The version of the volume annotations that you are requesting.
+    string volumeAnnotationsVersion = 21;
+    // The volume to retrieve annotations for.
+    string volumeId = 22;
+}
+
+message GetVolumesVolumeIdLayersLayerIdAnnotationsAnnotationIdRequest {
+    alt alt = 1;
+    // The ID of the volume annotation to retrieve.
+    string annotationId = 2;
+    string fields = 3;
+    string key = 4;
+    // The ID for the layer to get the annotations.
+    string layerId = 5;
+    // The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'.
+    string locale = 6;
+    string oauth_token = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // String to identify the originator of this request.
+    string source = 10;
+    string userIp = 11;
+    // The volume to retrieve annotations for.
+    string volumeId = 12;
+}
+
+message GetVolumesVolumeIdLayersLayerIdDataRequest {
+    alt alt = 1;
+    // The list of Annotation Data Ids to retrieve. Pagination is ignored if this is set.
+    repeated string annotationDataId = 2;
+    // The content version for the requested volume.
+    string contentVersion = 3;
+    string fields = 4;
+    // The requested pixel height for any images. If height is provided width must also be provided.
+    int32 h = 5;
+    string key = 6;
+    // The ID for the layer to get the annotation data.
+    string layerId = 7;
+    // The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'.
+    string locale = 8;
+    // Maximum number of results to return
+    int32 maxResults = 9;
+    string oauth_token = 10;
+    // The value of the nextToken from the previous page.
+    string pageToken = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    // The requested scale for the image.
+    int32 scale = 14;
+    // String to identify the originator of this request.
+    string source = 15;
+    // RFC 3339 timestamp to restrict to items updated prior to this timestamp (exclusive).
+    string updatedMax = 16;
+    // RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive).
+    string updatedMin = 17;
+    string userIp = 18;
+    // The volume to retrieve annotation data for.
+    string volumeId = 19;
+    // The requested pixel width for any images. If width is provided height must also be provided.
+    int32 w = 20;
+}
+
+message GetVolumesVolumeIdLayersLayerIdDataAnnotationDataIdRequest {
+    // For the dictionary layer. Whether or not to allow web definitions.
+    bool allowWebDefinitions = 1;
+    alt alt = 2;
+    // The ID of the annotation data to retrieve.
+    string annotationDataId = 3;
+    // The content version for the volume you are trying to retrieve.
+    string contentVersion = 4;
+    string fields = 5;
+    // The requested pixel height for any images. If height is provided width must also be provided.
+    int32 h = 6;
+    string key = 7;
+    // The ID for the layer to get the annotations.
+    string layerId = 8;
+    // The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'.
+    string locale = 9;
+    string oauth_token = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // The requested scale for the image.
+    int32 scale = 13;
+    // String to identify the originator of this request.
+    string source = 14;
+    string userIp = 15;
+    // The volume to retrieve annotations for.
+    string volumeId = 16;
+    // The requested pixel width for any images. If width is provided height must also be provided.
+    int32 w = 17;
+}
+
+message GetVolumesVolumeIdLayersummaryRequest {
+    alt alt = 1;
+    // The content version for the requested volume.
+    string contentVersion = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of results to return
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    // The value of the nextToken from the previous page.
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    // String to identify the originator of this request.
+    string source = 10;
+    string userIp = 11;
+    // The volume to retrieve layers for.
+    string volumeId = 12;
+}
+
+message GetVolumesVolumeIdLayersummarySummaryIdRequest {
+    alt alt = 1;
+    // The content version for the requested volume.
+    string contentVersion = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // String to identify the originator of this request.
+    string source = 8;
+    // The ID for the layer to get the summary for.
+    string summaryId = 9;
+    string userIp = 10;
+    // The volume to retrieve layers for.
+    string volumeId = 11;
+}
+
+message Annotation {
+    // Anchor text after excerpt. For requests, if the user bookmarked a screen that has no flowing text on it, then this field should be empty.
+    string afterSelectedText = 1;
+    // Anchor text before excerpt. For requests, if the user bookmarked a screen that has no flowing text on it, then this field should be empty.
+    string beforeSelectedText = 2;
+    // Selection ranges sent from the client.
+    message ClientVersionRanges {
+            // Range in CFI format for this annotation sent by client.
+    BooksAnnotationsRange cfiRange = 1;
+            // Content version the client sent in.
+    string contentVersion = 2;
+            // Range in GB image format for this annotation sent by client.
+    BooksAnnotationsRange gbImageRange = 3;
+            // Range in GB text format for this annotation sent by client.
+    BooksAnnotationsRange gbTextRange = 4;
+            // Range in image CFI format for this annotation sent by client.
+    BooksAnnotationsRange imageCfiRange = 5;
+    }
+    ClientVersionRanges clientVersionRanges = 3;
+    // Timestamp for the created time of this annotation.
+    string created = 4;
+    // Selection ranges for the most recent content version.
+    message CurrentVersionRanges {
+            // Range in CFI format for this annotation for version above.
+    BooksAnnotationsRange cfiRange = 1;
+            // Content version applicable to ranges below.
+    string contentVersion = 2;
+            // Range in GB image format for this annotation for version above.
+    BooksAnnotationsRange gbImageRange = 3;
+            // Range in GB text format for this annotation for version above.
+    BooksAnnotationsRange gbTextRange = 4;
+            // Range in image CFI format for this annotation for version above.
+    BooksAnnotationsRange imageCfiRange = 5;
+    }
+    CurrentVersionRanges currentVersionRanges = 5;
+    // User-created data for this annotation.
+    string data = 6;
+    // Indicates that this annotation is deleted.
+    bool deleted = 7;
+    // The highlight style for this annotation.
+    string highlightStyle = 8;
+    // Id of this annotation, in the form of a GUID.
+    string id = 9;
+    // Resource type.
+    string kind = 10;
+    // The layer this annotation is for.
+    string layerId = 11;
+    message LayerSummary {
+            // Maximum allowed characters on this layer, especially for the "copy" layer.
+    int32 allowedCharacterCount = 1;
+            // Type of limitation on this layer. "limited" or "unlimited" for the "copy" layer.
+    string limitType = 2;
+            // Remaining allowed characters on this layer, especially for the "copy" layer.
+    int32 remainingCharacterCount = 3;
+    }
+    LayerSummary layerSummary = 12;
+    // Pages that this annotation spans.
+    repeated string pageIds = 13;
+    // Excerpt from the volume.
+    string selectedText = 14;
+    // URL to this resource.
+    string selfLink = 15;
+    // Timestamp for the last time this annotation was modified.
+    string updated = 16;
+    // The volume that this annotation belongs to.
+    string volumeId = 17;
+}
+
+message Annotationdata {
+    // The type of annotation this data is for.
+    string annotationType = 1;
+    ;
+    // Base64 encoded data for this annotation data.
+    string encoded_data = 3;
+    // Unique id for this annotation data.
+    string id = 4;
+    // Resource Type
+    string kind = 5;
+    // The Layer id for this data. *
+    string layerId = 6;
+    // URL for this resource. *
+    string selfLink = 7;
+    // Timestamp for the last time this data was updated. (RFC 3339 UTC date-time format).
+    string updated = 8;
+    // The volume id for this data. *
+    string volumeId = 9;
+}
+
+message Annotations {
+    // A list of annotations.
+    repeated Annotation items = 1;
+    // Resource type.
+    string kind = 2;
+    // Token to pass in for pagination for the next page. This will not be present if this request does not have more results.
+    string nextPageToken = 3;
+    // Total number of annotations found. This may be greater than the number of notes returned in this response if results have been paginated.
+    int32 totalItems = 4;
+}
+
+message AnnotationsSummary {
+    string kind = 1;
+    message Layer {
+        int32 allowedCharacterCount = 1;
+        string layerId = 2;
+        string limitType = 3;
+        int32 remainingCharacterCount = 4;
+        string updated = 5;
+    }
+    repeated Layer layers = 2;
+}
+
+message Annotationsdata {
+    // A list of Annotation Data.
+    repeated Annotationdata items = 1;
+    // Resource type
+    string kind = 2;
+    // Token to pass in for pagination for the next page. This will not be present if this request does not have more results.
+    string nextPageToken = 3;
+    // The total number of volume annotations found.
+    int32 totalItems = 4;
+}
+
+message BooksAnnotationsRange {
+    // The offset from the ending position.
+    string endOffset = 1;
+    // The ending position for the range.
+    string endPosition = 2;
+    // The offset from the starting position.
+    string startOffset = 3;
+    // The starting position for the range.
+    string startPosition = 4;
+}
+
+message BooksCloudloadingResource {
+    string author = 1;
+    string processingState = 2;
+    string title = 3;
+    string volumeId = 4;
+}
+
+message BooksVolumesRecommendedRateResponse {
+    string consistency_token = 1;
+}
+
+message Bookshelf {
+    // Whether this bookshelf is PUBLIC or PRIVATE.
+    string access = 1;
+    // Created time for this bookshelf (formatted UTC timestamp with millisecond resolution).
+    string created = 2;
+    // Description of this bookshelf.
+    string description = 3;
+    // Id of this bookshelf, only unique by user.
+    int32 id = 4;
+    // Resource type for bookshelf metadata.
+    string kind = 5;
+    // URL to this resource.
+    string selfLink = 6;
+    // Title of this bookshelf.
+    string title = 7;
+    // Last modified time of this bookshelf (formatted UTC timestamp with millisecond resolution).
+    string updated = 8;
+    // Number of volumes in this bookshelf.
+    int32 volumeCount = 9;
+    // Last time a volume was added or removed from this bookshelf (formatted UTC timestamp with millisecond resolution).
+    string volumesLastUpdated = 10;
+}
+
+message Bookshelves {
+    // A list of bookshelves.
+    repeated Bookshelf items = 1;
+    // Resource type.
+    string kind = 2;
+}
+
+message Category {
+    // A list of onboarding categories.
+    message Item {
+        string badgeUrl = 1;
+        string categoryId = 2;
+        string name = 3;
+    }
+    repeated Item items = 1;
+    // Resource type.
+    string kind = 2;
+}
+
+message ConcurrentAccessRestriction {
+    // Whether access is granted for this (user, device, volume).
+    bool deviceAllowed = 1;
+    // Resource type.
+    string kind = 2;
+    // The maximum number of concurrent access licenses for this volume.
+    int32 maxConcurrentDevices = 3;
+    // Error/warning message.
+    string message = 4;
+    // Client nonce for verification. Download access and client-validation only.
+    string nonce = 5;
+    // Error/warning reason code.
+    string reasonCode = 6;
+    // Whether this volume has any concurrent access restrictions.
+    bool restricted = 7;
+    // Response signature.
+    string signature = 8;
+    // Client app identifier for verification. Download access and client-validation only.
+    string source = 9;
+    // Time in seconds for license auto-expiration.
+    int32 timeWindowSeconds = 10;
+    // Identifies the volume for which this entry applies.
+    string volumeId = 11;
+}
+
+message Dictlayerdata {
+    message Common {
+            // The display title and localized canonical name to use when searching for this entity on Google search.
+    string title = 1;
+    }
+    Common common = 1;
+    message Dict {
+            // The source, url and attribution for this dictionary data.
+    message Source {
+            string attribution = 1;
+            string url = 2;
+        }
+        Source source = 1;
+        message Word {
+            message Derivative {
+                message Source {
+                    string attribution = 1;
+                    string url = 2;
+                }
+                Source source = 1;
+                string text = 2;
+            }
+            repeated Derivative derivatives = 1;
+            message Example {
+                message Source {
+                    string attribution = 1;
+                    string url = 2;
+                }
+                Source source = 1;
+                string text = 2;
+            }
+            repeated Example examples = 2;
+            message Sense {
+                message Conjugation {
+                    string type = 1;
+                    string value = 2;
+                }
+                repeated Conjugation conjugations = 1;
+                message Definition {
+                    string definition = 1;
+                    message Example {
+                        message Source {
+                            string attribution = 1;
+                            string url = 2;
+                        }
+                        Source source = 1;
+                        string text = 2;
+                    }
+                    repeated Example examples = 2;
+                }
+                repeated Definition definitions = 2;
+                string partOfSpeech = 3;
+                string pronunciation = 4;
+                string pronunciationUrl = 5;
+                message Source {
+                    string attribution = 1;
+                    string url = 2;
+                }
+                Source source = 6;
+                string syllabification = 7;
+                message Synonym {
+                    message Source {
+                        string attribution = 1;
+                        string url = 2;
+                    }
+                    Source source = 1;
+                    string text = 2;
+                }
+                repeated Synonym synonyms = 8;
+            }
+            repeated Sense senses = 3;
+                    // The words with different meanings but not related words, e.g. "go" (game) and "go" (verb).
+    message Source {
+                string attribution = 1;
+                string url = 2;
+            }
+            Source source = 4;
+        }
+        repeated Word words = 2;
+    }
+    Dict dict = 2;
+    string kind = 3;
+}
+
+message Discoveryclusters {
+    message Cluster {
+        message Banner_with_content_container {
+            string fillColorArgb = 1;
+            string imageUrl = 2;
+            string maskColorArgb = 3;
+            string moreButtonText = 4;
+            string moreButtonUrl = 5;
+            string textColorArgb = 6;
+        }
+        Banner_with_content_container banner_with_content_container = 1;
+        string subTitle = 2;
+        string title = 3;
+        int32 totalVolumes = 4;
+        string uid = 5;
+        repeated Volume volumes = 6;
+    }
+    repeated Cluster clusters = 1;
+    // Resorce type.
+    string kind = 2;
+    int32 totalClusters = 3;
+}
+
+message DownloadAccessRestriction {
+    // If restricted, whether access is granted for this (user, device, volume).
+    bool deviceAllowed = 1;
+    // If restricted, the number of content download licenses already acquired (including the requesting client, if licensed).
+    int32 downloadsAcquired = 2;
+    // If deviceAllowed, whether access was just acquired with this request.
+    bool justAcquired = 3;
+    // Resource type.
+    string kind = 4;
+    // If restricted, the maximum number of content download licenses for this volume.
+    int32 maxDownloadDevices = 5;
+    // Error/warning message.
+    string message = 6;
+    // Client nonce for verification. Download access and client-validation only.
+    string nonce = 7;
+    // Error/warning reason code. Additional codes may be added in the future. 0 OK 100 ACCESS_DENIED_PUBLISHER_LIMIT 101 ACCESS_DENIED_LIMIT 200 WARNING_USED_LAST_ACCESS
+    string reasonCode = 8;
+    // Whether this volume has any download access restrictions.
+    bool restricted = 9;
+    // Response signature.
+    string signature = 10;
+    // Client app identifier for verification. Download access and client-validation only.
+    string source = 11;
+    // Identifies the volume for which this entry applies.
+    string volumeId = 12;
+}
+
+message DownloadAccesses {
+    // A list of download access responses.
+    repeated DownloadAccessRestriction downloadAccessList = 1;
+    // Resource type.
+    string kind = 2;
+}
+
+message Geolayerdata {
+    message Common {
+            // The language of the information url and description.
+    string lang = 1;
+            // The URL for the preview image information.
+    string previewImageUrl = 2;
+            // The description for this location.
+    string snippet = 3;
+            // The URL for information for this location. Ex: wikipedia link.
+    string snippetUrl = 4;
+            // The display title and localized canonical name to use when searching for this entity on Google search.
+    string title = 5;
+    }
+    Common common = 1;
+    message Geo {
+            // The boundary of the location as a set of loops containing pairs of latitude, longitude coordinates.
+    message Boundary {
+        }
+        repeated Boundary boundary = 1;
+            // The cache policy active for this data. EX: UNRESTRICTED, RESTRICTED, NEVER
+    string cachePolicy = 2;
+            // The country code of the location.
+    string countryCode = 3;
+            // The latitude of the location.
+    double latitude = 4;
+            // The longitude of the location.
+    double longitude = 5;
+            // The type of map that should be used for this location. EX: HYBRID, ROADMAP, SATELLITE, TERRAIN
+    string mapType = 6;
+            // The viewport for showing this location. This is a latitude, longitude rectangle.
+    message Viewport {
+            message Hi {
+                double latitude = 1;
+                double longitude = 2;
+            }
+            Hi hi = 1;
+            message Lo {
+                double latitude = 1;
+                double longitude = 2;
+            }
+            Lo lo = 2;
+        }
+        Viewport viewport = 7;
+            // The Zoom level to use for the map. Zoom levels between 0 (the lowest zoom level, in which the entire world can be seen on one map) to 21+ (down to individual buildings). See: https://developers.google.com/maps/documentation/staticmaps/#Zoomlevels
+    int32 zoom = 8;
+    }
+    Geo geo = 2;
+    string kind = 3;
+}
+
+message Layersummaries {
+    // A list of layer summary items.
+    repeated Layersummary items = 1;
+    // Resource type.
+    string kind = 2;
+    // The total number of layer summaries found.
+    int32 totalItems = 3;
+}
+
+message Layersummary {
+    // The number of annotations for this layer.
+    int32 annotationCount = 1;
+    // The list of annotation types contained for this layer.
+    repeated string annotationTypes = 2;
+    // Link to get data for this annotation.
+    string annotationsDataLink = 3;
+    // The link to get the annotations for this layer.
+    string annotationsLink = 4;
+    // The content version this resource is for.
+    string contentVersion = 5;
+    // The number of data items for this layer.
+    int32 dataCount = 6;
+    // Unique id of this layer summary.
+    string id = 7;
+    // Resource Type
+    string kind = 8;
+    // The layer id for this summary.
+    string layerId = 9;
+    // URL to this resource.
+    string selfLink = 10;
+    // Timestamp for the last time an item in this layer was updated. (RFC 3339 UTC date-time format).
+    string updated = 11;
+    // The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.* responses. The actual annotation data is versioned separately.
+    string volumeAnnotationsVersion = 12;
+    // The volume id this resource is for.
+    string volumeId = 13;
+}
+
+message Metadata {
+    // A list of offline dictionary metadata.
+    message Item {
+        string download_url = 1;
+        string encrypted_key = 2;
+        string language = 3;
+        string size = 4;
+        string version = 5;
+    }
+    repeated Item items = 1;
+    // Resource type.
+    string kind = 2;
+}
+
+message Notification {
+    string body = 1;
+    // The list of crm experiment ids.
+    repeated string crmExperimentIds = 2;
+    string doc_id = 3;
+    string doc_type = 4;
+    bool dont_show_notification = 5;
+    string iconUrl = 6;
+    // Resource type.
+    string kind = 7;
+    string notificationGroup = 8;
+    string notification_type = 9;
+    string pcampaign_id = 10;
+    string reason = 11;
+    bool show_notification_settings_action = 12;
+    string targetUrl = 13;
+    string title = 14;
+}
+
+message Offers {
+    // A list of offers.
+    message Item {
+        string artUrl = 1;
+        string gservicesKey = 2;
+        string id = 3;
+        message Item {
+            string author = 1;
+            string canonicalVolumeLink = 2;
+            string coverUrl = 3;
+            string description = 4;
+            string title = 5;
+            string volumeId = 6;
+        }
+        repeated Item items = 4;
+    }
+    repeated Item items = 1;
+    // Resource type.
+    string kind = 2;
+}
+
+message ReadingPosition {
+    // Position in an EPUB as a CFI.
+    string epubCfiPosition = 1;
+    // Position in a volume for image-based content.
+    string gbImagePosition = 2;
+    // Position in a volume for text-based content.
+    string gbTextPosition = 3;
+    // Resource type for a reading position.
+    string kind = 4;
+    // Position in a PDF file.
+    string pdfPosition = 5;
+    // Timestamp when this reading position was last updated (formatted UTC timestamp with millisecond resolution).
+    string updated = 6;
+    // Volume id associated with this reading position.
+    string volumeId = 7;
+}
+
+message RequestAccess {
+    // A concurrent access response.
+    ConcurrentAccessRestriction concurrentAccess = 1;
+    // A download access response.
+    DownloadAccessRestriction downloadAccess = 2;
+    // Resource type.
+    string kind = 3;
+}
+
+message Review {
+    // Author of this review.
+    message Author {
+            // Name of this person.
+    string displayName = 1;
+    }
+    Author author = 1;
+    // Review text.
+    string content = 2;
+    // Date of this review.
+    string date = 3;
+    // URL for the full review text, for reviews gathered from the web.
+    string fullTextUrl = 4;
+    // Resource type for a review.
+    string kind = 5;
+    // Star rating for this review. Possible values are ONE, TWO, THREE, FOUR, FIVE or NOT_RATED.
+    string rating = 6;
+    // Information regarding the source of this review, when the review is not from a Google Books user.
+    message Source {
+            // Name of the source.
+    string description = 1;
+            // Extra text about the source of the review.
+    string extraDescription = 2;
+            // URL of the source of the review.
+    string url = 3;
+    }
+    Source source = 7;
+    // Title for this review.
+    string title = 8;
+    // Source type for this review. Possible values are EDITORIAL, WEB_USER or GOOGLE_USER.
+    string type = 9;
+    // Volume that this review is for.
+    string volumeId = 10;
+}
+
+message Series {
+    // Resource type.
+    string kind = 1;
+    message Serie {
+        string bannerImageUrl = 1;
+        string imageUrl = 2;
+        string seriesId = 3;
+        string seriesType = 4;
+        string title = 5;
+    }
+    repeated Serie series = 2;
+}
+
+message Seriesmembership {
+    // Resorce type.
+    string kind = 1;
+    repeated Volume member = 2;
+    string nextPageToken = 3;
+}
+
+message Usersettings {
+    // Resource type.
+    string kind = 1;
+    // User settings in sub-objects, each for different purposes.
+    message NotesExport {
+        string folderName = 1;
+        bool isEnabled = 2;
+    }
+    NotesExport notesExport = 2;
+    message Notification {
+        message MoreFromAuthors {
+            string opted_state = 1;
+        }
+        MoreFromAuthors moreFromAuthors = 1;
+        message MoreFromSeries {
+            string opted_state = 1;
+        }
+        MoreFromSeries moreFromSeries = 2;
+        message RewardExpirations {
+            string opted_state = 1;
+        }
+        RewardExpirations rewardExpirations = 3;
+    }
+    Notification notification = 3;
+}
+
+message Volume {
+    // Any information about a volume related to reading or obtaining that volume text. This information can depend on country (books may be public domain in one country but not in another, e.g.).
+    message AccessInfo {
+            // Combines the access and viewability of this volume into a single status field for this user. Values can be FULL_PURCHASED, FULL_PUBLIC_DOMAIN, SAMPLE or NONE. (In LITE projection.)
+    string accessViewStatus = 1;
+            // The two-letter ISO_3166-1 country code for which this access information is valid. (In LITE projection.)
+    string country = 2;
+            // Information about a volume's download license access restrictions.
+    DownloadAccessRestriction downloadAccess = 3;
+            // URL to the Google Drive viewer if this volume is uploaded by the user by selecting the file from Google Drive.
+    string driveImportedContentLink = 4;
+            // Whether this volume can be embedded in a viewport using the Embedded Viewer API.
+    bool embeddable = 5;
+            // Information about epub content. (In LITE projection.)
+    message Epub {
+                    // URL to retrieve ACS token for epub download. (In LITE projection.)
+    string acsTokenLink = 1;
+                    // URL to download epub. (In LITE projection.)
+    string downloadLink = 2;
+                    // Is a flowing text epub available either as public domain or for purchase. (In LITE projection.)
+    bool isAvailable = 3;
+        }
+        Epub epub = 6;
+            // Whether this volume requires that the client explicitly request offline download license rather than have it done automatically when loading the content, if the client supports it.
+    bool explicitOfflineLicenseManagement = 7;
+            // Information about pdf content. (In LITE projection.)
+    message Pdf {
+                    // URL to retrieve ACS token for pdf download. (In LITE projection.)
+    string acsTokenLink = 1;
+                    // URL to download pdf. (In LITE projection.)
+    string downloadLink = 2;
+                    // Is a scanned image pdf available either as public domain or for purchase. (In LITE projection.)
+    bool isAvailable = 3;
+        }
+        Pdf pdf = 8;
+            // Whether or not this book is public domain in the country listed above.
+    bool publicDomain = 9;
+            // Whether quote sharing is allowed for this volume.
+    bool quoteSharingAllowed = 10;
+            // Whether text-to-speech is permitted for this volume. Values can be ALLOWED, ALLOWED_FOR_ACCESSIBILITY, or NOT_ALLOWED.
+    string textToSpeechPermission = 11;
+            // For ordered but not yet processed orders, we give a URL that can be used to go to the appropriate Google Wallet page.
+    string viewOrderUrl = 12;
+            // The read access of a volume. Possible values are PARTIAL, ALL_PAGES, NO_PAGES or UNKNOWN. This value depends on the country listed above. A value of PARTIAL means that the publisher has allowed some portion of the volume to be viewed publicly, without purchase. This can apply to eBooks as well as non-eBooks. Public domain books will always have a value of ALL_PAGES.
+    string viewability = 13;
+            // URL to read this volume on the Google Books site. Link will not allow users to read non-viewable volumes.
+    string webReaderLink = 14;
+    }
+    AccessInfo accessInfo = 1;
+    // Opaque identifier for a specific version of a volume resource. (In LITE projection)
+    string etag = 2;
+    // Unique identifier for a volume. (In LITE projection.)
+    string id = 3;
+    // Resource type for a volume. (In LITE projection.)
+    string kind = 4;
+    // What layers exist in this volume and high level information about them.
+    message LayerInfo {
+            // A layer should appear here if and only if the layer exists for this book.
+    message Layer {
+                    // The layer id of this layer (e.g. "geo").
+    string layerId = 1;
+                    // The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.* responses. The actual annotation data is versioned separately.
+    string volumeAnnotationsVersion = 2;
+        }
+        repeated Layer layers = 1;
+    }
+    LayerInfo layerInfo = 5;
+    // Recommendation related information for this volume.
+    message RecommendedInfo {
+            // A text explaining why this volume is recommended.
+    string explanation = 1;
+    }
+    RecommendedInfo recommendedInfo = 6;
+    // Any information about a volume related to the eBookstore and/or purchaseability. This information can depend on the country where the request originates from (i.e. books may not be for sale in certain countries).
+    message SaleInfo {
+            // URL to purchase this volume on the Google Books site. (In LITE projection)
+    string buyLink = 1;
+            // The two-letter ISO_3166-1 country code for which this sale information is valid. (In LITE projection.)
+    string country = 2;
+            // Whether or not this volume is an eBook (can be added to the My eBooks shelf).
+    bool isEbook = 3;
+            // Suggested retail price. (In LITE projection.)
+    message ListPrice {
+                    // Amount in the currency listed below. (In LITE projection.)
+    double amount = 1;
+                    // An ISO 4217, three-letter currency code. (In LITE projection.)
+    string currencyCode = 2;
+        }
+        ListPrice listPrice = 4;
+            // Offers available for this volume (sales and rentals).
+    message Offer {
+                    // The finsky offer type (e.g., PURCHASE=0 RENTAL=3)
+    int32 finskyOfferType = 1;
+                    // Indicates whether the offer is giftable.
+    bool giftable = 2;
+                    // Offer list (=undiscounted) price in Micros.
+    message ListPrice {
+                double amountInMicros = 1;
+                string currencyCode = 2;
+            }
+            ListPrice listPrice = 3;
+                    // The rental duration (for rental offers only).
+    message RentalDuration {
+                double count = 1;
+                string unit = 2;
+            }
+            RentalDuration rentalDuration = 4;
+                    // Offer retail (=discounted) price in Micros
+    message RetailPrice {
+                double amountInMicros = 1;
+                string currencyCode = 2;
+            }
+            RetailPrice retailPrice = 5;
+        }
+        repeated Offer offers = 5;
+            // The date on which this book is available for sale.
+    string onSaleDate = 6;
+            // The actual selling price of the book. This is the same as the suggested retail or list price unless there are offers or discounts on this volume. (In LITE projection.)
+    message RetailPrice {
+                    // Amount in the currency listed below. (In LITE projection.)
+    double amount = 1;
+                    // An ISO 4217, three-letter currency code. (In LITE projection.)
+    string currencyCode = 2;
+        }
+        RetailPrice retailPrice = 7;
+            // Whether or not this book is available for sale or offered for free in the Google eBookstore for the country listed above. Possible values are FOR_SALE, FOR_RENTAL_ONLY, FOR_SALE_AND_RENTAL, FREE, NOT_FOR_SALE, or FOR_PREORDER.
+    string saleability = 8;
+    }
+    SaleInfo saleInfo = 7;
+    // Search result information related to this volume.
+    message SearchInfo {
+            // A text snippet containing the search query.
+    string textSnippet = 1;
+    }
+    SearchInfo searchInfo = 8;
+    // URL to this resource. (In LITE projection.)
+    string selfLink = 9;
+    // User specific information related to this volume. (e.g. page this user last read or whether they purchased this book)
+    message UserInfo {
+            // Timestamp when this volume was acquired by the user. (RFC 3339 UTC date-time format) Acquiring includes purchase, user upload, receiving family sharing, etc.
+    string acquiredTime = 1;
+            // How this volume was acquired.
+    int32 acquisitionType = 2;
+            // Copy/Paste accounting information.
+    message Copy {
+            int32 allowedCharacterCount = 1;
+            string limitType = 2;
+            int32 remainingCharacterCount = 3;
+            string updated = 4;
+        }
+        Copy copy = 3;
+            // Whether this volume is purchased, sample, pd download etc.
+    int32 entitlementType = 4;
+            // Information on the ability to share with the family.
+    message FamilySharing {
+                    // The role of the user in the family.
+    string familyRole = 1;
+                    // Whether or not this volume can be shared with the family by the user. This includes sharing eligibility of both the volume and the user. If the value is true, the user can initiate a family sharing action.
+    bool isSharingAllowed = 2;
+                    // Whether or not sharing this volume is temporarily disabled due to issues with the Family Wallet.
+    bool isSharingDisabledByFop = 3;
+        }
+        FamilySharing familySharing = 5;
+            // Whether or not the user shared this volume with the family.
+    bool isFamilySharedFromUser = 6;
+            // Whether or not the user received this volume through family sharing.
+    bool isFamilySharedToUser = 7;
+            // Deprecated: Replaced by familySharing.
+    bool isFamilySharingAllowed = 8;
+            // Deprecated: Replaced by familySharing.
+    bool isFamilySharingDisabledByFop = 9;
+            // Whether or not this volume is currently in "my books."
+    bool isInMyBooks = 10;
+            // Whether or not this volume was pre-ordered by the authenticated user making the request. (In LITE projection.)
+    bool isPreordered = 11;
+            // Whether or not this volume was purchased by the authenticated user making the request. (In LITE projection.)
+    bool isPurchased = 12;
+            // Whether or not this volume was user uploaded.
+    bool isUploaded = 13;
+            // The user's current reading position in the volume, if one is available. (In LITE projection.)
+    ReadingPosition readingPosition = 14;
+            // Period during this book is/was a valid rental.
+    message RentalPeriod {
+            string endUtcSec = 1;
+            string startUtcSec = 2;
+        }
+        RentalPeriod rentalPeriod = 15;
+            // Whether this book is an active or an expired rental.
+    string rentalState = 16;
+            // This user's review of this volume, if one exists.
+    Review review = 17;
+            // Timestamp when this volume was last modified by a user action, such as a reading position update, volume purchase or writing a review. (RFC 3339 UTC date-time format).
+    string updated = 18;
+        message UserUploadedVolumeInfo {
+            string processingState = 1;
+        }
+        UserUploadedVolumeInfo userUploadedVolumeInfo = 19;
+    }
+    UserInfo userInfo = 10;
+    // General volume information.
+    message VolumeInfo {
+            // Whether anonymous logging should be allowed.
+    bool allowAnonLogging = 1;
+            // The names of the authors and/or editors for this volume. (In LITE projection)
+    repeated string authors = 2;
+            // The mean review rating for this volume. (min = 1.0, max = 5.0)
+    double averageRating = 3;
+            // Canonical URL for a volume. (In LITE projection.)
+    string canonicalVolumeLink = 4;
+            // A list of subject categories, such as "Fiction", "Suspense", etc.
+    repeated string categories = 5;
+            // An identifier for the version of the volume content (text & images). (In LITE projection)
+    string contentVersion = 6;
+            // A synopsis of the volume. The text of the description is formatted in HTML and includes simple formatting elements, such as b, i, and br tags. (In LITE projection.)
+    string description = 7;
+            // Physical dimensions of this volume.
+    message Dimensions {
+                    // Height or length of this volume (in cm).
+    string height = 1;
+                    // Thickness of this volume (in cm).
+    string thickness = 2;
+                    // Width of this volume (in cm).
+    string width = 3;
+        }
+        Dimensions dimensions = 8;
+            // A list of image links for all the sizes that are available. (In LITE projection.)
+    message ImageLinks {
+                    // Image link for extra large size (width of ~1280 pixels). (In LITE projection)
+    string extraLarge = 1;
+                    // Image link for large size (width of ~800 pixels). (In LITE projection)
+    string large = 2;
+                    // Image link for medium size (width of ~575 pixels). (In LITE projection)
+    string medium = 3;
+                    // Image link for small size (width of ~300 pixels). (In LITE projection)
+    string small = 4;
+                    // Image link for small thumbnail size (width of ~80 pixels). (In LITE projection)
+    string smallThumbnail = 5;
+                    // Image link for thumbnail size (width of ~128 pixels). (In LITE projection)
+    string thumbnail = 6;
+        }
+        ImageLinks imageLinks = 9;
+            // Industry standard identifiers for this volume.
+    message IndustryIdentifier {
+                    // Industry specific volume identifier.
+    string identifier = 1;
+                    // Identifier type. Possible values are ISBN_10, ISBN_13, ISSN and OTHER.
+    string type = 2;
+        }
+        repeated IndustryIdentifier industryIdentifiers = 10;
+            // URL to view information about this volume on the Google Books site. (In LITE projection)
+    string infoLink = 11;
+            // Best language for this volume (based on content). It is the two-letter ISO 639-1 code such as 'fr', 'en', etc.
+    string language = 12;
+            // The main category to which this volume belongs. It will be the category from the categories list returned below that has the highest weight.
+    string mainCategory = 13;
+        string maturityRating = 14;
+            // Total number of pages as per publisher metadata.
+    int32 pageCount = 15;
+            // A top-level summary of the panelization info in this volume.
+    message PanelizationSummary {
+            bool containsEpubBubbles = 1;
+            bool containsImageBubbles = 2;
+            string epubBubbleVersion = 3;
+            string imageBubbleVersion = 4;
+        }
+        PanelizationSummary panelizationSummary = 16;
+            // URL to preview this volume on the Google Books site.
+    string previewLink = 17;
+            // Type of publication of this volume. Possible values are BOOK or MAGAZINE.
+    string printType = 18;
+            // Total number of printed pages in generated pdf representation.
+    int32 printedPageCount = 19;
+            // Date of publication. (In LITE projection.)
+    string publishedDate = 20;
+            // Publisher of this volume. (In LITE projection.)
+    string publisher = 21;
+            // The number of review ratings for this volume.
+    int32 ratingsCount = 22;
+            // The reading modes available for this volume.
+    ;
+            // Total number of sample pages as per publisher metadata.
+    int32 samplePageCount = 24;
+        Volumeseriesinfo seriesInfo = 25;
+            // Volume subtitle. (In LITE projection.)
+    string subtitle = 26;
+            // Volume title. (In LITE projection.)
+    string title = 27;
+    }
+    VolumeInfo volumeInfo = 11;
+}
+
+message Volume2 {
+    // A list of volumes.
+    repeated Volume items = 1;
+    // Resource type.
+    string kind = 2;
+    string nextPageToken = 3;
+}
+
+message Volumeannotation {
+    // The annotation data id for this volume annotation.
+    string annotationDataId = 1;
+    // Link to get data for this annotation.
+    string annotationDataLink = 2;
+    // The type of annotation this is.
+    string annotationType = 3;
+    // The content ranges to identify the selected text.
+    message ContentRanges {
+            // Range in CFI format for this annotation for version above.
+    BooksAnnotationsRange cfiRange = 1;
+            // Content version applicable to ranges below.
+    string contentVersion = 2;
+            // Range in GB image format for this annotation for version above.
+    BooksAnnotationsRange gbImageRange = 3;
+            // Range in GB text format for this annotation for version above.
+    BooksAnnotationsRange gbTextRange = 4;
+    }
+    ContentRanges contentRanges = 4;
+    // Data for this annotation.
+    string data = 5;
+    // Indicates that this annotation is deleted.
+    bool deleted = 6;
+    // Unique id of this volume annotation.
+    string id = 7;
+    // Resource Type
+    string kind = 8;
+    // The Layer this annotation is for.
+    string layerId = 9;
+    // Pages the annotation spans.
+    repeated string pageIds = 10;
+    // Excerpt from the volume.
+    string selectedText = 11;
+    // URL to this resource.
+    string selfLink = 12;
+    // Timestamp for the last time this anntoation was updated. (RFC 3339 UTC date-time format).
+    string updated = 13;
+    // The Volume this annotation is for.
+    string volumeId = 14;
+}
+
+message Volumeannotations {
+    // A list of volume annotations.
+    repeated Volumeannotation items = 1;
+    // Resource type
+    string kind = 2;
+    // Token to pass in for pagination for the next page. This will not be present if this request does not have more results.
+    string nextPageToken = 3;
+    // The total number of volume annotations found.
+    int32 totalItems = 4;
+    // The version string for all of the volume annotations in this layer (not just the ones in this response). Note: the version string doesn't apply to the annotation data, just the information in this response (e.g. the location of annotations in the book).
+    string version = 5;
+}
+
+message Volumes {
+    // A list of volumes.
+    repeated Volume items = 1;
+    // Resource type.
+    string kind = 2;
+    // Total number of volumes found. This might be greater than the number of volumes returned in this response if results have been paginated.
+    int32 totalItems = 3;
+}
+
+message Volumeseriesinfo {
+    // The display number string. This should be used only for display purposes and the actual sequence should be inferred from the below orderNumber.
+    string bookDisplayNumber = 1;
+    // Resource type.
+    string kind = 2;
+    // Short book title in the context of the series.
+    string shortSeriesBookTitle = 3;
+    message VolumeSerie {
+            // List of issues. Applicable only for Collection Edition and Omnibus.
+    message Issue {
+            string issueDisplayNumber = 1;
+            int32 issueOrderNumber = 2;
+        }
+        repeated Issue issue = 1;
+            // The book order number in the series.
+    int32 orderNumber = 2;
+            // The book type in the context of series. Examples - Single Issue, Collection Edition, etc.
+    string seriesBookType = 3;
+            // The series id.
+    string seriesId = 4;
+    }
+    repeated VolumeSerie volumeSeries = 4;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service BooksService {
+    rpc PostCloudloadingAddBook(PostCloudloadingAddBookRequest) returns (BooksCloudloadingResource) {
+      option (google.api.http) = {
+        post: "/books/v1/cloudloading/addBook"
+      };
+    }
+    // Remove the book and its contents
+    rpc PostCloudloadingDeleteBook(PostCloudloadingDeleteBookRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/cloudloading/deleteBook"
+      };
+    }
+    rpc PostCloudloadingUpdateBook(PostCloudloadingUpdateBookRequest) returns (BooksCloudloadingResource) {
+      option (google.api.http) = {
+        post: "/books/v1/cloudloading/updateBook"
+        body: "body"
+      };
+    }
+    // Returns a list of offline dictionary metadata available
+    rpc GetDictionaryListOfflineMetadata(GetDictionaryListOfflineMetadataRequest) returns (Metadata) {
+      option (google.api.http) = {
+        get: "/books/v1/dictionary/listOfflineMetadata"
+      };
+    }
+    // Gets the current settings for the user.
+    rpc GetMyconfigGetUserSettings(GetMyconfigGetUserSettingsRequest) returns (Usersettings) {
+      option (google.api.http) = {
+        get: "/books/v1/myconfig/getUserSettings"
+      };
+    }
+    // Release downloaded content access restriction.
+    rpc PostMyconfigReleaseDownloadAccess(PostMyconfigReleaseDownloadAccessRequest) returns (DownloadAccesses) {
+      option (google.api.http) = {
+        post: "/books/v1/myconfig/releaseDownloadAccess"
+      };
+    }
+    // Request concurrent and download access restrictions.
+    rpc PostMyconfigRequestAccess(PostMyconfigRequestAccessRequest) returns (RequestAccess) {
+      option (google.api.http) = {
+        post: "/books/v1/myconfig/requestAccess"
+      };
+    }
+    // Request downloaded content access for specified volumes on the My eBooks shelf.
+    rpc PostMyconfigSyncVolumeLicenses(PostMyconfigSyncVolumeLicensesRequest) returns (Volumes) {
+      option (google.api.http) = {
+        post: "/books/v1/myconfig/syncVolumeLicenses"
+      };
+    }
+    // Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects will retain the existing value.
+    rpc PostMyconfigUpdateUserSettings(PostMyconfigUpdateUserSettingsRequest) returns (Usersettings) {
+      option (google.api.http) = {
+        post: "/books/v1/myconfig/updateUserSettings"
+        body: "body"
+      };
+    }
+    // Retrieves a list of annotations, possibly filtered.
+    rpc GetMylibraryAnnotations(GetMylibraryAnnotationsRequest) returns (Annotations) {
+      option (google.api.http) = {
+        get: "/books/v1/mylibrary/annotations"
+      };
+    }
+    // Inserts a new annotation.
+    rpc PostMylibraryAnnotations(PostMylibraryAnnotationsRequest) returns (Annotation) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/annotations"
+        body: "body"
+      };
+    }
+    // Gets the summary of specified layers.
+    rpc PostMylibraryAnnotationsSummary(PostMylibraryAnnotationsSummaryRequest) returns (AnnotationsSummary) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/annotations/summary"
+      };
+    }
+    // Updates an existing annotation.
+    rpc PutMylibraryAnnotationsAnnotationId(PutMylibraryAnnotationsAnnotationIdRequest) returns (Annotation) {
+      option (google.api.http) = {
+        put: "/books/v1/mylibrary/annotations/{annotationId}"
+        body: "body"
+      };
+    }
+    // Deletes an annotation.
+    rpc DeleteMylibraryAnnotationsAnnotationId(DeleteMylibraryAnnotationsAnnotationIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/books/v1/mylibrary/annotations/{annotationId}"
+      };
+    }
+    // Retrieves a list of bookshelves belonging to the authenticated user.
+    rpc GetMylibraryBookshelves(GetMylibraryBookshelvesRequest) returns (Bookshelves) {
+      option (google.api.http) = {
+        get: "/books/v1/mylibrary/bookshelves"
+      };
+    }
+    // Retrieves metadata for a specific bookshelf belonging to the authenticated user.
+    rpc GetMylibraryBookshelvesShelf(GetMylibraryBookshelvesShelfRequest) returns (Bookshelf) {
+      option (google.api.http) = {
+        get: "/books/v1/mylibrary/bookshelves/{shelf}"
+      };
+    }
+    // Adds a volume to a bookshelf.
+    rpc PostMylibraryBookshelvesShelfAddVolume(PostMylibraryBookshelvesShelfAddVolumeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/bookshelves/{shelf}/addVolume"
+      };
+    }
+    // Clears all volumes from a bookshelf.
+    rpc PostMylibraryBookshelvesShelfClearVolumes(PostMylibraryBookshelvesShelfClearVolumesRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/bookshelves/{shelf}/clearVolumes"
+      };
+    }
+    // Moves a volume within a bookshelf.
+    rpc PostMylibraryBookshelvesShelfMoveVolume(PostMylibraryBookshelvesShelfMoveVolumeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/bookshelves/{shelf}/moveVolume"
+      };
+    }
+    // Removes a volume from a bookshelf.
+    rpc PostMylibraryBookshelvesShelfRemoveVolume(PostMylibraryBookshelvesShelfRemoveVolumeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/bookshelves/{shelf}/removeVolume"
+      };
+    }
+    // Gets volume information for volumes on a bookshelf.
+    rpc GetMylibraryBookshelvesShelfVolumes(GetMylibraryBookshelvesShelfVolumesRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/mylibrary/bookshelves/{shelf}/volumes"
+      };
+    }
+    // Retrieves my reading position information for a volume.
+    rpc GetMylibraryReadingpositionsVolumeId(GetMylibraryReadingpositionsVolumeIdRequest) returns (ReadingPosition) {
+      option (google.api.http) = {
+        get: "/books/v1/mylibrary/readingpositions/{volumeId}"
+      };
+    }
+    // Sets my reading position information for a volume.
+    rpc PostMylibraryReadingpositionsVolumeIdSetPosition(PostMylibraryReadingpositionsVolumeIdSetPositionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/mylibrary/readingpositions/{volumeId}/setPosition"
+      };
+    }
+    // Returns notification details for a given notification id.
+    rpc GetNotificationGet(GetNotificationGetRequest) returns (Notification) {
+      option (google.api.http) = {
+        get: "/books/v1/notification/get"
+      };
+    }
+    // List categories for onboarding experience.
+    rpc GetOnboardingListCategories(GetOnboardingListCategoriesRequest) returns (Category) {
+      option (google.api.http) = {
+        get: "/books/v1/onboarding/listCategories"
+      };
+    }
+    // List available volumes under categories for onboarding experience.
+    rpc GetOnboardingListCategoryVolumes(GetOnboardingListCategoryVolumesRequest) returns (Volume2) {
+      option (google.api.http) = {
+        get: "/books/v1/onboarding/listCategoryVolumes"
+      };
+    }
+    // Returns a stream of personalized book clusters
+    rpc GetPersonalizedstreamGet(GetPersonalizedstreamGetRequest) returns (Discoveryclusters) {
+      option (google.api.http) = {
+        get: "/books/v1/personalizedstream/get"
+      };
+    }
+    rpc PostPromoofferAccept(PostPromoofferAcceptRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/promooffer/accept"
+      };
+    }
+    rpc PostPromoofferDismiss(PostPromoofferDismissRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/books/v1/promooffer/dismiss"
+      };
+    }
+    // Returns a list of promo offers available to the user
+    rpc GetPromoofferGet(GetPromoofferGetRequest) returns (Offers) {
+      option (google.api.http) = {
+        get: "/books/v1/promooffer/get"
+      };
+    }
+    // Returns Series metadata for the given series ids.
+    rpc GetSeriesGet(GetSeriesGetRequest) returns (Series) {
+      option (google.api.http) = {
+        get: "/books/v1/series/get"
+      };
+    }
+    // Returns Series membership data given the series id.
+    rpc GetSeriesMembershipGet(GetSeriesMembershipGetRequest) returns (Seriesmembership) {
+      option (google.api.http) = {
+        get: "/books/v1/series/membership/get"
+      };
+    }
+    // Retrieves a list of public bookshelves for the specified user.
+    rpc GetUsersUserIdBookshelves(GetUsersUserIdBookshelvesRequest) returns (Bookshelves) {
+      option (google.api.http) = {
+        get: "/books/v1/users/{userId}/bookshelves"
+      };
+    }
+    // Retrieves metadata for a specific bookshelf for the specified user.
+    rpc GetUsersUserIdBookshelvesShelf(GetUsersUserIdBookshelvesShelfRequest) returns (Bookshelf) {
+      option (google.api.http) = {
+        get: "/books/v1/users/{userId}/bookshelves/{shelf}"
+      };
+    }
+    // Retrieves volumes in a specific bookshelf for the specified user.
+    rpc GetUsersUserIdBookshelvesShelfVolumes(GetUsersUserIdBookshelvesShelfVolumesRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/users/{userId}/bookshelves/{shelf}/volumes"
+      };
+    }
+    // Performs a book search.
+    rpc GetVolumes(GetVolumesRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes"
+      };
+    }
+    // Return a list of books in My Library.
+    rpc GetVolumesMybooks(GetVolumesMybooksRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/mybooks"
+      };
+    }
+    // Return a list of recommended books for the current user.
+    rpc GetVolumesRecommended(GetVolumesRecommendedRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/recommended"
+      };
+    }
+    // Rate a recommended book for the current user.
+    rpc PostVolumesRecommendedRate(PostVolumesRecommendedRateRequest) returns (BooksVolumesRecommendedRateResponse) {
+      option (google.api.http) = {
+        post: "/books/v1/volumes/recommended/rate"
+      };
+    }
+    // Return a list of books uploaded by the current user.
+    rpc GetVolumesUseruploaded(GetVolumesUseruploadedRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/useruploaded"
+      };
+    }
+    // Gets volume information for a single volume.
+    rpc GetVolumesVolumeId(GetVolumesVolumeIdRequest) returns (Volume) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}"
+      };
+    }
+    // Return a list of associated books.
+    rpc GetVolumesVolumeIdAssociated(GetVolumesVolumeIdAssociatedRequest) returns (Volumes) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/associated"
+      };
+    }
+    // Gets the volume annotations for a volume and layer.
+    rpc GetVolumesVolumeIdLayersLayerId(GetVolumesVolumeIdLayersLayerIdRequest) returns (Volumeannotations) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layers/{layerId}"
+      };
+    }
+    // Gets the volume annotation.
+    rpc GetVolumesVolumeIdLayersLayerIdAnnotationsAnnotationId(GetVolumesVolumeIdLayersLayerIdAnnotationsAnnotationIdRequest) returns (Volumeannotation) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layers/{layerId}/annotations/{annotationId}"
+      };
+    }
+    // Gets the annotation data for a volume and layer.
+    rpc GetVolumesVolumeIdLayersLayerIdData(GetVolumesVolumeIdLayersLayerIdDataRequest) returns (Annotationsdata) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layers/{layerId}/data"
+      };
+    }
+    // Gets the annotation data.
+    rpc GetVolumesVolumeIdLayersLayerIdDataAnnotationDataId(GetVolumesVolumeIdLayersLayerIdDataAnnotationDataIdRequest) returns (Annotationdata) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layers/{layerId}/data/{annotationDataId}"
+      };
+    }
+    // List the layer summaries for a volume.
+    rpc GetVolumesVolumeIdLayersummary(GetVolumesVolumeIdLayersummaryRequest) returns (Layersummaries) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layersummary"
+      };
+    }
+    // Gets the layer summary for a volume.
+    rpc GetVolumesVolumeIdLayersummarySummaryId(GetVolumesVolumeIdLayersummarySummaryIdRequest) returns (Layersummary) {
+      option (google.api.http) = {
+        get: "/books/v1/volumes/{volumeId}/layersummary/{summaryId}"
+      };
+    }
+}

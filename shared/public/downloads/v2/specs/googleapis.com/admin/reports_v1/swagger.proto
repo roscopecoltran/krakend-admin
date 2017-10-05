@@ -1,0 +1,319 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package adminreports;
+
+message GetActivityUsersUserKeyApplicationsApplicationNameRequest {
+    // IP Address of host where the event was performed. Supports both IPv4 and IPv6 addresses.
+    string actorIpAddress = 1;
+    alt alt = 2;
+    // Application name for which the events are to be retrieved.
+    string applicationName = 3;
+    // Represents the customer for which the data is to be fetched.
+    string customerId = 4;
+    // Return events which occurred at or before this time.
+    string endTime = 5;
+    // Name of the event being queried.
+    string eventName = 6;
+    string fields = 7;
+    // Event parameters in the form [parameter1 name][operator][parameter1 value],[parameter2 name][operator][parameter2 value],...
+    string filters = 8;
+    string key = 9;
+    // Number of activity records to be shown in each page.
+    int32 maxResults = 10;
+    string oauth_token = 11;
+    // Token to specify next page.
+    string pageToken = 12;
+    boolean prettyPrint = 13;
+    string quotaUser = 14;
+    // Return events which occurred at or after this time.
+    string startTime = 15;
+    string userIp = 16;
+    // Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users.
+    string userKey = 17;
+}
+
+message PostActivityUsersUserKeyApplicationsApplicationNameWatchRequest {
+    // IP Address of host where the event was performed. Supports both IPv4 and IPv6 addresses.
+    string actorIpAddress = 1;
+    alt alt = 2;
+    // Application name for which the events are to be retrieved.
+    string applicationName = 3;
+    // Represents the customer for which the data is to be fetched.
+    string customerId = 4;
+    // Return events which occurred at or before this time.
+    string endTime = 5;
+    // Name of the event being queried.
+    string eventName = 6;
+    string fields = 7;
+    // Event parameters in the form [parameter1 name][operator][parameter1 value],[parameter2 name][operator][parameter2 value],...
+    string filters = 8;
+    string key = 9;
+    // Number of activity records to be shown in each page.
+    int32 maxResults = 10;
+    string oauth_token = 11;
+    // Token to specify next page.
+    string pageToken = 12;
+    boolean prettyPrint = 13;
+    string quotaUser = 14;
+    Channel resource = 15;
+    // Return events which occurred at or after this time.
+    string startTime = 16;
+    string userIp = 17;
+    // Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users.
+    string userKey = 18;
+}
+
+message PostAdminReports_v1ChannelsStopRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    Channel resource = 7;
+    string userIp = 8;
+}
+
+message GetUsageDatesDateRequest {
+    alt alt = 1;
+    // Represents the customer for which the data is to be fetched.
+    string customerId = 2;
+    // Represents the date in yyyy-mm-dd format for which the data is to be fetched.
+    string date = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    // Token to specify next page.
+    string pageToken = 7;
+    // Represents the application name, parameter name pairs to fetch in csv as app_name1:param_name1, app_name2:param_name2.
+    string parameters = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    string userIp = 11;
+}
+
+message GetUsageUsersUserKeyDatesDateRequest {
+    alt alt = 1;
+    // Represents the customer for which the data is to be fetched.
+    string customerId = 2;
+    // Represents the date in yyyy-mm-dd format for which the data is to be fetched.
+    string date = 3;
+    string fields = 4;
+    // Represents the set of filters including parameter operator value.
+    string filters = 5;
+    string key = 6;
+    // Maximum number of results to return. Maximum allowed is 1000
+    int32 maxResults = 7;
+    string oauth_token = 8;
+    // Token to specify next page.
+    string pageToken = 9;
+    // Represents the application name, parameter name pairs to fetch in csv as app_name1:param_name1, app_name2:param_name2.
+    string parameters = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string userIp = 13;
+    // Represents the profile id or the user email for which the data should be filtered.
+    string userKey = 14;
+}
+
+message Activities {
+    // ETag of the resource.
+    string etag = 1;
+    // Each record in read response.
+    repeated Activity items = 2;
+    // Kind of list response this is.
+    string kind = 3;
+    // Token for retrieving the next page
+    string nextPageToken = 4;
+}
+
+message Activity {
+    // User doing the action.
+    message Actor {
+            // User or OAuth 2LO request.
+    string callerType = 1;
+            // Email address of the user.
+    string email = 2;
+            // For OAuth 2LO API requests, consumer_key of the requestor.
+    string key = 3;
+            // Obfuscated user id of the user.
+    string profileId = 4;
+    }
+    Actor actor = 1;
+    // ETag of the entry.
+    string etag = 2;
+    // Activity events.
+    message Event {
+            // Name of event.
+    string name = 1;
+            // Parameter value pairs for various applications.
+    message Parameter {
+                    // Boolean value of the parameter.
+    bool boolValue = 1;
+                    // Integral value of the parameter.
+    string intValue = 2;
+                    // Multi-int value of the parameter.
+    repeated string multiIntValue = 3;
+                    // Multi-string value of the parameter.
+    repeated string multiValue = 4;
+                    // The name of the parameter.
+    string name = 5;
+                    // String value of the parameter.
+    string value = 6;
+        }
+        repeated Parameter parameters = 2;
+            // Type of event.
+    string type = 3;
+    }
+    repeated Event events = 3;
+    // Unique identifier for each activity record.
+    message Id {
+            // Application name to which the event belongs.
+    string applicationName = 1;
+            // Obfuscated customer ID of the source customer.
+    string customerId = 2;
+            // Time of occurrence of the activity.
+    string time = 3;
+            // Unique qualifier if multiple events have the same time.
+    string uniqueQualifier = 4;
+    }
+    Id id = 4;
+    // IP Address of the user doing the action.
+    string ipAddress = 5;
+    // Kind of resource this is.
+    string kind = 6;
+    // Domain of source customer.
+    string ownerDomain = 7;
+}
+
+message Channel {
+    // The address where notifications are delivered for this channel.
+    string address = 1;
+    // Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.
+    string expiration = 2;
+    // A UUID or similar unique string that identifies this channel.
+    string id = 3;
+    // Identifies this as a notification channel used to watch for changes to a resource. Value: the fixed string "api#channel".
+    string kind = 4;
+    // Additional parameters controlling delivery channel behavior. Optional.
+    map<string, string> params = 5;
+    // A Boolean value to indicate whether payload is wanted. Optional.
+    bool payload = 6;
+    // An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.
+    string resourceId = 7;
+    // A version-specific identifier for the watched resource.
+    string resourceUri = 8;
+    // An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
+    string token = 9;
+    // The type of delivery mechanism used for this channel.
+    string type = 10;
+}
+
+message UsageReport {
+    // The date to which the record belongs.
+    string date = 1;
+    // Information about the type of the item.
+    message Entity {
+            // Obfuscated customer id for the record.
+    string customerId = 1;
+            // Obfuscated user id for the record.
+    string profileId = 2;
+            // The type of item, can be a customer or user.
+    string type = 3;
+            // user's email.
+    string userEmail = 4;
+    }
+    Entity entity = 2;
+    // ETag of the resource.
+    string etag = 3;
+    // The kind of object.
+    string kind = 4;
+    // Parameter value pairs for various applications.
+    message Parameter {
+            // Boolean value of the parameter.
+    bool boolValue = 1;
+            // RFC 3339 formatted value of the parameter.
+    string datetimeValue = 2;
+            // Integral value of the parameter.
+    string intValue = 3;
+            // Nested message value of the parameter.
+    message MsgValue {
+        }
+        repeated MsgValue msgValue = 4;
+            // The name of the parameter.
+    string name = 5;
+            // String value of the parameter.
+    string stringValue = 6;
+    }
+    repeated Parameter parameters = 5;
+}
+
+message UsageReports {
+    // ETag of the resource.
+    string etag = 1;
+    // The kind of object.
+    string kind = 2;
+    // Token for retrieving the next page
+    string nextPageToken = 3;
+    // Various application parameter records.
+    repeated UsageReport usageReports = 4;
+    // Warnings if any.
+    message Warning {
+            // Machine readable code / warning type.
+    string code = 1;
+            // Key-Value pairs to give detailed information on the warning.
+    message Data {
+                    // Key associated with a key-value pair to give detailed information on the warning.
+    string key = 1;
+                    // Value associated with a key-value pair to give detailed information on the warning.
+    string value = 2;
+        }
+        repeated Data data = 2;
+            // Human readable message for the warning.
+    string message = 3;
+    }
+    repeated Warning warnings = 5;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service AdminReportsService {
+    // Retrieves a list of activities for a specific customer and application.
+    rpc GetActivityUsersUserKeyApplicationsApplicationName(GetActivityUsersUserKeyApplicationsApplicationNameRequest) returns (Activities) {
+      option (google.api.http) = {
+        get: "/admin/reports/v1/activity/users/{userKey}/applications/{applicationName}"
+      };
+    }
+    // Push changes to activities
+    rpc PostActivityUsersUserKeyApplicationsApplicationNameWatch(PostActivityUsersUserKeyApplicationsApplicationNameWatchRequest) returns (Channel) {
+      option (google.api.http) = {
+        post: "/admin/reports/v1/activity/users/{userKey}/applications/{applicationName}/watch"
+        body: "resource"
+      };
+    }
+    // Stop watching resources through this channel
+    rpc PostAdminReports_v1ChannelsStop(PostAdminReports_v1ChannelsStopRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/admin/reports/v1/admin/reports_v1/channels/stop"
+        body: "resource"
+      };
+    }
+    // Retrieves a report which is a collection of properties / statistics for a specific customer.
+    rpc GetUsageDatesDate(GetUsageDatesDateRequest) returns (UsageReports) {
+      option (google.api.http) = {
+        get: "/admin/reports/v1/usage/dates/{date}"
+      };
+    }
+    // Retrieves a report which is a collection of properties / statistics for a set of users.
+    rpc GetUsageUsersUserKeyDatesDate(GetUsageUsersUserKeyDatesDateRequest) returns (UsageReports) {
+      option (google.api.http) = {
+        get: "/admin/reports/v1/usage/users/{userKey}/dates/{date}"
+      };
+    }
+}

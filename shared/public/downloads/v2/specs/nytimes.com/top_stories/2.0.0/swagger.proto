@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package topstories;
+
+message GetSectionFormatRequest {
+    // The name of the function the API call results will be passed to. Required when using JSONP. This parameter has only one valid value per section. The format is {section_name}TopStoriesCallback.
+    string callback = 1;
+    // if this is JSONP or JSON
+    enum GetSectionFormatRequest_Format {
+        GETSECTIONFORMATREQUEST_FORMAT_JSON = 0;
+        GETSECTIONFORMATREQUEST_FORMAT_JSONP = 1;
+    }
+    GetSectionFormatRequest_Format format = 2;
+    // The section the story appears in.
+    enum GetSectionFormatRequest_Section {
+        GETSECTIONFORMATREQUEST_SECTION_HOME = 0;
+        GETSECTIONFORMATREQUEST_SECTION_OPINION = 1;
+        GETSECTIONFORMATREQUEST_SECTION_WORLD = 2;
+        GETSECTIONFORMATREQUEST_SECTION_NATIONAL = 3;
+        GETSECTIONFORMATREQUEST_SECTION_POLITICS = 4;
+        GETSECTIONFORMATREQUEST_SECTION_UPSHOT = 5;
+        GETSECTIONFORMATREQUEST_SECTION_NYREGION = 6;
+        GETSECTIONFORMATREQUEST_SECTION_BUSINESS = 7;
+        GETSECTIONFORMATREQUEST_SECTION_TECHNOLOGY = 8;
+        GETSECTIONFORMATREQUEST_SECTION_SCIENCE = 9;
+        GETSECTIONFORMATREQUEST_SECTION_HEALTH = 10;
+        GETSECTIONFORMATREQUEST_SECTION_SPORTS = 11;
+        GETSECTIONFORMATREQUEST_SECTION_ARTS = 12;
+        GETSECTIONFORMATREQUEST_SECTION_BOOKS = 13;
+        GETSECTIONFORMATREQUEST_SECTION_MOVIES = 14;
+        GETSECTIONFORMATREQUEST_SECTION_THEATER = 15;
+        GETSECTIONFORMATREQUEST_SECTION_SUNDAYREVIEW = 16;
+        GETSECTIONFORMATREQUEST_SECTION_FASHION = 17;
+        GETSECTIONFORMATREQUEST_SECTION_TMAGAZINE = 18;
+        GETSECTIONFORMATREQUEST_SECTION_FOOD = 19;
+        GETSECTIONFORMATREQUEST_SECTION_TRAVEL = 20;
+        GETSECTIONFORMATREQUEST_SECTION_MAGAZINE = 21;
+        GETSECTIONFORMATREQUEST_SECTION_REALESTATE = 22;
+        GETSECTIONFORMATREQUEST_SECTION_AUTOMOBILES = 23;
+        GETSECTIONFORMATREQUEST_SECTION_OBITUARIES = 24;
+        GETSECTIONFORMATREQUEST_SECTION_INSIDER = 25;
+    }
+    GetSectionFormatRequest_Section section = 3;
+}
+
+message GetSectionFormatResponse {
+    repeated Article results = 1;
+}
+
+message Article {
+    string abstract = 1;
+    string byline = 2;
+    string created_date = 3;
+    repeated string des_facet = 4;
+    repeated string geo_facet = 5;
+    string item_type = 6;
+    string kicker = 7;
+    string material_type_facet = 8;
+    message Multimedia {
+        string caption = 1;
+        string copyright = 2;
+        string format = 3;
+        int32 height = 4;
+        string subtype = 5;
+        string type = 6;
+        string url = 7;
+        int32 width = 8;
+    }
+    repeated Multimedia multimedia = 9;
+    repeated string org_facet = 10;
+    repeated string per_facet = 11;
+    string published_date = 12;
+    message Related_url {
+        string suggested_link_text = 1;
+        string url = 2;
+    }
+    repeated Related_url related_urls = 13;
+    string section = 14;
+    string short_url = 15;
+    string subsection = 16;
+    string thumbnail_standard = 17;
+    string title = 18;
+    string updated_date = 19;
+    string url = 20;
+}
+
+service TopStoriesService {
+    // Top Stories
+    // 
+    // The Top Stories API returns a list of articles and associated images currently on the specified section.  Support JSON and JSONP.
+    rpc GetSectionFormat(GetSectionFormatRequest) returns (GetSectionFormatResponse) {
+      option (google.api.http) = {
+        get: "/svc/topstories/v2/{section}.{format}"
+      };
+    }
+}

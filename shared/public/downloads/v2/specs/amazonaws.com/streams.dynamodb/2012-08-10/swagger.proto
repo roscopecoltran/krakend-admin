@@ -1,0 +1,374 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package amazondynamodbstreams;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DescribeStreamInput body = 10;
+}
+
+message Post#GetRecordsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetRecordsInput body = 10;
+}
+
+message Post#GetShardIteratorRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetShardIteratorInput body = 10;
+}
+
+message Post#ListStreamsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    ListStreamsInput body = 10;
+}
+
+message AttributeMap {
+    string key = 1;
+    AttributeValue value = 2;
+}
+repeated AttributeMap AttributeMap = 1
+
+
+
+message AttributeValue {
+    // A Binary data type.
+    string B = 1;
+    // A Boolean data type.
+    boolean BOOL = 2;
+    // A Binary Set data type.
+    array BS = 3;
+    // A List data type.
+    array L = 4;
+    // A Map data type.
+    array M = 5;
+    // A Number data type.
+    string N = 6;
+    // A Number Set data type.
+    array NS = 7;
+    // A Null data type.
+    boolean NULL = 8;
+    // A String data type.
+    string S = 9;
+    // A String Set data type.
+    array SS = 10;
+}
+
+
+
+repeated string BinarySetAttributeValue = 1
+
+
+
+
+
+message DescribeStreamInput {
+    // The shard ID of the first item that this operation will evaluate. Use the value that was returned for <code>LastEvaluatedShardId</code> in the previous operation.
+    string ExclusiveStartShardId = 1;
+    // The maximum number of shard objects to return. The upper limit is 100.
+    integer Limit = 2;
+    // The Amazon Resource Name (ARN) for the stream.
+    string StreamArn = 3;
+}
+
+message DescribeStreamOutput {
+    // A complete description of the stream, including its creation date and time, the DynamoDB table associated with the stream, the shard IDs within the stream, and the beginning and ending sequence numbers of stream records within the shards.
+    StreamDescription StreamDescription = 1;
+}
+
+message ExpiredIteratorException {
+    // The provided iterator exceeds the maximum age allowed.
+    string message = 1;
+}
+
+message GetRecordsInput {
+    // The maximum number of records to return from the shard. The upper limit is 1000.
+    integer Limit = 1;
+    // A shard iterator that was retrieved from a previous GetShardIterator operation. This iterator can be used to access the stream records in this shard.
+    string ShardIterator = 2;
+}
+
+message GetRecordsOutput {
+    // The next position in the shard from which to start sequentially reading stream records. If set to <code>null</code>, the shard has been closed and the requested iterator will not return any more data.
+    string NextShardIterator = 1;
+    // The stream records from the shard, which were retrieved using the shard iterator.
+    array Records = 2;
+}
+
+message GetShardIteratorInput {
+    // The sequence number of a stream record in the shard from which to start reading.
+    string SequenceNumber = 1;
+    // The identifier of the shard. The iterator will be returned for this shard ID.
+    string ShardId = 2;
+    // <p>Determines how the shard iterator is used to start reading stream records from the shard:</p> <ul> <li> <p> <code>AT_SEQUENCE_NUMBER</code> - Start reading exactly from the position denoted by a specific sequence number.</p> </li> <li> <p> <code>AFTER_SEQUENCE_NUMBER</code> - Start reading right after the position denoted by a specific sequence number.</p> </li> <li> <p> <code>TRIM_HORIZON</code> - Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.</p> </li> <li> <p> <code>LATEST</code> - Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.</p> </li> </ul>
+    ShardIteratorType ShardIteratorType = 3;
+    // The Amazon Resource Name (ARN) for the stream.
+    string StreamArn = 4;
+}
+
+message GetShardIteratorOutput {
+    // The position in the shard from which to start reading stream records sequentially. A shard iterator specifies this position using the sequence number of a stream record in a shard.
+    string ShardIterator = 1;
+}
+
+message Identity {
+    // A unique identifier for the entity that made the call. For Time To Live, the principalId is "dynamodb.amazonaws.com".
+    string PrincipalId = 1;
+    // The type of the identity. For Time To Live, the type is "Service".
+    string Type = 2;
+}
+
+message InternalServerError {
+    // The server encountered an internal error trying to fulfill the request.
+    string message = 1;
+}
+
+repeated KeySchemaElement KeySchema = 1
+
+
+
+message KeySchemaElement {
+    // The name of a key attribute.
+    string AttributeName = 1;
+    // The attribute data, consisting of the data type and the attribute value itself.
+    KeyType KeyType = 2;
+}
+
+enum KeyType {
+    HASH = 0;
+    RANGE = 1;
+}
+
+message LimitExceededException {
+    // Too many operations for a given subscriber.
+    string message = 1;
+}
+
+repeated AttributeValue ListAttributeValue = 1
+
+message ListStreamsInput {
+    // The ARN (Amazon Resource Name) of the first item that this operation will evaluate. Use the value that was returned for <code>LastEvaluatedStreamArn</code> in the previous operation.
+    string ExclusiveStartStreamArn = 1;
+    // The maximum number of streams to return. The upper limit is 100.
+    integer Limit = 2;
+    // If this parameter is provided, then only the streams associated with this table name are returned.
+    string TableName = 3;
+}
+
+message ListStreamsOutput {
+    // <p>The stream ARN of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.</p> <p>If <code>LastEvaluatedStreamArn</code> is empty, then the "last page" of results has been processed and there is no more data to be retrieved.</p> <p>If <code>LastEvaluatedStreamArn</code> is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when <code>LastEvaluatedStreamArn</code> is empty.</p>
+    string LastEvaluatedStreamArn = 1;
+    // A list of stream descriptors associated with the current account and endpoint.
+    array Streams = 2;
+}
+
+message MapAttributeValue {
+    string key = 1;
+    AttributeValue value = 2;
+}
+repeated MapAttributeValue MapAttributeValue = 1
+
+
+
+
+
+repeated string NumberSetAttributeValue = 1
+
+enum OperationType {
+    INSERT = 0;
+    MODIFY = 1;
+    REMOVE = 2;
+}
+
+message Record {
+    // The region in which the <code>GetRecords</code> request was received.
+    string awsRegion = 1;
+    // The main body of the stream record, containing all of the DynamoDB-specific fields.
+    StreamRecord dynamodb = 2;
+    // A globally unique identifier for the event that was recorded in this stream record.
+    string eventID = 3;
+    // <p>The type of data modification that was performed on the DynamoDB table:</p> <ul> <li> <p> <code>INSERT</code> - a new item was added to the table.</p> </li> <li> <p> <code>MODIFY</code> - one or more of an existing item's attributes were modified.</p> </li> <li> <p> <code>REMOVE</code> - the item was deleted from the table</p> </li> </ul>
+    OperationType eventName = 4;
+    // The AWS service from which the stream record originated. For DynamoDB Streams, this is <code>aws:dynamodb</code>.
+    string eventSource = 5;
+    // <p>The version number of the stream record format. This number is updated whenever the structure of <code>Record</code> is modified.</p> <p>Client applications must not assume that <code>eventVersion</code> will remain at a particular value, as this number is subject to change at any time. In general, <code>eventVersion</code> will only increase as the low-level DynamoDB Streams API evolves.</p>
+    string eventVersion = 6;
+    // <p>Items that are deleted by the Time to Live process after expiration have the following fields: </p> <ul> <li> <p>Records[].userIdentity.type</p> <p>"Service"</p> </li> <li> <p>Records[].userIdentity.principalId</p> <p>"dynamodb.amazonaws.com"</p> </li> </ul>
+    Identity userIdentity = 7;
+}
+
+repeated Record RecordList = 1
+
+message ResourceNotFoundException {
+    // The resource which is being requested does not exist.
+    string message = 1;
+}
+
+message SequenceNumberRange {
+    // The last sequence number.
+    string EndingSequenceNumber = 1;
+    // The first sequence number.
+    string StartingSequenceNumber = 2;
+}
+
+message Shard {
+    // The shard ID of the current shard's parent.
+    string ParentShardId = 1;
+    // The range of possible sequence numbers for the shard.
+    SequenceNumberRange SequenceNumberRange = 2;
+    // The system-generated identifier for this shard.
+    string ShardId = 3;
+}
+
+repeated Shard ShardDescriptionList = 1
+
+
+
+
+
+enum ShardIteratorType {
+    TRIM_HORIZON = 0;
+    LATEST = 1;
+    AT_SEQUENCE_NUMBER = 2;
+    AFTER_SEQUENCE_NUMBER = 3;
+}
+
+message Stream {
+    // The Amazon Resource Name (ARN) for the stream.
+    string StreamArn = 1;
+    // <p>A timestamp, in ISO 8601 format, for this stream.</p> <p>Note that <code>LatestStreamLabel</code> is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li> <p>the table name</p> </li> <li> <p>the <code>StreamLabel</code> </p> </li> </ul>
+    string StreamLabel = 2;
+    // The DynamoDB table with which the stream is associated.
+    string TableName = 3;
+}
+
+message StreamDescription {
+    // The date and time when the request to create this stream was issued.
+    string CreationRequestDateTime = 1;
+    // The key attribute(s) of the stream's DynamoDB table.
+    array KeySchema = 2;
+    // <p>The shard ID of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.</p> <p>If <code>LastEvaluatedShardId</code> is empty, then the "last page" of results has been processed and there is currently no more data to be retrieved.</p> <p>If <code>LastEvaluatedShardId</code> is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when <code>LastEvaluatedShardId</code> is empty.</p>
+    string LastEvaluatedShardId = 3;
+    // The shards that comprise the stream.
+    array Shards = 4;
+    // The Amazon Resource Name (ARN) for the stream.
+    string StreamArn = 5;
+    // <p>A timestamp, in ISO 8601 format, for this stream.</p> <p>Note that <code>LatestStreamLabel</code> is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li> <p>the table name</p> </li> <li> <p>the <code>StreamLabel</code> </p> </li> </ul>
+    string StreamLabel = 6;
+    // <p>Indicates the current status of the stream:</p> <ul> <li> <p> <code>ENABLING</code> - Streams is currently being enabled on the DynamoDB table.</p> </li> <li> <p> <code>ENABLED</code> - the stream is enabled.</p> </li> <li> <p> <code>DISABLING</code> - Streams is currently being disabled on the DynamoDB table.</p> </li> <li> <p> <code>DISABLED</code> - the stream is disabled.</p> </li> </ul>
+    StreamStatus StreamStatus = 7;
+    // <p>Indicates the format of the records within this stream:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - only the key attributes of items that were modified in the DynamoDB table.</p> </li> <li> <p> <code>NEW_IMAGE</code> - entire items from the table, as they appeared after they were modified.</p> </li> <li> <p> <code>OLD_IMAGE</code> - entire items from the table, as they appeared before they were modified.</p> </li> <li> <p> <code>NEW_AND_OLD_IMAGES</code> - both the new and the old images of the items from the table.</p> </li> </ul>
+    StreamViewType StreamViewType = 8;
+    // The DynamoDB table with which the stream is associated.
+    string TableName = 9;
+}
+
+repeated Stream StreamList = 1
+
+message StreamRecord {
+    // The approximate date and time when the stream record was created, in <a href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+    string ApproximateCreationDateTime = 1;
+    // The primary key attribute(s) for the DynamoDB item that was modified.
+    array Keys = 2;
+    // The item in the DynamoDB table as it appeared after it was modified.
+    array NewImage = 3;
+    // The item in the DynamoDB table as it appeared before it was modified.
+    array OldImage = 4;
+    // The sequence number of the stream record.
+    string SequenceNumber = 5;
+    // The size of the stream record, in bytes.
+    integer SizeBytes = 6;
+    // <p>The type of data from the modified DynamoDB item that was captured in this stream record:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - only the key attributes of the modified item.</p> </li> <li> <p> <code>NEW_IMAGE</code> - the entire item, as it appeared after it was modified.</p> </li> <li> <p> <code>OLD_IMAGE</code> - the entire item, as it appeared before it was modified.</p> </li> <li> <p> <code>NEW_AND_OLD_IMAGES</code> - both the new and the old item images of the item.</p> </li> </ul>
+    StreamViewType StreamViewType = 7;
+}
+
+enum StreamStatu {
+    ENABLING = 0;
+    ENABLED = 1;
+    DISABLING = 2;
+    DISABLED = 3;
+}
+
+enum StreamViewType {
+    NEW_IMAGE = 0;
+    OLD_IMAGE = 1;
+    NEW_AND_OLD_IMAGES = 2;
+    KEYS_ONLY = 3;
+}
+
+
+
+
+
+repeated string StringSetAttributeValue = 1
+
+
+
+message TrimmedDataAccessException {
+    // "The data you are trying to access has been trimmed.
+    string message = 1;
+}
+
+service AmazonDynamoDBStreamsService {
+    // <p>Returns information about a stream, including the current status of the stream, its Amazon Resource Name (ARN), the composition of its shards, and its corresponding DynamoDB table.</p> <note> <p>You can call <code>DescribeStream</code> at a maximum rate of 10 times per second.</p> </note> <p>Each shard in the stream has a <code>SequenceNumberRange</code> associated with it. If the <code>SequenceNumberRange</code> has a <code>StartingSequenceNumber</code> but no <code>EndingSequenceNumber</code>, then the shard is still open (able to receive more stream records). If both <code>StartingSequenceNumber</code> and <code>EndingSequenceNumber</code> are present, then that shard is closed and can no longer receive more data.</p>
+    rpc Post(PostRequest) returns (DescribeStreamOutput) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // <p>Retrieves the stream records from a given shard.</p> <p>Specify a shard iterator using the <code>ShardIterator</code> parameter. The shard iterator specifies the position in the shard from which you want to start reading stream records sequentially. If there are no stream records available in the portion of the shard that the iterator points to, <code>GetRecords</code> returns an empty list. Note that it might take multiple calls to get to a portion of the shard that contains stream records.</p> <note> <p> <code>GetRecords</code> can retrieve a maximum of 1 MB of data or 1000 stream records, whichever comes first.</p> </note>
+    rpc Post#GetRecords(Post#GetRecordsRequest) returns (GetRecordsOutput) {
+      option (google.api.http) = {
+        post: "//#GetRecords"
+        body: "body"
+      };
+    }
+    // <p>Returns a shard iterator. A shard iterator provides information about how to retrieve the stream records from within a shard. Use the shard iterator in a subsequent <code>GetRecords</code> request to read the stream records from the shard.</p> <note> <p>A shard iterator expires 15 minutes after it is returned to the requester.</p> </note>
+    rpc Post#GetShardIterator(Post#GetShardIteratorRequest) returns (GetShardIteratorOutput) {
+      option (google.api.http) = {
+        post: "//#GetShardIterator"
+        body: "body"
+      };
+    }
+    // <p>Returns an array of stream ARNs associated with the current account and endpoint. If the <code>TableName</code> parameter is present, then <code>ListStreams</code> will return only the streams ARNs for that table.</p> <note> <p>You can call <code>ListStreams</code> at a maximum rate of 5 times per second.</p> </note>
+    rpc Post#ListStreams(Post#ListStreamsRequest) returns (ListStreamsOutput) {
+      option (google.api.http) = {
+        post: "//#ListStreams"
+        body: "body"
+      };
+    }
+}

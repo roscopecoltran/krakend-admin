@@ -1,0 +1,237 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package advisormanagementclient;
+
+message GetProvidersMicrosoftAdvisorOperationsRequest {
+    string api_version = 1;
+}
+
+message PostSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendationsRequest {
+    string api_version = 1;
+    string subscriptionId = 2;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendationsOperationIdRequest {
+    string api_version = 1;
+    // The operation ID, which can be found from the Location field in the generate recommendation response header.
+    string operationId = 2;
+    string subscriptionId = 3;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorRecommendationsRequest {
+    // The filter to apply to the recommendations.
+    string $filter = 1;
+    // The page-continuation token to use with a paged version of this API.
+    string $skipToken = 2;
+    // The number of recommendations per page if a paged version of this API is being used.
+    int32 $top = 3;
+    string api_version = 4;
+    string subscriptionId = 5;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorSuppressionsRequest {
+    string api_version = 1;
+    string subscriptionId = 2;
+}
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorSuppressionsResponse {
+    repeated SuppressionContract items = 1;
+}
+
+message GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdRequest {
+    string api_version = 1;
+    // The recommendation ID.
+    string recommendationId = 2;
+    // The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
+    string resourceUri = 3;
+}
+
+message GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest {
+    string api_version = 1;
+    // The name of the suppression.
+    string name = 2;
+    // The recommendation ID.
+    string recommendationId = 3;
+    // The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
+    string resourceUri = 4;
+}
+
+message PutResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest {
+    string api_version = 1;
+    // The name of the suppression.
+    string name = 2;
+    // The recommendation ID.
+    string recommendationId = 3;
+    // The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
+    string resourceUri = 4;
+    // The snoozed or dismissed attribute; for example, the snooze duration.
+    SuppressionContract suppressionContract = 5;
+}
+
+message DeleteResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest {
+    string api_version = 1;
+    // The name of the suppression.
+    string name = 2;
+    // The recommendation ID.
+    string recommendationId = 3;
+    // The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
+    string resourceUri = 4;
+}
+
+message OperationDisplayInfo {
+    // The description of the operation.
+    string description = 1;
+    // The action that users can perform, based on their permission level.
+    string operation = 2;
+    // Service provider: Microsoft Advisor.
+    string provider = 3;
+    // Resource on which the operation is performed.
+    string resource = 4;
+}
+
+message OperationEntity {
+    // The operation supported by Advisor.
+    OperationDisplayInfo display = 1;
+    // Operation name: {provider}/{resource}/{operation}.
+    string name = 2;
+}
+
+message OperationEntityListResult {
+    // The link used to get the next page of operations.
+    string nextLink = 1;
+    // The list of operations.
+    repeated OperationEntity value = 2;
+}
+
+message RecommendationProperties {
+    // The category of the recommendation.
+    enum RecommendationProperties_Category {
+        RECOMMENDATIONPROPERTIES_CATEGORY_HIGHAVAILABILITY = 0;
+        RECOMMENDATIONPROPERTIES_CATEGORY_SECURITY = 1;
+        RECOMMENDATIONPROPERTIES_CATEGORY_PERFORMANCE = 2;
+        RECOMMENDATIONPROPERTIES_CATEGORY_COST = 3;
+    }
+    RecommendationProperties_Category category = 1;
+    // The business impact of the recommendation.
+    enum RecommendationProperties_Impact {
+        RECOMMENDATIONPROPERTIES_IMPACT_HIGH = 0;
+        RECOMMENDATIONPROPERTIES_IMPACT_MEDIUM = 1;
+        RECOMMENDATIONPROPERTIES_IMPACT_LOW = 2;
+    }
+    RecommendationProperties_Impact impact = 2;
+    // The resource type identified by Advisor.
+    string impactedField = 3;
+    // The resource identified by Advisor.
+    string impactedValue = 4;
+    // The most recent time that Advisor checked the validity of the recommendation.
+    string lastUpdated = 5;
+    // The recommendation metadata.
+    map<string, object> metadata = 6;
+    // The recommendation-type GUID.
+    string recommendationTypeId = 7;
+    // The potential risk of not implementing the recommendation.
+    enum RecommendationProperties_Risk {
+        RECOMMENDATIONPROPERTIES_RISK_ERROR = 0;
+        RECOMMENDATIONPROPERTIES_RISK_WARNING = 1;
+        RECOMMENDATIONPROPERTIES_RISK_NONE = 2;
+    }
+    RecommendationProperties_Risk risk = 8;
+    // A summary of the recommendation.
+    ShortDescription shortDescription = 9;
+}
+
+message ResourceRecommendationBase {
+    // The fully qualified recommendation ID, for example /subscriptions/subscriptionId/resourceGroups/resourceGroup1/providers/Microsoft.ClassicCompute/virtualMachines/vm1/providers/Microsoft.Advisor/recommendations/recommendationGUID.
+    string id = 1;
+    // The name of recommendation.
+    string name = 2;
+    // The properties of the recommendation.
+    RecommendationProperties properties = 3;
+    // The list of snoozed and dismissed rules for the recommendation.
+    repeated string suppressionIds = 4;
+    // The recommendation type: Microsoft.Advisor/recommendations.
+    string type = 5;
+}
+
+message ResourceRecommendationBaseListResult {
+    // The link used to get the next page of recommendations.
+    string nextLink = 1;
+    // The list of recommendations.
+    repeated ResourceRecommendationBase value = 2;
+}
+
+message ShortDescription {
+    // The issue or opportunity identified by the recommendation.
+    string problem = 1;
+    // The remediation action suggested by the recommendation.
+    string solution = 2;
+}
+
+message SuppressionContract {
+    // The GUID of the suppression.
+    string suppressionId = 1;
+    // The duration for which the suppression is valid.
+    string ttl = 2;
+}
+
+service AdvisorManagementClientService {
+    // Lists all the available Advisor REST API operations.
+    rpc GetProvidersMicrosoftAdvisorOperations(GetProvidersMicrosoftAdvisorOperationsRequest) returns (OperationEntityListResult) {
+      option (google.api.http) = {
+        get: "/providers/Microsoft.Advisor/operations"
+      };
+    }
+    // Initiates the recommendation generation or computation process for a subscription. This operation is asynchronous. The generated recommendations are stored in a cache in the Advisor service.
+    rpc PostSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendations(PostSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendationsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations"
+      };
+    }
+    // Retrieves the status of the recommendation computation or generation process. Invoke this API after calling the generation recommendation. The URI of this API is returned in the Location field of the response header.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendationsOperationId(GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorGenerateRecommendationsOperationIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations/{operationId}"
+      };
+    }
+    // Obtains cached recommendations for a subscription. The recommendations are generated or computed by invoking generateRecommendations.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorRecommendations(GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorRecommendationsRequest) returns (ResourceRecommendationBaseListResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/recommendations"
+      };
+    }
+    // Retrieves the list of snoozed or dismissed suppressions for a subscription. The snoozed or dismissed attribute of a recommendation is referred to as a suppression.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorSuppressions(GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorSuppressionsRequest) returns (GetSubscriptionsSubscriptionIdProvidersMicrosoftAdvisorSuppressionsResponse) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/suppressions"
+      };
+    }
+    // Obtains details of a cached recommendation.
+    rpc GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationId(GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdRequest) returns (ResourceRecommendationBase) {
+      option (google.api.http) = {
+        get: "/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}"
+      };
+    }
+    // Obtains the details of a suppression.
+    rpc GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsName(GetResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest) returns (SuppressionContract) {
+      option (google.api.http) = {
+        get: "/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}"
+      };
+    }
+    // Enables the snoozed or dismissed attribute of a recommendation. The snoozed or dismissed attribute is referred to as a suppression. Use this API to create or update the snoozed or dismissed status of a recommendation.
+    rpc PutResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsName(PutResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest) returns (SuppressionContract) {
+      option (google.api.http) = {
+        put: "/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}"
+        body: "suppressionContract"
+      };
+    }
+    // Enables the activation of a snoozed or dismissed recommendation. The snoozed or dismissed attribute of a recommendation is referred to as a suppression.
+    rpc DeleteResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsName(DeleteResourceUriProvidersMicrosoftAdvisorRecommendationsRecommendationIdSuppressionsNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}"
+      };
+    }
+}

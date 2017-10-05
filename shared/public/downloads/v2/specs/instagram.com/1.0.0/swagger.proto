@@ -1,0 +1,800 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package instagram;
+
+message GetGeographiesGeoIdMediaRecentRequest {
+    // Max number of media to return.
+    int32 count = 1;
+    // The geography ID.
+    string geo_id = 2;
+    // Return media before this `min_id`.
+    string min_id = 3;
+}
+
+message GetLocationsSearchRequest {
+    // Default is 1000m (distance=1000), max distance is 5000.
+    int32 distance = 1;
+    // Returns a location mapped off of a Facebook places id. If used, a Foursquare id and `lat`, `lng` are not required.
+    string facebook_places_id = 2;
+    // Returns a location mapped off of a foursquare v1 api location id. If used, you are not required to use
+    // `lat` and `lng`. Note that this method is deprecated; you should use the new foursquare IDs with V2 of their API.
+    string foursquare_id = 3;
+    // Returns a location mapped off of a foursquare v2 api location id. If used, you are not required to use
+    // `lat` and `lng`.
+    string foursquare_v2_id = 4;
+    // Latitude of the center search coordinate. If used, `lng` is required.
+    double lat = 5;
+    // Longitude of the center search coordinate. If used, `lat` is required.
+    double lng = 6;
+}
+
+message GetLocationsLocationIdRequest {
+    // The location ID.
+    string location_id = 1;
+}
+
+message GetLocationsLocationIdMediaRecentRequest {
+    // The location ID.
+    string location_id = 1;
+    // Return media after this `max_id`.
+    string max_id = 2;
+    // Return media before this UNIX timestamp.
+    int64 max_timestamp = 3;
+    // Return media before this `min_id`.
+    string min_id = 4;
+    // Return media after this UNIX timestamp.
+    int64 min_timestamp = 5;
+}
+
+message GetMediaSearchRequest {
+    // Default is 1km (distance=1000), max distance is 5km.
+    int32 distance = 1;
+    // Latitude of the center search coordinate. If used, `lng` is required.
+    double lat = 2;
+    // Longitude of the center search coordinate. If used, `lat` is required.
+    double lng = 3;
+    // A unix timestamp. All media returned will be taken earlier than this timestamp.
+    int64 max_timestamp = 4;
+    // A unix timestamp. All media returned will be taken later than this timestamp.
+    int64 min_timestamp = 5;
+}
+
+message GetMediaShortcodeShortcodeRequest {
+    // The short code of the media resource.
+    string shortcode = 1;
+}
+
+message GetMediaMediaIdRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+}
+
+message GetMediaMediaIdCommentsRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+}
+
+message PostMediaMediaIdCommentsRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+    // Text to post as a comment on the media object as specified in `media-id`.
+    string text = 2;
+}
+
+message DeleteMediaMediaIdCommentsCommentIdRequest {
+    // The ID of the comment entry.
+    string comment_id = 1;
+    // The ID of the media resource.
+    string media_id = 2;
+}
+
+message GetMediaMediaIdLikesRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+}
+
+message PostMediaMediaIdLikesRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+}
+
+message DeleteMediaMediaIdLikesRequest {
+    // The ID of the media resource.
+    string media_id = 1;
+}
+
+message GetTagsSearchRequest {
+    // A valid tag name without a leading \#. (eg. snowy, nofilter)
+    string q = 1;
+}
+
+message GetTagsTagNameRequest {
+    // The tag name.
+    string tag_name = 1;
+}
+
+message GetTagsTagNameMediaRecentRequest {
+    // Count of tagged media to return.
+    int32 count = 1;
+    // Return media after this `max_tag_id`.
+    string max_tag_id = 2;
+    // Return media before this `min_tag_id`.
+    string min_tag_id = 3;
+    // The tag name.
+    string tag_name = 4;
+}
+
+message GetUsersSearchRequest {
+    // Number of users to return.
+    int32 count = 1;
+    // A query string.
+    string q = 2;
+}
+
+message GetUsersSelfFeedRequest {
+    // Count of media to return.
+    int32 count = 1;
+    // Return media earlier than this `max_id`.
+    string max_id = 2;
+    // Return media later than this `min_id`.
+    string min_id = 3;
+}
+
+message GetUsersSelfMediaLikedRequest {
+    // Count of media to return.
+    int32 count = 1;
+    // Return media liked before this id.
+    string max_like_id = 2;
+}
+
+message GetUsersUserIdRequest {
+    // The ID of a user to get information about, or **self** to retrieve information about authenticated user.
+    string user_id = 1;
+}
+
+message GetUsersUserIdFollowedByRequest {
+    // The ID of a user, or **self** to retrieve information about authenticated user.
+    string user_id = 1;
+}
+
+message GetUsersUserIdFollowsRequest {
+    // The ID of a user, or **self** to retrieve information about authenticated user.
+    string user_id = 1;
+}
+
+message GetUsersUserIdMediaRecentRequest {
+    // Count of media to return.
+    int32 count = 1;
+    // Return media earlier than this `max_id`.
+    string max_id = 2;
+    // Return media before this UNIX timestamp.
+    int64 max_timestamp = 3;
+    // Return media later than this `min_id`.
+    string min_id = 4;
+    // Return media after this UNIX timestamp.
+    int64 min_timestamp = 5;
+    // The ID of a user to get recent media of, or **self** to retrieve media of authenticated user.
+    string user_id = 6;
+}
+
+message GetUsersUserIdRelationshipRequest {
+    // The ID of a user to get information about.
+    string user_id = 1;
+}
+
+message PostUsersUserIdRelationshipRequest {
+    // Type of action to apply for relationship with the user.
+    enum PostUsersUserIdRelationshipRequest_Action {
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_FOLLOW = 0;
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_UNFOLLOW = 1;
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_BLOCK = 2;
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_UNBLOCK = 3;
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_APPROVE = 4;
+        POSTUSERSUSERIDRELATIONSHIPREQUEST_ACTION_IGNORE = 5;
+    }
+    PostUsersUserIdRelationshipRequest_Action action = 1;
+    // The ID of the target user.
+    string user_id = 2;
+}
+
+message CaptionData {
+    // Caption creation UNIX timestamp
+    string created_time = 1;
+    // User who created this caption
+    UserShortInfo from = 2;
+    // ID of this caption
+    string id = 3;
+    // Caption text
+    string text = 4;
+}
+
+message CommentEntry {
+    // Comment creation UNIX timestamp
+    string created_time = 1;
+    // User who posted this comment
+    UserShortInfo from = 2;
+    // ID of this comment
+    string id = 3;
+    // Text of the comment
+    string text = 4;
+}
+
+message CommentsCollection {
+    // Nember of comments available, data does not necessary contain all comments
+    int32 count = 1;
+    // Collection of comment entries; **warning:** deprecated for Apps [created on or after Nov 17, 2015](http://instagram.com/developer/changelog/)
+    repeated CommentEntry data = 2;
+}
+
+message CommentsResponse {
+    // Collection of comments
+    repeated CommentEntry data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message CursorPaginationInfo {
+    // The cursor ID of the next page
+    string next_cursor = 1;
+    // URL to retrieve next page of entries
+    string next_url = 2;
+}
+
+message IdPaginationInfo {
+    // The max ID of the next page
+    string next_max_id = 1;
+    // URL to retrieve next page of entries
+    string next_url = 2;
+}
+
+message ImageInfo {
+    // Image/video height in pixels
+    int32 height = 1;
+    // URL of the image/video resource
+    string url = 2;
+    // Image/video width in pixels
+    int32 width = 3;
+}
+
+message ImagesData {
+    // Image in low resolution
+    ImageInfo low_resolution = 1;
+    // Image in standard resolution
+    ImageInfo standard_resolution = 2;
+    // Thumbnail of the image
+    ImageInfo thumbnail = 3;
+}
+
+message LikesCollection {
+    // Nember of likes available, data does not necessary contain all comments
+    int32 count = 1;
+    // Collection of users who liked; **warning:** deprecated for Apps [created on or after Nov 17, 2015](http://instagram.com/developer/changelog/)
+    repeated UserShortInfo data = 2;
+}
+
+message LocationInfo {
+    // ID of this location (in some responses it has a type of 'integer')
+    string id = 1;
+    // Location latitude
+    double latitude = 2;
+    // Location longitude
+    double longitude = 3;
+    // Location name
+    string name = 4;
+}
+
+message LocationInfoResponse {
+    // Location brief information
+    LocationInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message LocationSearchResponse {
+    // List of found locations
+    repeated LocationInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message MediaEntry {
+    // ??? Unknown ???
+    string attribution = 1;
+    // Describes caption of this media
+    CaptionData caption = 2;
+    // Comments of this media entry
+    CommentsCollection comments = 3;
+    // Media creation UNIX timestamp
+    string created_time = 4;
+    // Filter of this media entry
+    string filter = 5;
+    // ID of a media entry
+    string id = 6;
+    // Images data in different resolutions
+    ImagesData images = 7;
+    // Likes of this media entry
+    LikesCollection likes = 8;
+    // Fixed URL of this media entry
+    string link = 9;
+    // Location data for this media if available
+    LocationInfo location = 10;
+    // List of tags assigned to this media
+    repeated string tags = 11;
+    // Type of this media entry
+    enum MediaEntry_Type {
+        MEDIAENTRY_TYPE_IMAGE = 0;
+        MEDIAENTRY_TYPE_VIDEO = 1;
+    }
+    MediaEntry_Type type = 12;
+    // User who posted this media
+    UserShortInfo user = 13;
+    // Indicates whether authenticated user has liked this media or not
+    bool user_has_liked = 14;
+    // Users located on this media entry
+    repeated UserInPhoto users_in_photo = 15;
+    // Videos data in different resolutions, applied for 'video' type
+    VideosData videos = 16;
+}
+
+message MediaEntryResponse {
+    // Media resource information
+    MediaEntry data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message MediaListResponse {
+    // List of media entries
+    repeated MediaEntry data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+    // Information for pagination
+    IdPaginationInfo pagination = 3;
+}
+
+message MediaSearchResponse {
+    // Found media entries; some end-points do not return likes informtaion
+    repeated MediaEntry data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message MetaData {
+    // HTTP result code
+    int32 code = 1;
+}
+
+message Position {
+    // X position (horizontal)
+    float x = 1;
+    // Y position (vertical)
+    float y = 2;
+}
+
+message RelationshipInfo {
+    // Status of incoming relationship
+    enum RelationshipInfo_Incoming_statu {
+        RELATIONSHIPINFO_INCOMING_STATU_NONE = 0;
+        RELATIONSHIPINFO_INCOMING_STATU_FOLLOWED_BY = 1;
+        RELATIONSHIPINFO_INCOMING_STATU_REQUESTED_BY = 2;
+    }
+    RelationshipInfo_Incoming_statu incoming_status = 1;
+    // Status of outgoing relationship
+    enum RelationshipInfo_Outgoing_statu {
+        RELATIONSHIPINFO_OUTGOING_STATU_NONE = 0;
+        RELATIONSHIPINFO_OUTGOING_STATU_FOLLOWS = 1;
+        RELATIONSHIPINFO_OUTGOING_STATU_REQUESTED = 2;
+    }
+    RelationshipInfo_Outgoing_statu outgoing_status = 2;
+    // Indicates whether target user is private or not
+    bool target_user_is_private = 3;
+}
+
+message RelationshipPostResponse {
+    // Current relationship status
+    RelationshipStatus data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message RelationshipResponse {
+    // Relationship information
+    RelationshipInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message RelationshipStatus {
+    // Status of outgoing relationship
+    enum RelationshipStatus_Outgoing_statu {
+        RELATIONSHIPSTATUS_OUTGOING_STATU_NONE = 0;
+        RELATIONSHIPSTATUS_OUTGOING_STATU_FOLLOWS = 1;
+        RELATIONSHIPSTATUS_OUTGOING_STATU_REQUESTED = 2;
+    }
+    RelationshipStatus_Outgoing_statu outgoing_status = 1;
+}
+
+message StatusResponse {
+    // No data - 'null'
+    string data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message TagInfo {
+    // Overall number of media entries taged with this name
+    int64 media_count = 1;
+    // Tag name
+    string name = 2;
+}
+
+message TagInfoResponse {
+    // Tag brief information
+    TagInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message TagMediaListResponse {
+    // List of media entries with this tag
+    repeated MediaEntry data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+    // Information for pagination
+    TagPaginationInfo pagination = 3;
+}
+
+message TagPaginationInfo {
+    // The deprication warning, if information is available
+    string deprecation_warning = 1;
+    // The min ID of a tag for the next page
+    string min_tag_id = 2;
+    // Depricated. Use min_tag_id instead
+    string next_max_id = 3;
+    // The max ID of a tag for the next page
+    string next_max_tag_id = 4;
+    // Depricated. Use max_tag_id instead
+    string next_min_id = 5;
+    // URL to retrieve next page of entries
+    string next_url = 6;
+}
+
+message TagSearchResponse {
+    // List of found tags with brief statistics
+    repeated TagInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message UserCounts {
+    // Number of followers of this user
+    int32 followed_by = 1;
+    // Number of users followed by this user
+    int32 follows = 2;
+    // Number of user media
+    int32 media = 3;
+}
+
+message UserInPhoto {
+    // Position in photo
+    Position position = 1;
+    // User who is indicated on the photo
+    UserShortInfo user = 2;
+}
+
+message UserInfo {
+    // User biography
+    string bio = 1;
+    // User statistics (counters)
+    UserCounts counts = 2;
+    // User full name
+    string full_name = 3;
+    // User ID
+    string id = 4;
+    // URL to user profile picture
+    string profile_picture = 5;
+    // User name, nickname
+    string username = 6;
+    // URL to user web-site
+    string website = 7;
+}
+
+message UserResponse {
+    // User basic information
+    UserInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message UserShortInfo {
+    // User full name
+    string full_name = 1;
+    // User ID
+    string id = 2;
+    // URL to user profile picture
+    string profile_picture = 3;
+    // User name, nickname
+    string username = 4;
+}
+
+message UsersInfoResponse {
+    // User short information entries
+    repeated UserShortInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+}
+
+message UsersPagingResponse {
+    // List of user short information entries
+    repeated UserShortInfo data = 1;
+    // Response meta-data
+    MetaData meta = 2;
+    // Information for pagination
+    CursorPaginationInfo pagination = 3;
+}
+
+message VideosData {
+    // Video in low resolution
+    ImageInfo low_resolution = 1;
+    // Video in standard resolution
+    ImageInfo standard_resolution = 2;
+}
+
+service InstagramService {
+    // Get recent media from a custom geo-id.
+    // 
+    // Get recent media from a geography subscription that you created.
+    // 
+    // **Note:** You can only access Geographies that were explicitly created by your OAuth client. Check the
+    // Geography Subscriptions section of the [real-time updates page](https://instagram.com/developer/realtime/).
+    // When you create a subscription to some geography that you define, you will be returned a unique `geo-id` that
+    // can be used in this query. To backfill photos from the location covered by this geography, use the
+    // [media search endpoint](https://instagram.com/developer/endpoints/media/).
+    // 
+    // **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
+    rpc GetGeographiesGeoIdMediaRecent(GetGeographiesGeoIdMediaRecentRequest) returns (MediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/geographies/{geo-id}/media/recent"
+      };
+    }
+    // Search for a location by geographic coordinate.
+    // 
+    // Search for a location by geographic coordinate.
+    rpc GetLocationsSearch(GetLocationsSearchRequest) returns (LocationSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/locations/search"
+      };
+    }
+    // Get information about a location.
+    // 
+    // Get information about a location.
+    rpc GetLocationsLocationId(GetLocationsLocationIdRequest) returns (LocationInfoResponse) {
+      option (google.api.http) = {
+        get: "/v1/locations/{location-id}"
+      };
+    }
+    // Get a list of recent media objects from a given location.
+    // 
+    // Get a list of recent media objects from a given location.
+    rpc GetLocationsLocationIdMediaRecent(GetLocationsLocationIdMediaRecentRequest) returns (MediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/locations/{location-id}/media/recent"
+      };
+    }
+    // Get a list of currently popular media.
+    // 
+    // Get a list of what media is most popular at the moment. Can return mix of `image` and `video` types.
+    // 
+    // **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
+    rpc GetMediaPopular(google.protobuf.Empty) returns (MediaSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/popular"
+      };
+    }
+    // Search for media in a given area.
+    // 
+    // Search for media in a given area. The default time span is set to 5 days. The time span must not exceed 7 days.
+    // Defaults time stamps cover the last 5 days. Can return mix of `image` and `video` types.
+    rpc GetMediaSearch(GetMediaSearchRequest) returns (MediaSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/search"
+      };
+    }
+    // Get information about a media object.
+    // 
+    // This endpoint returns the same response as `GET /media/{media-id}`.
+    // 
+    // A media object's shortcode can be found in its shortlink URL. An example shortlink is
+    // `http://instagram.com/p/D/`, its corresponding shortcode is `D`.
+    rpc GetMediaShortcodeShortcode(GetMediaShortcodeShortcodeRequest) returns (MediaEntryResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/shortcode/{shortcode}"
+      };
+    }
+    // Get information about a media object.
+    // 
+    // Get information about a media object. The returned type key will allow you to differentiate between image and
+    // video media.
+    // 
+    // **Note:** if you authenticate with an OAuth Token, you will receive the user_has_liked key which quickly tells
+    // you whether the current user has liked this media item.
+    rpc GetMediaMediaId(GetMediaMediaIdRequest) returns (MediaEntryResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/{media-id}"
+      };
+    }
+    // Get a list of recent comments on a media object.
+    // 
+    // Get a list of recent comments on a media object.
+    rpc GetMediaMediaIdComments(GetMediaMediaIdCommentsRequest) returns (CommentsResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/{media-id}/comments"
+      };
+    }
+    // Create a comment on a media object.
+    // 
+    // Create a comment on a media object with the following rules:
+    // 
+    //   * The total length of the comment cannot exceed 300 characters.
+    //   * The comment cannot contain more than 4 hashtags.
+    //   * The comment cannot contain more than 1 URL.
+    //   * The comment cannot consist of all capital letters.
+    rpc PostMediaMediaIdComments(PostMediaMediaIdCommentsRequest) returns (StatusResponse) {
+      option (google.api.http) = {
+        post: "/v1/media/{media-id}/comments"
+      };
+    }
+    // Remove a comment.
+    // 
+    // Remove a comment either on the authenticated user's media object or authored by the authenticated user.
+    rpc DeleteMediaMediaIdCommentsCommentId(DeleteMediaMediaIdCommentsCommentIdRequest) returns (StatusResponse) {
+      option (google.api.http) = {
+        delete: "/v1/media/{media-id}/comments/{comment-id}"
+      };
+    }
+    // Get a list of users who have liked this media.
+    // 
+    // Get a list of users who have liked this media.
+    rpc GetMediaMediaIdLikes(GetMediaMediaIdLikesRequest) returns (UsersInfoResponse) {
+      option (google.api.http) = {
+        get: "/v1/media/{media-id}/likes"
+      };
+    }
+    // Set a like on this media by the current user.
+    // 
+    // Set a like on this media by the currently authenticated user.
+    rpc PostMediaMediaIdLikes(PostMediaMediaIdLikesRequest) returns (StatusResponse) {
+      option (google.api.http) = {
+        post: "/v1/media/{media-id}/likes"
+      };
+    }
+    // Remove a like on this media by the current user.
+    // 
+    // Remove a like on this media by the currently authenticated user.
+    rpc DeleteMediaMediaIdLikes(DeleteMediaMediaIdLikesRequest) returns (StatusResponse) {
+      option (google.api.http) = {
+        delete: "/v1/media/{media-id}/likes"
+      };
+    }
+    // Search for tags by name.
+    // 
+    // Search for tags by name.
+    rpc GetTagsSearch(GetTagsSearchRequest) returns (TagSearchResponse) {
+      option (google.api.http) = {
+        get: "/v1/tags/search"
+      };
+    }
+    // Get information about a tag object.
+    // 
+    // Get information about a tag object.
+    rpc GetTagsTagName(GetTagsTagNameRequest) returns (TagInfoResponse) {
+      option (google.api.http) = {
+        get: "/v1/tags/{tag-name}"
+      };
+    }
+    // Get a list of recently tagged media.
+    // 
+    // Get a list of recently tagged media. Use the `max_tag_id` and `min_tag_id` parameters in the pagination
+    // response to paginate through these objects.
+    rpc GetTagsTagNameMediaRecent(GetTagsTagNameMediaRecentRequest) returns (TagMediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/tags/{tag-name}/media/recent"
+      };
+    }
+    // Search for a user by name.
+    // 
+    // Search for a user by name.
+    rpc GetUsersSearch(GetUsersSearchRequest) returns (UsersInfoResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/search"
+      };
+    }
+    // See the authenticated user's feed.
+    // 
+    // See the authenticated user's feed.
+    // 
+    // **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
+    rpc GetUsersSelfFeed(GetUsersSelfFeedRequest) returns (MediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/self/feed"
+      };
+    }
+    // See the list of media liked by the authenticated user.
+    // 
+    // See the list of media liked by the authenticated user. Private media is returned as long as the authenticated
+    // user has permission to view that media. Liked media lists are only available for the currently authenticated
+    // user.
+    rpc GetUsersSelfMediaLiked(GetUsersSelfMediaLikedRequest) returns (MediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/self/media/liked"
+      };
+    }
+    // List the users who have requested this user's permission to follow.
+    // 
+    // List the users who have requested this user's permission to follow.
+    rpc GetUsersSelfRequestedBy(google.protobuf.Empty) returns (UsersInfoResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/self/requested-by"
+      };
+    }
+    // Get basic information about a user.
+    // 
+    // Get basic information about a user. To get information about the owner of the access token, you can use
+    // **self** instead of the `user-id`.
+    // 
+    // Security scope `public_content` is required to read information about other users.
+    rpc GetUsersUserId(GetUsersUserIdRequest) returns (UserResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user-id}"
+      };
+    }
+    // Get the list of users this user is followed by.
+    // 
+    // Get the list of users this user is followed by. To get users followed by the owner of the access token, you
+    // can use **self** instead of the `user-id`.
+    rpc GetUsersUserIdFollowedBy(GetUsersUserIdFollowedByRequest) returns (UsersPagingResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user-id}/followed-by"
+      };
+    }
+    // Get the list of users this user follows.
+    // 
+    // Get the list of users this user follows. To get follows of the owner of the access token, you can use **self**
+    // instead of the `user-id`.
+    rpc GetUsersUserIdFollows(GetUsersUserIdFollowsRequest) returns (UsersPagingResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user-id}/follows"
+      };
+    }
+    // Get the most recent media published by a user.
+    // 
+    // Get the most recent media published by a user. To get the most recent media published by the owner of the
+    // access token, you can use **self** instead of the `user-id`.
+    // 
+    // Security scope `public_content` is required to read information about other users.
+    rpc GetUsersUserIdMediaRecent(GetUsersUserIdMediaRecentRequest) returns (MediaListResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user-id}/media/recent"
+      };
+    }
+    // Get information about a relationship to another user.
+    // 
+    // Get information about a relationship to another user.
+    rpc GetUsersUserIdRelationship(GetUsersUserIdRelationshipRequest) returns (RelationshipResponse) {
+      option (google.api.http) = {
+        get: "/v1/users/{user-id}/relationship"
+      };
+    }
+    // Modify the relationship between the current user and the target user.
+    // 
+    // Modify the relationship between the current user and the target user.
+    rpc PostUsersUserIdRelationship(PostUsersUserIdRelationshipRequest) returns (RelationshipPostResponse) {
+      option (google.api.http) = {
+        post: "/v1/users/{user-id}/relationship"
+      };
+    }
+}

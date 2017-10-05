@@ -1,0 +1,485 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package cloudvideointelligence;
+
+message PostV1beta1Videos:AnnotateRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    GoogleCloudVideointelligenceV1beta1_AnnotateVideoRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message GoogleCloudVideointelligenceV1_AnnotateVideoProgress {
+    // Progress metadata for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1_VideoAnnotationProgress annotationProgress = 1;
+}
+
+message GoogleCloudVideointelligenceV1_AnnotateVideoResponse {
+    // Annotation results for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1_VideoAnnotationResults annotationResults = 1;
+}
+
+message GoogleCloudVideointelligenceV1_LabelAnnotation {
+    // Textual description, e.g. `Fixed-gear bicycle`.
+    string description = 1;
+    // Language code for `description` in BCP-47 format.
+    string languageCode = 2;
+    // Where the label was detected and with what confidence.
+    repeated GoogleCloudVideointelligenceV1_LabelLocation locations = 3;
+}
+
+message GoogleCloudVideointelligenceV1_LabelLocation {
+    // Confidence that the label is accurate. Range: [0, 1].
+    float confidence = 1;
+    // Label level.
+    enum GoogleCloudVideointelligenceV1_LabelLocation_Level {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_LABELLOCATION_LEVEL_LABEL_LEVEL_UNSPECIFIED = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_LABELLOCATION_LEVEL_VIDEO_LEVEL = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_LABELLOCATION_LEVEL_SEGMENT_LEVEL = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_LABELLOCATION_LEVEL_SHOT_LEVEL = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_LABELLOCATION_LEVEL_FRAME_LEVEL = 4;
+    }
+    GoogleCloudVideointelligenceV1_LabelLocation_Level level = 2;
+    // Video segment. Unset for video-level labels.
+    // Set to a frame timestamp for frame-level labels.
+    // Otherwise, corresponds to one of `AnnotateSpec.segments`
+    // (if specified) or to shot boundaries (if requested).
+    GoogleCloudVideointelligenceV1_VideoSegment segment = 3;
+}
+
+message GoogleCloudVideointelligenceV1_SafeSearchAnnotation {
+    // Likelihood of adult content.
+    enum GoogleCloudVideointelligenceV1_SafeSearchAnnotation_Adult {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1_SAFESEARCHANNOTATION_ADULT_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1_SafeSearchAnnotation_Adult adult = 1;
+    // Time-offset, relative to the beginning of the video,
+    // corresponding to the video frame for this annotation.
+    string time = 2;
+}
+
+message GoogleCloudVideointelligenceV1_VideoAnnotationProgress {
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 1;
+    // Approximate percentage processed thus far.
+    // Guaranteed to be 100 when fully processed.
+    int32 progressPercent = 2;
+    // Time when the request was received.
+    string startTime = 3;
+    // Time of the most recent update.
+    string updateTime = 4;
+}
+
+message GoogleCloudVideointelligenceV1_VideoAnnotationResults {
+    // If set, indicates an error. Note that for a single `AnnotateVideoRequest`
+    // some videos may succeed and some may fail.
+    GoogleRpc_Status error = 1;
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 2;
+    // Label annotations. There is exactly one element for each unique label.
+    repeated GoogleCloudVideointelligenceV1_LabelAnnotation labelAnnotations = 3;
+    // Safe search annotations.
+    repeated GoogleCloudVideointelligenceV1_SafeSearchAnnotation safeSearchAnnotations = 4;
+    // Shot annotations. Each shot is represented as a video segment.
+    repeated GoogleCloudVideointelligenceV1_VideoSegment shotAnnotations = 5;
+}
+
+message GoogleCloudVideointelligenceV1_VideoSegment {
+    // Time-offset, relative to the beginning of the video,
+    // corresponding to the end of the segment (inclusive).
+    string endTime = 1;
+    // Time-offset, relative to the beginning of the video,
+    // corresponding to the start of the segment (inclusive).
+    string startTime = 2;
+}
+
+message GoogleCloudVideointelligenceV1beta1_AnnotateVideoProgress {
+    // Progress metadata for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1beta1_VideoAnnotationProgress annotationProgress = 1;
+}
+
+message GoogleCloudVideointelligenceV1beta1_AnnotateVideoRequest {
+    // Requested video annotation features.
+    repeated string features = 1;
+    // The video data bytes. Encoding: base64. If unset, the input video(s)
+    // should be specified via `input_uri`. If set, `input_uri` should be unset.
+    string inputContent = 2;
+    // Input video location. Currently, only
+    // [Google Cloud Storage](https://cloud.google.com/storage/) URIs are
+    // supported, which must be specified in the following format:
+    // `gs://bucket-id/object-id` (other URI formats return
+    // google.rpc.Code.INVALID_ARGUMENT). For more information, see
+    // [Request URIs](/storage/docs/reference-uris).
+    // A video URI may include wildcards in `object-id`, and thus identify
+    // multiple videos. Supported wildcards: '*' to match 0 or more characters;
+    // '?' to match 1 character. If unset, the input video should be embedded
+    // in the request as `input_content`. If set, `input_content` should be unset.
+    string inputUri = 3;
+    // Optional cloud region where annotation should take place. Supported cloud
+    // regions: `us-east1`, `us-west1`, `europe-west1`, `asia-east1`. If no region
+    // is specified, a region will be determined based on video file location.
+    string locationId = 4;
+    // Optional location where the output (in JSON format) should be stored.
+    // Currently, only [Google Cloud Storage](https://cloud.google.com/storage/)
+    // URIs are supported, which must be specified in the following format:
+    // `gs://bucket-id/object-id` (other URI formats return
+    // google.rpc.Code.INVALID_ARGUMENT). For more information, see
+    // [Request URIs](/storage/docs/reference-uris).
+    string outputUri = 5;
+    // Additional video context and/or feature-specific parameters.
+    GoogleCloudVideointelligenceV1beta1_VideoContext videoContext = 6;
+}
+
+message GoogleCloudVideointelligenceV1beta1_AnnotateVideoResponse {
+    // Annotation results for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1beta1_VideoAnnotationResults annotationResults = 1;
+}
+
+message GoogleCloudVideointelligenceV1beta1_LabelAnnotation {
+    // Textual description, e.g. `Fixed-gear bicycle`.
+    string description = 1;
+    // Language code for `description` in BCP-47 format.
+    string languageCode = 2;
+    // Where the label was detected and with what confidence.
+    repeated GoogleCloudVideointelligenceV1beta1_LabelLocation locations = 3;
+}
+
+message GoogleCloudVideointelligenceV1beta1_LabelLocation {
+    // Confidence that the label is accurate. Range: [0, 1].
+    float confidence = 1;
+    // Label level.
+    enum GoogleCloudVideointelligenceV1beta1_LabelLocation_Level {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_LABELLOCATION_LEVEL_LABEL_LEVEL_UNSPECIFIED = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_LABELLOCATION_LEVEL_VIDEO_LEVEL = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_LABELLOCATION_LEVEL_SEGMENT_LEVEL = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_LABELLOCATION_LEVEL_SHOT_LEVEL = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_LABELLOCATION_LEVEL_FRAME_LEVEL = 4;
+    }
+    GoogleCloudVideointelligenceV1beta1_LabelLocation_Level level = 2;
+    // Video segment. Set to [-1, -1] for video-level labels.
+    // Set to [timestamp, timestamp] for frame-level labels.
+    // Otherwise, corresponds to one of `AnnotateSpec.segments`
+    // (if specified) or to shot boundaries (if requested).
+    GoogleCloudVideointelligenceV1beta1_VideoSegment segment = 3;
+}
+
+message GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation {
+    // Likelihood of adult content.
+    enum GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Adult {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_ADULT_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Adult adult = 1;
+    // Likelihood of medical content.
+    enum GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Medical {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_MEDICAL_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Medical medical = 2;
+    // Likelihood of racy content.
+    enum GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Racy {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_RACY_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Racy racy = 3;
+    // Likelihood that an obvious modification was made to the original
+    // version to make it appear funny or offensive.
+    enum GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Spoof {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_SPOOF_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Spoof spoof = 4;
+    // Video time offset in microseconds.
+    string timeOffset = 5;
+    // Likelihood of violent content.
+    enum GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Violent {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_UNKNOWN = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_SAFESEARCHANNOTATION_VIOLENT_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation_Violent violent = 6;
+}
+
+message GoogleCloudVideointelligenceV1beta1_VideoAnnotationProgress {
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 1;
+    // Approximate percentage processed thus far.
+    // Guaranteed to be 100 when fully processed.
+    int32 progressPercent = 2;
+    // Time when the request was received.
+    string startTime = 3;
+    // Time of the most recent update.
+    string updateTime = 4;
+}
+
+message GoogleCloudVideointelligenceV1beta1_VideoAnnotationResults {
+    // If set, indicates an error. Note that for a single `AnnotateVideoRequest`
+    // some videos may succeed and some may fail.
+    GoogleRpc_Status error = 1;
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 2;
+    // Label annotations. There is exactly one element for each unique label.
+    repeated GoogleCloudVideointelligenceV1beta1_LabelAnnotation labelAnnotations = 3;
+    // Safe search annotations.
+    repeated GoogleCloudVideointelligenceV1beta1_SafeSearchAnnotation safeSearchAnnotations = 4;
+    // Shot annotations. Each shot is represented as a video segment.
+    repeated GoogleCloudVideointelligenceV1beta1_VideoSegment shotAnnotations = 5;
+}
+
+message GoogleCloudVideointelligenceV1beta1_VideoContext {
+    // If label detection has been requested, what labels should be detected
+    // in addition to video-level labels or segment-level labels. If unspecified,
+    // defaults to `SHOT_MODE`.
+    enum GoogleCloudVideointelligenceV1beta1_VideoContext_LabelDetectionMode {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_VIDEOCONTEXT_LABELDETECTIONMODE_LABEL_DETECTION_MODE_UNSPECIFIED = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_VIDEOCONTEXT_LABELDETECTIONMODE_SHOT_MODE = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_VIDEOCONTEXT_LABELDETECTIONMODE_FRAME_MODE = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA1_VIDEOCONTEXT_LABELDETECTIONMODE_SHOT_AND_FRAME_MODE = 3;
+    }
+    GoogleCloudVideointelligenceV1beta1_VideoContext_LabelDetectionMode labelDetectionMode = 1;
+    // Model to use for label detection.
+    // Supported values: "latest" and "stable" (the default).
+    string labelDetectionModel = 2;
+    // Model to use for safe search detection.
+    // Supported values: "latest" and "stable" (the default).
+    string safeSearchDetectionModel = 3;
+    // Video segments to annotate. The segments may overlap and are not required
+    // to be contiguous or span the whole video. If unspecified, each video
+    // is treated as a single segment.
+    repeated GoogleCloudVideointelligenceV1beta1_VideoSegment segments = 4;
+    // Model to use for shot change detection.
+    // Supported values: "latest" and "stable" (the default).
+    string shotChangeDetectionModel = 5;
+    // Whether the video has been shot from a stationary (i.e. non-moving) camera.
+    // When set to true, might improve detection accuracy for moving objects.
+    bool stationaryCamera = 6;
+}
+
+message GoogleCloudVideointelligenceV1beta1_VideoSegment {
+    // End offset in microseconds (inclusive). Unset means 0.
+    string endTimeOffset = 1;
+    // Start offset in microseconds (inclusive). Unset means 0.
+    string startTimeOffset = 2;
+}
+
+message GoogleCloudVideointelligenceV1beta2_AnnotateVideoProgress {
+    // Progress metadata for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1beta2_VideoAnnotationProgress annotationProgress = 1;
+}
+
+message GoogleCloudVideointelligenceV1beta2_AnnotateVideoResponse {
+    // Annotation results for all videos specified in `AnnotateVideoRequest`.
+    repeated GoogleCloudVideointelligenceV1beta2_VideoAnnotationResults annotationResults = 1;
+}
+
+message GoogleCloudVideointelligenceV1beta2_Entity {
+    // Textual description, e.g. `Fixed-gear bicycle`.
+    string description = 1;
+    // Opaque entity ID. Some IDs may be available in
+    // [Google Knowledge Graph Search
+    // API](https://developers.google.com/knowledge-graph/).
+    string entityId = 2;
+    // Language code for `description` in BCP-47 format.
+    string languageCode = 3;
+}
+
+message GoogleCloudVideointelligenceV1beta2_ExplicitContentAnnotation {
+    // All video frames where explicit content was detected.
+    repeated GoogleCloudVideointelligenceV1beta2_ExplicitContentFrame frames = 1;
+}
+
+message GoogleCloudVideointelligenceV1beta2_ExplicitContentFrame {
+    // Likelihood of the pornography content..
+    enum GoogleCloudVideointelligenceV1beta2_ExplicitContentFrame_PornographyLikelihood {
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_LIKELIHOOD_UNSPECIFIED = 0;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_VERY_UNLIKELY = 1;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_UNLIKELY = 2;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_POSSIBLE = 3;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_LIKELY = 4;
+        GOOGLECLOUDVIDEOINTELLIGENCEV1BETA2_EXPLICITCONTENTFRAME_PORNOGRAPHYLIKELIHOOD_VERY_LIKELY = 5;
+    }
+    GoogleCloudVideointelligenceV1beta2_ExplicitContentFrame_PornographyLikelihood pornographyLikelihood = 1;
+    // Time-offset, relative to the beginning of the video, corresponding to the
+    // video frame for this location.
+    string timeOffset = 2;
+}
+
+message GoogleCloudVideointelligenceV1beta2_LabelAnnotation {
+    // Common categories for the detected entity.
+    // E.g. when the label is `Terrier` the category is likely `dog`. And in some
+    // cases there might be more than one categories e.g. `Terrier` could also be
+    // a `pet`.
+    repeated GoogleCloudVideointelligenceV1beta2_Entity categoryEntities = 1;
+    // Detected entity.
+    GoogleCloudVideointelligenceV1beta2_Entity entity = 2;
+    // All video frames where a label was detected.
+    repeated GoogleCloudVideointelligenceV1beta2_LabelFrame frames = 3;
+    // All video segments where a label was detected.
+    repeated GoogleCloudVideointelligenceV1beta2_LabelSegment segments = 4;
+}
+
+message GoogleCloudVideointelligenceV1beta2_LabelFrame {
+    // Confidence that the label is accurate. Range: [0, 1].
+    float confidence = 1;
+    // Time-offset, relative to the beginning of the video, corresponding to the
+    // video frame for this location.
+    string timeOffset = 2;
+}
+
+message GoogleCloudVideointelligenceV1beta2_LabelSegment {
+    // Confidence that the label is accurate. Range: [0, 1].
+    float confidence = 1;
+    // Video segment where a label was detected.
+    GoogleCloudVideointelligenceV1beta2_VideoSegment segment = 2;
+}
+
+message GoogleCloudVideointelligenceV1beta2_VideoAnnotationProgress {
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 1;
+    // Approximate percentage processed thus far.
+    // Guaranteed to be 100 when fully processed.
+    int32 progressPercent = 2;
+    // Time when the request was received.
+    string startTime = 3;
+    // Time of the most recent update.
+    string updateTime = 4;
+}
+
+message GoogleCloudVideointelligenceV1beta2_VideoAnnotationResults {
+    // If set, indicates an error. Note that for a single `AnnotateVideoRequest`
+    // some videos may succeed and some may fail.
+    GoogleRpc_Status error = 1;
+    // Explicit content annotation.
+    GoogleCloudVideointelligenceV1beta2_ExplicitContentAnnotation explicitAnnotation = 2;
+    // Label annotations on frame level.
+    // There is exactly one element for each unique label.
+    repeated GoogleCloudVideointelligenceV1beta2_LabelAnnotation frameLabelAnnotations = 3;
+    // Video file location in
+    // [Google Cloud Storage](https://cloud.google.com/storage/).
+    string inputUri = 4;
+    // Label annotations on video level or user specified segment level.
+    // There is exactly one element for each unique label.
+    repeated GoogleCloudVideointelligenceV1beta2_LabelAnnotation segmentLabelAnnotations = 5;
+    // Shot annotations. Each shot is represented as a video segment.
+    repeated GoogleCloudVideointelligenceV1beta2_VideoSegment shotAnnotations = 6;
+    // Label annotations on shot level.
+    // There is exactly one element for each unique label.
+    repeated GoogleCloudVideointelligenceV1beta2_LabelAnnotation shotLabelAnnotations = 7;
+}
+
+message GoogleCloudVideointelligenceV1beta2_VideoSegment {
+    // Time-offset, relative to the beginning of the video,
+    // corresponding to the end of the segment (inclusive).
+    string endTimeOffset = 1;
+    // Time-offset, relative to the beginning of the video,
+    // corresponding to the start of the segment (inclusive).
+    string startTimeOffset = 2;
+}
+
+message GoogleLongrunning_Operation {
+    // If the value is `false`, it means the operation is still in progress.
+    // If `true`, the operation is completed, and either `error` or `response` is
+    // available.
+    bool done = 1;
+    // The error result of the operation in case of failure or cancellation.
+    GoogleRpc_Status error = 2;
+    // Service-specific metadata associated with the operation.  It typically
+    // contains progress information and common metadata such as create time.
+    // Some services might not provide such metadata.  Any method that returns a
+    // long-running operation should document the metadata type, if any.
+    map<string, > metadata = 3;
+    // The server-assigned name, which is only unique within the same service that
+    // originally returns it. If you use the default HTTP mapping, the
+    // `name` should have the format of `operations/some/unique/name`.
+    string name = 4;
+    // The normal response of the operation in case of success.  If the original
+    // method returns no data on success, such as `Delete`, the response is
+    // `google.protobuf.Empty`.  If the original method is standard
+    // `Get`/`Create`/`Update`, the response should be the resource.  For other
+    // methods, the response should have the type `XxxResponse`, where `Xxx`
+    // is the original method name.  For example, if the original method name
+    // is `TakeSnapshot()`, the inferred response type is
+    // `TakeSnapshotResponse`.
+    map<string, > response = 5;
+}
+
+message GoogleRpc_Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service CloudVideoIntelligenceService {
+    // Performs asynchronous video annotation. Progress and results can be
+    // retrieved through the `google.longrunning.Operations` interface.
+    // `Operation.metadata` contains `AnnotateVideoProgress` (progress).
+    // `Operation.response` contains `AnnotateVideoResponse` (results).
+    rpc PostV1beta1Videos:Annotate(PostV1beta1Videos:AnnotateRequest) returns (GoogleLongrunning_Operation) {
+      option (google.api.http) = {
+        post: "//v1beta1/videos:annotate"
+        body: "body"
+      };
+    }
+}

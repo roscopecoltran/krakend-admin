@@ -1,0 +1,652 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package doubleclickbidmanager;
+
+message PostLineitemsDownloadlineitemsRequest {
+    alt alt = 1;
+    DownloadLineItemsRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostLineitemsUploadlineitemsRequest {
+    alt alt = 1;
+    UploadLineItemsRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetQueriesRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetQueriesQueryIdReportsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Query ID with which the reports are associated.
+    string queryId = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostQueryRequest {
+    alt alt = 1;
+    Query body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetQueryQueryIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Query ID to retrieve.
+    string queryId = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostQueryQueryIdRequest {
+    alt alt = 1;
+    RunQueryRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    // Query ID to run.
+    string queryId = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message DeleteQueryQueryIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    // Query ID to delete.
+    string queryId = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostSdfDownloadRequest {
+    alt alt = 1;
+    DownloadRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message DownloadLineItemsRequest {
+    // File specification (column names, types, order) in which the line items will be returned. Default to EWF.
+    enum DownloadLineItemsRequest_FileSpec {
+        DOWNLOADLINEITEMSREQUEST_FILESPEC_EWF = 0;
+    }
+    DownloadLineItemsRequest_FileSpec fileSpec = 1;
+    // Ids of the specified filter type used to filter line items to fetch. If omitted, all the line items will be returned.
+    repeated string filterIds = 2;
+    // Filter type used to filter line items to fetch.
+    enum DownloadLineItemsRequest_FilterType {
+        DOWNLOADLINEITEMSREQUEST_FILTERTYPE_ADVERTISER_ID = 0;
+        DOWNLOADLINEITEMSREQUEST_FILTERTYPE_INSERTION_ORDER_ID = 1;
+        DOWNLOADLINEITEMSREQUEST_FILTERTYPE_LINE_ITEM_ID = 2;
+    }
+    DownloadLineItemsRequest_FilterType filterType = 3;
+    // Format in which the line items will be returned. Default to CSV.
+    enum DownloadLineItemsRequest_Format {
+        DOWNLOADLINEITEMSREQUEST_FORMAT_CSV = 0;
+    }
+    DownloadLineItemsRequest_Format format = 4;
+}
+
+message DownloadLineItemsResponse {
+    // Retrieved line items in CSV format. For more information about file formats, see  Entity Write File Format.
+    string lineItems = 1;
+}
+
+message DownloadRequest {
+    // File types that will be returned.
+    repeated string fileTypes = 1;
+    // The IDs of the specified filter type. This is used to filter entities to fetch. At least one ID must be specified. Only one ID is allowed for the ADVERTISER_ID filter type. For INSERTION_ORDER_ID or LINE_ITEM_ID filter types, all IDs must be from the same Advertiser.
+    repeated string filterIds = 2;
+    // Filter type used to filter line items to fetch.
+    enum DownloadRequest_FilterType {
+        DOWNLOADREQUEST_FILTERTYPE_ADVERTISER_ID = 0;
+        DOWNLOADREQUEST_FILTERTYPE_INSERTION_ORDER_ID = 1;
+        DOWNLOADREQUEST_FILTERTYPE_LINE_ITEM_ID = 2;
+    }
+    DownloadRequest_FilterType filterType = 3;
+    // SDF Version (column names, types, order) in which the entities will be returned. Default to 3.
+    string version = 4;
+}
+
+message DownloadResponse {
+    // Retrieved ad groups in SDF format.
+    string adGroups = 1;
+    // Retrieved ads in SDF format.
+    string ads = 2;
+    // Retrieved insertion orders in SDF format.
+    string insertionOrders = 3;
+    // Retrieved line items in SDF format.
+    string lineItems = 4;
+}
+
+message FilterPair {
+    // Filter type.
+    enum FilterPair_Type {
+        FILTERPAIR_TYPE_FILTER_ACTIVE_VIEW_EXPECTED_VIEWABILITY = 0;
+        FILTERPAIR_TYPE_FILTER_ACTIVITY_ID = 1;
+        FILTERPAIR_TYPE_FILTER_ADVERTISER = 2;
+        FILTERPAIR_TYPE_FILTER_ADVERTISER_CURRENCY = 3;
+        FILTERPAIR_TYPE_FILTER_ADVERTISER_TIMEZONE = 4;
+        FILTERPAIR_TYPE_FILTER_AD_POSITION = 5;
+        FILTERPAIR_TYPE_FILTER_AGE = 6;
+        FILTERPAIR_TYPE_FILTER_BRANDSAFE_CHANNEL_ID = 7;
+        FILTERPAIR_TYPE_FILTER_BROWSER = 8;
+        FILTERPAIR_TYPE_FILTER_BUDGET_SEGMENT_DESCRIPTION = 9;
+        FILTERPAIR_TYPE_FILTER_CAMPAIGN_DAILY_FREQUENCY = 10;
+        FILTERPAIR_TYPE_FILTER_CARRIER = 11;
+        FILTERPAIR_TYPE_FILTER_CHANNEL_ID = 12;
+        FILTERPAIR_TYPE_FILTER_CITY = 13;
+        FILTERPAIR_TYPE_FILTER_COMPANION_CREATIVE_ID = 14;
+        FILTERPAIR_TYPE_FILTER_CONVERSION_DELAY = 15;
+        FILTERPAIR_TYPE_FILTER_COUNTRY = 16;
+        FILTERPAIR_TYPE_FILTER_CREATIVE_HEIGHT = 17;
+        FILTERPAIR_TYPE_FILTER_CREATIVE_ID = 18;
+        FILTERPAIR_TYPE_FILTER_CREATIVE_SIZE = 19;
+        FILTERPAIR_TYPE_FILTER_CREATIVE_TYPE = 20;
+        FILTERPAIR_TYPE_FILTER_CREATIVE_WIDTH = 21;
+        FILTERPAIR_TYPE_FILTER_DATA_PROVIDER = 22;
+        FILTERPAIR_TYPE_FILTER_DATE = 23;
+        FILTERPAIR_TYPE_FILTER_DAY_OF_WEEK = 24;
+        FILTERPAIR_TYPE_FILTER_DFP_ORDER_ID = 25;
+        FILTERPAIR_TYPE_FILTER_DMA = 26;
+        FILTERPAIR_TYPE_FILTER_EXCHANGE_ID = 27;
+        FILTERPAIR_TYPE_FILTER_FLOODLIGHT_PIXEL_ID = 28;
+        FILTERPAIR_TYPE_FILTER_GENDER = 29;
+        FILTERPAIR_TYPE_FILTER_INSERTION_ORDER = 30;
+        FILTERPAIR_TYPE_FILTER_INVENTORY_FORMAT = 31;
+        FILTERPAIR_TYPE_FILTER_INVENTORY_SOURCE = 32;
+        FILTERPAIR_TYPE_FILTER_INVENTORY_SOURCE_TYPE = 33;
+        FILTERPAIR_TYPE_FILTER_KEYWORD = 34;
+        FILTERPAIR_TYPE_FILTER_LINE_ITEM = 35;
+        FILTERPAIR_TYPE_FILTER_LINE_ITEM_DAILY_FREQUENCY = 36;
+        FILTERPAIR_TYPE_FILTER_LINE_ITEM_LIFETIME_FREQUENCY = 37;
+        FILTERPAIR_TYPE_FILTER_LINE_ITEM_TYPE = 38;
+        FILTERPAIR_TYPE_FILTER_MEDIA_PLAN = 39;
+        FILTERPAIR_TYPE_FILTER_MOBILE_DEVICE_MAKE = 40;
+        FILTERPAIR_TYPE_FILTER_MOBILE_DEVICE_MAKE_MODEL = 41;
+        FILTERPAIR_TYPE_FILTER_MOBILE_DEVICE_TYPE = 42;
+        FILTERPAIR_TYPE_FILTER_MOBILE_GEO = 43;
+        FILTERPAIR_TYPE_FILTER_MONTH = 44;
+        FILTERPAIR_TYPE_FILTER_MRAID_SUPPORT = 45;
+        FILTERPAIR_TYPE_FILTER_NIELSEN_AGE = 46;
+        FILTERPAIR_TYPE_FILTER_NIELSEN_COUNTRY_CODE = 47;
+        FILTERPAIR_TYPE_FILTER_NIELSEN_DEVICE_ID = 48;
+        FILTERPAIR_TYPE_FILTER_NIELSEN_GENDER = 49;
+        FILTERPAIR_TYPE_FILTER_NOT_SUPPORTED = 50;
+        FILTERPAIR_TYPE_FILTER_ORDER_ID = 51;
+        FILTERPAIR_TYPE_FILTER_OS = 52;
+        FILTERPAIR_TYPE_FILTER_PAGE_CATEGORY = 53;
+        FILTERPAIR_TYPE_FILTER_PAGE_LAYOUT = 54;
+        FILTERPAIR_TYPE_FILTER_PARTNER = 55;
+        FILTERPAIR_TYPE_FILTER_PARTNER_CURRENCY = 56;
+        FILTERPAIR_TYPE_FILTER_PUBLIC_INVENTORY = 57;
+        FILTERPAIR_TYPE_FILTER_QUARTER = 58;
+        FILTERPAIR_TYPE_FILTER_REGION = 59;
+        FILTERPAIR_TYPE_FILTER_REGULAR_CHANNEL_ID = 60;
+        FILTERPAIR_TYPE_FILTER_SITE_ID = 61;
+        FILTERPAIR_TYPE_FILTER_SITE_LANGUAGE = 62;
+        FILTERPAIR_TYPE_FILTER_SKIPPABLE_SUPPORT = 63;
+        FILTERPAIR_TYPE_FILTER_TARGETED_USER_LIST = 64;
+        FILTERPAIR_TYPE_FILTER_TIME_OF_DAY = 65;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_AD_GROUP_AD_ID = 66;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_AD_GROUP_ID = 67;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_AGE = 68;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_CATEGORY = 69;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_CITY = 70;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_CONVERSION_TYPE = 71;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_COUNTRY = 72;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_CUSTOM_AFFINITY = 73;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_DMA = 74;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_GENDER = 75;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_AGE = 76;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_CATEGORY = 77;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_CITY = 78;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_COUNTRY = 79;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_GENDER = 80;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_INTEREST = 81;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_LANGUAGE = 82;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_PARENTAL_STATUS = 83;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_REGION = 84;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_REMARKETING_LIST = 85;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_TIME_OF_DAY = 86;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_YOUTUBE_CHANNEL = 87;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_YOUTUBE_VIDEO = 88;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_IAR_ZIPCODE = 89;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_INTEREST = 90;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_KEYWORD = 91;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_PARENTAL_STATUS = 92;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_PLACEMENT = 93;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_REGION = 94;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_REMARKETING_LIST = 95;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_URL = 96;
+        FILTERPAIR_TYPE_FILTER_TRUEVIEW_ZIPCODE = 97;
+        FILTERPAIR_TYPE_FILTER_UNKNOWN = 98;
+        FILTERPAIR_TYPE_FILTER_USER_LIST = 99;
+        FILTERPAIR_TYPE_FILTER_USER_LIST_FIRST_PARTY = 100;
+        FILTERPAIR_TYPE_FILTER_USER_LIST_THIRD_PARTY = 101;
+        FILTERPAIR_TYPE_FILTER_VIDEO_AD_POSITION_IN_STREAM = 102;
+        FILTERPAIR_TYPE_FILTER_VIDEO_COMPANION_SIZE = 103;
+        FILTERPAIR_TYPE_FILTER_VIDEO_COMPANION_TYPE = 104;
+        FILTERPAIR_TYPE_FILTER_VIDEO_CREATIVE_DURATION = 105;
+        FILTERPAIR_TYPE_FILTER_VIDEO_CREATIVE_DURATION_SKIPPABLE = 106;
+        FILTERPAIR_TYPE_FILTER_VIDEO_DURATION_SECONDS = 107;
+        FILTERPAIR_TYPE_FILTER_VIDEO_FORMAT_SUPPORT = 108;
+        FILTERPAIR_TYPE_FILTER_VIDEO_INVENTORY_TYPE = 109;
+        FILTERPAIR_TYPE_FILTER_VIDEO_PLAYER_SIZE = 110;
+        FILTERPAIR_TYPE_FILTER_VIDEO_RATING_TIER = 111;
+        FILTERPAIR_TYPE_FILTER_VIDEO_SKIPPABLE_SUPPORT = 112;
+        FILTERPAIR_TYPE_FILTER_VIDEO_VPAID_SUPPORT = 113;
+        FILTERPAIR_TYPE_FILTER_WEEK = 114;
+        FILTERPAIR_TYPE_FILTER_YEAR = 115;
+        FILTERPAIR_TYPE_FILTER_YOUTUBE_VERTICAL = 116;
+        FILTERPAIR_TYPE_FILTER_ZIP_CODE = 117;
+    }
+    FilterPair_Type type = 1;
+    // Filter value.
+    string value = 2;
+}
+
+message ListQueriesResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#listQueriesResponse".
+    string kind = 1;
+    // Retrieved queries.
+    repeated Query queries = 2;
+}
+
+message ListReportsResponse {
+    // Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#listReportsResponse".
+    string kind = 1;
+    // Retrieved reports.
+    repeated Report reports = 2;
+}
+
+message Parameters {
+    // Filters used to match traffic data in your report.
+    repeated FilterPair filters = 1;
+    // Data is grouped by the filters listed in this field.
+    repeated string groupBys = 2;
+    // Whether to include data from Invite Media.
+    bool includeInviteData = 3;
+    // Metrics to include as columns in your report.
+    repeated string metrics = 4;
+    // Report type.
+    enum Parameters_Type {
+        PARAMETERS_TYPE_TYPE_ACTIVE_GRP = 0;
+        PARAMETERS_TYPE_TYPE_AUDIENCE_COMPOSITION = 1;
+        PARAMETERS_TYPE_TYPE_AUDIENCE_PERFORMANCE = 2;
+        PARAMETERS_TYPE_TYPE_CLIENT_SAFE = 3;
+        PARAMETERS_TYPE_TYPE_COMSCORE_VCE = 4;
+        PARAMETERS_TYPE_TYPE_CROSS_FEE = 5;
+        PARAMETERS_TYPE_TYPE_CROSS_PARTNER = 6;
+        PARAMETERS_TYPE_TYPE_CROSS_PARTNER_THIRD_PARTY_DATA_PROVIDER = 7;
+        PARAMETERS_TYPE_TYPE_ESTIMATED_CONVERSION = 8;
+        PARAMETERS_TYPE_TYPE_FEE = 9;
+        PARAMETERS_TYPE_TYPE_GENERAL = 10;
+        PARAMETERS_TYPE_TYPE_INVENTORY_AVAILABILITY = 11;
+        PARAMETERS_TYPE_TYPE_KEYWORD = 12;
+        PARAMETERS_TYPE_TYPE_NIELSEN_AUDIENCE_PROFILE = 13;
+        PARAMETERS_TYPE_TYPE_NIELSEN_DAILY_REACH_BUILD = 14;
+        PARAMETERS_TYPE_TYPE_NIELSEN_ONLINE_GLOBAL_MARKET = 15;
+        PARAMETERS_TYPE_TYPE_NIELSEN_SITE = 16;
+        PARAMETERS_TYPE_TYPE_NOT_SUPPORTED = 17;
+        PARAMETERS_TYPE_TYPE_ORDER_ID = 18;
+        PARAMETERS_TYPE_TYPE_PAGE_CATEGORY = 19;
+        PARAMETERS_TYPE_TYPE_PETRA_NIELSEN_AUDIENCE_PROFILE = 20;
+        PARAMETERS_TYPE_TYPE_PETRA_NIELSEN_DAILY_REACH_BUILD = 21;
+        PARAMETERS_TYPE_TYPE_PETRA_NIELSEN_ONLINE_GLOBAL_MARKET = 22;
+        PARAMETERS_TYPE_TYPE_PIXEL_LOAD = 23;
+        PARAMETERS_TYPE_TYPE_REACH_AND_FREQUENCY = 24;
+        PARAMETERS_TYPE_TYPE_REACH_AUDIENCE = 25;
+        PARAMETERS_TYPE_TYPE_THIRD_PARTY_DATA_PROVIDER = 26;
+        PARAMETERS_TYPE_TYPE_TRUEVIEW = 27;
+        PARAMETERS_TYPE_TYPE_TRUEVIEW_IAR = 28;
+        PARAMETERS_TYPE_TYPE_VERIFICATION = 29;
+        PARAMETERS_TYPE_TYPE_YOUTUBE_VERTICAL = 30;
+    }
+    Parameters_Type type = 5;
+}
+
+message Query {
+    // Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#query".
+    string kind = 1;
+    // Query metadata.
+    QueryMetadata metadata = 2;
+    // Query parameters.
+    Parameters params = 3;
+    // Query ID.
+    string queryId = 4;
+    // The ending time for the data that is shown in the report. Note, reportDataEndTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored otherwise.
+    string reportDataEndTimeMs = 5;
+    // The starting time for the data that is shown in the report. Note, reportDataStartTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored otherwise.
+    string reportDataStartTimeMs = 6;
+    // Information on how often and when to run a query.
+    QuerySchedule schedule = 7;
+    // Canonical timezone code for report data time. Defaults to America/New_York.
+    string timezoneCode = 8;
+}
+
+message QueryMetadata {
+    // Range of report data.
+    enum QueryMetadata_DataRange {
+        QUERYMETADATA_DATARANGE_ALL_TIME = 0;
+        QUERYMETADATA_DATARANGE_CURRENT_DAY = 1;
+        QUERYMETADATA_DATARANGE_CUSTOM_DATES = 2;
+        QUERYMETADATA_DATARANGE_LAST_14_DAYS = 3;
+        QUERYMETADATA_DATARANGE_LAST_30_DAYS = 4;
+        QUERYMETADATA_DATARANGE_LAST_365_DAYS = 5;
+        QUERYMETADATA_DATARANGE_LAST_7_DAYS = 6;
+        QUERYMETADATA_DATARANGE_LAST_90_DAYS = 7;
+        QUERYMETADATA_DATARANGE_MONTH_TO_DATE = 8;
+        QUERYMETADATA_DATARANGE_PREVIOUS_DAY = 9;
+        QUERYMETADATA_DATARANGE_PREVIOUS_HALF_MONTH = 10;
+        QUERYMETADATA_DATARANGE_PREVIOUS_MONTH = 11;
+        QUERYMETADATA_DATARANGE_PREVIOUS_QUARTER = 12;
+        QUERYMETADATA_DATARANGE_PREVIOUS_WEEK = 13;
+        QUERYMETADATA_DATARANGE_PREVIOUS_YEAR = 14;
+        QUERYMETADATA_DATARANGE_QUARTER_TO_DATE = 15;
+        QUERYMETADATA_DATARANGE_TYPE_NOT_SUPPORTED = 16;
+        QUERYMETADATA_DATARANGE_WEEK_TO_DATE = 17;
+        QUERYMETADATA_DATARANGE_YEAR_TO_DATE = 18;
+    }
+    QueryMetadata_DataRange dataRange = 1;
+    // Format of the generated report.
+    enum QueryMetadata_Format {
+        QUERYMETADATA_FORMAT_CSV = 0;
+        QUERYMETADATA_FORMAT_EXCEL_CSV = 1;
+        QUERYMETADATA_FORMAT_XLSX = 2;
+    }
+    QueryMetadata_Format format = 2;
+    // The path to the location in Google Cloud Storage where the latest report is stored.
+    string googleCloudStoragePathForLatestReport = 3;
+    // The path in Google Drive for the latest report.
+    string googleDrivePathForLatestReport = 4;
+    // The time when the latest report started to run.
+    string latestReportRunTimeMs = 5;
+    // Locale of the generated reports. Valid values are cs CZECH de GERMAN en ENGLISH es SPANISH fr FRENCH it ITALIAN ja JAPANESE ko KOREAN pl POLISH pt-BR BRAZILIAN_PORTUGUESE ru RUSSIAN tr TURKISH uk UKRAINIAN zh-CN CHINA_CHINESE zh-TW TAIWAN_CHINESE
+    // 
+    // An locale string not in the list above will generate reports in English.
+    string locale = 6;
+    // Number of reports that have been generated for the query.
+    int32 reportCount = 7;
+    // Whether the latest report is currently running.
+    bool running = 8;
+    // Whether to send an email notification when a report is ready. Default to false.
+    bool sendNotification = 9;
+    // List of email addresses which are sent email notifications when the report is finished. Separate from sendNotification.
+    repeated string shareEmailAddress = 10;
+    // Query title. It is used to name the reports generated from this query.
+    string title = 11;
+}
+
+message QuerySchedule {
+    // Datetime to periodically run the query until.
+    string endTimeMs = 1;
+    // How often the query is run.
+    enum QuerySchedule_Frequency {
+        QUERYSCHEDULE_FREQUENCY_DAILY = 0;
+        QUERYSCHEDULE_FREQUENCY_MONTHLY = 1;
+        QUERYSCHEDULE_FREQUENCY_ONE_TIME = 2;
+        QUERYSCHEDULE_FREQUENCY_QUARTERLY = 3;
+        QUERYSCHEDULE_FREQUENCY_SEMI_MONTHLY = 4;
+        QUERYSCHEDULE_FREQUENCY_WEEKLY = 5;
+    }
+    QuerySchedule_Frequency frequency = 2;
+    // Time of day at which a new report will be generated, represented as minutes past midnight. Range is 0 to 1439. Only applies to scheduled reports.
+    int32 nextRunMinuteOfDay = 3;
+    // Canonical timezone code for report generation time. Defaults to America/New_York.
+    string nextRunTimezoneCode = 4;
+}
+
+message Report {
+    // Key used to identify a report.
+    ReportKey key = 1;
+    // Report metadata.
+    ReportMetadata metadata = 2;
+    // Report parameters.
+    Parameters params = 3;
+}
+
+message ReportFailure {
+    // Error code that shows why the report was not created.
+    enum ReportFailure_ErrorCode {
+        REPORTFAILURE_ERRORCODE_AUTHENTICATION_ERROR = 0;
+        REPORTFAILURE_ERRORCODE_DEPRECATED_REPORTING_INVALID_QUERY = 1;
+        REPORTFAILURE_ERRORCODE_REPORTING_BUCKET_NOT_FOUND = 2;
+        REPORTFAILURE_ERRORCODE_REPORTING_CREATE_BUCKET_FAILED = 3;
+        REPORTFAILURE_ERRORCODE_REPORTING_DELETE_BUCKET_FAILED = 4;
+        REPORTFAILURE_ERRORCODE_REPORTING_FATAL_ERROR = 5;
+        REPORTFAILURE_ERRORCODE_REPORTING_ILLEGAL_FILENAME = 6;
+        REPORTFAILURE_ERRORCODE_REPORTING_IMCOMPATIBLE_METRICS = 7;
+        REPORTFAILURE_ERRORCODE_REPORTING_INVALID_QUERY_MISSING_PARTNER_AND_ADVERTISER_FILTERS = 8;
+        REPORTFAILURE_ERRORCODE_REPORTING_INVALID_QUERY_TITLE_MISSING = 9;
+        REPORTFAILURE_ERRORCODE_REPORTING_INVALID_QUERY_TOO_MANY_UNFILTERED_LARGE_GROUP_BYS = 10;
+        REPORTFAILURE_ERRORCODE_REPORTING_QUERY_NOT_FOUND = 11;
+        REPORTFAILURE_ERRORCODE_REPORTING_TRANSIENT_ERROR = 12;
+        REPORTFAILURE_ERRORCODE_REPORTING_UPDATE_BUCKET_PERMISSION_FAILED = 13;
+        REPORTFAILURE_ERRORCODE_REPORTING_WRITE_BUCKET_OBJECT_FAILED = 14;
+        REPORTFAILURE_ERRORCODE_SERVER_ERROR = 15;
+        REPORTFAILURE_ERRORCODE_UNAUTHORIZED_API_ACCESS = 16;
+        REPORTFAILURE_ERRORCODE_VALIDATION_ERROR = 17;
+    }
+    ReportFailure_ErrorCode errorCode = 1;
+}
+
+message ReportKey {
+    // Query ID.
+    string queryId = 1;
+    // Report ID.
+    string reportId = 2;
+}
+
+message ReportMetadata {
+    // The path to the location in Google Cloud Storage where the report is stored.
+    string googleCloudStoragePath = 1;
+    // The ending time for the data that is shown in the report.
+    string reportDataEndTimeMs = 2;
+    // The starting time for the data that is shown in the report.
+    string reportDataStartTimeMs = 3;
+    // Report status.
+    ReportStatus status = 4;
+}
+
+message ReportStatus {
+    // If the report failed, this records the cause.
+    ReportFailure failure = 1;
+    // The time when this report either completed successfully or failed.
+    string finishTimeMs = 2;
+    // The file type of the report.
+    enum ReportStatus_Format {
+        REPORTSTATUS_FORMAT_CSV = 0;
+        REPORTSTATUS_FORMAT_EXCEL_CSV = 1;
+        REPORTSTATUS_FORMAT_XLSX = 2;
+    }
+    ReportStatus_Format format = 3;
+    // The state of the report.
+    enum ReportStatus_State {
+        REPORTSTATUS_STATE_DONE = 0;
+        REPORTSTATUS_STATE_FAILED = 1;
+        REPORTSTATUS_STATE_RUNNING = 2;
+    }
+    ReportStatus_State state = 4;
+}
+
+message RowStatus {
+    // Whether the stored entity is changed as a result of upload.
+    bool changed = 1;
+    // Entity Id.
+    string entityId = 2;
+    // Entity name.
+    string entityName = 3;
+    // Reasons why the entity can't be uploaded.
+    repeated string errors = 4;
+    // Whether the entity is persisted.
+    bool persisted = 5;
+    // Row number.
+    int32 rowNumber = 6;
+}
+
+message RunQueryRequest {
+    // Report data range used to generate the report.
+    enum RunQueryRequest_DataRange {
+        RUNQUERYREQUEST_DATARANGE_ALL_TIME = 0;
+        RUNQUERYREQUEST_DATARANGE_CURRENT_DAY = 1;
+        RUNQUERYREQUEST_DATARANGE_CUSTOM_DATES = 2;
+        RUNQUERYREQUEST_DATARANGE_LAST_14_DAYS = 3;
+        RUNQUERYREQUEST_DATARANGE_LAST_30_DAYS = 4;
+        RUNQUERYREQUEST_DATARANGE_LAST_365_DAYS = 5;
+        RUNQUERYREQUEST_DATARANGE_LAST_7_DAYS = 6;
+        RUNQUERYREQUEST_DATARANGE_LAST_90_DAYS = 7;
+        RUNQUERYREQUEST_DATARANGE_MONTH_TO_DATE = 8;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_DAY = 9;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_HALF_MONTH = 10;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_MONTH = 11;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_QUARTER = 12;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_WEEK = 13;
+        RUNQUERYREQUEST_DATARANGE_PREVIOUS_YEAR = 14;
+        RUNQUERYREQUEST_DATARANGE_QUARTER_TO_DATE = 15;
+        RUNQUERYREQUEST_DATARANGE_TYPE_NOT_SUPPORTED = 16;
+        RUNQUERYREQUEST_DATARANGE_WEEK_TO_DATE = 17;
+        RUNQUERYREQUEST_DATARANGE_YEAR_TO_DATE = 18;
+    }
+    RunQueryRequest_DataRange dataRange = 1;
+    // The ending time for the data that is shown in the report. Note, reportDataEndTimeMs is required if dataRange is CUSTOM_DATES and ignored otherwise.
+    string reportDataEndTimeMs = 2;
+    // The starting time for the data that is shown in the report. Note, reportDataStartTimeMs is required if dataRange is CUSTOM_DATES and ignored otherwise.
+    string reportDataStartTimeMs = 3;
+    // Canonical timezone code for report data time. Defaults to America/New_York.
+    string timezoneCode = 4;
+}
+
+message UploadLineItemsRequest {
+    // Set to true to get upload status without actually persisting the line items.
+    bool dryRun = 1;
+    // Format the line items are in. Default to CSV.
+    enum UploadLineItemsRequest_Format {
+        UPLOADLINEITEMSREQUEST_FORMAT_CSV = 0;
+    }
+    UploadLineItemsRequest_Format format = 2;
+    // Line items in CSV to upload. Refer to  Entity Write File Format for more information on file format.
+    string lineItems = 3;
+}
+
+message UploadLineItemsResponse {
+    // Status of upload.
+    UploadStatus uploadStatus = 1;
+}
+
+message UploadStatus {
+    // Reasons why upload can't be completed.
+    repeated string errors = 1;
+    // Per-row upload status.
+    repeated RowStatus rowStatus = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service DoubleClickBidManagerService {
+    // Retrieves line items in CSV format.
+    rpc PostLineitemsDownloadlineitems(PostLineitemsDownloadlineitemsRequest) returns (DownloadLineItemsResponse) {
+      option (google.api.http) = {
+        post: "/doubleclickbidmanager/v1/lineitems/downloadlineitems"
+        body: "body"
+      };
+    }
+    // Uploads line items in CSV format.
+    rpc PostLineitemsUploadlineitems(PostLineitemsUploadlineitemsRequest) returns (UploadLineItemsResponse) {
+      option (google.api.http) = {
+        post: "/doubleclickbidmanager/v1/lineitems/uploadlineitems"
+        body: "body"
+      };
+    }
+    // Retrieves stored queries.
+    rpc GetQueries(GetQueriesRequest) returns (ListQueriesResponse) {
+      option (google.api.http) = {
+        get: "/doubleclickbidmanager/v1/queries"
+      };
+    }
+    // Retrieves stored reports.
+    rpc GetQueriesQueryIdReports(GetQueriesQueryIdReportsRequest) returns (ListReportsResponse) {
+      option (google.api.http) = {
+        get: "/doubleclickbidmanager/v1/queries/{queryId}/reports"
+      };
+    }
+    // Creates a query.
+    rpc PostQuery(PostQueryRequest) returns (Query) {
+      option (google.api.http) = {
+        post: "/doubleclickbidmanager/v1/query"
+        body: "body"
+      };
+    }
+    // Retrieves a stored query.
+    rpc GetQueryQueryId(GetQueryQueryIdRequest) returns (Query) {
+      option (google.api.http) = {
+        get: "/doubleclickbidmanager/v1/query/{queryId}"
+      };
+    }
+    // Runs a stored query to generate a report.
+    rpc PostQueryQueryId(PostQueryQueryIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/doubleclickbidmanager/v1/query/{queryId}"
+        body: "body"
+      };
+    }
+    // Deletes a stored query as well as the associated stored reports.
+    rpc DeleteQueryQueryId(DeleteQueryQueryIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/doubleclickbidmanager/v1/query/{queryId}"
+      };
+    }
+    // Retrieves entities in SDF format.
+    rpc PostSdfDownload(PostSdfDownloadRequest) returns (DownloadResponse) {
+      option (google.api.http) = {
+        post: "/doubleclickbidmanager/v1/sdf/download"
+        body: "body"
+      };
+    }
+}

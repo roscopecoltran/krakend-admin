@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package kuromojiapis;
+
+message GetKuromojiIpadicNeologdTokenizeRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [up to 400 characters]
+    string text = 2;
+}
+
+message PostKuromojiIpadicNeologdTokenizeRequest {
+    // Access Token
+    string access_token = 1;
+    // Input Text
+    KuromojiRequestEntity req = 2;
+}
+
+message GetKuromojiIpadicTokenizeRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [up to 400 characters]
+    string text = 2;
+}
+
+message PostKuromojiIpadicTokenizeRequest {
+    // Access Token
+    string access_token = 1;
+    // Input Text
+    KuromojiRequestEntity req = 2;
+}
+
+message KuromojiRequestEntity {
+    // texts [max 1MB]
+    repeated string texts = 1;
+}
+
+message TokenEntity {
+    // All features
+    string allFeatures = 1;
+    // All features array
+    repeated string allFeaturesArray = 2;
+    // Base form
+    string baseForm = 3;
+    // Conjugation form
+    string conjugationForm = 4;
+    // Conjugation type
+    string conjugationType = 5;
+    // Known
+    bool known = 6;
+    // Part of speech level1
+    string partOfSpeechLevel1 = 7;
+    // Part of speech level2
+    string partOfSpeechLevel2 = 8;
+    // Part of speech level3
+    string partOfSpeechLevel3 = 9;
+    // Part of speech level4
+    string partOfSpeechLevel4 = 10;
+    // Position
+    int32 position = 11;
+    // Pronunciation
+    string pronunciation = 12;
+    // Reading
+    string reading = 13;
+    // Surface
+    string surface = 14;
+}
+
+message TokenResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Start date
+    string startTime = 4;
+    // Tokens
+    repeated TokenEntity tokens = 5;
+}
+
+message TokensResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Start date
+    string startTime = 4;
+    // Tokens
+    message Token {
+    }
+    repeated Token tokens = 5;
+}
+
+service KuromojiAPIsService {
+    // Kuromoji IPADIC NEologd
+    // 
+    // Kuromoji IPADIC NEologd dictionary.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/kuromoji-response">kuromoji-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.kuromoji.TokenResponseEntity<BR />
+    rpc GetKuromojiIpadicNeologdTokenize(GetKuromojiIpadicNeologdTokenizeRequest) returns (TokenResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/7/kuromoji-ipadic-neologd/tokenize"
+      };
+    }
+    // Kuromoji IPADIC NEologd
+    // 
+    // Kuromoji IPADIC NEologd dictionary.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/kuromoji-response">kuromoji-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.kuromoji.TokenResponseEntity<BR />
+    rpc PostKuromojiIpadicNeologdTokenize(PostKuromojiIpadicNeologdTokenizeRequest) returns (TokensResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/7/kuromoji-ipadic-neologd/tokenize"
+        body: "req"
+      };
+    }
+    // Kuromoji IPADIC
+    // 
+    // Kuromoji IPADIC dictionary.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/kuromoji-response">kuromoji-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.kuromoji.TokenResponseEntity<BR />
+    rpc GetKuromojiIpadicTokenize(GetKuromojiIpadicTokenizeRequest) returns (TokenResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/7/kuromoji-ipadic/tokenize"
+      };
+    }
+    // Kuromoji IPADIC
+    // 
+    // Kuromoji IPADIC dictionary.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/kuromoji-response">kuromoji-response</a><BR />&nbsp; Class: com.apitore.banana.response.com.atilika.kuromoji.TokenResponseEntity<BR />
+    rpc PostKuromojiIpadicTokenize(PostKuromojiIpadicTokenizeRequest) returns (TokensResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/7/kuromoji-ipadic/tokenize"
+        body: "req"
+      };
+    }
+}

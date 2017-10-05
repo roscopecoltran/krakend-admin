@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awsmarketplaceentitlementservice;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    GetEntitlementsRequest body = 10;
+}
+
+message Entitlement {
+    // The customer identifier is a handle to each unique customer in an application. Customer identifiers are obtained through the ResolveCustomer operation in AWS Marketplace Metering Service.
+    string CustomerIdentifier = 1;
+    // The dimension for which the given entitlement applies. Dimensions represent categories of capacity in a product and are specified when the product is listed in AWS Marketplace.
+    string Dimension = 2;
+    // The expiration date represents the minimum date through which this entitlement is expected to remain valid. For contractual products listed on AWS Marketplace, the expiration date is the date at which the customer will renew or cancel their contract. Customers who are opting to renew their contract will still have entitlements with an expiration date.
+    string ExpirationDate = 3;
+    // The product code for which the given entitlement applies. Product codes are provided by AWS Marketplace when the product listing is created.
+    string ProductCode = 4;
+    // The EntitlementValue represents the amount of capacity that the customer is entitled to for the product.
+    EntitlementValue Value = 5;
+}
+
+repeated Entitlement EntitlementList = 1
+
+message EntitlementValue {
+    // The BooleanValue field will be populated with a boolean value when the entitlement is a boolean type. Otherwise, the field will not be set.
+    boolean BooleanValue = 1;
+    // The DoubleValue field will be populated with a double value when the entitlement is a double type. Otherwise, the field will not be set.
+    number DoubleValue = 2;
+    // The IntegerValue field will be populated with an integer value when the entitlement is an integer type. Otherwise, the field will not be set.
+    integer IntegerValue = 3;
+    // The StringValue field will be populated with a string value when the entitlement is a string type. Otherwise, the field will not be set.
+    string StringValue = 4;
+}
+
+
+
+
+
+repeated string FilterValueList = 1
+
+enum GetEntitlementFilterName {
+    CUSTOMER_IDENTIFIER = 0;
+    DIMENSION = 1;
+}
+
+message GetEntitlementFilter {
+    GetEntitlementFilterName key = 1;
+    array value = 2;
+}
+repeated GetEntitlementFilter GetEntitlementFilters = 1
+
+message GetEntitlementsRequest {
+    // Filter is used to return entitlements for a specific customer or for a specific dimension. Filters are described as keys mapped to a lists of values. Filtered requests are <i>unioned</i> for each value in the value list, and then <i>intersected</i> for each filter key.
+    array Filter = 1;
+    // The maximum number of items to retrieve from the GetEntitlements operation. For pagination, use the NextToken field in subsequent calls to GetEntitlements.
+    integer MaxResults = 2;
+    // For paginated calls to GetEntitlements, pass the NextToken from the previous GetEntitlementsResult.
+    string NextToken = 3;
+    // Product code is used to uniquely identify a product in AWS Marketplace. The product code will be provided by AWS Marketplace when the product listing is created.
+    string ProductCode = 4;
+}
+
+message GetEntitlementsResult {
+    // The set of entitlements found through the GetEntitlements operation. If the result contains an empty set of entitlements, NextToken might still be present and should be used.
+    array Entitlements = 1;
+    // For paginated results, use NextToken in subsequent calls to GetEntitlements. If the result contains an empty set of entitlements, NextToken might still be present and should be used.
+    string NextToken = 2;
+}
+
+message InternalServiceErrorException {
+    string message = 1;
+}
+
+message InvalidParameterException {
+    string message = 1;
+}
+
+message ThrottlingException {
+    string message = 1;
+}
+
+service AWSMarketplaceEntitlementServiceService {
+    // GetEntitlements retrieves entitlement values for a given product. The results can be filtered based on customer identifier or product dimensions.
+    rpc Post(PostRequest) returns (GetEntitlementsResult) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+}

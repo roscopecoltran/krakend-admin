@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package sentenceseparatorapis;
+
+message GetSentenceSeparateHeuristicsRequest {
+    // Access Token
+    string access_token = 1;
+    // text
+    string text = 2;
+}
+
+message SentenceResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Output: sentences
+    repeated string sentences = 4;
+    // Start date
+    string startTime = 5;
+    // Input: text
+    string text = 6;
+}
+
+service SentenceSeparatorAPIsService {
+    // Separate from text to sentence.
+    // 
+    // Sentence separator.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/summarize-response">summarize-response</a><BR />&nbsp; Class: com.apitore.banana.response.summarize.SentenceResponseEntity<BR />
+    rpc GetSentenceSeparateHeuristics(GetSentenceSeparateHeuristicsRequest) returns (SentenceResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/17/sentence-separate/heuristics"
+      };
+    }
+}

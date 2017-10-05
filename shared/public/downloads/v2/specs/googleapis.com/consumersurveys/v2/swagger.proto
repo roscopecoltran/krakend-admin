@@ -1,0 +1,358 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package consumersurveys;
+
+message GetMobileAppPanelsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    int32 startIndex = 8;
+    string token = 9;
+    string userIp = 10;
+}
+
+message GetMobileAppPanelsPanelIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    // External URL ID for the panel.
+    string panelId = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PutMobileAppPanelsPanelIdRequest {
+    alt alt = 1;
+    MobileAppPanel body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // External URL ID for the panel.
+    string panelId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetSurveysRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    int32 maxResults = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    int32 startIndex = 8;
+    string token = 9;
+    string userIp = 10;
+}
+
+message PostSurveysRequest {
+    alt alt = 1;
+    Survey body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostSurveysResourceIdStartRequest {
+    alt alt = 1;
+    SurveysStartRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string resourceId = 8;
+    string userIp = 9;
+}
+
+message PostSurveysResourceIdStopRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string resourceId = 7;
+    string userIp = 8;
+}
+
+message GetSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // External URL ID for the survey.
+    string surveyUrlId = 7;
+    string userIp = 8;
+}
+
+message PutSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    Survey body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // External URL ID for the survey.
+    string surveyUrlId = 8;
+    string userIp = 9;
+}
+
+message DeleteSurveysSurveyUrlIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // External URL ID for the survey.
+    string surveyUrlId = 7;
+    string userIp = 8;
+}
+
+message GetSurveysSurveyUrlIdResultsRequest {
+    alt alt = 1;
+    ResultsGetRequest body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    // External URL ID for the survey.
+    string surveyUrlId = 8;
+    string userIp = 9;
+}
+
+message FieldMask {
+    repeated FieldMask fields = 1;
+    int32 id = 2;
+}
+
+message MobileAppPanel {
+    string country = 1;
+    bool isPublicPanel = 2;
+    string language = 3;
+    string mobileAppPanelId = 4;
+    string name = 5;
+    repeated string owners = 6;
+}
+
+message MobileAppPanelsListResponse {
+    PageInfo pageInfo = 1;
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 2;
+    // An individual predefined panel of Opinion Rewards mobile users.
+    repeated MobileAppPanel resources = 3;
+    TokenPagination tokenPagination = 4;
+}
+
+message PageInfo {
+    int32 resultPerPage = 1;
+    int32 startIndex = 2;
+    int32 totalResults = 3;
+}
+
+message ResultsGetRequest {
+    ResultsMask resultMask = 1;
+}
+
+message ResultsMask {
+    repeated FieldMask fields = 1;
+    string projection = 2;
+}
+
+message Survey {
+    SurveyAudience audience = 1;
+    SurveyCost cost = 2;
+    string customerData = 3;
+    string description = 4;
+    repeated string owners = 5;
+    repeated SurveyQuestion questions = 6;
+    SurveyRejection rejectionReason = 7;
+    string state = 8;
+    string surveyUrlId = 9;
+    string title = 10;
+    int32 wantedResponseCount = 11;
+}
+
+message SurveyAudience {
+    repeated string ages = 1;
+    string country = 2;
+    string countrySubdivision = 3;
+    string gender = 4;
+    repeated string languages = 5;
+    string mobileAppPanelId = 6;
+    string populationSource = 7;
+}
+
+message SurveyCost {
+    string costPerResponseNanos = 1;
+    string currencyCode = 2;
+    string maxCostPerResponseNanos = 3;
+    string nanos = 4;
+}
+
+message SurveyQuestion {
+    string answerOrder = 1;
+    repeated string answers = 2;
+    bool hasOther = 3;
+    string highValueLabel = 4;
+    repeated SurveyQuestionImage images = 5;
+    bool lastAnswerPositionPinned = 6;
+    string lowValueLabel = 7;
+    bool mustPickSuggestion = 8;
+    string numStars = 9;
+    string openTextPlaceholder = 10;
+    repeated string openTextSuggestions = 11;
+    string question = 12;
+    string sentimentText = 13;
+    bool singleLineResponse = 14;
+    repeated string thresholdAnswers = 15;
+    string type = 16;
+    string unitOfMeasurementLabel = 17;
+    string videoId = 18;
+}
+
+message SurveyQuestionImage {
+    string altText = 1;
+    string data = 2;
+    string url = 3;
+}
+
+message SurveyRejection {
+    string explanation = 1;
+    string type = 2;
+}
+
+message SurveyResults {
+    string status = 1;
+    string surveyUrlId = 2;
+}
+
+message SurveysDeleteResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message SurveysListResponse {
+    PageInfo pageInfo = 1;
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 2;
+    // An individual survey resource.
+    repeated Survey resources = 3;
+    TokenPagination tokenPagination = 4;
+}
+
+message SurveysStartRequest {
+    // Threshold to start a survey automically if the quoted prices is less than or equal to this value. See Survey.Cost for more details.
+    string maxCostPerResponseNanos = 1;
+}
+
+message SurveysStartResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message SurveysStopResponse {
+    // Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests.
+    string requestId = 1;
+}
+
+message TokenPagination {
+    string nextPageToken = 1;
+    string previousPageToken = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service ConsumerSurveysService {
+    // Lists the MobileAppPanels available to the authenticated user.
+    rpc GetMobileAppPanels(GetMobileAppPanelsRequest) returns (MobileAppPanelsListResponse) {
+      option (google.api.http) = {
+        get: "/consumersurveys/v2/mobileAppPanels"
+      };
+    }
+    // Retrieves a MobileAppPanel that is available to the authenticated user.
+    rpc GetMobileAppPanelsPanelId(GetMobileAppPanelsPanelIdRequest) returns (MobileAppPanel) {
+      option (google.api.http) = {
+        get: "/consumersurveys/v2/mobileAppPanels/{panelId}"
+      };
+    }
+    // Updates a MobileAppPanel. Currently the only property that can be updated is the owners property.
+    rpc PutMobileAppPanelsPanelId(PutMobileAppPanelsPanelIdRequest) returns (MobileAppPanel) {
+      option (google.api.http) = {
+        put: "/consumersurveys/v2/mobileAppPanels/{panelId}"
+        body: "body"
+      };
+    }
+    // Lists the surveys owned by the authenticated user.
+    rpc GetSurveys(GetSurveysRequest) returns (SurveysListResponse) {
+      option (google.api.http) = {
+        get: "/consumersurveys/v2/surveys"
+      };
+    }
+    // Creates a survey.
+    rpc PostSurveys(PostSurveysRequest) returns (Survey) {
+      option (google.api.http) = {
+        post: "/consumersurveys/v2/surveys"
+        body: "body"
+      };
+    }
+    // Begins running a survey.
+    rpc PostSurveysResourceIdStart(PostSurveysResourceIdStartRequest) returns (SurveysStartResponse) {
+      option (google.api.http) = {
+        post: "/consumersurveys/v2/surveys/{resourceId}/start"
+        body: "body"
+      };
+    }
+    // Stops a running survey.
+    rpc PostSurveysResourceIdStop(PostSurveysResourceIdStopRequest) returns (SurveysStopResponse) {
+      option (google.api.http) = {
+        post: "/consumersurveys/v2/surveys/{resourceId}/stop"
+      };
+    }
+    // Retrieves information about the specified survey.
+    rpc GetSurveysSurveyUrlId(GetSurveysSurveyUrlIdRequest) returns (Survey) {
+      option (google.api.http) = {
+        get: "/consumersurveys/v2/surveys/{surveyUrlId}"
+      };
+    }
+    // Updates a survey. Currently the only property that can be updated is the owners property.
+    rpc PutSurveysSurveyUrlId(PutSurveysSurveyUrlIdRequest) returns (Survey) {
+      option (google.api.http) = {
+        put: "/consumersurveys/v2/surveys/{surveyUrlId}"
+        body: "body"
+      };
+    }
+    // Removes a survey from view in all user GET requests.
+    rpc DeleteSurveysSurveyUrlId(DeleteSurveysSurveyUrlIdRequest) returns (SurveysDeleteResponse) {
+      option (google.api.http) = {
+        delete: "/consumersurveys/v2/surveys/{surveyUrlId}"
+      };
+    }
+    // Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add "?alt=media" to the URL as an argument to get results.
+    rpc GetSurveysSurveyUrlIdResults(GetSurveysSurveyUrlIdResultsRequest) returns (SurveyResults) {
+      option (google.api.http) = {
+        get: "/consumersurveys/v2/surveys/{surveyUrlId}/results"
+        body: "body"
+      };
+    }
+}

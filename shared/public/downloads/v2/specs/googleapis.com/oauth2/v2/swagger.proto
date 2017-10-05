@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleoauth2;
+
+message GetOauth2V2CertsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message PostOauth2V2TokeninfoRequest {
+    string access_token = 1;
+    alt alt = 2;
+    string fields = 3;
+    string id_token = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string token_handle = 9;
+    string userIp = 10;
+}
+
+message GetOauth2V2UserinfoRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message GetUserinfoV2MeRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    string userIp = 7;
+}
+
+message Jwk {
+    message Key {
+        string alg = 1;
+        string e = 2;
+        string kid = 3;
+        string kty = 4;
+        string n = 5;
+        string use = 6;
+    }
+    repeated Key keys = 1;
+}
+
+message Tokeninfo {
+    // The access type granted with this token. It can be offline or online.
+    string access_type = 1;
+    // Who is the intended audience for this token. In general the same as issued_to.
+    string audience = 2;
+    // The email address of the user. Present only if the email scope is present in the request.
+    string email = 3;
+    // The expiry time of the token, as number of seconds left until expiry.
+    int32 expires_in = 4;
+    // To whom was the token issued to. In general the same as audience.
+    string issued_to = 5;
+    // The space separated list of scopes granted to this token.
+    string scope = 6;
+    // The token handle associated with this token.
+    string token_handle = 7;
+    // The obfuscated user id.
+    string user_id = 8;
+    // Boolean flag which is true if the email address is verified. Present only if the email scope is present in the request.
+    bool verified_email = 9;
+}
+
+message Userinfoplus {
+    // The user's email address.
+    string email = 1;
+    // The user's last name.
+    string family_name = 2;
+    // The user's gender.
+    string gender = 3;
+    // The user's first name.
+    string given_name = 4;
+    // The hosted domain e.g. example.com if the user is Google apps user.
+    string hd = 5;
+    // The obfuscated ID of the user.
+    string id = 6;
+    // URL of the profile page.
+    string link = 7;
+    // The user's preferred locale.
+    string locale = 8;
+    // The user's full name.
+    string name = 9;
+    // URL of the user's picture image.
+    string picture = 10;
+    // Boolean flag which is true if the email address is verified. Always verified because we only return the user's primary email address.
+    bool verified_email = 11;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service GoogleOAuth2Service {
+    rpc GetOauth2V2Certs(GetOauth2V2CertsRequest) returns (Jwk) {
+      option (google.api.http) = {
+        get: "//oauth2/v2/certs"
+      };
+    }
+    rpc PostOauth2V2Tokeninfo(PostOauth2V2TokeninfoRequest) returns (Tokeninfo) {
+      option (google.api.http) = {
+        post: "//oauth2/v2/tokeninfo"
+      };
+    }
+    rpc GetOauth2V2Userinfo(GetOauth2V2UserinfoRequest) returns (Userinfoplus) {
+      option (google.api.http) = {
+        get: "//oauth2/v2/userinfo"
+      };
+    }
+    rpc GetUserinfoV2Me(GetUserinfoV2MeRequest) returns (Userinfoplus) {
+      option (google.api.http) = {
+        get: "//userinfo/v2/me"
+      };
+    }
+}

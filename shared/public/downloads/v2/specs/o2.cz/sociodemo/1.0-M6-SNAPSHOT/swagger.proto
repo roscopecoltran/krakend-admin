@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package socio-demo;
+
+message GetAgeLocationRequest {
+    // age-group specification (1: 8-18, 2: 19-25, 3: 26-35, 4: 36-55, 5: 56+)
+    string ageGroup = 1;
+    // time interval for the count aggregation (from 0 to 23)
+    string hour = 2;
+    // basic residential unit
+    string location = 3;
+    // occurence type in the basic residential unit (1 - transit, 2 - visit)
+    string occurenceType = 4;
+}
+
+message GetGenderLocationRequest {
+    // gender specification (1 - male, 2 - female)
+    string g = 1;
+    // time interval for the count aggregation (from 0 to 23)
+    string hour = 2;
+    // basic residential unit
+    string location = 3;
+    // occurence type in the basic residential unit (1 - transit, 2 - visit)
+    string occurenceType = 4;
+}
+
+message CountResult {
+    // Final count as the result of the request
+    string count = 1;
+}
+
+message ErrorResult {
+    // Error response message content
+    string message = 1;
+}
+
+message InfoResult {
+    // Application name
+    string appName = 1;
+    // Application vendor
+    string appVendor = 2;
+    // Application version
+    string appVersion = 3;
+    // Backend application name
+    string backendAppName = 4;
+    // Backend application vendor
+    string backendAppVendor = 5;
+    // Backend application version
+    string backendAppVersion = 6;
+    // For which day are data valid
+    string backendDataFrom = 7;
+}
+
+service Socio-DemoService {
+    // Presence in a location aggregated by age
+    // 
+    // Get count of people in a given location and an hour, aggregated by age.
+    rpc GetAgeLocation(GetAgeLocationRequest) returns (CountResult) {
+      option (google.api.http) = {
+        get: "/sociodemo/sandbox/api/age/{location}"
+      };
+    }
+    // Presence in a location aggregated by gender
+    // 
+    // Get count of people in a given location and an hour, aggregated by gender.
+    rpc GetGenderLocation(GetGenderLocationRequest) returns (CountResult) {
+      option (google.api.http) = {
+        get: "/sociodemo/sandbox/api/gender/{location}"
+      };
+    }
+    // Information about versions of application and data.
+    rpc GetInfo(google.protobuf.Empty) returns (InfoResult) {
+      option (google.api.http) = {
+        get: "/sociodemo/sandbox/api/info"
+      };
+    }
+}

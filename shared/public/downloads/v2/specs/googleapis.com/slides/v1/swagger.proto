@@ -1,0 +1,2504 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googleslides;
+
+message PostV1PresentationsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Presentation body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1PresentationsPresentationIdRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean pp = 9;
+    // The ID of the presentation to retrieve.
+    string presentationId = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1PresentationsPresentationIdPagesPageObjectIdRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    // The object ID of the page to retrieve.
+    string pageObjectId = 9;
+    boolean pp = 10;
+    // The ID of the presentation to retrieve.
+    string presentationId = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    // The object ID of the page whose thumbnail to retrieve.
+    string pageObjectId = 9;
+    boolean pp = 10;
+    // The ID of the presentation to retrieve.
+    string presentationId = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    // The optional mime type of the thumbnail image.
+    // 
+    // If you don't specify the mime type, the default mime type will be PNG.
+    enum GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest_ThumbnailProperties.MimeType {
+        GETV1PRESENTATIONSPRESENTATIONIDPAGESPAGEOBJECTIDTHUMBNAILREQUEST_THUMBNAILPROPERTIESMIMETYPE_PNG = 0;
+    }
+    GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest_ThumbnailProperties.MimeType thumbnailProperties.mimeType = 14;
+    // The optional thumbnail image size.
+    // 
+    // If you don't specify the size, the server chooses a default size of the
+    // image.
+    enum GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest_ThumbnailProperties.ThumbnailSize {
+        GETV1PRESENTATIONSPRESENTATIONIDPAGESPAGEOBJECTIDTHUMBNAILREQUEST_THUMBNAILPROPERTIESTHUMBNAILSIZE_THUMBNAIL_SIZE_UNSPECIFIED = 0;
+        GETV1PRESENTATIONSPRESENTATIONIDPAGESPAGEOBJECTIDTHUMBNAILREQUEST_THUMBNAILPROPERTIESTHUMBNAILSIZE_LARGE = 1;
+    }
+    GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest_ThumbnailProperties.ThumbnailSize thumbnailProperties.thumbnailSize = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message PostV1PresentationsPresentationId:BatchUpdateRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    BatchUpdatePresentationRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    // The presentation to apply the updates to.
+    string presentationId = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AffineTransform {
+    // The X coordinate scaling element.
+    double scaleX = 1;
+    // The Y coordinate scaling element.
+    double scaleY = 2;
+    // The X coordinate shearing element.
+    double shearX = 3;
+    // The Y coordinate shearing element.
+    double shearY = 4;
+    // The X coordinate translation element.
+    double translateX = 5;
+    // The Y coordinate translation element.
+    double translateY = 6;
+    // The units for translate elements.
+    enum AffineTransform_Unit {
+        AFFINETRANSFORM_UNIT_UNIT_UNSPECIFIED = 0;
+        AFFINETRANSFORM_UNIT_EMU = 1;
+        AFFINETRANSFORM_UNIT_PT = 2;
+    }
+    AffineTransform_Unit unit = 7;
+}
+
+message AutoText {
+    // The rendered content of this auto text, if available.
+    string content = 1;
+    // The styling applied to this auto text.
+    TextStyle style = 2;
+    // The type of this auto text.
+    enum AutoText_Type {
+        AUTOTEXT_TYPE_TYPE_UNSPECIFIED = 0;
+        AUTOTEXT_TYPE_SLIDE_NUMBER = 1;
+    }
+    AutoText_Type type = 3;
+}
+
+message BatchUpdatePresentationRequest {
+    // A list of updates to apply to the presentation.
+    repeated Request requests = 1;
+    // Provides control over how write requests are executed.
+    WriteControl writeControl = 2;
+}
+
+message BatchUpdatePresentationResponse {
+    // The presentation the updates were applied to.
+    string presentationId = 1;
+    // The reply of the updates.  This maps 1:1 with the updates, although
+    // replies to some requests may be empty.
+    repeated Response replies = 2;
+}
+
+message Bullet {
+    // The paragraph specific text style applied to this bullet.
+    TextStyle bulletStyle = 1;
+    // The rendered bullet glyph for this paragraph.
+    string glyph = 2;
+    // The ID of the list this paragraph belongs to.
+    string listId = 3;
+    // The nesting level of this paragraph in the list.
+    int32 nestingLevel = 4;
+}
+
+message ColorScheme {
+    // The ThemeColorType and corresponding concrete color pairs.
+    repeated ThemeColorPair colors = 1;
+}
+
+message ColorStop {
+    // The alpha value of this color in the gradient band. Defaults to 1.0,
+    // fully opaque.
+    float alpha = 1;
+    // The color of the gradient stop.
+    OpaqueColor color = 2;
+    // The relative position of the color stop in the gradient band measured
+    // in percentage. The value should be in the interval [0.0, 1.0].
+    float position = 3;
+}
+
+message CreateImageRequest {
+    // The element properties for the image.
+    // 
+    // When the aspect ratio of the provided size does not match the image aspect
+    // ratio, the image is scaled and centered with respect to the size in order
+    // to maintain aspect ratio. The provided transform is applied after this
+    // operation.
+    PageElementProperties elementProperties = 1;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 2;
+    // The image URL.
+    // 
+    // The image is fetched once at insertion time and a copy is stored for
+    // display inside the presentation. Images must be less than 50MB in size,
+    // cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
+    // format.
+    // 
+    // The provided URL can be at maximum 2K bytes large.
+    string url = 3;
+}
+
+message CreateImageResponse {
+    // The object ID of the created image.
+    string objectId = 1;
+}
+
+message CreateLineRequest {
+    // The element properties for the line.
+    PageElementProperties elementProperties = 1;
+    // The category of line to be created.
+    enum CreateLineRequest_LineCategory {
+        CREATELINEREQUEST_LINECATEGORY_STRAIGHT = 0;
+        CREATELINEREQUEST_LINECATEGORY_BENT = 1;
+        CREATELINEREQUEST_LINECATEGORY_CURVED = 2;
+    }
+    CreateLineRequest_LineCategory lineCategory = 2;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 3;
+}
+
+message CreateLineResponse {
+    // The object ID of the created line.
+    string objectId = 1;
+}
+
+message CreateParagraphBulletsRequest {
+    // The kinds of bullet glyphs to be used. Defaults to the
+    // `BULLET_DISC_CIRCLE_SQUARE` preset.
+    enum CreateParagraphBulletsRequest_BulletPreset {
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_DISC_CIRCLE_SQUARE = 0;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_DIAMONDX_ARROW3D_SQUARE = 1;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_CHECKBOX = 2;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_ARROW_DIAMOND_DISC = 3;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_STAR_CIRCLE_SQUARE = 4;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_ARROW3D_CIRCLE_SQUARE = 5;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_LEFTTRIANGLE_DIAMOND_DISC = 6;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE = 7;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_BULLET_DIAMOND_CIRCLE_SQUARE = 8;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_DIGIT_ALPHA_ROMAN = 9;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_DIGIT_ALPHA_ROMAN_PARENS = 10;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_DIGIT_NESTED = 11;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_UPPERALPHA_ALPHA_ROMAN = 12;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_UPPERROMAN_UPPERALPHA_DIGIT = 13;
+        CREATEPARAGRAPHBULLETSREQUEST_BULLETPRESET_NUMBERED_ZERODIGIT_ALPHA_ROMAN = 14;
+    }
+    CreateParagraphBulletsRequest_BulletPreset bulletPreset = 1;
+    // The optional table cell location if the text to be modified is in a table
+    // cell. If present, the object_id must refer to a table.
+    TableCellLocation cellLocation = 2;
+    // The object ID of the shape or table containing the text to add bullets to.
+    string objectId = 3;
+    // The range of text to apply the bullet presets to, based on TextElement indexes.
+    Range textRange = 4;
+}
+
+message CreateShapeRequest {
+    // The element properties for the shape.
+    PageElementProperties elementProperties = 1;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // If empty, a unique identifier will be generated.
+    string objectId = 2;
+    // The shape type.
+    enum CreateShapeRequest_ShapeType {
+        CREATESHAPEREQUEST_SHAPETYPE_TYPE_UNSPECIFIED = 0;
+        CREATESHAPEREQUEST_SHAPETYPE_TEXT_BOX = 1;
+        CREATESHAPEREQUEST_SHAPETYPE_RECTANGLE = 2;
+        CREATESHAPEREQUEST_SHAPETYPE_ROUND_RECTANGLE = 3;
+        CREATESHAPEREQUEST_SHAPETYPE_ELLIPSE = 4;
+        CREATESHAPEREQUEST_SHAPETYPE_ARC = 5;
+        CREATESHAPEREQUEST_SHAPETYPE_BENT_ARROW = 6;
+        CREATESHAPEREQUEST_SHAPETYPE_BENT_UP_ARROW = 7;
+        CREATESHAPEREQUEST_SHAPETYPE_BEVEL = 8;
+        CREATESHAPEREQUEST_SHAPETYPE_BLOCK_ARC = 9;
+        CREATESHAPEREQUEST_SHAPETYPE_BRACE_PAIR = 10;
+        CREATESHAPEREQUEST_SHAPETYPE_BRACKET_PAIR = 11;
+        CREATESHAPEREQUEST_SHAPETYPE_CAN = 12;
+        CREATESHAPEREQUEST_SHAPETYPE_CHEVRON = 13;
+        CREATESHAPEREQUEST_SHAPETYPE_CHORD = 14;
+        CREATESHAPEREQUEST_SHAPETYPE_CLOUD = 15;
+        CREATESHAPEREQUEST_SHAPETYPE_CORNER = 16;
+        CREATESHAPEREQUEST_SHAPETYPE_CUBE = 17;
+        CREATESHAPEREQUEST_SHAPETYPE_CURVED_DOWN_ARROW = 18;
+        CREATESHAPEREQUEST_SHAPETYPE_CURVED_LEFT_ARROW = 19;
+        CREATESHAPEREQUEST_SHAPETYPE_CURVED_RIGHT_ARROW = 20;
+        CREATESHAPEREQUEST_SHAPETYPE_CURVED_UP_ARROW = 21;
+        CREATESHAPEREQUEST_SHAPETYPE_DECAGON = 22;
+        CREATESHAPEREQUEST_SHAPETYPE_DIAGONAL_STRIPE = 23;
+        CREATESHAPEREQUEST_SHAPETYPE_DIAMOND = 24;
+        CREATESHAPEREQUEST_SHAPETYPE_DODECAGON = 25;
+        CREATESHAPEREQUEST_SHAPETYPE_DONUT = 26;
+        CREATESHAPEREQUEST_SHAPETYPE_DOUBLE_WAVE = 27;
+        CREATESHAPEREQUEST_SHAPETYPE_DOWN_ARROW = 28;
+        CREATESHAPEREQUEST_SHAPETYPE_DOWN_ARROW_CALLOUT = 29;
+        CREATESHAPEREQUEST_SHAPETYPE_FOLDED_CORNER = 30;
+        CREATESHAPEREQUEST_SHAPETYPE_FRAME = 31;
+        CREATESHAPEREQUEST_SHAPETYPE_HALF_FRAME = 32;
+        CREATESHAPEREQUEST_SHAPETYPE_HEART = 33;
+        CREATESHAPEREQUEST_SHAPETYPE_HEPTAGON = 34;
+        CREATESHAPEREQUEST_SHAPETYPE_HEXAGON = 35;
+        CREATESHAPEREQUEST_SHAPETYPE_HOME_PLATE = 36;
+        CREATESHAPEREQUEST_SHAPETYPE_HORIZONTAL_SCROLL = 37;
+        CREATESHAPEREQUEST_SHAPETYPE_IRREGULAR_SEAL_1 = 38;
+        CREATESHAPEREQUEST_SHAPETYPE_IRREGULAR_SEAL_2 = 39;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_ARROW = 40;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_ARROW_CALLOUT = 41;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_BRACE = 42;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_BRACKET = 43;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_RIGHT_ARROW = 44;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_RIGHT_ARROW_CALLOUT = 45;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_RIGHT_UP_ARROW = 46;
+        CREATESHAPEREQUEST_SHAPETYPE_LEFT_UP_ARROW = 47;
+        CREATESHAPEREQUEST_SHAPETYPE_LIGHTNING_BOLT = 48;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_DIVIDE = 49;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_EQUAL = 50;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_MINUS = 51;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_MULTIPLY = 52;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_NOT_EQUAL = 53;
+        CREATESHAPEREQUEST_SHAPETYPE_MATH_PLUS = 54;
+        CREATESHAPEREQUEST_SHAPETYPE_MOON = 55;
+        CREATESHAPEREQUEST_SHAPETYPE_NO_SMOKING = 56;
+        CREATESHAPEREQUEST_SHAPETYPE_NOTCHED_RIGHT_ARROW = 57;
+        CREATESHAPEREQUEST_SHAPETYPE_OCTAGON = 58;
+        CREATESHAPEREQUEST_SHAPETYPE_PARALLELOGRAM = 59;
+        CREATESHAPEREQUEST_SHAPETYPE_PENTAGON = 60;
+        CREATESHAPEREQUEST_SHAPETYPE_PIE = 61;
+        CREATESHAPEREQUEST_SHAPETYPE_PLAQUE = 62;
+        CREATESHAPEREQUEST_SHAPETYPE_PLUS = 63;
+        CREATESHAPEREQUEST_SHAPETYPE_QUAD_ARROW = 64;
+        CREATESHAPEREQUEST_SHAPETYPE_QUAD_ARROW_CALLOUT = 65;
+        CREATESHAPEREQUEST_SHAPETYPE_RIBBON = 66;
+        CREATESHAPEREQUEST_SHAPETYPE_RIBBON_2 = 67;
+        CREATESHAPEREQUEST_SHAPETYPE_RIGHT_ARROW = 68;
+        CREATESHAPEREQUEST_SHAPETYPE_RIGHT_ARROW_CALLOUT = 69;
+        CREATESHAPEREQUEST_SHAPETYPE_RIGHT_BRACE = 70;
+        CREATESHAPEREQUEST_SHAPETYPE_RIGHT_BRACKET = 71;
+        CREATESHAPEREQUEST_SHAPETYPE_ROUND_1_RECTANGLE = 72;
+        CREATESHAPEREQUEST_SHAPETYPE_ROUND_2_DIAGONAL_RECTANGLE = 73;
+        CREATESHAPEREQUEST_SHAPETYPE_ROUND_2_SAME_RECTANGLE = 74;
+        CREATESHAPEREQUEST_SHAPETYPE_RIGHT_TRIANGLE = 75;
+        CREATESHAPEREQUEST_SHAPETYPE_SMILEY_FACE = 76;
+        CREATESHAPEREQUEST_SHAPETYPE_SNIP_1_RECTANGLE = 77;
+        CREATESHAPEREQUEST_SHAPETYPE_SNIP_2_DIAGONAL_RECTANGLE = 78;
+        CREATESHAPEREQUEST_SHAPETYPE_SNIP_2_SAME_RECTANGLE = 79;
+        CREATESHAPEREQUEST_SHAPETYPE_SNIP_ROUND_RECTANGLE = 80;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_10 = 81;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_12 = 82;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_16 = 83;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_24 = 84;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_32 = 85;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_4 = 86;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_5 = 87;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_6 = 88;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_7 = 89;
+        CREATESHAPEREQUEST_SHAPETYPE_STAR_8 = 90;
+        CREATESHAPEREQUEST_SHAPETYPE_STRIPED_RIGHT_ARROW = 91;
+        CREATESHAPEREQUEST_SHAPETYPE_SUN = 92;
+        CREATESHAPEREQUEST_SHAPETYPE_TRAPEZOID = 93;
+        CREATESHAPEREQUEST_SHAPETYPE_TRIANGLE = 94;
+        CREATESHAPEREQUEST_SHAPETYPE_UP_ARROW = 95;
+        CREATESHAPEREQUEST_SHAPETYPE_UP_ARROW_CALLOUT = 96;
+        CREATESHAPEREQUEST_SHAPETYPE_UP_DOWN_ARROW = 97;
+        CREATESHAPEREQUEST_SHAPETYPE_UTURN_ARROW = 98;
+        CREATESHAPEREQUEST_SHAPETYPE_VERTICAL_SCROLL = 99;
+        CREATESHAPEREQUEST_SHAPETYPE_WAVE = 100;
+        CREATESHAPEREQUEST_SHAPETYPE_WEDGE_ELLIPSE_CALLOUT = 101;
+        CREATESHAPEREQUEST_SHAPETYPE_WEDGE_RECTANGLE_CALLOUT = 102;
+        CREATESHAPEREQUEST_SHAPETYPE_WEDGE_ROUND_RECTANGLE_CALLOUT = 103;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_ALTERNATE_PROCESS = 104;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_COLLATE = 105;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_CONNECTOR = 106;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_DECISION = 107;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_DELAY = 108;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_DISPLAY = 109;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_DOCUMENT = 110;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_EXTRACT = 111;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_INPUT_OUTPUT = 112;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_INTERNAL_STORAGE = 113;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MAGNETIC_DISK = 114;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MAGNETIC_DRUM = 115;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MAGNETIC_TAPE = 116;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MANUAL_INPUT = 117;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MANUAL_OPERATION = 118;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MERGE = 119;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_MULTIDOCUMENT = 120;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_OFFLINE_STORAGE = 121;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_OFFPAGE_CONNECTOR = 122;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_ONLINE_STORAGE = 123;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_OR = 124;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_PREDEFINED_PROCESS = 125;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_PREPARATION = 126;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_PROCESS = 127;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_PUNCHED_CARD = 128;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_PUNCHED_TAPE = 129;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_SORT = 130;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_SUMMING_JUNCTION = 131;
+        CREATESHAPEREQUEST_SHAPETYPE_FLOW_CHART_TERMINATOR = 132;
+        CREATESHAPEREQUEST_SHAPETYPE_ARROW_EAST = 133;
+        CREATESHAPEREQUEST_SHAPETYPE_ARROW_NORTH_EAST = 134;
+        CREATESHAPEREQUEST_SHAPETYPE_ARROW_NORTH = 135;
+        CREATESHAPEREQUEST_SHAPETYPE_SPEECH = 136;
+        CREATESHAPEREQUEST_SHAPETYPE_STARBURST = 137;
+        CREATESHAPEREQUEST_SHAPETYPE_TEARDROP = 138;
+        CREATESHAPEREQUEST_SHAPETYPE_ELLIPSE_RIBBON = 139;
+        CREATESHAPEREQUEST_SHAPETYPE_ELLIPSE_RIBBON_2 = 140;
+        CREATESHAPEREQUEST_SHAPETYPE_CLOUD_CALLOUT = 141;
+        CREATESHAPEREQUEST_SHAPETYPE_CUSTOM = 142;
+    }
+    CreateShapeRequest_ShapeType shapeType = 3;
+}
+
+message CreateShapeResponse {
+    // The object ID of the created shape.
+    string objectId = 1;
+}
+
+message CreateSheetsChartRequest {
+    // The ID of the specific chart in the Google Sheets spreadsheet.
+    int32 chartId = 1;
+    // The element properties for the chart.
+    // 
+    // When the aspect ratio of the provided size does not match the chart aspect
+    // ratio, the chart is scaled and centered with respect to the size in order
+    // to maintain aspect ratio. The provided transform is applied after this
+    // operation.
+    PageElementProperties elementProperties = 2;
+    // The mode with which the chart is linked to the source spreadsheet. When
+    // not specified, the chart will be an image that is not linked.
+    enum CreateSheetsChartRequest_LinkingMode {
+        CREATESHEETSCHARTREQUEST_LINKINGMODE_NOT_LINKED_IMAGE = 0;
+        CREATESHEETSCHARTREQUEST_LINKINGMODE_LINKED = 1;
+    }
+    CreateSheetsChartRequest_LinkingMode linkingMode = 3;
+    // A user-supplied object ID.
+    // 
+    // If specified, the ID must be unique among all pages and page elements in
+    // the presentation. The ID should start with a word character [a-zA-Z0-9_]
+    // and then followed by any number of the following characters [a-zA-Z0-9_-:].
+    // The length of the ID should not be less than 5 or greater than 50.
+    // If empty, a unique identifier will be generated.
+    string objectId = 4;
+    // The ID of the Google Sheets spreadsheet that contains the chart.
+    string spreadsheetId = 5;
+}
+
+message CreateSheetsChartResponse {
+    // The object ID of the created chart.
+    string objectId = 1;
+}
+
+message CreateSlideRequest {
+    // The optional zero-based index indicating where to insert the slides.
+    // 
+    // If you don't specify an index, the new slide is created at the end.
+    int32 insertionIndex = 1;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 2;
+    // An optional list of object ID mappings from the placeholder(s) on the layout to the placeholder(s)
+    // that will be created on the new slide from that specified layout. Can only
+    // be used when `slide_layout_reference` is specified.
+    repeated LayoutPlaceholderIdMapping placeholderIdMappings = 3;
+    // Layout reference of the slide to be inserted, based on the *current
+    // master*, which is one of the following:
+    // 
+    // - The master of the previous slide index.
+    // - The master of the first slide, if the insertion_index is zero.
+    // - The first master in the presentation, if there are no slides.
+    // 
+    // If the LayoutReference is not found in the current master, a 400 bad
+    // request error is returned.
+    // 
+    // If you don't specify a layout reference, then the new slide will use the
+    // predefined layout `BLANK`.
+    LayoutReference slideLayoutReference = 4;
+}
+
+message CreateSlideResponse {
+    // The object ID of the created slide.
+    string objectId = 1;
+}
+
+message CreateTableRequest {
+    // Number of columns in the table.
+    int32 columns = 1;
+    // The element properties for the table.
+    // 
+    // The table will be created at the provided size, subject to a minimum size.
+    // If no size is provided, the table will be automatically sized.
+    // 
+    // Table transforms must have a scale of 1 and no shear components. If no
+    // transform is provided, the table will be centered on the page.
+    PageElementProperties elementProperties = 2;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 3;
+    // Number of rows in the table.
+    int32 rows = 4;
+}
+
+message CreateTableResponse {
+    // The object ID of the created table.
+    string objectId = 1;
+}
+
+message CreateVideoRequest {
+    // The element properties for the video.
+    PageElementProperties elementProperties = 1;
+    // The video source's unique identifier for this video.
+    // 
+    // e.g. For YouTube video https://www.youtube.com/watch?v=7U3axjORYZ0,
+    // the ID is 7U3axjORYZ0.
+    string id = 2;
+    // A user-supplied object ID.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 3;
+    // The video source.
+    enum CreateVideoRequest_Source {
+        CREATEVIDEOREQUEST_SOURCE_SOURCE_UNSPECIFIED = 0;
+        CREATEVIDEOREQUEST_SOURCE_YOUTUBE = 1;
+    }
+    CreateVideoRequest_Source source = 4;
+}
+
+message CreateVideoResponse {
+    // The object ID of the created video.
+    string objectId = 1;
+}
+
+message CropProperties {
+    // The rotation angle of the crop window around its center, in radians.
+    // Rotation angle is applied after the offset.
+    float angle = 1;
+    // The offset specifies the bottom edge of the crop rectangle that is located
+    // above the original bounding rectangle bottom edge, relative to the object's
+    // original height.
+    float bottomOffset = 2;
+    // The offset specifies the left edge of the crop rectangle that is located to
+    // the right of the original bounding rectangle left edge, relative to the
+    // object's original width.
+    float leftOffset = 3;
+    // The offset specifies the right edge of the crop rectangle that is located
+    // to the left of the original bounding rectangle right edge, relative to the
+    // object's original width.
+    float rightOffset = 4;
+    // The offset specifies the top edge of the crop rectangle that is located
+    // below the original bounding rectangle top edge, relative to the object's
+    // original height.
+    float topOffset = 5;
+}
+
+message DeleteObjectRequest {
+    // The object ID of the page or page element to delete.
+    // 
+    // If after a delete operation a group contains
+    // only 1 or no page elements, the group is also deleted.
+    // 
+    // If a placeholder is deleted on a layout, any empty inheriting shapes are
+    // also deleted.
+    string objectId = 1;
+}
+
+message DeleteParagraphBulletsRequest {
+    // The optional table cell location if the text to be modified is in a table
+    // cell. If present, the object_id must refer to a table.
+    TableCellLocation cellLocation = 1;
+    // The object ID of the shape or table containing the text to delete bullets
+    // from.
+    string objectId = 2;
+    // The range of text to delete bullets from, based on TextElement indexes.
+    Range textRange = 3;
+}
+
+message DeleteTableColumnRequest {
+    // The reference table cell location from which a column will be deleted.
+    // 
+    // The column this cell spans will be deleted. If this is a merged cell,
+    // multiple columns will be deleted. If no columns remain in the table after
+    // this deletion, the whole table is deleted.
+    TableCellLocation cellLocation = 1;
+    // The table to delete columns from.
+    string tableObjectId = 2;
+}
+
+message DeleteTableRowRequest {
+    // The reference table cell location from which a row will be deleted.
+    // 
+    // The row this cell spans will be deleted. If this is a merged cell, multiple
+    // rows will be deleted. If no rows remain in the table after this deletion,
+    // the whole table is deleted.
+    TableCellLocation cellLocation = 1;
+    // The table to delete rows from.
+    string tableObjectId = 2;
+}
+
+message DeleteTextRequest {
+    // The optional table cell location if the text is to be deleted from a table
+    // cell. If present, the object_id must refer to a table.
+    TableCellLocation cellLocation = 1;
+    // The object ID of the shape or table from which the text will be deleted.
+    string objectId = 2;
+    // The range of text to delete, based on TextElement indexes.
+    // 
+    // There is always an implicit newline character at the end of a shape's or
+    // table cell's text that cannot be deleted. `Range.Type.ALL` will use the
+    // correct bounds, but care must be taken when specifying explicit bounds for
+    // range types `FROM_START_INDEX` and `FIXED_RANGE`. For example, if the text
+    // is "ABC", followed by an implicit newline, then the maximum value is 2 for
+    // `text_range.start_index` and 3 for `text_range.end_index`.
+    // 
+    // Deleting text that crosses a paragraph boundary may result in changes
+    // to paragraph styles and lists as the two paragraphs are merged.
+    // 
+    // Ranges that include only one code unit of a surrogate pair are expanded to
+    // include both code units.
+    Range textRange = 3;
+}
+
+message Dimension {
+    // The magnitude.
+    double magnitude = 1;
+    // The units for magnitude.
+    enum Dimension_Unit {
+        DIMENSION_UNIT_UNIT_UNSPECIFIED = 0;
+        DIMENSION_UNIT_EMU = 1;
+        DIMENSION_UNIT_PT = 2;
+    }
+    Dimension_Unit unit = 2;
+}
+
+message DuplicateObjectRequest {
+    // The ID of the object to duplicate.
+    string objectId = 1;
+    // The object being duplicated may contain other objects, for example when
+    // duplicating a slide or a group page element. This map defines how the IDs
+    // of duplicated objects are generated: the keys are the IDs of the original
+    // objects and its values are the IDs that will be assigned to the
+    // corresponding duplicate object. The ID of the source object's duplicate
+    // may be specified in this map as well, using the same value of the
+    // `object_id` field as a key and the newly desired ID as the value.
+    // 
+    // All keys must correspond to existing IDs in the presentation. All values
+    // must be unique in the presentation and must start with an alphanumeric
+    // character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining
+    // characters may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`). The length of the new ID must not be less than 5 or
+    // greater than 50.
+    // 
+    // If any IDs of source objects are omitted from the map, a new random ID will
+    // be assigned. If the map is empty or unset, all duplicate objects will
+    // receive a new random ID.
+    map<string, string> objectIds = 2;
+}
+
+message DuplicateObjectResponse {
+    // The ID of the new duplicate object.
+    string objectId = 1;
+}
+
+message Group {
+    // The collection of elements in the group. The minimum size of a group is 2.
+    repeated PageElement children = 1;
+}
+
+message Image {
+    // An URL to an image with a default lifetime of 30 minutes.
+    // This URL is tagged with the account of the requester. Anyone with the URL
+    // effectively accesses the image as the original requester. Access to the
+    // image may be lost if the presentation's sharing settings change.
+    string contentUrl = 1;
+    // The properties of the image.
+    ImageProperties imageProperties = 2;
+}
+
+message ImageProperties {
+    // The brightness effect of the image. The value should be in the interval
+    // [-1.0, 1.0], where 0 means no effect. This property is read-only.
+    float brightness = 1;
+    // The contrast effect of the image. The value should be in the interval
+    // [-1.0, 1.0], where 0 means no effect. This property is read-only.
+    float contrast = 2;
+    // The crop properties of the image. If not set, the image is not cropped.
+    // This property is read-only.
+    CropProperties cropProperties = 3;
+    // The hyperlink destination of the image. If unset, there is no link.
+    Link link = 4;
+    // The outline of the image. If not set, the the image has no outline.
+    Outline outline = 5;
+    // The recolor effect of the image. If not set, the image is not recolored.
+    // This property is read-only.
+    Recolor recolor = 6;
+    // The shadow of the image. If not set, the image has no shadow. This property
+    // is read-only.
+    Shadow shadow = 7;
+    // The transparency effect of the image. The value should be in the interval
+    // [0.0, 1.0], where 0 means no effect and 1 means completely transparent.
+    // This property is read-only.
+    float transparency = 8;
+}
+
+message InsertTableColumnsRequest {
+    // The reference table cell location from which columns will be inserted.
+    // 
+    // A new column will be inserted to the left (or right) of the column where
+    // the reference cell is. If the reference cell is a merged cell, a new
+    // column will be inserted to the left (or right) of the merged cell.
+    TableCellLocation cellLocation = 1;
+    // Whether to insert new columns to the right of the reference cell location.
+    // 
+    // - `True`: insert to the right.
+    // - `False`: insert to the left.
+    bool insertRight = 2;
+    // The number of columns to be inserted. Maximum 20 per request.
+    int32 number = 3;
+    // The table to insert columns into.
+    string tableObjectId = 4;
+}
+
+message InsertTableRowsRequest {
+    // The reference table cell location from which rows will be inserted.
+    // 
+    // A new row will be inserted above (or below) the row where the reference
+    // cell is. If the reference cell is a merged cell, a new row will be
+    // inserted above (or below) the merged cell.
+    TableCellLocation cellLocation = 1;
+    // Whether to insert new rows below the reference cell location.
+    // 
+    // - `True`: insert below the cell.
+    // - `False`: insert above the cell.
+    bool insertBelow = 2;
+    // The number of rows to be inserted. Maximum 20 per request.
+    int32 number = 3;
+    // The table to insert rows into.
+    string tableObjectId = 4;
+}
+
+message InsertTextRequest {
+    // The optional table cell location if the text is to be inserted into a table
+    // cell. If present, the object_id must refer to a table.
+    TableCellLocation cellLocation = 1;
+    // The index where the text will be inserted, in Unicode code units, based
+    // on TextElement indexes.
+    // 
+    // The index is zero-based and is computed from the start of the string.
+    // The index may be adjusted to prevent insertions inside Unicode grapheme
+    // clusters. In these cases, the text will be inserted immediately after the
+    // grapheme cluster.
+    int32 insertionIndex = 2;
+    // The object ID of the shape or table where the text will be inserted.
+    string objectId = 3;
+    // The text to be inserted.
+    // 
+    // Inserting a newline character will implicitly create a new
+    // ParagraphMarker at that index.
+    // The paragraph style of the new paragraph will be copied from the paragraph
+    // at the current insertion index, including lists and bullets.
+    // 
+    // Text styles for inserted text will be determined automatically, generally
+    // preserving the styling of neighboring text. In most cases, the text will be
+    // added to the TextRun that exists at the
+    // insertion index.
+    // 
+    // Some control characters (U+0000-U+0008, U+000C-U+001F) and characters
+    // from the Unicode Basic Multilingual Plane Private Use Area (U+E000-U+F8FF)
+    // will be stripped out of the inserted text.
+    string text = 4;
+}
+
+message LayoutPlaceholderIdMapping {
+    // The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a
+    // predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder
+    // with index 0 and a BODY placeholder with index 0.
+    Placeholder layoutPlaceholder = 1;
+    // The object ID of the placeholder on a layout that will be applied
+    // to a slide.
+    string layoutPlaceholderObjectId = 2;
+    // A user-supplied object ID for the placeholder identified above that to be
+    // created onto a slide.
+    // 
+    // If you specify an ID, it must be unique among all pages and page elements
+    // in the presentation. The ID must start with an alphanumeric character or an
+    // underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+    // may include those as well as a hyphen or colon (matches regex
+    // `[a-zA-Z0-9_-:]`).
+    // The length of the ID must not be less than 5 or greater than 50.
+    // 
+    // If you don't specify an ID, a unique one is generated.
+    string objectId = 3;
+}
+
+message LayoutProperties {
+    // The human-readable name of the layout.
+    string displayName = 1;
+    // The object ID of the master that this layout is based on.
+    string masterObjectId = 2;
+    // The name of the layout.
+    string name = 3;
+}
+
+message LayoutReference {
+    // Layout ID: the object ID of one of the layouts in the presentation.
+    string layoutId = 1;
+    // Predefined layout.
+    enum LayoutReference_PredefinedLayout {
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_PREDEFINED_LAYOUT_UNSPECIFIED = 0;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_BLANK = 1;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_CAPTION_ONLY = 2;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_TITLE = 3;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_TITLE_AND_BODY = 4;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_TITLE_AND_TWO_COLUMNS = 5;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_TITLE_ONLY = 6;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_SECTION_HEADER = 7;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_SECTION_TITLE_AND_DESCRIPTION = 8;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_ONE_COLUMN_TEXT = 9;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_MAIN_POINT = 10;
+        LAYOUTREFERENCE_PREDEFINEDLAYOUT_BIG_NUMBER = 11;
+    }
+    LayoutReference_PredefinedLayout predefinedLayout = 2;
+}
+
+message Line {
+    // The properties of the line.
+    LineProperties lineProperties = 1;
+    // The type of the line.
+    enum Line_LineType {
+        LINE_LINETYPE_TYPE_UNSPECIFIED = 0;
+        LINE_LINETYPE_STRAIGHT_CONNECTOR_1 = 1;
+        LINE_LINETYPE_BENT_CONNECTOR_2 = 2;
+        LINE_LINETYPE_BENT_CONNECTOR_3 = 3;
+        LINE_LINETYPE_BENT_CONNECTOR_4 = 4;
+        LINE_LINETYPE_BENT_CONNECTOR_5 = 5;
+        LINE_LINETYPE_CURVED_CONNECTOR_2 = 6;
+        LINE_LINETYPE_CURVED_CONNECTOR_3 = 7;
+        LINE_LINETYPE_CURVED_CONNECTOR_4 = 8;
+        LINE_LINETYPE_CURVED_CONNECTOR_5 = 9;
+    }
+    Line_LineType lineType = 2;
+}
+
+message LineFill {
+    // Solid color fill.
+    SolidFill solidFill = 1;
+}
+
+message LineProperties {
+    // The dash style of the line.
+    enum LineProperties_DashStyle {
+        LINEPROPERTIES_DASHSTYLE_DASH_STYLE_UNSPECIFIED = 0;
+        LINEPROPERTIES_DASHSTYLE_SOLID = 1;
+        LINEPROPERTIES_DASHSTYLE_DOT = 2;
+        LINEPROPERTIES_DASHSTYLE_DASH = 3;
+        LINEPROPERTIES_DASHSTYLE_DASH_DOT = 4;
+        LINEPROPERTIES_DASHSTYLE_LONG_DASH = 5;
+        LINEPROPERTIES_DASHSTYLE_LONG_DASH_DOT = 6;
+    }
+    LineProperties_DashStyle dashStyle = 1;
+    // The style of the arrow at the end of the line.
+    enum LineProperties_EndArrow {
+        LINEPROPERTIES_ENDARROW_ARROW_STYLE_UNSPECIFIED = 0;
+        LINEPROPERTIES_ENDARROW_NONE = 1;
+        LINEPROPERTIES_ENDARROW_STEALTH_ARROW = 2;
+        LINEPROPERTIES_ENDARROW_FILL_ARROW = 3;
+        LINEPROPERTIES_ENDARROW_FILL_CIRCLE = 4;
+        LINEPROPERTIES_ENDARROW_FILL_SQUARE = 5;
+        LINEPROPERTIES_ENDARROW_FILL_DIAMOND = 6;
+        LINEPROPERTIES_ENDARROW_OPEN_ARROW = 7;
+        LINEPROPERTIES_ENDARROW_OPEN_CIRCLE = 8;
+        LINEPROPERTIES_ENDARROW_OPEN_SQUARE = 9;
+        LINEPROPERTIES_ENDARROW_OPEN_DIAMOND = 10;
+    }
+    LineProperties_EndArrow endArrow = 2;
+    // The fill of the line. The default line fill matches the defaults for new
+    // lines created in the Slides editor.
+    LineFill lineFill = 3;
+    // The hyperlink destination of the line. If unset, there is no link.
+    Link link = 4;
+    // The style of the arrow at the beginning of the line.
+    enum LineProperties_StartArrow {
+        LINEPROPERTIES_STARTARROW_ARROW_STYLE_UNSPECIFIED = 0;
+        LINEPROPERTIES_STARTARROW_NONE = 1;
+        LINEPROPERTIES_STARTARROW_STEALTH_ARROW = 2;
+        LINEPROPERTIES_STARTARROW_FILL_ARROW = 3;
+        LINEPROPERTIES_STARTARROW_FILL_CIRCLE = 4;
+        LINEPROPERTIES_STARTARROW_FILL_SQUARE = 5;
+        LINEPROPERTIES_STARTARROW_FILL_DIAMOND = 6;
+        LINEPROPERTIES_STARTARROW_OPEN_ARROW = 7;
+        LINEPROPERTIES_STARTARROW_OPEN_CIRCLE = 8;
+        LINEPROPERTIES_STARTARROW_OPEN_SQUARE = 9;
+        LINEPROPERTIES_STARTARROW_OPEN_DIAMOND = 10;
+    }
+    LineProperties_StartArrow startArrow = 5;
+    // The thickness of the line.
+    Dimension weight = 6;
+}
+
+message Link {
+    // If set, indicates this is a link to the specific page in this
+    // presentation with this ID. A page with this ID may not exist.
+    string pageObjectId = 1;
+    // If set, indicates this is a link to a slide in this presentation,
+    // addressed by its position.
+    enum Link_RelativeLink {
+        LINK_RELATIVELINK_RELATIVE_SLIDE_LINK_UNSPECIFIED = 0;
+        LINK_RELATIVELINK_NEXT_SLIDE = 1;
+        LINK_RELATIVELINK_PREVIOUS_SLIDE = 2;
+        LINK_RELATIVELINK_FIRST_SLIDE = 3;
+        LINK_RELATIVELINK_LAST_SLIDE = 4;
+    }
+    Link_RelativeLink relativeLink = 2;
+    // If set, indicates this is a link to the slide at this zero-based index
+    // in the presentation. There may not be a slide at this index.
+    int32 slideIndex = 3;
+    // If set, indicates this is a link to the external web page at this URL.
+    string url = 4;
+}
+
+message List {
+    // The ID of the list.
+    string listId = 1;
+    // A map of nesting levels to the properties of bullets at the associated
+    // level. A list has at most nine levels of nesting, so the possible values
+    // for the keys of this map are 0 through 8, inclusive.
+    map<string, NestingLevel> nestingLevel = 2;
+}
+
+message MasterProperties {
+    // The human-readable name of the master.
+    string displayName = 1;
+}
+
+message NestingLevel {
+    // The style of a bullet at this level of nesting.
+    TextStyle bulletStyle = 1;
+}
+
+message NotesProperties {
+    // The object ID of the shape on this notes page that contains the speaker
+    // notes for the corresponding slide.
+    // The actual shape may not always exist on the notes page. Inserting text
+    // using this object ID will automatically create the shape. In this case, the
+    // actual shape may have different object ID. The `GetPresentation` or
+    // `GetPage` action will always return the latest object ID.
+    string speakerNotesObjectId = 1;
+}
+
+message OpaqueColor {
+    // An opaque RGB color.
+    RgbColor rgbColor = 1;
+    // An opaque theme color.
+    enum OpaqueColor_ThemeColor {
+        OPAQUECOLOR_THEMECOLOR_THEME_COLOR_TYPE_UNSPECIFIED = 0;
+        OPAQUECOLOR_THEMECOLOR_DARK1 = 1;
+        OPAQUECOLOR_THEMECOLOR_LIGHT1 = 2;
+        OPAQUECOLOR_THEMECOLOR_DARK2 = 3;
+        OPAQUECOLOR_THEMECOLOR_LIGHT2 = 4;
+        OPAQUECOLOR_THEMECOLOR_ACCENT1 = 5;
+        OPAQUECOLOR_THEMECOLOR_ACCENT2 = 6;
+        OPAQUECOLOR_THEMECOLOR_ACCENT3 = 7;
+        OPAQUECOLOR_THEMECOLOR_ACCENT4 = 8;
+        OPAQUECOLOR_THEMECOLOR_ACCENT5 = 9;
+        OPAQUECOLOR_THEMECOLOR_ACCENT6 = 10;
+        OPAQUECOLOR_THEMECOLOR_HYPERLINK = 11;
+        OPAQUECOLOR_THEMECOLOR_FOLLOWED_HYPERLINK = 12;
+        OPAQUECOLOR_THEMECOLOR_TEXT1 = 13;
+        OPAQUECOLOR_THEMECOLOR_BACKGROUND1 = 14;
+        OPAQUECOLOR_THEMECOLOR_TEXT2 = 15;
+        OPAQUECOLOR_THEMECOLOR_BACKGROUND2 = 16;
+    }
+    OpaqueColor_ThemeColor themeColor = 2;
+}
+
+message OptionalColor {
+    // If set, this will be used as an opaque color. If unset, this represents
+    // a transparent color.
+    OpaqueColor opaqueColor = 1;
+}
+
+message Outline {
+    // The dash style of the outline.
+    enum Outline_DashStyle {
+        OUTLINE_DASHSTYLE_DASH_STYLE_UNSPECIFIED = 0;
+        OUTLINE_DASHSTYLE_SOLID = 1;
+        OUTLINE_DASHSTYLE_DOT = 2;
+        OUTLINE_DASHSTYLE_DASH = 3;
+        OUTLINE_DASHSTYLE_DASH_DOT = 4;
+        OUTLINE_DASHSTYLE_LONG_DASH = 5;
+        OUTLINE_DASHSTYLE_LONG_DASH_DOT = 6;
+    }
+    Outline_DashStyle dashStyle = 1;
+    // The fill of the outline.
+    OutlineFill outlineFill = 2;
+    // The outline property state.
+    // 
+    // Updating the the outline on a page element will implicitly update this
+    // field to`RENDERED`, unless another value is specified in the same request.
+    // To have no outline on a page element, set this field to `NOT_RENDERED`. In
+    // this case, any other outline fields set in the same request will be
+    // ignored.
+    enum Outline_PropertyState {
+        OUTLINE_PROPERTYSTATE_RENDERED = 0;
+        OUTLINE_PROPERTYSTATE_NOT_RENDERED = 1;
+        OUTLINE_PROPERTYSTATE_INHERIT = 2;
+    }
+    Outline_PropertyState propertyState = 3;
+    // The thickness of the outline.
+    Dimension weight = 4;
+}
+
+message OutlineFill {
+    // Solid color fill.
+    SolidFill solidFill = 1;
+}
+
+message Page {
+    // Layout specific properties. Only set if page_type = LAYOUT.
+    LayoutProperties layoutProperties = 1;
+    // Master specific properties. Only set if page_type = MASTER.
+    MasterProperties masterProperties = 2;
+    // Notes specific properties. Only set if page_type = NOTES.
+    NotesProperties notesProperties = 3;
+    // The object ID for this page. Object IDs used by
+    // Page and
+    // PageElement share the same namespace.
+    string objectId = 4;
+    // The page elements rendered on the page.
+    repeated PageElement pageElements = 5;
+    // The properties of the page.
+    PageProperties pageProperties = 6;
+    // The type of the page.
+    enum Page_PageType {
+        PAGE_PAGETYPE_SLIDE = 0;
+        PAGE_PAGETYPE_MASTER = 1;
+        PAGE_PAGETYPE_LAYOUT = 2;
+        PAGE_PAGETYPE_NOTES = 3;
+        PAGE_PAGETYPE_NOTES_MASTER = 4;
+    }
+    Page_PageType pageType = 7;
+    // The revision ID of the presentation containing this page. Can be used in
+    // update requests to assert that the presentation revision hasn't changed
+    // since the last read operation. Only populated if the user has edit access
+    // to the presentation.
+    // 
+    // The format of the revision ID may change over time, so it should be treated
+    // opaquely. A returned revision ID is only guaranteed to be valid for 24
+    // hours after it has been returned and cannot be shared across users. If the
+    // revision ID is unchanged between calls, then the presentation has not
+    // changed. Conversely, a changed ID (for the same presentation and user)
+    // usually means the presentation has been updated; however, a changed ID can
+    // also be due to internal factors such as ID format changes.
+    string revisionId = 8;
+    // Slide specific properties. Only set if page_type = SLIDE.
+    SlideProperties slideProperties = 9;
+}
+
+message PageBackgroundFill {
+    // The background fill property state.
+    // 
+    // Updating the fill on a page will implicitly update this field to
+    // `RENDERED`, unless another value is specified in the same request. To
+    // have no fill on a page, set this field to `NOT_RENDERED`. In this case,
+    // any other fill fields set in the same request will be ignored.
+    enum PageBackgroundFill_PropertyState {
+        PAGEBACKGROUNDFILL_PROPERTYSTATE_RENDERED = 0;
+        PAGEBACKGROUNDFILL_PROPERTYSTATE_NOT_RENDERED = 1;
+        PAGEBACKGROUNDFILL_PROPERTYSTATE_INHERIT = 2;
+    }
+    PageBackgroundFill_PropertyState propertyState = 1;
+    // Solid color fill.
+    SolidFill solidFill = 2;
+    // Stretched picture fill.
+    StretchedPictureFill stretchedPictureFill = 3;
+}
+
+message PageElement {
+    // The description of the page element. Combined with title to display alt
+    // text.
+    string description = 1;
+    // A collection of page elements joined as a single unit.
+    Group elementGroup = 2;
+    // An image page element.
+    Image image = 3;
+    // A line page element.
+    Line line = 4;
+    // The object ID for this page element. Object IDs used by
+    // google.apps.slides.v1.Page and
+    // google.apps.slides.v1.PageElement share the same namespace.
+    string objectId = 5;
+    // A generic shape.
+    Shape shape = 6;
+    // A linked chart embedded from Google Sheets. Unlinked charts are
+    // represented as images.
+    SheetsChart sheetsChart = 7;
+    // The size of the page element.
+    Size size = 8;
+    // A table page element.
+    Table table = 9;
+    // The title of the page element. Combined with description to display alt
+    // text.
+    string title = 10;
+    // The transform of the page element.
+    // 
+    // The visual appearance of the page element is determined by its absolute
+    // transform. To compute the absolute transform, preconcatenate a page
+    // element's transform with the transforms of all of its parent groups. If the
+    // page element is not in a group, its absolute transform is the same as the
+    // value in this field.
+    // 
+    // The initial transform for the newly created Group is always the identity transform.
+    AffineTransform transform = 11;
+    // A video page element.
+    Video video = 12;
+    // A word art page element.
+    WordArt wordArt = 13;
+}
+
+message PageElementProperties {
+    // The object ID of the page where the element is located.
+    string pageObjectId = 1;
+    // The size of the element.
+    Size size = 2;
+    // The transform for the element.
+    AffineTransform transform = 3;
+}
+
+message PageProperties {
+    // The color scheme of the page. If unset, the color scheme is inherited from
+    // a parent page. If the page has no parent, the color scheme uses a default
+    // Slides color scheme. This field is read-only.
+    ColorScheme colorScheme = 1;
+    // The background fill of the page. If unset, the background fill is inherited
+    // from a parent page if it exists. If the page has no parent, then the
+    // background fill defaults to the corresponding fill in the Slides editor.
+    PageBackgroundFill pageBackgroundFill = 2;
+}
+
+message ParagraphMarker {
+    // The bullet for this paragraph. If not present, the paragraph does not
+    // belong to a list.
+    Bullet bullet = 1;
+    // The paragraph's style
+    ParagraphStyle style = 2;
+}
+
+message ParagraphStyle {
+    // The text alignment for this paragraph.
+    enum ParagraphStyle_Alignment {
+        PARAGRAPHSTYLE_ALIGNMENT_ALIGNMENT_UNSPECIFIED = 0;
+        PARAGRAPHSTYLE_ALIGNMENT_START = 1;
+        PARAGRAPHSTYLE_ALIGNMENT_CENTER = 2;
+        PARAGRAPHSTYLE_ALIGNMENT_END = 3;
+        PARAGRAPHSTYLE_ALIGNMENT_JUSTIFIED = 4;
+    }
+    ParagraphStyle_Alignment alignment = 1;
+    // The text direction of this paragraph. If unset, the value defaults to
+    // LEFT_TO_RIGHT since
+    // text direction is not inherited.
+    enum ParagraphStyle_Direction {
+        PARAGRAPHSTYLE_DIRECTION_TEXT_DIRECTION_UNSPECIFIED = 0;
+        PARAGRAPHSTYLE_DIRECTION_LEFT_TO_RIGHT = 1;
+        PARAGRAPHSTYLE_DIRECTION_RIGHT_TO_LEFT = 2;
+    }
+    ParagraphStyle_Direction direction = 2;
+    // The amount indentation for the paragraph on the side that corresponds to
+    // the end of the text, based on the current text direction. If unset, the
+    // value is inherited from the parent.
+    Dimension indentEnd = 3;
+    // The amount of indentation for the start of the first line of the paragraph.
+    // If unset, the value is inherited from the parent.
+    Dimension indentFirstLine = 4;
+    // The amount indentation for the paragraph on the side that corresponds to
+    // the start of the text, based on the current text direction. If unset, the
+    // value is inherited from the parent.
+    Dimension indentStart = 5;
+    // The amount of space between lines, as a percentage of normal, where normal
+    // is represented as 100.0. If unset, the value is inherited from the parent.
+    float lineSpacing = 6;
+    // The amount of extra space above the paragraph. If unset, the value is
+    // inherited from the parent.
+    Dimension spaceAbove = 7;
+    // The amount of extra space above the paragraph. If unset, the value is
+    // inherited from the parent.
+    Dimension spaceBelow = 8;
+    // The spacing mode for the paragraph.
+    enum ParagraphStyle_SpacingMode {
+        PARAGRAPHSTYLE_SPACINGMODE_SPACING_MODE_UNSPECIFIED = 0;
+        PARAGRAPHSTYLE_SPACINGMODE_NEVER_COLLAPSE = 1;
+        PARAGRAPHSTYLE_SPACINGMODE_COLLAPSE_LISTS = 2;
+    }
+    ParagraphStyle_SpacingMode spacingMode = 9;
+}
+
+message Placeholder {
+    // The index of the placeholder. If the same placeholder types are present in
+    // the same page, they would have different index values.
+    int32 index = 1;
+    // The object ID of this shape's parent placeholder.
+    // If unset, the parent placeholder shape does not exist, so the shape does
+    // not inherit properties from any other shape.
+    string parentObjectId = 2;
+    // The type of the placeholder.
+    enum Placeholder_Type {
+        PLACEHOLDER_TYPE_NONE = 0;
+        PLACEHOLDER_TYPE_BODY = 1;
+        PLACEHOLDER_TYPE_CHART = 2;
+        PLACEHOLDER_TYPE_CLIP_ART = 3;
+        PLACEHOLDER_TYPE_CENTERED_TITLE = 4;
+        PLACEHOLDER_TYPE_DIAGRAM = 5;
+        PLACEHOLDER_TYPE_DATE_AND_TIME = 6;
+        PLACEHOLDER_TYPE_FOOTER = 7;
+        PLACEHOLDER_TYPE_HEADER = 8;
+        PLACEHOLDER_TYPE_MEDIA = 9;
+        PLACEHOLDER_TYPE_OBJECT = 10;
+        PLACEHOLDER_TYPE_PICTURE = 11;
+        PLACEHOLDER_TYPE_SLIDE_NUMBER = 12;
+        PLACEHOLDER_TYPE_SUBTITLE = 13;
+        PLACEHOLDER_TYPE_TABLE = 14;
+        PLACEHOLDER_TYPE_TITLE = 15;
+        PLACEHOLDER_TYPE_SLIDE_IMAGE = 16;
+    }
+    Placeholder_Type type = 3;
+}
+
+message Presentation {
+    // The layouts in the presentation. A layout is a template that determines
+    // how content is arranged and styled on the slides that inherit from that
+    // layout.
+    repeated Page layouts = 1;
+    // The locale of the presentation, as an IETF BCP 47 language tag.
+    string locale = 2;
+    // The slide masters in the presentation. A slide master contains all common
+    // page elements and the common properties for a set of layouts. They serve
+    // three purposes:
+    // 
+    // - Placeholder shapes on a master contain the default text styles and shape
+    //   properties of all placeholder shapes on pages that use that master.
+    // - The master page properties define the common page properties inherited by
+    //   its layouts.
+    // - Any other shapes on the master slide will appear on all slides using that
+    //   master, regardless of their layout.
+    repeated Page masters = 3;
+    // The notes master in the presentation. It serves three purposes:
+    // 
+    // - Placeholder shapes on a notes master contain the default text styles and
+    //   shape properties of all placeholder shapes on notes pages. Specifically,
+    //   a `SLIDE_IMAGE` placeholder shape contains the slide thumbnail, and a
+    //   `BODY` placeholder shape contains the speaker notes.
+    // - The notes master page properties define the common page properties
+    //   inherited by all notes pages.
+    // - Any other shapes on the notes master will appear on all notes pages.
+    // 
+    // The notes master is read-only.
+    Page notesMaster = 4;
+    // The size of pages in the presentation.
+    Size pageSize = 5;
+    // The ID of the presentation.
+    string presentationId = 6;
+    // The revision ID of the presentation. Can be used in update requests
+    // to assert that the presentation revision hasn't changed since the last
+    // read operation. Only populated if the user has edit access to the
+    // presentation.
+    // 
+    // The format of the revision ID may change over time, so it should be treated
+    // opaquely. A returned revision ID is only guaranteed to be valid for 24
+    // hours after it has been returned and cannot be shared across users. If the
+    // revision ID is unchanged between calls, then the presentation has not
+    // changed. Conversely, a changed ID (for the same presentation and user)
+    // usually means the presentation has been updated; however, a changed ID can
+    // also be due to internal factors such as ID format changes.
+    string revisionId = 7;
+    // The slides in the presentation.
+    // A slide inherits properties from a slide layout.
+    repeated Page slides = 8;
+    // The title of the presentation.
+    string title = 9;
+}
+
+message Range {
+    // The optional zero-based index of the end of the collection.
+    // Required for `FIXED_RANGE` ranges.
+    int32 endIndex = 1;
+    // The optional zero-based index of the beginning of the collection.
+    // Required for `FIXED_RANGE` and `FROM_START_INDEX` ranges.
+    int32 startIndex = 2;
+    // The type of range.
+    enum Range_Type {
+        RANGE_TYPE_RANGE_TYPE_UNSPECIFIED = 0;
+        RANGE_TYPE_FIXED_RANGE = 1;
+        RANGE_TYPE_FROM_START_INDEX = 2;
+        RANGE_TYPE_ALL = 3;
+    }
+    Range_Type type = 3;
+}
+
+message Recolor {
+    // The name of the recolor effect.
+    // 
+    // The name is determined from the `recolor_stops` by matching the gradient
+    // against the colors in the page's current color scheme. This property is
+    // read-only.
+    enum Recolor_Name {
+        RECOLOR_NAME_NONE = 0;
+        RECOLOR_NAME_LIGHT1 = 1;
+        RECOLOR_NAME_LIGHT2 = 2;
+        RECOLOR_NAME_LIGHT3 = 3;
+        RECOLOR_NAME_LIGHT4 = 4;
+        RECOLOR_NAME_LIGHT5 = 5;
+        RECOLOR_NAME_LIGHT6 = 6;
+        RECOLOR_NAME_LIGHT7 = 7;
+        RECOLOR_NAME_LIGHT8 = 8;
+        RECOLOR_NAME_LIGHT9 = 9;
+        RECOLOR_NAME_LIGHT10 = 10;
+        RECOLOR_NAME_DARK1 = 11;
+        RECOLOR_NAME_DARK2 = 12;
+        RECOLOR_NAME_DARK3 = 13;
+        RECOLOR_NAME_DARK4 = 14;
+        RECOLOR_NAME_DARK5 = 15;
+        RECOLOR_NAME_DARK6 = 16;
+        RECOLOR_NAME_DARK7 = 17;
+        RECOLOR_NAME_DARK8 = 18;
+        RECOLOR_NAME_DARK9 = 19;
+        RECOLOR_NAME_DARK10 = 20;
+        RECOLOR_NAME_GRAYSCALE = 21;
+        RECOLOR_NAME_NEGATIVE = 22;
+        RECOLOR_NAME_SEPIA = 23;
+        RECOLOR_NAME_CUSTOM = 24;
+    }
+    Recolor_Name name = 1;
+    // The recolor effect is represented by a gradient, which is a list of color
+    // stops.
+    // 
+    // The colors in the gradient will replace the corresponding colors at
+    // the same position in the color palette and apply to the image. This
+    // property is read-only.
+    repeated ColorStop recolorStops = 2;
+}
+
+message RefreshSheetsChartRequest {
+    // The object ID of the chart to refresh.
+    string objectId = 1;
+}
+
+message ReplaceAllShapesWithImageRequest {
+    // If set, this request will replace all of the shapes that contain the
+    // given text.
+    SubstringMatchCriteria containsText = 1;
+    // The image URL.
+    // 
+    // The image is fetched once at insertion time and a copy is stored for
+    // display inside the presentation. Images must be less than 50MB in size,
+    // cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
+    // format.
+    // 
+    // The provided URL can be at maximum 2K bytes large.
+    string imageUrl = 2;
+    // If non-empty, limits the matches to page elements only on the given pages.
+    // 
+    // Returns a 400 bad request error if given the page object ID of a
+    // notes page or a
+    // notes master, or if a
+    // page with that object ID doesn't exist in the presentation.
+    repeated string pageObjectIds = 3;
+    // The replace method.
+    enum ReplaceAllShapesWithImageRequest_ReplaceMethod {
+        REPLACEALLSHAPESWITHIMAGEREQUEST_REPLACEMETHOD_CENTER_INSIDE = 0;
+        REPLACEALLSHAPESWITHIMAGEREQUEST_REPLACEMETHOD_CENTER_CROP = 1;
+    }
+    ReplaceAllShapesWithImageRequest_ReplaceMethod replaceMethod = 4;
+}
+
+message ReplaceAllShapesWithImageResponse {
+    // The number of shapes replaced with images.
+    int32 occurrencesChanged = 1;
+}
+
+message ReplaceAllShapesWithSheetsChartRequest {
+    // The ID of the specific chart in the Google Sheets spreadsheet.
+    int32 chartId = 1;
+    // The criteria that the shapes must match in order to be replaced. The
+    // request will replace all of the shapes that contain the given text.
+    SubstringMatchCriteria containsText = 2;
+    // The mode with which the chart is linked to the source spreadsheet. When
+    // not specified, the chart will be an image that is not linked.
+    enum ReplaceAllShapesWithSheetsChartRequest_LinkingMode {
+        REPLACEALLSHAPESWITHSHEETSCHARTREQUEST_LINKINGMODE_NOT_LINKED_IMAGE = 0;
+        REPLACEALLSHAPESWITHSHEETSCHARTREQUEST_LINKINGMODE_LINKED = 1;
+    }
+    ReplaceAllShapesWithSheetsChartRequest_LinkingMode linkingMode = 3;
+    // If non-empty, limits the matches to page elements only on the given pages.
+    // 
+    // Returns a 400 bad request error if given the page object ID of a
+    // notes page or a
+    // notes master, or if a
+    // page with that object ID doesn't exist in the presentation.
+    repeated string pageObjectIds = 4;
+    // The ID of the Google Sheets spreadsheet that contains the chart.
+    string spreadsheetId = 5;
+}
+
+message ReplaceAllShapesWithSheetsChartResponse {
+    // The number of shapes replaced with charts.
+    int32 occurrencesChanged = 1;
+}
+
+message ReplaceAllTextRequest {
+    // Finds text in a shape matching this substring.
+    SubstringMatchCriteria containsText = 1;
+    // If non-empty, limits the matches to page elements only on the given pages.
+    // 
+    // Returns a 400 bad request error if given the page object ID of a
+    // notes master,
+    // or if a page with that object ID doesn't exist in the presentation.
+    repeated string pageObjectIds = 2;
+    // The text that will replace the matched text.
+    string replaceText = 3;
+}
+
+message ReplaceAllTextResponse {
+    // The number of occurrences changed by replacing all text.
+    int32 occurrencesChanged = 1;
+}
+
+message Request {
+    // Creates an image.
+    CreateImageRequest createImage = 1;
+    // Creates a line.
+    CreateLineRequest createLine = 2;
+    // Creates bullets for paragraphs.
+    CreateParagraphBulletsRequest createParagraphBullets = 3;
+    // Creates a new shape.
+    CreateShapeRequest createShape = 4;
+    // Creates an embedded Google Sheets chart.
+    CreateSheetsChartRequest createSheetsChart = 5;
+    // Creates a new slide.
+    CreateSlideRequest createSlide = 6;
+    // Creates a new table.
+    CreateTableRequest createTable = 7;
+    // Creates a video.
+    CreateVideoRequest createVideo = 8;
+    // Deletes a page or page element from the presentation.
+    DeleteObjectRequest deleteObject = 9;
+    // Deletes bullets from paragraphs.
+    DeleteParagraphBulletsRequest deleteParagraphBullets = 10;
+    // Deletes a column from a table.
+    DeleteTableColumnRequest deleteTableColumn = 11;
+    // Deletes a row from a table.
+    DeleteTableRowRequest deleteTableRow = 12;
+    // Deletes text from a shape or a table cell.
+    DeleteTextRequest deleteText = 13;
+    // Duplicates a slide or page element.
+    DuplicateObjectRequest duplicateObject = 14;
+    // Inserts columns into a table.
+    InsertTableColumnsRequest insertTableColumns = 15;
+    // Inserts rows into a table.
+    InsertTableRowsRequest insertTableRows = 16;
+    // Inserts text into a shape or table cell.
+    InsertTextRequest insertText = 17;
+    // Refreshes a Google Sheets chart.
+    RefreshSheetsChartRequest refreshSheetsChart = 18;
+    // Replaces all shapes matching some criteria with an image.
+    ReplaceAllShapesWithImageRequest replaceAllShapesWithImage = 19;
+    // Replaces all shapes matching some criteria with a Google Sheets chart.
+    ReplaceAllShapesWithSheetsChartRequest replaceAllShapesWithSheetsChart = 20;
+    // Replaces all instances of specified text.
+    ReplaceAllTextRequest replaceAllText = 21;
+    // Updates the properties of an Image.
+    UpdateImagePropertiesRequest updateImageProperties = 22;
+    // Updates the properties of a Line.
+    UpdateLinePropertiesRequest updateLineProperties = 23;
+    // Updates the transform of a page element.
+    UpdatePageElementTransformRequest updatePageElementTransform = 24;
+    // Updates the properties of a Page.
+    UpdatePagePropertiesRequest updatePageProperties = 25;
+    // Updates the styling of paragraphs within a Shape or Table.
+    UpdateParagraphStyleRequest updateParagraphStyle = 26;
+    // Updates the properties of a Shape.
+    UpdateShapePropertiesRequest updateShapeProperties = 27;
+    // Updates the position of a set of slides in the presentation.
+    UpdateSlidesPositionRequest updateSlidesPosition = 28;
+    // Updates the properties of a TableCell.
+    UpdateTableCellPropertiesRequest updateTableCellProperties = 29;
+    // Updates the styling of text within a Shape or Table.
+    UpdateTextStyleRequest updateTextStyle = 30;
+    // Updates the properties of a Video.
+    UpdateVideoPropertiesRequest updateVideoProperties = 31;
+}
+
+message Response {
+    // The result of creating an image.
+    CreateImageResponse createImage = 1;
+    // The result of creating a line.
+    CreateLineResponse createLine = 2;
+    // The result of creating a shape.
+    CreateShapeResponse createShape = 3;
+    // The result of creating a Google Sheets chart.
+    CreateSheetsChartResponse createSheetsChart = 4;
+    // The result of creating a slide.
+    CreateSlideResponse createSlide = 5;
+    // The result of creating a table.
+    CreateTableResponse createTable = 6;
+    // The result of creating a video.
+    CreateVideoResponse createVideo = 7;
+    // The result of duplicating an object.
+    DuplicateObjectResponse duplicateObject = 8;
+    // The result of replacing all shapes matching some criteria with an
+    // image.
+    ReplaceAllShapesWithImageResponse replaceAllShapesWithImage = 9;
+    // The result of replacing all shapes matching some criteria with a Google
+    // Sheets chart.
+    ReplaceAllShapesWithSheetsChartResponse replaceAllShapesWithSheetsChart = 10;
+    // The result of replacing text.
+    ReplaceAllTextResponse replaceAllText = 11;
+}
+
+message RgbColor {
+    // The blue component of the color, from 0.0 to 1.0.
+    float blue = 1;
+    // The green component of the color, from 0.0 to 1.0.
+    float green = 2;
+    // The red component of the color, from 0.0 to 1.0.
+    float red = 3;
+}
+
+message Shadow {
+    // The alignment point of the shadow, that sets the origin for translate,
+    // scale and skew of the shadow.
+    enum Shadow_Alignment {
+        SHADOW_ALIGNMENT_RECTANGLE_POSITION_UNSPECIFIED = 0;
+        SHADOW_ALIGNMENT_TOP_LEFT = 1;
+        SHADOW_ALIGNMENT_TOP_CENTER = 2;
+        SHADOW_ALIGNMENT_TOP_RIGHT = 3;
+        SHADOW_ALIGNMENT_LEFT_CENTER = 4;
+        SHADOW_ALIGNMENT_CENTER = 5;
+        SHADOW_ALIGNMENT_RIGHT_CENTER = 6;
+        SHADOW_ALIGNMENT_BOTTOM_LEFT = 7;
+        SHADOW_ALIGNMENT_BOTTOM_CENTER = 8;
+        SHADOW_ALIGNMENT_BOTTOM_RIGHT = 9;
+    }
+    Shadow_Alignment alignment = 1;
+    // The alpha of the shadow's color, from 0.0 to 1.0.
+    float alpha = 2;
+    // The radius of the shadow blur. The larger the radius, the more diffuse the
+    // shadow becomes.
+    Dimension blurRadius = 3;
+    // The shadow color value.
+    OpaqueColor color = 4;
+    // The shadow property state.
+    // 
+    // Updating the the shadow on a page element will implicitly update this field
+    // to `RENDERED`, unless another value is specified in the same request. To
+    // have no shadow on a page element, set this field to `NOT_RENDERED`. In this
+    // case, any other shadow fields set in the same request will be ignored.
+    enum Shadow_PropertyState {
+        SHADOW_PROPERTYSTATE_RENDERED = 0;
+        SHADOW_PROPERTYSTATE_NOT_RENDERED = 1;
+        SHADOW_PROPERTYSTATE_INHERIT = 2;
+    }
+    Shadow_PropertyState propertyState = 5;
+    // Whether the shadow should rotate with the shape.
+    bool rotateWithShape = 6;
+    // Transform that encodes the translate, scale, and skew of the shadow,
+    // relative to the alignment position.
+    AffineTransform transform = 7;
+    // The type of the shadow.
+    enum Shadow_Type {
+        SHADOW_TYPE_SHADOW_TYPE_UNSPECIFIED = 0;
+        SHADOW_TYPE_OUTER = 1;
+    }
+    Shadow_Type type = 8;
+}
+
+message Shape {
+    // Placeholders are shapes that are inherit from corresponding placeholders on
+    // layouts and masters.
+    // 
+    // If set, the shape is a placeholder shape and any inherited properties
+    // can be resolved by looking at the parent placeholder identified by the
+    // Placeholder.parent_object_id field.
+    Placeholder placeholder = 1;
+    // The properties of the shape.
+    ShapeProperties shapeProperties = 2;
+    // The type of the shape.
+    enum Shape_ShapeType {
+        SHAPE_SHAPETYPE_TYPE_UNSPECIFIED = 0;
+        SHAPE_SHAPETYPE_TEXT_BOX = 1;
+        SHAPE_SHAPETYPE_RECTANGLE = 2;
+        SHAPE_SHAPETYPE_ROUND_RECTANGLE = 3;
+        SHAPE_SHAPETYPE_ELLIPSE = 4;
+        SHAPE_SHAPETYPE_ARC = 5;
+        SHAPE_SHAPETYPE_BENT_ARROW = 6;
+        SHAPE_SHAPETYPE_BENT_UP_ARROW = 7;
+        SHAPE_SHAPETYPE_BEVEL = 8;
+        SHAPE_SHAPETYPE_BLOCK_ARC = 9;
+        SHAPE_SHAPETYPE_BRACE_PAIR = 10;
+        SHAPE_SHAPETYPE_BRACKET_PAIR = 11;
+        SHAPE_SHAPETYPE_CAN = 12;
+        SHAPE_SHAPETYPE_CHEVRON = 13;
+        SHAPE_SHAPETYPE_CHORD = 14;
+        SHAPE_SHAPETYPE_CLOUD = 15;
+        SHAPE_SHAPETYPE_CORNER = 16;
+        SHAPE_SHAPETYPE_CUBE = 17;
+        SHAPE_SHAPETYPE_CURVED_DOWN_ARROW = 18;
+        SHAPE_SHAPETYPE_CURVED_LEFT_ARROW = 19;
+        SHAPE_SHAPETYPE_CURVED_RIGHT_ARROW = 20;
+        SHAPE_SHAPETYPE_CURVED_UP_ARROW = 21;
+        SHAPE_SHAPETYPE_DECAGON = 22;
+        SHAPE_SHAPETYPE_DIAGONAL_STRIPE = 23;
+        SHAPE_SHAPETYPE_DIAMOND = 24;
+        SHAPE_SHAPETYPE_DODECAGON = 25;
+        SHAPE_SHAPETYPE_DONUT = 26;
+        SHAPE_SHAPETYPE_DOUBLE_WAVE = 27;
+        SHAPE_SHAPETYPE_DOWN_ARROW = 28;
+        SHAPE_SHAPETYPE_DOWN_ARROW_CALLOUT = 29;
+        SHAPE_SHAPETYPE_FOLDED_CORNER = 30;
+        SHAPE_SHAPETYPE_FRAME = 31;
+        SHAPE_SHAPETYPE_HALF_FRAME = 32;
+        SHAPE_SHAPETYPE_HEART = 33;
+        SHAPE_SHAPETYPE_HEPTAGON = 34;
+        SHAPE_SHAPETYPE_HEXAGON = 35;
+        SHAPE_SHAPETYPE_HOME_PLATE = 36;
+        SHAPE_SHAPETYPE_HORIZONTAL_SCROLL = 37;
+        SHAPE_SHAPETYPE_IRREGULAR_SEAL_1 = 38;
+        SHAPE_SHAPETYPE_IRREGULAR_SEAL_2 = 39;
+        SHAPE_SHAPETYPE_LEFT_ARROW = 40;
+        SHAPE_SHAPETYPE_LEFT_ARROW_CALLOUT = 41;
+        SHAPE_SHAPETYPE_LEFT_BRACE = 42;
+        SHAPE_SHAPETYPE_LEFT_BRACKET = 43;
+        SHAPE_SHAPETYPE_LEFT_RIGHT_ARROW = 44;
+        SHAPE_SHAPETYPE_LEFT_RIGHT_ARROW_CALLOUT = 45;
+        SHAPE_SHAPETYPE_LEFT_RIGHT_UP_ARROW = 46;
+        SHAPE_SHAPETYPE_LEFT_UP_ARROW = 47;
+        SHAPE_SHAPETYPE_LIGHTNING_BOLT = 48;
+        SHAPE_SHAPETYPE_MATH_DIVIDE = 49;
+        SHAPE_SHAPETYPE_MATH_EQUAL = 50;
+        SHAPE_SHAPETYPE_MATH_MINUS = 51;
+        SHAPE_SHAPETYPE_MATH_MULTIPLY = 52;
+        SHAPE_SHAPETYPE_MATH_NOT_EQUAL = 53;
+        SHAPE_SHAPETYPE_MATH_PLUS = 54;
+        SHAPE_SHAPETYPE_MOON = 55;
+        SHAPE_SHAPETYPE_NO_SMOKING = 56;
+        SHAPE_SHAPETYPE_NOTCHED_RIGHT_ARROW = 57;
+        SHAPE_SHAPETYPE_OCTAGON = 58;
+        SHAPE_SHAPETYPE_PARALLELOGRAM = 59;
+        SHAPE_SHAPETYPE_PENTAGON = 60;
+        SHAPE_SHAPETYPE_PIE = 61;
+        SHAPE_SHAPETYPE_PLAQUE = 62;
+        SHAPE_SHAPETYPE_PLUS = 63;
+        SHAPE_SHAPETYPE_QUAD_ARROW = 64;
+        SHAPE_SHAPETYPE_QUAD_ARROW_CALLOUT = 65;
+        SHAPE_SHAPETYPE_RIBBON = 66;
+        SHAPE_SHAPETYPE_RIBBON_2 = 67;
+        SHAPE_SHAPETYPE_RIGHT_ARROW = 68;
+        SHAPE_SHAPETYPE_RIGHT_ARROW_CALLOUT = 69;
+        SHAPE_SHAPETYPE_RIGHT_BRACE = 70;
+        SHAPE_SHAPETYPE_RIGHT_BRACKET = 71;
+        SHAPE_SHAPETYPE_ROUND_1_RECTANGLE = 72;
+        SHAPE_SHAPETYPE_ROUND_2_DIAGONAL_RECTANGLE = 73;
+        SHAPE_SHAPETYPE_ROUND_2_SAME_RECTANGLE = 74;
+        SHAPE_SHAPETYPE_RIGHT_TRIANGLE = 75;
+        SHAPE_SHAPETYPE_SMILEY_FACE = 76;
+        SHAPE_SHAPETYPE_SNIP_1_RECTANGLE = 77;
+        SHAPE_SHAPETYPE_SNIP_2_DIAGONAL_RECTANGLE = 78;
+        SHAPE_SHAPETYPE_SNIP_2_SAME_RECTANGLE = 79;
+        SHAPE_SHAPETYPE_SNIP_ROUND_RECTANGLE = 80;
+        SHAPE_SHAPETYPE_STAR_10 = 81;
+        SHAPE_SHAPETYPE_STAR_12 = 82;
+        SHAPE_SHAPETYPE_STAR_16 = 83;
+        SHAPE_SHAPETYPE_STAR_24 = 84;
+        SHAPE_SHAPETYPE_STAR_32 = 85;
+        SHAPE_SHAPETYPE_STAR_4 = 86;
+        SHAPE_SHAPETYPE_STAR_5 = 87;
+        SHAPE_SHAPETYPE_STAR_6 = 88;
+        SHAPE_SHAPETYPE_STAR_7 = 89;
+        SHAPE_SHAPETYPE_STAR_8 = 90;
+        SHAPE_SHAPETYPE_STRIPED_RIGHT_ARROW = 91;
+        SHAPE_SHAPETYPE_SUN = 92;
+        SHAPE_SHAPETYPE_TRAPEZOID = 93;
+        SHAPE_SHAPETYPE_TRIANGLE = 94;
+        SHAPE_SHAPETYPE_UP_ARROW = 95;
+        SHAPE_SHAPETYPE_UP_ARROW_CALLOUT = 96;
+        SHAPE_SHAPETYPE_UP_DOWN_ARROW = 97;
+        SHAPE_SHAPETYPE_UTURN_ARROW = 98;
+        SHAPE_SHAPETYPE_VERTICAL_SCROLL = 99;
+        SHAPE_SHAPETYPE_WAVE = 100;
+        SHAPE_SHAPETYPE_WEDGE_ELLIPSE_CALLOUT = 101;
+        SHAPE_SHAPETYPE_WEDGE_RECTANGLE_CALLOUT = 102;
+        SHAPE_SHAPETYPE_WEDGE_ROUND_RECTANGLE_CALLOUT = 103;
+        SHAPE_SHAPETYPE_FLOW_CHART_ALTERNATE_PROCESS = 104;
+        SHAPE_SHAPETYPE_FLOW_CHART_COLLATE = 105;
+        SHAPE_SHAPETYPE_FLOW_CHART_CONNECTOR = 106;
+        SHAPE_SHAPETYPE_FLOW_CHART_DECISION = 107;
+        SHAPE_SHAPETYPE_FLOW_CHART_DELAY = 108;
+        SHAPE_SHAPETYPE_FLOW_CHART_DISPLAY = 109;
+        SHAPE_SHAPETYPE_FLOW_CHART_DOCUMENT = 110;
+        SHAPE_SHAPETYPE_FLOW_CHART_EXTRACT = 111;
+        SHAPE_SHAPETYPE_FLOW_CHART_INPUT_OUTPUT = 112;
+        SHAPE_SHAPETYPE_FLOW_CHART_INTERNAL_STORAGE = 113;
+        SHAPE_SHAPETYPE_FLOW_CHART_MAGNETIC_DISK = 114;
+        SHAPE_SHAPETYPE_FLOW_CHART_MAGNETIC_DRUM = 115;
+        SHAPE_SHAPETYPE_FLOW_CHART_MAGNETIC_TAPE = 116;
+        SHAPE_SHAPETYPE_FLOW_CHART_MANUAL_INPUT = 117;
+        SHAPE_SHAPETYPE_FLOW_CHART_MANUAL_OPERATION = 118;
+        SHAPE_SHAPETYPE_FLOW_CHART_MERGE = 119;
+        SHAPE_SHAPETYPE_FLOW_CHART_MULTIDOCUMENT = 120;
+        SHAPE_SHAPETYPE_FLOW_CHART_OFFLINE_STORAGE = 121;
+        SHAPE_SHAPETYPE_FLOW_CHART_OFFPAGE_CONNECTOR = 122;
+        SHAPE_SHAPETYPE_FLOW_CHART_ONLINE_STORAGE = 123;
+        SHAPE_SHAPETYPE_FLOW_CHART_OR = 124;
+        SHAPE_SHAPETYPE_FLOW_CHART_PREDEFINED_PROCESS = 125;
+        SHAPE_SHAPETYPE_FLOW_CHART_PREPARATION = 126;
+        SHAPE_SHAPETYPE_FLOW_CHART_PROCESS = 127;
+        SHAPE_SHAPETYPE_FLOW_CHART_PUNCHED_CARD = 128;
+        SHAPE_SHAPETYPE_FLOW_CHART_PUNCHED_TAPE = 129;
+        SHAPE_SHAPETYPE_FLOW_CHART_SORT = 130;
+        SHAPE_SHAPETYPE_FLOW_CHART_SUMMING_JUNCTION = 131;
+        SHAPE_SHAPETYPE_FLOW_CHART_TERMINATOR = 132;
+        SHAPE_SHAPETYPE_ARROW_EAST = 133;
+        SHAPE_SHAPETYPE_ARROW_NORTH_EAST = 134;
+        SHAPE_SHAPETYPE_ARROW_NORTH = 135;
+        SHAPE_SHAPETYPE_SPEECH = 136;
+        SHAPE_SHAPETYPE_STARBURST = 137;
+        SHAPE_SHAPETYPE_TEARDROP = 138;
+        SHAPE_SHAPETYPE_ELLIPSE_RIBBON = 139;
+        SHAPE_SHAPETYPE_ELLIPSE_RIBBON_2 = 140;
+        SHAPE_SHAPETYPE_CLOUD_CALLOUT = 141;
+        SHAPE_SHAPETYPE_CUSTOM = 142;
+    }
+    Shape_ShapeType shapeType = 3;
+    // The text content of the shape.
+    TextContent text = 4;
+}
+
+message ShapeBackgroundFill {
+    // The background fill property state.
+    // 
+    // Updating the the fill on a shape will implicitly update this field to
+    // `RENDERED`, unless another value is specified in the same request. To
+    // have no fill on a shape, set this field to `NOT_RENDERED`. In this case,
+    // any other fill fields set in the same request will be ignored.
+    enum ShapeBackgroundFill_PropertyState {
+        SHAPEBACKGROUNDFILL_PROPERTYSTATE_RENDERED = 0;
+        SHAPEBACKGROUNDFILL_PROPERTYSTATE_NOT_RENDERED = 1;
+        SHAPEBACKGROUNDFILL_PROPERTYSTATE_INHERIT = 2;
+    }
+    ShapeBackgroundFill_PropertyState propertyState = 1;
+    // Solid color fill.
+    SolidFill solidFill = 2;
+}
+
+message ShapeProperties {
+    // The hyperlink destination of the shape. If unset, there is no link. Links
+    // are not inherited from parent placeholders.
+    Link link = 1;
+    // The outline of the shape. If unset, the outline is inherited from a
+    // parent placeholder if it exists. If the shape has no parent, then the
+    // default outline depends on the shape type, matching the defaults for
+    // new shapes created in the Slides editor.
+    Outline outline = 2;
+    // The shadow properties of the shape. If unset, the shadow is inherited from
+    // a parent placeholder if it exists. If the shape has no parent, then the
+    // default shadow matches the defaults for new shapes created in the Slides
+    // editor. This property is read-only.
+    Shadow shadow = 3;
+    // The background fill of the shape. If unset, the background fill is
+    // inherited from a parent placeholder if it exists. If the shape has no
+    // parent, then the default background fill depends on the shape type,
+    // matching the defaults for new shapes created in the Slides editor.
+    ShapeBackgroundFill shapeBackgroundFill = 4;
+}
+
+message SheetsChart {
+    // The ID of the specific chart in the Google Sheets spreadsheet that is
+    // embedded.
+    int32 chartId = 1;
+    // The URL of an image of the embedded chart, with a default lifetime of 30
+    // minutes. This URL is tagged with the account of the requester. Anyone with
+    // the URL effectively accesses the image as the original requester. Access to
+    // the image may be lost if the presentation's sharing settings change.
+    string contentUrl = 2;
+    // The properties of the Sheets chart.
+    SheetsChartProperties sheetsChartProperties = 3;
+    // The ID of the Google Sheets spreadsheet that contains the source chart.
+    string spreadsheetId = 4;
+}
+
+message SheetsChartProperties {
+    // The properties of the embedded chart image.
+    ImageProperties chartImageProperties = 1;
+}
+
+message Size {
+    // The height of the object.
+    Dimension height = 1;
+    // The width of the object.
+    Dimension width = 2;
+}
+
+message SlideProperties {
+    // The object ID of the layout that this slide is based on.
+    string layoutObjectId = 1;
+    // The object ID of the master that this slide is based on.
+    string masterObjectId = 2;
+    // The notes page that this slide is associated with. It defines the visual
+    // appearance of a notes page when printing or exporting slides with speaker
+    // notes. A notes page inherits properties from the
+    // notes master.
+    // The placeholder shape with type BODY on the notes page contains the speaker
+    // notes for this slide. The ID of this shape is identified by the
+    // speakerNotesObjectId field.
+    // The notes page is read-only except for the text content and styles of the
+    // speaker notes shape.
+    Page notesPage = 3;
+}
+
+message SolidFill {
+    // The fraction of this `color` that should be applied to the pixel.
+    // That is, the final pixel color is defined by the equation:
+    // 
+    //   pixel color = alpha * (color) + (1.0 - alpha) * (background color)
+    // 
+    // This means that a value of 1.0 corresponds to a solid color, whereas
+    // a value of 0.0 corresponds to a completely transparent color.
+    float alpha = 1;
+    // The color value of the solid fill.
+    OpaqueColor color = 2;
+}
+
+message StretchedPictureFill {
+    // Reading the content_url:
+    // 
+    // An URL to a picture with a default lifetime of 30 minutes.
+    // This URL is tagged with the account of the requester. Anyone with the URL
+    // effectively accesses the picture as the original requester. Access to the
+    // picture may be lost if the presentation's sharing settings change.
+    // 
+    // Writing the content_url:
+    // 
+    // The picture is fetched once at insertion time and a copy is stored for
+    // display inside the presentation. Pictures must be less than 50MB in size,
+    // cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
+    // format.
+    // 
+    // The provided URL can be at maximum 2K bytes large.
+    string contentUrl = 1;
+    // The original size of the picture fill. This field is read-only.
+    Size size = 2;
+}
+
+message SubstringMatchCriteria {
+    // Indicates whether the search should respect case:
+    // 
+    // - `True`: the search is case sensitive.
+    // - `False`: the search is case insensitive.
+    bool matchCase = 1;
+    // The text to search for in the shape or table.
+    string text = 2;
+}
+
+message Table {
+    // Number of columns in the table.
+    int32 columns = 1;
+    // Number of rows in the table.
+    int32 rows = 2;
+    // Properties of each column.
+    repeated TableColumnProperties tableColumns = 3;
+    // Properties and contents of each row.
+    // 
+    // Cells that span multiple rows are contained in only one of these rows and
+    // have a row_span greater
+    // than 1.
+    repeated TableRow tableRows = 4;
+}
+
+message TableCell {
+    // Column span of the cell.
+    int32 columnSpan = 1;
+    // The location of the cell within the table.
+    TableCellLocation location = 2;
+    // Row span of the cell.
+    int32 rowSpan = 3;
+    // The properties of the table cell.
+    TableCellProperties tableCellProperties = 4;
+    // The text content of the cell.
+    TextContent text = 5;
+}
+
+message TableCellBackgroundFill {
+    // The background fill property state.
+    // 
+    // Updating the the fill on a table cell will implicitly update this field
+    // to `RENDERED`, unless another value is specified in the same request. To
+    // have no fill on a table cell, set this field to `NOT_RENDERED`. In this
+    // case, any other fill fields set in the same request will be ignored.
+    enum TableCellBackgroundFill_PropertyState {
+        TABLECELLBACKGROUNDFILL_PROPERTYSTATE_RENDERED = 0;
+        TABLECELLBACKGROUNDFILL_PROPERTYSTATE_NOT_RENDERED = 1;
+        TABLECELLBACKGROUNDFILL_PROPERTYSTATE_INHERIT = 2;
+    }
+    TableCellBackgroundFill_PropertyState propertyState = 1;
+    // Solid color fill.
+    SolidFill solidFill = 2;
+}
+
+message TableCellLocation {
+    // The 0-based column index.
+    int32 columnIndex = 1;
+    // The 0-based row index.
+    int32 rowIndex = 2;
+}
+
+message TableCellProperties {
+    // The background fill of the table cell. The default fill matches the fill
+    // for newly created table cells in the Slides editor.
+    TableCellBackgroundFill tableCellBackgroundFill = 1;
+}
+
+message TableColumnProperties {
+    // Width of a column.
+    Dimension columnWidth = 1;
+}
+
+message TableRange {
+    // The column span of the table range.
+    int32 columnSpan = 1;
+    // The starting location of the table range.
+    TableCellLocation location = 2;
+    // The row span of the table range.
+    int32 rowSpan = 3;
+}
+
+message TableRow {
+    // Height of a row.
+    Dimension rowHeight = 1;
+    // Properties and contents of each cell.
+    // 
+    // Cells that span multiple columns are represented only once with a
+    // column_span greater
+    // than 1. As a result, the length of this collection does not always match
+    // the number of columns of the entire table.
+    repeated TableCell tableCells = 2;
+}
+
+message TextContent {
+    // The bulleted lists contained in this text, keyed by list ID.
+    map<string, List> lists = 1;
+    // The text contents broken down into its component parts, including styling
+    // information. This property is read-only.
+    repeated TextElement textElements = 2;
+}
+
+message TextElement {
+    // A TextElement representing a spot in the text that is dynamically
+    // replaced with content that can change over time.
+    AutoText autoText = 1;
+    // The zero-based end index of this text element, exclusive, in Unicode code
+    // units.
+    int32 endIndex = 2;
+    // A marker representing the beginning of a new paragraph.
+    // 
+    // The `start_index` and `end_index` of this TextElement represent the
+    // range of the paragraph. Other TextElements with an index range contained
+    // inside this paragraph's range are considered to be part of this
+    // paragraph. The range of indices of two separate paragraphs will never
+    // overlap.
+    ParagraphMarker paragraphMarker = 3;
+    // The zero-based start index of this text element, in Unicode code units.
+    int32 startIndex = 4;
+    // A TextElement representing a run of text where all of the characters
+    // in the run have the same TextStyle.
+    // 
+    // The `start_index` and `end_index` of TextRuns will always be fully
+    // contained in the index range of a single `paragraph_marker` TextElement.
+    // In other words, a TextRun will never span multiple paragraphs.
+    TextRun textRun = 5;
+}
+
+message TextRun {
+    // The text of this run.
+    string content = 1;
+    // The styling applied to this run.
+    TextStyle style = 2;
+}
+
+message TextStyle {
+    // The background color of the text. If set, the color is either opaque or
+    // transparent, depending on if the `opaque_color` field in it is set.
+    OptionalColor backgroundColor = 1;
+    // The text's vertical offset from its normal position.
+    // 
+    // Text with `SUPERSCRIPT` or `SUBSCRIPT` baseline offsets is automatically
+    // rendered in a smaller font size, computed based on the `font_size` field.
+    // The `font_size` itself is not affected by changes in this field.
+    enum TextStyle_BaselineOffset {
+        TEXTSTYLE_BASELINEOFFSET_BASELINE_OFFSET_UNSPECIFIED = 0;
+        TEXTSTYLE_BASELINEOFFSET_NONE = 1;
+        TEXTSTYLE_BASELINEOFFSET_SUPERSCRIPT = 2;
+        TEXTSTYLE_BASELINEOFFSET_SUBSCRIPT = 3;
+    }
+    TextStyle_BaselineOffset baselineOffset = 2;
+    // Whether or not the text is rendered as bold.
+    bool bold = 3;
+    // The font family of the text.
+    // 
+    // The font family can be any font from the Font menu in Slides or from
+    // [Google Fonts] (https://fonts.google.com/). If the font name is
+    // unrecognized, the text is rendered in `Arial`.
+    // 
+    // Some fonts can affect the weight of the text. If an update request
+    // specifies values for both `font_family` and `bold`, the explicitly-set
+    // `bold` value is used.
+    string fontFamily = 4;
+    // The size of the text's font. When read, the `font_size` will specified in
+    // points.
+    Dimension fontSize = 5;
+    // The color of the text itself. If set, the color is either opaque or
+    // transparent, depending on if the `opaque_color` field in it is set.
+    OptionalColor foregroundColor = 6;
+    // Whether or not the text is italicized.
+    bool italic = 7;
+    // The hyperlink destination of the text. If unset, there is no link. Links
+    // are not inherited from parent text.
+    // 
+    // Changing the link in an update request causes some other changes to the
+    // text style of the range:
+    // 
+    // * When setting a link, the text foreground color will be set to
+    //   ThemeColorType.HYPERLINK and the text will
+    //   be underlined. If these fields are modified in the same
+    //   request, those values will be used instead of the link defaults.
+    // * Setting a link on a text range that overlaps with an existing link will
+    //   also update the existing link to point to the new URL.
+    // * Links are not settable on newline characters. As a result, setting a link
+    //   on a text range that crosses a paragraph boundary, such as `"ABC\n123"`,
+    //   will separate the newline character(s) into their own text runs. The
+    //   link will be applied separately to the runs before and after the newline.
+    // * Removing a link will update the text style of the range to match the
+    //   style of the preceding text (or the default text styles if the preceding
+    //   text is another link) unless different styles are being set in the same
+    //   request.
+    Link link = 8;
+    // Whether or not the text is in small capital letters.
+    bool smallCaps = 9;
+    // Whether or not the text is struck through.
+    bool strikethrough = 10;
+    // Whether or not the text is underlined.
+    bool underline = 11;
+    // The font family and rendered weight of the text.
+    // 
+    // This field is an extension of `font_family` meant to support explicit font
+    // weights without breaking backwards compatibility. As such, when reading the
+    // style of a range of text, the value of `weighted_font_family#font_family`
+    // will always be equal to that of `font_family`. However, when writing, if
+    // both fields are included in the field mask (either explicitly or through
+    // the wildcard `"*"`), their values are reconciled as follows:
+    // 
+    // * If `font_family` is set and `weighted_font_family` is not, the value of
+    //   `font_family` is applied with weight `400` ("normal").
+    // * If both fields are set, the value of `font_family` must match that of
+    //   `weighted_font_family#font_family`. If so, the font family and weight of
+    //   `weighted_font_family` is applied. Otherwise, a 400 bad request error is
+    //   returned.
+    // * If `weighted_font_family` is set and `font_family` is not, the font
+    //   family and weight of `weighted_font_family` is applied.
+    // * If neither field is set, the font family and weight of the text inherit
+    //   from the parent. Note that these properties cannot inherit separately
+    //   from each other.
+    // 
+    // If an update request specifies values for both `weighted_font_family` and
+    // `bold`, the `weighted_font_family` is applied first, then `bold`.
+    // 
+    // If `weighted_font_family#weight` is not set, it defaults to `400`.
+    // 
+    // If `weighted_font_family` is set, then `weighted_font_family#font_family`
+    // must also be set with a non-empty value. Otherwise, a 400 bad request error
+    // is returned.
+    WeightedFontFamily weightedFontFamily = 12;
+}
+
+message ThemeColorPair {
+    // The concrete color corresponding to the theme color type above.
+    RgbColor color = 1;
+    // The type of the theme color.
+    enum ThemeColorPair_Type {
+        THEMECOLORPAIR_TYPE_THEME_COLOR_TYPE_UNSPECIFIED = 0;
+        THEMECOLORPAIR_TYPE_DARK1 = 1;
+        THEMECOLORPAIR_TYPE_LIGHT1 = 2;
+        THEMECOLORPAIR_TYPE_DARK2 = 3;
+        THEMECOLORPAIR_TYPE_LIGHT2 = 4;
+        THEMECOLORPAIR_TYPE_ACCENT1 = 5;
+        THEMECOLORPAIR_TYPE_ACCENT2 = 6;
+        THEMECOLORPAIR_TYPE_ACCENT3 = 7;
+        THEMECOLORPAIR_TYPE_ACCENT4 = 8;
+        THEMECOLORPAIR_TYPE_ACCENT5 = 9;
+        THEMECOLORPAIR_TYPE_ACCENT6 = 10;
+        THEMECOLORPAIR_TYPE_HYPERLINK = 11;
+        THEMECOLORPAIR_TYPE_FOLLOWED_HYPERLINK = 12;
+        THEMECOLORPAIR_TYPE_TEXT1 = 13;
+        THEMECOLORPAIR_TYPE_BACKGROUND1 = 14;
+        THEMECOLORPAIR_TYPE_TEXT2 = 15;
+        THEMECOLORPAIR_TYPE_BACKGROUND2 = 16;
+    }
+    ThemeColorPair_Type type = 2;
+}
+
+message Thumbnail {
+    // The content URL of the thumbnail image.
+    // 
+    // The URL to the image has a default lifetime of 30 minutes.
+    // This URL is tagged with the account of the requester. Anyone with the URL
+    // effectively accesses the image as the original requester. Access to the
+    // image may be lost if the presentation's sharing settings change.
+    // The mime type of the thumbnail image is the same as specified in the
+    // `GetPageThumbnailRequest`.
+    string contentUrl = 1;
+    // The positive height in pixels of the thumbnail image.
+    int32 height = 2;
+    // The positive width in pixels of the thumbnail image.
+    int32 width = 3;
+}
+
+message UpdateImagePropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `imageProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the image outline color, set `fields` to
+    // `"outline.outlineFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The image properties to update.
+    ImageProperties imageProperties = 2;
+    // The object ID of the image the updates are applied to.
+    string objectId = 3;
+}
+
+message UpdateLinePropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `lineProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the line solid fill color, set `fields` to
+    // `"lineFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The line properties to update.
+    LineProperties lineProperties = 2;
+    // The object ID of the line the update is applied to.
+    string objectId = 3;
+}
+
+message UpdatePageElementTransformRequest {
+    // The apply mode of the transform update.
+    enum UpdatePageElementTransformRequest_ApplyMode {
+        UPDATEPAGEELEMENTTRANSFORMREQUEST_APPLYMODE_APPLY_MODE_UNSPECIFIED = 0;
+        UPDATEPAGEELEMENTTRANSFORMREQUEST_APPLYMODE_RELATIVE = 1;
+        UPDATEPAGEELEMENTTRANSFORMREQUEST_APPLYMODE_ABSOLUTE = 2;
+    }
+    UpdatePageElementTransformRequest_ApplyMode applyMode = 1;
+    // The object ID of the page element to update.
+    string objectId = 2;
+    // The input transform matrix used to update the page element.
+    AffineTransform transform = 3;
+}
+
+message UpdatePagePropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `pageProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the page background solid fill color, set `fields`
+    // to `"pageBackgroundFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The object ID of the page the update is applied to.
+    string objectId = 2;
+    // The page properties to update.
+    PageProperties pageProperties = 3;
+}
+
+message UpdateParagraphStyleRequest {
+    // The location of the cell in the table containing the paragraph(s) to
+    // style. If `object_id` refers to a table, `cell_location` must have a value.
+    // Otherwise, it must not.
+    TableCellLocation cellLocation = 1;
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `style` is implied and
+    // should not be specified. A single `"*"` can be used as short-hand for
+    // listing every field.
+    // 
+    // For example, to update the paragraph alignment, set `fields` to
+    // `"alignment"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 2;
+    // The object ID of the shape or table with the text to be styled.
+    string objectId = 3;
+    // The paragraph's style.
+    ParagraphStyle style = 4;
+    // The range of text containing the paragraph(s) to style.
+    Range textRange = 5;
+}
+
+message UpdateShapePropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `shapeProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the shape background solid fill color, set `fields`
+    // to `"shapeBackgroundFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The object ID of the shape the updates are applied to.
+    string objectId = 2;
+    // The shape properties to update.
+    ShapeProperties shapeProperties = 3;
+}
+
+message UpdateSlidesPositionRequest {
+    // The index where the slides should be inserted, based on the slide
+    // arrangement before the move takes place. Must be between zero and the
+    // number of slides in the presentation, inclusive.
+    int32 insertionIndex = 1;
+    // The IDs of the slides in the presentation that should be moved.
+    // The slides in this list must be in existing presentation order, without
+    // duplicates.
+    repeated string slideObjectIds = 2;
+}
+
+message UpdateTableCellPropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `tableCellProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the table cell background solid fill color, set
+    // `fields` to `"tableCellBackgroundFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The object ID of the table.
+    string objectId = 2;
+    // The table cell properties to update.
+    TableCellProperties tableCellProperties = 3;
+    // The table range representing the subset of the table to which the updates
+    // are applied. If a table range is not specified, the updates will apply to
+    // the entire table.
+    TableRange tableRange = 4;
+}
+
+message UpdateTextStyleRequest {
+    // The location of the cell in the table containing the text to style. If
+    // `object_id` refers to a table, `cell_location` must have a value.
+    // Otherwise, it must not.
+    TableCellLocation cellLocation = 1;
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `style` is implied and
+    // should not be specified. A single `"*"` can be used as short-hand for
+    // listing every field.
+    // 
+    // For example, to update the text style to bold, set `fields` to `"bold"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 2;
+    // The object ID of the shape or table with the text to be styled.
+    string objectId = 3;
+    // The style(s) to set on the text.
+    // 
+    // If the value for a particular style matches that of the parent, that style
+    // will be set to inherit.
+    // 
+    // Certain text style changes may cause other changes meant to mirror the
+    // behavior of the Slides editor. See the documentation of
+    // TextStyle for more information.
+    TextStyle style = 4;
+    // The range of text to style.
+    // 
+    // The range may be extended to include adjacent newlines.
+    // 
+    // If the range fully contains a paragraph belonging to a list, the
+    // paragraph's bullet is also updated with the matching text style.
+    Range textRange = 5;
+}
+
+message UpdateVideoPropertiesRequest {
+    // The fields that should be updated.
+    // 
+    // At least one field must be specified. The root `videoProperties` is
+    // implied and should not be specified. A single `"*"` can be used as
+    // short-hand for listing every field.
+    // 
+    // For example to update the video outline color, set `fields` to
+    // `"outline.outlineFill.solidFill.color"`.
+    // 
+    // To reset a property to its default value, include its field name in the
+    // field mask but leave the field itself unset.
+    string fields = 1;
+    // The object ID of the video the updates are applied to.
+    string objectId = 2;
+    // The video properties to update.
+    VideoProperties videoProperties = 3;
+}
+
+message Video {
+    // The video source's unique identifier for this video.
+    string id = 1;
+    // The video source.
+    enum Video_Source {
+        VIDEO_SOURCE_SOURCE_UNSPECIFIED = 0;
+        VIDEO_SOURCE_YOUTUBE = 1;
+    }
+    Video_Source source = 2;
+    // An URL to a video. The URL is valid as long as the source video
+    // exists and sharing settings do not change.
+    string url = 3;
+    // The properties of the video.
+    VideoProperties videoProperties = 4;
+}
+
+message VideoProperties {
+    // The outline of the video. The default outline matches the defaults for new
+    // videos created in the Slides editor.
+    Outline outline = 1;
+}
+
+message WeightedFontFamily {
+    // The font family of the text.
+    // 
+    // The font family can be any font from the Font menu in Slides or from
+    // [Google Fonts] (https://fonts.google.com/). If the font name is
+    // unrecognized, the text is rendered in `Arial`.
+    string fontFamily = 1;
+    // The rendered weight of the text. This field can have any value that is a
+    // multiple of `100` between `100` and `900`, inclusive. This range
+    // corresponds to the numerical values described in the CSS 2.1
+    // Specification, [section 15.6](https://www.w3.org/TR/CSS21/fonts.html#font-boldness),
+    // with non-numerical values disallowed. Weights greater than or equal to
+    // `700` are considered bold, and weights less than `700`are not bold. The
+    // default value is `400` ("normal").
+    int32 weight = 2;
+}
+
+message WordArt {
+    // The text rendered as word art.
+    string renderedText = 1;
+}
+
+message WriteControl {
+    // The revision ID of the presentation required for the write request. If
+    // specified and the `required_revision_id` doesn't exactly match the
+    // presentation's current `revision_id`, the request will not be processed and
+    // will return a 400 bad request error.
+    string requiredRevisionId = 1;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleSlidesService {
+    // Creates a new presentation using the title given in the request. Other
+    // fields in the request are ignored.
+    // Returns the created presentation.
+    rpc PostV1Presentations(PostV1PresentationsRequest) returns (Presentation) {
+      option (google.api.http) = {
+        post: "//v1/presentations"
+        body: "body"
+      };
+    }
+    // Gets the latest version of the specified presentation.
+    rpc GetV1PresentationsPresentationId(GetV1PresentationsPresentationIdRequest) returns (Presentation) {
+      option (google.api.http) = {
+        get: "//v1/presentations/{presentationId}"
+      };
+    }
+    // Gets the latest version of the specified page in the presentation.
+    rpc GetV1PresentationsPresentationIdPagesPageObjectId(GetV1PresentationsPresentationIdPagesPageObjectIdRequest) returns (Page) {
+      option (google.api.http) = {
+        get: "//v1/presentations/{presentationId}/pages/{pageObjectId}"
+      };
+    }
+    // Generates a thumbnail of the latest version of the specified page in the
+    // presentation and returns a URL to the thumbnail image.
+    rpc GetV1PresentationsPresentationIdPagesPageObjectIdThumbnail(GetV1PresentationsPresentationIdPagesPageObjectIdThumbnailRequest) returns (Thumbnail) {
+      option (google.api.http) = {
+        get: "//v1/presentations/{presentationId}/pages/{pageObjectId}/thumbnail"
+      };
+    }
+    // Applies one or more updates to the presentation.
+    // 
+    // Each request is validated before
+    // being applied. If any request is not valid, then the entire request will
+    // fail and nothing will be applied.
+    // 
+    // Some requests have replies to
+    // give you some information about how they are applied. Other requests do
+    // not need to return information; these each return an empty reply.
+    // The order of replies matches that of the requests.
+    // 
+    // For example, suppose you call batchUpdate with four updates, and only the
+    // third one returns information. The response would have two empty replies:
+    // the reply to the third request, and another empty reply, in that order.
+    // 
+    // Because other users may be editing the presentation, the presentation
+    // might not exactly reflect your changes: your changes may
+    // be altered with respect to collaborator changes. If there are no
+    // collaborators, the presentation should reflect your changes. In any case,
+    // the updates in your request are guaranteed to be applied together
+    // atomically.
+    rpc PostV1PresentationsPresentationId:BatchUpdate(PostV1PresentationsPresentationId:BatchUpdateRequest) returns (BatchUpdatePresentationResponse) {
+      option (google.api.http) = {
+        post: "//v1/presentations/{presentationId}:batchUpdate"
+        body: "body"
+      };
+    }
+}

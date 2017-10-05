@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package refugerestrooms;
+
+message GetV1RestroomsRequest {
+    // Only return restrooms that are ADA accessible.
+    bool ada = 1;
+    // Pad a number of results.
+    int32 offset = 2;
+    // Page offset to fetch.
+    int32 page = 3;
+    // Number of results to return per page.
+    int32 per_page = 4;
+    // Only return restrooms that are unisex.
+    bool unisex = 5;
+}
+
+message GetV1RestroomsBy_dateRequest {
+    // Only return restrooms that are ADA accessible.
+    bool ada = 1;
+    // Day
+    int32 day = 2;
+    // Month
+    int32 month = 3;
+    // Pad a number of results.
+    int32 offset = 4;
+    // Page offset to fetch.
+    int32 page = 5;
+    // Number of results to return per page.
+    int32 per_page = 6;
+    // Only return restrooms that are unisex.
+    bool unisex = 7;
+    // Return restroom records updated (rather than created) since given date
+    bool updated = 8;
+    // Year
+    int32 year = 9;
+}
+
+message GetV1RestroomsBy_locationRequest {
+    // Only return restrooms that are ADA accessible.
+    bool ada = 1;
+    // latitude
+    float lat = 2;
+    // longitude
+    float lng = 3;
+    // Pad a number of results.
+    int32 offset = 4;
+    // Page offset to fetch.
+    int32 page = 5;
+    // Number of results to return per page.
+    int32 per_page = 6;
+    // Only return restrooms that are unisex.
+    bool unisex = 7;
+}
+
+message GetV1RestroomsSearchRequest {
+    // Only return restrooms that are ADA accessible.
+    bool ada = 1;
+    // Pad a number of results.
+    int32 offset = 2;
+    // Page offset to fetch.
+    int32 page = 3;
+    // Number of results to return per page.
+    int32 per_page = 4;
+    // Your search query.
+    string query = 5;
+    // Only return restrooms that are unisex.
+    bool unisex = 6;
+}
+
+service RefugeRestroomsService {
+    // Get all restroom records ordered by date descending.
+    rpc GetV1Restrooms(GetV1RestroomsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/restrooms.json"
+      };
+    }
+    // Search for restroom records updated or created on or after a given date
+    rpc GetV1RestroomsBy_date(GetV1RestroomsBy_dateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/restrooms/by_date.json"
+      };
+    }
+    // Search by location.
+    rpc GetV1RestroomsBy_location(GetV1RestroomsBy_locationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/restrooms/by_location.json"
+      };
+    }
+    // Perform full-text search of restroom records.
+    rpc GetV1RestroomsSearch(GetV1RestroomsSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/restrooms/search.json"
+      };
+    }
+}

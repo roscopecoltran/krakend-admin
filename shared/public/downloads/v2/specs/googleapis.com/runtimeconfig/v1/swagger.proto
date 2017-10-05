@@ -1,0 +1,176 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package googlecloudruntimeconfiguration;
+
+message GetV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // The standard list filter.
+    string filter = 7;
+    string key = 8;
+    // The name of the operation's parent resource.
+    string name = 9;
+    string oauth_token = 10;
+    // The standard list page size.
+    int32 pageSize = 11;
+    // The standard list page token.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message DeleteV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the operation resource to be deleted.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1Name:CancelRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    CancelOperationRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // The name of the operation resource to be cancelled.
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message CancelOperationRequest {
+}
+
+message Empty {
+}
+
+message ListOperationsResponse {
+    // The standard List next-page token.
+    string nextPageToken = 1;
+    // A list of operations that matches the specified filter in the request.
+    repeated Operation operations = 2;
+}
+
+message Operation {
+    // If the value is `false`, it means the operation is still in progress.
+    // If `true`, the operation is completed, and either `error` or `response` is
+    // available.
+    bool done = 1;
+    // The error result of the operation in case of failure or cancellation.
+    Status error = 2;
+    // Service-specific metadata associated with the operation.  It typically
+    // contains progress information and common metadata such as create time.
+    // Some services might not provide such metadata.  Any method that returns a
+    // long-running operation should document the metadata type, if any.
+    map<string, > metadata = 3;
+    // The server-assigned name, which is only unique within the same service that
+    // originally returns it. If you use the default HTTP mapping, the
+    // `name` should have the format of `operations/some/unique/name`.
+    string name = 4;
+    // The normal response of the operation in case of success.  If the original
+    // method returns no data on success, such as `Delete`, the response is
+    // `google.protobuf.Empty`.  If the original method is standard
+    // `Get`/`Create`/`Update`, the response should be the resource.  For other
+    // methods, the response should have the type `XxxResponse`, where `Xxx`
+    // is the original method name.  For example, if the original method name
+    // is `TakeSnapshot()`, the inferred response type is
+    // `TakeSnapshotResponse`.
+    map<string, > response = 5;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudRuntimeConfigurationService {
+    // Lists operations that match the specified filter in the request. If the
+    // server doesn't support this method, it returns `UNIMPLEMENTED`.
+    // 
+    // NOTE: the `name` binding allows API services to override the binding
+    // to use different resource name schemes, such as `users/*/operations`. To
+    // override the binding, API services can add a binding such as
+    // `"/v1/{name=users/*}/operations"` to their service configuration.
+    // For backwards compatibility, the default name includes the operations
+    // collection id, however overriding users must ensure the name binding
+    // is the parent resource, without the operations collection id.
+    rpc GetV1Name(GetV1NameRequest) returns (ListOperationsResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}"
+      };
+    }
+    // Deletes a long-running operation. This method indicates that the client is
+    // no longer interested in the operation result. It does not cancel the
+    // operation. If the server doesn't support this method, it returns
+    // `google.rpc.Code.UNIMPLEMENTED`.
+    rpc DeleteV1Name(DeleteV1NameRequest) returns (Empty) {
+      option (google.api.http) = {
+        delete: "//v1/{name}"
+      };
+    }
+    // Starts asynchronous cancellation on a long-running operation.  The server
+    // makes a best effort to cancel the operation, but success is not
+    // guaranteed.  If the server doesn't support this method, it returns
+    // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+    // Operations.GetOperation or
+    // other methods to check whether the cancellation succeeded or whether the
+    // operation completed despite cancellation. On successful cancellation,
+    // the operation is not deleted; instead, it becomes an operation with
+    // an Operation.error value with a google.rpc.Status.code of 1,
+    // corresponding to `Code.CANCELLED`.
+    rpc PostV1Name:Cancel(PostV1Name:CancelRequest) returns (Empty) {
+      option (google.api.http) = {
+        post: "//v1/{name}:cancel"
+        body: "body"
+      };
+    }
+}

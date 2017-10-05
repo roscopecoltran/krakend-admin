@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package reisezentren;
+
+message GetReisezentrenRequest {
+    // A station name or part of it
+    string name = 1;
+}
+
+message GetReisezentrenLocLatLonRequest {
+    // Latitude
+    float lat = 1;
+    // Longitude
+    float lon = 2;
+}
+
+message GetReisezentrenIdRequest {
+    // Station id
+    string id = 1;
+}
+
+message Error {
+    int32 code = 1;
+    string message = 2;
+}
+
+repeated string OpeningTime = 1
+
+message TravelCenter {
+    // Street address of travel center
+    string address = 1;
+    // City of travel center
+    string city = 2;
+    // Identifying number
+    int32 id = 3;
+    // Latitude of travel center location
+    int32 lat = 4;
+    // Longitude of travel center location
+    int32 lon = 5;
+    // Name of travel center
+    string name = 6;
+    // Opening times of the travel center, ordered by week day
+    message OpeningTimes {
+        array fri = 1;
+        array mon = 2;
+        array sat = 3;
+        array sun = 4;
+        array thu = 5;
+        array tue = 6;
+        array wed = 7;
+    }
+    OpeningTimes openingTimes = 7;
+    // Post code of travel center
+    string postCode = 8;
+    // Type of travel center
+    enum TravelCenter_Type {
+        TRAVELCENTER_TYPE_REISEZENTRUM = 0;
+        TRAVELCENTER_TYPE_MOBILITY_CENTER = 1;
+    }
+    TravelCenter_Type type = 9;
+}
+
+repeated TravelCenter TravelCenterList = 1
+
+service ReisezentrenService {
+    // Get all station infos
+    // 
+    // Get all station infos
+    rpc GetReisezentren(GetReisezentrenRequest) returns (TravelCenterList) {
+      option (google.api.http) = {
+        get: "/reisezentren/v1/reisezentren"
+      };
+    }
+    // Get information about a station near a location
+    // 
+    // Get information about a station near a location
+    rpc GetReisezentrenLocLatLon(GetReisezentrenLocLatLonRequest) returns (TravelCenter) {
+      option (google.api.http) = {
+        get: "/reisezentren/v1/reisezentren/loc/{lat}/{lon}"
+      };
+    }
+    // Get information about a specific station
+    // 
+    // Get information about a specific station
+    rpc GetReisezentrenId(GetReisezentrenIdRequest) returns (TravelCenter) {
+      option (google.api.http) = {
+        get: "/reisezentren/v1/reisezentren/{id}"
+      };
+    }
+}

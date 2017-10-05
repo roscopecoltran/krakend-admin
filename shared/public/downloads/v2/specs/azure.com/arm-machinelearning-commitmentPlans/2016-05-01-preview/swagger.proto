@@ -1,0 +1,261 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package azuremlcommitmentplansmanagementclient;
+
+message GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningCommitmentPlansRequest {
+    // Continuation token for pagination.
+    string $skipToken = 1;
+    string api_version = 2;
+    string subscriptionId = 3;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansRequest {
+    string $skipToken = 1;
+    string api_version = 2;
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest {
+    string api_version = 1;
+    string commitmentPlanName = 2;
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+}
+
+message PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest {
+    string api_version = 1;
+    string commitmentPlanName = 2;
+    // The payload to create or update the Azure ML commitment plan.
+    CommitmentPlan createOrUpdatePayload = 3;
+    string resourceGroupName = 4;
+    string subscriptionId = 5;
+}
+
+message DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest {
+    string api_version = 1;
+    string commitmentPlanName = 2;
+    string resourceGroupName = 3;
+    string subscriptionId = 4;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsRequest {
+    string $skipToken = 1;
+    string api_version = 2;
+    string commitmentPlanName = 3;
+    string resourceGroupName = 4;
+    string subscriptionId = 5;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationNameRequest {
+    string api_version = 1;
+    string commitmentAssociationName = 2;
+    string commitmentPlanName = 3;
+    string resourceGroupName = 4;
+    string subscriptionId = 5;
+}
+
+message PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationNameMoveRequest {
+    string api_version = 1;
+    string commitmentAssociationName = 2;
+    string commitmentPlanName = 3;
+    // The move request payload.
+    MoveCommitmentAssociationRequest movePayload = 4;
+    string resourceGroupName = 5;
+    string subscriptionId = 6;
+}
+
+message GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameUsageHistoryRequest {
+    string $skipToken = 1;
+    string api_version = 2;
+    string commitmentPlanName = 3;
+    string resourceGroupName = 4;
+    string subscriptionId = 5;
+}
+
+message CommitmentAssociation {
+    // An entity tag used to enforce optimistic concurrency.
+    string etag = 1;
+    // The properties of the commitment association resource.
+    CommitmentAssociationProperties properties = 2;
+}
+
+message CommitmentAssociationListResult {
+    // A URI to retrieve the next page of results.
+    string nextLink = 1;
+    // The set of results for this page.
+    repeated CommitmentAssociation value = 2;
+}
+
+message CommitmentAssociationProperties {
+    // The ID of the resource this association points to, such as the ARM ID of an Azure ML web service.
+    string associatedResourceId = 1;
+    // The ARM ID of the parent Azure ML commitment plan.
+    string commitmentPlanId = 2;
+    // The date at which this commitment association was created, in ISO 8601 format.
+    string creationDate = 3;
+}
+
+message CommitmentPlan {
+    // An entity tag used to enforce optimistic concurrency.
+    string etag = 1;
+    // The commitment plan properties.
+    CommitmentPlanProperties properties = 2;
+    // The commitment plan SKU.
+    ResourceSku sku = 3;
+}
+
+message CommitmentPlanListResult {
+    // A URI to retrieve the next page of results.
+    string nextLink = 1;
+    // The set of results for this page.
+    repeated CommitmentPlan value = 2;
+}
+
+message CommitmentPlanPatchPayload {
+    // The commitment plan SKU.
+    ResourceSku sku = 1;
+    // User-defined tags for the commitment plan.
+    Tags tags = 2;
+}
+
+message CommitmentPlanProperties {
+    // Indicates whether usage beyond the commitment plan's included quantities will be charged.
+    bool chargeForOverage = 1;
+    // Indicates whether the commitment plan will incur a charge.
+    bool chargeForPlan = 2;
+    // The date at which this commitment plan was created, in ISO 8601 format.
+    string creationDate = 3;
+    // The included resource quantities this plan gives you.
+    map<string, PlanQuantity> includedQuantities = 4;
+    // The maximum number of commitment associations that can be children of this commitment plan.
+    int32 maxAssociationLimit = 5;
+    // The maximum scale-out capacity for this commitment plan.
+    int32 maxCapacityLimit = 6;
+    // The minimum scale-out capacity for this commitment plan.
+    int32 minCapacityLimit = 7;
+    // The Azure meter which will be used to charge for this commitment plan.
+    string planMeter = 8;
+    // The frequency at which this commitment plan's included quantities are refilled.
+    int32 refillFrequencyInDays = 9;
+    // Indicates whether this commitment plan will be moved into a suspended state if usage goes beyond the commitment plan's included quantities.
+    bool suspendPlanOnOverage = 10;
+}
+
+message MoveCommitmentAssociationRequest {
+    // The ARM ID of the commitment plan to re-parent the commitment association to.
+    string destinationPlanId = 1;
+}
+
+message PlanQuantity {
+    // The quantity added to the commitment plan at an interval specified by its allowance frequency.
+    double allowance = 1;
+    // The quantity available to the plan the last time usage was calculated.
+    double amount = 2;
+    // The Azure meter for usage against included quantities.
+    string includedQuantityMeter = 3;
+    // The Azure meter for usage which exceeds included quantities.
+    string overageMeter = 4;
+}
+
+message PlanUsageHistory {
+    // Overage incurred as a result of deleting a commitment plan.
+    map<string, number> planDeletionOverage = 1;
+    // Overage incurred as a result of migrating a commitment plan from one SKU to another.
+    map<string, number> planMigrationOverage = 2;
+    // Included quantities remaining after usage against the commitment plan's associated resources was calculated.
+    map<string, number> planQuantitiesAfterUsage = 3;
+    // Included quantities remaining before usage against the commitment plan's associated resources was calculated.
+    map<string, number> planQuantitiesBeforeUsage = 4;
+    // Usage against the commitment plan's associated resources which was not covered by included quantities and is therefore overage.
+    map<string, number> planUsageOverage = 5;
+    // Usage against the commitment plan's associated resources.
+    map<string, number> usage = 6;
+    // The date of usage, in ISO 8601 format.
+    string usageDate = 7;
+}
+
+message PlanUsageHistoryListResult {
+    // A URI to retrieve the next page of results.
+    string nextLink = 1;
+    // The set of results for this page.
+    repeated PlanUsageHistory value = 2;
+}
+
+message ResourceSku {
+    // The scale-out capacity of the resource. 1 is 1x, 2 is 2x, etc. This impacts the quantities and cost of any commitment plan resource.
+    int32 capacity = 1;
+    // The SKU name. Along with tier, uniquely identifies the SKU.
+    string name = 2;
+    // The SKU tier. Along with name, uniquely identifies the SKU.
+    string tier = 3;
+}
+
+
+
+
+
+map<string, string> Tags = 1
+
+service AzureMLCommitmentPlansManagementClientService {
+    // Retrieve all Azure ML commitment plans in a subscription.
+    rpc GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningCommitmentPlans(GetSubscriptionsSubscriptionIdProvidersMicrosoftMachineLearningCommitmentPlansRequest) returns (CommitmentPlanListResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/providers/Microsoft.MachineLearning/commitmentPlans"
+      };
+    }
+    // Retrieve all Azure ML commitment plans in a resource group.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlans(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansRequest) returns (CommitmentPlanListResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans"
+      };
+    }
+    // Retrieve an Azure ML commitment plan by its subscription, resource group and name.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanName(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest) returns (CommitmentPlan) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}"
+      };
+    }
+    // Create a new Azure ML commitment plan resource or updates an existing one.
+    rpc PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanName(PutSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest) returns (CommitmentPlan) {
+      option (google.api.http) = {
+        put: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}"
+        body: "createOrUpdatePayload"
+      };
+    }
+    // Remove an existing Azure ML commitment plan.
+    rpc DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanName(DeleteSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}"
+      };
+    }
+    // Get all commitment associations for a parent commitment plan.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociations(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsRequest) returns (CommitmentAssociationListResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations"
+      };
+    }
+    // Get a commitment association.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationName(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationNameRequest) returns (CommitmentAssociation) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations/{commitmentAssociationName}"
+      };
+    }
+    // Re-parent a commitment association from one commitment plan to another.
+    rpc PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationNameMove(PostSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameCommitmentAssociationsCommitmentAssociationNameMoveRequest) returns (CommitmentAssociation) {
+      option (google.api.http) = {
+        post: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations/{commitmentAssociationName}/move"
+        body: "movePayload"
+      };
+    }
+    // Retrieve the usage history for an Azure ML commitment plan.
+    rpc GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameUsageHistory(GetSubscriptionsSubscriptionIdResourceGroupsResourceGroupNameProvidersMicrosoftMachineLearningCommitmentPlansCommitmentPlanNameUsageHistoryRequest) returns (PlanUsageHistoryListResult) {
+      option (google.api.http) = {
+        get: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/usageHistory"
+      };
+    }
+}

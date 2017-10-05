@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package awscostandusagereportservice;
+
+message PostRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    DeleteReportDefinitionRequest body = 10;
+}
+
+message Post#DescribeReportDefinitionsRequest {
+    string Action = 1;
+    // Pagination limit
+    string MaxResults = 2;
+    // Pagination token
+    string NextToken = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    DescribeReportDefinitionsRequest body = 12;
+}
+
+message Post#PutReportDefinitionRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    PutReportDefinitionRequest body = 10;
+}
+
+enum AWSRegion {
+    USEAST1 = 0;
+    USWEST1 = 1;
+    USWEST2 = 2;
+    EUCENTRAL1 = 3;
+    EUWEST1 = 4;
+    APSOUTHEAST1 = 5;
+    APSOUTHEAST2 = 6;
+    APNORTHEAST1 = 7;
+}
+
+enum AdditionalArtifact {
+    REDSHIFT = 0;
+    QUICKSIGHT = 1;
+}
+
+repeated AdditionalArtifact AdditionalArtifactList = 1
+
+enum CompressionFormat {
+    ZIP = 0;
+    GZIP = 1;
+}
+
+message DeleteReportDefinitionRequest {
+    string ReportName = 1;
+}
+
+message DeleteReportDefinitionResponse {
+    string ResponseMessage = 1;
+}
+
+message DescribeReportDefinitionsRequest {
+    integer MaxResults = 1;
+    string NextToken = 2;
+}
+
+message DescribeReportDefinitionsResponse {
+    string NextToken = 1;
+    array ReportDefinitions = 2;
+}
+
+message DuplicateReportNameException {
+    string Message = 1;
+}
+
+message InternalErrorException {
+    string Message = 1;
+}
+
+message PutReportDefinitionRequest {
+    ReportDefinition ReportDefinition = 1;
+}
+
+message PutReportDefinitionResponse {
+}
+
+message ReportDefinition {
+    array AdditionalArtifacts = 1;
+    array AdditionalSchemaElements = 2;
+    CompressionFormat Compression = 3;
+    ReportFormat Format = 4;
+    string ReportName = 5;
+    string S3Bucket = 6;
+    string S3Prefix = 7;
+    AWSRegion S3Region = 8;
+    TimeUnit TimeUnit = 9;
+}
+
+repeated ReportDefinition ReportDefinitionList = 1
+
+enum ReportFormat {
+    TEXTORCSV = 0;
+}
+
+message ReportLimitReachedException {
+    string Message = 1;
+}
+
+enum SchemaElement {
+    RESOURCES = 0;
+}
+
+repeated SchemaElement SchemaElementList = 1
+
+enum TimeUnit {
+    HOURLY = 0;
+    DAILY = 1;
+}
+
+message ValidationException {
+    string Message = 1;
+}
+
+service AWSCostAndUsageReportServiceService {
+    // Delete a specified report definition
+    rpc Post(PostRequest) returns (DeleteReportDefinitionResponse) {
+      option (google.api.http) = {
+        post: "//"
+        body: "body"
+      };
+    }
+    // Describe a list of report definitions owned by the account
+    rpc Post#DescribeReportDefinitions(Post#DescribeReportDefinitionsRequest) returns (DescribeReportDefinitionsResponse) {
+      option (google.api.http) = {
+        post: "//#DescribeReportDefinitions"
+        body: "body"
+      };
+    }
+    // Create a new report definition
+    rpc Post#PutReportDefinition(Post#PutReportDefinitionRequest) returns (PutReportDefinitionResponse) {
+      option (google.api.http) = {
+        post: "//#PutReportDefinition"
+        body: "body"
+      };
+    }
+}

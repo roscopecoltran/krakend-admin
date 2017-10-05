@@ -1,0 +1,276 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package amazoncloudsearchdomain;
+
+message Post20130101DocumentsBatchRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    UploadDocumentsRequest body = 10;
+}
+
+message Get20130101SearchRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    SearchRequest body = 10;
+}
+
+message Get20130101SuggestRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    SuggestRequest body = 10;
+}
+
+message Bucket {
+    // The number of hits that contain the facet value in the specified facet field.
+    integer count = 1;
+    // The facet value being counted.
+    string value = 2;
+}
+
+message BucketInfo {
+    // A list of the calculated facet values and counts.
+    array buckets = 1;
+}
+
+repeated Bucket BucketList = 1
+
+enum ContentType {
+    APPLICATIONJSON = 0;
+    APPLICATIONXML = 1;
+}
+
+message DocumentServiceException {
+    // The description of the errors returned by the document service.
+    string message = 1;
+    // The return status of a document upload request, <code>error</code> or <code>success</code>.
+    string status = 2;
+}
+
+message DocumentServiceWarning {
+    // The description for a warning returned by the document service.
+    string message = 1;
+}
+
+repeated DocumentServiceWarning DocumentServiceWarnings = 1
+
+
+
+
+
+message Expr {
+    string key = 1;
+    string value = 2;
+}
+repeated Expr Exprs = 1
+
+
+
+message Facet {
+    string key = 1;
+    BucketInfo value = 2;
+}
+repeated Facet Facets = 1
+
+message FieldStats {
+    // The number of documents that contain a value in the specified field in the result set.
+    integer count = 1;
+    // <p>The maximum value found in the specified field in the result set.</p> <p>If the field is numeric (<code>int</code>, <code>int-array</code>, <code>double</code>, or <code>double-array</code>), <code>max</code> is the string representation of a double-precision 64-bit floating point value. If the field is <code>date</code> or <code>date-array</code>, <code>max</code> is the string representation of a date with the format specified in <a href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>: yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+    string max = 2;
+    // <p>The average of the values found in the specified field in the result set.</p> <p>If the field is numeric (<code>int</code>, <code>int-array</code>, <code>double</code>, or <code>double-array</code>), <code>mean</code> is the string representation of a double-precision 64-bit floating point value. If the field is <code>date</code> or <code>date-array</code>, <code>mean</code> is the string representation of a date with the format specified in <a href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>: yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+    string mean = 3;
+    // <p>The minimum value found in the specified field in the result set.</p> <p>If the field is numeric (<code>int</code>, <code>int-array</code>, <code>double</code>, or <code>double-array</code>), <code>min</code> is the string representation of a double-precision 64-bit floating point value. If the field is <code>date</code> or <code>date-array</code>, <code>min</code> is the string representation of a date with the format specified in <a href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>: yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+    string min = 4;
+    // The number of documents that do not contain a value in the specified field in the result set.
+    integer missing = 5;
+    // The standard deviation of the values in the specified field in the result set.
+    number stddev = 6;
+    // The sum of the field values across the documents in the result set. <code>null</code> for date fields.
+    number sum = 7;
+    // The sum of all field values in the result set squared.
+    number sumOfSquares = 8;
+}
+
+repeated string FieldValue = 1
+
+message Field {
+    string key = 1;
+    array value = 2;
+}
+repeated Field Fields = 1
+
+
+
+
+
+message Highlight {
+    string key = 1;
+    string value = 2;
+}
+repeated Highlight Highlights = 1
+
+message Hit {
+    // The expressions returned from a document that matches the search request.
+    array exprs = 1;
+    // The fields returned from a document that matches the search request.
+    array fields = 2;
+    // The highlights returned from a document that matches the search request.
+    array highlights = 3;
+    // The document ID of a document that matches the search request.
+    string id = 4;
+}
+
+repeated Hit HitList = 1
+
+message Hits {
+    // A cursor that can be used to retrieve the next set of matching documents when you want to page through a large result set.
+    string cursor = 1;
+    // The total number of documents that match the search request.
+    integer found = 2;
+    // A document that matches the search request.
+    array hit = 3;
+    // The index of the first matching document.
+    integer start = 4;
+}
+
+enum QueryParser {
+    SIMPLE = 0;
+    STRUCTURED = 1;
+    LUCENE = 2;
+    DISMAX = 3;
+}
+
+message SearchException {
+    // A description of the error returned by the search service.
+    string message = 1;
+}
+
+message SearchRequest {
+}
+
+message SearchResponse {
+    // The requested facet information.
+    array facets = 1;
+    // The documents that match the search criteria.
+    Hits hits = 2;
+    // The requested field statistics information.
+    array stats = 3;
+    // The status information returned for the search request.
+    SearchStatus status = 4;
+}
+
+message SearchStatus {
+    // The encrypted resource ID for the request.
+    string rid = 1;
+    // How long it took to process the request, in milliseconds.
+    integer timems = 2;
+}
+
+message Stat {
+    string key = 1;
+    FieldStats value = 2;
+}
+repeated Stat Stats = 1
+
+
+
+message SuggestModel {
+    // The number of documents that were found to match the query string.
+    integer found = 1;
+    // The query string specified in the suggest request.
+    string query = 2;
+    // The documents that match the query string.
+    array suggestions = 3;
+}
+
+message SuggestRequest {
+}
+
+message SuggestResponse {
+    // The status of a <code>SuggestRequest</code>. Contains the resource ID (<code>rid</code>) and how long it took to process the request (<code>timems</code>).
+    SuggestStatus status = 1;
+    // Container for the matching search suggestion information.
+    SuggestModel suggest = 2;
+}
+
+message SuggestStatus {
+    // The encrypted resource ID for the request.
+    string rid = 1;
+    // How long it took to process the request, in milliseconds.
+    integer timems = 2;
+}
+
+message SuggestionMatch {
+    // The document ID of the suggested document.
+    string id = 1;
+    // The relevance score of a suggested match.
+    integer score = 2;
+    // The string that matches the query string specified in the <code>SuggestRequest</code>.
+    string suggestion = 3;
+}
+
+repeated SuggestionMatch Suggestions = 1
+
+
+
+message UploadDocumentsRequest {
+    // A batch of documents formatted in JSON or HTML.
+    string documents = 1;
+}
+
+message UploadDocumentsResponse {
+    // The number of documents that were added to the search domain.
+    integer adds = 1;
+    // The number of documents that were deleted from the search domain.
+    integer deletes = 2;
+    // The status of an <code>UploadDocumentsRequest</code>.
+    string status = 3;
+    // Any warnings returned by the document service about the documents being uploaded.
+    array warnings = 4;
+}
+
+service AmazonCloudSearchDomainService {
+    // <p>Posts a batch of documents to a search domain for indexing. A document batch is a collection of add and delete operations that represent the documents you want to add, update, or delete from your domain. Batches can be described in either JSON or XML. Each item that you want Amazon CloudSearch to return as a search result (such as a product) is represented as a document. Every document has a unique ID and one or more fields that contain the data that you want to search and return in results. Individual documents cannot contain more than 1 MB of data. The entire batch cannot exceed 5 MB. To get the best possible upload performance, group add and delete operations in batches that are close the 5 MB limit. Submitting a large volume of single-document batches can overload a domain's document service. </p> <p>The endpoint for submitting <code>UploadDocuments</code> requests is domain-specific. To get the document endpoint for your domain, use the Amazon CloudSearch configuration service <code>DescribeDomains</code> action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console. </p> <p>For more information about formatting your data for Amazon CloudSearch, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html">Preparing Your Data</a> in the <i>Amazon CloudSearch Developer Guide</i>. For more information about uploading data for indexing, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html">Uploading Data</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
+    rpc Post20130101DocumentsBatch(Post20130101DocumentsBatchRequest) returns (UploadDocumentsResponse) {
+      option (google.api.http) = {
+        post: "//2013-01-01/documents/batch?format=sdk"
+        body: "body"
+      };
+    }
+    // <p>Retrieves a list of documents that match the specified search criteria. How you specify the search criteria depends on which query parser you use. Amazon CloudSearch supports four query parsers:</p> <ul> <li><code>simple</code>: search all <code>text</code> and <code>text-array</code> fields for the specified string. Search for phrases, individual terms, and prefixes. </li> <li><code>structured</code>: search specific fields, construct compound queries using Boolean operators, and use advanced features such as term boosting and proximity searching.</li> <li><code>lucene</code>: specify search criteria using the Apache Lucene query parser syntax.</li> <li><code>dismax</code>: specify search criteria using the simplified subset of the Apache Lucene query parser syntax defined by the DisMax query parser.</li> </ul> <p>For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html">Searching Your Data</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p> <p>The endpoint for submitting <code>Search</code> requests is domain-specific. You submit search requests to a domain's search endpoint. To get the search endpoint for your domain, use the Amazon CloudSearch configuration service <code>DescribeDomains</code> action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console. </p>
+    rpc Get20130101Search(Get20130101SearchRequest) returns (SearchResponse) {
+      option (google.api.http) = {
+        get: "//2013-01-01/search?format=sdk&pretty=true"
+        body: "body"
+      };
+    }
+    // <p>Retrieves autocomplete suggestions for a partial query string. You can use suggestions enable you to display likely matches before users finish typing. In Amazon CloudSearch, suggestions are based on the contents of a particular text field. When you request suggestions, Amazon CloudSearch finds all of the documents whose values in the suggester field start with the specified query string. The beginning of the field must match the query string to be considered a match. </p> <p>For more information about configuring suggesters and retrieving suggestions, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html">Getting Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p> <p>The endpoint for submitting <code>Suggest</code> requests is domain-specific. You submit suggest requests to a domain's search endpoint. To get the search endpoint for your domain, use the Amazon CloudSearch configuration service <code>DescribeDomains</code> action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console. </p>
+    rpc Get20130101Suggest(Get20130101SuggestRequest) returns (SuggestResponse) {
+      option (google.api.http) = {
+        get: "//2013-01-01/suggest?format=sdk&pretty=true"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package sentimentapis;
+
+message GetSentimentV2PredictRequest {
+    // Access Token
+    string access_token = 1;
+    // text
+    string text = 2;
+}
+
+message SentimentEntity {
+    // cosine distance
+    double score = 1;
+    // sentiment
+    string sentiment = 2;
+}
+
+message SentimentResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Output: prediction
+    SentimentEntity predict = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Output: sentiments
+    repeated SentimentEntity sentiments = 5;
+    // Start date
+    string startTime = 6;
+    // Input: text
+    string text = 7;
+}
+
+service SentimentAPIsService {
+    // Sentiment predict
+    // 
+    // Sentiment Analysis, last update at 2017-4-29.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.sentiment.SentimentResponseEntity<BR />
+    rpc GetSentimentV2Predict(GetSentimentV2PredictRequest) returns (SentimentResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/39/sentiment-v2/predict"
+      };
+    }
+}

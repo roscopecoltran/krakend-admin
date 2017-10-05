@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package prediction;
+
+message PostHostedmodelsHostedModelNamePredictRequest {
+    alt alt = 1;
+    Input body = 2;
+    string fields = 3;
+    // The name of a hosted model
+    string hostedModelName = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message PostTrainingRequest {
+    alt alt = 1;
+    Training body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetTrainingDataRequest {
+    alt alt = 1;
+    // mybucket/mydata resource in Google Storage
+    string data = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PutTrainingDataRequest {
+    alt alt = 1;
+    Update body = 2;
+    // mybucket/mydata resource in Google Storage
+    string data = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message DeleteTrainingDataRequest {
+    alt alt = 1;
+    // mybucket/mydata resource in Google Storage
+    string data = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PostTrainingDataPredictRequest {
+    alt alt = 1;
+    Input body = 2;
+    // mybucket/mydata resource in Google Storage
+    string data = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message Input {
+    // Input to the model for a prediction
+    message Input {
+            // A list of input features, these can be strings or doubles.
+    message CsvInstance {
+        }
+        repeated CsvInstance csvInstance = 1;
+    }
+    Input input = 1;
+}
+
+message Output {
+    // The unique name for the predictive model.
+    string id = 1;
+    // What kind of resource this is.
+    string kind = 2;
+    // The most likely class [Categorical models only].
+    string outputLabel = 3;
+    // A list of classes with their estimated probabilities [Categorical models only].
+    message OutputMulti {
+            // The class label.
+    string label = 1;
+            // The probability of the class.
+    double score = 2;
+    }
+    repeated OutputMulti outputMulti = 4;
+    // The estimated regression value [Regression models only].
+    double outputValue = 5;
+    // A URL to re-request this resource.
+    string selfLink = 6;
+}
+
+message Training {
+    // The unique name for the predictive model.
+    string id = 1;
+    // What kind of resource this is.
+    string kind = 2;
+    // Model metadata.
+    message ModelInfo {
+            // Estimated accuracy of model taking utility weights into account [Categorical models only].
+    double classWeightedAccuracy = 1;
+            // A number between 0.0 and 1.0, where 1.0 is 100% accurate. This is an estimate, based on the amount and quality of the training data, of the estimated prediction accuracy. You can use this is a guide to decide whether the results are accurate enough for your needs. This estimate will be more reliable if your real input data is similar to your training data [Categorical models only].
+    double classificationAccuracy = 2;
+            // An output confusion matrix. This shows an estimate for how this model will do in predictions. This is first indexed by the true class label. For each true class label, this provides a pair {predicted_label, count}, where count is the estimated number of times the model will predict the predicted label given the true label. Will not output if more then 100 classes [Categorical models only].
+    map<string, object> confusionMatrix = 3;
+            // A list of the confusion matrix row totals
+    map<string, number> confusionMatrixRowTotals = 4;
+            // An estimated mean squared error. The can be used to measure the quality of the predicted model [Regression models only].
+    double meanSquaredError = 5;
+            // Type of predictive model (CLASSIFICATION or REGRESSION)
+    string modelType = 6;
+            // Number of classes in the trained model [Categorical models only].
+    string numberClasses = 7;
+            // Number of valid data instances used in the trained model.
+    string numberInstances = 8;
+    }
+    ModelInfo modelInfo = 3;
+    // A URL to re-request this resource.
+    string selfLink = 4;
+    // The current status of the training job. This can be one of following: RUNNING; DONE; ERROR; ERROR: TRAINING JOB NOT FOUND
+    string trainingStatus = 5;
+    // A class weighting function, which allows the importance weights for classes to be specified [Categorical models only].
+    message Utility {
+    }
+    repeated Utility utility = 6;
+}
+
+message Update {
+    // The true class label of this instance
+    string classLabel = 1;
+    // The input features for this instance
+    message CsvInstance {
+    }
+    repeated CsvInstance csvInstance = 2;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service PredictionService {
+    // Submit input and request an output against a hosted model
+    rpc PostHostedmodelsHostedModelNamePredict(PostHostedmodelsHostedModelNamePredictRequest) returns (Output) {
+      option (google.api.http) = {
+        post: "/prediction/v1.3/hostedmodels/{hostedModelName}/predict"
+        body: "body"
+      };
+    }
+    // Begin training your model
+    rpc PostTraining(PostTrainingRequest) returns (Training) {
+      option (google.api.http) = {
+        post: "/prediction/v1.3/training"
+        body: "body"
+      };
+    }
+    // Check training status of your model
+    rpc GetTrainingData(GetTrainingDataRequest) returns (Training) {
+      option (google.api.http) = {
+        get: "/prediction/v1.3/training/{data}"
+      };
+    }
+    // Add new data to a trained model
+    rpc PutTrainingData(PutTrainingDataRequest) returns (Training) {
+      option (google.api.http) = {
+        put: "/prediction/v1.3/training/{data}"
+        body: "body"
+      };
+    }
+    // Delete a trained model
+    rpc DeleteTrainingData(DeleteTrainingDataRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/prediction/v1.3/training/{data}"
+      };
+    }
+    // Submit data and request a prediction
+    rpc PostTrainingDataPredict(PostTrainingDataPredictRequest) returns (Output) {
+      option (google.api.http) = {
+        post: "/prediction/v1.3/training/{data}/predict"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,661 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package schooldiggerapiv1;
+
+message GetV1DistrictsRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // Full U.S. address: flag returned districts that include this address in its attendance boundary. Example: '123 Main St. AnyTown CA 90001' (optional) (Enterprise API level only)
+    string boundaryAddress = 3;
+    // Search for districts within a 'box' defined by (BoxLatitudeNW/BoxLongitudeNW) to (BoxLongitudeSE/BoxLatitudeSE) (optional)
+    double boxLatitudeNW = 4;
+    // Search for districts within a 'box' defined by (BoxLatitudeNW/BoxLongitudeNW) to (BoxLongitudeSE/BoxLatitudeSE) (optional)
+    double boxLatitudeSE = 5;
+    // Search for districts within a 'box' defined by (BoxLatitudeNW/BoxLongitudeNW) to (BoxLongitudeSE/BoxLatitudeSE) (optional)
+    double boxLongitudeNW = 6;
+    // Search for districts within a 'box' defined by (BoxLatitudeNW/BoxLongitudeNW) to (BoxLongitudeSE/BoxLatitudeSE) (optional)
+    double boxLongitudeSE = 7;
+    // Search for districts in this city (optional)
+    string city = 8;
+    // Search for districts within (distanceMiles) of (nearLatitude)/(nearLongitude) (Default 5 miles) (optional) (Pro, Enterprise API levels only)
+    int32 distanceMiles = 9;
+    // Return only the districts that include given location (nearLatitdue/nearLongitude) or (nearAddress) in its attendance boundary (Enterprise API level only)
+    bool isInBoundaryOnly = 10;
+    // Search for districts within (distanceMiles) of (nearLatitude)/(nearLongitude) (e.g. 44.982560) (optional) (Pro, Enterprise API levels only. Enterprise API level will flag districts that include lat/long in its attendance boundary.)
+    double nearLatitude = 11;
+    // Search for districts within (distanceMiles) of (nearLatitude)/(nearLongitude) (e.g. -124.289185) (optional) (Pro, Enterprise API levels only. Enterprise API level will flag districts that include lat/long in its attendance boundary.)
+    double nearLongitude = 12;
+    // Page number to retrieve (optional, default: 1)
+    int32 page = 13;
+    // Number of districts to retrieve on a page (50 max) (optional, default: 10)
+    int32 perPage = 14;
+    // Search term - note: will match district name or city (optional)
+    string q = 15;
+    // Sort list. Values are: districtname, distance, rank. For descending order, preceed with '-' i.e. -districtname (optional, default: districtname)
+    string sortBy = 16;
+    // Two character state (e.g. 'CA') - required
+    string st = 17;
+    // Search for districts in this 5-digit zip code (optional)
+    string zip = 18;
+}
+
+message GetV1DistrictsIdRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // The 7 digit District ID (e.g. 0642150)
+    string id = 3;
+}
+
+message GetV1RankingsDistrictsStRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // Page number to retrieve (optional, default: 1)
+    int32 page = 3;
+    // Number of districts to retrieve on a page (50 max) (optional, default: 10)
+    int32 perPage = 4;
+    // Two character state (e.g. 'CA')
+    string st = 5;
+    // The ranking year (leave blank for most recent year)
+    int32 year = 6;
+}
+
+message GetV1RankingsSchoolsStRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // Level of ranking: 'Elementary', 'Middle', or 'High'
+    string level = 3;
+    // Page number to retrieve (optional, default: 1)
+    int32 page = 4;
+    // Number of schools to retrieve on a page (50 max) (optional, default: 10)
+    int32 perPage = 5;
+    // Two character state (e.g. 'CA')
+    string st = 6;
+    // The ranking year (leave blank for most recent year)
+    int32 year = 7;
+}
+
+message GetV1SchoolsRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // Full U.S. address: flag returned schools that include this address in its attendance boundary. Example: '123 Main St. AnyTown CA 90001' (optional) (Enterprise API level only)
+    string boundaryAddress = 3;
+    // Search for schools within a 'box' defined by (boxLatitudeNW/boxLongitudeNW) to (boxLongitudeSE/boxLatitudeSE) (optional)
+    double boxLatitudeNW = 4;
+    // Search for schools within a 'box' defined by (boxLatitudeNW/boxLongitudeNW) to (boxLongitudeSE/boxLatitudeSE) (optional)
+    double boxLatitudeSE = 5;
+    // Search for schools within a 'box' defined by (boxLatitudeNW/boxLongitudeNW) to (boxLongitudeSE/boxLatitudeSE) (optional)
+    double boxLongitudeNW = 6;
+    // Search for schools within a 'box' defined by (boxLatitudeNW/boxLongitudeNW) to (boxLongitudeSE/boxLatitudeSE) (optional)
+    double boxLongitudeSE = 7;
+    // Search for schools in this city (optional)
+    string city = 8;
+    // Search for schools within (distanceMiles) of (nearLatitude)/(nearLongitude) (Default 5 miles) (optional) (Pro, Enterprise API levels only)
+    int32 distanceMiles = 9;
+    // Search for schools within this district (7 digit district id) (optional)
+    string districtID = 10;
+    // True = return only charter schools, False = return only non-charter schools (optional) (Pro, Enterprise API levels only)
+    bool isCharter = 11;
+    // Return only the schools that include given location (nearLatitdue/nearLongitude) or (nearAddress) in its attendance boundary (Enterprise API level only)
+    bool isInBoundaryOnly = 12;
+    // True = return only magnet schools, False = return only non-magnet schools (optional) (Pro, Enterprise API levels only)
+    bool isMagnet = 13;
+    // True = return only Title I schools, False = return only non-Title I schools (optional) (Pro, Enterprise API levels only)
+    bool isTitleI = 14;
+    // True = return only Title I schoolwide schools, False = return only non-Title I Schoolwide schools (optional) (Pro, Enterprise API levels only)
+    bool isTitleISchoolwide = 15;
+    // True = return only virtual schools, False = return only non-virtual schools (optional) (Pro, Enterprise API levels only)
+    bool isVirtual = 16;
+    // Search for schools at this level. Valid values: 'Elementary', 'Middle', 'High', 'Alt', 'Private' (optional)
+    string level = 17;
+    // Search for schools within (distanceMiles) of (nearLatitude)/(nearLongitude) (e.g. 44.982560) (optional) (Pro, Enterprise API levels only. Enterprise API level will flag schools that include lat/long in its attendance boundary.)
+    double nearLatitude = 18;
+    // Search for schools within (distanceMiles) of (nearLatitude)/(nearLongitude) (e.g. -124.289185) (optional) (Pro, Enterprise API levels only. Enterprise API level will flag schools that include lat/long in its attendance boundary.)
+    double nearLongitude = 19;
+    // Page number to retrieve (optional, default: 1)
+    int32 page = 20;
+    // Number of schools to retrieve on a page (50 max) (optional, default: 10)
+    int32 perPage = 21;
+    // Search term - note: will match school name or city (optional)
+    string q = 22;
+    // Sort list. Values are: schoolname, distance, rank. For descending order, preceed with '-' i.e. -schoolname (optional, default: schoolname)
+    string sortBy = 23;
+    // Two character state (e.g. 'CA') - required
+    string st = 24;
+    // Search for schools in this 5-digit zip code (optional)
+    string zip = 25;
+}
+
+message GetV1SchoolsIdRequest {
+    // Your API app id
+    string appID = 1;
+    // Your API app key
+    string appKey = 2;
+    // The 12 digit School ID (e.g. 064215006903)
+    string id = 3;
+}
+
+message APIBoundary {
+    // States whether there is a boundary available
+    bool hasBoundary = 1;
+    // Collection of one or more polylines that can be used to create the boundary on a map
+    repeated APIPolyline polylineCollection = 2;
+}
+
+message APICounty {
+    // County in which the school or district is located
+    string countyName = 1;
+    // SchoolDigger URL for all schools in this county
+    string countyURL = 2;
+}
+
+message APIDistrict {
+    // District's physical address
+    APILocation address = 1;
+    APIBoundary boundary = 2;
+    // County where district is located
+    APICounty county = 3;
+    // SchoolDigger District ID Number (7 digits)
+    string districtID = 4;
+    // District name
+    string districtName = 5;
+    // District yearly metrics
+    repeated APILEAYearlyDetail districtYearlyDetails = 6;
+    // The high grade served by this district
+    string highGrade = 7;
+    // Indicates whether this district's boundary includes the specified location from fromLatitude/fromLongitude
+    bool isWithinBoundary = 8;
+    // The low grade served by this district (PK = Prekindergarten, K = Kindergarten)
+    string lowGrade = 9;
+    int32 numberAlternativeSchools = 10;
+    int32 numberHighSchools = 11;
+    int32 numberMiddleSchools = 12;
+    int32 numberPrimarySchools = 13;
+    int32 numberTotalSchools = 14;
+    // District phone number
+    string phone = 15;
+    // SchoolDigger yearly rank history of the district
+    repeated APILEARankHistory rankHistory = 16;
+    // Test scores (district and state) -- requires Pro or Enterprise level API subscription
+    repeated APITestScoreWrapper testScores = 17;
+    // SchoolDigger URL for this district
+    string url = 18;
+}
+
+message APIDistrict1 {
+    // District's physical address
+    APILocation address = 1;
+    // County where district is located
+    APICounty county = 2;
+    // Distance from nearLatitude/nearLongitude (if supplied)
+    double distance = 3;
+    // SchoolDigger District ID Number (7 digits). Use /districts/{districtID} to retrieve the entire district record
+    string districtID = 4;
+    // District name
+    string districtName = 5;
+    // District yearly metrics
+    repeated APILEAYearlyDetail districtYearlyDetails = 6;
+    // Indicates that an attendance boundary is available for this district. (To retrieve, look up district with /districts/{id})
+    bool hasBoundary = 7;
+    // The high grade served by this district
+    string highGrade = 8;
+    // Indicates whether this district's boundary includes the specified location from fromLatitude/fromLongitude
+    bool isWithinBoundary = 9;
+    // Indicates whether this school's boundary includes the specified location from fromLatitude/fromLongitude or boundaryAddress (Enterprise API level)
+    bool locationIsWithinBoundary = 10;
+    // The low grade served by this district (PK = Prekindergarten, K = Kindergarten)
+    string lowGrade = 11;
+    // Count of schools designated as other/alternative schools
+    int32 numberAlternativeSchools = 12;
+    // Count of schools designated as high schools
+    int32 numberHighSchools = 13;
+    // Count of schools designated as middle schools
+    int32 numberMiddleSchools = 14;
+    // Count of schools designated as primary schools
+    int32 numberPrimarySchools = 15;
+    // Count of schools in the district
+    int32 numberTotalSchools = 16;
+    // District phone number
+    string phone = 17;
+    // SchoolDigger yearly rank history of the district
+    repeated APILEARankHistory rankHistory = 18;
+    // Test scores (district and state) -- requires Pro or Enterprise level API subscription
+    repeated APITestScoreWrapper testScores = 19;
+    // SchoolDigger URL for this district
+    string url = 20;
+}
+
+message APIDistrictList {
+    repeated APIDistrict1 districtList = 1;
+    // The total count of districts that match your query
+    int32 numberOfDistricts = 2;
+    // The total count of pages in your query list based on given per_page value
+    int32 numberOfPages = 3;
+}
+
+message APIDistrictListRank {
+    repeated APIDistrict1 districtList = 1;
+    // The total count of districts in the entire rank list
+    int32 numberOfDistricts = 2;
+    // The total count of pages in your query list based on given per_page value
+    int32 numberOfPages = 3;
+    int32 rankCompareYear = 4;
+    // Year this ranking list represents (2017 = 2016-17)
+    int32 rankYear = 5;
+    // Year rankings returned for comparison (2017 = 2016-17)
+    int32 rankYearCompare = 6;
+    // The years for which SchoolDigger district rankings are available for this state
+    repeated int32 rankYearsAvailable = 7;
+}
+
+message APIDistrictSum {
+    // The 7 digit SchoolDigger District id number
+    string districtID = 1;
+    string districtName = 2;
+    // The URL to see the district in the SchoolDigger ranking list
+    string rankURL = 3;
+    // The URL to see the district details on SchoolDigger
+    string url = 4;
+}
+
+message APILEARankHistory {
+    // Statewide rank of this district
+    int32 rank = 1;
+    // Count of district ranked in this state
+    int32 rankOf = 2;
+    // The rank score calculated by SchoolDigger (see https://www.schooldigger.com/aboutranking.aspx)
+    double rankScore = 3;
+    // The number of stars SchoolDigger awarded in the ranking of the district (0-5, 5 is best)
+    int32 rankStars = 4;
+    // Percentile of this district's rank (e.g. this district performed better than (x)% of this state's districts)
+    double rankStatewidePercentage = 5;
+    // School year (2017 - 2016-17)
+    int32 year = 6;
+}
+
+message APILEAYearlyDetail {
+    // Number of full-time equivalent instructional aids employed by the district
+    double numberOfAids = 1;
+    // Number of full-time equivalent instructional coordinators/supervisors employed by the district
+    double numberOfCoordsSupervisors = 2;
+    // The number of English language learner (ELL) students served in appropriate programs
+    int32 numberOfEnglishLanguageLearnerStudents = 3;
+    // Number of full-time equivalent elementary guidance counselors employed by the district
+    double numberOfGuidanceElem = 4;
+    // Number of full-time equivalent secondary guidance counselors employed by the district
+    double numberOfGuidanceSecondary = 5;
+    // Total number of full-time equivalent guidance counselors employed by the district
+    double numberOfGuidanceTotal = 6;
+    // Number of full-time equivalent LEA administrators employed by the district (LEA)
+    double numberOfLEAAdministrators = 7;
+    // Number of full-time equivalent LEA administrative support staff employed by the district (LEA)
+    double numberOfLEASupportStaff = 8;
+    // Number of full-time equivalent librarians/media specialists employed by the district
+    double numberOfLibrarians = 9;
+    // Number of full-time equivalent librarians/media support staff employed by the district
+    double numberOfLibraryStaff = 10;
+    // Number of full-time equivalent all other support staff employed by the district (LEA)
+    double numberOfOtherSupportStaff = 11;
+    // Number of full-time equivalent school administrative support staff employed by the district (LEA)
+    double numberOfSchoolAdminSupportStaff = 12;
+    // Number of full-time equivalent school administrators employed by the district (LEA)
+    double numberOfSchoolAdministrators = 13;
+    // The number of students having a written Individualized Education Program (IEP) under the Individuals With Disabilities Education Act (IDEA)
+    int32 numberOfSpecialEdStudents = 14;
+    // Number of full-time equivalent student support services staff employed by the district (LEA)
+    double numberOfStudentSupportStaff = 15;
+    // Number of students enrolled in the district
+    int32 numberOfStudents = 16;
+    // Number of full-time equivalent teachers employed by the district
+    double numberOfTeachers = 17;
+    // Number of full-time equivalent elementary teachers employed by the district
+    double numberOfTeachersElementary = 18;
+    // Number of full-time equivalent kindergarten teachers employed by the district
+    double numberOfTeachersK = 19;
+    // Number of full-time equivalent pre-kindergarten teachers employed by the district
+    double numberOfTeachersPK = 20;
+    // Number of full-time equivalent secondary teachers employed by the district
+    double numberOfTeachersSecondary = 21;
+    // School year (2017 = 2016-17)
+    int32 year = 22;
+}
+
+message APILatLong {
+    double latitude = 1;
+    double longitude = 2;
+}
+
+message APILocation {
+    string city = 1;
+    // SchoolDigger URL for schools in this city
+    string cityURL = 2;
+    // HTML formatted address
+    string html = 3;
+    // Latitude/longitude of school address (Pro and Enterprise API levels only)
+    APILatLong latLong = 4;
+    string state = 5;
+    // Full state name (WA = Washington)
+    string stateFull = 6;
+    string street = 7;
+    string zip = 8;
+    string zip4 = 9;
+    // SchoolDigger URL for schools in this zip code
+    string zipURL = 10;
+}
+
+message APIPolyline {
+    // Number of encoded points in polyline
+    int32 numberEncodedPoints = 1;
+    // Polyline for use with Google Maps or other mapping software
+    string polylineOverlayEncodedPoints = 2;
+}
+
+message APIRankHistory {
+    // The Average Standard score calculated by SchoolDigger (see: https://www.schooldigger.com/aboutrankingmethodology.aspx)
+    double averageStandardScore = 1;
+    // Statewide rank of this School
+    int32 rank = 2;
+    // The level for which this school is ranked (Elementary, Middle, High)
+    string rankLevel = 3;
+    // Count of schools ranked at this state/level
+    int32 rankOf = 4;
+    // The number of stars SchoolDigger awarded in the ranking of the school (0-5, 5 is best)
+    int32 rankStars = 5;
+    // Percentile of this school's rank (e.g. this school performed better than (x)% of this state's elementary schools)
+    double rankStatewidePercentage = 6;
+    // School year (2017 - 2016-17)
+    int32 year = 7;
+}
+
+message APISchool {
+    // School's physical address
+    APILocation address = 1;
+    APIBoundary boundary = 2;
+    // County where school is located
+    APICounty county = 3;
+    // District of school (public schools only)
+    APIDistrictSum district = 4;
+    // The high grade served by this school
+    string highGrade = 5;
+    // Indicates if school is a charter school (Yes/No/n-a)
+    string isCharterSchool = 6;
+    // Indicates if school is a magnet school (Yes/No/n-a)
+    string isMagnetSchool = 7;
+    // Indicates if school is a private school (Yes/No)
+    bool isPrivate = 8;
+    // Indicates if school is a Title I school (Yes/No/n-a)
+    string isTitleISchool = 9;
+    // Indicates if a school-wide Title I school (Yes/No/n-a)
+    string isTitleISchoolwideSchool = 10;
+    // Indicates if school is a virtual school (Yes/No/n-a)
+    string isVirtualSchool = 11;
+    // NCES Locale of school (https://nces.ed.gov/ccd/rural_locales.asp)
+    string locale = 12;
+    // The low grade served by this school (PK = Prekindergarten, K = Kindergarten)
+    string lowGrade = 13;
+    // School phone number
+    string phone = 14;
+    // Coed/Boys/Girls (private schools only)
+    string privateCoed = 15;
+    // Days in the school year (private schools only)
+    int32 privateDays = 16;
+    // Indicates if the school has a library (private schools only)
+    bool privateHasLibrary = 17;
+    // Hours in the school day (private schools only)
+    double privateHours = 18;
+    // Affiliation of the school (private schools only)
+    string privateOrientation = 19;
+    // SchoolDigger yearly rank history of the school
+    repeated APIRankHistory rankHistory = 20;
+    // Returns the movement of rank for this school between current and previous year
+    int32 rankMovement = 21;
+    // The level of school (Elementary, Middle, High, Private, Alternative)
+    string schoolLevel = 22;
+    // School name
+    string schoolName = 23;
+    // School Yearly metrics
+    repeated APIYearlyDemographics schoolYearlyDetails = 24;
+    // SchoolDigger School ID Number (12 digits)
+    string schoolid = 25;
+    // Test scores (including district and state) -- requires Pro or Enterprise level API subscription
+    repeated APITestScoreWrapper testScores = 26;
+    // SchoolDigger URL for this school
+    string url = 27;
+    // SchoolDigger URL for comparing this school to nearby schools
+    string urlCompare = 28;
+}
+
+message APISchool1 {
+    // School's physical address
+    APILocation address = 1;
+    // County where school is located
+    APICounty county = 2;
+    // Distance from nearLatitude/nearLongitude (if supplied)
+    double distance = 3;
+    // District of school (public schools only)
+    APIDistrictSum district = 4;
+    // Indicates that an attendance boundary is available for this school. (To retrieve, look up school with /schools/{id})
+    bool hasBoundary = 5;
+    // The high grade served by this school
+    string highGrade = 6;
+    // Indicates if school is a charter school (Yes/No/n-a)
+    string isCharterSchool = 7;
+    // Indicates if school is a magnet school (Yes/No/n-a)
+    string isMagnetSchool = 8;
+    // Indicates if school is a private school (Yes/No)
+    bool isPrivate = 9;
+    // Indicates if school is a Title I school (Yes/No/n-a)
+    string isTitleISchool = 10;
+    // Indicates if a school-wide Title I school (Yes/No/n-a)
+    string isTitleISchoolwideSchool = 11;
+    // Indicates if school is a virtual school (Yes/No/n-a)
+    string isVirtualSchool = 12;
+    // Indicates whether this school's boundary includes the specified location from fromLatitude/fromLongitude or boundaryAddress. (Enterprise API level only)
+    bool locationIsWithinBoundary = 13;
+    // The low grade served by this school (PK = Prekindergarten, K = Kindergarten)
+    string lowGrade = 14;
+    // School phone number
+    string phone = 15;
+    // Coed/Boys/Girls (private schools only)
+    string privateCoed = 16;
+    // Days in the school year (private schools only)
+    int32 privateDays = 17;
+    // Indicates if the school has a library (private schools only)
+    bool privateHasLibrary = 18;
+    // Hours in the school day (private schools only)
+    double privateHours = 19;
+    // Affiliation of the school (private schools only)
+    string privateOrientation = 20;
+    // SchoolDigger yearly rank history of the school. To retrieve all years, call /schools/{id}.
+    repeated APIRankHistory rankHistory = 21;
+    // Returns the movement of rank for this school between current and previous year
+    int32 rankMovement = 22;
+    // The level of school (Elementary, Middle, High, Private, Alternative)
+    string schoolLevel = 23;
+    // School name
+    string schoolName = 24;
+    // School Yearly metrics. To retrieve all years, call /schools/{id}.
+    repeated APIYearlyDemographics schoolYearlyDetails = 25;
+    // SchoolDigger School ID Number (12 digits). Use /schools/{schoolID} to retrieve the full school record
+    string schoolid = 26;
+    // SchoolDigger URL for this school
+    string url = 27;
+    // SchoolDigger URL for comparing this school to others
+    string urlCompare = 28;
+}
+
+message APISchoolList {
+    // The total count of pages in your query list based on given per_page value
+    int32 numberOfPages = 1;
+    // The total count of schools that match your query
+    int32 numberOfSchools = 2;
+    repeated APISchool1 schoolList = 3;
+}
+
+message APISchoolListRank {
+    // The total count of pages this ranking list based on given per_page value
+    int32 numberOfPages = 1;
+    // The total count of schools in this ranking list
+    int32 numberOfSchools = 2;
+    // Year this ranking list represents (2017 = 2016-17)
+    int32 rankYear = 3;
+    // Year rankings returned for comparison (2017 = 2016-17)
+    int32 rankYearCompare = 4;
+    // The years for which SchoolDigger rankings are available for this state and level
+    repeated int32 rankYearsAvailable = 5;
+    // The schools in the ranking list
+    repeated APISchool1 schoolList = 6;
+}
+
+message APITestScore {
+    // Mean scale score
+    float meanScaledScore = 1;
+    // Count of students performing at tier 1 (Enterprise API level only)
+    int32 numTier1 = 2;
+    // Count of students performing at tier 2 (Enterprise API level only)
+    int32 numTier2 = 3;
+    // Count of students performing at tier 3 (Enterprise API level only)
+    int32 numTier3 = 4;
+    // Count of students performing at tier 4 (Enterprise API level only)
+    int32 numTier4 = 5;
+    // Count of students performing at tier 5 (Enterprise API level only)
+    int32 numTier5 = 6;
+    // Count of students meeting state standard
+    float numberMetStandard = 7;
+    // Percent of students meeting state standard
+    float percentMetStandard = 8;
+    // Percent of students performing at tier 1 (Enterprise API level only)
+    float percentTier1 = 9;
+    // Percent of students performing at tier 2 (Enterprise API level only)
+    float percentTier2 = 10;
+    // Percent of students performing at tier 3 (Enterprise API level only)
+    float percentTier3 = 11;
+    // Percent of students performing at tier 4 (Enterprise API level only)
+    float percentTier4 = 12;
+    // Percent of students performing at tier 5 (Enterprise API level only)
+    float percentTier5 = 13;
+    // Count of students eligible to take test
+    int32 studentsEligible = 14;
+    // Count of students tested
+    int32 studentsTested = 15;
+}
+
+message APITestScoreWrapper {
+    // District level test score
+    APITestScore districtTestScore = 1;
+    string grade = 2;
+    // School level test score
+    APITestScore schoolTestScore = 3;
+    // State level text score
+    APITestScore stateTestScore = 4;
+    // Test subject
+    string subject = 5;
+    // The name of the state-administed test
+    string test = 6;
+    // Tier 1 test score description (Enterprise API level only)
+    string tier1 = 7;
+    // Tier 2 test score description (Enterprise API level only)
+    string tier2 = 8;
+    // Tier 3 test score description (Enterprise API level only)
+    string tier3 = 9;
+    // Tier 4 test score description (Enterprise API level only)
+    string tier4 = 10;
+    // Tier 5 test score description (Enterprise API level only)
+    string tier5 = 11;
+    // Year test was administered (2017 = 2016-17)
+    int32 year = 12;
+}
+
+message APIYearlyDemographics {
+    // Count of students attending the school
+    int32 numberOfStudents = 1;
+    // NCES definition: A person having origins in any of the black racial groups of Africa.  (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofAfricanAmericanStudents = 2;
+    // NCES definition: A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent, including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.  (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofAsianStudents = 3;
+    // NCES definition: A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin, regardless of race. (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofHispanicStudents = 4;
+    // NCES definition: A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent, including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam. (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofIndianStudents = 5;
+    // NCES definition: A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands. (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofPacificIslanderStudents = 6;
+    // NCES definition: Includes any combination of two or more races and not Hispanic/Latino ethnicity. (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofTwoOrMoreRaceStudents = 7;
+    int32 numberofUnspecifiedRaceStudents = 8;
+    // NCES definition: A person having origins in any of the original peoples of Europe, the Middle East, or North Africa. (https://nces.ed.gov/statprog/2002/std1_5.asp)
+    int32 numberofWhiteStudents = 9;
+    // Percent of students receiving a free or discounted lunch in the National School Lunch Program
+    double percentFreeDiscLunch = 10;
+    double percentofAfricanAmericanStudents = 11;
+    double percentofAsianStudents = 12;
+    double percentofHispanicStudents = 13;
+    double percentofIndianStudents = 14;
+    double percentofPacificIslanderStudents = 15;
+    double percentofTwoOrMoreRaceStudents = 16;
+    double percentofUnspecifiedRaceStudents = 17;
+    double percentofWhiteStudents = 18;
+    // Number of students / number of full-time equivalent teachers
+    double pupilTeacherRatio = 19;
+    // Number of full-time equvalent teachers employed at the school
+    double teachersFulltime = 20;
+    // School year (2017 = 2016-17)
+    int32 year = 21;
+}
+
+service SchoolDiggerAPIV1Service {
+    // Returns a list of districts
+    // 
+    // Search the SchoolDigger database for districts. You may use any combination of criteria as query parameters.
+    rpc GetV1Districts(GetV1DistrictsRequest) returns (APIDistrictList) {
+      option (google.api.http) = {
+        get: "/v1/districts"
+      };
+    }
+    // Returns a detailed record for one district district
+    // 
+    // Retrieve a single district record from the SchoolDigger database
+    rpc GetV1DistrictsId(GetV1DistrictsIdRequest) returns (APIDistrict) {
+      option (google.api.http) = {
+        get: "/v1/districts/{id}"
+      };
+    }
+    // Returns a SchoolDigger district ranking list
+    rpc GetV1RankingsDistrictsSt(GetV1RankingsDistrictsStRequest) returns (APIDistrictListRank) {
+      option (google.api.http) = {
+        get: "/v1/rankings/districts/{st}"
+      };
+    }
+    // Returns a SchoolDigger school ranking list
+    rpc GetV1RankingsSchoolsSt(GetV1RankingsSchoolsStRequest) returns (APISchoolListRank) {
+      option (google.api.http) = {
+        get: "/v1/rankings/schools/{st}"
+      };
+    }
+    // Returns a list of schools
+    // 
+    // Search the SchoolDigger database for schools. You may use any combination of criteria as query parameters.
+    rpc GetV1Schools(GetV1SchoolsRequest) returns (APISchoolList) {
+      option (google.api.http) = {
+        get: "/v1/schools"
+      };
+    }
+    // Returns a detailed record for one school
+    // 
+    // Retrieve a school record from the SchoolDigger database
+    rpc GetV1SchoolsId(GetV1SchoolsIdRequest) returns (APISchool) {
+      option (google.api.http) = {
+        get: "/v1/schools/{id}"
+      };
+    }
+}

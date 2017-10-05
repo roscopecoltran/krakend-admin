@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package amazonmobileanalytics;
+
+message Post20140605EventsRequest {
+    string Action = 1;
+    string Version = 2;
+    string X_Amz_Algorithm = 3;
+    string X_Amz_Content_Sha256 = 4;
+    string X_Amz_Credential = 5;
+    string X_Amz_Date = 6;
+    string X_Amz_Security_Token = 7;
+    string X_Amz_Signature = 8;
+    string X_Amz_SignedHeaders = 9;
+    PutEventsInput body = 10;
+}
+
+message BadRequestException {
+    // A text description associated with the BadRequestException object.
+    string message = 1;
+}
+
+message Event {
+    // <p>A collection of key-value pairs that give additional context to the event. The key-value pairs are specified by the developer.</p> <p>This collection can be empty or the attribute object can be omitted.</p>
+    array attributes = 1;
+    // A name signifying an event that occurred in your app. This is used for grouping and aggregating like events together for reporting purposes.
+    string eventType = 2;
+    // <p>A collection of key-value pairs that gives additional, measurable context to the event. The key-value pairs are specified by the developer.</p> <p>This collection can be empty or the attribute object can be omitted.</p>
+    array metrics = 3;
+    // The session the event occured within.
+    Session session = 4;
+    // The time the event occurred in ISO 8601 standard date time format. For example, 2014-06-30T19:07:47.885Z
+    string timestamp = 5;
+    // The version of the event.
+    string version = 6;
+}
+
+repeated Event EventListDefinition = 1
+
+
+
+
+
+message MapOfStringToNumber {
+    string key = 1;
+    number value = 2;
+}
+repeated MapOfStringToNumber MapOfStringToNumber = 1
+
+message MapOfStringToString {
+    string key = 1;
+    string value = 2;
+}
+repeated MapOfStringToString MapOfStringToString = 1
+
+message PutEventsInput {
+    // An array of Event JSON objects
+    array events = 1;
+}
+
+message Session {
+    // The duration of the session.
+    integer duration = 1;
+    // A unique identifier for the session
+    string id = 2;
+    // The time the event started in ISO 8601 standard date time format. For example, 2014-06-30T19:07:47.885Z
+    string startTimestamp = 3;
+    // The time the event terminated in ISO 8601 standard date time format. For example, 2014-06-30T19:07:47.885Z
+    string stopTimestamp = 4;
+}
+
+service AmazonMobileAnalyticsService {
+    // The PutEvents operation records one or more events. You can have up to 1,500 unique custom events per app, any combination of up to 40 attributes and metrics per custom event, and any number of attribute or metric values.
+    rpc Post20140605Events(Post20140605EventsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//2014-06-05/events"
+        body: "body"
+      };
+    }
+}

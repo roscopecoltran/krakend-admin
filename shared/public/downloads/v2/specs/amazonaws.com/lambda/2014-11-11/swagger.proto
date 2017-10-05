@@ -1,0 +1,312 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package awslambda;
+
+message Get20141113EventSourceMappingsRequest {
+    string Action = 1;
+    // Pagination token
+    string Marker = 2;
+    // Pagination limit
+    string MaxItems = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    ListEventSourcesRequest body = 12;
+}
+
+message Delete20141113EventSourceMappingsUUIDRequest {
+    string Action = 1;
+    string UUID = 2;
+    string Version = 3;
+    string X_Amz_Algorithm = 4;
+    string X_Amz_Content_Sha256 = 5;
+    string X_Amz_Credential = 6;
+    string X_Amz_Date = 7;
+    string X_Amz_Security_Token = 8;
+    string X_Amz_Signature = 9;
+    string X_Amz_SignedHeaders = 10;
+    RemoveEventSourceRequest body = 11;
+}
+
+message Get20141113FunctionsRequest {
+    string Action = 1;
+    // Pagination token
+    string Marker = 2;
+    // Pagination limit
+    string MaxItems = 3;
+    string Version = 4;
+    string X_Amz_Algorithm = 5;
+    string X_Amz_Content_Sha256 = 6;
+    string X_Amz_Credential = 7;
+    string X_Amz_Date = 8;
+    string X_Amz_Security_Token = 9;
+    string X_Amz_Signature = 10;
+    string X_Amz_SignedHeaders = 11;
+    ListFunctionsRequest body = 12;
+}
+
+message Put20141113FunctionsFunctionNameRequest {
+    string Action = 1;
+    string FunctionName = 2;
+    string Version = 3;
+    string X_Amz_Algorithm = 4;
+    string X_Amz_Content_Sha256 = 5;
+    string X_Amz_Credential = 6;
+    string X_Amz_Date = 7;
+    string X_Amz_Security_Token = 8;
+    string X_Amz_Signature = 9;
+    string X_Amz_SignedHeaders = 10;
+    UploadFunctionRequest body = 11;
+}
+
+message Put20141113FunctionsFunctionNameConfigurationRequest {
+    string Action = 1;
+    string FunctionName = 2;
+    string Version = 3;
+    string X_Amz_Algorithm = 4;
+    string X_Amz_Content_Sha256 = 5;
+    string X_Amz_Credential = 6;
+    string X_Amz_Date = 7;
+    string X_Amz_Security_Token = 8;
+    string X_Amz_Signature = 9;
+    string X_Amz_SignedHeaders = 10;
+    UpdateFunctionConfigurationRequest body = 11;
+}
+
+message Post20141113FunctionsFunctionNameInvokeAsyncRequest {
+    string Action = 1;
+    string FunctionName = 2;
+    string Version = 3;
+    string X_Amz_Algorithm = 4;
+    string X_Amz_Content_Sha256 = 5;
+    string X_Amz_Credential = 6;
+    string X_Amz_Date = 7;
+    string X_Amz_Security_Token = 8;
+    string X_Amz_Signature = 9;
+    string X_Amz_SignedHeaders = 10;
+    InvokeAsyncRequest body = 11;
+}
+
+message AddEventSourceRequest {
+    // The largest number of records that AWS Lambda will give to your function in a single event. The default is 100 records.
+    integer BatchSize = 1;
+    // The Amazon Resource Name (ARN) of the Amazon Kinesis stream that is the event source. Any record added to this stream causes AWS Lambda to invoke your Lambda function. AWS Lambda POSTs the Amazon Kinesis event, containing records, to your Lambda function as JSON.
+    string EventSource = 2;
+    // The Lambda function to invoke when AWS Lambda detects an event on the stream.
+    string FunctionName = 3;
+    // A map (key-value pairs) defining the configuration for AWS Lambda to use when reading the event source. Currently, AWS Lambda supports only the <code>InitialPositionInStream</code> key. The valid values are: "TRIM_HORIZON" and "LATEST". The default value is "TRIM_HORIZON". For more information, go to <a href="http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType">ShardIteratorType</a> in the Amazon Kinesis Service API Reference.
+    array Parameters = 4;
+    // The ARN of the IAM role (invocation role) that AWS Lambda can assume to read from the stream and invoke the function.
+    string Role = 5;
+}
+
+message DeleteFunctionRequest {
+}
+
+message EventSourceConfiguration {
+    // The largest number of records that AWS Lambda will POST in the invocation request to your function.
+    integer BatchSize = 1;
+    // The Amazon Resource Name (ARN) of the Amazon Kinesis stream that is the source of events.
+    string EventSource = 2;
+    // The Lambda function to invoke when AWS Lambda detects an event on the stream.
+    string FunctionName = 3;
+    // Indicates whether the event source mapping is currently honored. Events are only processes if IsActive is true.
+    boolean IsActive = 4;
+    // The UTC time string indicating the last time the event mapping was updated.
+    string LastModified = 5;
+    // The map (key-value pairs) defining the configuration for AWS Lambda to use when reading the event source.
+    array Parameters = 6;
+    // The ARN of the IAM role (invocation role) that AWS Lambda can assume to read from the stream and invoke the function.
+    string Role = 7;
+    // The description of the health of the event source mapping. Valid values are: "PENDING", "OK", and "PROBLEM:<i>message</i>". Initially this staus is "PENDING". When AWS Lambda begins processing events, it changes the status to "OK".
+    string Status = 8;
+    // The AWS Lambda assigned opaque identifier for the mapping.
+    string UUID = 9;
+}
+
+repeated EventSourceConfiguration EventSourceList = 1
+
+
+
+message FunctionCodeLocation {
+    // The presigned URL you can use to download the function's .zip file that you previously uploaded. The URL is valid for up to 10 minutes.
+    string Location = 1;
+    // The repository from which you can download the function.
+    string RepositoryType = 2;
+}
+
+message FunctionConfiguration {
+    // The size, in bytes, of the function .zip file you uploaded.
+    integer CodeSize = 1;
+    // A Lambda-assigned unique identifier for the current function code and related configuration.
+    string ConfigurationId = 2;
+    // The user-provided description.
+    string Description = 3;
+    // The Amazon Resource Name (ARN) assigned to the function.
+    string FunctionARN = 4;
+    // The name of the function.
+    string FunctionName = 5;
+    // The function Lambda calls to begin executing your function.
+    string Handler = 6;
+    // The timestamp of the last time you updated the function.
+    string LastModified = 7;
+    // The memory size, in MB, you configured for the function. Must be a multiple of 64 MB.
+    integer MemorySize = 8;
+    // The type of the Lambda function you uploaded.
+    Mode Mode = 9;
+    // The Amazon Resource Name (ARN) of the IAM role that Lambda assumes when it executes your function to access any other Amazon Web Services (AWS) resources.
+    string Role = 10;
+    // The runtime environment for the Lambda function.
+    Runtime Runtime = 11;
+    // The function execution time at which Lambda should terminate the function. Because the execution time has cost implications, we recommend you set this value based on your expected execution time. The default is 3 seconds.
+    integer Timeout = 12;
+}
+
+repeated FunctionConfiguration FunctionList = 1
+
+
+
+message GetEventSourceRequest {
+}
+
+message GetFunctionConfigurationRequest {
+}
+
+message GetFunctionRequest {
+}
+
+message GetFunctionResponse {
+    FunctionCodeLocation Code = 1;
+    FunctionConfiguration Configuration = 2;
+}
+
+message InvalidParameterValueException {
+    string Type = 1;
+    string message = 2;
+}
+
+message InvalidRequestContentException {
+    string Type = 1;
+    string message = 2;
+}
+
+message InvokeAsyncRequest {
+    // JSON that you want to provide to your Lambda function as input.
+    string InvokeArgs = 1;
+}
+
+message InvokeAsyncResponse {
+}
+
+message ListEventSourcesRequest {
+}
+
+message ListEventSourcesResponse {
+    // An arrary of <code>EventSourceConfiguration</code> objects.
+    array EventSources = 1;
+    // A string, present if there are more event source mappings.
+    string NextMarker = 2;
+}
+
+message ListFunctionsRequest {
+}
+
+message ListFunctionsResponse {
+    // A list of Lambda functions.
+    array Functions = 1;
+    // A string, present if there are more functions.
+    string NextMarker = 2;
+}
+
+message Map {
+    string key = 1;
+    string value = 2;
+}
+repeated Map Map = 1
+
+
+
+
+
+enum Mode {
+    EVENT = 0;
+}
+
+message RemoveEventSourceRequest {
+}
+
+message ResourceNotFoundException {
+    string Message = 1;
+    string Type = 2;
+}
+
+enum Runtime {
+    NODEJS = 0;
+}
+
+message ServiceException {
+    string Message = 1;
+    string Type = 2;
+}
+
+message UpdateFunctionConfigurationRequest {
+}
+
+message UploadFunctionRequest {
+    // A .zip file containing your packaged source code. For more information about creating a .zip file, go to <a href="http://docs.aws.amazon.com/lambda/latest/dg/walkthrough-custom-events.html">AWS LambdaL How it Works</a> in the AWS Lambda Developer Guide.
+    string FunctionZip = 1;
+}
+
+service AWSLambdaService {
+    // <p>Returns a list of event source mappings you created using the <code>AddEventSource</code> (see <a>AddEventSource</a>), where you identify a stream as event source. This list does not include Amazon S3 event sources. </p> <p>For each mapping, the API returns configuration information. You can optionally specify filters to retrieve specific event source mappings.</p> <p>This operation requires permission for the <code>lambda:ListEventSources</code> action.</p>
+    rpc Get20141113EventSourceMappings(Get20141113EventSourceMappingsRequest) returns (ListEventSourcesResponse) {
+      option (google.api.http) = {
+        get: "//2014-11-13/event-source-mappings/"
+        body: "body"
+      };
+    }
+    // <p>Removes an event source mapping. This means AWS Lambda will no longer invoke the function for events in the associated source.</p> <p>This operation requires permission for the <code>lambda:RemoveEventSource</code> action.</p>
+    rpc Delete20141113EventSourceMappingsUUID(Delete20141113EventSourceMappingsUUIDRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//2014-11-13/event-source-mappings/{UUID}"
+        body: "body"
+      };
+    }
+    // <p>Returns a list of your Lambda functions. For each function, the response includes the function configuration information. You must use <a>GetFunction</a> to retrieve the code for your function.</p> <p>This operation requires permission for the <code>lambda:ListFunctions</code> action.</p>
+    rpc Get20141113Functions(Get20141113FunctionsRequest) returns (ListFunctionsResponse) {
+      option (google.api.http) = {
+        get: "//2014-11-13/functions/"
+        body: "body"
+      };
+    }
+    // <p>Creates a new Lambda function or updates an existing function. The function metadata is created from the request parameters, and the code for the function is provided by a .zip file in the request body. If the function name already exists, the existing Lambda function is updated with the new code and metadata. </p> <p>This operation requires permission for the <code>lambda:UploadFunction</code> action.</p>
+    rpc Put20141113FunctionsFunctionName(Put20141113FunctionsFunctionNameRequest) returns (FunctionConfiguration) {
+      option (google.api.http) = {
+        put: "//2014-11-13/functions/{FunctionName}"
+        body: "body"
+      };
+    }
+    // <p>Updates the configuration parameters for the specified Lambda function by using the values provided in the request. You provide only the parameters you want to change. This operation must only be used on an existing Lambda function and cannot be used to update the function's code. </p> <p>This operation requires permission for the <code>lambda:UpdateFunctionConfiguration</code> action.</p>
+    rpc Put20141113FunctionsFunctionNameConfiguration(Put20141113FunctionsFunctionNameConfigurationRequest) returns (FunctionConfiguration) {
+      option (google.api.http) = {
+        put: "//2014-11-13/functions/{FunctionName}/configuration"
+        body: "body"
+      };
+    }
+    // <p>Submits an invocation request to AWS Lambda. Upon receiving the request, Lambda executes the specified function asynchronously. To see the logs generated by the Lambda function execution, see the CloudWatch logs console.</p> <p>This operation requires permission for the <code>lambda:InvokeAsync</code> action.</p>
+    rpc Post20141113FunctionsFunctionNameInvokeAsync(Post20141113FunctionsFunctionNameInvokeAsyncRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "//2014-11-13/functions/{FunctionName}/invoke-async/"
+        body: "body"
+      };
+    }
+}

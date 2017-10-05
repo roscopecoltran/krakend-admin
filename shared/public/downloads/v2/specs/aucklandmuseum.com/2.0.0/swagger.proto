@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package aucklandmuseum;
+
+message GetIdMediaPathRequest {
+    // The media `identifier`
+    string path = 1;
+    // The desired media `rendering`
+    // 
+    // Possible values:
+    // * `original.jpg`
+    // * `original.pdf`
+    // * `thumbnail.jpg` (fixed with 70px)
+    // * `standard.jpg` (fixed width 440px and height 440px)
+    // * `preview.jpg` (fixed height 100px)
+    string rendering = 2;
+}
+
+message GetIdIdentifierRequest {
+    // The identifier path of the `subject` you're looking for
+    string identifier = 1;
+}
+
+message GetSearchIndexOperationRequest {
+    // search index name
+    // Possible values:
+    // * `collectionsonline`
+    // * `cenotaph`
+    string index = 1;
+    // One of the supported elasticsearch operations like `_search` or `_suggest`
+    string operation = 2;
+    // One of the supported elasticsearch query parameter values for key `q`
+    string q = 3;
+}
+
+message PostSearchIndexOperationRequest {
+    // body
+    message Body {
+    }
+    Body body = 1;
+    // search index name
+    // Possible values:
+    // * `collectionsonline`
+    // * `cenotaph`
+    string index = 2;
+    // One of the supported elasticsearch operations like `_search` or `_suggest`
+    string operation = 3;
+}
+
+message GetSparqlRequest {
+    // The [JSON-P](http://json-p.org/) callback parameter
+    string callback = 1;
+    // Whether to get inferred results in the response
+    bool infer = 2;
+    // sparql query
+    string query = 3;
+}
+
+message GetSparqlResponse {
+}
+
+message PostSparqlRequest {
+    // Whether to get inferred results in the response
+    bool infer = 1;
+    // sparql query
+    string query = 2;
+}
+
+service AucklandMuseumService {
+    // Retrieve media associated with Collections and Cenotaph subjects in Auckland Museum
+    // 
+    // Gets `media` at a given path
+    rpc GetIdMediaPath(GetIdMediaPathRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/id/media/{path}"
+      };
+    }
+    // Explore details about a given subject node
+    // 
+    // Gets information about a `subject` identified by the `identifier`.
+    // 
+    // The response format depends upon the `Accept` header.
+    //   - `text/html` - the default response type. Returned data can be easily viewed in any modern Internet Browser
+    //   - `application/ld+json` - the response will be in [JSON-LD](http://json-ld.org/)
+    //   - `application/json` - the response will be a simple JSON Object with keys (predicates) and values (objects).
+    rpc GetIdIdentifier(GetIdIdentifierRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/id/{identifier}"
+      };
+    }
+    // Perform simple search queries over Auckland Museum Collections and Cenotaph data
+    // 
+    // Use this endpoint to perform simple search queries for finding information and subjects you may be interested in
+    // 
+    // Searches performed via this endpoint run against an [Elastic](www.elastic.co) server. This endpoint mirrors the Elastic search API documented [here](https://www.elastic.co/guide/en/elasticsearch/reference/1.5/search-search.html)
+    // 
+    // Use the
+    //   - `collectionsonline` index to perform searches over other all
+    // Collections data
+    //   - `cenotaph` index to perform searches over Cenotaph data
+    rpc GetSearchIndexOperation(GetSearchIndexOperationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/search/{index}/{operation}"
+      };
+    }
+    // Perform complex search queries over Auckland Museum Collections and Cenotaph data
+    // 
+    // Searches performed via this endpoint run against an [Elastic](www.elastic.co) server. This endpoint mirrors the Elastic search API documented [here](https://www.elastic.co/guide/en/elasticsearch/reference/1.5/search-search.html)
+    // 
+    // Use the
+    //   - `collectionsonline` index to perform searches over other all Collections data
+    //   - `cenotaph` index to perform searches over Cenotaph data
+    rpc PostSearchIndexOperation(PostSearchIndexOperationRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/search/{index}/{operation}"
+        body: "body"
+      };
+    }
+    // Auckland Museum SPARQL endpoint
+    // 
+    // You can execute your [SPARQL](http://www.w3.org/TR/rdf-sparql-query/) queries against this endpoint.
+    // 
+    // The sparql query should be provided as the value of the request parameter `query`.
+    // Set the `Accept` header to `application/sparql-results+xml` to get results in XML. Set it to `application/sparql-results+json` to get results in JSON. 
+    // 
+    // **Note:** This endpoints supports [JSON-P](http://json-p.org/). In order to get a JSON-P response, set the query parameter `callback` to your preferred callback function name. The default function name is `callback()`. When using JSON-P, there is no need to set the `Accept` header because the response will always be in `application/javascript`.
+    rpc GetSparql(GetSparqlRequest) returns (GetSparqlResponse) {
+      option (google.api.http) = {
+        get: "/sparql"
+      };
+    }
+    // Auckland Museum SPARQL endpoint
+    // 
+    // You can execute your [SPARQL](http://www.w3.org/TR/rdf-sparql-query/) queries against this endpoint.
+    // The sparql query should be provided as the value of the request parameter `query`.
+    // Set the `Accept` header to `application/sparql-results+xml` to get results in XML. Set it to `application/sparql-results+json` to get results in JSON. 
+    rpc PostSparql(PostSparqlRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/sparql"
+      };
+    }
+}

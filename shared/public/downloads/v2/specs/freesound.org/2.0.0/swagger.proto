@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package freesound;
+
+message GetSearchTextRequest {
+    // Allows filtering query results. See below for more information.
+    string filter = 1;
+    // This parameter represents a boolean option to indicate whether to collapse results belonging to sounds of the same pack into single entries in the results list. If `group_by_pack=1` and search results contain more than one sound that belongs to the same pack, only one sound for each distinct pack is returned (sounds with no packs are returned as well). However, the returned sound will feature two extra properties to access these other sounds omitted from the results list: `n_from_same_pack`: indicates how many other results belong to the same pack (and have not been returned) `more_from_same_pack`: uri pointing to the list of omitted sound results of the same pack (also including the result which has already been returned). See examples below. By default `group_by_pack=0`.
+    int32 group_by_pack = 2;
+    // Query results are paginated, this parameter indicates what page should be returned. By default `page=1`.
+    int32 page = 3;
+    // Indicates the number of sounds per page to include in the result. By default `page_size=15`, and the maximum is `page_size=150`. Not that with bigger `page_size`, more data will need to be transferred.
+    int32 page_size = 4;
+    // The query! The query is the main parameter used to define a query. You can type several terms separated by spaces or phrases wrapped inside quote ‘”’ characters. For every term, you can also use ‘+’ and ‘-‘ modifier characters to indicate that a term is “mandatory” or “prohibited” (by default, terms are considered to be “mandatory”). For example, in a query such as query=term_a -term_b, sounds including term_b will not match the search criteria. The query does a weighted search over some sound properties including sound tags, the sound name, its description, pack name and the sound id. Therefore, searching for query=123 will find you sounds with id 1234, sounds that have 1234 in the description, in the tags, etc. You’ll find some examples below. Using an empty query (query= or query="") will return all Freeosund sounds.
+    string query = 5;
+    // Indicates how query results should be sorted. See below for a list of the sorting options. By default `sort=score`. <p> <table>
+    //   <tr>
+    //     <th>Option</th>
+    //     <th>Explanation</th>
+    //   </tr>
+    //   <tr>
+    //     <td>score</td>
+    //     <td>Sort by a relevance score returned by our search engine (default).</td>
+    //   </tr>
+    //   <tr>
+    //     <td>duration_desc
+    //     <td>Sort by the duration of the sounds, longest sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>duration_asc
+    //     <td>Same as above, but shortest sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>created_desc
+    //     <td>Sort by the date of when the sound was added. newest sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>created_asc
+    //     <td>Same as above, but oldest sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>downloads_desc
+    //     <td>Sort by the number of downloads, most downloaded sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>downloads_asc
+    //     <td>Same as above, but least downloaded sounds first.
+    //   </tr>
+    //   <tr>
+    //     <td>rating_desc
+    //     <td>Sort by the average rating given to the sounds, highest rated first.
+    //   </tr>
+    //   <tr>
+    //     <td>rating_asc
+    //     <td>Same as above, but lowest rated sounds first.
+    //   </tr>
+    // </table> </p>
+    enum GetSearchTextRequest_Sort {
+        GETSEARCHTEXTREQUEST_SORT_SCORE = 0;
+        GETSEARCHTEXTREQUEST_SORT_DURATION_DESC = 1;
+        GETSEARCHTEXTREQUEST_SORT_DURATION_ASC = 2;
+        GETSEARCHTEXTREQUEST_SORT_CREATED_DESC = 3;
+        GETSEARCHTEXTREQUEST_SORT_CREATED_ASC = 4;
+        GETSEARCHTEXTREQUEST_SORT_DOWNLOADS_DESC = 5;
+        GETSEARCHTEXTREQUEST_SORT_DOWNLOADS_ASC = 6;
+        GETSEARCHTEXTREQUEST_SORT_RATING_DESC = 7;
+        GETSEARCHTEXTREQUEST_SORT_RATING_ASC = 8;
+    }
+    GetSearchTextRequest_Sort sort = 6;
+}
+
+message GetSearchTextResponse {
+    repeated Sound items = 1;
+}
+
+message GetSoundsSoundIdRequest {
+    // ID of the sound that needs to be fetched
+    int64 soundId = 1;
+}
+
+message Sound {
+    // The sound’s unique identifier.
+    int64 id = 1;
+    // The name user gave to the sound.
+    string name = 2;
+    // The URI for this sound on the Freesound website.
+    string url = 3;
+}
+
+service FreesoundService {
+    // Search sounds
+    // 
+    // This resource allows searching sounds in Freesound by matching their tags and other kinds of metadata.
+    rpc GetSearchText(GetSearchTextRequest) returns (GetSearchTextResponse) {
+      option (google.api.http) = {
+        get: "/apiv2/search/text"
+      };
+    }
+    // Details of a sound
+    // 
+    // This resource allows the retrieval of detailed information about a sound.
+    rpc GetSoundsSoundId(GetSoundsSoundIdRequest) returns (Sound) {
+      option (google.api.http) = {
+        get: "/apiv2/sounds/{soundId}"
+      };
+    }
+}

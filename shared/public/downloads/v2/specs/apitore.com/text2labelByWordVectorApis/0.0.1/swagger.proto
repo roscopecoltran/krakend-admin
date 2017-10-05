@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package text2labelbywordvectorapis;
+
+message GetText2labelWordvectorGetRequest {
+    // Access Token
+    string access_token = 1;
+    // num [max 10, default 1]
+    int32 num = 2;
+    // text
+    string text = 3;
+}
+
+message LabelEntity {
+    // label
+    string label = 1;
+    // tfidf score
+    double score = 2;
+}
+
+message LabelResponseEntity {
+    // End date
+    string endTime = 1;
+    // Input word
+    string input = 2;
+    // Distances
+    repeated LabelEntity labels = 3;
+    // Log message
+    string log = 4;
+    // Input num
+    string num = 5;
+    // Process time [millisecond]
+    string processTime = 6;
+    // Start date
+    string startTime = 7;
+}
+
+service Text2LabelByWordVectorAPIsService {
+    // Get labels from text
+    // 
+    // Text2Label by kmeans of word vectors.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/summarize-response">summarize-response</a><BR />&nbsp; Class: com.apitore.banana.response.summarize.LabelResponseEntity<BR />
+    rpc GetText2labelWordvectorGet(GetText2labelWordvectorGetRequest) returns (LabelResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/19/text2label-wordvector/get"
+      };
+    }
+}

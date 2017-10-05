@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlecloudoslogin;
+
+message GetV1alphaNameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The fingerprint of the public key to retrieve. Public keys are identified
+    // by their SHA-256 fingerprint. The fingerprint of the public key is in
+    // format `users/{user}/sshPublicKeys/{fingerprint}`.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message DeleteV1alphaNameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The fingerprint of the public key to update. Public keys are identified by
+    // their SHA-256 fingerprint. The fingerprint of the public key is in format
+    // `users/{user}/sshPublicKeys/{fingerprint}`.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1alphaNameLoginProfileRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The unique ID for the user in format `users/{user}`.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV1alphaParent:ImportSshPublicKeyRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    SshPublicKey body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    // The unique ID for the user in format `users/{user}`.
+    string parent = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message Empty {
+}
+
+message ImportSshPublicKeyResponse {
+    // The login profile information for the user.
+    LoginProfile loginProfile = 1;
+}
+
+message LoginProfile {
+    // A unique user ID for identifying the user.
+    string name = 1;
+    // The list of POSIX accounts associated with the Directory API user.
+    repeated PosixAccount posixAccounts = 2;
+    // A map from SSH public key fingerprint to the associated key object.
+    map<string, SshPublicKey> sshPublicKeys = 3;
+    // Indicates if the user is suspended.
+    bool suspended = 4;
+}
+
+message PosixAccount {
+    // The GECOS (user information) entry for this account.
+    string gecos = 1;
+    // The default group ID.
+    string gid = 2;
+    // The path to the home directory for this account.
+    string homeDirectory = 3;
+    // Only one POSIX account can be marked as primary.
+    bool primary = 4;
+    // The path to the logic shell for this account.
+    string shell = 5;
+    // System identifier for which account the username or uid applies to.
+    // By default, the empty value is used.
+    string systemId = 6;
+    // The user ID.
+    string uid = 7;
+    // The username of the POSIX account.
+    string username = 8;
+}
+
+message SshPublicKey {
+    // An expiration time in microseconds since epoch.
+    string expirationTimeUsec = 1;
+    // The SHA-256 fingerprint of the SSH public key.
+    // Output only.
+    string fingerprint = 2;
+    // Public key text in SSH format, defined by
+    // <a href="https://www.ietf.org/rfc/rfc4253.txt" target="_blank">RFC4253</a>
+    // section 6.6.
+    string key = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudOSLoginService {
+    // Retrieves an SSH public key.
+    rpc GetV1alphaName(GetV1alphaNameRequest) returns (SshPublicKey) {
+      option (google.api.http) = {
+        get: "//v1alpha/{name}"
+      };
+    }
+    // Deletes an SSH public key.
+    rpc DeleteV1alphaName(DeleteV1alphaNameRequest) returns (Empty) {
+      option (google.api.http) = {
+        delete: "//v1alpha/{name}"
+      };
+    }
+    // Retrieves the profile information used for logging in to a virtual machine
+    // on Google Compute Engine.
+    rpc GetV1alphaNameLoginProfile(GetV1alphaNameLoginProfileRequest) returns (LoginProfile) {
+      option (google.api.http) = {
+        get: "//v1alpha/{name}/loginProfile"
+      };
+    }
+    // Adds an SSH public key and returns the profile information. Default POSIX
+    // account information is set when no username and UID exist as part of the
+    // login profile.
+    rpc PostV1alphaParent:ImportSshPublicKey(PostV1alphaParent:ImportSshPublicKeyRequest) returns (ImportSshPublicKeyResponse) {
+      option (google.api.http) = {
+        post: "//v1alpha/{parent}:importSshPublicKey"
+        body: "body"
+      };
+    }
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package sentencesimilarity;
+
+message PostSentenceSimilarityEvalRequest {
+    // Access Token
+    string access_token = 1;
+    // Input texts. Text must be a sentence.
+    TextRequestEntity req = 2;
+}
+
+message TextRequestEntity {
+    // text1
+    string text1 = 1;
+    // text2
+    string text2 = 2;
+}
+
+message TextSimilarityResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Similarity
+    double similarity = 4;
+    // Start date
+    string startTime = 5;
+    // Text1
+    string text1 = 6;
+    // Text2
+    string text2 = 7;
+}
+
+service SentenceSimilarityService {
+    // Text similarity using word2vec
+    // 
+    // Sentence similarity.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/text-similarity-response">text-similarity-response</a><BR />&nbsp; Class: com.apitore.banana.response.textsimilarity.TextSimilarityResponseEntity<BR />
+    rpc PostSentenceSimilarityEval(PostSentenceSimilarityEvalRequest) returns (TextSimilarityResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/53/sentence-similarity/eval"
+        body: "req"
+      };
+    }
+}

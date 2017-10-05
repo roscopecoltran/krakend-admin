@@ -1,0 +1,1910 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package gettyimages;
+
+message GetV3ArtistsImagesRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Name of artist for desired images
+    string artist_name = 3;
+    // Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.
+    repeated string fields = 4;
+    // Identifies page to return. Default page is 1.
+    int32 page = 5;
+    // Specifies page size. Default page_size is 10, maximum page_size is 100.
+    int32 page_size = 6;
+}
+
+message GetV3ArtistsVideosRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Name of artist for desired images
+    string artist_name = 3;
+    // Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.
+    repeated string fields = 4;
+    // Identifies page to return. Default page is 1.
+    int32 page = 5;
+    // Specifies page size. Default page_size is 10, maximum page_size is 100.
+    int32 page_size = 6;
+}
+
+message PutV3AssetChangesChangeSetsRequest {
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 1;
+    // Specifies the number of assets to return. The default is 10; maximum is 500.
+    int32 batch_size = 2;
+    // Specifies the id of the channel for the asset data. Valid channel ids can be found in the results of the Get Partner Channel query.
+    int32 channel_id = 3;
+}
+
+message DeleteV3AssetChangesChangeSetsChangeSetIdRequest {
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 1;
+    int64 change_set_id = 2;
+}
+
+message GetV3AssetChangesChannelsRequest {
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 1;
+}
+
+message PostV3AssetRegistrationsRequest {
+    // Specify JSON containing an array of asset ids to register.  Limited to 500 asset ids per call.
+    RegisterAssetsRequest request = 1;
+}
+
+message GetV3BoardsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Search for boards the user owns or has been invited to as an editor.
+    enum GetV3BoardsRequest_Board_relationship {
+        GETV3BOARDSREQUEST_BOARD_RELATIONSHIP_OWNED = 0;
+        GETV3BOARDSREQUEST_BOARD_RELATIONSHIP_INVITED = 1;
+    }
+    GetV3BoardsRequest_Board_relationship board_relationship = 3;
+    // Request results starting at a page number (default is 1).
+    int32 page = 4;
+    // Request number of boards to return in each page. (default is 30).
+    int32 pageSize = 5;
+    // Sort the list of boards by last update date or name. Defaults to date_last_updated_descending.
+    enum GetV3BoardsRequest_Sort_order {
+        GETV3BOARDSREQUEST_SORT_ORDER_DATE_LAST_UPDATED_DESCENDING = 0;
+        GETV3BOARDSREQUEST_SORT_ORDER_DATE_LAST_UPDATED_ASCENDING = 1;
+        GETV3BOARDSREQUEST_SORT_ORDER_NAME_ASCENDING = 2;
+        GETV3BOARDSREQUEST_SORT_ORDER_NAME_DECENDING = 3;
+    }
+    GetV3BoardsRequest_Sort_order sort_order = 6;
+}
+
+message PostV3BoardsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Specify a name and description of the board to create (name is required).
+    BoardInfo new_board = 3;
+}
+
+message GetV3BoardsBoard_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+}
+
+message PutV3BoardsBoard_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+    // Specify a new name and description for the board (name is required).
+    BoardInfo board_info = 4;
+}
+
+message DeleteV3BoardsBoard_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+}
+
+message PutV3BoardsBoard_idAssetsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // List assets to add to the board.
+    repeated BoardAsset board_assets = 3;
+    string board_id = 4;
+}
+
+message DeleteV3BoardsBoard_idAssetsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // List the assets to be removed from the board.
+    repeated string asset_ids = 3;
+    string board_id = 4;
+}
+
+message PutV3BoardsBoard_idAssetsAsset_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string asset_id = 3;
+    string board_id = 4;
+}
+
+message DeleteV3BoardsBoard_idAssetsAsset_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string asset_id = 3;
+    string board_id = 4;
+}
+
+message GetV3BoardsBoard_idCommentsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+}
+
+message PostV3BoardsBoard_idCommentsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+    // Comment to be added to the board.
+    CommentRequest comment = 4;
+}
+
+message DeleteV3BoardsBoard_idCommentsComment_idRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    string board_id = 3;
+    string comment_id = 4;
+}
+
+message GetV3CollectionsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+}
+
+message GetV3CountriesRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+}
+
+message GetV3DownloadsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // If specified, returns the list of previously downloaded images for all users in your company. Your account must be enabled for this functionality. Contact your Getty Images account rep for more information. Default is false.
+    bool company_downloads = 3;
+    // If specified, select assets downloaded on or before this date. Dates should be submitted in ISO
+    //                 8601 format (i.e., YYYY-MM-DD hh:mm:ss.sss). If time is omitted, midnight is assumed. Date/times are UTC.
+    string end_date = 4;
+    // Identifies page to return. Default is 1.
+    int32 page = 5;
+    // Specifies page size. Default is 30, maximum page_size is 100.
+    int32 page_size = 6;
+    // Specifies product type to be included in the previous download results. To get previous iStockPhoto credit downloads, credit_pack must be selected.
+    enum GetV3DownloadsRequest_Product_type {
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_EASY_ACCESS = 0;
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_EDITORIAL_SUBSCRIPTION = 1;
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_IMAGE_PACK = 2;
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_PREMIUM_ACCESS = 3;
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_ROYALTY_FREE_SUBSCRIPTION = 4;
+        GETV3DOWNLOADSREQUEST_PRODUCT_TYPE_CREDIT_PACK = 5;
+    }
+    GetV3DownloadsRequest_Product_type product_type = 7;
+    // If specified, select assets downloaded on or after this date. Dates should be submitted in ISO
+    //                 8601 format (i.e., YYYY-MM-DD hh:mm:ss.sss). If time is omitted, midnight is assumed. Date/times are UTC.
+    string start_date = 8;
+}
+
+message PostV3DownloadsImagesIdRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // <remarks>
+    //                     Specifies whether to auto-download the image. If true is specified, a 303 SeeOther status is returned with a
+    //                     Location header set to the location of the image.
+    //                     If false is specified, the download URI will be returned in the response message.
+    //                 </remarks>
+    bool auto_download = 3;
+    // <remarks>
+    //                     Additional information required from specific customers when downloading. 
+    //                     Only users who have been set up with a project code by Getty Images Sales need to use this field.
+    //                 </remarks>
+    GettyImages.Models.Downloads.PremiumAccessDownloadData download_details = 4;
+    // <remarks>
+    //                     File Type expressed with three character file extension.
+    //                 </remarks>
+    enum PostV3DownloadsImagesIdRequest_File_type {
+        POSTV3DOWNLOADSIMAGESIDREQUEST_FILE_TYPE_EPS = 0;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_FILE_TYPE_JPG = 1;
+    }
+    PostV3DownloadsImagesIdRequest_File_type file_type = 5;
+    // <remarks>
+    //                     Specifies the pixel height of the particular image to download.
+    //                     Available heights can be found in the images/{ids} response for the specific image.
+    //                     If left blank, it will return the largest available size.
+    //                 </remarks>
+    string height = 6;
+    // <remarks>
+    //                     Id of image to download.
+    //                 </remarks>
+    string id = 7;
+    // <remarks>
+    //                     Identifier of the instance for the selected product offering type.
+    //                 </remarks>
+    int32 product_id = 8;
+    // <remarks>
+    //                     Product type.
+    //                 </remarks>
+    enum PostV3DownloadsImagesIdRequest_Product_type {
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_EASY_ACCESS = 0;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_EDITORIAL_SUBSCRIPTION = 1;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_IMAGE_PACK = 2;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_PREMIUM_ACCESS = 3;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_ROYALTY_FREE_SUBSCRIPTION = 4;
+        POSTV3DOWNLOADSIMAGESIDREQUEST_PRODUCT_TYPE_CREDIT_PACK = 5;
+    }
+    PostV3DownloadsImagesIdRequest_Product_type product_type = 9;
+}
+
+message PostV3DownloadsVideosIdRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // <remarks>
+    //                     Specifies whether to auto-download the video. If true is specified, a 303 SeeOther status is returned with a
+    //                     Location header set to the location of the video.
+    //                     If false is specified, the download URI will be returned in the response message.
+    //                 </remarks>
+    bool auto_download = 3;
+    // <remarks>
+    //                     Id of video to download.
+    //                 </remarks>
+    string id = 4;
+    // <remarks>
+    //                     Identifier of the instance for the selected product offering type.
+    //                 </remarks>
+    int32 product_id = 5;
+    // Specifies the size to be downloaded.
+    string size = 6;
+}
+
+message GetV3EventsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // A comma separated list of fields to return in the response.
+    repeated string fields = 3;
+    // A comma separated list of event ids.
+    repeated int32 ids = 4;
+}
+
+message GetV3EventsIdRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // A comma separated list of fields to return in the response.
+    repeated string fields = 3;
+    // An event id.
+    int32 id = 4;
+}
+
+message GetV3ImagesRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 3;
+    // Specifies one or more image ids to return. Use comma delimiter when requesting multiple ids.
+    repeated string ids = 4;
+}
+
+message GetV3ImagesIdRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 3;
+    // An image id. For more than one image please use the /v3/images endpoint.
+    string id = 4;
+}
+
+message GetV3ImagesIdSimilarRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 3;
+    // Identifies an existing image
+    string id = 4;
+    // Identifies page to return. Default is 1.
+    int32 page = 5;
+    // Specifies page size. Default is 30, maximum page_size is 100.
+    int32 page_size = 6;
+}
+
+message GetV3ProductsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Comma separated list of fields. Allows product download requirements to be returned.
+    repeated string fields = 3;
+}
+
+message GetV3PurchasedAssetsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // If specified, retrieves previous purchases on or before this date. Dates should be submitted in ISO 8601 format (i.e., YYYY-MM-DD).
+    string end_date = 3;
+    // Identifies page to return. Default is 1.
+    int32 page = 4;
+    // Specifies page size. Default is 75, maximum page_size is 100.
+    int32 page_size = 5;
+    // If specified, retrieves previous purchases on or after this date. Dates should be submitted in ISO 8601 format (i.e., YYYY-MM-DD).
+    string start_date = 6;
+}
+
+message GetV3PurchasedImagesRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // If specified, retrieves previous purchases on or before this date. Dates should be submitted in ISO 8601 format (i.e., YYYY-MM-DD).
+    string end_date = 3;
+    // Identifies page to return. Default is 1.
+    int32 page = 4;
+    // Specifies page size. Default is 75, maximum page_size is 100.
+    int32 page_size = 5;
+    // If specified, retrieves previous purchases on or after this date. Dates should be submitted in ISO 8601 format (i.e., YYYY-MM-DD).
+    string start_date = 6;
+}
+
+message GetV3SearchEventsRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Filters to events that start on or after this date. Use ISO 8601 format (e.g., 1999-12-31).
+    string date_from = 3;
+    // Filters to events that start on or before this date. Use ISO 8601 format (e.g., 1999-12-31).
+    string date_to = 4;
+    // Filters to events with a matching editorial segment.
+    enum GetV3SearchEventsRequest_Editorial_segment {
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_ARCHIVAL = 0;
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_ENTERTAINMENT = 1;
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_NEWS = 2;
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_PUBLICITY = 3;
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_ROYALTY = 4;
+        GETV3SEARCHEVENTSREQUEST_EDITORIAL_SEGMENT_SPORT = 5;
+    }
+    GetV3SearchEventsRequest_Editorial_segment editorial_segment = 5;
+    // Specifies fields to return. Default set is 'id','name','start_date'.
+    repeated string fields = 6;
+    // Request results starting at a page number (default is 1, maximum is 50).
+    int32 page = 7;
+    // Request number of images to return in each page.
+    int32 page_size = 8;
+    // Filters to events related to this phrase
+    string phrase = 9;
+}
+
+message GetV3SearchImagesRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Filter based on the age of individuals in an image.
+    repeated string age_of_people = 3;
+    // Search for images by specific artists (free-text, comma-separated list of artists).
+    string artists = 4;
+    // Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.
+    repeated string collection_codes = 5;
+    // Provides searching based on specified collection(s).
+    enum GetV3SearchImagesRequest_Collections_filter_type {
+        GETV3SEARCHIMAGESREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHIMAGESREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchImagesRequest_Collections_filter_type collections_filter_type = 6;
+    // Filter based on predominant color in an image. Use 6 character hexidecimal format (e.g., #002244). Note: when specified, results will not contain editorial images.
+    string color = 7;
+    // Filter based on image composition.
+    repeated string compositions = 8;
+    // Restrict search results to embeddable images. The default is false.
+    bool embed_content_only = 9;
+    // Filter search results based on the ethnicity of individuals in an image.
+    repeated string ethnicity = 10;
+    // Filter based on specific events
+    repeated int32 event_ids = 11;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 12;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 13;
+    // Return only images having a specific file type.
+    repeated string file_types = 14;
+    // Filter based on graphical style of the image.
+    repeated string graphical_styles = 15;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 16;
+    // Specifies the image licensing model(s).
+    repeated string license_models = 17;
+    // Filter based on minimum size requested.
+    enum GetV3SearchImagesRequest_Minimum_size {
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_X_SMALL = 0;
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_SMALL = 1;
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_MEDIUM = 2;
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_LARGE = 3;
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_X_LARGE = 4;
+        GETV3SEARCHIMAGESREQUEST_MINIMUM_SIZE_XX_LARGE = 5;
+    }
+    GetV3SearchImagesRequest_Minimum_size minimum_size = 18;
+    // Filter based on the number of people in the image.
+    repeated string number_of_people = 19;
+    // Return only images with selected aspect ratios.
+    repeated string orientations = 20;
+    // Request results starting at a page number (default is 1).
+    int32 page = 21;
+    // Request number of images to return in each page.
+    int32 page_size = 22;
+    // Search images using a search phrase.
+    string phrase = 23;
+    // Restrict search results to prestige images. The default is false.
+    bool prestige_content_only = 24;
+    // Filter images to those having product types from the selected list.
+    repeated string product_types = 25;
+    // Select sort order of results.
+    enum GetV3SearchImagesRequest_Sort_order {
+        GETV3SEARCHIMAGESREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHIMAGESREQUEST_SORT_ORDER_MOST_POPULAR = 1;
+        GETV3SEARCHIMAGESREQUEST_SORT_ORDER_NEWEST = 2;
+    }
+    GetV3SearchImagesRequest_Sort_order sort_order = 26;
+    // Return only images associated with specific people (using a comma-delimited list).
+    repeated string specific_people = 27;
+}
+
+message GetV3SearchImagesCreativeRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Filter based on the age of individuals in an image.
+    repeated string age_of_people = 3;
+    // Search for images by specific artists (free-text, comma-separated list of artists).
+    string artists = 4;
+    // Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.
+    repeated string collection_codes = 5;
+    // Use to include or exclude collections from search.
+    enum GetV3SearchImagesCreativeRequest_Collections_filter_type {
+        GETV3SEARCHIMAGESCREATIVEREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchImagesCreativeRequest_Collections_filter_type collections_filter_type = 6;
+    // Filter based on predominant color in an image. Use 6 character hexidecimal format (e.g., #002244).
+    string color = 7;
+    // Filter based on image composition.
+    repeated string compositions = 8;
+    // Restrict search results to embeddable images. The default is false.
+    bool embed_content_only = 9;
+    // Filter search results based on the ethnicity of individuals in an image.
+    repeated string ethnicity = 10;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 11;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 12;
+    // Return only images having a specific file type.
+    repeated string file_types = 13;
+    // Filter based on graphical style of the image.
+    repeated string graphical_styles = 14;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 15;
+    // Specifies the image licensing model(s).
+    repeated string license_models = 16;
+    // Filter based on minimum size requested.
+    enum GetV3SearchImagesCreativeRequest_Minimum_size {
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_X_SMALL = 0;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_SMALL = 1;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_MEDIUM = 2;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_LARGE = 3;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_X_LARGE = 4;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_MINIMUM_SIZE_XX_LARGE = 5;
+    }
+    GetV3SearchImagesCreativeRequest_Minimum_size minimum_size = 17;
+    // Filter based on the number of people in the image.
+    repeated string number_of_people = 18;
+    // Return only images with selected aspect ratios.
+    repeated string orientations = 19;
+    // Request results starting at a page number (default is 1).
+    int32 page = 20;
+    // Request number of images to return in each page.
+    int32 page_size = 21;
+    // Search images using a search phrase.
+    string phrase = 22;
+    // Restrict search results to prestige images. The default is false.
+    bool prestige_content_only = 23;
+    // Filter images to those having product types from the selected list.
+    repeated string product_types = 24;
+    // Select sort order of results.
+    enum GetV3SearchImagesCreativeRequest_Sort_order {
+        GETV3SEARCHIMAGESCREATIVEREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_SORT_ORDER_MOST_POPULAR = 1;
+        GETV3SEARCHIMAGESCREATIVEREQUEST_SORT_ORDER_NEWEST = 2;
+    }
+    GetV3SearchImagesCreativeRequest_Sort_order sort_order = 25;
+}
+
+message GetV3SearchImagesEditorialRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Filter based on the age of individuals in an image.
+    repeated string age_of_people = 3;
+    // Search for images by specific artists (free-text, comma-separated list of artists).
+    string artists = 4;
+    // Filter by collections (comma-separated list of collection codes). Include or exclude based on collections_filter_type.
+    repeated string collection_codes = 5;
+    // Use to include or exclude collections from search.
+    enum GetV3SearchImagesEditorialRequest_Collections_filter_type {
+        GETV3SEARCHIMAGESEDITORIALREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchImagesEditorialRequest_Collections_filter_type collections_filter_type = 6;
+    // Filter based on image composition.
+    repeated string compositions = 7;
+    // Return only events with a matching editorial segment.
+    repeated string editorial_segments = 8;
+    // Restrict search results to embeddable images. The default is false.
+    bool embed_content_only = 9;
+    // Return only images that are created on or before this date. Use ISO 8601 format (e.g., 1999-12-31).
+    string end_date = 10;
+    // specify linked data entity uri.
+    repeated string entity_uris = 11;
+    // Filter search results based on the ethnicity of individuals in an image.
+    repeated string ethnicity = 12;
+    // Filter based on specific events
+    repeated int32 event_ids = 13;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 14;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 15;
+    // Return only images having a specific file type.
+    repeated string file_types = 16;
+    // Filter based on graphical style of the image.
+    repeated string graphical_styles = 17;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 18;
+    // Filter search results based on minimum quality ranking. Possible values 1, 2, 3 with 1 being best.
+    int32 minimum_quality_rank = 19;
+    // Filter based on minimum size requested.
+    enum GetV3SearchImagesEditorialRequest_Minimum_size {
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_X_SMALL = 0;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_SMALL = 1;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_MEDIUM = 2;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_LARGE = 3;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_X_LARGE = 4;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_MINIMUM_SIZE_XX_LARGE = 5;
+    }
+    GetV3SearchImagesEditorialRequest_Minimum_size minimum_size = 20;
+    // Filter based on the number of people in the image.
+    repeated string number_of_people = 21;
+    // Return only images with selected aspect ratios.
+    repeated string orientations = 22;
+    // Request results starting at a page number (default is 1).
+    int32 page = 23;
+    // Request number of images to return in each page.
+    int32 page_size = 24;
+    // Search images using a search phrase.
+    string phrase = 25;
+    // Filter images to those having product types from the selected list.
+    repeated string product_types = 26;
+    // Select sort order of results.
+    enum GetV3SearchImagesEditorialRequest_Sort_order {
+        GETV3SEARCHIMAGESEDITORIALREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_SORT_ORDER_MOST_POPULAR = 1;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_SORT_ORDER_NEWEST = 2;
+        GETV3SEARCHIMAGESEDITORIALREQUEST_SORT_ORDER_OLDEST = 3;
+    }
+    GetV3SearchImagesEditorialRequest_Sort_order sort_order = 27;
+    // Return only images associated with specific people (using a comma-delimited list).
+    repeated string specific_people = 28;
+    // Return only images that are created on or after this date. Use ISO 8601 format (e.g., 1999-12-31).
+    string start_date = 29;
+}
+
+message GetV3SearchVideosRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Provides filtering according to the age of individuals in a video.
+    repeated string age_of_people = 3;
+    // Provides filtering by collection code.
+    repeated string collection_codes = 4;
+    // Provides searching based on specified collection(s).
+    enum GetV3SearchVideosRequest_Collections_filter_type {
+        GETV3SEARCHVIDEOSREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHVIDEOSREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchVideosRequest_Collections_filter_type collections_filter_type = 5;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 6;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 7;
+    // Filters according to the digital video format available on a film asset.
+    enum GetV3SearchVideosRequest_Format_available {
+        GETV3SEARCHVIDEOSREQUEST_FORMAT_AVAILABLE_SD = 0;
+        GETV3SEARCHVIDEOSREQUEST_FORMAT_AVAILABLE_HD = 1;
+        GETV3SEARCHVIDEOSREQUEST_FORMAT_AVAILABLE_FOURK = 2;
+    }
+    GetV3SearchVideosRequest_Format_available format_available = 8;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 9;
+    // Specifies the video licensing model(s).
+    repeated string license_models = 10;
+    // Identifies page to return. Default is 1.
+    int32 page = 11;
+    // Specifies page size. Default is 30, maximum page_size is 100.
+    int32 page_size = 12;
+    // Free-text search query.
+    string phrase = 13;
+    // Provides filtering by a list of product types.
+    repeated string product_types = 14;
+    // Allows sorting of results.
+    enum GetV3SearchVideosRequest_Sort_order {
+        GETV3SEARCHVIDEOSREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHVIDEOSREQUEST_SORT_ORDER_MOST_POPULAR = 1;
+        GETV3SEARCHVIDEOSREQUEST_SORT_ORDER_NEWEST = 2;
+        GETV3SEARCHVIDEOSREQUEST_SORT_ORDER_OLDEST = 3;
+    }
+    GetV3SearchVideosRequest_Sort_order sort_order = 15;
+    // Provides filtering by specific peoples' names.
+    repeated string specific_people = 16;
+}
+
+message GetV3SearchVideosCreativeRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Provides filtering according to the age of individuals in a video.
+    repeated string age_of_people = 3;
+    // Provides filtering by collection code.
+    repeated string collection_codes = 4;
+    // Provides searching based on specified collection(s).
+    enum GetV3SearchVideosCreativeRequest_Collections_filter_type {
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchVideosCreativeRequest_Collections_filter_type collections_filter_type = 5;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 6;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 7;
+    // Filters according to the digital video format available on a film asset.
+    enum GetV3SearchVideosCreativeRequest_Format_available {
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_FORMAT_AVAILABLE_SD = 0;
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_FORMAT_AVAILABLE_HD = 1;
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_FORMAT_AVAILABLE_FOURK = 2;
+    }
+    GetV3SearchVideosCreativeRequest_Format_available format_available = 8;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 9;
+    // Specifies the video licensing model(s).
+    repeated string license_models = 10;
+    // Identifies page to return. Default is 1.
+    int32 page = 11;
+    // Specifies page size. Default is 30, maximum page_size is 100.
+    int32 page_size = 12;
+    // Free-text search query.
+    string phrase = 13;
+    // Allows filtering by a list of product types.
+    repeated string product_types = 14;
+    // Allows sorting of results.
+    enum GetV3SearchVideosCreativeRequest_Sort_order {
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHVIDEOSCREATIVEREQUEST_SORT_ORDER_NEWEST = 1;
+    }
+    GetV3SearchVideosCreativeRequest_Sort_order sort_order = 15;
+}
+
+message GetV3SearchVideosEditorialRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Provides filtering according to the age of individuals in a video.
+    repeated string age_of_people = 3;
+    // Provides filtering by collection code.
+    repeated string collection_codes = 4;
+    // Provides searching based on specified collection(s).
+    enum GetV3SearchVideosEditorialRequest_Collections_filter_type {
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_COLLECTIONS_FILTER_TYPE_INCLUDE = 0;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_COLLECTIONS_FILTER_TYPE_EXCLUDE = 1;
+    }
+    GetV3SearchVideosEditorialRequest_Collections_filter_type collections_filter_type = 5;
+    // specify link data entity uri.
+    repeated string entity_uris = 6;
+    // Excludes images containing nudity. The default is false.
+    bool exclude_nudity = 7;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 8;
+    // Filters according to the digital video format available on a film asset.
+    enum GetV3SearchVideosEditorialRequest_Format_available {
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_FORMAT_AVAILABLE_SD = 0;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_FORMAT_AVAILABLE_HD = 1;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_FORMAT_AVAILABLE_FOURK = 2;
+    }
+    GetV3SearchVideosEditorialRequest_Format_available format_available = 9;
+    // Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.
+    repeated int32 keyword_ids = 10;
+    // Identifies page to return. Default is 1.
+    int32 page = 11;
+    // Specifies page size. Default is 30, maximum page_size is 100.
+    int32 page_size = 12;
+    // Free-text search query.
+    string phrase = 13;
+    // Allows filtering by a list of product types.
+    repeated string product_types = 14;
+    // Allows sorting of results.
+    enum GetV3SearchVideosEditorialRequest_Sort_order {
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_SORT_ORDER_BEST_MATCH = 0;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_SORT_ORDER_MOST_POPULAR = 1;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_SORT_ORDER_NEWEST = 2;
+        GETV3SEARCHVIDEOSEDITORIALREQUEST_SORT_ORDER_OLDEST = 3;
+    }
+    GetV3SearchVideosEditorialRequest_Sort_order sort_order = 15;
+    // Allows filtering by specific peoples' names.
+    repeated string specific_people = 16;
+}
+
+message PutV3UsageBatchesIdRequest {
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 1;
+    // Specifies a unique batch transaction id to identify the report.
+    string id = 2;
+    // Specifies up to 1000 sets of asset Id, usage count, and date of use to submit usages for. 
+    //             Note that all asset Ids specified must be valid or the operation will fail causing no usages to be recorded. 
+    //             The date format should be ISO 8601 (ex: YYYY-MM-DD), time is not needed.
+    report_usage_batch_request request = 3;
+}
+
+message GetV3VideosRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // Specifies fields to return. Defaults to 'summary_set'.
+    repeated string fields = 3;
+    // Specifies one or more video ids to return. Use comma delimiter when requesting multiple ids.
+    repeated string ids = 4;
+}
+
+message GetV3VideosIdRequest {
+    // Provide a header to specify the language of result values.
+    string Accept_Language = 1;
+    // Provide access token in the format of 'Bearer {token}'.
+    string Authorization = 2;
+    // comma delimited list of fields to retrive for the video
+    repeated string fields = 3;
+    // A video id. For more than one video please use the /v3/video endpoint.
+    string id = 4;
+}
+
+message AddBoardAssetsResult {
+    repeated BoardAsset assets_added = 1;
+    repeated string assets_not_added = 2;
+}
+
+message Asset {
+    string asset_type = 1;
+    string date_added = 2;
+    repeated DisplaySize display_sizes = 3;
+    string id = 4;
+}
+
+message AssetChanges {
+    // Contains the identifier for the change-set resource. Passed into ConfirmAssetChanges requests to confirm receipt of the asset changes in the response.
+    string change_set_id = 1;
+    // Contains a list of ChangedAssetList results for the query.
+    repeated ChangedAssetDetail changed_assets = 2;
+}
+
+message BoardAsset {
+    string asset_id = 1;
+}
+
+message BoardCommentPermissions {
+    bool can_add_comment = 1;
+}
+
+message BoardCreated {
+    string id = 1;
+}
+
+message BoardDetail {
+    int32 asset_count = 1;
+    repeated Asset assets = 2;
+    int32 comment_count = 3;
+    string date_created = 4;
+    string date_last_updated = 5;
+    string description = 6;
+    string id = 7;
+    Links links = 8;
+    string name = 9;
+    BoardPermissions permissions = 10;
+}
+
+message BoardInfo {
+    string description = 1;
+    string name = 2;
+}
+
+message BoardList {
+    int32 board_count = 1;
+    repeated BoardListBoard boards = 2;
+}
+
+message BoardListBoard {
+    int32 asset_count = 1;
+    string board_relationship = 2;
+    string date_created = 3;
+    string date_last_updated = 4;
+    string description = 5;
+    Asset hero_asset = 6;
+    string id = 7;
+    string name = 8;
+}
+
+message BoardPermissions {
+    bool can_add_assets = 1;
+    bool can_delete_board = 2;
+    bool can_invite_to_board = 3;
+    bool can_remove_assets = 4;
+    bool can_update_description = 5;
+    bool can_update_name = 6;
+}
+
+message ChangedAssetDetail {
+    // Contains the date of the asset change.
+    string asset_changed_utc_datetime = 1;
+    // Contains the type of change this asset change is. (i.e. "New," "Updated" or "Deleted")
+    string asset_lifecycle = 2;
+    // Contains the type of asset this asset change is (i.e. "Image").
+    string asset_type = 3;
+    // Contains the Id for the asset change.
+    string id = 4;
+    // Contains the asset download URL for assets with an AssetLifecycle of "New."
+    string uri = 5;
+}
+
+message Collaborator {
+    string first_name = 1;
+    string last_name = 2;
+}
+
+message Comment {
+    Collaborator created_by = 1;
+    string date_created = 2;
+    string id = 3;
+    CommentPermissions permissions = 4;
+    string text = 5;
+}
+
+message CommentCreated {
+    string id = 1;
+}
+
+message CommentPermissions {
+    bool can_delete_comment = 1;
+}
+
+message CommentRequest {
+    string text = 1;
+}
+
+message CommentsList {
+    repeated Comment comments = 1;
+    BoardCommentPermissions permissions = 2;
+}
+
+message DisplaySize {
+    string name = 1;
+    string uri = 2;
+}
+
+message GettyImages.Models.AllowedUse {
+    // Indicates how the asset can be used
+    string how_can_i_use_it = 1;
+    // Indicates release status
+    string release_info = 2;
+    // Indicates asset usage restriction, if any
+    repeated string usage_restrictions = 3;
+}
+
+message GettyImages.Models.Artists.DisplaySize {
+    string aspect_ratio = 1;
+    bool is_watermarked = 2;
+    string name = 3;
+    string uri = 4;
+}
+
+message GettyImages.Models.Artists.ImageSearchItem {
+    map<string, string> alternative_ids = 1;
+    string asset_family = 2;
+    enum GettyImages.Models.Artists.ImageSearchItem_Asset_type {
+        GETTYIMAGESMODELSARTISTSIMAGESEARCHITEM_ASSET_TYPE_IMAGE = 0;
+        GETTYIMAGESMODELSARTISTSIMAGESEARCHITEM_ASSET_TYPE_FILM = 1;
+    }
+    GettyImages.Models.Artists.ImageSearchItem_Asset_type asset_type = 3;
+    string collection_code = 4;
+    string collection_name = 5;
+    string date_submitted = 6;
+    repeated GettyImages.Models.Artists.DisplaySize display_sizes = 7;
+    string id = 8;
+    repeated GettyImages.Models.Artists.Keyword keywords = 9;
+}
+
+message GettyImages.Models.Artists.ImageSearchResults {
+    repeated GettyImages.Models.Artists.ImageSearchItem images = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Artists.Keyword {
+    string keyword_id = 1;
+    string text = 2;
+    string type = 3;
+}
+
+message GettyImages.Models.Artists.VideoSearchItem {
+    map<string, string> alternative_ids = 1;
+    string asset_family = 2;
+    enum GettyImages.Models.Artists.VideoSearchItem_Asset_type {
+        GETTYIMAGESMODELSARTISTSVIDEOSEARCHITEM_ASSET_TYPE_IMAGE = 0;
+        GETTYIMAGESMODELSARTISTSVIDEOSEARCHITEM_ASSET_TYPE_FILM = 1;
+    }
+    GettyImages.Models.Artists.VideoSearchItem_Asset_type asset_type = 3;
+    string caption = 4;
+    string collection_code = 5;
+    string collection_name = 6;
+    string date_submitted = 7;
+    repeated GettyImages.Models.Artists.DisplaySize display_sizes = 8;
+    string id = 9;
+    repeated GettyImages.Models.Artists.Keyword keywords = 10;
+    string license_model = 11;
+    string title = 12;
+}
+
+message GettyImages.Models.Collections.Collection {
+    string asset_family = 1;
+    string code = 2;
+    int32 id = 3;
+    string license_model = 4;
+    string name = 5;
+    repeated string product_types = 6;
+}
+
+message GettyImages.Models.Collections.CollectionsList {
+    repeated GettyImages.Models.Collections.Collection collections = 1;
+}
+
+message GettyImages.Models.Countries.CountriesList {
+    repeated GettyImages.Models.Countries.Country countries = 1;
+}
+
+message GettyImages.Models.Countries.Country {
+    string iso_alpha_2 = 1;
+    string iso_alpha_3 = 2;
+    string name = 3;
+}
+
+message GettyImages.Models.CuratedSets.CuratedSet {
+    repeated string assets = 1;
+    string date_created = 2;
+    string date_last_updated = 3;
+    string description = 4;
+    string hero_image_uri = 5;
+    repeated string keywords = 6;
+    string set_id = 7;
+    string title = 8;
+}
+
+message GettyImages.Models.Customers.CustomerInfoResponse {
+    string email_address = 1;
+    bool is_active = 2;
+    string user_name = 3;
+}
+
+message GettyImages.Models.Download {
+    string agreement_name = 1;
+    string product_id = 2;
+    string product_type = 3;
+    string uri = 4;
+}
+
+message GettyImages.Models.Downloads.GetDownloadsResponse {
+    repeated GettyImages.Models.Downloads.GetDownloadsResponse.Download downloads = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Downloads.GetDownloadsResponse.Download {
+    string agreement_name = 1;
+    string date_downloaded = 2;
+    GettyImages.Models.Downloads.GetDownloadsResponse.DownloadDetails download_details = 3;
+    string id = 4;
+    string product_type = 5;
+    string size_name = 6;
+    string thumb_uri = 7;
+    GettyImages.Models.Downloads.User user = 8;
+}
+
+message GettyImages.Models.Downloads.GetDownloadsResponse.DownloadDetails {
+    string download_notes = 1;
+    string project_code = 2;
+}
+
+message GettyImages.Models.Downloads.PremiumAccessDownloadData {
+    string download_notes = 1;
+    string project_code = 2;
+}
+
+message GettyImages.Models.Downloads.User {
+    string first_name = 1;
+    string last_name = 2;
+    string middle_name = 3;
+    string username = 4;
+}
+
+message GettyImages.Models.Events.Event {
+    int32 child_event_count = 1;
+    repeated string editorial_segments = 2;
+    GettyImages.Models.HeroImage hero_image = 3;
+    int32 id = 4;
+    int32 image_count = 5;
+    GettyImages.Models.LocationEvent location = 6;
+    string name = 7;
+    string start_date = 8;
+}
+
+message GettyImages.Models.Events.EventsResult {
+    repeated GettyImages.Models.Events.Event events = 1;
+    repeated int32 events_not_found = 2;
+}
+
+message GettyImages.Models.HeroImage {
+    repeated GettyImages.Models.HeroImageDisplaySize display_sizes = 1;
+    string id = 2;
+}
+
+message GettyImages.Models.HeroImageDisplaySize {
+    bool is_watermarked = 1;
+    string name = 2;
+    string uri = 3;
+}
+
+message GettyImages.Models.IStockLicense {
+    int32 credits = 1;
+    string license_type = 2;
+}
+
+message GettyImages.Models.Images.EditorialSource {
+    int32 id = 1;
+    string name = 2;
+}
+
+message GettyImages.Models.Images.ImageDetail {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    map<string, string> alternative_ids = 2;
+    string artist = 3;
+    string artist_title = 4;
+    string asset_family = 5;
+    string asset_type = 6;
+    bool call_for_image = 7;
+    string caption = 8;
+    string city = 9;
+    string collection_code = 10;
+    int32 collection_id = 11;
+    string collection_name = 12;
+    string color_type = 13;
+    string copyright = 14;
+    string country = 15;
+    string credit_line = 16;
+    string date_camera_shot = 17;
+    string date_created = 18;
+    string date_submitted = 19;
+    repeated GettyImages.Models.Images.ImageDetailDisplaySize display_sizes = 20;
+    repeated GettyImages.Models.Images.ImageDownloadSize download_sizes = 21;
+    repeated string editorial_segments = 22;
+    GettyImages.Models.Images.EditorialSource editorial_source = 23;
+    repeated int32 event_ids = 24;
+    string graphical_style = 25;
+    string id = 26;
+    repeated GettyImages.Models.IStockLicense istock_licenses = 27;
+    repeated GettyImages.Models.Keyword keywords = 28;
+    repeated GettyImages.Models.Images.ImageDownloadSize largest_downloads = 29;
+    string license_model = 30;
+    repeated GettyImages.Models.Images.Link links = 31;
+    GettyImages.Models.MaxDimensions max_dimensions = 32;
+    string orientation = 33;
+    repeated string people = 34;
+    bool prestige = 35;
+    repeated string product_types = 36;
+    int32 quality_rank = 37;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 38;
+    string state_province = 39;
+    string title = 40;
+    string uri_oembed = 41;
+}
+
+message GettyImages.Models.Images.ImageDetailDisplaySize {
+    // Indicates the height in pixels
+    int32 height = 1;
+    // Indicates whether the image is watermarked.
+    bool is_watermarked = 2;
+    // Identifies the name of the display size
+    string name = 3;
+    // Identifies the URI for the image
+    string uri = 4;
+    // Indicates the width in pixels
+    int32 width = 5;
+}
+
+message GettyImages.Models.Images.ImageDownloadAuthorization {
+    string agreement_name = 1;
+    string product_id = 2;
+    string product_type = 3;
+    string uri = 4;
+}
+
+message GettyImages.Models.Images.ImageDownloadSize {
+    int32 bytes = 1;
+    repeated GettyImages.Models.Images.ImageDownloadAuthorization downloads = 2;
+    int32 height = 3;
+    string media_type = 4;
+    enum GettyImages.Models.Images.ImageDownloadSize_Name {
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_X_SMALL = 0;
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_SMALL = 1;
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_MEDIUM = 2;
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_LARGE = 3;
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_X_LARGE = 4;
+        GETTYIMAGESMODELSIMAGESIMAGEDOWNLOADSIZE_NAME_XX_LARGE = 5;
+    }
+    GettyImages.Models.Images.ImageDownloadSize_Name name = 5;
+    int32 width = 6;
+}
+
+message GettyImages.Models.Images.ImagesDetail {
+    repeated GettyImages.Models.Images.ImageDetail images = 1;
+    repeated string images_not_found = 2;
+}
+
+message GettyImages.Models.Images.Link {
+    string rel = 1;
+    string uri = 2;
+}
+
+message GettyImages.Models.Keyword {
+    repeated string entity_types = 1;
+    repeated string entity_uris = 2;
+    string keyword_id = 3;
+    int32 relevance = 4;
+    string text = 5;
+    string type = 6;
+}
+
+message GettyImages.Models.LocationEvent {
+    string city = 1;
+    string country = 2;
+    string state_province = 3;
+    string venue = 4;
+}
+
+message GettyImages.Models.MaxDimensions {
+    int32 height = 1;
+    int32 width = 2;
+}
+
+message GettyImages.Models.Products.DownloadRequirements {
+    bool is_note_required = 1;
+    bool is_project_code_required = 2;
+    repeated string project_codes = 3;
+}
+
+message GettyImages.Models.Products.OverageDetails {
+    int32 count = 1;
+    int32 limit = 2;
+    bool overages_reached = 3;
+    int32 remaining = 4;
+}
+
+message GettyImages.Models.Products.Product {
+    string agreement_name = 1;
+    string application_website = 2;
+    int32 credits_remaining = 3;
+    int32 download_limit = 4;
+    string download_limit_duration = 5;
+    string download_limit_reset_utc_date = 6;
+    GettyImages.Models.Products.DownloadRequirements download_requirements = 7;
+    int32 downloads_remaining = 8;
+    string expiration_utc_date = 9;
+    int32 id = 10;
+    string imagepack_resolution = 11;
+    string name = 12;
+    GettyImages.Models.Products.OverageDetails overage = 13;
+    GettyImages.Models.Products.DownloadRequirements premium_access_download_requirements = 14;
+    enum GettyImages.Models.Products.Product_Statu {
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_STATU_ACTIVE = 0;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_STATU_INACTIVE = 1;
+    }
+    GettyImages.Models.Products.Product_Statu status = 15;
+    enum GettyImages.Models.Products.Product_Type {
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_EASYACCESS = 0;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_EDITORIALSUBSCRIPTION = 1;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_IMAGEPACK = 2;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_PREMIUMACCESS = 3;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_ROYALTYFREESUBSCRIPTION = 4;
+        GETTYIMAGESMODELSPRODUCTSPRODUCT_TYPE_CREDITPACK = 5;
+    }
+    GettyImages.Models.Products.Product_Type type = 16;
+}
+
+message GettyImages.Models.Products.ProductsResult {
+    repeated GettyImages.Models.Products.Product products = 1;
+}
+
+message GettyImages.Models.Purchases.PreviousAssetPurchase {
+    string asset_id = 1;
+    string asset_type = 2;
+    string date_purchased = 3;
+    string license_model = 4;
+    string order_id = 5;
+    string size_name = 6;
+    string thumb_uri = 7;
+}
+
+message GettyImages.Models.Purchases.PreviousAssetPurchases {
+    repeated GettyImages.Models.Purchases.PreviousAssetPurchase previous_purchases = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Purchases.PreviousPurchase {
+    string date_purchased = 1;
+    string image_id = 2;
+    string license_model = 3;
+    string order_id = 4;
+    string thumb_uri = 5;
+}
+
+message GettyImages.Models.Purchases.PreviousPurchases {
+    repeated GettyImages.Models.Purchases.PreviousPurchase previous_purchases = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.ReferralDestination {
+    string site_name = 1;
+    string uri = 2;
+}
+
+message GettyImages.Models.Search.CreativeImageSearchLightResults {
+    repeated GettyImages.Models.Search.ImageSearchLightItemCreative images = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Search.CreativeImageSearchResults {
+    repeated GettyImages.Models.Search.ImageSearchItemCreative images = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Search.CreativeVideoSearchResults {
+    int32 result_count = 1;
+    repeated GettyImages.Models.Search.VideoSearchItem videos = 2;
+}
+
+message GettyImages.Models.Search.EditorialImageSearchResults {
+    repeated GettyImages.Models.Search.ImageSearchItemEditorial images = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Search.EditorialSource {
+    int32 id = 1;
+}
+
+message GettyImages.Models.Search.EditorialVideoSearchResults {
+    int32 result_count = 1;
+    repeated GettyImages.Models.Search.VideoSearchItem videos = 2;
+}
+
+message GettyImages.Models.Search.EventsSearchResult {
+    repeated GettyImages.Models.Events.Event events = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Search.ImageSearchItem {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    map<string, string> alternative_ids = 2;
+    string artist = 3;
+    string asset_family = 4;
+    bool call_for_image = 5;
+    string caption = 6;
+    string collection_code = 7;
+    int32 collection_id = 8;
+    string collection_name = 9;
+    string color_type = 10;
+    string copyright = 11;
+    string date_camera_shot = 12;
+    string date_created = 13;
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 14;
+    repeated string editorial_segments = 15;
+    repeated int32 event_ids = 16;
+    string graphical_style = 17;
+    string id = 18;
+    repeated GettyImages.Models.IStockLicense istock_licenses = 19;
+    repeated GettyImages.Models.Keyword keywords = 20;
+    repeated GettyImages.Models.Download largest_downloads = 21;
+    string license_model = 22;
+    GettyImages.Models.MaxDimensions max_dimensions = 23;
+    string orientation = 24;
+    repeated string people = 25;
+    bool prestige = 26;
+    repeated string product_types = 27;
+    int32 quality_rank = 28;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 29;
+    string title = 30;
+    string uri_oembed = 31;
+}
+
+message GettyImages.Models.Search.ImageSearchItemCreative {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    map<string, string> alternative_ids = 2;
+    string artist = 3;
+    string asset_family = 4;
+    bool call_for_image = 5;
+    string caption = 6;
+    string collection_code = 7;
+    int32 collection_id = 8;
+    string collection_name = 9;
+    string color_type = 10;
+    string copyright = 11;
+    string date_camera_shot = 12;
+    string date_created = 13;
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 14;
+    string graphical_style = 15;
+    string id = 16;
+    repeated GettyImages.Models.Keyword keywords = 17;
+    repeated GettyImages.Models.Download largest_downloads = 18;
+    string license_model = 19;
+    GettyImages.Models.MaxDimensions max_dimensions = 20;
+    string orientation = 21;
+    bool prestige = 22;
+    repeated string product_types = 23;
+    int32 quality_rank = 24;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 25;
+    string title = 26;
+    string uri_oembed = 27;
+}
+
+message GettyImages.Models.Search.ImageSearchItemDisplaySize {
+    bool is_watermarked = 1;
+    string name = 2;
+    string uri = 3;
+}
+
+message GettyImages.Models.Search.ImageSearchItemEditorial {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    map<string, string> alternative_ids = 2;
+    string artist = 3;
+    string asset_family = 4;
+    bool call_for_image = 5;
+    string caption = 6;
+    string collection_code = 7;
+    int32 collection_id = 8;
+    string collection_name = 9;
+    string color_type = 10;
+    string copyright = 11;
+    string date_camera_shot = 12;
+    string date_created = 13;
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 14;
+    repeated string editorial_segments = 15;
+    GettyImages.Models.Search.EditorialSource editorial_source = 16;
+    repeated int32 event_ids = 17;
+    string graphical_style = 18;
+    string id = 19;
+    repeated GettyImages.Models.Keyword keywords = 20;
+    repeated GettyImages.Models.Download largest_downloads = 21;
+    string license_model = 22;
+    GettyImages.Models.MaxDimensions max_dimensions = 23;
+    string orientation = 24;
+    repeated string people = 25;
+    repeated string product_types = 26;
+    int32 quality_rank = 27;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 28;
+    string title = 29;
+    string uri_oembed = 30;
+}
+
+message GettyImages.Models.Search.ImageSearchLightItemCreative {
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 1;
+    string id = 2;
+    string title = 3;
+}
+
+message GettyImages.Models.Search.SearchResults[GettyImages.Models.Search.ImageSearchItem] {
+    repeated GettyImages.Models.Search.ImageSearchItem images = 1;
+    int32 result_count = 2;
+}
+
+message GettyImages.Models.Search.VideoSearchItem {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    string artist = 2;
+    string asset_family = 3;
+    string caption = 4;
+    string clip_length = 5;
+    string collection_code = 6;
+    int32 collection_id = 7;
+    string collection_name = 8;
+    string color_type = 9;
+    string copyright = 10;
+    string date_created = 11;
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 12;
+    string era = 13;
+    string id = 14;
+    repeated GettyImages.Models.IStockLicense istock_licenses = 15;
+    repeated GettyImages.Models.Keyword keywords = 16;
+    repeated GettyImages.Models.Download largest_downloads = 17;
+    string license_model = 18;
+    string mastered_to = 19;
+    string originally_shot_on = 20;
+    repeated string product_types = 21;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 22;
+    string shot_speed = 23;
+    string source = 24;
+    string title = 25;
+}
+
+message GettyImages.Models.Search.VideoSearchResults[GettyImages.Models.Artists.VideoSearchItem] {
+    int32 result_count = 1;
+    repeated GettyImages.Models.Artists.VideoSearchItem videos = 2;
+}
+
+message GettyImages.Models.Videos.VideoDetail {
+    GettyImages.Models.AllowedUse allowed_use = 1;
+    string artist = 2;
+    string asset_family = 3;
+    string caption = 4;
+    string clip_length = 5;
+    string collection_code = 6;
+    int32 collection_id = 7;
+    string collection_name = 8;
+    string color_type = 9;
+    string copyright = 10;
+    string date_created = 11;
+    repeated GettyImages.Models.Search.ImageSearchItemDisplaySize display_sizes = 12;
+    repeated GettyImages.Models.Videos.VideoDownloadSize download_sizes = 13;
+    repeated string editorial_segments = 14;
+    string era = 15;
+    string id = 16;
+    repeated GettyImages.Models.IStockLicense istock_licenses = 17;
+    repeated GettyImages.Models.Keyword keywords = 18;
+    string license_model = 19;
+    string mastered_to = 20;
+    string originally_shot_on = 21;
+    repeated string product_types = 22;
+    repeated GettyImages.Models.ReferralDestination referral_destinations = 23;
+    string shot_speed = 24;
+    string source = 25;
+    string title = 26;
+}
+
+message GettyImages.Models.Videos.VideoDownloadAuthorization {
+    string agreement_name = 1;
+    string product_id = 2;
+    string product_type = 3;
+    string uri = 4;
+}
+
+message GettyImages.Models.Videos.VideoDownloadSize {
+    string bit_depth = 1;
+    string broadcast_video_standard = 2;
+    string compression = 3;
+    string content_type = 4;
+    string description = 5;
+    repeated GettyImages.Models.Videos.VideoDownloadAuthorization downloads = 6;
+    string format = 7;
+    double frame_rate = 8;
+    string frame_size = 9;
+    double height = 10;
+    bool interlaced = 11;
+    string name = 12;
+    int32 width = 13;
+}
+
+message GettyImages.Models.Videos.VideosDetail {
+    repeated GettyImages.Models.Videos.VideoDetail videos = 1;
+    repeated string videos_not_found = 2;
+}
+
+message GettyImages.Services.Core.SecurityToken {
+    string ActAsSystemId = 1;
+    string AdminId = 2;
+    string AuthId = 3;
+    string ClientIP = 4;
+    string ClientId = 5;
+    string Created = 6;
+    string Expires = 7;
+    bool RememberedUser = 8;
+    string RenewalEnds = 9;
+    bool SecureOnly = 10;
+    string SystemId = 11;
+    enum GettyImages.Services.Core.SecurityToken_SystemRole {
+        GETTYIMAGESSERVICESCORESECURITYTOKEN_SYSTEMROLE_CUSTOMERFACING = 0;
+        GETTYIMAGESSERVICESCORESECURITYTOKEN_SYSTEMROLE_ADMIN = 1;
+        GETTYIMAGESSERVICESCORESECURITYTOKEN_SYSTEMROLE_AUTOMATION = 2;
+    }
+    GettyImages.Services.Core.SecurityToken_SystemRole SystemRole = 12;
+    string UserId = 13;
+    string VisitorId = 14;
+}
+
+message Links {
+    string invitation = 1;
+    string share = 2;
+}
+
+message Object {
+}
+
+message PartnerChannel {
+    // Specifies the asset family for the channel (e.g. "editorial" or "creative")
+    string asset_family = 1;
+    // Specifies the identification number for the channel
+    int32 channel_id = 2;
+    // Specifies the channel type (i.e. "New," "Updated" or "Deleted")
+    string channel_type = 3;
+    // Specifies the current count of notifications pending in the channel
+    int32 notification_count = 4;
+    string start_date = 5;
+}
+
+message PartnerChannelList {
+    repeated PartnerChannel channels = 1;
+}
+
+message RegisterAssetsRequest {
+    // Specifies the list of asset ids you want to register.
+    repeated string asset_ids = 1;
+}
+
+message System.Object {
+}
+
+message Asset_usage {
+    // Specifies the Id of the asset that was used.
+    string asset_id = 1;
+    // Specifies the number of times the asset was used.
+    int32 quantity = 2;
+    // Identifies the date the asset was used, in ISO 8601 format (e.g., YYYY-MM-DD), time is not needed.
+    string usage_date = 3;
+}
+
+message Report_usage_batch_request {
+    // Identifies the list of asset id, usage count and date of usage combinations to record.
+    repeated asset_usage asset_usages = 1;
+}
+
+message Report_usage_batch_response {
+    // Identifies a list of asset ids submitted that did not match known Getty asset ids.
+    repeated string invalid_assets = 1;
+    // Specifies the number of asset usage records that were successfully recorded.
+    int32 total_asset_usages_processed = 2;
+}
+
+service GettyImagesService {
+    // ***BETA*** Search for images by a photographer
+    rpc GetV3ArtistsImages(GetV3ArtistsImagesRequest) returns (System) {
+      option (google.api.http) = {
+        get: "//v3/artists/images"
+      };
+    }
+    // ***BETA*** Search for videos by a photographer
+    rpc GetV3ArtistsVideos(GetV3ArtistsVideosRequest) returns (System) {
+      option (google.api.http) = {
+        get: "//v3/artists/videos"
+      };
+    }
+    // Generates asset changes.
+    rpc PutV3AssetChangesChangeSets(PutV3AssetChangesChangeSetsRequest) returns (AssetChanges) {
+      option (google.api.http) = {
+        put: "//v3/asset-changes/change-sets"
+      };
+    }
+    // Confirm asset changes acknowledges receipt of asset changes.
+    rpc DeleteV3AssetChangesChangeSetsChangeSetId(DeleteV3AssetChangesChangeSetsChangeSetIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//v3/asset-changes/change-sets/{change-set-id}"
+      };
+    }
+    // Retrieves the channel data for the partner. This data can be used to populate the channel_id parameter in the Put Asset Changes query.
+    rpc GetV3AssetChangesChannels(GetV3AssetChangesChannelsRequest) returns (PartnerChannelList) {
+      option (google.api.http) = {
+        get: "//v3/asset-changes/channels"
+      };
+    }
+    // Register a list of customer assets.
+    rpc PostV3AssetRegistrations(PostV3AssetRegistrationsRequest) returns (Object) {
+      option (google.api.http) = {
+        post: "//v3/asset-registrations"
+        body: "request"
+      };
+    }
+    // ***BETA*** Get all boards that the user participates in
+    rpc GetV3Boards(GetV3BoardsRequest) returns (BoardList) {
+      option (google.api.http) = {
+        get: "//v3/boards"
+      };
+    }
+    // ***BETA*** Create a new board
+    rpc PostV3Boards(PostV3BoardsRequest) returns (BoardCreated) {
+      option (google.api.http) = {
+        post: "//v3/boards"
+        body: "new_board"
+      };
+    }
+    // ***BETA*** Get assets and metadata for a specific board
+    rpc GetV3BoardsBoard_id(GetV3BoardsBoard_idRequest) returns (BoardDetail) {
+      option (google.api.http) = {
+        get: "//v3/boards/{board_id}"
+      };
+    }
+    // ***BETA*** Update a board
+    rpc PutV3BoardsBoard_id(PutV3BoardsBoard_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        put: "//v3/boards/{board_id}"
+        body: "board_info"
+      };
+    }
+    // ***BETA*** Delete a board
+    rpc DeleteV3BoardsBoard_id(DeleteV3BoardsBoard_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//v3/boards/{board_id}"
+      };
+    }
+    // ***BETA*** Add assets to a board
+    rpc PutV3BoardsBoard_idAssets(PutV3BoardsBoard_idAssetsRequest) returns (AddBoardAssetsResult) {
+      option (google.api.http) = {
+        put: "//v3/boards/{board_id}/assets"
+        body: "board_assets"
+      };
+    }
+    // ***BETA*** Remove assets from a board
+    rpc DeleteV3BoardsBoard_idAssets(DeleteV3BoardsBoard_idAssetsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//v3/boards/{board_id}/assets"
+      };
+    }
+    // ***BETA*** Add an asset to a board
+    rpc PutV3BoardsBoard_idAssetsAsset_id(PutV3BoardsBoard_idAssetsAsset_idRequest) returns (Object) {
+      option (google.api.http) = {
+        put: "//v3/boards/{board_id}/assets/{asset_id}"
+      };
+    }
+    // ***BETA*** Remove an asset from a board
+    rpc DeleteV3BoardsBoard_idAssetsAsset_id(DeleteV3BoardsBoard_idAssetsAsset_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//v3/boards/{board_id}/assets/{asset_id}"
+      };
+    }
+    // ***BETA*** Get comments from a board
+    rpc GetV3BoardsBoard_idComments(GetV3BoardsBoard_idCommentsRequest) returns (CommentsList) {
+      option (google.api.http) = {
+        get: "//v3/boards/{board_id}/comments"
+      };
+    }
+    // ***BETA*** Add a comment to a board
+    rpc PostV3BoardsBoard_idComments(PostV3BoardsBoard_idCommentsRequest) returns (CommentCreated) {
+      option (google.api.http) = {
+        post: "//v3/boards/{board_id}/comments"
+        body: "comment"
+      };
+    }
+    // ***BETA*** Delete a comment from a board
+    rpc DeleteV3BoardsBoard_idCommentsComment_id(DeleteV3BoardsBoard_idCommentsComment_idRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "//v3/boards/{board_id}/comments/{comment_id}"
+      };
+    }
+    // Gets collections applicable for the customer.
+    rpc GetV3Collections(GetV3CollectionsRequest) returns (GettyImages.Models.Collections) {
+      option (google.api.http) = {
+        get: "//v3/collections"
+      };
+    }
+    // Gets countries codes and names.
+    rpc GetV3Countries(GetV3CountriesRequest) returns (GettyImages.Models.Countries) {
+      option (google.api.http) = {
+        get: "//v3/countries"
+      };
+    }
+    // Returns information about a customer's downloaded assets.
+    rpc GetV3Downloads(GetV3DownloadsRequest) returns (GettyImages.Models.Downloads) {
+      option (google.api.http) = {
+        get: "//v3/downloads"
+      };
+    }
+    // Download an image
+    // 
+    // The single step download call returns either a redirect or a response message with the URI to download the largest
+    //                 image available.
+    //                 Returns HTTP status code 303 Redirect to download URI or HTTP status code 200.
+    rpc PostV3DownloadsImagesId(PostV3DownloadsImagesIdRequest) returns (System) {
+      option (google.api.http) = {
+        post: "//v3/downloads/images/{id}"
+        body: "download_details"
+      };
+    }
+    // Download a video
+    // 
+    // The single step download call returns either a redirect or a response message with the URI to download the largest
+    //                 video available.
+    //                 Returns HTTP status code 303 Redirect to download URI or HTTP status code 200.
+    rpc PostV3DownloadsVideosId(PostV3DownloadsVideosIdRequest) returns (System) {
+      option (google.api.http) = {
+        post: "//v3/downloads/videos/{id}"
+      };
+    }
+
+    // Get metadata for multiple events
+    // 
+    // Returns an array of event metadata
+    rpc GetV3Events(GetV3EventsRequest) returns (GettyImages.Models.Events) {
+      option (google.api.http) = {
+        get: "//v3/events"
+      };
+    }
+    // Get metadata for a single event
+    // 
+    // Returns an array of event metadata
+    rpc GetV3EventsId(GetV3EventsIdRequest) returns (GettyImages.Models.Events) {
+      option (google.api.http) = {
+        get: "//v3/events/{id}"
+      };
+    }
+    // Get metadata for multiple images by supplying multiple image ids
+    rpc GetV3Images(GetV3ImagesRequest) returns (GettyImages.Models.Images) {
+      option (google.api.http) = {
+        get: "//v3/images"
+      };
+    }
+    // Get metadata for a single image by supplying one image id
+    rpc GetV3ImagesId(GetV3ImagesIdRequest) returns (GettyImages.Models.Images) {
+      option (google.api.http) = {
+        get: "//v3/images/{id}"
+      };
+    }
+    // Search for images similar to an image
+    rpc GetV3ImagesIdSimilar(GetV3ImagesIdSimilarRequest) returns (System) {
+      option (google.api.http) = {
+        get: "//v3/images/{id}/similar"
+      };
+    }
+    // Get Products
+    rpc GetV3Products(GetV3ProductsRequest) returns (GettyImages.Models.Products) {
+      option (google.api.http) = {
+        get: "//v3/products"
+      };
+    }
+    // Get Previously Purchased Images and Video
+    rpc GetV3PurchasedAssets(GetV3PurchasedAssetsRequest) returns (GettyImages.Models.Purchases) {
+      option (google.api.http) = {
+        get: "//v3/purchased-assets"
+      };
+    }
+    // Get Previously Purchased Images
+    rpc GetV3PurchasedImages(GetV3PurchasedImagesRequest) returns (GettyImages.Models.Purchases) {
+      option (google.api.http) = {
+        get: "//v3/purchased-images"
+      };
+    }
+    // Search for events
+    rpc GetV3SearchEvents(GetV3SearchEventsRequest) returns (GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/events"
+      };
+    }
+    // Search for both creative and editorial images
+    rpc GetV3SearchImages(GetV3SearchImagesRequest) returns (GettyImages.Models.Search.SearchResults[GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/images"
+      };
+    }
+    // Search for creative images only
+    rpc GetV3SearchImagesCreative(GetV3SearchImagesCreativeRequest) returns (GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/images/creative"
+      };
+    }
+    // Search for editorial images only
+    rpc GetV3SearchImagesEditorial(GetV3SearchImagesEditorialRequest) returns (GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/images/editorial"
+      };
+    }
+    // Search for both creative and editorial videos
+    rpc GetV3SearchVideos(GetV3SearchVideosRequest) returns (GettyImages.Models.Search.VideoSearchResults[GettyImages.Models.Artists) {
+      option (google.api.http) = {
+        get: "//v3/search/videos"
+      };
+    }
+    // Search for creative videos
+    rpc GetV3SearchVideosCreative(GetV3SearchVideosCreativeRequest) returns (GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/videos/creative"
+      };
+    }
+    // Search for editorial videos
+    rpc GetV3SearchVideosEditorial(GetV3SearchVideosEditorialRequest) returns (GettyImages.Models.Search) {
+      option (google.api.http) = {
+        get: "//v3/search/videos/editorial"
+      };
+    }
+    // Report usage of assets via a batch format.
+    rpc PutV3UsageBatchesId(PutV3UsageBatchesIdRequest) returns (Report_usage_batch_response) {
+      option (google.api.http) = {
+        put: "//v3/usage-batches/{id}"
+        body: "request"
+      };
+    }
+    // Get metadata for multiple videos by supplying multiple video ids
+    rpc GetV3Videos(GetV3VideosRequest) returns (GettyImages.Models.Videos) {
+      option (google.api.http) = {
+        get: "//v3/videos"
+      };
+    }
+    // Get metadata for a single video by supplying one video id
+    rpc GetV3VideosId(GetV3VideosIdRequest) returns (GettyImages.Models.Videos) {
+      option (google.api.http) = {
+        get: "//v3/videos/{id}"
+      };
+    }
+}

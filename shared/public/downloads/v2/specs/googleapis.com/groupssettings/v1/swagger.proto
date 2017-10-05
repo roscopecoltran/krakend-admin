@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package groupssettings;
+
+message GetGroupUniqueIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    // The resource ID
+    string groupUniqueId = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message PutGroupUniqueIdRequest {
+    alt alt = 1;
+    Groups body = 2;
+    string fields = 3;
+    // The resource ID
+    string groupUniqueId = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message Groups {
+    // Are external members allowed to join the group.
+    string allowExternalMembers = 1;
+    // Is google allowed to contact admins.
+    string allowGoogleCommunication = 2;
+    // If posting from web is allowed.
+    string allowWebPosting = 3;
+    // If the group is archive only
+    string archiveOnly = 4;
+    // Custom footer text.
+    string customFooterText = 5;
+    // Default email to which reply to any message should go.
+    string customReplyTo = 6;
+    // Default message deny notification message
+    string defaultMessageDenyNotificationText = 7;
+    // Description of the group
+    string description = 8;
+    // Email id of the group
+    string email = 9;
+    // Whether to include custom footer.
+    string includeCustomFooter = 10;
+    // If this groups should be included in global address list or not.
+    string includeInGlobalAddressList = 11;
+    // If the contents of the group are archived.
+    string isArchived = 12;
+    // The type of the resource.
+    string kind = 13;
+    // Maximum message size allowed.
+    int32 maxMessageBytes = 14;
+    // Can members post using the group email address.
+    string membersCanPostAsTheGroup = 15;
+    // Default message display font. Possible values are: DEFAULT_FONT FIXED_WIDTH_FONT
+    string messageDisplayFont = 16;
+    // Moderation level for messages. Possible values are: MODERATE_ALL_MESSAGES MODERATE_NON_MEMBERS MODERATE_NEW_MEMBERS MODERATE_NONE
+    string messageModerationLevel = 17;
+    // Name of the Group
+    string name = 18;
+    // Primary language for the group.
+    string primaryLanguage = 19;
+    // Whome should the default reply to a message go to. Possible values are: REPLY_TO_CUSTOM REPLY_TO_SENDER REPLY_TO_LIST REPLY_TO_OWNER REPLY_TO_IGNORE REPLY_TO_MANAGERS
+    string replyTo = 20;
+    // Should the member be notified if his message is denied by owner.
+    string sendMessageDenyNotification = 21;
+    // Is the group listed in groups directory
+    string showInGroupDirectory = 22;
+    // Moderation level for messages detected as spam. Possible values are: ALLOW MODERATE SILENTLY_MODERATE REJECT
+    string spamModerationLevel = 23;
+    // Permissions to add members. Possible values are: ALL_MANAGERS_CAN_ADD ALL_MEMBERS_CAN_ADD NONE_CAN_ADD
+    string whoCanAdd = 24;
+    // Permission to contact owner of the group via web UI. Possible values are: ANYONE_CAN_CONTACT ALL_IN_DOMAIN_CAN_CONTACT ALL_MEMBERS_CAN_CONTACT ALL_MANAGERS_CAN_CONTACT
+    string whoCanContactOwner = 25;
+    // Permissions to invite members. Possible values are: ALL_MEMBERS_CAN_INVITE ALL_MANAGERS_CAN_INVITE NONE_CAN_INVITE
+    string whoCanInvite = 26;
+    // Permissions to join the group. Possible values are: ANYONE_CAN_JOIN ALL_IN_DOMAIN_CAN_JOIN INVITED_CAN_JOIN CAN_REQUEST_TO_JOIN
+    string whoCanJoin = 27;
+    // Permission to leave the group. Possible values are: ALL_MANAGERS_CAN_LEAVE ALL_MEMBERS_CAN_LEAVE NONE_CAN_LEAVE
+    string whoCanLeaveGroup = 28;
+    // Permissions to post messages to the group. Possible values are: NONE_CAN_POST ALL_MANAGERS_CAN_POST ALL_MEMBERS_CAN_POST ALL_OWNERS_CAN_POST ALL_IN_DOMAIN_CAN_POST ANYONE_CAN_POST
+    string whoCanPostMessage = 29;
+    // Permissions to view group. Possible values are: ANYONE_CAN_VIEW ALL_IN_DOMAIN_CAN_VIEW ALL_MEMBERS_CAN_VIEW ALL_MANAGERS_CAN_VIEW
+    string whoCanViewGroup = 30;
+    // Permissions to view membership. Possible values are: ALL_IN_DOMAIN_CAN_VIEW ALL_MEMBERS_CAN_VIEW ALL_MANAGERS_CAN_VIEW
+    string whoCanViewMembership = 31;
+}
+
+enum Alt {
+    ATOM = 0;
+    JSON = 1;
+}
+
+service GroupsSettingsService {
+    // Gets one resource by id.
+    rpc GetGroupUniqueId(GetGroupUniqueIdRequest) returns (Groups) {
+      option (google.api.http) = {
+        get: "/groups/v1/groups/{groupUniqueId}"
+      };
+    }
+    // Updates an existing resource.
+    rpc PutGroupUniqueId(PutGroupUniqueIdRequest) returns (Groups) {
+      option (google.api.http) = {
+        put: "/groups/v1/groups/{groupUniqueId}"
+        body: "body"
+      };
+    }
+}

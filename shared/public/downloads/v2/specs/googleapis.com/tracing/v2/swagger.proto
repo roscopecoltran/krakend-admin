@@ -1,0 +1,428 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package stackdrivertrace;
+
+message PutV2NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    Span body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // The resource name of the span in the following format:
+    // 
+    //     projects/[PROJECT_ID]traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
+    // [SPAN_ID] is a unique identifier for a span within a trace,
+    // assigned when the span is created.
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message PostV2NameTraces:BatchWriteRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    BatchWriteSpansRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    // Required. Name of the project where the spans belong. The format is
+    // `projects/PROJECT_ID`.
+    string name = 9;
+    string oauth_token = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+message GetV2ParentTracesRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    // Optional. Do not return traces whose start time is later than this time.
+    string endTime = 6;
+    string fields = 7;
+    // Opional. Return only traces that match this
+    // [trace filter](/trace/docs/trace-filters). Example:
+    // 
+    //     "label:/http/url root:/_ah/background my_label:17"
+    string filter = 8;
+    string key = 9;
+    string oauth_token = 10;
+    // Optional. A single field used to sort the returned traces.
+    // Only the following field names can be used:
+    // 
+    // *   `trace_id`: the trace's ID field
+    // *   `name`:  the root span's resource name
+    // *   `duration`: the difference between the root span's start time and end time
+    // *   `start`:  the start time of the root span
+    // 
+    // Sorting is in ascending order unless `desc` is appended to the sort field name.
+    // Example: `"name desc"`).
+    string orderBy = 11;
+    // Optional. The maximum number of results to return from this request.
+    // Non-positive values are ignored. The presence of `next_page_token` in the
+    // response indicates that more results might be available, even if fewer than
+    // the maximum number of results is returned by this request.
+    int32 pageSize = 12;
+    // Optional. If present, then retrieve the next batch of results from the
+    // preceding call to this method.  `page_token` must be the value of
+    // `next_page_token` from the previous response.  The values of other method
+    // parameters should be identical to those in the previous call.
+    string pageToken = 13;
+    // Required. The project where the trace data is stored. The format
+    // is `projects/PROJECT_ID`.
+    string parent = 14;
+    boolean pp = 15;
+    boolean prettyPrint = 16;
+    string quotaUser = 17;
+    // Optional. Do not return traces whose end time is earlier than this time.
+    string startTime = 18;
+    string uploadType = 19;
+    string upload_protocol = 20;
+}
+
+message GetV2Parent:ListSpansRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    // Optional. If present, then retrieve the next batch of results from the
+    // preceding call to this method. `page_token` must be the value of
+    // `next_page_token` from the previous response. The values of other method
+    // parameters should be identical to those in the previous call.
+    string pageToken = 9;
+    // Required: The resource name of the trace containing the spans to list.
+    // The format is `projects/PROJECT_ID/traces/TRACE_ID`.
+    string parent = 10;
+    boolean pp = 11;
+    boolean prettyPrint = 12;
+    string quotaUser = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message Annotation {
+    // A set of attributes on the annotation. There is a limit of 4 attributes
+    // per Annotation.
+    Attributes attributes = 1;
+    // A user-supplied message describing the event. The maximum length for
+    // the description is 256 bytes.
+    TruncatableString description = 2;
+}
+
+message AttributeValue {
+    // A Boolean value represented by `true` or `false`.
+    bool boolValue = 1;
+    // A 64-bit signed integer.
+    string intValue = 2;
+    // A string up to 256 bytes long.
+    TruncatableString stringValue = 3;
+}
+
+message Attributes {
+    // The set of attributes. Each attribute's key can be up to 128 bytes
+    // long. The value can be a string up to 256 bytes, an integer, or the
+    // Boolean values `true` and `false`. For example:
+    // 
+    //     "/instance_id": "my-instance"
+    //     "/http/user_agent": ""
+    //     "/http/request_bytes": 300
+    //     "abc.com/myattribute": true
+    map<string, AttributeValue> attributeMap = 1;
+    // The number of attributes that were discarded. Attributes can be discarded
+    // because their keys are too long or because there are too many attributes.
+    // If this value is 0 then all attributes are valid.
+    int32 droppedAttributesCount = 2;
+}
+
+message BatchWriteSpansRequest {
+    // A collection of spans.
+    repeated Span spans = 1;
+}
+
+message Empty {
+}
+
+message Link {
+    // A set of attributes on the link. There is a limit of 32 attributes per
+    // link.
+    Attributes attributes = 1;
+    // `SPAN_ID` identifies a span within a trace.
+    string spanId = 2;
+    // `TRACE_ID` identifies a trace within a project.
+    string traceId = 3;
+    // The relationship of the current span relative to the linked span.
+    enum Link_Type {
+        LINK_TYPE_TYPE_UNSPECIFIED = 0;
+        LINK_TYPE_CHILD_LINKED_SPAN = 1;
+        LINK_TYPE_PARENT_LINKED_SPAN = 2;
+    }
+    Link_Type type = 4;
+}
+
+message Links {
+    // The number of dropped links after the maximum size was enforced. If
+    // this value is 0, then no links were dropped.
+    int32 droppedLinksCount = 1;
+    // A collection of links.
+    repeated Link link = 2;
+}
+
+message ListSpansResponse {
+    // If defined, indicates that there might be more spans that match the
+    // request. Pass this as the value of `pageToken` in a subsequent request to
+    // retrieve additional spans.
+    string nextPageToken = 1;
+    // The requested spans, if there are any in the specified trace.
+    repeated Span spans = 2;
+}
+
+message ListTracesResponse {
+    // If there might be more results than those appearing in this response, then
+    // `next_page_token` is included.  To get the next set of results, call this
+    // method again using the value of `next_page_token` as `page_token`.
+    string nextPageToken = 1;
+    // List of trace records returned.
+    repeated Trace traces = 2;
+}
+
+message Module {
+    // A unique identifier for the module, usually a hash of its
+    // contents (up to 128 bytes).
+    TruncatableString buildId = 1;
+    // For example: main binary, kernel modules, and dynamic libraries
+    // such as libc.so, sharedlib.so (up to 256 bytes).
+    TruncatableString module = 2;
+}
+
+message NetworkEvent {
+    // An identifier for the message, which must be unique in this span.
+    string messageId = 1;
+    // The number of bytes sent or received.
+    string messageSize = 2;
+    // For sent messages, this is the time at which the first bit was sent.
+    // For received messages, this is the time at which the last bit was
+    // received.
+    string time = 3;
+    // Type of NetworkEvent. Indicates whether the RPC message was sent or
+    // received.
+    enum NetworkEvent_Type {
+        NETWORKEVENT_TYPE_TYPE_UNSPECIFIED = 0;
+        NETWORKEVENT_TYPE_SENT = 1;
+        NETWORKEVENT_TYPE_RECV = 2;
+    }
+    NetworkEvent_Type type = 4;
+}
+
+message Span {
+    // A set of attributes on the span. There is a limit of 32 attributes per
+    // span.
+    Attributes attributes = 1;
+    // An optional number of child spans that were generated while this span
+    // was active. If set, allows implementation to detect missing child spans.
+    uint32 childSpanCount = 2;
+    // A description of the span's operation (up to 128 bytes).
+    // Stackdriver Trace displays the description in the
+    // {% dynamic print site_values.console_name %}.
+    // For example, the display name can be a qualified method name or a file name
+    // and a line number where the operation is called. A best practice is to use
+    // the same display name within an application and at the same call point.
+    // This makes it easier to correlate spans in different traces.
+    TruncatableString displayName = 3;
+    // The end time of the span. On the client side, this is the time kept by
+    // the local machine where the span execution ends. On the server side, this
+    // is the time when the server application handler stops running.
+    string endTime = 4;
+    // A maximum of 128 links are allowed per Span.
+    Links links = 5;
+    // The resource name of the span in the following format:
+    // 
+    //     projects/[PROJECT_ID]traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
+    // [SPAN_ID] is a unique identifier for a span within a trace,
+    // assigned when the span is created.
+    string name = 6;
+    // The [SPAN_ID] of this span's parent span. If this is a root span,
+    // then this field must be empty.
+    string parentSpanId = 7;
+    // A highly recommended but not required flag that identifies when a trace
+    // crosses a process boundary. True when the parent_span belongs to the
+    // same process as the current span.
+    bool sameProcessAsParentSpan = 8;
+    // The [SPAN_ID] portion of the span's resource name.
+    string spanId = 9;
+    // Stack trace captured at the start of the span.
+    StackTrace stackTrace = 10;
+    // The start time of the span. On the client side, this is the time kept by
+    // the local machine where the span execution starts. On the server side, this
+    // is the time when the server's application handler starts running.
+    string startTime = 11;
+    // An optional final status for this span.
+    Status status = 12;
+    // The included time events. There can be up to 32 annotations and 128 network
+    // events per span.
+    TimeEvents timeEvents = 13;
+}
+
+message StackFrame {
+    // The column number where the function call appears, if available.
+    // This is important in JavaScript because of its anonymous functions.
+    string columnNumber = 1;
+    // The name of the source file where the function call appears (up to 256
+    // bytes).
+    TruncatableString fileName = 2;
+    // The fully-qualified name that uniquely identifies the function or
+    // method that is active in this frame (up to 1024 bytes).
+    TruncatableString functionName = 3;
+    // The line number in `file_name` where the function call appears.
+    string lineNumber = 4;
+    // The binary module from where the code was loaded.
+    Module loadModule = 5;
+    // An un-mangled function name, if `function_name` is
+    // [mangled](http://www.avabodh.com/cxxin/namemangling.html). The name can
+    // be fully-qualified (up to 1024 bytes).
+    TruncatableString originalFunctionName = 6;
+    // The version of the deployed source code (up to 128 bytes).
+    TruncatableString sourceVersion = 7;
+}
+
+message StackFrames {
+    // The number of stack frames that were dropped because there
+    // were too many stack frames.
+    // If this value is 0, then no stack frames were dropped.
+    int32 droppedFramesCount = 1;
+    // Stack frames in this call stack.
+    repeated StackFrame frame = 2;
+}
+
+message StackTrace {
+    // Stack frames in this stack trace. A maximum of 128 frames are allowed.
+    StackFrames stackFrames = 1;
+    // The hash ID is used to conserve network bandwidth for duplicate
+    // stack traces within a single trace.
+    // 
+    // Often multiple spans will have identical stack traces.
+    // The first occurrence of a stack trace should contain both the
+    // `stackFrame` content and a value in `stackTraceHashId`.
+    // 
+    // Subsequent spans within the same request can refer
+    // to that stack trace by only setting `stackTraceHashId`.
+    string stackTraceHashId = 2;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There will be a
+    // common set of message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+message TimeEvent {
+    // One or more key:value pairs.
+    Annotation annotation = 1;
+    // An event describing an RPC message sent/received on the network.
+    NetworkEvent networkEvent = 2;
+    // The timestamp indicating the time the event occurred.
+    string time = 3;
+}
+
+message TimeEvents {
+    // The number of dropped annotations in all the included time events.
+    // If the value is 0, then no annotations were dropped.
+    int32 droppedAnnotationsCount = 1;
+    // The number of dropped network events in all the included time events.
+    // If the value is 0, then no network events were dropped.
+    int32 droppedNetworkEventsCount = 2;
+    // A collection of `TimeEvent`s.
+    repeated TimeEvent timeEvent = 3;
+}
+
+message Trace {
+    // The resource name of the trace in the following format:
+    // 
+    //     projects/[PROJECT_ID]/traces/TRACE_ID is a unique identifier for a trace within a project.
+    // The ID is assigned when the trace is created.
+    string name = 1;
+}
+
+message TruncatableString {
+    // The number of bytes removed from the original string. If this
+    // value is 0, then the string was not shortened.
+    int32 truncatedByteCount = 1;
+    // The shortened string. For example, if the original string was 500
+    // bytes long and the limit of the string was 128 bytes, then this
+    // value contains the first 128 bytes of the 500-byte string. Note that
+    // truncation always happens on the character boundary, to ensure that
+    // truncated string is still valid UTF8. In case of multi-byte characters,
+    // size of truncated string can be less than truncation limit.
+    string value = 2;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service StackdriverTraceService {
+    // Creates a new Span.
+    rpc PutV2Name(PutV2NameRequest) returns (Span) {
+      option (google.api.http) = {
+        put: "//v2/{name}"
+        body: "body"
+      };
+    }
+    // Sends new spans to Stackdriver Trace or updates existing traces. If the
+    // name of a trace that you send matches that of an existing trace, new spans
+    // are added to the existing trace. Attempt to update existing spans results
+    // undefined behavior. If the name does not match, a new trace is created
+    // with given set of spans.
+    rpc PostV2NameTraces:BatchWrite(PostV2NameTraces:BatchWriteRequest) returns (Empty) {
+      option (google.api.http) = {
+        post: "//v2/{name}/traces:batchWrite"
+        body: "body"
+      };
+    }
+    // Returns of a list of traces that match the specified filter conditions.
+    rpc GetV2ParentTraces(GetV2ParentTracesRequest) returns (ListTracesResponse) {
+      option (google.api.http) = {
+        get: "//v2/{parent}/traces"
+      };
+    }
+    // Returns a list of spans within a trace.
+    rpc GetV2Parent:ListSpans(GetV2Parent:ListSpansRequest) returns (ListSpansResponse) {
+      option (google.api.http) = {
+        get: "//v2/{parent}:listSpans"
+      };
+    }
+}

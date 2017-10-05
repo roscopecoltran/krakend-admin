@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package word2vecapis;
+
+message GetWord2vecNeologdJawikiAnalogyRequest {
+    // Access Token
+    string access_token = 1;
+    // negative1 negative2 ...[space separated strings]
+    string negatives = 2;
+    // num [max 10, default 1]
+    int32 num = 3;
+    // positive1 positive2 ...[space separated strings]
+    string positives = 4;
+}
+
+message GetWord2vecNeologdJawikiDistanceRequest {
+    // Access Token
+    string access_token = 1;
+    // num [max 10, default 1]
+    int32 num = 2;
+    // word
+    string word = 3;
+}
+
+message GetWord2vecNeologdJawikiSimilarityRequest {
+    // Access Token
+    string access_token = 1;
+    // word1
+    string word1 = 2;
+    // word2
+    string word2 = 3;
+}
+
+message GetWord2vecNeologdJawikiVec_distanceRequest {
+    // Access Token
+    string access_token = 1;
+    // num [max 10, default 1]
+    int32 num = 2;
+    // vector [length 200]
+    repeated double vector = 3;
+}
+
+message GetWord2vecNeologdJawikiWordvectorRequest {
+    // Access Token
+    string access_token = 1;
+    // word
+    string word = 2;
+}
+
+message AnalogyResponseEntity {
+    // Analogies
+    repeated string analogies = 1;
+    // End date
+    string endTime = 2;
+    // Log message
+    string log = 3;
+    // Input negatives
+    string negatives = 4;
+    // Input num
+    string num = 5;
+    // Input positives
+    string positives = 6;
+    // Process time [millisecond]
+    string processTime = 7;
+    // Start date
+    string startTime = 8;
+}
+
+message DistanceEntity {
+    // cosine distance
+    double distance = 1;
+    // word
+    string word = 2;
+}
+
+message DistanceResponseEntity {
+    // Distances
+    repeated DistanceEntity distances = 1;
+    // End date
+    string endTime = 2;
+    // Input word
+    string input = 3;
+    // Log message
+    string log = 4;
+    // Input num
+    string num = 5;
+    // Process time [millisecond]
+    string processTime = 6;
+    // Start date
+    string startTime = 7;
+}
+
+message SimilarityResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Similarity
+    double similarity = 4;
+    // Start date
+    string startTime = 5;
+    // Input word1
+    string word1 = 6;
+    // Input word2
+    string word2 = 7;
+}
+
+message VectorDistanceResponseEntity {
+    // Distances
+    repeated DistanceEntity distances = 1;
+    // End date
+    string endTime = 2;
+    // Input vector
+    repeated double input = 3;
+    // Log message
+    string log = 4;
+    // Input num
+    string num = 5;
+    // Process time [millisecond]
+    string processTime = 6;
+    // Start date
+    string startTime = 7;
+}
+
+message WordVectorResponseEntity {
+    // End date
+    string endTime = 1;
+    // Log message
+    string log = 2;
+    // Process time [millisecond]
+    string processTime = 3;
+    // Start date
+    string startTime = 4;
+    // Vector
+    repeated double vector = 5;
+    // Input word
+    string word = 6;
+}
+
+service Word2VecAPIsService {
+    // Word2Vec analogy
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.AnalogyResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiAnalogy(GetWord2vecNeologdJawikiAnalogyRequest) returns (AnalogyResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/8/word2vec-neologd-jawiki/analogy"
+      };
+    }
+    // Word2Vec distance
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.DistanceResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiDistance(GetWord2vecNeologdJawikiDistanceRequest) returns (DistanceResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/8/word2vec-neologd-jawiki/distance"
+      };
+    }
+    // Word2Vec similarity
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.SimilarityResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiSimilarity(GetWord2vecNeologdJawikiSimilarityRequest) returns (SimilarityResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/8/word2vec-neologd-jawiki/similarity"
+      };
+    }
+    // Word2Vec distance (Vector version)
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.DistanceResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiVec_distance(GetWord2vecNeologdJawikiVec_distanceRequest) returns (VectorDistanceResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/8/word2vec-neologd-jawiki/vec_distance"
+      };
+    }
+    // Word2Vec wordvector
+    // 
+    // Word2Vec JaWikipedia 2016-9-15 dump.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.word2vec.WordVectorResponseEntity<BR />
+    rpc GetWord2vecNeologdJawikiWordvector(GetWord2vecNeologdJawikiWordvectorRequest) returns (WordVectorResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/8/word2vec-neologd-jawiki/wordvector"
+      };
+    }
+}

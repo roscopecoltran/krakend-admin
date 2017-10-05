@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package languagedetectionapis;
+
+message GetLangdetectGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [10-20 words over is recommended]
+    string text = 2;
+}
+
+message GetLangdetectShortGetRequest {
+    // Access Token
+    string access_token = 1;
+    // Text [Short message like tweet is supported]
+    string text = 2;
+}
+
+message LanguageEntity {
+    // language
+    string lang = 1;
+    // probability
+    double prob = 2;
+}
+
+message LanguageResponseEntity {
+    // End date
+    string endTime = 1;
+    // Output: prediction
+    string language = 2;
+    // Log message
+    string log = 3;
+    // Output: probabilities
+    repeated LanguageEntity probabilities = 4;
+    // Process time [millisecond]
+    string processTime = 5;
+    // Start date
+    string startTime = 6;
+    // Input: text
+    string text = 7;
+}
+
+service LanguageDetectionAPIsService {
+    // Language Detection. This supports 53 languages.
+    // 
+    // Language Detection.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />
+    rpc GetLangdetectGet(GetLangdetectGetRequest) returns (LanguageResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/22/langdetect/get"
+      };
+    }
+    // Language Detection for Short Messages. This supports 53 languages.
+    // 
+    // Language Detection.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />
+    rpc GetLangdetectShortGet(GetLangdetectShortGetRequest) returns (LanguageResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/22/langdetect/short/get"
+      };
+    }
+}

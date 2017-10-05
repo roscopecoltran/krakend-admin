@@ -1,0 +1,457 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package blogger;
+
+message GetBlogsBlogIdRequest {
+    alt alt = 1;
+    // The ID of the blog to get.
+    string blogId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetBlogsBlogIdPagesRequest {
+    alt alt = 1;
+    // ID of the blog to fetch pages from.
+    string blogId = 2;
+    // Whether to retrieve the Page bodies.
+    bool fetchBodies = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetBlogsBlogIdPagesPageIdRequest {
+    alt alt = 1;
+    // ID of the blog containing the page.
+    string blogId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The ID of the page to get.
+    string pageId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetBlogsBlogIdPostsRequest {
+    alt alt = 1;
+    // ID of the blog to fetch posts from.
+    string blogId = 2;
+    // Whether the body content of posts is included.
+    bool fetchBodies = 3;
+    string fields = 4;
+    string key = 5;
+    // Maximum number of posts to fetch.
+    int32 maxResults = 6;
+    string oauth_token = 7;
+    // Continuation token if the request is paged.
+    string pageToken = 8;
+    boolean prettyPrint = 9;
+    string quotaUser = 10;
+    // Earliest post date to fetch, a date-time with RFC 3339 formatting.
+    string startDate = 11;
+    string userIp = 12;
+}
+
+message GetBlogsBlogIdPostsPostIdRequest {
+    alt alt = 1;
+    // ID of the blog to fetch the post from.
+    string blogId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    // The ID of the post
+    string postId = 6;
+    boolean prettyPrint = 7;
+    string quotaUser = 8;
+    string userIp = 9;
+}
+
+message GetBlogsBlogIdPostsPostIdCommentsRequest {
+    alt alt = 1;
+    // ID of the blog to fetch comments from.
+    string blogId = 2;
+    // Whether the body content of the comments is included.
+    bool fetchBodies = 3;
+    string fields = 4;
+    string key = 5;
+    // Maximum number of comments to include in the result.
+    int32 maxResults = 6;
+    string oauth_token = 7;
+    // Continuation token if request is paged.
+    string pageToken = 8;
+    // ID of the post to fetch posts from.
+    string postId = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Earliest date of comment to fetch, a date-time with RFC 3339 formatting.
+    string startDate = 12;
+    string userIp = 13;
+}
+
+message GetBlogsBlogIdPostsPostIdCommentsCommentIdRequest {
+    alt alt = 1;
+    // ID of the blog to containing the comment.
+    string blogId = 2;
+    // The ID of the comment to get.
+    string commentId = 3;
+    string fields = 4;
+    string key = 5;
+    string oauth_token = 6;
+    // ID of the post to fetch posts from.
+    string postId = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message GetUsersUserIdRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // The ID of the user to get.
+    string userId = 7;
+    string userIp = 8;
+}
+
+message GetUsersUserIdBlogsRequest {
+    alt alt = 1;
+    string fields = 2;
+    string key = 3;
+    string oauth_token = 4;
+    boolean prettyPrint = 5;
+    string quotaUser = 6;
+    // ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier.
+    string userId = 7;
+    string userIp = 8;
+}
+
+message Blog {
+    // The description of this blog. This is displayed underneath the title.
+    string description = 1;
+    // The identifier for this resource.
+    string id = 2;
+    // The kind of this entry. Always blogger#blog
+    string kind = 3;
+    // The locale this Blog is set to.
+    message Locale {
+            // The country this blog's locale is set to.
+    string country = 1;
+            // The language this blog is authored in.
+    string language = 2;
+            // The language variant this blog is authored in.
+    string variant = 3;
+    }
+    Locale locale = 4;
+    // The name of this blog. This is displayed as the title.
+    string name = 5;
+    // The container of pages in this blog.
+    message Pages {
+            // The URL of the container for pages in this blog.
+    string selfLink = 1;
+            // The count of pages in this blog.
+    int32 totalItems = 2;
+    }
+    Pages pages = 6;
+    // The container of posts in this blog.
+    message Posts {
+            // The URL of the container for posts in this blog.
+    string selfLink = 1;
+            // The count of posts in this blog.
+    int32 totalItems = 2;
+    }
+    Posts posts = 7;
+    // RFC 3339 date-time when this blog was published.
+    string published = 8;
+    // The API REST URL to fetch this resource from.
+    string selfLink = 9;
+    // RFC 3339 date-time when this blog was last updated.
+    string updated = 10;
+    // The URL where this blog is published.
+    string url = 11;
+}
+
+message BlogList {
+    // The list of Blogs this user has Authorship or Admin rights over.
+    repeated Blog items = 1;
+    // The kind of this entity. Always blogger#blogList
+    string kind = 2;
+}
+
+message Comment {
+    // The author of this Comment.
+    message Author {
+            // The display name.
+    string displayName = 1;
+            // The identifier of the Comment creator.
+    string id = 2;
+            // The comment creator's avatar.
+    message Image {
+                    // The comment creator's avatar URL.
+    string url = 1;
+        }
+        Image image = 3;
+            // The URL of the Comment creator's Profile page.
+    string url = 4;
+    }
+    Author author = 1;
+    // Data about the blog containing this comment.
+    message Blog {
+            // The identifier of the blog containing this comment.
+    string id = 1;
+    }
+    Blog blog = 2;
+    // The actual content of the comment. May include HTML markup.
+    string content = 3;
+    // The identifier for this resource.
+    string id = 4;
+    // Data about the comment this is in reply to.
+    message InReplyTo {
+            // The identified of the parent of this comment.
+    string id = 1;
+    }
+    InReplyTo inReplyTo = 5;
+    // The kind of this entry. Always blogger#comment
+    string kind = 6;
+    // Data about the post containing this comment.
+    message Post {
+            // The identifier of the post containing this comment.
+    string id = 1;
+    }
+    Post post = 7;
+    // RFC 3339 date-time when this comment was published.
+    string published = 8;
+    // The API REST URL to fetch this resource from.
+    string selfLink = 9;
+    // RFC 3339 date-time when this comment was last updated.
+    string updated = 10;
+}
+
+message CommentList {
+    // The List of Comments for a Post.
+    repeated Comment items = 1;
+    // The kind of this entry. Always blogger#commentList
+    string kind = 2;
+    // Pagination token to fetch the next page, if one exists.
+    string nextPageToken = 3;
+    // Pagination token to fetch the previous page, if one exists.
+    string prevPageToken = 4;
+}
+
+message Page {
+    // The author of this Page.
+    message Author {
+            // The display name.
+    string displayName = 1;
+            // The identifier of the Page creator.
+    string id = 2;
+            // The page author's avatar.
+    message Image {
+                    // The page author's avatar URL.
+    string url = 1;
+        }
+        Image image = 3;
+            // The URL of the Page creator's Profile page.
+    string url = 4;
+    }
+    Author author = 1;
+    // Data about the blog containing this Page.
+    message Blog {
+            // The identifier of the blog containing this page.
+    string id = 1;
+    }
+    Blog blog = 2;
+    // The body content of this Page, in HTML.
+    string content = 3;
+    // The identifier for this resource.
+    string id = 4;
+    // The kind of this entity. Always blogger#page
+    string kind = 5;
+    // RFC 3339 date-time when this Page was published.
+    string published = 6;
+    // The API REST URL to fetch this resource from.
+    string selfLink = 7;
+    // The title of this entity. This is the name displayed in the Admin user interface.
+    string title = 8;
+    // RFC 3339 date-time when this Page was last updated.
+    string updated = 9;
+    // The URL that this Page is displayed at.
+    string url = 10;
+}
+
+message PageList {
+    // The list of Pages for a Blog.
+    repeated Page items = 1;
+    // The kind of this entity. Always blogger#pageList
+    string kind = 2;
+}
+
+message Post {
+    // The author of this Post.
+    message Author {
+            // The display name.
+    string displayName = 1;
+            // The identifier of the Post creator.
+    string id = 2;
+            // The Post author's avatar.
+    message Image {
+                    // The Post author's avatar URL.
+    string url = 1;
+        }
+        Image image = 3;
+            // The URL of the Post creator's Profile page.
+    string url = 4;
+    }
+    Author author = 1;
+    // Data about the blog containing this Post.
+    message Blog {
+            // The identifier of the Blog that contains this Post.
+    string id = 1;
+    }
+    Blog blog = 2;
+    // The content of the Post. May contain HTML markup.
+    string content = 3;
+    // The identifier of this Post.
+    string id = 4;
+    // The kind of this entity. Always blogger#post
+    string kind = 5;
+    // The list of labels this Post was tagged with.
+    repeated string labels = 6;
+    // RFC 3339 date-time when this Post was published.
+    string published = 7;
+    // The container of comments on this Post.
+    message Replies {
+            // The URL of the comments on this post.
+    string selfLink = 1;
+            // The count of comments on this post.
+    string totalItems = 2;
+    }
+    Replies replies = 8;
+    // The API REST URL to fetch this resource from.
+    string selfLink = 9;
+    // The title of the Post.
+    string title = 10;
+    // RFC 3339 date-time when this Post was last updated.
+    string updated = 11;
+    // The URL where this Post is displayed.
+    string url = 12;
+}
+
+message PostList {
+    // The list of Posts for this Blog.
+    repeated Post items = 1;
+    // The kind of this entity. Always blogger#postList
+    string kind = 2;
+    // Pagination token to fetch the next page, if one exists.
+    string nextPageToken = 3;
+    // Pagination token to fetch the previous page, if one exists.
+    string prevPageToken = 4;
+}
+
+message User {
+    // Profile summary information.
+    string about = 1;
+    // The container of blogs for this user.
+    message Blogs {
+            // The URL of the Blogs for this user.
+    string selfLink = 1;
+    }
+    Blogs blogs = 2;
+    // The timestamp of when this profile was created, in seconds since epoch.
+    string created = 3;
+    // The display name.
+    string displayName = 4;
+    // The identifier for this User.
+    string id = 5;
+    // The kind of this entity. Always blogger#user
+    string kind = 6;
+    // This user's locale
+    message Locale {
+            // The user's country setting.
+    string country = 1;
+            // The user's language setting.
+    string language = 2;
+            // The user's language variant setting.
+    string variant = 3;
+    }
+    Locale locale = 7;
+    // The API REST URL to fetch this resource from.
+    string selfLink = 8;
+    // The user's profile page.
+    string url = 9;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service BloggerService {
+    // Gets one blog by id.
+    rpc GetBlogsBlogId(GetBlogsBlogIdRequest) returns (Blog) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}"
+      };
+    }
+    // Retrieves pages for a blog, possibly filtered.
+    rpc GetBlogsBlogIdPages(GetBlogsBlogIdPagesRequest) returns (PageList) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/pages"
+      };
+    }
+    // Gets one blog page by id.
+    rpc GetBlogsBlogIdPagesPageId(GetBlogsBlogIdPagesPageIdRequest) returns (Page) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/pages/{pageId}"
+      };
+    }
+    // Retrieves a list of posts, possibly filtered.
+    rpc GetBlogsBlogIdPosts(GetBlogsBlogIdPostsRequest) returns (PostList) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/posts"
+      };
+    }
+    // Get a post by id.
+    rpc GetBlogsBlogIdPostsPostId(GetBlogsBlogIdPostsPostIdRequest) returns (Post) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/posts/{postId}"
+      };
+    }
+    // Retrieves the comments for a blog, possibly filtered.
+    rpc GetBlogsBlogIdPostsPostIdComments(GetBlogsBlogIdPostsPostIdCommentsRequest) returns (CommentList) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/posts/{postId}/comments"
+      };
+    }
+    // Gets one comment by id.
+    rpc GetBlogsBlogIdPostsPostIdCommentsCommentId(GetBlogsBlogIdPostsPostIdCommentsCommentIdRequest) returns (Comment) {
+      option (google.api.http) = {
+        get: "/blogger/v2/blogs/{blogId}/posts/{postId}/comments/{commentId}"
+      };
+    }
+    // Gets one user by id.
+    rpc GetUsersUserId(GetUsersUserIdRequest) returns (User) {
+      option (google.api.http) = {
+        get: "/blogger/v2/users/{userId}"
+      };
+    }
+    // Retrieves a list of blogs, possibly filtered.
+    rpc GetUsersUserIdBlogs(GetUsersUserIdBlogsRequest) returns (BlogList) {
+      option (google.api.http) = {
+        get: "/blogger/v2/users/{userId}/blogs"
+      };
+    }
+}

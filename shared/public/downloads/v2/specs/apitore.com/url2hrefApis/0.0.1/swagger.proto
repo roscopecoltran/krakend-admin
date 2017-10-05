@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package url2hrefapis;
+
+message GetJsoupUrl2hrefRequest {
+    // Access Token
+    string access_token = 1;
+    // URL
+    string url = 2;
+}
+
+message LinkResponseEntity {
+    // End date
+    string endTime = 1;
+    // Links
+    repeated string links = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+}
+
+service Url2HrefAPIsService {
+    // Extract href links from URL
+    // 
+    // Jsoup Web scraper.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/jsoup-response">jsoup-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LinkResponseEntity<BR />
+    rpc GetJsoupUrl2href(GetJsoupUrl2hrefRequest) returns (LinkResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/14/jsoup/url2href"
+      };
+    }
+}

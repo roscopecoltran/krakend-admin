@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package wordnethyponymapis;
+
+message GetWordnetSimpleHyponymRequest {
+    // Access Token
+    string access_token = 1;
+    // Part-of-speech. You can specify several pos by csv format. [n:noun,v:verb,a:adjective,r:adverb]
+    string pos = 2;
+    // Word
+    string word = 3;
+}
+
+message LinkWordsEntity {
+    // Link label En
+    string labelen = 1;
+    // Link label Ja
+    string labelja = 2;
+    // Input part-of-speech
+    string pos = 3;
+    // Link words
+    repeated string words = 4;
+}
+
+message LinksResponseEntity {
+    // End date
+    string endTime = 1;
+    // Entries
+    repeated LinkWordsEntity entries = 2;
+    // Log message
+    string log = 3;
+    // Process time [millisecond]
+    string processTime = 4;
+    // Start date
+    string startTime = 5;
+    // Input word
+    string word = 6;
+}
+
+service WordNetHyponymAPIsService {
+    // Simple WordNet WebAPI. Return hyponym words.
+    // 
+    // Japanese WordNet.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/wordnet-response">wordnet-response</a><BR />&nbsp; Class: com.apitore.banana.response.de.sciss.ws4j.LinksResponseEntity<BR />
+    rpc GetWordnetSimpleHyponym(GetWordnetSimpleHyponymRequest) returns (LinksResponseEntity) {
+      option (google.api.http) = {
+        get: "/api/43/wordnet-simple/hyponym"
+      };
+    }
+}

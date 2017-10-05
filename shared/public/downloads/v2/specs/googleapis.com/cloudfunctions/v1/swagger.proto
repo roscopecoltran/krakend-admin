@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package googlecloudfunctions;
+
+message GetV1OperationsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // The standard list filter.
+    string filter = 7;
+    string key = 8;
+    // The name of the operation's parent resource.
+    string name = 9;
+    string oauth_token = 10;
+    // The standard list page size.
+    int32 pageSize = 11;
+    // The standard list page token.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+message GetV1NameRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The name of the operation resource.
+    string name = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV1NameLocationsRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    // The standard list filter.
+    string filter = 7;
+    string key = 8;
+    // The resource that owns the locations collection, if applicable.
+    string name = 9;
+    string oauth_token = 10;
+    // The standard list page size.
+    int32 pageSize = 11;
+    // The standard list page token.
+    string pageToken = 12;
+    boolean pp = 13;
+    boolean prettyPrint = 14;
+    string quotaUser = 15;
+    string uploadType = 16;
+    string upload_protocol = 17;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message ListLocationsResponse {
+    // A list of locations that matches the specified filter in the request.
+    repeated Location locations = 1;
+    // The standard List next-page token.
+    string nextPageToken = 2;
+}
+
+message ListOperationsResponse {
+    // The standard List next-page token.
+    string nextPageToken = 1;
+    // A list of operations that matches the specified filter in the request.
+    repeated Operation operations = 2;
+}
+
+message Location {
+    // Cross-service attributes for the location. For example
+    // 
+    //     {"cloud.googleapis.com/region": "us-east1"}
+    map<string, string> labels = 1;
+    // The canonical id for this location. For example: `"us-east1"`.
+    string locationId = 2;
+    // Service-specific metadata. For example the available capacity at the given
+    // location.
+    map<string, > metadata = 3;
+    // Resource name for the location, which may vary between implementations.
+    // For example: `"projects/example-project/locations/us-east1"`
+    string name = 4;
+}
+
+message Operation {
+    // If the value is `false`, it means the operation is still in progress.
+    // If `true`, the operation is completed, and either `error` or `response` is
+    // available.
+    bool done = 1;
+    // The error result of the operation in case of failure or cancellation.
+    Status error = 2;
+    // Service-specific metadata associated with the operation.  It typically
+    // contains progress information and common metadata such as create time.
+    // Some services might not provide such metadata.  Any method that returns a
+    // long-running operation should document the metadata type, if any.
+    map<string, > metadata = 3;
+    // The server-assigned name, which is only unique within the same service that
+    // originally returns it. If you use the default HTTP mapping, the
+    // `name` should have the format of `operations/some/unique/name`.
+    string name = 4;
+    // The normal response of the operation in case of success.  If the original
+    // method returns no data on success, such as `Delete`, the response is
+    // `google.protobuf.Empty`.  If the original method is standard
+    // `Get`/`Create`/`Update`, the response should be the resource.  For other
+    // methods, the response should have the type `XxxResponse`, where `Xxx`
+    // is the original method name.  For example, if the original method name
+    // is `TakeSnapshot()`, the inferred response type is
+    // `TakeSnapshotResponse`.
+    map<string, > response = 5;
+}
+
+message OperationMetadataV1Beta2 {
+    // The original request that started the operation.
+    map<string, > request = 1;
+    // Target of the operation - for example
+    // projects/project-1/locations/region-1/functions/function-1
+    string target = 2;
+    // Type of operation.
+    enum OperationMetadataV1Beta2_Type {
+        OPERATIONMETADATAV1BETA2_TYPE_OPERATION_UNSPECIFIED = 0;
+        OPERATIONMETADATAV1BETA2_TYPE_CREATE_FUNCTION = 1;
+        OPERATIONMETADATAV1BETA2_TYPE_UPDATE_FUNCTION = 2;
+        OPERATIONMETADATAV1BETA2_TYPE_DELETE_FUNCTION = 3;
+    }
+    OperationMetadataV1Beta2_Type type = 3;
+    // Version id of the function created or updated by an API call.
+    // This field is only pupulated for Create and Update operations.
+    string versionId = 4;
+}
+
+message Status {
+    // The status code, which should be an enum value of google.rpc.Code.
+    int32 code = 1;
+    // A list of messages that carry the error details.  There is a common set of
+    // message types for APIs to use.
+    message Detail {
+    }
+    repeated Detail details = 2;
+    // A developer-facing error message, which should be in English. Any
+    // user-facing error message should be localized and sent in the
+    // google.rpc.Status.details field, or localized by the client.
+    string message = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudFunctionsService {
+    // Lists operations that match the specified filter in the request. If the
+    // server doesn't support this method, it returns `UNIMPLEMENTED`.
+    // 
+    // NOTE: the `name` binding allows API services to override the binding
+    // to use different resource name schemes, such as `users/*/operations`. To
+    // override the binding, API services can add a binding such as
+    // `"/v1/{name=users/*}/operations"` to their service configuration.
+    // For backwards compatibility, the default name includes the operations
+    // collection id, however overriding users must ensure the name binding
+    // is the parent resource, without the operations collection id.
+    rpc GetV1Operations(GetV1OperationsRequest) returns (ListOperationsResponse) {
+      option (google.api.http) = {
+        get: "//v1/operations"
+      };
+    }
+    // Gets the latest state of a long-running operation.  Clients can use this
+    // method to poll the operation result at intervals as recommended by the API
+    // service.
+    rpc GetV1Name(GetV1NameRequest) returns (Operation) {
+      option (google.api.http) = {
+        get: "//v1/{name}"
+      };
+    }
+    // Lists information about the supported locations for this service.
+    rpc GetV1NameLocations(GetV1NameLocationsRequest) returns (ListLocationsResponse) {
+      option (google.api.http) = {
+        get: "//v1/{name}/locations"
+      };
+    }
+}

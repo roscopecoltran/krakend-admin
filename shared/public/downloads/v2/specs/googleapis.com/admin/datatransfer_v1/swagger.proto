@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package admindatatransfer;
+
+message GetApplicationsRequest {
+    alt alt = 1;
+    // Immutable ID of the Google Apps account.
+    string customerId = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of results to return. Default is 100.
+    int32 maxResults = 5;
+    string oauth_token = 6;
+    // Token to specify next page in the list.
+    string pageToken = 7;
+    boolean prettyPrint = 8;
+    string quotaUser = 9;
+    string userIp = 10;
+}
+
+message GetApplicationsApplicationIdRequest {
+    alt alt = 1;
+    // ID of the application resource to be retrieved.
+    string applicationId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetTransfersRequest {
+    alt alt = 1;
+    // Immutable ID of the Google Apps account.
+    string customerId = 2;
+    string fields = 3;
+    string key = 4;
+    // Maximum number of results to return. Default is 100.
+    int32 maxResults = 5;
+    // Destination user's profile ID.
+    string newOwnerUserId = 6;
+    string oauth_token = 7;
+    // Source user's profile ID.
+    string oldOwnerUserId = 8;
+    // Token to specify the next page in the list.
+    string pageToken = 9;
+    boolean prettyPrint = 10;
+    string quotaUser = 11;
+    // Status of the transfer.
+    string status = 12;
+    string userIp = 13;
+}
+
+message PostTransfersRequest {
+    alt alt = 1;
+    DataTransfer body = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message GetTransfersDataTransferIdRequest {
+    alt alt = 1;
+    // ID of the resource to be retrieved. This is returned in the response from the insert method.
+    string dataTransferId = 2;
+    string fields = 3;
+    string key = 4;
+    string oauth_token = 5;
+    boolean prettyPrint = 6;
+    string quotaUser = 7;
+    string userIp = 8;
+}
+
+message Application {
+    // Etag of the resource.
+    string etag = 1;
+    // The application's ID.
+    string id = 2;
+    // Identifies the resource as a DataTransfer Application Resource.
+    string kind = 3;
+    // The application's name.
+    string name = 4;
+    // The list of all possible transfer parameters for this application. These parameters can be used to select the data of the user in this application to be transfered.
+    repeated ApplicationTransferParam transferParams = 5;
+}
+
+message ApplicationDataTransfer {
+    // The application's ID.
+    string applicationId = 1;
+    // The transfer parameters for the application. These parameters are used to select the data which will get transfered in context of this application.
+    repeated ApplicationTransferParam applicationTransferParams = 2;
+    // Current status of transfer for this application. (Read-only)
+    string applicationTransferStatus = 3;
+}
+
+message ApplicationTransferParam {
+    // The type of the transfer parameter. eg: 'PRIVACY_LEVEL'
+    string key = 1;
+    // The value of the coressponding transfer parameter. eg: 'PRIVATE' or 'SHARED'
+    repeated string value = 2;
+}
+
+message ApplicationsListResponse {
+    // List of applications that support data transfer and are also installed for the customer.
+    repeated Application applications = 1;
+    // ETag of the resource.
+    string etag = 2;
+    // Identifies the resource as a collection of Applications.
+    string kind = 3;
+    // Continuation token which will be used to specify next page in list API.
+    string nextPageToken = 4;
+}
+
+message DataTransfer {
+    // List of per application data transfer resources. It contains data transfer details of the applications associated with this transfer resource. Note that this list is also used to specify the applications for which data transfer has to be done at the time of the transfer resource creation.
+    repeated ApplicationDataTransfer applicationDataTransfers = 1;
+    // ETag of the resource.
+    string etag = 2;
+    // The transfer's ID (Read-only).
+    string id = 3;
+    // Identifies the resource as a DataTransfer request.
+    string kind = 4;
+    // ID of the user to whom the data is being transfered.
+    string newOwnerUserId = 5;
+    // ID of the user whose data is being transfered.
+    string oldOwnerUserId = 6;
+    // Overall transfer status (Read-only).
+    string overallTransferStatusCode = 7;
+    // The time at which the data transfer was requested (Read-only).
+    string requestTime = 8;
+}
+
+message DataTransfersListResponse {
+    // List of data transfer requests.
+    repeated DataTransfer dataTransfers = 1;
+    // ETag of the resource.
+    string etag = 2;
+    // Identifies the resource as a collection of data transfer requests.
+    string kind = 3;
+    // Continuation token which will be used to specify next page in list API.
+    string nextPageToken = 4;
+}
+
+enum Alt {
+    JSON = 0;
+}
+
+service AdminDataTransferService {
+    // Lists the applications available for data transfer for a customer.
+    rpc GetApplications(GetApplicationsRequest) returns (ApplicationsListResponse) {
+      option (google.api.http) = {
+        get: "/admin/datatransfer/v1/applications"
+      };
+    }
+    // Retrieves information about an application for the given application ID.
+    rpc GetApplicationsApplicationId(GetApplicationsApplicationIdRequest) returns (Application) {
+      option (google.api.http) = {
+        get: "/admin/datatransfer/v1/applications/{applicationId}"
+      };
+    }
+    // Lists the transfers for a customer by source user, destination user, or status.
+    rpc GetTransfers(GetTransfersRequest) returns (DataTransfersListResponse) {
+      option (google.api.http) = {
+        get: "/admin/datatransfer/v1/transfers"
+      };
+    }
+    // Inserts a data transfer request.
+    rpc PostTransfers(PostTransfersRequest) returns (DataTransfer) {
+      option (google.api.http) = {
+        post: "/admin/datatransfer/v1/transfers"
+        body: "body"
+      };
+    }
+    // Retrieves a data transfer request by its resource ID.
+    rpc GetTransfersDataTransferId(GetTransfersDataTransferIdRequest) returns (DataTransfer) {
+      option (google.api.http) = {
+        get: "/admin/datatransfer/v1/transfers/{dataTransferId}"
+      };
+    }
+}

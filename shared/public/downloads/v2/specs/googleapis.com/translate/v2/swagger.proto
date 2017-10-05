@@ -1,0 +1,244 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package googlecloudtranslation;
+
+message GetV2Request {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    // The customization id for translate
+    repeated string cid = 6;
+    string fields = 7;
+    // The format of the source text, in either HTML (default) or plain-text. A
+    // value of "html" indicates HTML and a value of "text" indicates plain-text.
+    enum GetV2Request_Format {
+        GETV2REQUEST_FORMAT_HTML = 0;
+        GETV2REQUEST_FORMAT_TEXT = 1;
+    }
+    GetV2Request_Format format = 8;
+    string key = 9;
+    // The `model` type requested for this translation. Valid values are
+    // listed in public documentation.
+    string model = 10;
+    string oauth_token = 11;
+    boolean pp = 12;
+    boolean prettyPrint = 13;
+    // The input text to translate. Repeat this parameter to perform translation
+    // operations on multiple text inputs.
+    repeated string q = 14;
+    string quotaUser = 15;
+    // The language of the source text, set to one of the language codes listed in
+    // Language Support. If the source language is not specified, the API will
+    // attempt to identify the source language automatically and return it within
+    // the response.
+    string source = 16;
+    // The language to use for translation of the input text, set to one of the
+    // language codes listed in Language Support.
+    string target = 17;
+    string uploadType = 18;
+    string upload_protocol = 19;
+}
+
+message PostV2Request {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    TranslateTextRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV2DetectRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    string oauth_token = 8;
+    boolean pp = 9;
+    boolean prettyPrint = 10;
+    // The input text upon which to perform language detection. Repeat this
+    // parameter to perform language detection on multiple text inputs.
+    repeated string q = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message PostV2DetectRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    DetectLanguageRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+message GetV2LanguagesRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    string callback = 5;
+    string fields = 6;
+    string key = 7;
+    // The model type for which supported languages should be returned.
+    string model = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    // The language to use to return localized, human readable names of supported
+    // languages.
+    string target = 13;
+    string uploadType = 14;
+    string upload_protocol = 15;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message DetectLanguageRequest {
+    // The input text upon which to perform language detection. Repeat this
+    // parameter to perform language detection on multiple text inputs.
+    repeated string q = 1;
+}
+
+message DetectionsListResponse {
+    // A detections contains detection results of several text
+    repeated array detections = 1;
+}
+
+message DetectionsResource {
+    // The confidence of the detection result of this language.
+    float confidence = 1;
+    // A boolean to indicate is the language detection result reliable.
+    bool isReliable = 2;
+    // The language we detected.
+    string language = 3;
+}
+repeated DetectionsResource DetectionsResource = 1
+
+message GetSupportedLanguagesRequest {
+    // The language to use to return localized, human readable names of supported
+    // languages.
+    string target = 1;
+}
+
+message LanguagesListResponse {
+    // List of source/target languages supported by the translation API. If target parameter is unspecified, the list is sorted by the ASCII code point order of the language code. If target parameter is specified, the list is sorted by the collation order of the language name in the target language.
+    repeated LanguagesResource languages = 1;
+}
+
+message LanguagesResource {
+    // Supported language code, generally consisting of its ISO 639-1
+    // identifier. (E.g. 'en', 'ja'). In certain cases, BCP-47 codes including
+    // language + region identifiers are returned (e.g. 'zh-TW' and 'zh-CH')
+    string language = 1;
+    // Human readable name of the language localized to the target language.
+    string name = 2;
+}
+
+message TranslateTextRequest {
+    // The format of the source text, in either HTML (default) or plain-text. A
+    // value of "html" indicates HTML and a value of "text" indicates plain-text.
+    string format = 1;
+    // The `model` type requested for this translation. Valid values are
+    // listed in public documentation.
+    string model = 2;
+    // The input text to translate. Repeat this parameter to perform translation
+    // operations on multiple text inputs.
+    repeated string q = 3;
+    // The language of the source text, set to one of the language codes listed in
+    // Language Support. If the source language is not specified, the API will
+    // attempt to identify the source language automatically and return it within
+    // the response.
+    string source = 4;
+    // The language to use for translation of the input text, set to one of the
+    // language codes listed in Language Support.
+    string target = 5;
+}
+
+message TranslationsListResponse {
+    // Translations contains list of translation results of given text
+    repeated TranslationsResource translations = 1;
+}
+
+message TranslationsResource {
+    // The source language of the initial request, detected automatically, if
+    // no source language was passed within the initial request. If the
+    // source language was passed, auto-detection of the language will not
+    // occur and this field will be empty.
+    string detectedSourceLanguage = 1;
+    // The `model` type used for this translation. Valid values are
+    // listed in public documentation. Can be different from requested `model`.
+    // Present only if specific model type was explicitly requested.
+    string model = 2;
+    // Text translated into the target language.
+    string translatedText = 3;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service GoogleCloudTranslationService {
+    // Translates input text, returning translated text.
+    rpc GetV2(GetV2Request) returns (TranslationsListResponse) {
+      option (google.api.http) = {
+        get: "/language/translate/v2"
+      };
+    }
+    // Translates input text, returning translated text.
+    rpc PostV2(PostV2Request) returns (TranslationsListResponse) {
+      option (google.api.http) = {
+        post: "/language/translate/v2"
+        body: "body"
+      };
+    }
+    // Detects the language of text within a request.
+    rpc GetV2Detect(GetV2DetectRequest) returns (DetectionsListResponse) {
+      option (google.api.http) = {
+        get: "/language/translate/v2/detect"
+      };
+    }
+    // Detects the language of text within a request.
+    rpc PostV2Detect(PostV2DetectRequest) returns (DetectionsListResponse) {
+      option (google.api.http) = {
+        post: "/language/translate/v2/detect"
+        body: "body"
+      };
+    }
+    // Returns a list of supported languages for translation.
+    rpc GetV2Languages(GetV2LanguagesRequest) returns (LanguagesListResponse) {
+      option (google.api.http) = {
+        get: "/language/translate/v2/languages"
+      };
+    }
+}

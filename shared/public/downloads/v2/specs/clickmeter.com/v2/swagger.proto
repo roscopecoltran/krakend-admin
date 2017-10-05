@@ -1,0 +1,3122 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package clickmeter;
+
+message PostAccountRequest {
+    Api.Core.Dto.Accounting.User value = 1;
+}
+
+message GetAccountDomainwhitelistRequest {
+    // Limit results to this number
+    int32 limit = 1;
+    // Offset where to start from
+    int32 offset = 2;
+}
+
+message PostAccountDomainwhitelistRequest {
+    // The entry to add
+    Api.Core.Dto.Accounting.DomainWhitelistEntry value = 1;
+}
+
+message DeleteAccountDomainwhitelistWhitelistIdRequest {
+    // The id of the domain to delete
+    string whitelistId = 1;
+}
+
+message GetAccountGuestsRequest {
+    // Limit results to this number
+    int32 limit = 1;
+    // Offset where to start from
+    int32 offset = 2;
+    // Field to sort by
+    string sortBy = 3;
+    // Direction of sort "asc" or "desc"
+    enum GetAccountGuestsRequest_SortDirection {
+        GETACCOUNTGUESTSREQUEST_SORTDIRECTION_ASC = 0;
+        GETACCOUNTGUESTSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetAccountGuestsRequest_SortDirection sortDirection = 4;
+    // Filter fields by this pattern
+    string textSearch = 5;
+}
+
+message PostAccountGuestsRequest {
+    // Guest object to create
+    Api.Core.Dto.Accounting.Guest value = 1;
+}
+
+message GetAccountGuestsCountRequest {
+    // Filter fields by this pattern
+    string textSearch = 1;
+}
+
+message GetAccountGuestsGuestIdRequest {
+    // Id of the guest
+    int64 guestId = 1;
+}
+
+message PostAccountGuestsGuestIdRequest {
+    // Id of the guest
+    int64 guestId = 1;
+    // Guest object with field updated
+    Api.Core.Dto.Accounting.Guest value = 2;
+}
+
+message DeleteAccountGuestsGuestIdRequest {
+    // Id of the guest
+    int64 guestId = 1;
+}
+
+message GetAccountGuestsGuestIdPermissionsRequest {
+    // Optional id of the datapoint/group entity to filter by
+    int64 entityId = 1;
+    // Can be "datapoint" or "group"
+    enum GetAccountGuestsGuestIdPermissionsRequest_EntityType {
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSREQUEST_ENTITYTYPE_DATAPOINT = 0;
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSREQUEST_ENTITYTYPE_GROUP = 1;
+    }
+    GetAccountGuestsGuestIdPermissionsRequest_EntityType entityType = 2;
+    // Id of the guest
+    int64 guestId = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from
+    int32 offset = 5;
+    // Can be "w" or "r"
+    enum GetAccountGuestsGuestIdPermissionsRequest_Type {
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSREQUEST_TYPE_R = 0;
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSREQUEST_TYPE_W = 1;
+    }
+    GetAccountGuestsGuestIdPermissionsRequest_Type type = 6;
+}
+
+message GetAccountGuestsGuestIdPermissionsCountRequest {
+    // Optional id of the datapoint/group entity to filter by
+    int64 entityId = 1;
+    // Can be "datapoint" or "group"
+    enum GetAccountGuestsGuestIdPermissionsCountRequest_EntityType {
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSCOUNTREQUEST_ENTITYTYPE_DATAPOINT = 0;
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSCOUNTREQUEST_ENTITYTYPE_GROUP = 1;
+    }
+    GetAccountGuestsGuestIdPermissionsCountRequest_EntityType entityType = 2;
+    // Id of the guest
+    int64 guestId = 3;
+    // Can be "w" or "r"
+    enum GetAccountGuestsGuestIdPermissionsCountRequest_Type {
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSCOUNTREQUEST_TYPE_R = 0;
+        GETACCOUNTGUESTSGUESTIDPERMISSIONSCOUNTREQUEST_TYPE_W = 1;
+    }
+    GetAccountGuestsGuestIdPermissionsCountRequest_Type type = 4;
+}
+
+message PutAccountGuestsGuestIdTypePermissionsPatchRequest {
+    // The patch permission request
+    Api.Core.Requests.PermissionPatchRequest body = 1;
+    // Id of the guest
+    int64 guestId = 2;
+    // Can be "datapoint" or "group"
+    enum PutAccountGuestsGuestIdTypePermissionsPatchRequest_Type {
+        PUTACCOUNTGUESTSGUESTIDTYPEPERMISSIONSPATCHREQUEST_TYPE_DATAPOINT = 0;
+        PUTACCOUNTGUESTSGUESTIDTYPEPERMISSIONSPATCHREQUEST_TYPE_GROUP = 1;
+    }
+    PutAccountGuestsGuestIdTypePermissionsPatchRequest_Type type = 3;
+}
+
+message PostAccountGuestsGuestIdTypePermissionsPatchRequest {
+    // The patch permission request
+    Api.Core.Requests.PermissionPatchRequest body = 1;
+    // Id of the guest
+    int64 guestId = 2;
+    // Can be "datapoint" or "group"
+    enum PostAccountGuestsGuestIdTypePermissionsPatchRequest_Type {
+        POSTACCOUNTGUESTSGUESTIDTYPEPERMISSIONSPATCHREQUEST_TYPE_DATAPOINT = 0;
+        POSTACCOUNTGUESTSGUESTIDTYPEPERMISSIONSPATCHREQUEST_TYPE_GROUP = 1;
+    }
+    PostAccountGuestsGuestIdTypePermissionsPatchRequest_Type type = 3;
+}
+
+message GetAccountIpblacklistRequest {
+    // Limit results to this number
+    int32 limit = 1;
+    // Offset where to start from
+    int32 offset = 2;
+}
+
+message PostAccountIpblacklistRequest {
+    // The entry to add
+    Api.Core.Dto.Accounting.IpBlacklistEntry value = 1;
+}
+
+message DeleteAccountIpblacklistBlacklistIdRequest {
+    // The id of the ip to delete
+    string blacklistId = 1;
+}
+
+message GetAggregatedRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 2;
+    string onlyFavorites = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetAggregatedRequest_TimeFrame {
+        GETAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetAggregatedRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetAggregatedListRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetAggregatedListRequest_GroupBy {
+        GETAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetAggregatedListRequest_GroupBy groupBy = 2;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetAggregatedListRequest_TimeFrame {
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetAggregatedListRequest_TimeFrame timeFrame = 3;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 4;
+}
+
+message GetAggregatedSummaryConversionsRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // Limit results to this number
+    int32 limit = 2;
+    // Offset where to start from
+    int32 offset = 3;
+    // Field to sort by
+    string sortBy = 4;
+    // Direction of sort "asc" or "desc"
+    enum GetAggregatedSummaryConversionsRequest_SortDirection {
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_SORTDIRECTION_ASC = 0;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetAggregatedSummaryConversionsRequest_SortDirection sortDirection = 5;
+    // Status of conversion ("deleted"/"active")
+    enum GetAggregatedSummaryConversionsRequest_Statu {
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_STATU_DELETED = 0;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_STATU_ACTIVE = 1;
+    }
+    GetAggregatedSummaryConversionsRequest_Statu status = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetAggregatedSummaryConversionsRequest_TimeFrame {
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_TODAY = 0;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST7 = 2;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST30 = 3;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST90 = 7;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST120 = 8;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST180 = 9;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETAGGREGATEDSUMMARYCONVERSIONSREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetAggregatedSummaryConversionsRequest_TimeFrame timeFrame = 8;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 9;
+}
+
+message GetAggregatedSummaryDatapointsRequest {
+    // Is the datapoint marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Filter by this group id
+    int64 groupId = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from
+    int32 offset = 5;
+    // Field to sort by
+    string sortBy = 6;
+    // Direction of sort "asc" or "desc"
+    enum GetAggregatedSummaryDatapointsRequest_SortDirection {
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_SORTDIRECTION_ASC = 0;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetAggregatedSummaryDatapointsRequest_SortDirection sortDirection = 7;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    enum GetAggregatedSummaryDatapointsRequest_Statu {
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetAggregatedSummaryDatapointsRequest_Statu status = 8;
+    // A comma separated list of tags you want to filter with.
+    string tag = 9;
+    // Filter fields by this pattern
+    string textSearch = 10;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetAggregatedSummaryDatapointsRequest_TimeFrame {
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_TODAY = 0;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST7 = 2;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST30 = 3;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST90 = 7;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST120 = 8;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST180 = 9;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetAggregatedSummaryDatapointsRequest_TimeFrame timeFrame = 11;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 12;
+    // Type of datapoint ("tl"/"tp")
+    enum GetAggregatedSummaryDatapointsRequest_Type {
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TYPE_TP = 0;
+        GETAGGREGATEDSUMMARYDATAPOINTSREQUEST_TYPE_TL = 1;
+    }
+    GetAggregatedSummaryDatapointsRequest_Type type = 13;
+}
+
+message GetAggregatedSummaryGroupsRequest {
+    // Is the group marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Limit results to this number
+    int32 limit = 3;
+    // Offset where to start from
+    int32 offset = 4;
+    // Field to sort by
+    string sortBy = 5;
+    // Direction of sort "asc" or "desc"
+    enum GetAggregatedSummaryGroupsRequest_SortDirection {
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_SORTDIRECTION_ASC = 0;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetAggregatedSummaryGroupsRequest_SortDirection sortDirection = 6;
+    // Status of group ("deleted"/"active")
+    enum GetAggregatedSummaryGroupsRequest_Statu {
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_STATU_DELETED = 0;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_STATU_ACTIVE = 1;
+    }
+    GetAggregatedSummaryGroupsRequest_Statu status = 7;
+    // A comma separated list of tags you want to filter with.
+    string tag = 8;
+    // Filter fields by this pattern
+    string textSearch = 9;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetAggregatedSummaryGroupsRequest_TimeFrame {
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_TODAY = 0;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST7 = 2;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST30 = 3;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST90 = 7;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST120 = 8;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST180 = 9;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETAGGREGATEDSUMMARYGROUPSREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetAggregatedSummaryGroupsRequest_TimeFrame timeFrame = 10;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 11;
+}
+
+message GetClickstreamRequest {
+    // Filter by this conversion id (mutually exclusive with "datapoint" and "group")
+    int64 conversion = 1;
+    // Filter by this datapoint id (mutually exclusive with "group" and "conversion")
+    int64 datapoint = 2;
+    // Filter event type ("spiders"/"uniques"/"nonuniques"/"conversions")
+    enum GetClickstreamRequest_Filter {
+        GETCLICKSTREAMREQUEST_FILTER_EMPTY = 0;
+        GETCLICKSTREAMREQUEST_FILTER_SPIDERS = 1;
+        GETCLICKSTREAMREQUEST_FILTER_UNIQUES = 2;
+        GETCLICKSTREAMREQUEST_FILTER_NONUNIQUES = 3;
+        GETCLICKSTREAMREQUEST_FILTER_CONVERSIONS = 4;
+    }
+    GetClickstreamRequest_Filter filter = 3;
+    // Filter by this group id (mutually exclusive with "datapoint" and "conversion")
+    int64 group = 4;
+    // Limit results to this number
+    int32 pageSize = 5;
+}
+
+message GetConversionsRequest {
+    // Exclude conversions created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude conversions created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Limit results to this number
+    int32 limit = 3;
+    // Offset where to start from
+    int32 offset = 4;
+    // Status of conversion ("deleted"/"active")
+    enum GetConversionsRequest_Statu {
+        GETCONVERSIONSREQUEST_STATU_DELETED = 0;
+        GETCONVERSIONSREQUEST_STATU_ACTIVE = 1;
+    }
+    GetConversionsRequest_Statu status = 5;
+    // Filter fields by this pattern
+    string textSearch = 6;
+}
+
+message PostConversionsRequest {
+    // The body of the conversion
+    Api.Core.Dto.Conversions.Conversion value = 1;
+}
+
+message GetConversionsAggregatedListRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetConversionsAggregatedListRequest_GroupBy {
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetConversionsAggregatedListRequest_GroupBy groupBy = 2;
+    // Status of conversion ("deleted"/"active")
+    enum GetConversionsAggregatedListRequest_Statu {
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_STATU_DELETED = 0;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_STATU_ACTIVE = 1;
+    }
+    GetConversionsAggregatedListRequest_Statu status = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetConversionsAggregatedListRequest_TimeFrame {
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETCONVERSIONSAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetConversionsAggregatedListRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetConversionsCountRequest {
+    // Exclude conversions created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude conversions created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Status of conversion ("deleted"/"active")
+    enum GetConversionsCountRequest_Statu {
+        GETCONVERSIONSCOUNTREQUEST_STATU_DELETED = 0;
+        GETCONVERSIONSCOUNTREQUEST_STATU_ACTIVE = 1;
+    }
+    GetConversionsCountRequest_Statu status = 3;
+    // Filter fields by this pattern
+    string textSearch = 4;
+}
+
+message GetConversionsConversionIdRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+}
+
+message PostConversionsConversionIdRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Updated body of the conversion
+    Api.Core.Dto.Conversions.Conversion value = 2;
+}
+
+message DeleteConversionsConversionIdRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+}
+
+message GetConversionsConversionIdAggregatedRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Is the datapoint marked as favourite
+    bool favourite = 2;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 3;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 4;
+    // Filter by this tag name
+    string tag = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetConversionsConversionIdAggregatedRequest_TimeFrame {
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetConversionsConversionIdAggregatedRequest_TimeFrame timeFrame = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message GetConversionsConversionIdAggregatedListRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetConversionsConversionIdAggregatedListRequest_GroupBy {
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetConversionsConversionIdAggregatedListRequest_GroupBy groupBy = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetConversionsConversionIdAggregatedListRequest_TimeFrame {
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETCONVERSIONSCONVERSIONIDAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetConversionsConversionIdAggregatedListRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetConversionsConversionIdDatapointsRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 2;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from
+    int32 offset = 5;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    enum GetConversionsConversionIdDatapointsRequest_Statu {
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetConversionsConversionIdDatapointsRequest_Statu status = 6;
+    // Filter by this tag name
+    string tags = 7;
+    // Filter fields by this pattern
+    string textSearch = 8;
+    // Type of datapoint ("tl"/"tp")
+    enum GetConversionsConversionIdDatapointsRequest_Type {
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_TYPE_TP = 0;
+        GETCONVERSIONSCONVERSIONIDDATAPOINTSREQUEST_TYPE_TL = 1;
+    }
+    GetConversionsConversionIdDatapointsRequest_Type type = 9;
+}
+
+message PutConversionsConversionIdDatapointsBatchPatchRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Patch requests
+    Api.Core.Requests.PatchBodyBatch data = 2;
+}
+
+message GetConversionsConversionIdDatapointsCountRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 2;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 3;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    string status = 4;
+    // Filter by this tag name
+    string tags = 5;
+    // Filter fields by this pattern
+    string textSearch = 6;
+    // Type of datapoint ("tl"/"tp")
+    string type = 7;
+}
+
+message PutConversionsConversionIdDatapointsPatchRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Patch request
+    Api.Core.Requests.ConversionPatchBody data = 2;
+}
+
+message GetConversionsConversionIdHitsRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Filter event type ("spiders"/"uniques"/"nonuniques"/"conversions")
+    enum GetConversionsConversionIdHitsRequest_Filter {
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_FILTER_SPIDERS = 0;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_FILTER_UNIQUES = 1;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_FILTER_NONUNIQUES = 2;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_FILTER_CONVERSIONS = 3;
+    }
+    GetConversionsConversionIdHitsRequest_Filter filter = 2;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from (it's the lastKey field in the response object)
+    string offset = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetConversionsConversionIdHitsRequest_Timeframe {
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETCONVERSIONSCONVERSIONIDHITSREQUEST_TIMEFRAME_CUSTOM = 9;
+    }
+    GetConversionsConversionIdHitsRequest_Timeframe timeframe = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message PutConversionsConversionIdNotesRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // Patch requests
+    Api.Core.Requests.GenericTextPatch note = 2;
+}
+
+message GetConversionsConversionIdReportsRequest {
+    // Id of the conversion
+    int64 conversionId = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Type of the event you want to filter this report with. By default no filter is applied.
+    enum GetConversionsConversionIdReportsRequest_Hittype {
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_HITTYPE_CLICKS = 0;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_HITTYPE_VIEWS = 1;
+    }
+    GetConversionsConversionIdReportsRequest_Hittype hittype = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetConversionsConversionIdReportsRequest_Timeframe {
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_BEGINNING = 9;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TIMEFRAME_CUSTOM = 10;
+    }
+    GetConversionsConversionIdReportsRequest_Timeframe timeframe = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+    // Type of the report.
+    enum GetConversionsConversionIdReportsRequest_Type {
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_DATAPOINTS = 0;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_GROUPS = 1;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_BROWSERS = 2;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_BROWSERSFAMILIES = 3;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_PLATFORMS = 4;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_CITIES = 5;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_COUNTRIES = 6;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_KEYWORDS = 7;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_REFERRERS = 8;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_CONVPARAMETERS = 9;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_DESTINATIONS = 10;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_LANGUAGES = 11;
+        GETCONVERSIONSCONVERSIONIDREPORTSREQUEST_TYPE_PARAMS = 12;
+    }
+    GetConversionsConversionIdReportsRequest_Type type = 6;
+}
+
+message GetDatapointsRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 3;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 4;
+    // Filter fields by favourite status
+    bool onlyFavorites = 5;
+    // Field to sort by
+    string sortBy = 6;
+    // Direction of sort "asc" or "desc"
+    enum GetDatapointsRequest_SortDirection {
+        GETDATAPOINTSREQUEST_SORTDIRECTION_ASC = 0;
+        GETDATAPOINTSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetDatapointsRequest_SortDirection sortDirection = 7;
+    // Status of the datapoint
+    enum GetDatapointsRequest_Statu {
+        GETDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetDatapointsRequest_Statu status = 8;
+    // A comma separated list of tags you want to filter with.
+    string tags = 9;
+    // Filter fields by this pattern
+    string textSearch = 10;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetDatapointsRequest_Type {
+        GETDATAPOINTSREQUEST_TYPE_TP = 0;
+        GETDATAPOINTSREQUEST_TYPE_TL = 1;
+    }
+    GetDatapointsRequest_Type type = 11;
+}
+
+message PostDatapointsRequest {
+    // The body of the datapoint
+    Api.Core.Dto.Datapoints.Datapoint value = 1;
+}
+
+message GetDatapointsAggregatedRequest {
+    // Is the datapoint is marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 3;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    enum GetDatapointsAggregatedRequest_Statu {
+        GETDATAPOINTSAGGREGATEDREQUEST_STATU_DELETED = 0;
+        GETDATAPOINTSAGGREGATEDREQUEST_STATU_ACTIVE = 1;
+        GETDATAPOINTSAGGREGATEDREQUEST_STATU_PAUSED = 2;
+        GETDATAPOINTSAGGREGATEDREQUEST_STATU_SPAM = 3;
+    }
+    GetDatapointsAggregatedRequest_Statu status = 4;
+    // A comma separated list of tags you want to filter with.
+    string tag = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsAggregatedRequest_TimeFrame {
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETDATAPOINTSAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetDatapointsAggregatedRequest_TimeFrame timeFrame = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+    // Type of datapoint ("tl"/"tp")
+    enum GetDatapointsAggregatedRequest_Type {
+        GETDATAPOINTSAGGREGATEDREQUEST_TYPE_TP = 0;
+        GETDATAPOINTSAGGREGATEDREQUEST_TYPE_TL = 1;
+    }
+    GetDatapointsAggregatedRequest_Type type = 8;
+}
+
+message GetDatapointsAggregatedListRequest {
+    // Is the datapoint is marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetDatapointsAggregatedListRequest_GroupBy {
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetDatapointsAggregatedListRequest_GroupBy groupBy = 3;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    enum GetDatapointsAggregatedListRequest_Statu {
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_STATU_DELETED = 0;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_STATU_ACTIVE = 1;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_STATU_PAUSED = 2;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_STATU_SPAM = 3;
+    }
+    GetDatapointsAggregatedListRequest_Statu status = 4;
+    // A comma separated list of tags you want to filter with.
+    string tag = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsAggregatedListRequest_TimeFrame {
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetDatapointsAggregatedListRequest_TimeFrame timeFrame = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+    // Type of datapoint ("tl"/"tp")
+    enum GetDatapointsAggregatedListRequest_Type {
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TYPE_TP = 0;
+        GETDATAPOINTSAGGREGATEDLISTREQUEST_TYPE_TL = 1;
+    }
+    GetDatapointsAggregatedListRequest_Type type = 8;
+}
+
+message PutDatapointsBatchRequest {
+    // A json containing the datapoints to create.
+    Api.Core.Requests.DatapointsBatch batch = 1;
+}
+
+message PostDatapointsBatchRequest {
+    // A json containing the datapoints to update.
+    Api.Core.Requests.DatapointsBatch batch = 1;
+}
+
+message DeleteDatapointsBatchRequest {
+    // A json containing the datapoints to delete.
+    Api.Core.Requests.DeleteBatch batch = 1;
+}
+
+message GetDatapointsCountRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Filter fields by favourite status
+    bool onlyFavorites = 3;
+    // Status of the datapoint
+    enum GetDatapointsCountRequest_Statu {
+        GETDATAPOINTSCOUNTREQUEST_STATU_DELETED = 0;
+        GETDATAPOINTSCOUNTREQUEST_STATU_ACTIVE = 1;
+        GETDATAPOINTSCOUNTREQUEST_STATU_PAUSED = 2;
+        GETDATAPOINTSCOUNTREQUEST_STATU_SPAM = 3;
+    }
+    GetDatapointsCountRequest_Statu status = 4;
+    // A comma separated list of tags you want to filter with.
+    string tags = 5;
+    // Filter fields by this pattern
+    string textSearch = 6;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetDatapointsCountRequest_Type {
+        GETDATAPOINTSCOUNTREQUEST_TYPE_TP = 0;
+        GETDATAPOINTSCOUNTREQUEST_TYPE_TL = 1;
+    }
+    GetDatapointsCountRequest_Type type = 7;
+}
+
+message GetDatapointsIdRequest {
+    // The id of the datapoint
+    int64 id = 1;
+}
+
+message PostDatapointsIdRequest {
+    // The id of the datapoint
+    int64 id = 1;
+    // The body of the datapoint
+    Api.Core.Dto.Datapoints.Datapoint value = 2;
+}
+
+message DeleteDatapointsIdRequest {
+    // The id of the datapoint
+    int64 id = 1;
+}
+
+message GetDatapointsIdAggregatedRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 2;
+    // Id of the datapoint
+    int64 id = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsIdAggregatedRequest_TimeFrame {
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETDATAPOINTSIDAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetDatapointsIdAggregatedRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetDatapointsIdAggregatedListRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetDatapointsIdAggregatedListRequest_GroupBy {
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetDatapointsIdAggregatedListRequest_GroupBy groupBy = 2;
+    // Id of the datapoint
+    int64 id = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsIdAggregatedListRequest_TimeFrame {
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETDATAPOINTSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetDatapointsIdAggregatedListRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message PutDatapointsIdFavouriteRequest {
+    // Id of the datapoint
+    int64 id = 1;
+}
+
+message GetDatapointsIdHitsRequest {
+    // Filter event type ("spiders"/"uniques"/"nonuniques"/"conversions")
+    enum GetDatapointsIdHitsRequest_Filter {
+        GETDATAPOINTSIDHITSREQUEST_FILTER_SPIDERS = 0;
+        GETDATAPOINTSIDHITSREQUEST_FILTER_UNIQUES = 1;
+        GETDATAPOINTSIDHITSREQUEST_FILTER_NONUNIQUES = 2;
+        GETDATAPOINTSIDHITSREQUEST_FILTER_CONVERSIONS = 3;
+    }
+    GetDatapointsIdHitsRequest_Filter filter = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Id of the datapoint
+    int64 id = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from (it's the lastKey field in the response object)
+    string offset = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsIdHitsRequest_Timeframe {
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETDATAPOINTSIDHITSREQUEST_TIMEFRAME_CUSTOM = 9;
+    }
+    GetDatapointsIdHitsRequest_Timeframe timeframe = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message PutDatapointsIdNotesRequest {
+    // Id of the datapoint
+    int64 id = 1;
+    // Patch requests
+    Api.Core.Requests.GenericTextPatch note = 2;
+}
+
+message GetDatapointsIdReportsRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // Id of the datapoint
+    int64 id = 2;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetDatapointsIdReportsRequest_Timeframe {
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_BEGINNING = 9;
+        GETDATAPOINTSIDREPORTSREQUEST_TIMEFRAME_CUSTOM = 10;
+    }
+    GetDatapointsIdReportsRequest_Timeframe timeframe = 3;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 4;
+    // Type of the report.
+    enum GetDatapointsIdReportsRequest_Type {
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_BROWSERS = 0;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_BROWSERSFAMILIES = 1;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_PLATFORMS = 2;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_CITIES = 3;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_COUNTRIES = 4;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_ISPS = 5;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_IPS = 6;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_OSS = 7;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_OSSFAMILIES = 8;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_KEYWORDS = 9;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_REFERRERS = 10;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_DESTINATIONS = 11;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_LANGUAGES = 12;
+        GETDATAPOINTSIDREPORTSREQUEST_TYPE_PARAMS = 13;
+    }
+    GetDatapointsIdReportsRequest_Type type = 5;
+}
+
+message GetDomainsRequest {
+    // Limit results to this number
+    int32 limit = 1;
+    // Filter domains with this anmen
+    string name = 2;
+    // Offset where to start from
+    int32 offset = 3;
+    // Type of domain ("system"/"go"/"personal"/"dedicated"). If not specified default is "system"
+    enum GetDomainsRequest_Type {
+        GETDOMAINSREQUEST_TYPE_SYSTEM = 0;
+        GETDOMAINSREQUEST_TYPE_GO = 1;
+        GETDOMAINSREQUEST_TYPE_PERSONAL = 2;
+        GETDOMAINSREQUEST_TYPE_DEDICATED = 3;
+    }
+    GetDomainsRequest_Type type = 4;
+}
+
+message PostDomainsRequest {
+    // The domain to create
+    Api.Core.Dto.Domains.Domain value = 1;
+}
+
+message GetDomainsCountRequest {
+    // Filter domains with this anmen
+    string name = 1;
+    // Type of domain ("system"/"go"/"personal"/"dedicated"). If not specified default is "system"
+    enum GetDomainsCountRequest_Type {
+        GETDOMAINSCOUNTREQUEST_TYPE_SYSTEM = 0;
+        GETDOMAINSCOUNTREQUEST_TYPE_GO = 1;
+        GETDOMAINSCOUNTREQUEST_TYPE_PERSONAL = 2;
+        GETDOMAINSCOUNTREQUEST_TYPE_DEDICATED = 3;
+    }
+    GetDomainsCountRequest_Type type = 2;
+}
+
+message GetDomainsIdRequest {
+    // Id of domain
+    int64 id = 1;
+}
+
+message PostDomainsIdRequest {
+    // Id of domain
+    int64 id = 1;
+    // The domain to update
+    Api.Core.Dto.Domains.Domain value = 2;
+}
+
+message DeleteDomainsIdRequest {
+    // Id of domain
+    int64 id = 1;
+}
+
+message GetGroupsRequest {
+    // Exclude groups created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude groups created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 3;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 4;
+    // Status of the group
+    enum GetGroupsRequest_Statu {
+        GETGROUPSREQUEST_STATU_DELETED = 0;
+        GETGROUPSREQUEST_STATU_ACTIVE = 1;
+    }
+    GetGroupsRequest_Statu status = 5;
+    // A comma separated list of tags you want to filter with.
+    string tags = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+    // Write permission
+    bool write = 8;
+}
+
+message PostGroupsRequest {
+    // The body of the group
+    Api.Core.Dto.Groups.Group value = 1;
+}
+
+message GetGroupsAggregatedRequest {
+    // Is the group is marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 3;
+    // Status of group ("deleted"/"active")
+    enum GetGroupsAggregatedRequest_Statu {
+        GETGROUPSAGGREGATEDREQUEST_STATU_DELETED = 0;
+        GETGROUPSAGGREGATEDREQUEST_STATU_ACTIVE = 1;
+    }
+    GetGroupsAggregatedRequest_Statu status = 4;
+    // A comma separated list of tags you want to filter with.
+    string tag = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsAggregatedRequest_TimeFrame {
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETGROUPSAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetGroupsAggregatedRequest_TimeFrame timeFrame = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message GetGroupsAggregatedListRequest {
+    // Is the group is marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetGroupsAggregatedListRequest_GroupBy {
+        GETGROUPSAGGREGATEDLISTREQUEST_GROUPBY_DELETED = 0;
+        GETGROUPSAGGREGATEDLISTREQUEST_GROUPBY_ACTIVE = 1;
+    }
+    GetGroupsAggregatedListRequest_GroupBy groupBy = 3;
+    // Status of group ("deleted"/"active")
+    string status = 4;
+    // A comma separated list of tags you want to filter with.
+    string tag = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsAggregatedListRequest_TimeFrame {
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETGROUPSAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetGroupsAggregatedListRequest_TimeFrame timeFrame = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message GetGroupsCountRequest {
+    // Exclude groups created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude groups created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Status of the datapoint
+    enum GetGroupsCountRequest_Statu {
+        GETGROUPSCOUNTREQUEST_STATU_DELETED = 0;
+        GETGROUPSCOUNTREQUEST_STATU_ACTIVE = 1;
+    }
+    GetGroupsCountRequest_Statu status = 3;
+    // A comma separated list of tags you want to filter with.
+    string tags = 4;
+    // Filter fields by this pattern
+    string textSearch = 5;
+    // Write permission
+    bool write = 6;
+}
+
+message GetGroupsIdRequest {
+    // The id of the group
+    int64 id = 1;
+}
+
+message PostGroupsIdRequest {
+    // The id of the group
+    int64 id = 1;
+    // The body of the group
+    Api.Core.Dto.Groups.Group value = 2;
+}
+
+message DeleteGroupsIdRequest {
+    // Id of the group
+    int64 id = 1;
+}
+
+message GetGroupsIdAggregatedRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // If using "yesterday" or "today" timeframe you can ask for the hourly detail
+    bool hourly = 2;
+    // Id of the group
+    int64 id = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsIdAggregatedRequest_TimeFrame {
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_TODAY = 0;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST7 = 2;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST30 = 3;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST90 = 7;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST120 = 8;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST180 = 9;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETGROUPSIDAGGREGATEDREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetGroupsIdAggregatedRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetGroupsIdAggregatedListRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // The temporal entity you want to group by ("week"/"month"). If unspecified is "day".
+    enum GetGroupsIdAggregatedListRequest_GroupBy {
+        GETGROUPSIDAGGREGATEDLISTREQUEST_GROUPBY_WEEK = 0;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_GROUPBY_MONTH = 1;
+    }
+    GetGroupsIdAggregatedListRequest_GroupBy groupBy = 2;
+    // Id of the group
+    int64 id = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsIdAggregatedListRequest_TimeFrame {
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_TODAY = 0;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST7 = 2;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST30 = 3;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST90 = 7;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST120 = 8;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST180 = 9;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETGROUPSIDAGGREGATEDLISTREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetGroupsIdAggregatedListRequest_TimeFrame timeFrame = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+}
+
+message GetGroupsIdAggregatedSummaryRequest {
+    // Is the datapoint marked as favourite
+    bool favourite = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Filter by this group id
+    int64 id = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from
+    int32 offset = 5;
+    // Field to sort by
+    string sortBy = 6;
+    // Direction of sort "asc" or "desc"
+    enum GetGroupsIdAggregatedSummaryRequest_SortDirection {
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_SORTDIRECTION_ASC = 0;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetGroupsIdAggregatedSummaryRequest_SortDirection sortDirection = 7;
+    // Status of datapoint ("deleted"/"active"/"paused"/"spam")
+    enum GetGroupsIdAggregatedSummaryRequest_Statu {
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_STATU_DELETED = 0;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_STATU_ACTIVE = 1;
+    }
+    GetGroupsIdAggregatedSummaryRequest_Statu status = 8;
+    // A comma separated list of tags you want to filter with.
+    string tag = 9;
+    // Filter fields by this pattern
+    string textSearch = 10;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsIdAggregatedSummaryRequest_TimeFrame {
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_TODAY = 0;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_YESTERDAY = 1;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST7 = 2;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST30 = 3;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LASTMONTH = 4;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_CURRENTMONTH = 5;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_PREVIOUSMONTH = 6;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST90 = 7;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST120 = 8;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST180 = 9;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LAST12MONTHS = 10;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_LASTYEAR = 11;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_CURRENTYEAR = 12;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_BEGINNING = 13;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TIMEFRAME_CUSTOM = 14;
+    }
+    GetGroupsIdAggregatedSummaryRequest_TimeFrame timeFrame = 11;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 12;
+    // Type of datapoint ("tl"/"tp")
+    enum GetGroupsIdAggregatedSummaryRequest_Type {
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TYPE_TP = 0;
+        GETGROUPSIDAGGREGATEDSUMMARYREQUEST_TYPE_TL = 1;
+    }
+    GetGroupsIdAggregatedSummaryRequest_Type type = 13;
+}
+
+message GetGroupsIdDatapointsRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Id of the group
+    int64 id = 3;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 4;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 5;
+    // Filter fields by favourite status
+    bool onlyFavorites = 6;
+    // Field to sort by
+    string sortBy = 7;
+    // Direction of sort "asc" or "desc"
+    enum GetGroupsIdDatapointsRequest_SortDirection {
+        GETGROUPSIDDATAPOINTSREQUEST_SORTDIRECTION_ASC = 0;
+        GETGROUPSIDDATAPOINTSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetGroupsIdDatapointsRequest_SortDirection sortDirection = 8;
+    // Status of the datapoint
+    enum GetGroupsIdDatapointsRequest_Statu {
+        GETGROUPSIDDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETGROUPSIDDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETGROUPSIDDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETGROUPSIDDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetGroupsIdDatapointsRequest_Statu status = 9;
+    // A comma separated list of tags you want to filter with.
+    string tags = 10;
+    // Filter fields by this pattern
+    string textSearch = 11;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetGroupsIdDatapointsRequest_Type {
+        GETGROUPSIDDATAPOINTSREQUEST_TYPE_TP = 0;
+        GETGROUPSIDDATAPOINTSREQUEST_TYPE_TL = 1;
+    }
+    GetGroupsIdDatapointsRequest_Type type = 12;
+}
+
+message PostGroupsIdDatapointsRequest {
+    // The id of the group
+    int64 id = 1;
+    // The body of the datapoint
+    Api.Core.Dto.Datapoints.Datapoint value = 2;
+}
+
+message GetGroupsIdDatapointsCountRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Id of the group
+    int64 id = 3;
+    // Filter fields by favourite status
+    bool onlyFavorites = 4;
+    // Status of the datapoint
+    enum GetGroupsIdDatapointsCountRequest_Statu {
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_STATU_DELETED = 0;
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_STATU_ACTIVE = 1;
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_STATU_PAUSED = 2;
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_STATU_SPAM = 3;
+    }
+    GetGroupsIdDatapointsCountRequest_Statu status = 5;
+    // A comma separated list of tags you want to filter with.
+    string tags = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetGroupsIdDatapointsCountRequest_Type {
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_TYPE_TP = 0;
+        GETGROUPSIDDATAPOINTSCOUNTREQUEST_TYPE_TL = 1;
+    }
+    GetGroupsIdDatapointsCountRequest_Type type = 8;
+}
+
+message PutGroupsIdFavouriteRequest {
+    // Id of the group
+    int64 id = 1;
+}
+
+message GetGroupsIdHitsRequest {
+    // Filter event type ("spiders"/"uniques"/"nonuniques"/"conversions")
+    enum GetGroupsIdHitsRequest_Filter {
+        GETGROUPSIDHITSREQUEST_FILTER_SPIDERS = 0;
+        GETGROUPSIDHITSREQUEST_FILTER_UNIQUES = 1;
+        GETGROUPSIDHITSREQUEST_FILTER_NONUNIQUES = 2;
+        GETGROUPSIDHITSREQUEST_FILTER_CONVERSIONS = 3;
+    }
+    GetGroupsIdHitsRequest_Filter filter = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Id of the group
+    int64 id = 3;
+    // Limit results to this number
+    int32 limit = 4;
+    // Offset where to start from (it's the lastKey field in the response object)
+    string offset = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsIdHitsRequest_Timeframe {
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETGROUPSIDHITSREQUEST_TIMEFRAME_CUSTOM = 9;
+    }
+    GetGroupsIdHitsRequest_Timeframe timeframe = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+}
+
+message PutGroupsIdNotesRequest {
+    // Id of the group
+    int64 id = 1;
+    // Patch requests
+    Api.Core.Requests.GenericTextPatch note = 2;
+}
+
+message GetGroupsIdReportsRequest {
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 1;
+    // Type of the event you want to filter this report with. By default no filter is applied.
+    enum GetGroupsIdReportsRequest_Hittype {
+        GETGROUPSIDREPORTSREQUEST_HITTYPE_CLICKS = 0;
+        GETGROUPSIDREPORTSREQUEST_HITTYPE_VIEWS = 1;
+    }
+    GetGroupsIdReportsRequest_Hittype hittype = 2;
+    // Id of the group
+    int64 id = 3;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetGroupsIdReportsRequest_Timeframe {
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_BEGINNING = 9;
+        GETGROUPSIDREPORTSREQUEST_TIMEFRAME_CUSTOM = 10;
+    }
+    GetGroupsIdReportsRequest_Timeframe timeframe = 4;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 5;
+    // Type of the report.
+    enum GetGroupsIdReportsRequest_Type {
+        GETGROUPSIDREPORTSREQUEST_TYPE_BROWSERS = 0;
+        GETGROUPSIDREPORTSREQUEST_TYPE_BROWSERSFAMILIES = 1;
+        GETGROUPSIDREPORTSREQUEST_TYPE_PLATFORMS = 2;
+        GETGROUPSIDREPORTSREQUEST_TYPE_CITIES = 3;
+        GETGROUPSIDREPORTSREQUEST_TYPE_COUNTRIES = 4;
+        GETGROUPSIDREPORTSREQUEST_TYPE_ISPS = 5;
+        GETGROUPSIDREPORTSREQUEST_TYPE_IPS = 6;
+        GETGROUPSIDREPORTSREQUEST_TYPE_OSS = 7;
+        GETGROUPSIDREPORTSREQUEST_TYPE_OSSFAMILIES = 8;
+        GETGROUPSIDREPORTSREQUEST_TYPE_KEYWORDS = 9;
+        GETGROUPSIDREPORTSREQUEST_TYPE_REFERRERS = 10;
+        GETGROUPSIDREPORTSREQUEST_TYPE_DESTINATIONS = 11;
+        GETGROUPSIDREPORTSREQUEST_TYPE_LANGUAGES = 12;
+        GETGROUPSIDREPORTSREQUEST_TYPE_PARAMS = 13;
+    }
+    GetGroupsIdReportsRequest_Type type = 6;
+}
+
+message GetHitsRequest {
+    // Filter event type ("spiders"/"uniques"/"nonuniques"/"conversions")
+    enum GetHitsRequest_Filter {
+        GETHITSREQUEST_FILTER_SPIDERS = 0;
+        GETHITSREQUEST_FILTER_UNIQUES = 1;
+        GETHITSREQUEST_FILTER_NONUNIQUES = 2;
+        GETHITSREQUEST_FILTER_CONVERSIONS = 3;
+    }
+    GetHitsRequest_Filter filter = 1;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 2;
+    // Limit results to this number
+    int32 limit = 3;
+    // Offset where to start from (it's the lastKey field in the response object)
+    string offset = 4;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetHitsRequest_Timeframe {
+        GETHITSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETHITSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETHITSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETHITSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETHITSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETHITSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETHITSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETHITSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETHITSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETHITSREQUEST_TIMEFRAME_CUSTOM = 9;
+    }
+    GetHitsRequest_Timeframe timeframe = 5;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 6;
+}
+
+message GetReportsRequest {
+    // Filter by this conversion id (mutually exclusive with "datapoint" and "group")
+    int64 conversion = 1;
+    // Filter by this datapoint id (mutually exclusive with "group" and "conversion")
+    int64 datapoint = 2;
+    // If using a "custom" timeFrame you can specify the starting day (YYYYMMDD)
+    string fromDay = 3;
+    // Filter by this group id (mutually exclusive with "datapoint" and "conversion")
+    int64 group = 4;
+    // Type of the event you want to filter this report with. By default no filter is applied.
+    string hittype = 5;
+    // Timeframe of the request. See list at $timeframeList
+    enum GetReportsRequest_Timeframe {
+        GETREPORTSREQUEST_TIMEFRAME_YESTERDAY = 0;
+        GETREPORTSREQUEST_TIMEFRAME_LAST7 = 1;
+        GETREPORTSREQUEST_TIMEFRAME_LAST30 = 2;
+        GETREPORTSREQUEST_TIMEFRAME_LASTMONTH = 3;
+        GETREPORTSREQUEST_TIMEFRAME_CURRENTMONTH = 4;
+        GETREPORTSREQUEST_TIMEFRAME_PREVIOUSMONTH = 5;
+        GETREPORTSREQUEST_TIMEFRAME_LAST90 = 6;
+        GETREPORTSREQUEST_TIMEFRAME_LAST120 = 7;
+        GETREPORTSREQUEST_TIMEFRAME_LAST180 = 8;
+        GETREPORTSREQUEST_TIMEFRAME_BEGINNING = 9;
+        GETREPORTSREQUEST_TIMEFRAME_CUSTOM = 10;
+    }
+    GetReportsRequest_Timeframe timeframe = 6;
+    // If using a "custom" timeFrame you can specify the ending day (YYYYMMDD)
+    string toDay = 7;
+    // Type of the report.
+    enum GetReportsRequest_Type {
+        GETREPORTSREQUEST_TYPE_BROWSERS = 0;
+        GETREPORTSREQUEST_TYPE_BROWSERSFAMILIES = 1;
+        GETREPORTSREQUEST_TYPE_PLATFORMS = 2;
+        GETREPORTSREQUEST_TYPE_CITIES = 3;
+        GETREPORTSREQUEST_TYPE_COUNTRIES = 4;
+        GETREPORTSREQUEST_TYPE_ISPS = 5;
+        GETREPORTSREQUEST_TYPE_IPS = 6;
+        GETREPORTSREQUEST_TYPE_OSS = 7;
+        GETREPORTSREQUEST_TYPE_OSSFAMILIES = 8;
+        GETREPORTSREQUEST_TYPE_KEYWORDS = 9;
+        GETREPORTSREQUEST_TYPE_REFERRERS = 10;
+        GETREPORTSREQUEST_TYPE_DESTINATIONS = 11;
+        GETREPORTSREQUEST_TYPE_LANGUAGES = 12;
+        GETREPORTSREQUEST_TYPE_PARAMS = 13;
+    }
+    GetReportsRequest_Type type = 8;
+}
+
+message GetRetargetingRequest {
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 1;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 2;
+}
+
+message PostRetargetingRequest {
+    // The body of the retargeting script
+    Api.Core.Dto.Retargeting.RetargetingScript value = 1;
+}
+
+message GetRetargetingIdRequest {
+    // The id of the retargeting script
+    int64 id = 1;
+}
+
+message PostRetargetingIdRequest {
+    // The id of the retargeting script
+    int64 id = 1;
+    // The body of the retargeting script
+    Api.Core.Dto.Retargeting.RetargetingScript value = 2;
+}
+
+message DeleteRetargetingIdRequest {
+    // The id of the retargeting script
+    int64 id = 1;
+}
+
+message GetRetargetingIdDatapointsRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Id of the retargeting script
+    int64 id = 3;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 4;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 5;
+    // Filter fields by favourite status
+    bool onlyFavorites = 6;
+    // Field to sort by
+    string sortBy = 7;
+    // Direction of sort "asc" or "desc"
+    enum GetRetargetingIdDatapointsRequest_SortDirection {
+        GETRETARGETINGIDDATAPOINTSREQUEST_SORTDIRECTION_ASC = 0;
+        GETRETARGETINGIDDATAPOINTSREQUEST_SORTDIRECTION_DESC = 1;
+    }
+    GetRetargetingIdDatapointsRequest_SortDirection sortDirection = 8;
+    // Status of the datapoint
+    enum GetRetargetingIdDatapointsRequest_Statu {
+        GETRETARGETINGIDDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETRETARGETINGIDDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETRETARGETINGIDDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETRETARGETINGIDDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetRetargetingIdDatapointsRequest_Statu status = 9;
+    // A comma separated list of tags you want to filter with.
+    string tags = 10;
+    // Filter fields by this pattern
+    string textSearch = 11;
+}
+
+message GetRetargetingIdDatapointsCountRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Id of the group
+    int64 id = 3;
+    // Filter fields by favourite status
+    bool onlyFavorites = 4;
+    // Status of the datapoint
+    enum GetRetargetingIdDatapointsCountRequest_Statu {
+        GETRETARGETINGIDDATAPOINTSCOUNTREQUEST_STATU_DELETED = 0;
+        GETRETARGETINGIDDATAPOINTSCOUNTREQUEST_STATU_ACTIVE = 1;
+        GETRETARGETINGIDDATAPOINTSCOUNTREQUEST_STATU_PAUSED = 2;
+        GETRETARGETINGIDDATAPOINTSCOUNTREQUEST_STATU_SPAM = 3;
+    }
+    GetRetargetingIdDatapointsCountRequest_Statu status = 5;
+    // A comma separated list of tags you want to filter with.
+    string tags = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+}
+
+message GetTagsRequest {
+    // Comma separated list of datapoints id to filter by
+    string datapoints = 1;
+    // Comma separated list of groups id to filter by
+    string groups = 2;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 3;
+    // Name of the tag
+    string name = 4;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 5;
+    // Type of entity related to the tag
+    enum GetTagsRequest_Type {
+        GETTAGSREQUEST_TYPE_TP = 0;
+        GETTAGSREQUEST_TYPE_TL = 1;
+        GETTAGSREQUEST_TYPE_DP = 2;
+        GETTAGSREQUEST_TYPE_GR = 3;
+    }
+    GetTagsRequest_Type type = 6;
+}
+
+message PostTagsRequest {
+    // The body of the tag
+    Api.Core.Dto.Tags.Tag value = 1;
+}
+
+message GetTagsCountRequest {
+    // Comma separated list of datapoints id to filter by
+    string datapoints = 1;
+    // Comma separated list of groups id to filter by
+    string groups = 2;
+    // Name of the tag
+    string name = 3;
+    // Type of entity related to the tag
+    enum GetTagsCountRequest_Type {
+        GETTAGSCOUNTREQUEST_TYPE_TP = 0;
+        GETTAGSCOUNTREQUEST_TYPE_TL = 1;
+        GETTAGSCOUNTREQUEST_TYPE_DP = 2;
+        GETTAGSCOUNTREQUEST_TYPE_GR = 3;
+    }
+    GetTagsCountRequest_Type type = 4;
+}
+
+message GetTagsTagIdRequest {
+    // Id of the tag
+    int64 tagId = 1;
+}
+
+message DeleteTagsTagIdRequest {
+    // Id of the tag
+    int64 tagId = 1;
+}
+
+message GetTagsTagIdDatapointsRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 3;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 4;
+    // Status of the datapoint
+    enum GetTagsTagIdDatapointsRequest_Statu {
+        GETTAGSTAGIDDATAPOINTSREQUEST_STATU_DELETED = 0;
+        GETTAGSTAGIDDATAPOINTSREQUEST_STATU_ACTIVE = 1;
+        GETTAGSTAGIDDATAPOINTSREQUEST_STATU_PAUSED = 2;
+        GETTAGSTAGIDDATAPOINTSREQUEST_STATU_SPAM = 3;
+    }
+    GetTagsTagIdDatapointsRequest_Statu status = 5;
+    // Id of the tag.
+    int64 tagId = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetTagsTagIdDatapointsRequest_Type {
+        GETTAGSTAGIDDATAPOINTSREQUEST_TYPE_TP = 0;
+        GETTAGSTAGIDDATAPOINTSREQUEST_TYPE_TL = 1;
+    }
+    GetTagsTagIdDatapointsRequest_Type type = 8;
+}
+
+message DeleteTagsTagIdDatapointsRequest {
+    // Id of the tag
+    int64 tagId = 1;
+}
+
+message GetTagsTagIdDatapointsCountRequest {
+    // Exclude datapoints created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude datapoints created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Status of the datapoint
+    enum GetTagsTagIdDatapointsCountRequest_Statu {
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_STATU_DELETED = 0;
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_STATU_ACTIVE = 1;
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_STATU_PAUSED = 2;
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_STATU_SPAM = 3;
+    }
+    GetTagsTagIdDatapointsCountRequest_Statu status = 3;
+    // Id of the tag.
+    int64 tagId = 4;
+    // Filter fields by this pattern
+    string textSearch = 5;
+    // Type of the datapoint ("tp"/"tl")
+    enum GetTagsTagIdDatapointsCountRequest_Type {
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_TYPE_TP = 0;
+        GETTAGSTAGIDDATAPOINTSCOUNTREQUEST_TYPE_TL = 1;
+    }
+    GetTagsTagIdDatapointsCountRequest_Type type = 6;
+}
+
+message PutTagsTagIdDatapointsPatchRequest {
+    // The body patch
+    Api.Core.Requests.PatchBody data = 1;
+    // Id of the tag
+    int64 tagId = 2;
+}
+
+message GetTagsTagIdGroupsRequest {
+    // Exclude groups created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude groups created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Maximum elements to retrieve. Default to 20 if not specified.
+    int32 limit = 3;
+    // Where to start when retrieving elements. Default is 0 if not specified.
+    int32 offset = 4;
+    // Status of the datapoint
+    enum GetTagsTagIdGroupsRequest_Statu {
+        GETTAGSTAGIDGROUPSREQUEST_STATU_DELETED = 0;
+        GETTAGSTAGIDGROUPSREQUEST_STATU_ACTIVE = 1;
+    }
+    GetTagsTagIdGroupsRequest_Statu status = 5;
+    // Id of the tag.
+    int64 tagId = 6;
+    // Filter fields by this pattern
+    string textSearch = 7;
+}
+
+message DeleteTagsTagIdGroupsRequest {
+    // Id of the tag
+    int64 tagId = 1;
+}
+
+message GetTagsTagIdGroupsCountRequest {
+    // Exclude groups created before this date (YYYYMMDD)
+    string createdAfter = 1;
+    // Exclude groups created after this date (YYYYMMDD)
+    string createdBefore = 2;
+    // Status of the datapoint
+    enum GetTagsTagIdGroupsCountRequest_Statu {
+        GETTAGSTAGIDGROUPSCOUNTREQUEST_STATU_DELETED = 0;
+        GETTAGSTAGIDGROUPSCOUNTREQUEST_STATU_ACTIVE = 1;
+    }
+    GetTagsTagIdGroupsCountRequest_Statu status = 3;
+    // Id of the tag.
+    int64 tagId = 4;
+    // Filter fields by this pattern
+    string textSearch = 5;
+}
+
+message PutTagsTagIdGroupsPatchRequest {
+    // The body patch
+    Api.Core.Requests.PatchBody data = 1;
+    // Id of the tag
+    int64 tagId = 2;
+}
+
+message PutTagsTagIdNameRequest {
+    // The body patch
+    Api.Core.Requests.GenericTextPatch data = 1;
+    // Id of the tag
+    int64 tagId = 2;
+}
+
+message Api.Core.Dto.Accounting.ConversionOptions {
+    bool hideComCost = 1;
+    bool hideCost = 2;
+    bool hideCount = 3;
+    bool hideParams = 4;
+    bool hideValue = 5;
+    int32 percentCommission = 6;
+    int32 percentValue = 7;
+}
+
+message Api.Core.Dto.Accounting.DomainWhitelistEntry {
+    string id = 1;
+    string name = 2;
+}
+
+message Api.Core.Dto.Accounting.ExtendedGrants {
+    bool allowAllGrants = 1;
+    bool allowGroupCreation = 2;
+}
+
+message Api.Core.Dto.Accounting.Guest {
+    string apiKey = 1;
+    Api.Core.Dto.Accounting.ConversionOptions conversionOptions = 2;
+    //  (A date in "YmdHis" format)
+    string creationDate = 3;
+    Api.Core.Dto.Grants.Grant currentGrant = 4;
+    string dateFormat = 5;
+    string decimalSeparator = 6;
+    string email = 7;
+    Api.Core.Dto.Accounting.ExtendedGrants extendedGrants = 8;
+    int64 groupGrants = 9;
+    Api.Core.Dto.Accounting.HitOptions hitOptions = 10;
+    int64 id = 11;
+    string key = 12;
+    string language = 13;
+    int32 loginCount = 14;
+    string name = 15;
+    string notes = 16;
+    string numberGroupSeparator = 17;
+    string password = 18;
+    enum Api.Core.Dto.Accounting.Guest_TimeFormat {
+        APICOREDTOACCOUNTINGGUEST_TIMEFORMAT_AMPM = 0;
+        APICOREDTOACCOUNTINGGUEST_TIMEFORMAT_H24 = 1;
+    }
+    Api.Core.Dto.Accounting.Guest_TimeFormat timeFormat = 19;
+    int32 timeZone = 20;
+    //  (A date in "YmdHis" format)
+    string timeframeMinDate = 21;
+    string timezonename = 22;
+    int64 tlGrants = 23;
+    int64 tpGrants = 24;
+    string userName = 25;
+}
+
+message Api.Core.Dto.Accounting.HitOptions {
+    bool hideReferrer = 1;
+}
+
+message Api.Core.Dto.Accounting.IpBlacklistEntry {
+    string id = 1;
+    string ip = 2;
+}
+
+message Api.Core.Dto.Accounting.Plan {
+    int32 allowedPersonalDomains = 1;
+    int32 allowedPersonalUrls = 2;
+    //  (A date in "YmdHis" format)
+    string billingPeriodEnd = 3;
+    //  (A date in "YmdHis" format)
+    string billingPeriodStart = 4;
+    int64 bonusMonthlyEvents = 5;
+    int64 maximumDatapoints = 6;
+    int64 maximumGuests = 7;
+    int64 monthlyEvents = 8;
+    string name = 9;
+    double price = 10;
+    int64 profileId = 11;
+    bool recurring = 12;
+    int32 recurringPeriod = 13;
+    int64 usedDatapoints = 14;
+    int64 usedMonthlyEvents = 15;
+}
+
+message Api.Core.Dto.Accounting.User {
+    string boGoVal = 1;
+    int64 bonusClicks = 2;
+    string companyName = 3;
+    string companyRole = 4;
+    string email = 5;
+    string firstName = 6;
+    string lastName = 7;
+    string phone = 8;
+    bool redirectOnly = 9;
+    //  (A date in "YmdHis" format)
+    string registrationDate = 10;
+    //  (A date in "YmdHis" format)
+    string timeframeMinDate = 11;
+    int32 timezone = 12;
+    string timezonename = 13;
+}
+
+message Api.Core.Dto.Aggregated.AggregatedResult {
+    //  (A date in "YmdHis" format)
+    string activityDay = 1;
+    double commissionsCost = 2;
+    double conversionsCost = 3;
+    double conversionsValue = 4;
+    int64 convertedClicks = 5;
+    System.Object entityData = 6;
+    string entityId = 7;
+    //  (A date in "YmdHis" format)
+    string fromDay = 8;
+    map<string, Api.Core.Dto.Aggregated.AggregatedResult> hourlyBreakDown = 9;
+    //  (A date in "YmdHis" format)
+    string lastHitDate = 10;
+    int64 spiderHitsCount = 11;
+    //  (A date in "YmdHis" format)
+    string toDay = 12;
+    int64 totalClicks = 13;
+    int64 totalViews = 14;
+    int64 uniqueClicks = 15;
+    int64 uniqueConversions = 16;
+    int64 uniqueViews = 17;
+}
+
+message Api.Core.Dto.Aggregated.AggregatedSummaryResult {
+    int64 count = 1;
+    int32 limit = 2;
+    int64 offset = 3;
+    repeated Api.Core.Dto.Aggregated.AggregatedResult result = 4;
+}
+
+message Api.Core.Dto.ClickStream.Hit {
+    //  (A date in "YmdHis" format)
+    string accessTime = 1;
+    Api.Core.Dto.ClickStream.HitBrowserInfo browser = 2;
+    string clientLanguage = 3;
+    Api.Core.Dto.ClickStream.HitConversionInfo conversion1 = 4;
+    Api.Core.Dto.ClickStream.HitConversionInfo conversion2 = 5;
+    Api.Core.Dto.ClickStream.HitConversionInfo conversion3 = 6;
+    Api.Core.Dto.ClickStream.HitConversionInfo conversion4 = 7;
+    Api.Core.Dto.ClickStream.HitConversionInfo conversion5 = 8;
+    repeated Api.Core.Dto.ClickStream.HitConversionInfo conversions = 9;
+    Api.Core.Dto.ClickStream.HitDatapointInfo entity = 10;
+    string ip = 11;
+    string isProxy = 12;
+    string isSpider = 13;
+    string isUnique = 14;
+    Api.Core.Dto.ClickStream.HitLocationInfo location = 15;
+    string org = 16;
+    Api.Core.Dto.ClickStream.HitOsInfo os = 17;
+    string queryParams = 18;
+    string realDestinationUrl = 19;
+    string referer = 20;
+    Api.Core.Dto.ClickStream.HitSource source = 21;
+    string type = 22;
+}
+
+message Api.Core.Dto.ClickStream.HitBrowserInfo {
+    string browserType = 1;
+    int64 familyId = 2;
+    string familyName = 3;
+    int64 id = 4;
+    string name = 5;
+}
+
+message Api.Core.Dto.ClickStream.HitConversionInfo {
+    //  (A date in "YmdHis" format)
+    string accessTime = 1;
+    double comcost = 2;
+    double cost = 3;
+    //  (A date in "YmdHis" format)
+    string date = 4;
+    bool deleted = 5;
+    int64 id = 6;
+    string name = 7;
+    string parameter = 8;
+    double value = 9;
+}
+
+message Api.Core.Dto.ClickStream.HitDatapointInfo {
+    //  (A date in "YmdHis" format)
+    string creationDate = 1;
+    bool datapointFavourite = 2;
+    int64 datapointId = 3;
+    string datapointName = 4;
+    string datapointTitle = 5;
+    string datapointType = 6;
+    string destinationUrl = 7;
+    int64 groupId = 8;
+    string groupName = 9;
+    bool isABTest = 10;
+    bool isPrivateShared = 11;
+    bool isPublic = 12;
+    string notes = 13;
+    enum Api.Core.Dto.ClickStream.HitDatapointInfo_Statu {
+        APICOREDTOCLICKSTREAMHITDATAPOINTINFO_STATU_ACTIVE = 0;
+        APICOREDTOCLICKSTREAMHITDATAPOINTINFO_STATU_PAUSED = 1;
+        APICOREDTOCLICKSTREAMHITDATAPOINTINFO_STATU_ABUSE = 2;
+        APICOREDTOCLICKSTREAMHITDATAPOINTINFO_STATU_DELETED = 3;
+    }
+    Api.Core.Dto.ClickStream.HitDatapointInfo_Statu status = 14;
+    repeated Api.Core.Dto.Tags.Tag tags = 15;
+    string trackingCode = 16;
+}
+
+message Api.Core.Dto.ClickStream.HitListPage {
+    repeated Api.Core.Dto.ClickStream.Hit hits = 1;
+    string lastKey = 2;
+}
+
+message Api.Core.Dto.ClickStream.HitLocationInfo {
+    string areacode = 1;
+    string city = 2;
+    string country = 3;
+    double latitude = 4;
+    double longitude = 5;
+    string metrocode = 6;
+    string organization = 7;
+    string postalcode = 8;
+    string region = 9;
+    string regionName = 10;
+}
+
+message Api.Core.Dto.ClickStream.HitOsInfo {
+    int64 familyId = 1;
+    string familyName = 2;
+    int64 id = 3;
+    string name = 4;
+}
+
+message Api.Core.Dto.ClickStream.HitSource {
+    int64 id = 1;
+    string name = 2;
+    string param = 3;
+}
+
+message Api.Core.Dto.Conversions.Conversion {
+    string code = 1;
+    //  (A date in "YmdHis" format)
+    string creationDate = 2;
+    bool deleted = 3;
+    string description = 4;
+    int64 id = 5;
+    string name = 6;
+    enum Api.Core.Dto.Conversions.Conversion_Protocol {
+        APICOREDTOCONVERSIONSCONVERSION_PROTOCOL_HTTP = 0;
+        APICOREDTOCONVERSIONSCONVERSION_PROTOCOL_HTTPS = 1;
+    }
+    Api.Core.Dto.Conversions.Conversion_Protocol protocol = 7;
+    double value = 8;
+}
+
+message Api.Core.Dto.Datapoints.BrowserBaseDestinationItem {
+    string emailDestinationUrl = 1;
+    string mobileDestinationUrl = 2;
+    string spidersDestinationUrl = 3;
+}
+
+message Api.Core.Dto.Datapoints.Datapoint {
+    //  (A date in "YmdHis" format)
+    string creationDate = 1;
+    bool encodeIp = 2;
+    int64 fifthConversionId = 3;
+    string fifthConversionName = 4;
+    int64 firstConversionId = 5;
+    string firstConversionName = 6;
+    int64 fourthConversionId = 7;
+    string fourthConversionName = 8;
+    int64 groupId = 9;
+    string groupName = 10;
+    int64 id = 11;
+    bool isPublic = 12;
+    bool isSecured = 13;
+    bool lightTracking = 14;
+    string name = 15;
+    string notes = 16;
+    bool preferred = 17;
+    bool redirectOnly = 18;
+    int64 secondConversionId = 19;
+    string secondConversionName = 20;
+    enum Api.Core.Dto.Datapoints.Datapoint_Statu {
+        APICOREDTODATAPOINTSDATAPOINT_STATU_ACTIVE = 0;
+        APICOREDTODATAPOINTSDATAPOINT_STATU_PAUSED = 1;
+        APICOREDTODATAPOINTSDATAPOINT_STATU_ABUSE = 2;
+        APICOREDTODATAPOINTSDATAPOINT_STATU_DELETED = 3;
+    }
+    Api.Core.Dto.Datapoints.Datapoint_Statu status = 21;
+    repeated Api.Core.Dto.Tags.Tag tags = 22;
+    int64 thirdConversionId = 23;
+    string thirdConversionName = 24;
+    string title = 25;
+    string trackingCode = 26;
+    enum Api.Core.Dto.Datapoints.Datapoint_Type {
+        APICOREDTODATAPOINTSDATAPOINT_TYPE_TRACKINGLINK = 0;
+        APICOREDTODATAPOINTSDATAPOINT_TYPE_TRACKINGPIXEL = 1;
+    }
+    Api.Core.Dto.Datapoints.Datapoint_Type type = 27;
+    Api.Core.Dto.Datapoints.TrackingLinkSpecifics typeTL = 28;
+    Api.Core.Dto.Datapoints.TrackingPixelSpecifics typeTP = 29;
+    bool writePermited = 30;
+}
+
+message Api.Core.Dto.Datapoints.DatapointRetargetingInfo {
+    int64 id = 1;
+    string name = 2;
+}
+
+message Api.Core.Dto.Datapoints.MultipleDestinationItem {
+    string url = 1;
+}
+
+message Api.Core.Dto.Datapoints.TrackingLinkSpecifics {
+    bool appendQuery = 1;
+    Api.Core.Dto.Datapoints.BrowserBaseDestinationItem browserDestinationItem = 2;
+    enum Api.Core.Dto.Datapoints.TrackingLinkSpecifics_DestinationMode {
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_SIMPLE = 0;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_RANDOMDESTINATION = 1;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_DESTINATIONBYLANGUAGE = 2;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_SPILLOVERDESTINATION = 3;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_DYNAMICURL = 4;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_BROWSERDESTINATION = 5;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_DESTINATIONBYNATION = 6;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_UNIQUEDESTINATION = 7;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_SEQUENTIALDESTINATION = 8;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_DESTINATIONMODE_WEIGHTEDDESTINATION = 9;
+    }
+    Api.Core.Dto.Datapoints.TrackingLinkSpecifics_DestinationMode destinationMode = 3;
+    int32 domainId = 4;
+    bool encodeUrl = 5;
+    int64 expirationClicks = 6;
+    //  (A date in "YmdHis" format)
+    string expirationDate = 7;
+    string firstUrl = 8;
+    int32 goDomainId = 9;
+    bool hideUrl = 10;
+    string hideUrlTitle = 11;
+    bool isABTest = 12;
+    string password = 13;
+    bool pauseAfterClicksExpiration = 14;
+    bool pauseAfterDateExpiration = 15;
+    repeated Api.Core.Dto.Datapoints.MultipleDestinationItem randomDestinationItems = 16;
+    enum Api.Core.Dto.Datapoints.TrackingLinkSpecifics_RedirectType {
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_REDIRECTTYPE_PERMANENTREDIRECT = 0;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_REDIRECTTYPE_TEMPORARYREDIRECT = 1;
+    }
+    Api.Core.Dto.Datapoints.TrackingLinkSpecifics_RedirectType redirectType = 17;
+    enum Api.Core.Dto.Datapoints.TrackingLinkSpecifics_ReferrerClean {
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_REFERRERCLEAN_NONE = 0;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_REFERRERCLEAN_CLEAN = 1;
+        APICOREDTODATAPOINTSTRACKINGLINKSPECIFICS_REFERRERCLEAN_MYSELF = 2;
+    }
+    Api.Core.Dto.Datapoints.TrackingLinkSpecifics_ReferrerClean referrerClean = 18;
+    repeated Api.Core.Dto.Datapoints.DatapointRetargetingInfo scripts = 19;
+    repeated Api.Core.Dto.Datapoints.MultipleDestinationItem sequentialDestinationItems = 20;
+    repeated Api.Core.Dto.Datapoints.MultipleDestinationItem spilloverDestinationItems = 21;
+    Api.Core.Dto.Datapoints.UniqueDestinationItem uniqueDestinationItem = 22;
+    string url = 23;
+    string urlAfterClicksExpiration = 24;
+    string urlAfterDateExpiration = 25;
+    repeated Api.Core.Dto.Datapoints.UrlByLanguageItem urlsByLanguage = 26;
+    repeated Api.Core.Dto.Datapoints.UrlByNationItem urlsByNation = 27;
+    repeated Api.Core.Dto.Datapoints.WeightedDestinationItem weightedDestinationItems = 28;
+}
+
+message Api.Core.Dto.Datapoints.TrackingPixelSpecifics {
+    string parameterNote = 1;
+}
+
+message Api.Core.Dto.Datapoints.UniqueDestinationItem {
+    string firstDestinationUrl = 1;
+}
+
+message Api.Core.Dto.Datapoints.UrlByLanguageItem {
+    string languageCode = 1;
+    string url = 2;
+}
+
+message Api.Core.Dto.Datapoints.UrlByNationItem {
+    string nation = 1;
+    string url = 2;
+}
+
+message Api.Core.Dto.Datapoints.WeightedDestinationItem {
+    string url = 1;
+    int32 weight = 2;
+}
+
+message Api.Core.Dto.Domains.Domain {
+    string custom404 = 1;
+    string customHomepage = 2;
+    int64 id = 3;
+    string name = 4;
+    enum Api.Core.Dto.Domains.Domain_Type {
+        APICOREDTODOMAINSDOMAIN_TYPE_SYSTEM = 0;
+        APICOREDTODOMAINSDOMAIN_TYPE_GO = 1;
+        APICOREDTODOMAINSDOMAIN_TYPE_DEDICATED = 2;
+        APICOREDTODOMAINSDOMAIN_TYPE_PERSONAL = 3;
+    }
+    Api.Core.Dto.Domains.Domain_Type type = 5;
+}
+
+message Api.Core.Dto.EntityUriLong {
+    int64 id = 1;
+    string uri = 2;
+}
+
+message Api.Core.Dto.Grants.Grant {
+    string DatapointType = 1;
+    Api.Core.Responses.EntityUri[System.Int64] Entity = 2;
+    string EntityName = 3;
+    string EntityType = 4;
+    string Type = 5;
+}
+
+message Api.Core.Dto.Groups.Group {
+    //  (A date in "YmdHis" format)
+    string creationDate = 1;
+    bool deleted = 2;
+    int64 id = 3;
+    bool isPublic = 4;
+    string name = 5;
+    string notes = 6;
+    bool preferred = 7;
+    bool redirectOnly = 8;
+    repeated Api.Core.Dto.Tags.Tag tags = 9;
+    bool writePermited = 10;
+}
+
+message Api.Core.Dto.Retargeting.RetargetingScript {
+    int64 id = 1;
+    string name = 2;
+    string script = 3;
+}
+
+message Api.Core.Dto.Tags.Tag {
+    repeated int64 datapoints = 1;
+    repeated int64 groups = 2;
+    int64 id = 3;
+    string name = 4;
+}
+
+message Api.Core.Dto.Tops.Top {
+    //  (A date in "YmdHis" format)
+    string createdAt = 1;
+    repeated Api.Core.Dto.Tops.TopItem data = 2;
+    string key = 3;
+}
+
+message Api.Core.Dto.Tops.TopItem {
+    System.Object entityData = 1;
+    string id = 2;
+    //  (A date in "YmdHis" format)
+    string lastHitDate = 3;
+    int64 spiderClicks = 4;
+    int64 spiderHits = 5;
+    int64 spiderViews = 6;
+    int64 totalClicks = 7;
+    double totalCommissionsCost = 8;
+    int64 totalConversions = 9;
+    double totalConversionsCost = 10;
+    double totalConversionsValue = 11;
+    int64 totalHits = 12;
+    int64 totalViews = 13;
+    int64 uniqueClicks = 14;
+    int64 uniqueHits = 15;
+    int64 uniqueViews = 16;
+}
+
+message Api.Core.Requests.ConversionPatchBody {
+    string Action = 1;
+    int64 Id = 2;
+    int64 ReplaceId = 3;
+}
+
+message Api.Core.Requests.DatapointsBatch {
+    repeated Api.Core.Dto.Datapoints.Datapoint List = 1;
+}
+
+message Api.Core.Requests.DeleteBatch {
+    repeated Api.Core.Dto.EntityUriLong Entities = 1;
+}
+
+message Api.Core.Requests.GenericTextPatch {
+    string Text = 1;
+}
+
+message Api.Core.Requests.PatchBody {
+    string Action = 1;
+    int64 Id = 2;
+}
+
+message Api.Core.Requests.PatchBodyBatch {
+    repeated Api.Core.Requests.PatchBody PatchRequests = 1;
+}
+
+message Api.Core.Requests.PermissionPatchRequest {
+    string Action = 1;
+    int64 Id = 2;
+    string Verb = 3;
+}
+
+message Api.Core.Responses.CountResponce {
+    int64 count = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Accounting.DomainWhitelistEntry] {
+    repeated Api.Core.Dto.Accounting.DomainWhitelistEntry entities = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Accounting.IpBlacklistEntry] {
+    repeated Api.Core.Dto.Accounting.IpBlacklistEntry entities = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated.AggregatedResult] {
+    repeated Api.Core.Dto.Aggregated.AggregatedResult entities = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Dto.ClickStream.Hit] {
+    repeated Api.Core.Dto.ClickStream.Hit entities = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Grants.Grant] {
+    repeated Api.Core.Dto.Grants.Grant entities = 1;
+}
+
+message Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System.Int64]] {
+    repeated Api.Core.Responses.EntityUri[System.Int64] entities = 1;
+}
+
+message Api.Core.Responses.EntityUri[System.Int64] {
+    int64 id = 1;
+    string uri = 2;
+}
+
+message Api.Core.Responses.ModifyBatchItemResponce[Api.Core.Dto.Datapoints.Datapoint,System.Int64] {
+    Api.Core.Dto.Datapoints.Datapoint entityData = 1;
+    repeated ClickMeter.Infrastructure.Validation.ValidationFailure errors = 2;
+    Api.Core.Responses.EntityUri[System.Int64] result = 3;
+    string status = 4;
+}
+
+message ClickMeter.Infrastructure.Validation.ValidationFailure {
+    System.Object code = 1;
+    string errorMessage = 2;
+    System.Object errorValue = 3;
+    string property = 4;
+}
+
+message System.Object {
+}
+
+service ClickMeterService {
+    // Retrieve current account data
+    rpc GetAccount(google.protobuf.Empty) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/account"
+      };
+    }
+    // Update current account data
+    rpc PostAccount(PostAccountRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        post: "/account"
+        body: "value"
+      };
+    }
+    // Retrieve list of a domains allowed to redirect in DDU mode
+    rpc GetAccountDomainwhitelist(GetAccountDomainwhitelistRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/account/domainwhitelist"
+      };
+    }
+    // Create an domain entry
+    rpc PostAccountDomainwhitelist(PostAccountDomainwhitelistRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        post: "/account/domainwhitelist"
+        body: "value"
+      };
+    }
+    // Delete an domain entry
+    rpc DeleteAccountDomainwhitelistWhitelistId(DeleteAccountDomainwhitelistWhitelistIdRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        delete: "/account/domainwhitelist/{whitelistId}"
+      };
+    }
+    // Retrieve list of a guest
+    rpc GetAccountGuests(GetAccountGuestsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/account/guests"
+      };
+    }
+    // Create a guest
+    rpc PostAccountGuests(PostAccountGuestsRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        post: "/account/guests"
+        body: "value"
+      };
+    }
+    // Retrieve count of guests
+    rpc GetAccountGuestsCount(GetAccountGuestsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/account/guests/count"
+      };
+    }
+    // Retrieve a guest
+    rpc GetAccountGuestsGuestId(GetAccountGuestsGuestIdRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/account/guests/{guestId}"
+      };
+    }
+    // Update a guest
+    rpc PostAccountGuestsGuestId(PostAccountGuestsGuestIdRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        post: "/account/guests/{guestId}"
+        body: "value"
+      };
+    }
+    // Delete a guest
+    rpc DeleteAccountGuestsGuestId(DeleteAccountGuestsGuestIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/account/guests/{guestId}"
+      };
+    }
+    // Retrieve permissions for a guest
+    rpc GetAccountGuestsGuestIdPermissions(GetAccountGuestsGuestIdPermissionsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Grants) {
+      option (google.api.http) = {
+        get: "/account/guests/{guestId}/permissions"
+      };
+    }
+    // Retrieve count of the permissions for a guest
+    rpc GetAccountGuestsGuestIdPermissionsCount(GetAccountGuestsGuestIdPermissionsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/account/guests/{guestId}/permissions/count"
+      };
+    }
+    // Change the permission on a shared object
+    rpc PutAccountGuestsGuestIdTypePermissionsPatch(PutAccountGuestsGuestIdTypePermissionsPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/account/guests/{guestId}/{type}/permissions/patch"
+        body: "body"
+      };
+    }
+    // Change the permission on a shared object
+    rpc PostAccountGuestsGuestIdTypePermissionsPatch(PostAccountGuestsGuestIdTypePermissionsPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/account/guests/{guestId}/{type}/permissions/patch"
+        body: "body"
+      };
+    }
+    // Retrieve list of a ip to exclude from event tracking
+    rpc GetAccountIpblacklist(GetAccountIpblacklistRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/account/ipblacklist"
+      };
+    }
+    // Create an ip blacklist entry
+    rpc PostAccountIpblacklist(PostAccountIpblacklistRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        post: "/account/ipblacklist"
+        body: "value"
+      };
+    }
+    // Delete an ip blacklist entry
+    rpc DeleteAccountIpblacklistBlacklistId(DeleteAccountIpblacklistBlacklistIdRequest) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        delete: "/account/ipblacklist/{blacklistId}"
+      };
+    }
+    // Retrieve current account plan
+    rpc GetAccountPlan(google.protobuf.Empty) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/account/plan"
+      };
+    }
+    // Retrieve statistics about this customer for a timeframe
+    rpc GetAggregated(GetAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/aggregated"
+      };
+    }
+    // Retrieve statistics about this customer for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetAggregatedList(GetAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/aggregated/list"
+      };
+    }
+    // Retrieve statistics about a subset of conversions for a timeframe with conversions data
+    rpc GetAggregatedSummaryConversions(GetAggregatedSummaryConversionsRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/aggregated/summary/conversions"
+      };
+    }
+    // Retrieve statistics about a subset of datapoints for a timeframe with datapoints data
+    rpc GetAggregatedSummaryDatapoints(GetAggregatedSummaryDatapointsRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/aggregated/summary/datapoints"
+      };
+    }
+    // Retrieve statistics about a subset of groups for a timeframe with groups data
+    rpc GetAggregatedSummaryGroups(GetAggregatedSummaryGroupsRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/aggregated/summary/groups"
+      };
+    }
+    // Retrieve the latest list of events of this account. Limited to last 100.
+    rpc GetClickstream(GetClickstreamRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.ClickStream) {
+      option (google.api.http) = {
+        get: "/clickstream"
+      };
+    }
+    // Retrieve a list of conversions
+    rpc GetConversions(GetConversionsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/conversions"
+      };
+    }
+    // Create a conversion
+    rpc PostConversions(PostConversionsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/conversions"
+        body: "value"
+      };
+    }
+    // Retrieve statistics about this customer for a timeframe related to a subset of conversions grouped by some temporal entity (day/week/month)
+    rpc GetConversionsAggregatedList(GetConversionsAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/conversions/aggregated/list"
+      };
+    }
+    // Retrieve a count of conversions
+    rpc GetConversionsCount(GetConversionsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/conversions/count"
+      };
+    }
+    // Retrieve conversion specified by id
+    rpc GetConversionsConversionId(GetConversionsConversionIdRequest) returns (Api.Core.Dto.Conversions) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}"
+      };
+    }
+    // Update conversion specified by id
+    rpc PostConversionsConversionId(PostConversionsConversionIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/conversions/{conversionId}"
+        body: "value"
+      };
+    }
+    // Delete conversion specified by id
+    rpc DeleteConversionsConversionId(DeleteConversionsConversionIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/conversions/{conversionId}"
+      };
+    }
+    // Retrieve statistics about this conversion for a timeframe
+    rpc GetConversionsConversionIdAggregated(GetConversionsConversionIdAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/aggregated"
+      };
+    }
+    // Retrieve statistics about this conversion for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetConversionsConversionIdAggregatedList(GetConversionsConversionIdAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/aggregated/list"
+      };
+    }
+    // Retrieve a list of datapoints connected to this conversion
+    rpc GetConversionsConversionIdDatapoints(GetConversionsConversionIdDatapointsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/datapoints"
+      };
+    }
+    // Modify the association between a conversion and multiple datapoints
+    rpc PutConversionsConversionIdDatapointsBatchPatch(PutConversionsConversionIdDatapointsBatchPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/conversions/{conversionId}/datapoints/batch/patch"
+        body: "data"
+      };
+    }
+    // Retrieve a count of datapoints connected to this conversion
+    rpc GetConversionsConversionIdDatapointsCount(GetConversionsConversionIdDatapointsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/datapoints/count"
+      };
+    }
+    // Modify the association between a conversion and a datapoint
+    rpc PutConversionsConversionIdDatapointsPatch(PutConversionsConversionIdDatapointsPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/conversions/{conversionId}/datapoints/patch"
+        body: "data"
+      };
+    }
+    // Retrieve the list of events related to this conversion.
+    rpc GetConversionsConversionIdHits(GetConversionsConversionIdHitsRequest) returns (Api.Core.Dto.ClickStream) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/hits"
+      };
+    }
+    // Fast patch the "notes" field of a conversion
+    rpc PutConversionsConversionIdNotes(PutConversionsConversionIdNotesRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/conversions/{conversionId}/notes"
+        body: "note"
+      };
+    }
+    // Retrieve a top report connected to this conversion
+    rpc GetConversionsConversionIdReports(GetConversionsConversionIdReportsRequest) returns (Api.Core.Dto.Tops) {
+      option (google.api.http) = {
+        get: "/conversions/{conversionId}/reports"
+      };
+    }
+    // List of all the datapoints associated to the user
+    rpc GetDatapoints(GetDatapointsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/datapoints"
+      };
+    }
+    // Create a datapoint
+    rpc PostDatapoints(PostDatapointsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/datapoints"
+        body: "value"
+      };
+    }
+    // Retrieve statistics about this customer for a timeframe by groups
+    rpc GetDatapointsAggregated(GetDatapointsAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/datapoints/aggregated"
+      };
+    }
+    // Retrieve statistics about all datapoints of this customer for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetDatapointsAggregatedList(GetDatapointsAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/datapoints/aggregated/list"
+      };
+    }
+    // Create multiple datapoints
+    rpc PutDatapointsBatch(PutDatapointsBatchRequest) returns (Api.Core.Responses.ModifyBatchItemResponce[Api.Core.Dto.Datapoints.Datapoint,System) {
+      option (google.api.http) = {
+        put: "/datapoints/batch"
+        body: "batch"
+      };
+    }
+    // Update multiple datapoints
+    rpc PostDatapointsBatch(PostDatapointsBatchRequest) returns (Api.Core.Responses.ModifyBatchItemResponce[Api.Core.Dto.Datapoints.Datapoint,System) {
+      option (google.api.http) = {
+        post: "/datapoints/batch"
+        body: "batch"
+      };
+    }
+    // Delete multiple datapoints
+    rpc DeleteDatapointsBatch(DeleteDatapointsBatchRequest) returns (Api.Core.Responses.ModifyBatchItemResponce[Api.Core.Dto.Datapoints.Datapoint,System) {
+      option (google.api.http) = {
+        delete: "/datapoints/batch"
+        body: "batch"
+      };
+    }
+    // Count the datapoints associated to the user
+    rpc GetDatapointsCount(GetDatapointsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/datapoints/count"
+      };
+    }
+    // Get a datapoint
+    rpc GetDatapointsId(GetDatapointsIdRequest) returns (Api.Core.Dto.Datapoints) {
+      option (google.api.http) = {
+        get: "/datapoints/{id}"
+      };
+    }
+    // Update a datapoint
+    rpc PostDatapointsId(PostDatapointsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/datapoints/{id}"
+        body: "value"
+      };
+    }
+    // Delete a datapoint
+    rpc DeleteDatapointsId(DeleteDatapointsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/datapoints/{id}"
+      };
+    }
+    // Retrieve statistics about this datapoint for a timeframe
+    rpc GetDatapointsIdAggregated(GetDatapointsIdAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/datapoints/{id}/aggregated"
+      };
+    }
+    // Retrieve statistics about this datapoint for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetDatapointsIdAggregatedList(GetDatapointsIdAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/datapoints/{id}/aggregated/list"
+      };
+    }
+    // Fast switch the "favourite" field of a datapoint
+    rpc PutDatapointsIdFavourite(PutDatapointsIdFavouriteRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/datapoints/{id}/favourite"
+      };
+    }
+    // Retrieve the list of events related to this datapoint.
+    rpc GetDatapointsIdHits(GetDatapointsIdHitsRequest) returns (Api.Core.Dto.ClickStream) {
+      option (google.api.http) = {
+        get: "/datapoints/{id}/hits"
+      };
+    }
+    // Fast patch the "notes" field of a datapoint
+    rpc PutDatapointsIdNotes(PutDatapointsIdNotesRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/datapoints/{id}/notes"
+        body: "note"
+      };
+    }
+    // Retrieve a top report connected to this datapoint
+    rpc GetDatapointsIdReports(GetDatapointsIdReportsRequest) returns (Api.Core.Dto.Tops) {
+      option (google.api.http) = {
+        get: "/datapoints/{id}/reports"
+      };
+    }
+    // Retrieve a list of domains
+    rpc GetDomains(GetDomainsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/domains"
+      };
+    }
+    // Create a domain
+    rpc PostDomains(PostDomainsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/domains"
+        body: "value"
+      };
+    }
+    // Retrieve count of domains
+    rpc GetDomainsCount(GetDomainsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/domains/count"
+      };
+    }
+    // Get a domain
+    rpc GetDomainsId(GetDomainsIdRequest) returns (Api.Core.Dto.Domains) {
+      option (google.api.http) = {
+        get: "/domains/{id}"
+      };
+    }
+    // Update a domain
+    rpc PostDomainsId(PostDomainsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/domains/{id}"
+        body: "value"
+      };
+    }
+    // Delete a domain
+    rpc DeleteDomainsId(DeleteDomainsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/domains/{id}"
+      };
+    }
+    // List of all the groups associated to the user.
+    rpc GetGroups(GetGroupsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/groups"
+      };
+    }
+    // Create a group
+    rpc PostGroups(PostGroupsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/groups"
+        body: "value"
+      };
+    }
+    // Retrieve statistics about this customer for a timeframe by groups
+    rpc GetGroupsAggregated(GetGroupsAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/groups/aggregated"
+      };
+    }
+    // Retrieve statistics about all groups of this customer for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetGroupsAggregatedList(GetGroupsAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/groups/aggregated/list"
+      };
+    }
+    // Count the groups associated to the user.
+    rpc GetGroupsCount(GetGroupsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/groups/count"
+      };
+    }
+    // Get a group
+    rpc GetGroupsId(GetGroupsIdRequest) returns (Api.Core.Dto.Groups) {
+      option (google.api.http) = {
+        get: "/groups/{id}"
+      };
+    }
+    // Update a group
+    rpc PostGroupsId(PostGroupsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/groups/{id}"
+        body: "value"
+      };
+    }
+    // Delete group specified by id
+    rpc DeleteGroupsId(DeleteGroupsIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/groups/{id}"
+      };
+    }
+    // Retrieve statistics about this group for a timeframe
+    rpc GetGroupsIdAggregated(GetGroupsIdAggregatedRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/groups/{id}/aggregated"
+      };
+    }
+    // Retrieve statistics about this group for a timeframe grouped by some temporal entity (day/week/month)
+    rpc GetGroupsIdAggregatedList(GetGroupsIdAggregatedListRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/groups/{id}/aggregated/list"
+      };
+    }
+    // Retrieve statistics about a subset of datapoints for a timeframe with datapoints data
+    rpc GetGroupsIdAggregatedSummary(GetGroupsIdAggregatedSummaryRequest) returns (Api.Core.Dto.Aggregated) {
+      option (google.api.http) = {
+        get: "/groups/{id}/aggregated/summary"
+      };
+    }
+    // List of all the datapoints associated to the user in this group.
+    rpc GetGroupsIdDatapoints(GetGroupsIdDatapointsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/groups/{id}/datapoints"
+      };
+    }
+    // Create a datapoint in this group
+    rpc PostGroupsIdDatapoints(PostGroupsIdDatapointsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/groups/{id}/datapoints"
+        body: "value"
+      };
+    }
+    // Count the datapoints associated to the user in this group.
+    rpc GetGroupsIdDatapointsCount(GetGroupsIdDatapointsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/groups/{id}/datapoints/count"
+      };
+    }
+    // Fast switch the "favourite" field of a group
+    rpc PutGroupsIdFavourite(PutGroupsIdFavouriteRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/groups/{id}/favourite"
+      };
+    }
+    // Retrieve the list of events related to this group.
+    rpc GetGroupsIdHits(GetGroupsIdHitsRequest) returns (Api.Core.Dto.ClickStream) {
+      option (google.api.http) = {
+        get: "/groups/{id}/hits"
+      };
+    }
+    // Fast patch the "notes" field of a group
+    rpc PutGroupsIdNotes(PutGroupsIdNotesRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/groups/{id}/notes"
+        body: "note"
+      };
+    }
+    // Retrieve a top report connected to this group
+    rpc GetGroupsIdReports(GetGroupsIdReportsRequest) returns (Api.Core.Dto.Tops) {
+      option (google.api.http) = {
+        get: "/groups/{id}/reports"
+      };
+    }
+    // Retrieve the list of events related to this account.
+    rpc GetHits(GetHitsRequest) returns (Api.Core.Dto.ClickStream) {
+      option (google.api.http) = {
+        get: "/hits"
+      };
+    }
+    // Retrieve current account data
+    rpc GetMe(google.protobuf.Empty) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/me"
+      };
+    }
+    // Retrieve current account plan
+    rpc GetMePlan(google.protobuf.Empty) returns (Api.Core.Dto.Accounting) {
+      option (google.api.http) = {
+        get: "/me/plan"
+      };
+    }
+    // Retrieve a top report
+    rpc GetReports(GetReportsRequest) returns (Api.Core.Dto.Tops) {
+      option (google.api.http) = {
+        get: "/reports"
+      };
+    }
+    // List of all the retargeting scripts associated to the user
+    rpc GetRetargeting(GetRetargetingRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/retargeting"
+      };
+    }
+    // Creates a retargeting script
+    rpc PostRetargeting(PostRetargetingRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/retargeting"
+        body: "value"
+      };
+    }
+    // Retrieve count of retargeting scripts
+    rpc GetRetargetingCount(google.protobuf.Empty) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/retargeting/count"
+      };
+    }
+    // Get a retargeting script object
+    rpc GetRetargetingId(GetRetargetingIdRequest) returns (Api.Core.Dto.Retargeting) {
+      option (google.api.http) = {
+        get: "/retargeting/{id}"
+      };
+    }
+    // Updates a retargeting script
+    rpc PostRetargetingId(PostRetargetingIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/retargeting/{id}"
+        body: "value"
+      };
+    }
+    // Deletes a retargeting script (and remove associations)
+    rpc DeleteRetargetingId(DeleteRetargetingIdRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/retargeting/{id}"
+      };
+    }
+    // List of all the datapoints associated to the retargeting script.
+    rpc GetRetargetingIdDatapoints(GetRetargetingIdDatapointsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/retargeting/{id}/datapoints"
+      };
+    }
+    // Count the datapoints associated to the retargeting script.
+    rpc GetRetargetingIdDatapointsCount(GetRetargetingIdDatapointsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/retargeting/{id}/datapoints/count"
+      };
+    }
+    // List of all the groups associated to the user filtered by this tag.
+    rpc GetTags(GetTagsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/tags"
+      };
+    }
+    // Create a tag
+    rpc PostTags(PostTagsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        post: "/tags"
+        body: "value"
+      };
+    }
+    // List of all the groups associated to the user filtered by this tag.
+    rpc GetTagsCount(GetTagsCountRequest) returns (System) {
+      option (google.api.http) = {
+        get: "/tags/count"
+      };
+    }
+    // Retrieve a tag
+    rpc GetTagsTagId(GetTagsTagIdRequest) returns (Api.Core.Dto.Tags) {
+      option (google.api.http) = {
+        get: "/tags/{tagId}"
+      };
+    }
+    // Delete a tag
+    rpc DeleteTagsTagId(DeleteTagsTagIdRequest) returns (System) {
+      option (google.api.http) = {
+        delete: "/tags/{tagId}"
+      };
+    }
+    // List of all the datapoints associated to the user filtered by this tag
+    rpc GetTagsTagIdDatapoints(GetTagsTagIdDatapointsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/tags/{tagId}/datapoints"
+      };
+    }
+    // Delete the association of this tag with all datapoints
+    rpc DeleteTagsTagIdDatapoints(DeleteTagsTagIdDatapointsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/tags/{tagId}/datapoints"
+      };
+    }
+    // Count the datapoints associated to the user filtered by this tag
+    rpc GetTagsTagIdDatapointsCount(GetTagsTagIdDatapointsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/tags/{tagId}/datapoints/count"
+      };
+    }
+    // Associate/Deassociate a tag with a datapoint
+    rpc PutTagsTagIdDatapointsPatch(PutTagsTagIdDatapointsPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/tags/{tagId}/datapoints/patch"
+        body: "data"
+      };
+    }
+    // List of all the groups associated to the user filtered by this tag.
+    rpc GetTagsTagIdGroups(GetTagsTagIdGroupsRequest) returns (Api.Core.Responses.EntitiesResponse[Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        get: "/tags/{tagId}/groups"
+      };
+    }
+    // Delete the association of this tag with all groups
+    rpc DeleteTagsTagIdGroups(DeleteTagsTagIdGroupsRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        delete: "/tags/{tagId}/groups"
+      };
+    }
+    // Count the groups associated to the user filtered by this tag
+    rpc GetTagsTagIdGroupsCount(GetTagsTagIdGroupsCountRequest) returns (Api.Core.Responses) {
+      option (google.api.http) = {
+        get: "/tags/{tagId}/groups/count"
+      };
+    }
+    // Associate/Deassociate a tag with a group
+    rpc PutTagsTagIdGroupsPatch(PutTagsTagIdGroupsPatchRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/tags/{tagId}/groups/patch"
+        body: "data"
+      };
+    }
+    // Fast patch a tag name
+    rpc PutTagsTagIdName(PutTagsTagIdNameRequest) returns (Api.Core.Responses.EntityUri[System) {
+      option (google.api.http) = {
+        put: "/tags/{tagId}/name"
+        body: "data"
+      };
+    }
+}

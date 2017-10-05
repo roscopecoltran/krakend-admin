@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package acceleratedmobilepages(amp)url;
+
+message PostV1AmpUrls:BatchGetRequest {
+    $.xgafv $.xgafv = 1;
+    string access_token = 2;
+    alt alt = 3;
+    string bearer_token = 4;
+    BatchGetAmpUrlsRequest body = 5;
+    string callback = 6;
+    string fields = 7;
+    string key = 8;
+    string oauth_token = 9;
+    boolean pp = 10;
+    boolean prettyPrint = 11;
+    string quotaUser = 12;
+    string uploadType = 13;
+    string upload_protocol = 14;
+}
+
+enum $.Xgafv {
+    $XGAFV_1 = 0;
+    $XGAFV_2 = 1;
+}
+
+message AmpUrl {
+    // The AMP URL pointing to the publisher's web server.
+    string ampUrl = 1;
+    // The [AMP Cache URL](/amp/cache/overview#amp-cache-url-format) pointing to
+    // the cached document in the Google AMP Cache.
+    string cdnAmpUrl = 2;
+    // The original non-AMP URL.
+    string originalUrl = 3;
+}
+
+message AmpUrlError {
+    // The error code of an API call.
+    enum AmpUrlError_ErrorCode {
+        AMPURLERROR_ERRORCODE_ERROR_CODE_UNSPECIFIED = 0;
+        AMPURLERROR_ERRORCODE_INPUT_URL_NOT_FOUND = 1;
+        AMPURLERROR_ERRORCODE_NO_AMP_URL = 2;
+        AMPURLERROR_ERRORCODE_APPLICATION_ERROR = 3;
+        AMPURLERROR_ERRORCODE_URL_IS_VALID_AMP = 4;
+        AMPURLERROR_ERRORCODE_URL_IS_INVALID_AMP = 5;
+    }
+    AmpUrlError_ErrorCode errorCode = 1;
+    // An optional descriptive error message.
+    string errorMessage = 2;
+    // The original non-AMP URL.
+    string originalUrl = 3;
+}
+
+message BatchGetAmpUrlsRequest {
+    // The lookup_strategy being requested.
+    enum BatchGetAmpUrlsRequest_LookupStrategy {
+        BATCHGETAMPURLSREQUEST_LOOKUPSTRATEGY_FETCH_LIVE_DOC = 0;
+        BATCHGETAMPURLSREQUEST_LOOKUPSTRATEGY_IN_INDEX_DOC = 1;
+    }
+    BatchGetAmpUrlsRequest_LookupStrategy lookupStrategy = 1;
+    // List of URLs to look up for the paired AMP URLs.
+    // The URLs are case-sensitive. Up to 50 URLs per lookup
+    // (see [Usage Limits](/amp/cache/reference/limits)).
+    repeated string urls = 2;
+}
+
+message BatchGetAmpUrlsResponse {
+    // For each URL in BatchAmpUrlsRequest, the URL response. The response might
+    // not be in the same order as URLs in the batch request.
+    // If BatchAmpUrlsRequest contains duplicate URLs, AmpUrl is generated
+    // only once.
+    repeated AmpUrl ampUrls = 1;
+    // The errors for requested URLs that have no AMP URL.
+    repeated AmpUrlError urlErrors = 2;
+}
+
+enum Alt {
+    JSON = 0;
+    MEDIA = 1;
+    PROTO = 2;
+}
+
+service AcceleratedMobilePages(AMP)URLService {
+    // Returns AMP URL(s) and equivalent
+    // [AMP Cache URL(s)](/amp/cache/overview#amp-cache-url-format).
+    rpc PostV1AmpUrls:BatchGet(PostV1AmpUrls:BatchGetRequest) returns (BatchGetAmpUrlsResponse) {
+      option (google.api.http) = {
+        post: "//v1/ampUrls:batchGet"
+        body: "body"
+      };
+    }
+}

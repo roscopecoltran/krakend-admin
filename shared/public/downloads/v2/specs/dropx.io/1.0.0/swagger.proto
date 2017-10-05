@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package dropx;
+
+message GetProductsRequest {
+    // search array of ids
+    string pids = 1;
+}
+
+message GetProductsLinkSearchRequest {
+    // A valid e commerce website link(eg. www.flipkart.com or http://www.amazon.in) by a ',' seperated values to filter response by required e-commerce providers
+    string providers = 1;
+    // URL must be a url encoded value
+    string url = 2;
+}
+
+message GetProductsLinkSearchV2Request {
+    // A valid e commerce website link(eg. www.flipkart.com or http://www.amazon.in) by a ',' seperated values to filter response by required e-commerce providers
+    string providers = 1;
+    // URL must be a url encoded value
+    string url = 2;
+}
+
+message GetProductsSearchRequest {
+    // A valid e commerce website link(eg. www.flipkart.com or http://www.amazon.in) by a ',' seperated values to filter response by required e-commerce providers
+    string providers = 1;
+    // search terms giving any title of products that are sold online
+    string term = 2;
+}
+
+message GetProductsSearchV2Request {
+    // A valid e commerce website link(eg. www.flipkart.com or http://www.amazon.in) by a ',' seperated values to filter response by required e-commerce providers
+    string providers = 1;
+    // search terms giving any title of products that are sold online
+    string term = 2;
+}
+
+message GetProductsTitleSearchRequest {
+    // search terms giving any title of products that are sold online
+    string term = 1;
+}
+
+service DropXService {
+    // Get product details by providing the product IDs
+    // 
+    // Returns product details
+    rpc GetProducts(GetProductsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/"
+      };
+    }
+    // Search for similar products by providing a link to any e-commerce product.
+    // 
+    // Returns list of e-commerce product that are close to the one provided -- one from each provider
+    rpc GetProductsLinkSearch(GetProductsLinkSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/link-search"
+      };
+    }
+    // Search for similar products by providing a link to any e-commerce product.
+    // 
+    // Returns list of e-commerce product that are close to the one provided -- one from each provider
+    rpc GetProductsLinkSearchV2(GetProductsLinkSearchV2Request) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/link-search-v2"
+      };
+    }
+    // Search for any product using title
+    // 
+    // Returns one unique result from every provider that dropx.io tracks
+    rpc GetProductsSearch(GetProductsSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/search"
+      };
+    }
+    // Search for any product using title
+    // 
+    // Returns one unique result from every provider that dropx.io tracks
+    rpc GetProductsSearchV2(GetProductsSearchV2Request) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/search-v2"
+      };
+    }
+    // Search for any product using title
+    // 
+    // Returns list of product ids
+    rpc GetProductsTitleSearch(GetProductsTitleSearchRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/products/title-search"
+      };
+    }
+    // Get API usuage details
+    // 
+    // Returns API request consumption details.
+    rpc GetUsersUsage(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/users/usage"
+      };
+    }
+}

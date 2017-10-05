@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package drivebc'sopen511;
+
+message GetAreasRequest {
+    // The format of the response
+    enum GetAreasRequest_Format {
+        GETAREASREQUEST_FORMAT_JSON = 0;
+        GETAREASREQUEST_FORMAT_XML = 1;
+    }
+    GetAreasRequest_Format format = 1;
+}
+
+message GetEventsRequest {
+    // Limits the response to events within one of the specified areas.  An area must be specified as the ID of an item returned by the /areas resource. For example: an area_id of 'drivebc.ca/1' limits events to those within the Lower Mainland District.  The default is to return events in all areas.
+    string area_id = 1;
+    // Limits the response to events that fall within the specified geographical bounding box.  The bbox format must be '[min longitude],[min latitude],[max longitude],[max latitude]' with WGS84 coordinates.  For example: -123.45,48.99,-122.45,49.49.  The default is to return events in all geographical locations.
+    string bbox = 2;
+    // Limits the response to events based on the date and time that the event was created (first recorded). The date/time must be specified in ISO 8601 format, and may be prefixed by one of the following operators [<, <=, >, >=] to indicate 'before', 'before or equal to', 'after' or 'after or equal to' respectively.  For example, >2013-12-01T12:00:00Z requests all events create after Dec. 1, 2015 at 12pm (noon) Coordinated Universal Time.  The default is to return events with any creation time.
+    string created = 3;
+    // Limits the response to events tagged with one of the listed event types.  The possible values include: [CONSTRUCTION, INCIDENT, SPECIAL_EVENT, WEATHER_CONDITION].  Multiple values may be listed, and should be separated by a comma. The default is to return events of all types.
+    enum GetEventsRequest_Event_type {
+        GETEVENTSREQUEST_EVENT_TYPE_CONSTRUCTION = 0;
+        GETEVENTSREQUEST_EVENT_TYPE_SPECIAL_EVENT = 1;
+        GETEVENTSREQUEST_EVENT_TYPE_INCIDENT = 2;
+        GETEVENTSREQUEST_EVENT_TYPE_WEATHER_CONDITION = 3;
+        GETEVENTSREQUEST_EVENT_TYPE_ROAD_CONDITION = 4;
+    }
+    GetEventsRequest_Event_type event_type = 4;
+    // The format of the response
+    enum GetEventsRequest_Format {
+        GETEVENTSREQUEST_FORMAT_JSON = 0;
+        GETEVENTSREQUEST_FORMAT_XML = 1;
+    }
+    GetEventsRequest_Format format = 5;
+    // Limits the response to events reported by a given jurisdiction. The value given must be specified as the ID of a jurisdiction returned by the /jurisdiction resource. The default is to return events from all jurisdictions.
+    string jurisdiction = 6;
+    // Limits the response to events on a given road as specified by the road name.  An example of a valid road name is 'Highway 1'. The default is to return events on all roads.
+    string road_name = 7;
+    // Limits the response to events tagged with one of the listed severity values. The possible values are: [MINOR, MODERATE, MAJOR].  Multiple values may be listed, and should be separated by a comma. The default is to return events of any severity.
+    string severity = 8;
+    // Limits the response to events having a given status.
+    enum GetEventsRequest_Statu {
+        GETEVENTSREQUEST_STATU_ALL = 0;
+        GETEVENTSREQUEST_STATU_ACTIVE = 1;
+        GETEVENTSREQUEST_STATU_ARCHIVED = 2;
+    }
+    GetEventsRequest_Statu status = 9;
+    // Limits the response to events based on the date and time that the event was last updated. The date/time must be specified in ISO 8601 format, and may be prefixed by one of the following operators [<, <=, >, >=] to indicate 'before', 'before or equal to', 'after' or 'after or equal to' respectively.  For example, >2013-12-01T12:00:00Z requests all events updated after Dec. 1, 2015 at 12pm (noon) Coordinated Universal Time. The default is to return events with any update time
+    string updated = 10;
+}
+
+message GetJurisdictionRequest {
+    // The format of the response
+    enum GetJurisdictionRequest_Format {
+        GETJURISDICTIONREQUEST_FORMAT_JSON = 0;
+        GETJURISDICTIONREQUEST_FORMAT_XML = 1;
+    }
+    GetJurisdictionRequest_Format format = 1;
+}
+
+message GetJurisdictiongeographyRequest {
+    // The format of the response
+    enum GetJurisdictiongeographyRequest_Format {
+        GETJURISDICTIONGEOGRAPHYREQUEST_FORMAT_JSON = 0;
+        GETJURISDICTIONGEOGRAPHYREQUEST_FORMAT_XML = 1;
+    }
+    GetJurisdictiongeographyRequest_Format format = 1;
+}
+
+service DriveBC'SOpen511Service {
+    // Lists the geographical areas (e.g. districts) that can be used to filter events.
+    rpc GetAreas(GetAreasRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//areas"
+      };
+    }
+    // Lists road events
+    // 
+    // The events resource provides information about road events (e.g. accidents, construction, special events). The response is a list of event elements matching the filtering parameters if any are provided.
+    rpc GetEvents(GetEventsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//events"
+      };
+    }
+    // Lists the jurisdictions publishing data through this Open511 API implementation
+    rpc GetJurisdiction(GetJurisdictionRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//jurisdiction"
+      };
+    }
+    // Provides the geographical boundaries for all the jurisdictions.
+    rpc GetJurisdictiongeography(GetJurisdictiongeographyRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "//jurisdictiongeography"
+      };
+    }
+}

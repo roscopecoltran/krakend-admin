@@ -1,0 +1,599 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package cenitio-restapispecification;
+
+message GetSetupConnectionResponse {
+    repeated connection items = 1;
+}
+
+message GetSetupConnectionIdRequest {
+    // Connection ID
+    string id = 1;
+}
+
+message DeleteSetupConnectionIdRequest {
+    // Connection ID
+    string id = 1;
+}
+
+message GetSetupConnection_roleResponse {
+    repeated connection_role items = 1;
+}
+
+message GetSetupConnection_roleIdRequest {
+    // Connection role ID
+    string id = 1;
+}
+
+message DeleteSetupConnection_roleIdRequest {
+    // Connection role ID
+    string id = 1;
+}
+
+message GetSetupData_typeResponse {
+    repeated data_type items = 1;
+}
+
+message GetSetupData_typeIdRequest {
+    // data type ID
+    string id = 1;
+}
+
+message DeleteSetupData_typeIdRequest {
+    // data type ID
+    string id = 1;
+}
+
+message GetSetupFlowResponse {
+    repeated flow items = 1;
+}
+
+message GetSetupFlowIdRequest {
+    // Flow ID
+    string id = 1;
+}
+
+message DeleteSetupFlowIdRequest {
+    // Flow ID
+    string id = 1;
+}
+
+message GetSetupNamespaceResponse {
+    repeated namespace items = 1;
+}
+
+message GetSetupNamespaceIdRequest {
+    // Namespace ID.
+    string id = 1;
+}
+
+message DeleteSetupNamespaceIdRequest {
+    // Namespace ID.
+    string id = 1;
+}
+
+message GetSetupObserverResponse {
+    repeated observer items = 1;
+}
+
+message GetSetupObserverIdRequest {
+    // Observer ID
+    string id = 1;
+}
+
+message DeleteSetupObserverIdRequest {
+    // Observer ID
+    string id = 1;
+}
+
+message GetSetupSchedulerResponse {
+    repeated scheduler items = 1;
+}
+
+message GetSetupSchedulerIdRequest {
+    // Scheduler ID
+    string id = 1;
+}
+
+message DeleteSetupSchedulerIdRequest {
+    // Scheduler ID
+    string id = 1;
+}
+
+message GetSetupSchemaResponse {
+    repeated schema items = 1;
+}
+
+message GetSetupSchemaIdRequest {
+    // Schema ID
+    string id = 1;
+}
+
+message DeleteSetupSchemaIdRequest {
+    // Schema ID
+    string id = 1;
+}
+
+message GetSetupTranslatorResponse {
+    repeated translator items = 1;
+}
+
+message GetSetupTranslatorIdRequest {
+    // Translator ID.
+    string id = 1;
+}
+
+message DeleteSetupTranslatorIdRequest {
+    // Translator ID.
+    string id = 1;
+}
+
+message GetSetupWebhookResponse {
+    repeated webhook items = 1;
+}
+
+message GetSetupWebhookIdRequest {
+    // Webhook ID.
+    string id = 1;
+}
+
+message DeleteSetupWebhookIdRequest {
+    // Webhook ID.
+    string id = 1;
+}
+
+message Connection {
+    message Header {
+        string key = 1;
+        string value = 2;
+    }
+    repeated Header headers = 1;
+    string id = 2;
+    string key = 3;
+    string name = 4;
+    namespace namespace = 5;
+    message Parameter {
+        string key = 1;
+        string value = 2;
+    }
+    repeated Parameter parameters = 6;
+    string token = 7;
+    string url = 8;
+}
+
+message Connection_role {
+    repeated connection connection = 1;
+    string id = 2;
+    string name = 3;
+    namespace namespace = 4;
+    repeated webhook webhook = 5;
+}
+
+message Data_type {
+    string id = 1;
+    string model_schema = 2;
+    string name = 3;
+    namespace namespace = 4;
+    string show_navigation_link = 5;
+    string slug = 6;
+    string title = 7;
+    message Type {
+    }
+    Type type = 8;
+}
+
+message Flow {
+    bool active = 1;
+    connection_role connection_role = 2;
+    data_type custom_data_type = 3;
+    message Event {
+    }
+    Event event = 4;
+    string id = 5;
+    string name = 6;
+    namespace namespace = 7;
+    bool notify_request = 8;
+    bool notify_response = 9;
+    translator response_translator = 10;
+    translator translator = 11;
+    webhook webhook = 12;
+}
+
+message Namespace {
+    string id = 1;
+    string name = 2;
+    string slug = 3;
+}
+
+message Observer {
+    data_type data_type = 1;
+    string id = 2;
+    string name = 3;
+    namespace namespace = 4;
+    string triggers = 5;
+    message Type {
+    }
+    Type type = 6;
+}
+
+message Scheduler {
+    bool activated = 1;
+    string expression = 2;
+    string id = 3;
+    string name = 4;
+    namespace namespace = 5;
+}
+
+message Schema {
+    string id = 1;
+    namespace namespace = 2;
+    string schema = 3;
+    string uri = 4;
+}
+
+message Translator {
+    data_type custom_data_type = 1;
+    string id = 2;
+    string name = 3;
+    namespace namespace = 4;
+    data_type source_data_type = 5;
+    enum Translator_Style {
+        TRANSLATOR_STYLE_RUBY = 0;
+        TRANSLATOR_STYLE_LIQUID = 1;
+        TRANSLATOR_STYLE_XSLT = 2;
+    }
+    Translator_Style style = 6;
+    data_type target_data_type = 7;
+    string transformation = 8;
+    enum Translator_Type {
+        TRANSLATOR_TYPE_IMPORT = 0;
+        TRANSLATOR_TYPE_EXPORT = 1;
+        TRANSLATOR_TYPE_CONVERT = 2;
+        TRANSLATOR_TYPE_UPDATE = 3;
+    }
+    Translator_Type type = 9;
+}
+
+message Webhook {
+    message Header {
+        string key = 1;
+        string value = 2;
+    }
+    repeated Header headers = 1;
+    string id = 2;
+    string name = 3;
+    namespace namespace = 4;
+    message Parameter {
+        string key = 1;
+        string value = 2;
+    }
+    repeated Parameter parameters = 5;
+    string path = 6;
+}
+
+service CenitIO-RESTAPISpecificationService {
+    // Returns a list of connections
+    // 
+    // Returns a list of connections you've previously created. The connections are returned in sorted order, with the most recent connection appearing first.
+    rpc GetSetupConnection(google.protobuf.Empty) returns (GetSetupConnectionResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/connection"
+      };
+    }
+    // Create or update a connection
+    // 
+    // Creates or updates the specified connection by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    rpc PostSetupConnection(google.protobuf.Empty) returns (Connection) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/connection"
+      };
+    }
+    // Retrieve an existing connection
+    // 
+    // Retrieves the details of an existing connection. You need only supply the unique connection identifier that was returned upon connection creation.
+    rpc GetSetupConnectionId(GetSetupConnectionIdRequest) returns (Connection) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/connection/{id}"
+      };
+    }
+    // Delete a connection
+    // 
+    // Permanently deletes a connection. It cannot be undone.
+    rpc DeleteSetupConnectionId(DeleteSetupConnectionIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/connection/{id}"
+      };
+    }
+    // Returns a list of connection roles
+    // 
+    // Returns a list of connection roles you've previously created. The connection roles are returned in sorted order, with the most recent connection role appearing first.
+    rpc GetSetupConnection_role(google.protobuf.Empty) returns (GetSetupConnection_roleResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/connection_role"
+      };
+    }
+    // Create or update a connection role
+    // 
+    // Creates or updates the specified connection role by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    rpc PostSetupConnection_role(google.protobuf.Empty) returns (Connection_role) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/connection_role"
+      };
+    }
+    // Return a connection role
+    // 
+    // Returns a connection role
+    rpc GetSetupConnection_roleId(GetSetupConnection_roleIdRequest) returns (Connection_role) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/connection_role/{id}"
+      };
+    }
+    // Delete a connection role.
+    // 
+    // Deletes the specified connection role.
+    rpc DeleteSetupConnection_roleId(DeleteSetupConnection_roleIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/connection_role/{id}"
+      };
+    }
+    // Returns a list of data types
+    // 
+    // Returns a list of data types you've previously created. The data types are returned in sorted order, with the most recent DataType appearing first.
+    rpc GetSetupData_type(google.protobuf.Empty) returns (GetSetupData_typeResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/data_type/"
+      };
+    }
+    // Create or update a data type
+    // 
+    // Creates or updates the specified data type by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    rpc PostSetupData_type(google.protobuf.Empty) returns (Data_type) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/data_type/"
+      };
+    }
+    // Retrieve a data type
+    // 
+    // Retrieves the details of an existing data type. You need only supply the unique data  type identifier that was returned upon DataType creation.
+    rpc GetSetupData_typeId(GetSetupData_typeIdRequest) returns (Data_type) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/data_type/{id}"
+      };
+    }
+    // Delete a data type
+    // 
+    // Deletes the specified data type.
+    rpc DeleteSetupData_typeId(DeleteSetupData_typeIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/data_type/{id}"
+      };
+    }
+    // Returns a list of flows
+    // 
+    // Returns a list of flows you've previously created. The flows are returned in sorted order, with the most recent flow appearing first.
+    rpc GetSetupFlow(google.protobuf.Empty) returns (GetSetupFlowResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/flow/"
+      };
+    }
+    // Create or update a flow
+    // 
+    // Creates or updates the specified flow. Any parameters not provided will be left unchanged.
+    rpc PostSetupFlow(google.protobuf.Empty) returns (Flow) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/flow/"
+      };
+    }
+    // Retrieve an existing flow
+    // 
+    // Retrieves the details of an existing flow. You need only supply the unique flow identifier that was returned upon flow creation.
+    rpc GetSetupFlowId(GetSetupFlowIdRequest) returns (Flow) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/flow/{id}"
+      };
+    }
+    // Delete a flow.
+    // 
+    // Deletes the specified flow.
+    rpc DeleteSetupFlowId(DeleteSetupFlowIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/flow/{id}"
+      };
+    }
+    // Returns a list of namespaces
+    // 
+    // Returns a list of namespaces you've previously created. The namespaces are returned in sorted order, with the most recent namespace appearing first.
+    rpc GetSetupNamespace(google.protobuf.Empty) returns (GetSetupNamespaceResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/namespace/"
+      };
+    }
+    // Create or update a namespace
+    // 
+    // Creates or updates the specified namespace. Any parameters not provided will be left unchanged.
+    rpc PostSetupNamespace(google.protobuf.Empty) returns (Namespace) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/namespace/"
+      };
+    }
+    // Retrieve an existing namespace
+    // 
+    // Retrieves the details of an existing namespace. You need only supply the unique webhook namespace that was returned upon namespace creation.
+    rpc GetSetupNamespaceId(GetSetupNamespaceIdRequest) returns (Namespace) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/namespace/{id}"
+      };
+    }
+    // Delete a namespace
+    // 
+    // Deletes the specified namespace.
+    rpc DeleteSetupNamespaceId(DeleteSetupNamespaceIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/namespace/{id}"
+      };
+    }
+    // Returns a list of events
+    // 
+    // Returns a list of events you've previously created. The events are returned in sorted order, with the most recent event appearing first.
+    rpc GetSetupObserver(google.protobuf.Empty) returns (GetSetupObserverResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/observer/"
+      };
+    }
+    // Create or update an event
+    // 
+    // Creates or updates the specified event observer. Any parameters not provided will be left unchanged.
+    rpc PostSetupObserver(google.protobuf.Empty) returns (Observer) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/observer/"
+      };
+    }
+    // Retrieve an existing event
+    // 
+    // Retrieves the details of an existing event. You need only supply the unique event identifier that was returned upon event creation.
+    rpc GetSetupObserverId(GetSetupObserverIdRequest) returns (Observer) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/observer/{id}"
+      };
+    }
+    // Delete an event
+    // 
+    // Deletes the specified event observer.
+    rpc DeleteSetupObserverId(DeleteSetupObserverIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/observer/{id}"
+      };
+    }
+    // Returns a list of schedulers
+    // 
+    // Returns a list of schedulers you've previously created. The schedulers are returned in sorted order, with the most recent scheduler appearing first.
+    rpc GetSetupScheduler(google.protobuf.Empty) returns (GetSetupSchedulerResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/scheduler/"
+      };
+    }
+    // Create or update an scheduler
+    // 
+    // Creates or updates the specified scheduler. Any parameters not provided will be left unchanged.
+    rpc PostSetupScheduler(google.protobuf.Empty) returns (Scheduler) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/scheduler/"
+      };
+    }
+    // Retrieve an existing schedule
+    // 
+    // Retrieves the details of an existing scheduler. You need only supply the unique scheduler identifier that was returned upon scheduler creation.
+    rpc GetSetupSchedulerId(GetSetupSchedulerIdRequest) returns (Scheduler) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/scheduler/{id}"
+      };
+    }
+    // Delete an schedule
+    // 
+    // Deletes the specified scheduler.
+    rpc DeleteSetupSchedulerId(DeleteSetupSchedulerIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/scheduler/{id}"
+      };
+    }
+    // Returns a list of schemas
+    // 
+    // Returns a list of schemas you've previously created. The schemas are returned in sorted order, with the most recent schema appearing first.
+    rpc GetSetupSchema(google.protobuf.Empty) returns (GetSetupSchemaResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/schema/"
+      };
+    }
+    // Create or update an schema
+    // 
+    // Creates or updates the specified schema. Any parameters not provided will be left unchanged.
+    rpc PostSetupSchema(google.protobuf.Empty) returns (Schema) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/schema/"
+      };
+    }
+    // Retrieve an existing schema
+    // 
+    // Retrieves the details of an existing schema. You need only supply the unique schema identifier that was returned upon schema creation.
+    rpc GetSetupSchemaId(GetSetupSchemaIdRequest) returns (Schema) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/schema/{id}"
+      };
+    }
+    // Delete an schema.
+    // 
+    // Deletes the specified schema.
+    rpc DeleteSetupSchemaId(DeleteSetupSchemaIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/schema/{id}"
+      };
+    }
+    // Returns a list of translators
+    // 
+    // Returns a list of translators you've previously created. The translators are returned in sorted order, with the most recent translator appearing first.
+    rpc GetSetupTranslator(google.protobuf.Empty) returns (GetSetupTranslatorResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/translator/"
+      };
+    }
+    // Create or update a translator
+    // 
+    // Creates or updates the specified translator. Any parameters not provided will be left unchanged.
+    rpc PostSetupTranslator(google.protobuf.Empty) returns (Translator) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/translator/"
+      };
+    }
+    // Retrieve an existing translator
+    // 
+    // Retrieves the details of an existing translator. You need only supply the unique translator identifier that was returned upon translator creation.
+    rpc GetSetupTranslatorId(GetSetupTranslatorIdRequest) returns (Translator) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/translator/{id}"
+      };
+    }
+    // Delete a translator
+    // 
+    // Deletes the specified translator.
+    rpc DeleteSetupTranslatorId(DeleteSetupTranslatorIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/translator/{id}"
+      };
+    }
+    // Returns a list of webhooks
+    // 
+    // Returns a list of webhooks you've previously created. The webhooks are returned in sorted order, with the most recent webhook appearing first.
+    rpc GetSetupWebhook(google.protobuf.Empty) returns (GetSetupWebhookResponse) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/webhook/"
+      };
+    }
+    // Create or update a webhook
+    // 
+    // Creates or updates the specified webhook. Any parameters not provided will be left unchanged.
+    rpc PostSetupWebhook(google.protobuf.Empty) returns (Webhook) {
+      option (google.api.http) = {
+        post: "/api/v1/setup/webhook/"
+      };
+    }
+    // Retrieve an existing webhook
+    // 
+    // Retrieves the details of an existing webhook. You need only supply the unique webhook identifier that was returned upon webhook creation.
+    rpc GetSetupWebhookId(GetSetupWebhookIdRequest) returns (Webhook) {
+      option (google.api.http) = {
+        get: "/api/v1/setup/webhook/{id}"
+      };
+    }
+    // Delete a webhook
+    // 
+    // Deletes the specified webhook.
+    rpc DeleteSetupWebhookId(DeleteSetupWebhookIdRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/api/v1/setup/webhook/{id}"
+      };
+    }
+}

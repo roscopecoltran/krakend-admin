@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package kmeansclusteringbyword2vec;
+
+message PostKmeansWordvectorClusterRequest {
+    // Access Token
+    string access_token = 1;
+    // Clustering request entity
+    ClusteringRequestEntity req = 2;
+}
+
+message ClusterEntity {
+    // center
+    repeated double center = 1;
+    // words
+    repeated FactorEntity words = 2;
+}
+
+message ClusterResponseEntity {
+    // Clusters
+    repeated ClusterEntity clusters = 1;
+    // End date
+    string endTime = 2;
+    // Log message
+    string log = 3;
+    // Cluster num
+    string num = 4;
+    // Process time [millisecond]
+    string processTime = 5;
+    // Start date
+    string startTime = 6;
+}
+
+message ClusteringRequestEntity {
+    // iter [max 100, default 10]
+    int32 iter = 1;
+    // num [max 100, default 10]
+    int32 num = 2;
+    // words [max 1000 words]
+    repeated string words = 3;
+}
+
+message FactorEntity {
+    // similarity
+    double similarity = 1;
+    // word
+    string word = 2;
+}
+
+service KmeansClusteringByWord2vecService {
+    // Words clustering by word2vec
+    // 
+    // kmeans clustering by word2vec.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/clustering-response">clustering-response</a><BR />&nbsp; Class: com.apitore.banana.response.clustering.ClusterResponseEntity<BR />
+    rpc PostKmeansWordvectorCluster(PostKmeansWordvectorClusterRequest) returns (ClusterResponseEntity) {
+      option (google.api.http) = {
+        post: "/api/48/kmeans-wordvector/cluster"
+        body: "req"
+      };
+    }
+}

@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package synqvideo;
+
+message PostVideoCreateRequest {
+    string api_key = 1;
+    // Additional metadata that will be associated with the video
+    string userdata = 2;
+}
+
+message PostVideoDetailsRequest {
+    string api_key = 1;
+    // ID of the video to retrieve the metadata from
+    string video_id = 2;
+}
+
+message PostVideoQueryRequest {
+    string api_key = 1;
+    // JavaScript code to be run over each video object, to determine what should be returend.
+    string filter = 2;
+}
+
+message PostVideoQueryResponse {
+    message Item {
+    }
+    repeated Item items = 1;
+}
+
+message PostVideoStreamRequest {
+    string api_key = 1;
+    // The ID of the video you want to stream to. The video needs to have been previously created.
+    string video_id = 2;
+}
+
+message PostVideoStreamResponse {
+    string playback_url = 1;
+    string stream_url = 2;
+}
+
+message PostVideoUpdateRequest {
+    string api_key = 1;
+    // JavaScript code to execute on the video object.
+    string source = 2;
+    // The ID of the video whose metadata will be updated
+    string video_id = 3;
+}
+
+message PostVideoUploadRequest {
+    string api_key = 1;
+    // The ID of the video you are going to upload into. The video needs to have been previously created.
+    string video_id = 2;
+}
+
+message PostVideoUploaderRequest {
+    string api_key = 1;
+    // How long the uploader widget works for. Anything from '30 minutes' to '2 days'.
+    string timeout = 2;
+    // The ID of the video you are going to upload into. The video needs to have been previously created.
+    string video_id = 3;
+}
+
+message PostVideoUploaderResponse {
+    string uploader_url = 1;
+}
+
+message ErrorObject {
+    message Details {
+    }
+    Details details = 1;
+    string message = 2;
+    string name = 3;
+    string url = 4;
+}
+
+message StreamConfigurationObject {
+    string rtmp_host = 1;
+    string rtmp_key = 2;
+    string rtmp_port = 3;
+    string rtmp_url = 4;
+}
+
+message UploadParameterObject {
+    string AWSAccessKeyId = 1;
+    string Content_Type = 2;
+    string Policy = 3;
+    string Signature = 4;
+    string acl = 5;
+    string action = 6;
+    string key = 7;
+}
+
+message VideoObject {
+    string created_at = 1;
+    message Input {
+    }
+    Input input = 2;
+    message Outputs {
+    }
+    Outputs outputs = 3;
+    string state = 4;
+    string updated_at = 5;
+    message Userdata {
+    }
+    Userdata userdata = 6;
+    string video_id = 7;
+}
+
+service SYNQVideoService {
+    // Create a new video, optionally setting some metadata fields.
+    // 
+    // Create a new video, optionally setting some metadata fields. You may optionally set some of the metadata associated with the video. Only fields inside the "userdata" field can be set.
+    rpc PostVideoCreate(PostVideoCreateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/video/create"
+      };
+    }
+    // Return details about a video.
+    // 
+    // Return details about a video. You may optionally request that only some of the metadata fields are returned.
+    rpc PostVideoDetails(PostVideoDetailsRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/video/details"
+      };
+    }
+    // Perform a JavaScript query to return video objects matching any desired criteria.
+    // 
+    // Find videos matching any criteria, by running a JavaScript function over each video object. A detailed tutorial on how to use this functionality is available on the [documentation page](https://www.synq.fm/queries-video-api/).
+    rpc PostVideoQuery(PostVideoQueryRequest) returns (PostVideoQueryResponse) {
+      option (google.api.http) = {
+        post: "/v1/video/query"
+      };
+    }
+    // Returns urls for streaming.
+    // 
+    // Returns a stream url that you can stream to from your broadcasting software, and a playback url people can use to watch the stream.
+    rpc PostVideoStream(PostVideoStreamRequest) returns (PostVideoStreamResponse) {
+      option (google.api.http) = {
+        post: "/v1/video/stream"
+      };
+    }
+    // Update a video's metadata.
+    // 
+    // Update a video's metadata through JavaScript code. Only fields inside the "userdata" object can be set.
+    rpc PostVideoUpdate(PostVideoUpdateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/v1/video/update"
+      };
+    }
+    // Return parameters needed for uploading a video file.
+    // 
+    // Return parameters needed for uploading a video file to Amazon Simple Storage Service. See http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-post-example.html as well as the language-specific code-examples.
+    // #### *Example request*
+    // ```shell
+    // curl -s https://api.synq.fm/v1/video/upload \
+    //   -F api_key=${SYNQ_API_KEY} \
+    //   -F video_id=2d81c30ce62f4dfdb501dbca96c7ae56
+    // ```
+    // 
+    // #### *Example response*
+    // ```json
+    // {
+    //   "action": "https://synqfm.s3.amazonaws.com/",
+    //   "AWSAccessKeyId": "AKIAIP77Y7MMX3ITZMFA",
+    //   "Content-Type": "video/mp4",
+    //   "Policy": "eyJleHBpcmF0aW9uIiA6ICIyMDE2LTA0LTIyVDE5OjAyOjI2LjE3MloiLCAiY29uZGl0aW9ucyIgOiBbeyJidWNrZXQiIDogInN5bnFmbSJ9LCB7ImFjbCIgOiAicHVibGljLXJlYWQifSwgWyJzdGFydHMtd2l0aCIsICIka2V5IiwgInByb2plY3RzLzZlLzYzLzZlNjNiNzUyYTE4NTRkZGU4ODViNWNjNDcyZWRmNTY5L3VwbG9hZHMvdmlkZW9zLzJkLzgxLzJkODFjMzBjZTYyZjRkZmRiNTAxZGJjYTk2YzdhZTU2Lm1wNCJdLCBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAidmlkZW8vbXA0Il0sIFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLCAwLCAxMDk5NTExNjI3Nzc2XV19",
+    //   "Signature": "ysqDemlKXKr6hKzVFP0hCGgf/cs=",
+    //   "acl": "public-read",
+    //   "key": "projects/6e/63/6e63b752a1854dde885b5cc472edf569/uploads/videos/2d/81/2d81c30ce62f4dfdb501dbca96c7ae56.mp4"
+    // }
+    // ```
+    // 
+    // To upload the file, you can then make a multipart POST request to the URL in `action`, and for all the other parameters returned, set them as form parameters.
+    // 
+    // Given the parameters above, you would upload a file `test.mp4` using cURL like this:
+    // 
+    // ```shell
+    // curl -s https://synqfm.s3.amazonaws.com/ \
+    //   -F AWSAccessKeyId="AKIAIP77Y7MMX3ITZMFA" \
+    //   -F Content-Type="video/mp4" \
+    //   -F Policy="eyJleHBpcmF0aW9uIiA6ICIyMDE2LTA0LTIyVDE5OjAyOjI2LjE3MloiLCAiY29uZGl0aW9ucyIgOiBbeyJidWNrZXQiIDogInN5bnFmbSJ9LCB7ImFjbCIgOiAicHVibGljLXJlYWQifSwgWyJzdGFydHMtd2l0aCIsICIka2V5IiwgInByb2plY3RzLzZlLzYzLzZlNjNiNzUyYTE4NTRkZGU4ODViNWNjNDcyZWRmNTY5L3VwbG9hZHMvdmlkZW9zLzJkLzgxLzJkODFjMzBjZTYyZjRkZmRiNTAxZGJjYTk2YzdhZTU2Lm1wNCJdLCBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAidmlkZW8vbXA0Il0sIFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLCAwLCAxMDk5NTExNjI3Nzc2XV19" \
+    //   -F Signature="ysqDemlKXKr6hKzVFP0hCGgf/cs=" \
+    //   -F acl="public-read" \
+    //   -F key="projects/6e/63/6e63b752a1854dde885b5cc472edf569/uploads/videos/2d/81/2d81c30ce62f4dfdb501dbca96c7ae56.mp4" \
+    //   -F file="@my_video_file.mp4"
+    // ```
+    // 
+    rpc PostVideoUpload(PostVideoUploadRequest) returns (UploadParameterObject) {
+      option (google.api.http) = {
+        post: "/v1/video/upload"
+      };
+    }
+    // Return embeddable url to an uploader widget
+    // 
+    // Returns an embeddable url, that contains an uploader widget that allows you to easily upload any mp4. Great way to simplify the uploading process for end users.
+    rpc PostVideoUploader(PostVideoUploaderRequest) returns (PostVideoUploaderResponse) {
+      option (google.api.http) = {
+        post: "/v1/video/uploader"
+      };
+    }
+}

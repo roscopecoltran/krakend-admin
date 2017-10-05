@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "google/api/annotations.proto";
+
+package swagger2openapiconverter;
+
+message GetBadgeRequest {
+    // The URL to retrieve the OpenAPI 3.0.x definition from
+    string url = 1;
+}
+
+message PostConvertRequest {
+    // The file to upload and convert
+    string filename = 1;
+    // The text of a Swagger 2.0 definition to convert
+    string source = 2;
+    enum PostConvertRequest_Validate {
+        POSTCONVERTREQUEST_VALIDATE_ON = 0;
+    }
+    PostConvertRequest_Validate validate = 3;
+}
+
+message GetValidateRequest {
+    // The URL to retrieve the OpenAPI 3.0.x definition from
+    string url = 1;
+}
+
+message PostValidateRequest {
+    // The file to upload and validate
+    string filename = 1;
+    // The text of an OpenAPI 3.0.x definition to validate
+    string source = 2;
+}
+
+service Swagger2OpenAPIConverterService {
+    // Return a redirect to a badge svg file depending on a source definition's validity
+    rpc GetBadge(GetBadgeRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/badge"
+      };
+    }
+    // Convert a Swagger 2.0 definition to OpenAPI 3.0.x from a URL
+    rpc GetConvert(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/convert"
+      };
+    }
+    // Convert a Swagger 2.0 definition passed in the body to OpenAPI 3.0.x
+    rpc PostConvert(PostConvertRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v1/convert"
+      };
+    }
+    // Get the status of the API
+    rpc GetStatus(google.protobuf.Empty) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/status"
+      };
+    }
+    // Validate an OpenAPI 3.0.x definition
+    rpc GetValidate(GetValidateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        get: "/api/v1/validate"
+      };
+    }
+    // Validate an OpenAPI 3.0.x definition supplied in the body of the request
+    rpc PostValidate(PostValidateRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        post: "/api/v1/validate"
+      };
+    }
+}
