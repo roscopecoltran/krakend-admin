@@ -1,6 +1,6 @@
 backends:
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-query
+  slug: fusion-tables-v1-query
   url_pattern: /query
   method: GET
   host:
@@ -12,8 +12,6 @@ backends:
   whitelist:
   - columns
   - rows
-  - columns
-  - rows
   - kind
   mapping: {}
   extra_config:
@@ -21,8 +19,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables
+  slug: fusion-tables-v1-tables
   url_pattern: /tables
   method: GET
   host:
@@ -31,17 +29,17 @@ backends:
   - maxResults
   - pageToken
   whitelist:
-  - kind
-  - items
   - nextPageToken
+  - items
+  - kind
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-import
+  slug: fusion-tables-v1-tables-import
   url_pattern: /tables/import
   method: POST
   host:
@@ -51,25 +49,24 @@ backends:
   - delimiter
   - encoding
   whitelist:
+  - name
   - baseTableIds
   - kind
   - description
-  - tableId
-  - columns
-  - name
-  - sql
-  - baseTableIds
-  - isExportable
-  - attribution
   - attributionLink
+  - tableId
+  - attribution
+  - sql
+  - isExportable
+  - columns
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid
+  slug: fusion-tables-v1-tables-tableid
   url_pattern: /tables/{tableId}
   method: GET
   host:
@@ -77,25 +74,24 @@ backends:
   url_keys:
   - tableId
   whitelist:
-  - baseTableIds
+  - sql
   - isExportable
-  - attribution
-  - attributionLink
   - baseTableIds
-  - kind
-  - description
-  - tableId
   - columns
   - name
-  - sql
+  - kind
+  - description
+  - attributionLink
+  - tableId
+  - attribution
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-columns
+  slug: fusion-tables-v1-tables-tableid-columns
   url_pattern: /tables/{tableId}/columns
   method: GET
   host:
@@ -107,8 +103,8 @@ backends:
   - pageToken
   whitelist:
   - items
-  - nextPageToken
   - kind
+  - nextPageToken
   - totalItems
   mapping: {}
   extra_config:
@@ -116,8 +112,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-columns-columnid
+  slug: fusion-tables-v1-tables-tableid-columns-columnid
   url_pattern: /tables/{tableId}/columns/{columnId}
   method: GET
   host:
@@ -126,23 +122,21 @@ backends:
   - tableId
   - columnId
   whitelist:
-  - description
-  - columnId
-  - baseColumn
-  - graph_predicate
-  - baseColumn
-  - name
   - baseColumn
   - type
+  - columnId
   - kind
+  - name
+  - graph_predicate
+  - description
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-copy
+  slug: fusion-tables-v1-tables-tableid-copy
   url_pattern: /tables/{tableId}/copy
   method: POST
   host:
@@ -152,25 +146,24 @@ backends:
   query_string_params:
   - copyPresentation
   whitelist:
+  - isExportable
   - baseTableIds
-  - kind
-  - description
-  - tableId
   - columns
   - name
-  - sql
-  - baseTableIds
-  - isExportable
-  - attribution
+  - kind
+  - description
   - attributionLink
+  - tableId
+  - attribution
+  - sql
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-import
+  slug: fusion-tables-v1-tables-tableid-import
   url_pattern: /tables/{tableId}/import
   method: POST
   host:
@@ -184,16 +177,16 @@ backends:
   - isStrict
   - startLine
   whitelist:
-  - numRowsReceived
   - kind
+  - numRowsReceived
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-styles
+  slug: fusion-tables-v1-tables-tableid-styles
   url_pattern: /tables/{tableId}/styles
   method: GET
   host:
@@ -204,9 +197,9 @@ backends:
   - maxResults
   - pageToken
   whitelist:
+  - nextPageToken
   - kind
   - totalItems
-  - nextPageToken
   - items
   mapping: {}
   extra_config:
@@ -214,8 +207,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-styles-styleid
+  slug: fusion-tables-v1-tables-tableid-styles-styleid
   url_pattern: /tables/{tableId}/styles/{styleId}
   method: GET
   host:
@@ -224,18 +217,18 @@ backends:
   - tableId
   - styleId
   whitelist:
+  - name
   - kind
   - styleId
   - tableId
-  - name
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-tasks
+  slug: fusion-tables-v1-tables-tableid-tasks
   url_pattern: /tables/{tableId}/tasks
   method: GET
   host:
@@ -247,18 +240,18 @@ backends:
   - pageToken
   - startIndex
   whitelist:
-  - items
   - totalItems
-  - nextPageToken
+  - items
   - kind
+  - nextPageToken
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-tasks-taskid
+  slug: fusion-tables-v1-tables-tableid-tasks-taskid
   url_pattern: /tables/{tableId}/tasks/{taskId}
   method: GET
   host:
@@ -267,9 +260,9 @@ backends:
   - tableId
   - taskId
   whitelist:
+  - progress
   - type
   - started
-  - progress
   - kind
   - taskId
   mapping: {}
@@ -278,8 +271,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-templates
+  slug: fusion-tables-v1-tables-tableid-templates
   url_pattern: /tables/{tableId}/templates
   method: GET
   host:
@@ -290,18 +283,18 @@ backends:
   - maxResults
   - pageToken
   whitelist:
-  - totalItems
-  - nextPageToken
   - items
+  - nextPageToken
   - kind
+  - totalItems
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: fusion-tables
-  slug: fusion-tables-v1
+- group: fusion-tables-tables-tableid-templates-templateid
+  slug: fusion-tables-v1-tables-tableid-templates-templateid
   url_pattern: /tables/{tableId}/templates/{templateId}
   method: GET
   host:
@@ -310,13 +303,12 @@ backends:
   - tableId
   - templateId
   whitelist:
-  - tableId
   - automaticColumnNames
   - name
-  - automaticColumnNames
+  - templateId
+  - tableId
   - body
   - kind
-  - templateId
   mapping: {}
   extra_config:
     hosts:

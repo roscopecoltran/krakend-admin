@@ -1,55 +1,156 @@
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-query"
+  slug = "fusion-tables-v1-query"
   url_pattern = "/query"
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["sql", "hdrs", "typed"]
-  whitelist = ["columns", "rows", "columns", "rows", "kind"]
+  whitelist = ["columns", "rows", "kind"]
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
 
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-tables"
+  slug = "fusion-tables-v1-tables"
   url_pattern = "/tables"
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["kind", "items", "nextPageToken"]
+  whitelist = ["nextPageToken", "items", "kind"]
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
 
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-tables-import"
+  slug = "fusion-tables-v1-tables-import"
   url_pattern = "/tables/import"
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["name", "delimiter", "encoding"]
-  whitelist = ["baseTableIds", "kind", "description", "tableId", "columns", "name", "sql", "baseTableIds", "isExportable", "attribution", "attributionLink"]
+  whitelist = ["name", "baseTableIds", "kind", "description", "attributionLink", "tableId", "attribution", "sql", "isExportable", "columns"]
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
 
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-tables-tableid"
+  slug = "fusion-tables-v1-tables-tableid"
   url_pattern = "/tables/{tableId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
-  whitelist = ["baseTableIds", "isExportable", "attribution", "attributionLink", "baseTableIds", "kind", "description", "tableId", "columns", "name", "sql"]
+  whitelist = ["sql", "isExportable", "baseTableIds", "columns", "name", "kind", "description", "attributionLink", "tableId", "attribution"]
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
 
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-tables-tableid-columns"
+  slug = "fusion-tables-v1-tables-tableid-columns"
   url_pattern = "/tables/{tableId}/columns"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId"]
+  query_string_params = ["maxResults", "pageToken"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-columns-columnid"
+  slug = "fusion-tables-v1-tables-tableid-columns-columnid"
+  url_pattern = "/tables/{tableId}/columns/{columnId}"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId", "columnId"]
+  whitelist = ["baseColumn", "type", "columnId", "kind", "name", "graph_predicate", "description"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-copy"
+  slug = "fusion-tables-v1-tables-tableid-copy"
+  url_pattern = "/tables/{tableId}/copy"
+  method = "POST"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId"]
+  query_string_params = ["copyPresentation"]
+  whitelist = ["isExportable", "baseTableIds", "columns", "name", "kind", "description", "attributionLink", "tableId", "attribution", "sql"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-import"
+  slug = "fusion-tables-v1-tables-tableid-import"
+  url_pattern = "/tables/{tableId}/import"
+  method = "POST"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId"]
+  query_string_params = ["delimiter", "encoding", "endLine", "isStrict", "startLine"]
+  whitelist = ["kind", "numRowsReceived"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-styles"
+  slug = "fusion-tables-v1-tables-tableid-styles"
+  url_pattern = "/tables/{tableId}/styles"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId"]
+  query_string_params = ["maxResults", "pageToken"]
+  whitelist = ["nextPageToken", "kind", "totalItems", "items"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-styles-styleid"
+  slug = "fusion-tables-v1-tables-tableid-styles-styleid"
+  url_pattern = "/tables/{tableId}/styles/{styleId}"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId", "styleId"]
+  whitelist = ["name", "kind", "styleId", "tableId"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-tasks"
+  slug = "fusion-tables-v1-tables-tableid-tasks"
+  url_pattern = "/tables/{tableId}/tasks"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId"]
+  query_string_params = ["maxResults", "pageToken", "startIndex"]
+  whitelist = ["totalItems", "items", "kind", "nextPageToken"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-tasks-taskid"
+  slug = "fusion-tables-v1-tables-tableid-tasks-taskid"
+  url_pattern = "/tables/{tableId}/tasks/{taskId}"
+  method = "GET"
+  host = ["https://www.googleapis.com"]
+  url_keys = ["tableId", "taskId"]
+  whitelist = ["progress", "type", "started", "kind", "taskId"]
+  [backends.extra_config]
+    hosts = ["https://www.googleapis.com"]
+    schemes = ["https"]
+
+[[backends]]
+  group = "fusion-tables-tables-tableid-templates"
+  slug = "fusion-tables-v1-tables-tableid-templates"
+  url_pattern = "/tables/{tableId}/templates"
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
@@ -60,114 +161,13 @@
     schemes = ["https"]
 
 [[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/columns/{columnId}"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId", "columnId"]
-  whitelist = ["description", "columnId", "baseColumn", "graph_predicate", "baseColumn", "name", "baseColumn", "type", "kind"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/copy"
-  method = "POST"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId"]
-  query_string_params = ["copyPresentation"]
-  whitelist = ["baseTableIds", "kind", "description", "tableId", "columns", "name", "sql", "baseTableIds", "isExportable", "attribution", "attributionLink"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/import"
-  method = "POST"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId"]
-  query_string_params = ["delimiter", "encoding", "endLine", "isStrict", "startLine"]
-  whitelist = ["numRowsReceived", "kind"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/styles"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId"]
-  query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["kind", "totalItems", "nextPageToken", "items"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/styles/{styleId}"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId", "styleId"]
-  whitelist = ["kind", "styleId", "tableId", "name"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/tasks"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId"]
-  query_string_params = ["maxResults", "pageToken", "startIndex"]
-  whitelist = ["items", "totalItems", "nextPageToken", "kind"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/tasks/{taskId}"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId", "taskId"]
-  whitelist = ["type", "started", "progress", "kind", "taskId"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
-  url_pattern = "/tables/{tableId}/templates"
-  method = "GET"
-  host = ["https://www.googleapis.com"]
-  url_keys = ["tableId"]
-  query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["totalItems", "nextPageToken", "items", "kind"]
-  [backends.extra_config]
-    hosts = ["https://www.googleapis.com"]
-    schemes = ["https"]
-
-[[backends]]
-  group = "fusion-tables"
-  slug = "fusion-tables-v1"
+  group = "fusion-tables-tables-tableid-templates-templateid"
+  slug = "fusion-tables-v1-tables-tableid-templates-templateid"
   url_pattern = "/tables/{tableId}/templates/{templateId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId", "templateId"]
-  whitelist = ["tableId", "automaticColumnNames", "name", "automaticColumnNames", "body", "kind", "templateId"]
+  whitelist = ["automaticColumnNames", "name", "templateId", "tableId", "body", "kind"]
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

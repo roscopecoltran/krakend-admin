@@ -1,6 +1,6 @@
 backends:
-- group: drive
-  slug: drive-v2
+- group: drive-about
+  slug: drive-v2-about
   url_pattern: /about
   method: GET
   host:
@@ -10,67 +10,38 @@ backends:
   - maxChangeIdCount
   - startChangeId
   whitelist:
+  - teamDriveThemes
   - additionalRoleInfo
+  - features
+  - quotaBytesByService
+  - maxUploadSizes
+  - importFormats
   - kind
-  - languageCode
-  - importFormats
-  - exportFormats
-  - quotaType
-  - folderColorPalette
-  - importFormats
-  - additionalRoleInfo
-  - etag
-  - exportFormats
-  - remainingChangeIds
-  - features
   - largestChangeId
-  - maxUploadSizes
-  - quotaBytesUsedInTrash
-  - importFormats
-  - rootFolderId
-  - quotaBytesByService
-  - selfLink
-  - additionalRoleInfo
-  - domainSharingPolicy
-  - exportFormats
-  - additionalRoleInfo
-  - maxUploadSizes
+  - etag
   - quotaBytesTotal
-  - teamDriveThemes
-  - quotaBytesUsed
-  - teamDriveThemes
-  - features
-  - additionalRoleInfo
-  - importFormats
-  - maxUploadSizes
-  - quotaBytesByService
-  - features
-  - additionalRoleInfo
   - exportFormats
-  - teamDriveThemes
-  - teamDriveThemes
-  - additionalRoleInfo
-  - permissionId
-  - quotaBytesByService
-  - quotaBytesUsedAggregate
-  - teamDriveThemes
-  - additionalRoleInfo
-  - name
-  - features
-  - folderColorPalette
-  - quotaBytesByService
-  - maxUploadSizes
   - isCurrentAppInstalled
-  - importFormats
-  - exportFormats
+  - remainingChangeIds
+  - quotaBytesUsedAggregate
+  - quotaBytesUsed
+  - folderColorPalette
+  - rootFolderId
+  - languageCode
+  - selfLink
+  - quotaBytesUsedInTrash
+  - domainSharingPolicy
+  - name
+  - permissionId
+  - quotaType
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-apps
+  slug: drive-v2-apps
   url_pattern: /apps
   method: GET
   host:
@@ -80,20 +51,19 @@ backends:
   - appFilterMimeTypes
   - languageCode
   whitelist:
-  - etag
-  - selfLink
-  - defaultAppIds
+  - items
   - kind
   - defaultAppIds
-  - items
+  - etag
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-apps-appid
+  slug: drive-v2-apps-appid
   url_pattern: /apps/{appId}
   method: GET
   host:
@@ -101,46 +71,38 @@ backends:
   url_keys:
   - appId
   whitelist:
-  - kind
-  - icons
-  - primaryMimeTypes
-  - supportsOfflineCreate
   - installed
   - secondaryMimeTypes
-  - useByDefault
-  - productId
-  - secondaryMimeTypes
-  - objectType
-  - authorized
-  - openUrlTemplate
-  - hasDriveWideScope
-  - icons
-  - supportsMultiOpen
-  - supportsCreate
-  - icons
-  - createUrl
-  - primaryMimeTypes
-  - productUrl
-  - shortDescription
-  - primaryFileExtensions
-  - icons
-  - name
-  - icons
-  - primaryFileExtensions
-  - id
-  - secondaryFileExtensions
-  - secondaryFileExtensions
-  - supportsImport
   - createInFolderTemplate
+  - primaryMimeTypes
+  - objectType
+  - icons
+  - secondaryFileExtensions
+  - hasDriveWideScope
+  - name
+  - createUrl
+  - id
   - longDescription
+  - supportsMultiOpen
+  - supportsImport
+  - productUrl
+  - primaryFileExtensions
+  - kind
+  - useByDefault
+  - openUrlTemplate
+  - productId
+  - authorized
+  - shortDescription
+  - supportsOfflineCreate
+  - supportsCreate
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-changes
+  slug: drive-v2-changes
   url_pattern: /changes
   method: GET
   host:
@@ -157,22 +119,22 @@ backends:
   - supportsTeamDrives
   - teamDriveId
   whitelist:
+  - kind
+  - nextLink
   - largestChangeId
+  - nextPageToken
+  - newStartPageToken
   - etag
   - selfLink
-  - newStartPageToken
-  - kind
   - items
-  - nextLink
-  - nextPageToken
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-changes-startpagetoken
+  slug: drive-v2-changes-startpagetoken
   url_pattern: /changes/startPageToken
   method: GET
   host:
@@ -189,8 +151,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-changes-watch
+  slug: drive-v2-changes-watch
   url_pattern: /changes/watch
   method: POST
   host:
@@ -207,25 +169,24 @@ backends:
   - supportsTeamDrives
   - teamDriveId
   whitelist:
-  - type
-  - resourceId
-  - address
-  - token
   - params
-  - kind
-  - resourceUri
-  - params
-  - id
   - expiration
+  - address
+  - resourceId
+  - id
   - payload
+  - token
+  - type
+  - resourceUri
+  - kind
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-changes-changeid
+  slug: drive-v2-changes-changeid
   url_pattern: /changes/{changeId}
   method: GET
   host:
@@ -236,22 +197,22 @@ backends:
   - supportsTeamDrives
   - teamDriveId
   whitelist:
-  - id
-  - fileId
-  - teamDriveId
-  - deleted
-  - selfLink
   - modificationDate
   - type
   - kind
+  - deleted
+  - fileId
+  - id
+  - teamDriveId
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-channels-stop
+  slug: drive-v2-channels-stop
   url_pattern: /channels/stop
   method: POST
   host:
@@ -262,8 +223,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files
+  slug: drive-v2-files
   url_pattern: /files
   method: GET
   host:
@@ -281,12 +242,12 @@ backends:
   - supportsTeamDrives
   - teamDriveId
   whitelist:
-  - incompleteSearch
-  - etag
-  - nextPageToken
-  - items
   - selfLink
+  - etag
+  - items
   - nextLink
+  - nextPageToken
+  - incompleteSearch
   - kind
   mapping: {}
   extra_config:
@@ -294,8 +255,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-generateids
+  slug: drive-v2-files-generateids
   url_pattern: /files/generateIds
   method: GET
   host:
@@ -305,7 +266,6 @@ backends:
   - space
   whitelist:
   - kind
-  - ids
   - space
   - ids
   mapping: {}
@@ -314,8 +274,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid
+  slug: drive-v2-files-fileid
   url_pattern: /files/{fileId}
   method: GET
   host:
@@ -329,134 +289,76 @@ backends:
   - supportsTeamDrives
   - updateViewedDate
   whitelist:
-  - imageMediaMetadata
-  - videoMediaMetadata
   - capabilities
   - imageMediaMetadata
-  - imageMediaMetadata
-  - thumbnailLink
-  - owners
-  - labels
-  - version
-  - capabilities
-  - indexableText
-  - fileExtension
-  - folderColorRgb
-  - copyable
-  - labels
-  - thumbnail
-  - createdDate
-  - webContentLink
-  - imageMediaMetadata
-  - ownerNames
-  - imageMediaMetadata
-  - originalFilename
-  - explicitlyTrashed
-  - capabilities
-  - imageMediaMetadata
-  - lastModifyingUserName
-  - title
-  - imageMediaMetadata
-  - openWithLinks
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - labels
-  - capabilities
-  - imageMediaMetadata
-  - shareable
-  - hasThumbnail
-  - videoMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - labels
-  - writersCanShare
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - etag
-  - id
-  - capabilities
-  - capabilities
-  - mimeType
-  - videoMediaMetadata
-  - canReadRevisions
-  - imageMediaMetadata
-  - teamDriveId
-  - lastViewedByMeDate
-  - ownedByMe
-  - spaces
-  - md5Checksum
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - fullFileExtension
-  - capabilities
-  - permissionIds
-  - spaces
-  - kind
-  - labels
-  - capabilities
-  - canComment
-  - shared
-  - capabilities
-  - exportLinks
-  - capabilities
-  - capabilities
-  - labels
-  - selfLink
-  - permissionIds
-  - trashedDate
-  - headRevisionId
-  - description
-  - fileSize
-  - capabilities
-  - imageMediaMetadata
-  - isAppAuthorized
-  - capabilities
-  - thumbnail
-  - sharedWithMeDate
-  - capabilities
-  - markedViewedByMeDate
-  - downloadUrl
-  - properties
-  - imageMediaMetadata
-  - thumbnail
-  - permissions
-  - labels
-  - imageMediaMetadata
-  - defaultOpenWithLink
-  - imageMediaMetadata
-  - editable
-  - indexableText
   - modifiedByMeDate
-  - hasAugmentedPermissions
-  - imageMediaMetadata
-  - embedLink
-  - webViewLink
-  - imageMediaMetadata
-  - parents
-  - openWithLinks
-  - appDataContents
-  - imageMediaMetadata
-  - quotaBytesUsed
-  - thumbnailVersion
-  - exportLinks
-  - capabilities
-  - imageMediaMetadata
-  - alternateLink
-  - modifiedDate
-  - ownerNames
+  - fileSize
+  - writersCanShare
+  - thumbnail
+  - shared
+  - thumbnailLink
   - iconLink
+  - labels
+  - etag
+  - selfLink
+  - ownedByMe
+  - kind
+  - webViewLink
+  - permissions
+  - exportLinks
+  - isAppAuthorized
+  - hasAugmentedPermissions
+  - ownerNames
+  - copyable
+  - videoMediaMetadata
+  - lastViewedByMeDate
+  - spaces
+  - modifiedDate
+  - properties
+  - trashedDate
+  - hasThumbnail
+  - webContentLink
+  - sharedWithMeDate
+  - canComment
+  - mimeType
+  - folderColorRgb
+  - parents
+  - version
+  - title
+  - fullFileExtension
+  - indexableText
+  - headRevisionId
+  - appDataContents
+  - defaultOpenWithLink
+  - canReadRevisions
+  - permissionIds
+  - quotaBytesUsed
+  - description
+  - openWithLinks
+  - fileExtension
+  - editable
+  - teamDriveId
+  - alternateLink
+  - explicitlyTrashed
+  - lastModifyingUserName
+  - id
+  - createdDate
+  - embedLink
+  - shareable
+  - originalFilename
+  - owners
+  - markedViewedByMeDate
+  - md5Checksum
+  - thumbnailVersion
+  - downloadUrl
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-comments
+  slug: drive-v2-files-fileid-comments
   url_pattern: /files/{fileId}/comments
   method: GET
   host:
@@ -469,19 +371,19 @@ backends:
   - pageToken
   - updatedMin
   whitelist:
-  - selfLink
-  - nextPageToken
-  - kind
-  - items
   - nextLink
+  - items
+  - kind
+  - nextPageToken
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-comments-commentid
+  slug: drive-v2-files-fileid-comments-commentid
   url_pattern: /files/{fileId}/comments/{commentId}
   method: GET
   host:
@@ -492,30 +394,28 @@ backends:
   query_string_params:
   - includeDeleted
   whitelist:
-  - modifiedDate
   - context
-  - selfLink
-  - context
-  - context
-  - deleted
-  - anchor
-  - fileId
-  - status
-  - replies
-  - kind
-  - htmlContent
-  - content
   - createdDate
   - commentId
+  - modifiedDate
+  - content
+  - status
+  - selfLink
+  - fileId
+  - htmlContent
+  - deleted
+  - kind
+  - anchor
   - fileTitle
+  - replies
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-comments-commentid-replies
+  slug: drive-v2-files-fileid-comments-commentid-replies
   url_pattern: /files/{fileId}/comments/{commentId}/replies
   method: GET
   host:
@@ -528,19 +428,19 @@ backends:
   - maxResults
   - pageToken
   whitelist:
-  - items
-  - selfLink
-  - kind
   - nextLink
+  - kind
+  - items
   - nextPageToken
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-comments-commentid-replies-replyid
+  slug: drive-v2-files-fileid-comments-commentid-replies-replyid
   url_pattern: /files/{fileId}/comments/{commentId}/replies/{replyId}
   method: GET
   host:
@@ -552,22 +452,22 @@ backends:
   query_string_params:
   - includeDeleted
   whitelist:
-  - createdDate
   - htmlContent
   - verb
+  - modifiedDate
+  - createdDate
+  - replyId
+  - deleted
   - content
   - kind
-  - replyId
-  - modifiedDate
-  - deleted
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-copy
+  slug: drive-v2-files-fileid-copy
   url_pattern: /files/{fileId}/copy
   method: POST
   host:
@@ -584,134 +484,76 @@ backends:
   - timedTextTrackName
   - visibility
   whitelist:
-  - modifiedByMeDate
-  - hasAugmentedPermissions
-  - imageMediaMetadata
-  - embedLink
-  - webViewLink
-  - imageMediaMetadata
-  - parents
-  - openWithLinks
-  - appDataContents
-  - imageMediaMetadata
-  - quotaBytesUsed
-  - thumbnailVersion
-  - exportLinks
-  - capabilities
-  - imageMediaMetadata
-  - alternateLink
-  - modifiedDate
-  - ownerNames
-  - iconLink
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - thumbnailLink
-  - owners
-  - labels
-  - version
-  - capabilities
-  - indexableText
-  - fileExtension
-  - folderColorRgb
-  - copyable
-  - labels
-  - thumbnail
-  - createdDate
-  - webContentLink
-  - imageMediaMetadata
-  - ownerNames
-  - imageMediaMetadata
-  - originalFilename
   - explicitlyTrashed
-  - capabilities
+  - labels
   - imageMediaMetadata
   - lastModifyingUserName
-  - title
-  - imageMediaMetadata
-  - openWithLinks
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - labels
-  - capabilities
-  - imageMediaMetadata
-  - shareable
-  - hasThumbnail
-  - videoMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - labels
-  - writersCanShare
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - etag
   - id
   - capabilities
-  - capabilities
-  - mimeType
-  - videoMediaMetadata
-  - canReadRevisions
-  - imageMediaMetadata
-  - teamDriveId
-  - lastViewedByMeDate
-  - ownedByMe
-  - spaces
-  - md5Checksum
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - fullFileExtension
-  - capabilities
   - permissionIds
-  - spaces
-  - kind
-  - labels
-  - capabilities
-  - canComment
-  - shared
-  - capabilities
+  - createdDate
+  - embedLink
   - exportLinks
-  - capabilities
-  - capabilities
-  - labels
-  - selfLink
-  - permissionIds
-  - trashedDate
-  - headRevisionId
-  - description
-  - fileSize
-  - capabilities
-  - imageMediaMetadata
-  - isAppAuthorized
-  - capabilities
-  - thumbnail
-  - sharedWithMeDate
-  - capabilities
+  - shareable
+  - originalFilename
+  - openWithLinks
+  - owners
   - markedViewedByMeDate
+  - ownerNames
+  - videoMediaMetadata
+  - md5Checksum
+  - thumbnailVersion
   - downloadUrl
-  - properties
-  - imageMediaMetadata
-  - thumbnail
-  - permissions
-  - labels
-  - imageMediaMetadata
-  - defaultOpenWithLink
-  - imageMediaMetadata
-  - editable
   - indexableText
+  - modifiedByMeDate
+  - fileSize
+  - writersCanShare
+  - thumbnail
+  - shared
+  - thumbnailLink
+  - iconLink
+  - etag
+  - selfLink
+  - ownedByMe
+  - kind
+  - webViewLink
+  - permissions
+  - isAppAuthorized
+  - hasAugmentedPermissions
+  - copyable
+  - lastViewedByMeDate
+  - spaces
+  - modifiedDate
+  - properties
+  - trashedDate
+  - hasThumbnail
+  - webContentLink
+  - sharedWithMeDate
+  - canComment
+  - mimeType
+  - folderColorRgb
+  - parents
+  - version
+  - title
+  - fullFileExtension
+  - headRevisionId
+  - defaultOpenWithLink
+  - appDataContents
+  - canReadRevisions
+  - quotaBytesUsed
+  - description
+  - fileExtension
+  - editable
+  - teamDriveId
+  - alternateLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-export
+  slug: drive-v2-files-fileid-export
   url_pattern: /files/{fileId}/export
   method: GET
   host:
@@ -726,8 +568,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-parents
+  slug: drive-v2-files-fileid-parents
   url_pattern: /files/{fileId}/parents
   method: GET
   host:
@@ -736,17 +578,17 @@ backends:
   - fileId
   whitelist:
   - etag
-  - items
   - kind
   - selfLink
+  - items
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-parents-parentid
+  slug: drive-v2-files-fileid-parents-parentid
   url_pattern: /files/{fileId}/parents/{parentId}
   method: GET
   host:
@@ -755,19 +597,19 @@ backends:
   - fileId
   - parentId
   whitelist:
-  - kind
-  - isRoot
-  - selfLink
   - id
+  - kind
+  - selfLink
   - parentLink
+  - isRoot
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-permissions
+  slug: drive-v2-files-fileid-permissions
   url_pattern: /files/{fileId}/permissions
   method: GET
   host:
@@ -779,19 +621,19 @@ backends:
   - pageToken
   - supportsTeamDrives
   whitelist:
-  - nextPageToken
-  - items
-  - kind
-  - etag
   - selfLink
+  - nextPageToken
+  - kind
+  - items
+  - etag
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-permissions-permissionid
+  slug: drive-v2-files-fileid-permissions-permissionid
   url_pattern: /files/{fileId}/permissions/{permissionId}
   method: GET
   host:
@@ -803,38 +645,30 @@ backends:
   - supportsTeamDrives
   whitelist:
   - additionalRoles
-  - withLink
-  - additionalRoles
-  - kind
-  - deleted
-  - teamDrivePermissionDetails
+  - photoLink
   - role
-  - value
+  - withLink
   - teamDrivePermissionDetails
   - expirationDate
-  - authKey
-  - teamDrivePermissionDetails
-  - emailAddress
-  - teamDrivePermissionDetails
-  - teamDrivePermissionDetails
   - domain
-  - teamDrivePermissionDetails
   - etag
-  - teamDrivePermissionDetails
-  - photoLink
-  - selfLink
+  - value
+  - emailAddress
   - name
-  - type
-  - teamDrivePermissionDetails
   - id
+  - type
+  - selfLink
+  - kind
+  - deleted
+  - authKey
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-properties
+  slug: drive-v2-files-fileid-properties
   url_pattern: /files/{fileId}/properties
   method: GET
   host:
@@ -844,16 +678,16 @@ backends:
   whitelist:
   - selfLink
   - kind
-  - items
   - etag
+  - items
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-properties-propertykey
+  slug: drive-v2-files-fileid-properties-propertykey
   url_pattern: /files/{fileId}/properties/{propertyKey}
   method: GET
   host:
@@ -865,19 +699,19 @@ backends:
   - visibility
   whitelist:
   - kind
-  - selfLink
+  - key
+  - value
   - etag
   - visibility
-  - value
-  - key
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-realtime
+  slug: drive-v2-files-fileid-realtime
   url_pattern: /files/{fileId}/realtime
   method: GET
   host:
@@ -892,8 +726,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-revisions
+  slug: drive-v2-files-fileid-revisions
   url_pattern: /files/{fileId}/revisions
   method: GET
   host:
@@ -904,19 +738,19 @@ backends:
   - maxResults
   - pageToken
   whitelist:
-  - nextPageToken
   - etag
   - kind
-  - selfLink
   - items
+  - nextPageToken
+  - selfLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-revisions-revisionid
+  slug: drive-v2-files-fileid-revisions-revisionid
   url_pattern: /files/{fileId}/revisions/{revisionId}
   method: GET
   host:
@@ -925,32 +759,31 @@ backends:
   - fileId
   - revisionId
   whitelist:
-  - lastModifyingUserName
-  - exportLinks
-  - kind
-  - downloadUrl
-  - publishAuto
-  - etag
-  - published
   - publishedOutsideDomain
-  - mimeType
-  - selfLink
-  - pinned
-  - originalFilename
-  - fileSize
-  - md5Checksum
-  - modifiedDate
   - exportLinks
   - id
+  - md5Checksum
+  - downloadUrl
+  - selfLink
   - publishedLink
+  - published
+  - fileSize
+  - originalFilename
+  - publishAuto
+  - kind
+  - modifiedDate
+  - mimeType
+  - etag
+  - pinned
+  - lastModifyingUserName
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-touch
+  slug: drive-v2-files-fileid-touch
   url_pattern: /files/{fileId}/touch
   method: POST
   host:
@@ -960,134 +793,76 @@ backends:
   query_string_params:
   - supportsTeamDrives
   whitelist:
-  - fileSize
-  - capabilities
-  - imageMediaMetadata
-  - isAppAuthorized
-  - capabilities
-  - thumbnail
-  - sharedWithMeDate
-  - capabilities
-  - markedViewedByMeDate
-  - downloadUrl
-  - properties
-  - imageMediaMetadata
-  - thumbnail
-  - permissions
-  - labels
-  - imageMediaMetadata
-  - defaultOpenWithLink
-  - imageMediaMetadata
-  - editable
-  - indexableText
-  - modifiedByMeDate
-  - hasAugmentedPermissions
-  - imageMediaMetadata
-  - embedLink
-  - webViewLink
-  - imageMediaMetadata
-  - parents
-  - openWithLinks
-  - appDataContents
-  - imageMediaMetadata
-  - quotaBytesUsed
-  - thumbnailVersion
-  - exportLinks
-  - capabilities
-  - alternateLink
-  - imageMediaMetadata
-  - modifiedDate
-  - ownerNames
-  - iconLink
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - thumbnailLink
-  - owners
-  - labels
-  - version
-  - capabilities
-  - indexableText
-  - fileExtension
-  - folderColorRgb
-  - copyable
-  - labels
-  - createdDate
-  - thumbnail
-  - webContentLink
-  - imageMediaMetadata
-  - ownerNames
-  - imageMediaMetadata
-  - originalFilename
   - explicitlyTrashed
-  - capabilities
+  - labels
   - imageMediaMetadata
   - lastModifyingUserName
-  - title
-  - imageMediaMetadata
-  - openWithLinks
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - labels
-  - capabilities
-  - imageMediaMetadata
-  - shareable
-  - hasThumbnail
-  - videoMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - labels
-  - writersCanShare
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - etag
   - id
   - capabilities
-  - capabilities
-  - mimeType
-  - videoMediaMetadata
-  - canReadRevisions
-  - imageMediaMetadata
-  - teamDriveId
-  - lastViewedByMeDate
-  - ownedByMe
-  - spaces
-  - md5Checksum
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - fullFileExtension
-  - capabilities
   - permissionIds
-  - spaces
-  - kind
-  - labels
-  - capabilities
-  - canComment
-  - shared
-  - capabilities
+  - createdDate
+  - embedLink
   - exportLinks
-  - capabilities
-  - capabilities
-  - labels
+  - shareable
+  - originalFilename
+  - openWithLinks
+  - owners
+  - markedViewedByMeDate
+  - ownerNames
+  - videoMediaMetadata
+  - md5Checksum
+  - thumbnailVersion
+  - downloadUrl
+  - indexableText
+  - modifiedByMeDate
+  - fileSize
+  - writersCanShare
+  - thumbnail
+  - shared
+  - thumbnailLink
+  - iconLink
+  - etag
   - selfLink
-  - permissionIds
+  - ownedByMe
+  - kind
+  - webViewLink
+  - permissions
+  - isAppAuthorized
+  - hasAugmentedPermissions
+  - copyable
+  - lastViewedByMeDate
+  - spaces
+  - modifiedDate
+  - properties
   - trashedDate
+  - hasThumbnail
+  - webContentLink
+  - sharedWithMeDate
+  - canComment
+  - mimeType
+  - folderColorRgb
+  - parents
+  - version
+  - title
+  - fullFileExtension
   - headRevisionId
+  - defaultOpenWithLink
+  - appDataContents
+  - canReadRevisions
+  - quotaBytesUsed
   - description
+  - fileExtension
+  - editable
+  - teamDriveId
+  - alternateLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-trash
+  slug: drive-v2-files-fileid-trash
   url_pattern: /files/{fileId}/trash
   method: POST
   host:
@@ -1097,134 +872,76 @@ backends:
   query_string_params:
   - supportsTeamDrives
   whitelist:
-  - kind
-  - labels
-  - capabilities
-  - canComment
-  - shared
-  - capabilities
-  - exportLinks
-  - capabilities
-  - capabilities
-  - labels
-  - selfLink
-  - permissionIds
-  - trashedDate
-  - headRevisionId
-  - description
-  - fileSize
-  - capabilities
-  - imageMediaMetadata
-  - isAppAuthorized
-  - capabilities
-  - thumbnail
-  - sharedWithMeDate
-  - capabilities
-  - markedViewedByMeDate
-  - downloadUrl
-  - properties
-  - imageMediaMetadata
-  - thumbnail
-  - permissions
-  - labels
-  - imageMediaMetadata
-  - defaultOpenWithLink
-  - imageMediaMetadata
-  - editable
-  - indexableText
-  - modifiedByMeDate
-  - hasAugmentedPermissions
-  - imageMediaMetadata
-  - embedLink
-  - webViewLink
-  - imageMediaMetadata
-  - parents
-  - openWithLinks
-  - appDataContents
-  - imageMediaMetadata
-  - quotaBytesUsed
-  - thumbnailVersion
-  - exportLinks
-  - capabilities
-  - imageMediaMetadata
-  - alternateLink
-  - modifiedDate
-  - ownerNames
   - iconLink
   - imageMediaMetadata
-  - videoMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - thumbnailLink
-  - owners
   - labels
-  - version
-  - capabilities
-  - indexableText
-  - fileExtension
-  - folderColorRgb
-  - copyable
-  - labels
-  - thumbnail
-  - createdDate
-  - webContentLink
-  - imageMediaMetadata
-  - ownerNames
-  - imageMediaMetadata
-  - originalFilename
-  - explicitlyTrashed
-  - capabilities
-  - imageMediaMetadata
-  - lastModifyingUserName
-  - title
-  - imageMediaMetadata
-  - openWithLinks
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - labels
-  - capabilities
-  - imageMediaMetadata
-  - shareable
-  - hasThumbnail
-  - videoMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - labels
-  - writersCanShare
-  - imageMediaMetadata
-  - videoMediaMetadata
   - etag
-  - id
-  - capabilities
-  - capabilities
-  - mimeType
-  - videoMediaMetadata
-  - canReadRevisions
-  - imageMediaMetadata
-  - teamDriveId
-  - lastViewedByMeDate
+  - selfLink
   - ownedByMe
-  - spaces
-  - md5Checksum
-  - imageMediaMetadata
   - capabilities
-  - imageMediaMetadata
+  - kind
+  - webViewLink
+  - permissions
+  - exportLinks
+  - isAppAuthorized
+  - hasAugmentedPermissions
+  - ownerNames
+  - copyable
+  - videoMediaMetadata
+  - lastViewedByMeDate
+  - spaces
+  - modifiedDate
+  - properties
+  - trashedDate
+  - hasThumbnail
+  - webContentLink
+  - sharedWithMeDate
+  - canComment
+  - mimeType
+  - folderColorRgb
+  - parents
+  - version
+  - title
   - fullFileExtension
-  - capabilities
+  - indexableText
+  - headRevisionId
+  - thumbnail
+  - defaultOpenWithLink
+  - appDataContents
+  - canReadRevisions
   - permissionIds
-  - spaces
+  - quotaBytesUsed
+  - description
+  - openWithLinks
+  - fileExtension
+  - editable
+  - teamDriveId
+  - alternateLink
+  - explicitlyTrashed
+  - lastModifyingUserName
+  - id
+  - createdDate
+  - embedLink
+  - shareable
+  - originalFilename
+  - owners
+  - markedViewedByMeDate
+  - md5Checksum
+  - thumbnailVersion
+  - downloadUrl
+  - modifiedByMeDate
+  - fileSize
+  - writersCanShare
+  - shared
+  - thumbnailLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-untrash
+  slug: drive-v2-files-fileid-untrash
   url_pattern: /files/{fileId}/untrash
   method: POST
   host:
@@ -1234,134 +951,76 @@ backends:
   query_string_params:
   - supportsTeamDrives
   whitelist:
-  - labels
-  - writersCanShare
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - etag
-  - id
-  - capabilities
-  - capabilities
-  - mimeType
-  - videoMediaMetadata
-  - canReadRevisions
-  - imageMediaMetadata
-  - teamDriveId
-  - lastViewedByMeDate
-  - ownedByMe
-  - spaces
-  - md5Checksum
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - fullFileExtension
-  - capabilities
-  - permissionIds
-  - spaces
-  - kind
-  - labels
-  - capabilities
-  - canComment
-  - shared
-  - capabilities
-  - exportLinks
-  - capabilities
-  - capabilities
-  - labels
-  - selfLink
-  - permissionIds
-  - trashedDate
-  - headRevisionId
-  - description
-  - fileSize
-  - capabilities
-  - imageMediaMetadata
-  - isAppAuthorized
-  - capabilities
-  - thumbnail
-  - sharedWithMeDate
-  - capabilities
-  - markedViewedByMeDate
-  - downloadUrl
-  - properties
-  - imageMediaMetadata
-  - thumbnail
-  - permissions
-  - labels
-  - imageMediaMetadata
-  - defaultOpenWithLink
-  - imageMediaMetadata
-  - editable
-  - indexableText
   - modifiedByMeDate
-  - hasAugmentedPermissions
   - imageMediaMetadata
-  - embedLink
-  - webViewLink
-  - imageMediaMetadata
-  - parents
-  - openWithLinks
-  - appDataContents
-  - imageMediaMetadata
-  - quotaBytesUsed
-  - thumbnailVersion
-  - exportLinks
-  - capabilities
-  - imageMediaMetadata
-  - alternateLink
-  - modifiedDate
-  - ownerNames
-  - iconLink
-  - imageMediaMetadata
-  - videoMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - thumbnailLink
-  - owners
-  - labels
-  - version
-  - capabilities
-  - indexableText
-  - fileExtension
-  - folderColorRgb
-  - copyable
-  - labels
+  - fileSize
+  - writersCanShare
   - thumbnail
-  - createdDate
-  - webContentLink
-  - imageMediaMetadata
-  - ownerNames
-  - imageMediaMetadata
-  - originalFilename
-  - explicitlyTrashed
-  - capabilities
-  - imageMediaMetadata
-  - lastModifyingUserName
-  - title
-  - imageMediaMetadata
-  - openWithLinks
-  - imageMediaMetadata
-  - imageMediaMetadata
-  - capabilities
-  - imageMediaMetadata
-  - imageMediaMetadata
+  - shared
+  - thumbnailLink
+  - iconLink
   - labels
+  - etag
+  - selfLink
+  - ownedByMe
   - capabilities
-  - imageMediaMetadata
-  - shareable
-  - hasThumbnail
+  - kind
+  - webViewLink
+  - permissions
+  - exportLinks
+  - isAppAuthorized
+  - hasAugmentedPermissions
+  - ownerNames
+  - copyable
   - videoMediaMetadata
-  - imageMediaMetadata
-  - capabilities
+  - lastViewedByMeDate
+  - spaces
+  - modifiedDate
+  - properties
+  - trashedDate
+  - hasThumbnail
+  - webContentLink
+  - sharedWithMeDate
+  - canComment
+  - mimeType
+  - folderColorRgb
+  - parents
+  - version
+  - title
+  - fullFileExtension
+  - indexableText
+  - headRevisionId
+  - appDataContents
+  - defaultOpenWithLink
+  - canReadRevisions
+  - permissionIds
+  - quotaBytesUsed
+  - description
+  - openWithLinks
+  - fileExtension
+  - editable
+  - teamDriveId
+  - alternateLink
+  - explicitlyTrashed
+  - lastModifyingUserName
+  - id
+  - createdDate
+  - embedLink
+  - shareable
+  - originalFilename
+  - owners
+  - markedViewedByMeDate
+  - md5Checksum
+  - thumbnailVersion
+  - downloadUrl
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-fileid-watch
+  slug: drive-v2-files-fileid-watch
   url_pattern: /files/{fileId}/watch
   method: POST
   host:
@@ -1375,16 +1034,15 @@ backends:
   - supportsTeamDrives
   - updateViewedDate
   whitelist:
-  - resourceUri
   - params
-  - id
   - expiration
-  - payload
-  - type
   - address
   - resourceId
+  - id
+  - payload
   - token
-  - params
+  - type
+  - resourceUri
   - kind
   mapping: {}
   extra_config:
@@ -1392,8 +1050,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-folderid-children
+  slug: drive-v2-files-folderid-children
   url_pattern: /files/{folderId}/children
   method: GET
   host:
@@ -1406,20 +1064,20 @@ backends:
   - pageToken
   - q
   whitelist:
-  - etag
+  - selfLink
   - kind
   - nextPageToken
-  - items
-  - selfLink
   - nextLink
+  - items
+  - etag
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-files-folderid-children-childid
+  slug: drive-v2-files-folderid-children-childid
   url_pattern: /files/{folderId}/children/{childId}
   method: GET
   host:
@@ -1428,18 +1086,18 @@ backends:
   - folderId
   - childId
   whitelist:
-  - id
-  - childLink
   - kind
+  - id
   - selfLink
+  - childLink
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-permissionids-email
+  slug: drive-v2-permissionids-email
   url_pattern: /permissionIds/{email}
   method: GET
   host:
@@ -1447,16 +1105,16 @@ backends:
   url_keys:
   - email
   whitelist:
-  - kind
   - id
+  - kind
   mapping: {}
   extra_config:
     hosts:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-teamdrives
+  slug: drive-v2-teamdrives
   url_pattern: /teamdrives
   method: GET
   host:
@@ -1474,8 +1132,8 @@ backends:
     - https://www.googleapis.com
     schemes:
     - https
-- group: drive
-  slug: drive-v2
+- group: drive-teamdrives-teamdriveid
+  slug: drive-v2-teamdrives-teamdriveid
   url_pattern: /teamdrives/{teamDriveId}
   method: GET
   host:
@@ -1483,32 +1141,14 @@ backends:
   url_keys:
   - teamDriveId
   whitelist:
-  - backgroundImageFile
-  - themeId
-  - id
-  - backgroundImageLink
-  - capabilities
-  - capabilities
-  - capabilities
-  - capabilities
-  - name
-  - capabilities
   - capabilities
   - kind
-  - capabilities
   - backgroundImageFile
-  - capabilities
-  - capabilities
+  - name
+  - backgroundImageLink
+  - id
+  - themeId
   - colorRgb
-  - capabilities
-  - capabilities
-  - backgroundImageFile
-  - capabilities
-  - backgroundImageFile
-  - capabilities
-  - capabilities
-  - capabilities
-  - backgroundImageFile
   mapping: {}
   extra_config:
     hosts:

@@ -113,6 +113,25 @@ func findKey(input string, flatmap map[string]interface{}) string {
 	return ""
 }
 
+func removeDuplicates(elements []string) []string {
+	// Use map to record duplicates as we find them.
+	encountered := map[string]bool{}
+	result := []string{}
+
+	for v := range elements {
+		if encountered[elements[v]] == true {
+			// Do not add duplicate.
+		} else {
+			// Record this element as an encountered element.
+			encountered[elements[v]] = true
+			// Append to result slice.
+			result = append(result, elements[v])
+		}
+	}
+	// Return the new slice.
+	return result
+}
+
 func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 	_, err := os.Stat(swaggerFile)
 	if err != nil {
@@ -325,7 +344,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					}
 				}
 				if len(fieldList) > 0 {
-					backend.Whitelist = fieldList
+					backend.Whitelist = removeDuplicates(fieldList)
 					pp.Print(backend.Whitelist)
 					// os.Exit(1)
 				}
@@ -339,10 +358,10 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			// SLug
 			title := findKeyValue("info.title", fm)
 			version := findKeyValue("info.version", fm)
-			swaggerExports.Backends[k].Slug = dotSlugifier.Slugify(fmt.Sprintf("%s %s", title, version))
+			swaggerExports.Backends[k].Slug = dotSlugifier.Slugify(fmt.Sprintf("%s %s %s", title, version, swaggerExports.Backends[k].UrlPattern))
 
 			// Group
-			swaggerExports.Backends[k].Group = dotSlugifier.Slugify(fmt.Sprintf("%s", title))
+			swaggerExports.Backends[k].Group = dotSlugifier.Slugify(fmt.Sprintf("%s %s", title, swaggerExports.Backends[k].UrlPattern))
 
 			// Parameters
 			var paramsList, headerList, urlKeysList, queryStrList, formDataList, bodyList /*, holderList*/ []string
@@ -366,25 +385,24 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					}
 				}
 			}
+
 			if len(paramsList) > 0 {
-				swaggerExports.Backends[k].Params = paramsList
+				swaggerExports.Backends[k].Params = removeDuplicates(paramsList)
 			}
 			if len(urlKeysList) > 0 {
-				swaggerExports.Backends[k].URLKeys = urlKeysList
+				swaggerExports.Backends[k].URLKeys = removeDuplicates(urlKeysList)
 			}
 			if len(formDataList) > 0 {
-				swaggerExports.Backends[k].Extra.Bodies = bodyList
+				swaggerExports.Backends[k].Extra.Bodies = removeDuplicates(bodyList)
 			}
 			if len(formDataList) > 0 {
-				swaggerExports.Backends[k].Extra.FormDatas = formDataList
+				swaggerExports.Backends[k].Extra.FormDatas = removeDuplicates(formDataList)
 			}
 			if len(headerList) > 0 {
-				swaggerExports.Backends[k].Headers = headerList
-				// pp.Print(swaggerExports.Backends[k])
-				// os.Exit(1)
+				swaggerExports.Backends[k].Headers = removeDuplicates(headerList)
 			}
 			if len(queryStrList) > 0 {
-				swaggerExports.Backends[k].QueryStringParams = queryStrList
+				swaggerExports.Backends[k].QueryStringParams = removeDuplicates(queryStrList)
 			}
 
 		}

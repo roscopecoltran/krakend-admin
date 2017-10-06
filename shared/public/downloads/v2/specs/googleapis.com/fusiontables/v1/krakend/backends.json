@@ -1,8 +1,8 @@
 {
 	"backends": [
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
+			"group": "fusion-tables-query",
+			"slug": "fusion-tables-v1-query",
 			"url_pattern": "/query",
 			"method": "GET",
 			"host": [
@@ -14,8 +14,6 @@
 				"typed"
 			],
 			"whitelist": [
-				"columns",
-				"rows",
 				"columns",
 				"rows",
 				"kind"
@@ -31,8 +29,8 @@
 			}
 		},
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
+			"group": "fusion-tables-tables",
+			"slug": "fusion-tables-v1-tables",
 			"url_pattern": "/tables",
 			"method": "GET",
 			"host": [
@@ -43,9 +41,9 @@
 				"pageToken"
 			],
 			"whitelist": [
-				"kind",
+				"nextPageToken",
 				"items",
-				"nextPageToken"
+				"kind"
 			],
 			"mapping": null,
 			"extra_config": {
@@ -58,8 +56,8 @@
 			}
 		},
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
+			"group": "fusion-tables-tables-import",
+			"slug": "fusion-tables-v1-tables-import",
 			"url_pattern": "/tables/import",
 			"method": "POST",
 			"host": [
@@ -71,17 +69,16 @@
 				"encoding"
 			],
 			"whitelist": [
+				"name",
 				"baseTableIds",
 				"kind",
 				"description",
+				"attributionLink",
 				"tableId",
-				"columns",
-				"name",
-				"sql",
-				"baseTableIds",
-				"isExportable",
 				"attribution",
-				"attributionLink"
+				"sql",
+				"isExportable",
+				"columns"
 			],
 			"mapping": null,
 			"extra_config": {
@@ -94,8 +91,8 @@
 			}
 		},
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
+			"group": "fusion-tables-tables-tableid",
+			"slug": "fusion-tables-v1-tables-tableid",
 			"url_pattern": "/tables/{tableId}",
 			"method": "GET",
 			"host": [
@@ -105,16 +102,113 @@
 				"tableId"
 			],
 			"whitelist": [
-				"baseTableIds",
+				"sql",
 				"isExportable",
-				"attribution",
-				"attributionLink",
 				"baseTableIds",
-				"kind",
-				"description",
-				"tableId",
 				"columns",
 				"name",
+				"kind",
+				"description",
+				"attributionLink",
+				"tableId",
+				"attribution"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-columns",
+			"slug": "fusion-tables-v1-tables-tableid-columns",
+			"url_pattern": "/tables/{tableId}/columns",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId"
+			],
+			"query_string_params": [
+				"maxResults",
+				"pageToken"
+			],
+			"whitelist": [
+				"items",
+				"kind",
+				"nextPageToken",
+				"totalItems"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-columns-columnid",
+			"slug": "fusion-tables-v1-tables-tableid-columns-columnid",
+			"url_pattern": "/tables/{tableId}/columns/{columnId}",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId",
+				"columnId"
+			],
+			"whitelist": [
+				"baseColumn",
+				"type",
+				"columnId",
+				"kind",
+				"name",
+				"graph_predicate",
+				"description"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-copy",
+			"slug": "fusion-tables-v1-tables-tableid-copy",
+			"url_pattern": "/tables/{tableId}/copy",
+			"method": "POST",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId"
+			],
+			"query_string_params": [
+				"copyPresentation"
+			],
+			"whitelist": [
+				"isExportable",
+				"baseTableIds",
+				"columns",
+				"name",
+				"kind",
+				"description",
+				"attributionLink",
+				"tableId",
+				"attribution",
 				"sql"
 			],
 			"mapping": null,
@@ -128,9 +222,161 @@
 			}
 		},
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/columns",
+			"group": "fusion-tables-tables-tableid-import",
+			"slug": "fusion-tables-v1-tables-tableid-import",
+			"url_pattern": "/tables/{tableId}/import",
+			"method": "POST",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId"
+			],
+			"query_string_params": [
+				"delimiter",
+				"encoding",
+				"endLine",
+				"isStrict",
+				"startLine"
+			],
+			"whitelist": [
+				"kind",
+				"numRowsReceived"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-styles",
+			"slug": "fusion-tables-v1-tables-tableid-styles",
+			"url_pattern": "/tables/{tableId}/styles",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId"
+			],
+			"query_string_params": [
+				"maxResults",
+				"pageToken"
+			],
+			"whitelist": [
+				"nextPageToken",
+				"kind",
+				"totalItems",
+				"items"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-styles-styleid",
+			"slug": "fusion-tables-v1-tables-tableid-styles-styleid",
+			"url_pattern": "/tables/{tableId}/styles/{styleId}",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId",
+				"styleId"
+			],
+			"whitelist": [
+				"name",
+				"kind",
+				"styleId",
+				"tableId"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-tasks",
+			"slug": "fusion-tables-v1-tables-tableid-tasks",
+			"url_pattern": "/tables/{tableId}/tasks",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId"
+			],
+			"query_string_params": [
+				"maxResults",
+				"pageToken",
+				"startIndex"
+			],
+			"whitelist": [
+				"totalItems",
+				"items",
+				"kind",
+				"nextPageToken"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-tasks-taskid",
+			"slug": "fusion-tables-v1-tables-tableid-tasks-taskid",
+			"url_pattern": "/tables/{tableId}/tasks/{taskId}",
+			"method": "GET",
+			"host": [
+				"https://www.googleapis.com"
+			],
+			"url_keys": [
+				"tableId",
+				"taskId"
+			],
+			"whitelist": [
+				"progress",
+				"type",
+				"started",
+				"kind",
+				"taskId"
+			],
+			"mapping": null,
+			"extra_config": {
+				"hosts": [
+					"https://www.googleapis.com"
+				],
+				"schemes": [
+					"https"
+				]
+			}
+		},
+		{
+			"group": "fusion-tables-tables-tableid-templates",
+			"slug": "fusion-tables-v1-tables-tableid-templates",
+			"url_pattern": "/tables/{tableId}/templates",
 			"method": "GET",
 			"host": [
 				"https://www.googleapis.com"
@@ -159,261 +405,8 @@
 			}
 		},
 		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/columns/{columnId}",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId",
-				"columnId"
-			],
-			"whitelist": [
-				"description",
-				"columnId",
-				"baseColumn",
-				"graph_predicate",
-				"baseColumn",
-				"name",
-				"baseColumn",
-				"type",
-				"kind"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/copy",
-			"method": "POST",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId"
-			],
-			"query_string_params": [
-				"copyPresentation"
-			],
-			"whitelist": [
-				"baseTableIds",
-				"kind",
-				"description",
-				"tableId",
-				"columns",
-				"name",
-				"sql",
-				"baseTableIds",
-				"isExportable",
-				"attribution",
-				"attributionLink"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/import",
-			"method": "POST",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId"
-			],
-			"query_string_params": [
-				"delimiter",
-				"encoding",
-				"endLine",
-				"isStrict",
-				"startLine"
-			],
-			"whitelist": [
-				"numRowsReceived",
-				"kind"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/styles",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId"
-			],
-			"query_string_params": [
-				"maxResults",
-				"pageToken"
-			],
-			"whitelist": [
-				"kind",
-				"totalItems",
-				"nextPageToken",
-				"items"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/styles/{styleId}",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId",
-				"styleId"
-			],
-			"whitelist": [
-				"kind",
-				"styleId",
-				"tableId",
-				"name"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/tasks",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId"
-			],
-			"query_string_params": [
-				"maxResults",
-				"pageToken",
-				"startIndex"
-			],
-			"whitelist": [
-				"items",
-				"totalItems",
-				"nextPageToken",
-				"kind"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/tasks/{taskId}",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId",
-				"taskId"
-			],
-			"whitelist": [
-				"type",
-				"started",
-				"progress",
-				"kind",
-				"taskId"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
-			"url_pattern": "/tables/{tableId}/templates",
-			"method": "GET",
-			"host": [
-				"https://www.googleapis.com"
-			],
-			"url_keys": [
-				"tableId"
-			],
-			"query_string_params": [
-				"maxResults",
-				"pageToken"
-			],
-			"whitelist": [
-				"totalItems",
-				"nextPageToken",
-				"items",
-				"kind"
-			],
-			"mapping": null,
-			"extra_config": {
-				"hosts": [
-					"https://www.googleapis.com"
-				],
-				"schemes": [
-					"https"
-				]
-			}
-		},
-		{
-			"group": "fusion-tables",
-			"slug": "fusion-tables-v1",
+			"group": "fusion-tables-tables-tableid-templates-templateid",
+			"slug": "fusion-tables-v1-tables-tableid-templates-templateid",
 			"url_pattern": "/tables/{tableId}/templates/{templateId}",
 			"method": "GET",
 			"host": [
@@ -424,13 +417,12 @@
 				"templateId"
 			],
 			"whitelist": [
-				"tableId",
 				"automaticColumnNames",
 				"name",
-				"automaticColumnNames",
+				"templateId",
+				"tableId",
 				"body",
-				"kind",
-				"templateId"
+				"kind"
 			],
 			"mapping": null,
 			"extra_config": {
