@@ -65,6 +65,7 @@ type SwaggerExport struct {
 		Produces  []string `json:"produces,omitempty" yaml:"produces,omitempty" toml:"produces,omitempty"`
 		Consume   string   `json:"-" yaml:"-" toml:"-"`
 		Hosts     []string `json:"hosts,omitempty" yaml:"hosts,omitempty" toml:"hosts,omitempty"`
+		Tags      []string `json:"tags,omitempty" yaml:"tags,omitempty" toml:"tags,omitempty"`
 		Schemes   []string `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
 		LocalFile string   `json:"-" yaml:"-" toml:"-"`
 	} `json:"extra_config" yaml:"extra_config" toml:"extra_config"`
@@ -239,8 +240,8 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				backend.Extra.LocalFile = swaggerFile
 				backend.ConcurrentCalls = 1
 
-				var paramsKeyLength, respAttrLength, respAttrRef string
-				var paramsKeyLengthInt, respAttrLengthInt int
+				var paramsKeyLength, respAttrLength, respAttrRef, categoriesKeyLength string
+				var paramsKeyLengthInt, respAttrLengthInt, categoriesKeyLengthInt int
 
 				host := typed.String("host")
 
@@ -249,6 +250,22 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				schemes := typed.StringsOr("schemes", []string{"https"})
 				backend.Extra.Schemes = schemes
 
+				var tags []string
+
+				categoriesKeyLength = findKeyValue("info.x-apisguru-categories.length", fm)
+				categoriesKeyLengthInt, _ = strconv.Atoi(categoriesKeyLength)
+
+				for i := 0; i <= categoriesKeyLengthInt; i++ {
+					tagName := findKeyValue(fmt.Sprintf("info.x-apisguru-categories[%d]", i), fm)
+					if tagName != "" {
+						tags = append(tags, dotSlugifier.Slugify(tagName))
+					}
+				}
+
+				if len(tags) > 0 {
+					backend.Extra.Tags = tags
+				}
+
 				/*
 					According to W3C:
 					- The most correct is application/rss+xml
@@ -256,20 +273,37 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				*/
 				for k, consume := range consumes {
 					mimeParts := strings.Split(consume, "/")
-					consumes[k] = mimeParts[1]
-					if mimeParts[1] == "json" {
-						backend.Extra.Consume = consumes[k]
-						backend.Encoding = consumes[k]
+					if len(mimeParts) == 1 {
+						consumes[k] = mimeParts[0]
+						if mimeParts[0] == "json" {
+							backend.Extra.Consume = consumes[k]
+							backend.Encoding = consumes[k]
+						}
+					} else {
+						consumes[k] = mimeParts[1]
+						if mimeParts[1] == "json" {
+							backend.Extra.Consume = consumes[k]
+							backend.Encoding = consumes[k]
+						}
 					}
+
 				}
 
 				backend.Extra.Consumes = consumes
 				for k, produce := range produces {
 					mimeParts := strings.Split(produce, "/")
-					produces[k] = mimeParts[1]
-					if mimeParts[1] == "json" {
-						backend.Extra.Produce = produces[k]
+					if len(mimeParts) == 1 {
+						produces[k] = mimeParts[0]
+						if mimeParts[0] == "json" {
+							backend.Extra.Produce = produces[k]
+						}
+					} else {
+						produces[k] = mimeParts[1]
+						if mimeParts[1] == "json" {
+							backend.Extra.Produce = produces[k]
+						}
 					}
+
 				}
 
 				backend.Extra.Produces = produces
@@ -372,7 +406,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			swaggerExports.Backends[k].Slug = dotSlugifier.Slugify(fmt.Sprintf("%s %s %s", title, version, swaggerExports.Backends[k].UrlPattern))
 
 			// Group
-			swaggerExports.Backends[k].Group = dotSlugifier.Slugify(fmt.Sprintf("%s %s", title, swaggerExports.Backends[k].UrlPattern))
+			swaggerExports.Backends[k].Group = dotSlugifier.Slugify(fmt.Sprintf("%s %s", title, version))
 
 			// Parameters
 			var paramsList, headerList, urlKeysList, queryStrList, formDataList, bodyList /*, holderList*/ []string

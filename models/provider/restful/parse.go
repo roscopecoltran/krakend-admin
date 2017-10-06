@@ -25,17 +25,16 @@ func ParseSpecs(apis []SpecsRegistryAPI, ignoreList []string) error {
 					}
 				}
 			}
-			if !isSkip {
-				fileName, fullPath, fullName := download.GetFilePathFromURL(contentURL)
-				filePathAbs, err := filepath.Abs(fullName)
-				if err != nil {
-					continue
-				}
-				fmt.Println("ParseSpecs(...): |- fileName: ", fileName, ", fullPath: ", fullPath, ", fullName: ", fullName, "filePathAbsolute: ", filePathAbs)
-				// openapiSplit(filePathAbsolute, prefixPathAbsolute)
-				openapi.ConvertToProtobuf(filePathAbs, fullPath, true)
-				openapi.ConvertToKrakend(filePathAbs, fullPath, "json")
+			fileName, fullPath, fullName := download.GetFilePathFromURL(contentURL)
+			filePathAbs, err := filepath.Abs(fullName)
+			if err != nil {
+				continue
 			}
+			fmt.Println("ParseSpecs(...): |- fileName: ", fileName, ", fullPath: ", fullPath, ", fullName: ", fullName, "filePathAbsolute: ", filePathAbs)
+			if !isSkip {
+				openapi.ConvertToProtobuf(filePathAbs, fullPath, true)
+			}
+			openapi.ConvertToKrakend(filePathAbs, fullPath, "json")
 		}
 	}
 	return nil
