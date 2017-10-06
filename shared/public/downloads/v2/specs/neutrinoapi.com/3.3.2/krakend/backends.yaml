@@ -1,7 +1,7 @@
 backends:
 - group: neutrinoapi-bad-word-filter
   slug: neutrinoapi-3-3-2-bad-word-filter
-  url_pattern: //bad-word-filter
+  url_pattern: /bad-word-filter
   method: POST
   encoding: json
   host:
@@ -18,6 +18,10 @@ backends:
     censoredContent: censoredContent
     isBad: isBad
   extra_config:
+    form_data:
+    - censor-character
+    - content
+    - output-case
     consumes:
     - json
     produces:
@@ -28,7 +32,7 @@ backends:
     - https
 - group: neutrinoapi-bin-lookup
   slug: neutrinoapi-3-3-2-bin-lookup
-  url_pattern: //bin-lookup
+  url_pattern: /bin-lookup
   method: POST
   encoding: json
   host:
@@ -69,6 +73,10 @@ backends:
     issuerWebsite: issuerWebsite
     valid: valid
   extra_config:
+    form_data:
+    - bin-number
+    - customer-ip
+    - output-case
     consumes:
     - json
     produces:
@@ -79,13 +87,17 @@ backends:
     - https
 - group: neutrinoapi-code-highlight
   slug: neutrinoapi-3-3-2-code-highlight
-  url_pattern: //code-highlight
+  url_pattern: /code-highlight
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - add-keyword-links
+    - content
+    - type
     consumes:
     - json
     produces:
@@ -96,7 +108,7 @@ backends:
     - https
 - group: neutrinoapi-convert
   slug: neutrinoapi-3-3-2-convert
-  url_pattern: //convert
+  url_pattern: /convert
   method: POST
   encoding: json
   host:
@@ -115,6 +127,11 @@ backends:
     toType: toType
     valid: valid
   extra_config:
+    form_data:
+    - from-type
+    - from-value
+    - output-case
+    - to-type
     consumes:
     - json
     produces:
@@ -125,7 +142,7 @@ backends:
     - https
 - group: neutrinoapi-email-validate
   slug: neutrinoapi-3-3-2-email-validate
-  url_pattern: //email-validate
+  url_pattern: /email-validate
   method: POST
   encoding: json
   host:
@@ -150,6 +167,10 @@ backends:
     typosFixed: typosFixed
     valid: valid
   extra_config:
+    form_data:
+    - email
+    - fix-typos
+    - output-case
     consumes:
     - json
     produces:
@@ -160,7 +181,7 @@ backends:
     - https
 - group: neutrinoapi-geocode-address
   slug: neutrinoapi-3-3-2-geocode-address
-  url_pattern: //geocode-address
+  url_pattern: /geocode-address
   method: POST
   encoding: json
   host:
@@ -173,6 +194,12 @@ backends:
     found: found
     locations: locations
   extra_config:
+    form_data:
+    - address
+    - country-code
+    - fuzzy-search
+    - language-code
+    - output-case
     consumes:
     - json
     produces:
@@ -183,7 +210,7 @@ backends:
     - https
 - group: neutrinoapi-geocode-reverse
   slug: neutrinoapi-3-3-2-geocode-reverse
-  url_pattern: //geocode-reverse
+  url_pattern: /geocode-reverse
   method: POST
   encoding: json
   host:
@@ -208,6 +235,11 @@ backends:
     postalCode: postalCode
     state: state
   extra_config:
+    form_data:
+    - language-code
+    - latitude
+    - longitude
+    - output-case
     consumes:
     - json
     produces:
@@ -218,7 +250,7 @@ backends:
     - https
 - group: neutrinoapi-hlr-lookup
   slug: neutrinoapi-3-3-2-hlr-lookup
-  url_pattern: //hlr-lookup
+  url_pattern: /hlr-lookup
   method: POST
   encoding: json
   host:
@@ -263,6 +295,10 @@ backends:
     originNetwork: originNetwork
     portedNetwork: portedNetwork
   extra_config:
+    form_data:
+    - country-code
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -273,7 +309,7 @@ backends:
     - https
 - group: neutrinoapi-host-reputation
   slug: neutrinoapi-3-3-2-host-reputation
-  url_pattern: //host-reputation
+  url_pattern: /host-reputation
   method: POST
   encoding: json
   host:
@@ -288,6 +324,9 @@ backends:
     listCount: listCount
     lists: lists
   extra_config:
+    form_data:
+    - host
+    - output-case
     consumes:
     - json
     produces:
@@ -298,13 +337,16 @@ backends:
     - https
 - group: neutrinoapi-html-clean
   slug: neutrinoapi-3-3-2-html-clean
-  url_pattern: //html-clean
+  url_pattern: /html-clean
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - content
+    - output-type
     consumes:
     - json
     produces:
@@ -315,7 +357,7 @@ backends:
     - https
 - group: neutrinoapi-html-extract-tags
   slug: neutrinoapi-3-3-2-html-extract-tags
-  url_pattern: //html-extract-tags
+  url_pattern: /html-extract-tags
   method: POST
   encoding: json
   host:
@@ -328,6 +370,12 @@ backends:
     total: total
     values: values
   extra_config:
+    form_data:
+    - attribute
+    - base-url
+    - content
+    - output-case
+    - tag
     consumes:
     - json
     produces:
@@ -338,13 +386,33 @@ backends:
     - https
 - group: neutrinoapi-html5-render
   slug: neutrinoapi-3-3-2-html5-render
-  url_pattern: //html5-render
+  url_pattern: /html5-render
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - content
+    - css
+    - format
+    - forms
+    - grayscale
+    - image-height
+    - image-width
+    - landscape
+    - margin
+    - margin-bottom
+    - margin-left
+    - margin-right
+    - margin-top
+    - media-print
+    - media-queries
+    - output-case
+    - page-size
+    - title
+    - zoom
     consumes:
     - json
     produces:
@@ -355,13 +423,18 @@ backends:
     - https
 - group: neutrinoapi-image-resize
   slug: neutrinoapi-3-3-2-image-resize
-  url_pattern: //image-resize
+  url_pattern: /image-resize
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - format
+    - height
+    - image-url
+    - width
     consumes:
     - json
     produces:
@@ -372,13 +445,21 @@ backends:
     - https
 - group: neutrinoapi-image-watermark
   slug: neutrinoapi-3-3-2-image-watermark
-  url_pattern: //image-watermark
+  url_pattern: /image-watermark
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - format
+    - height
+    - image-url
+    - opacity
+    - position
+    - watermark-url
+    - width
     consumes:
     - json
     produces:
@@ -389,7 +470,7 @@ backends:
     - https
 - group: neutrinoapi-ip-blocklist
   slug: neutrinoapi-3-3-2-ip-blocklist
-  url_pattern: //ip-blocklist
+  url_pattern: /ip-blocklist
   method: POST
   encoding: json
   host:
@@ -426,6 +507,9 @@ backends:
     lastSeen: lastSeen
     listCount: listCount
   extra_config:
+    form_data:
+    - ip
+    - output-case
     consumes:
     - json
     produces:
@@ -436,7 +520,7 @@ backends:
     - https
 - group: neutrinoapi-ip-info
   slug: neutrinoapi-3-3-2-ip-info
-  url_pattern: //ip-info
+  url_pattern: /ip-info
   method: POST
   encoding: json
   host:
@@ -461,6 +545,10 @@ backends:
     region: region
     valid: valid
   extra_config:
+    form_data:
+    - ip
+    - output-case
+    - reverse-lookup
     consumes:
     - json
     produces:
@@ -471,7 +559,7 @@ backends:
     - https
 - group: neutrinoapi-ip-probe
   slug: neutrinoapi-3-3-2-ip-probe
-  url_pattern: //ip-probe
+  url_pattern: /ip-probe
   method: POST
   encoding: json
   host:
@@ -502,6 +590,9 @@ backends:
     region: region
     valid: valid
   extra_config:
+    form_data:
+    - ip
+    - output-case
     consumes:
     - json
     produces:
@@ -512,7 +603,7 @@ backends:
     - https
 - group: neutrinoapi-phone-playback
   slug: neutrinoapi-3-3-2-phone-playback
-  url_pattern: //phone-playback
+  url_pattern: /phone-playback
   method: POST
   encoding: json
   host:
@@ -525,6 +616,10 @@ backends:
     calling: calling
     number-valid: number-valid
   extra_config:
+    form_data:
+    - audio-url
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -535,7 +630,7 @@ backends:
     - https
 - group: neutrinoapi-phone-validate
   slug: neutrinoapi-3-3-2-phone-validate
-  url_pattern: //phone-validate
+  url_pattern: /phone-validate
   method: POST
   encoding: json
   host:
@@ -560,6 +655,11 @@ backends:
     type: type
     valid: valid
   extra_config:
+    form_data:
+    - country-code
+    - ip
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -570,7 +670,7 @@ backends:
     - https
 - group: neutrinoapi-phone-verify
   slug: neutrinoapi-3-3-2-phone-verify
-  url_pattern: //phone-verify
+  url_pattern: /phone-verify
   method: POST
   encoding: json
   host:
@@ -585,6 +685,14 @@ backends:
     numberValid: numberValid
     securityCode: securityCode
   extra_config:
+    form_data:
+    - code-length
+    - country-code
+    - language-code
+    - number
+    - output-case
+    - playback-delay
+    - security-code
     consumes:
     - json
     produces:
@@ -595,13 +703,20 @@ backends:
     - https
 - group: neutrinoapi-qr-code
   slug: neutrinoapi-3-3-2-qr-code
-  url_pattern: //qr-code
+  url_pattern: /qr-code
   method: POST
   encoding: json
   host:
   - https://neutrinoapi.com
+  query_string_params:
+  - width
   concurrent_calls: 1
   extra_config:
+    form_data:
+    - bg-color
+    - content
+    - fg-color
+    - height
     consumes:
     - json
     produces:
@@ -612,7 +727,7 @@ backends:
     - https
 - group: neutrinoapi-sms-verify
   slug: neutrinoapi-3-3-2-sms-verify
-  url_pattern: //sms-verify
+  url_pattern: /sms-verify
   method: POST
   encoding: json
   host:
@@ -627,6 +742,13 @@ backends:
     securityCode: securityCode
     sent: sent
   extra_config:
+    form_data:
+    - code-length
+    - country-code
+    - language-code
+    - number
+    - output-case
+    - security-code
     consumes:
     - json
     produces:
@@ -637,7 +759,7 @@ backends:
     - https
 - group: neutrinoapi-url-info
   slug: neutrinoapi-3-3-2-url-info
-  url_pattern: //url-info
+  url_pattern: /url-info
   method: POST
   encoding: json
   host:
@@ -692,6 +814,10 @@ backends:
     urlProtocol: urlProtocol
     valid: valid
   extra_config:
+    form_data:
+    - fetch-content
+    - output-case
+    - url
     consumes:
     - json
     produces:
@@ -702,7 +828,7 @@ backends:
     - https
 - group: neutrinoapi-user-agent-info
   slug: neutrinoapi-3-3-2-user-agent-info
-  url_pattern: //user-agent-info
+  url_pattern: /user-agent-info
   method: POST
   encoding: json
   host:
@@ -741,6 +867,9 @@ backends:
     type: type
     version: version
   extra_config:
+    form_data:
+    - output-case
+    - user-agent
     consumes:
     - json
     produces:
@@ -751,7 +880,7 @@ backends:
     - https
 - group: neutrinoapi-verify-security-code
   slug: neutrinoapi-3-3-2-verify-security-code
-  url_pattern: //verify-security-code
+  url_pattern: /verify-security-code
   method: POST
   encoding: json
   host:
@@ -762,6 +891,9 @@ backends:
   mapping:
     verified: verified
   extra_config:
+    form_data:
+    - output-case
+    - security-code
     consumes:
     - json
     produces:

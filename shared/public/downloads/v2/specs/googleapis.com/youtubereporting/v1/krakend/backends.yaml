@@ -1,10 +1,15 @@
 backends:
 - group: youtube-reporting-v1-jobs
   slug: youtube-reporting-v1-v1-jobs
-  url_pattern: //v1/jobs
+  url_pattern: /v1/jobs
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  query_string_params:
+  - includeSystemManaged
+  - onBehalfOfContentOwner
+  - pageSize
+  - pageToken
   whitelist:
   - jobs
   - nextPageToken
@@ -19,10 +24,14 @@ backends:
     - https
 - group: youtube-reporting-v1-jobs-jobid
   slug: youtube-reporting-v1-v1-jobs-jobid
-  url_pattern: //v1/jobs/{jobId}
+  url_pattern: /v1/jobs/{jobId}
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  url_keys:
+  - jobId
+  query_string_params:
+  - onBehalfOfContentOwner
   whitelist:
   - createTime
   - expireTime
@@ -45,10 +54,19 @@ backends:
     - https
 - group: youtube-reporting-v1-jobs-jobid-reports
   slug: youtube-reporting-v1-v1-jobs-jobid-reports
-  url_pattern: //v1/jobs/{jobId}/reports
+  url_pattern: /v1/jobs/{jobId}/reports
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  url_keys:
+  - jobId
+  query_string_params:
+  - createdAfter
+  - onBehalfOfContentOwner
+  - pageSize
+  - pageToken
+  - startTimeAtOrAfter
+  - startTimeBefore
   whitelist:
   - nextPageToken
   - reports
@@ -63,10 +81,15 @@ backends:
     - https
 - group: youtube-reporting-v1-jobs-jobid-reports-reportid
   slug: youtube-reporting-v1-v1-jobs-jobid-reports-reportid
-  url_pattern: //v1/jobs/{jobId}/reports/{reportId}
+  url_pattern: /v1/jobs/{jobId}/reports/{reportId}
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  url_keys:
+  - jobId
+  - reportId
+  query_string_params:
+  - onBehalfOfContentOwner
   whitelist:
   - createTime
   - downloadUrl
@@ -91,10 +114,12 @@ backends:
     - https
 - group: youtube-reporting-v1-media-resourcename
   slug: youtube-reporting-v1-v1-media-resourcename
-  url_pattern: //v1/media/{resourceName}
+  url_pattern: /v1/media/{resourceName}
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  url_keys:
+  - resourceName
   whitelist:
   - resourceName
   concurrent_calls: 1
@@ -107,10 +132,15 @@ backends:
     - https
 - group: youtube-reporting-v1-reporttypes
   slug: youtube-reporting-v1-v1-reporttypes
-  url_pattern: //v1/reportTypes
+  url_pattern: /v1/reportTypes
   method: GET
   host:
   - https://youtubereporting.googleapis.com
+  query_string_params:
+  - includeSystemManaged
+  - onBehalfOfContentOwner
+  - pageSize
+  - pageToken
   whitelist:
   - nextPageToken
   - reportTypes

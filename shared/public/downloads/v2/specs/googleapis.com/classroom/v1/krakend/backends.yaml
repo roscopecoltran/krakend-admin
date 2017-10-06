@@ -1,10 +1,16 @@
 backends:
 - group: google-classroom-v1-courses
   slug: google-classroom-v1-v1-courses
-  url_pattern: //v1/courses
+  url_pattern: /v1/courses
   method: GET
   host:
   - https://classroom.googleapis.com
+  query_string_params:
+  - courseStates
+  - pageSize
+  - pageToken
+  - studentId
+  - teacherId
   whitelist:
   - courses
   - nextPageToken
@@ -19,10 +25,15 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-aliases
   slug: google-classroom-v1-v1-courses-courseid-aliases
-  url_pattern: //v1/courses/{courseId}/aliases
+  url_pattern: /v1/courses/{courseId}/aliases
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  query_string_params:
+  - pageSize
+  - pageToken
   whitelist:
   - aliases
   - nextPageToken
@@ -37,10 +48,17 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-announcements
   slug: google-classroom-v1-v1-courses-courseid-announcements
-  url_pattern: //v1/courses/{courseId}/announcements
+  url_pattern: /v1/courses/{courseId}/announcements
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  query_string_params:
+  - announcementStates
+  - orderBy
+  - pageSize
+  - pageToken
   whitelist:
   - announcements
   - nextPageToken
@@ -55,10 +73,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-announcements-id
   slug: google-classroom-v1-v1-courses-courseid-announcements-id
-  url_pattern: //v1/courses/{courseId}/announcements/{id}
+  url_pattern: /v1/courses/{courseId}/announcements/{id}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - id
   whitelist:
   - alternateLink
   - assigneeMode
@@ -91,10 +112,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-announcements-id-modifyassignees
   slug: google-classroom-v1-v1-courses-courseid-announcements-id-modifyassignees
-  url_pattern: //v1/courses/{courseId}/announcements/{id}:modifyAssignees
+  url_pattern: /v1/courses/{courseId}/announcements/{id}:modifyAssignees
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - id
   whitelist:
   - alternateLink
   - assigneeMode
@@ -127,10 +151,17 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework
   slug: google-classroom-v1-v1-courses-courseid-coursework
-  url_pattern: //v1/courses/{courseId}/courseWork
+  url_pattern: /v1/courses/{courseId}/courseWork
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  query_string_params:
+  - courseWorkStates
+  - orderBy
+  - pageSize
+  - pageToken
   whitelist:
   - courseWork
   - nextPageToken
@@ -145,10 +176,19 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  query_string_params:
+  - late
+  - pageSize
+  - pageToken
+  - states
+  - userId
   whitelist:
   - nextPageToken
   - studentSubmissions
@@ -163,10 +203,14 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  - id
   whitelist:
   - alternateLink
   - assignedGrade
@@ -205,10 +249,14 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-modifyattachments
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-modifyattachments
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:modifyAttachments
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:modifyAttachments
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  - id
   whitelist:
   - alternateLink
   - assignedGrade
@@ -247,10 +295,14 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-reclaim
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-reclaim
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:reclaim
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:reclaim
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  - id
   concurrent_calls: 1
   extra_config:
     hosts:
@@ -259,10 +311,14 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-return
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-return
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:return
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:return
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  - id
   concurrent_calls: 1
   extra_config:
     hosts:
@@ -271,10 +327,14 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-turnin
   slug: google-classroom-v1-v1-courses-courseid-coursework-courseworkid-studentsubmissions-id-turnin
-  url_pattern: //v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:turnIn
+  url_pattern: /v1/courses/{courseId}/courseWork/{courseWorkId}/studentSubmissions/{id}:turnIn
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - courseWorkId
+  - id
   concurrent_calls: 1
   extra_config:
     hosts:
@@ -283,10 +343,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-id
   slug: google-classroom-v1-v1-courses-courseid-coursework-id
-  url_pattern: //v1/courses/{courseId}/courseWork/{id}
+  url_pattern: /v1/courses/{courseId}/courseWork/{id}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - id
   whitelist:
   - alternateLink
   - assigneeMode
@@ -329,10 +392,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-coursework-id-modifyassignees
   slug: google-classroom-v1-v1-courses-courseid-coursework-id-modifyassignees
-  url_pattern: //v1/courses/{courseId}/courseWork/{id}:modifyAssignees
+  url_pattern: /v1/courses/{courseId}/courseWork/{id}:modifyAssignees
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - id
   whitelist:
   - alternateLink
   - assigneeMode
@@ -375,10 +441,15 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-students
   slug: google-classroom-v1-v1-courses-courseid-students
-  url_pattern: //v1/courses/{courseId}/students
+  url_pattern: /v1/courses/{courseId}/students
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  query_string_params:
+  - pageSize
+  - pageToken
   whitelist:
   - nextPageToken
   - students
@@ -393,10 +464,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-students-userid
   slug: google-classroom-v1-v1-courses-courseid-students-userid
-  url_pattern: //v1/courses/{courseId}/students/{userId}
+  url_pattern: /v1/courses/{courseId}/students/{userId}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - userId
   whitelist:
   - courseId
   - userId
@@ -411,10 +485,15 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-teachers
   slug: google-classroom-v1-v1-courses-courseid-teachers
-  url_pattern: //v1/courses/{courseId}/teachers
+  url_pattern: /v1/courses/{courseId}/teachers
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  query_string_params:
+  - pageSize
+  - pageToken
   whitelist:
   - nextPageToken
   - teachers
@@ -429,10 +508,13 @@ backends:
     - https
 - group: google-classroom-v1-courses-courseid-teachers-userid
   slug: google-classroom-v1-v1-courses-courseid-teachers-userid
-  url_pattern: //v1/courses/{courseId}/teachers/{userId}
+  url_pattern: /v1/courses/{courseId}/teachers/{userId}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - courseId
+  - userId
   whitelist:
   - courseId
   - userId
@@ -447,10 +529,12 @@ backends:
     - https
 - group: google-classroom-v1-courses-id
   slug: google-classroom-v1-v1-courses-id
-  url_pattern: //v1/courses/{id}
+  url_pattern: /v1/courses/{id}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - id
   whitelist:
   - alternateLink
   - calendarId
@@ -495,10 +579,15 @@ backends:
     - https
 - group: google-classroom-v1-invitations
   slug: google-classroom-v1-v1-invitations
-  url_pattern: //v1/invitations
+  url_pattern: /v1/invitations
   method: GET
   host:
   - https://classroom.googleapis.com
+  query_string_params:
+  - courseId
+  - pageSize
+  - pageToken
+  - userId
   whitelist:
   - invitations
   - nextPageToken
@@ -513,10 +602,12 @@ backends:
     - https
 - group: google-classroom-v1-invitations-id
   slug: google-classroom-v1-v1-invitations-id
-  url_pattern: //v1/invitations/{id}
+  url_pattern: /v1/invitations/{id}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - id
   whitelist:
   - courseId
   - id
@@ -535,10 +626,12 @@ backends:
     - https
 - group: google-classroom-v1-invitations-id-accept
   slug: google-classroom-v1-v1-invitations-id-accept
-  url_pattern: //v1/invitations/{id}:accept
+  url_pattern: /v1/invitations/{id}:accept
   method: POST
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - id
   concurrent_calls: 1
   extra_config:
     hosts:
@@ -547,7 +640,7 @@ backends:
     - https
 - group: google-classroom-v1-registrations
   slug: google-classroom-v1-v1-registrations
-  url_pattern: //v1/registrations
+  url_pattern: /v1/registrations
   method: POST
   host:
   - https://classroom.googleapis.com
@@ -565,10 +658,17 @@ backends:
     - https
 - group: google-classroom-v1-userprofiles-studentid-guardianinvitations
   slug: google-classroom-v1-v1-userprofiles-studentid-guardianinvitations
-  url_pattern: //v1/userProfiles/{studentId}/guardianInvitations
+  url_pattern: /v1/userProfiles/{studentId}/guardianInvitations
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - studentId
+  query_string_params:
+  - invitedEmailAddress
+  - pageSize
+  - pageToken
+  - states
   whitelist:
   - guardianInvitations
   - nextPageToken
@@ -583,10 +683,13 @@ backends:
     - https
 - group: google-classroom-v1-userprofiles-studentid-guardianinvitations-invitationid
   slug: google-classroom-v1-v1-userprofiles-studentid-guardianinvitations-invitationid
-  url_pattern: //v1/userProfiles/{studentId}/guardianInvitations/{invitationId}
+  url_pattern: /v1/userProfiles/{studentId}/guardianInvitations/{invitationId}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - invitationId
+  - studentId
   whitelist:
   - creationTime
   - invitationId
@@ -607,10 +710,16 @@ backends:
     - https
 - group: google-classroom-v1-userprofiles-studentid-guardians
   slug: google-classroom-v1-v1-userprofiles-studentid-guardians
-  url_pattern: //v1/userProfiles/{studentId}/guardians
+  url_pattern: /v1/userProfiles/{studentId}/guardians
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - studentId
+  query_string_params:
+  - invitedEmailAddress
+  - pageSize
+  - pageToken
   whitelist:
   - guardians
   - nextPageToken
@@ -625,10 +734,13 @@ backends:
     - https
 - group: google-classroom-v1-userprofiles-studentid-guardians-guardianid
   slug: google-classroom-v1-v1-userprofiles-studentid-guardians-guardianid
-  url_pattern: //v1/userProfiles/{studentId}/guardians/{guardianId}
+  url_pattern: /v1/userProfiles/{studentId}/guardians/{guardianId}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - guardianId
+  - studentId
   whitelist:
   - guardianId
   - invitedEmailAddress
@@ -645,10 +757,12 @@ backends:
     - https
 - group: google-classroom-v1-userprofiles-userid
   slug: google-classroom-v1-v1-userprofiles-userid
-  url_pattern: //v1/userProfiles/{userId}
+  url_pattern: /v1/userProfiles/{userId}
   method: GET
   host:
   - https://classroom.googleapis.com
+  url_keys:
+  - userId
   whitelist:
   - emailAddress
   - id

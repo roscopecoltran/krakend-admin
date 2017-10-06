@@ -1,7 +1,7 @@
 backends:
 - group: google-sheets-v4-spreadsheets
   slug: google-sheets-v4-v4-spreadsheets
-  url_pattern: //v4/spreadsheets
+  url_pattern: /v4/spreadsheets
   method: POST
   host:
   - https://sheets.googleapis.com
@@ -25,10 +25,15 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid
-  url_pattern: //v4/spreadsheets/{spreadsheetId}
+  url_pattern: /v4/spreadsheets/{spreadsheetId}
   method: GET
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
+  query_string_params:
+  - includeGridData
+  - ranges
   whitelist:
   - developerMetadata
   - namedRanges
@@ -49,10 +54,13 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-developermetadata-metadataid
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-developermetadata-metadataid
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/developerMetadata/{metadataId}
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/developerMetadata/{metadataId}
   method: GET
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - metadataId
+  - spreadsheetId
   whitelist:
   - metadataId
   - metadataKey
@@ -71,10 +79,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-developermetadata-search
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-developermetadata-search
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/developerMetadata:search
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/developerMetadata:search
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - matchedDeveloperMetadata
   concurrent_calls: 1
@@ -87,10 +97,13 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-sheets-sheetid-copyto
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-sheets-sheetid-copyto
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/sheets/{sheetId}:copyTo
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/sheets/{sheetId}:copyTo
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - sheetId
+  - spreadsheetId
   whitelist:
   - hidden
   - index
@@ -113,10 +126,17 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-range
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-range
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values/{range}
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values/{range}
   method: GET
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - range
+  - spreadsheetId
+  query_string_params:
+  - dateTimeRenderOption
+  - majorDimension
+  - valueRenderOption
   whitelist:
   - majorDimension
   - range
@@ -133,10 +153,19 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-range-append
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-range-append
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values/{range}:append
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values/{range}:append
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - range
+  - spreadsheetId
+  query_string_params:
+  - includeValuesInResponse
+  - insertDataOption
+  - responseDateTimeRenderOption
+  - responseValueRenderOption
+  - valueInputOption
   whitelist:
   - spreadsheetId
   - tableRange
@@ -151,10 +180,13 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-range-clear
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-range-clear
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values/{range}:clear
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values/{range}:clear
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - range
+  - spreadsheetId
   whitelist:
   - clearedRange
   - spreadsheetId
@@ -169,10 +201,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchclear
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchclear
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchClear
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchClear
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - clearedRanges
   - spreadsheetId
@@ -187,10 +221,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchclearbydatafilter
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchclearbydatafilter
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchClearByDataFilter
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchClearByDataFilter
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - clearedRanges
   - spreadsheetId
@@ -205,10 +241,17 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchget
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchget
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchGet
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchGet
   method: GET
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
+  query_string_params:
+  - dateTimeRenderOption
+  - majorDimension
+  - ranges
+  - valueRenderOption
   whitelist:
   - spreadsheetId
   - valueRanges
@@ -223,10 +266,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchgetbydatafilter
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchgetbydatafilter
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchGetByDataFilter
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchGetByDataFilter
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - spreadsheetId
   - valueRanges
@@ -241,10 +286,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchupdate
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchupdate
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchUpdate
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchUpdate
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - responses
   - spreadsheetId
@@ -267,10 +314,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-values-batchupdatebydatafilter
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-values-batchupdatebydatafilter
-  url_pattern: //v4/spreadsheets/{spreadsheetId}/values:batchUpdateByDataFilter
+  url_pattern: /v4/spreadsheets/{spreadsheetId}/values:batchUpdateByDataFilter
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - responses
   - spreadsheetId
@@ -293,10 +342,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-batchupdate
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-batchupdate
-  url_pattern: //v4/spreadsheets/{spreadsheetId}:batchUpdate
+  url_pattern: /v4/spreadsheets/{spreadsheetId}:batchUpdate
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - replies
   - spreadsheetId
@@ -311,10 +362,12 @@ backends:
     - https
 - group: google-sheets-v4-spreadsheets-spreadsheetid-getbydatafilter
   slug: google-sheets-v4-v4-spreadsheets-spreadsheetid-getbydatafilter
-  url_pattern: //v4/spreadsheets/{spreadsheetId}:getByDataFilter
+  url_pattern: /v4/spreadsheets/{spreadsheetId}:getByDataFilter
   method: POST
   host:
   - https://sheets.googleapis.com
+  url_keys:
+  - spreadsheetId
   whitelist:
   - developerMetadata
   - namedRanges

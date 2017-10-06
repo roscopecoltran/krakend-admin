@@ -228,7 +228,11 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				}
 				backend := &SwaggerExport{}
 
-				basePath := typed.String("basePath")
+				var basePath string
+				basePath = typed.String("basePath")
+				if basePath == "/" {
+					basePath = ""
+				}
 
 				backend.UrlPattern = fmt.Sprintf("%s%s", basePath, path) // path
 				backend.Method = strings.ToUpper(parts[2])
@@ -239,10 +243,6 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				var paramsKeyLengthInt, respAttrLengthInt int
 
 				host := typed.String("host")
-
-				if basePath == "/" {
-					basePath = ""
-				}
 
 				consumes := typed.Strings("consumes")
 				produces := typed.Strings("produces")

@@ -1,7 +1,7 @@
 backends:
 - group: genomics-v1-annotations
   slug: genomics-v1-v1-annotations
-  url_pattern: //v1/annotations
+  url_pattern: /v1/annotations
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -35,7 +35,7 @@ backends:
     - https
 - group: genomics-v1-annotations-search
   slug: genomics-v1-v1-annotations-search
-  url_pattern: //v1/annotations/search
+  url_pattern: /v1/annotations/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -53,10 +53,12 @@ backends:
     - https
 - group: genomics-v1-annotations-annotationid
   slug: genomics-v1-v1-annotations-annotationid
-  url_pattern: //v1/annotations/{annotationId}
+  url_pattern: /v1/annotations/{annotationId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - annotationId
   whitelist:
   - annotationSetId
   - end
@@ -87,7 +89,7 @@ backends:
     - https
 - group: genomics-v1-annotations-batchcreate
   slug: genomics-v1-v1-annotations-batchcreate
-  url_pattern: //v1/annotations:batchCreate
+  url_pattern: /v1/annotations:batchCreate
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -103,7 +105,7 @@ backends:
     - https
 - group: genomics-v1-annotationsets
   slug: genomics-v1-v1-annotationsets
-  url_pattern: //v1/annotationsets
+  url_pattern: /v1/annotationsets
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -131,7 +133,7 @@ backends:
     - https
 - group: genomics-v1-annotationsets-search
   slug: genomics-v1-v1-annotationsets-search
-  url_pattern: //v1/annotationsets/search
+  url_pattern: /v1/annotationsets/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -149,10 +151,12 @@ backends:
     - https
 - group: genomics-v1-annotationsets-annotationsetid
   slug: genomics-v1-v1-annotationsets-annotationsetid
-  url_pattern: //v1/annotationsets/{annotationSetId}
+  url_pattern: /v1/annotationsets/{annotationSetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - annotationSetId
   whitelist:
   - datasetId
   - id
@@ -177,7 +181,7 @@ backends:
     - https
 - group: genomics-v1-callsets
   slug: genomics-v1-v1-callsets
-  url_pattern: //v1/callsets
+  url_pattern: /v1/callsets
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -203,7 +207,7 @@ backends:
     - https
 - group: genomics-v1-callsets-search
   slug: genomics-v1-v1-callsets-search
-  url_pattern: //v1/callsets/search
+  url_pattern: /v1/callsets/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -221,10 +225,12 @@ backends:
     - https
 - group: genomics-v1-callsets-callsetid
   slug: genomics-v1-v1-callsets-callsetid
-  url_pattern: //v1/callsets/{callSetId}
+  url_pattern: /v1/callsets/{callSetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - callSetId
   whitelist:
   - created
   - id
@@ -247,10 +253,14 @@ backends:
     - https
 - group: genomics-v1-datasets
   slug: genomics-v1-v1-datasets
-  url_pattern: //v1/datasets
+  url_pattern: /v1/datasets
   method: GET
   host:
   - https://genomics.googleapis.com
+  query_string_params:
+  - pageSize
+  - pageToken
+  - projectId
   whitelist:
   - datasets
   - nextPageToken
@@ -265,10 +275,12 @@ backends:
     - https
 - group: genomics-v1-datasets-datasetid
   slug: genomics-v1-v1-datasets-datasetid
-  url_pattern: //v1/datasets/{datasetId}
+  url_pattern: /v1/datasets/{datasetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - datasetId
   whitelist:
   - createTime
   - id
@@ -287,10 +299,12 @@ backends:
     - https
 - group: genomics-v1-datasets-datasetid-undelete
   slug: genomics-v1-v1-datasets-datasetid-undelete
-  url_pattern: //v1/datasets/{datasetId}:undelete
+  url_pattern: /v1/datasets/{datasetId}:undelete
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - datasetId
   whitelist:
   - createTime
   - id
@@ -309,7 +323,7 @@ backends:
     - https
 - group: genomics-v1-readgroupsets-search
   slug: genomics-v1-v1-readgroupsets-search
-  url_pattern: //v1/readgroupsets/search
+  url_pattern: /v1/readgroupsets/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -327,10 +341,12 @@ backends:
     - https
 - group: genomics-v1-readgroupsets-readgroupsetid
   slug: genomics-v1-v1-readgroupsets-readgroupsetid
-  url_pattern: //v1/readgroupsets/{readGroupSetId}
+  url_pattern: /v1/readgroupsets/{readGroupSetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - readGroupSetId
   whitelist:
   - datasetId
   - filename
@@ -355,10 +371,19 @@ backends:
     - https
 - group: genomics-v1-readgroupsets-readgroupsetid-coveragebuckets
   slug: genomics-v1-v1-readgroupsets-readgroupsetid-coveragebuckets
-  url_pattern: //v1/readgroupsets/{readGroupSetId}/coveragebuckets
+  url_pattern: /v1/readgroupsets/{readGroupSetId}/coveragebuckets
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - readGroupSetId
+  query_string_params:
+  - end
+  - pageSize
+  - pageToken
+  - referenceName
+  - start
+  - targetBucketWidth
   whitelist:
   - bucketWidth
   - coverageBuckets
@@ -375,10 +400,12 @@ backends:
     - https
 - group: genomics-v1-readgroupsets-readgroupsetid-export
   slug: genomics-v1-v1-readgroupsets-readgroupsetid-export
-  url_pattern: //v1/readgroupsets/{readGroupSetId}:export
+  url_pattern: /v1/readgroupsets/{readGroupSetId}:export
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - readGroupSetId
   whitelist:
   - done
   - metadata
@@ -397,7 +424,7 @@ backends:
     - https
 - group: genomics-v1-readgroupsets-import
   slug: genomics-v1-v1-readgroupsets-import
-  url_pattern: //v1/readgroupsets:import
+  url_pattern: /v1/readgroupsets:import
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -419,7 +446,7 @@ backends:
     - https
 - group: genomics-v1-reads-search
   slug: genomics-v1-v1-reads-search
-  url_pattern: //v1/reads/search
+  url_pattern: /v1/reads/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -437,7 +464,7 @@ backends:
     - https
 - group: genomics-v1-references-search
   slug: genomics-v1-v1-references-search
-  url_pattern: //v1/references/search
+  url_pattern: /v1/references/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -455,10 +482,12 @@ backends:
     - https
 - group: genomics-v1-references-referenceid
   slug: genomics-v1-v1-references-referenceid
-  url_pattern: //v1/references/{referenceId}
+  url_pattern: /v1/references/{referenceId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - referenceId
   whitelist:
   - id
   - length
@@ -483,10 +512,17 @@ backends:
     - https
 - group: genomics-v1-references-referenceid-bases
   slug: genomics-v1-v1-references-referenceid-bases
-  url_pattern: //v1/references/{referenceId}/bases
+  url_pattern: /v1/references/{referenceId}/bases
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - referenceId
+  query_string_params:
+  - end
+  - pageSize
+  - pageToken
+  - start
   whitelist:
   - nextPageToken
   - offset
@@ -503,7 +539,7 @@ backends:
     - https
 - group: genomics-v1-referencesets-search
   slug: genomics-v1-v1-referencesets-search
-  url_pattern: //v1/referencesets/search
+  url_pattern: /v1/referencesets/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -521,10 +557,12 @@ backends:
     - https
 - group: genomics-v1-referencesets-referencesetid
   slug: genomics-v1-v1-referencesets-referencesetid
-  url_pattern: //v1/referencesets/{referenceSetId}
+  url_pattern: /v1/referencesets/{referenceSetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - referenceSetId
   whitelist:
   - assemblyId
   - description
@@ -551,7 +589,7 @@ backends:
     - https
 - group: genomics-v1-variants
   slug: genomics-v1-v1-variants
-  url_pattern: //v1/variants
+  url_pattern: /v1/variants
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -591,7 +629,7 @@ backends:
     - https
 - group: genomics-v1-variants-search
   slug: genomics-v1-v1-variants-search
-  url_pattern: //v1/variants/search
+  url_pattern: /v1/variants/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -609,10 +647,12 @@ backends:
     - https
 - group: genomics-v1-variants-variantid
   slug: genomics-v1-v1-variants-variantid
-  url_pattern: //v1/variants/{variantId}
+  url_pattern: /v1/variants/{variantId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - variantId
   whitelist:
   - alternateBases
   - calls
@@ -649,7 +689,7 @@ backends:
     - https
 - group: genomics-v1-variants-import
   slug: genomics-v1-v1-variants-import
-  url_pattern: //v1/variants:import
+  url_pattern: /v1/variants:import
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -671,7 +711,7 @@ backends:
     - https
 - group: genomics-v1-variants-merge
   slug: genomics-v1-v1-variants-merge
-  url_pattern: //v1/variants:merge
+  url_pattern: /v1/variants:merge
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -683,7 +723,7 @@ backends:
     - https
 - group: genomics-v1-variantsets
   slug: genomics-v1-v1-variantsets
-  url_pattern: //v1/variantsets
+  url_pattern: /v1/variantsets
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -711,7 +751,7 @@ backends:
     - https
 - group: genomics-v1-variantsets-search
   slug: genomics-v1-v1-variantsets-search
-  url_pattern: //v1/variantsets/search
+  url_pattern: /v1/variantsets/search
   method: POST
   host:
   - https://genomics.googleapis.com
@@ -729,10 +769,12 @@ backends:
     - https
 - group: genomics-v1-variantsets-variantsetid
   slug: genomics-v1-v1-variantsets-variantsetid
-  url_pattern: //v1/variantsets/{variantSetId}
+  url_pattern: /v1/variantsets/{variantSetId}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - variantSetId
   whitelist:
   - datasetId
   - description
@@ -757,10 +799,12 @@ backends:
     - https
 - group: genomics-v1-variantsets-variantsetid-export
   slug: genomics-v1-v1-variantsets-variantsetid-export
-  url_pattern: //v1/variantsets/{variantSetId}:export
+  url_pattern: /v1/variantsets/{variantSetId}:export
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - variantSetId
   whitelist:
   - done
   - metadata
@@ -779,10 +823,16 @@ backends:
     - https
 - group: genomics-v1-name
   slug: genomics-v1-v1-name
-  url_pattern: //v1/{name}
+  url_pattern: /v1/{name}
   method: GET
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - name
+  query_string_params:
+  - filter
+  - pageSize
+  - pageToken
   whitelist:
   - nextPageToken
   - operations
@@ -797,10 +847,12 @@ backends:
     - https
 - group: genomics-v1-name-cancel
   slug: genomics-v1-v1-name-cancel
-  url_pattern: //v1/{name}:cancel
+  url_pattern: /v1/{name}:cancel
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - name
   concurrent_calls: 1
   extra_config:
     hosts:
@@ -809,10 +861,12 @@ backends:
     - https
 - group: genomics-v1-resource-getiampolicy
   slug: genomics-v1-v1-resource-getiampolicy
-  url_pattern: //v1/{resource}:getIamPolicy
+  url_pattern: /v1/{resource}:getIamPolicy
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - resource
   whitelist:
   - bindings
   - etag
@@ -829,10 +883,12 @@ backends:
     - https
 - group: genomics-v1-resource-setiampolicy
   slug: genomics-v1-v1-resource-setiampolicy
-  url_pattern: //v1/{resource}:setIamPolicy
+  url_pattern: /v1/{resource}:setIamPolicy
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - resource
   whitelist:
   - bindings
   - etag
@@ -849,10 +905,12 @@ backends:
     - https
 - group: genomics-v1-resource-testiampermissions
   slug: genomics-v1-v1-resource-testiampermissions
-  url_pattern: //v1/{resource}:testIamPermissions
+  url_pattern: /v1/{resource}:testIamPermissions
   method: POST
   host:
   - https://genomics.googleapis.com
+  url_keys:
+  - resource
   whitelist:
   - permissions
   concurrent_calls: 1

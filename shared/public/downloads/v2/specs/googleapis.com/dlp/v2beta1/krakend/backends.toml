@@ -1,7 +1,7 @@
 [[backends]]
   group = "dlp-v2beta1-content-deidentify"
   slug = "dlp-v2beta1-v2beta1-content-deidentify"
-  url_pattern = "//v2beta1/content:deidentify"
+  url_pattern = "/v2beta1/content:deidentify"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
   whitelist = ["items", "summaries"]
@@ -16,7 +16,7 @@
 [[backends]]
   group = "dlp-v2beta1-content-inspect"
   slug = "dlp-v2beta1-v2beta1-content-inspect"
-  url_pattern = "//v2beta1/content:inspect"
+  url_pattern = "/v2beta1/content:inspect"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
   whitelist = ["results"]
@@ -30,7 +30,7 @@
 [[backends]]
   group = "dlp-v2beta1-content-redact"
   slug = "dlp-v2beta1-v2beta1-content-redact"
-  url_pattern = "//v2beta1/content:redact"
+  url_pattern = "/v2beta1/content:redact"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
   whitelist = ["items"]
@@ -44,7 +44,7 @@
 [[backends]]
   group = "dlp-v2beta1-datasource-analyze"
   slug = "dlp-v2beta1-v2beta1-datasource-analyze"
-  url_pattern = "//v2beta1/dataSource:analyze"
+  url_pattern = "/v2beta1/dataSource:analyze"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
   whitelist = ["done", "metadata", "name", "response"]
@@ -61,7 +61,7 @@
 [[backends]]
   group = "dlp-v2beta1-inspect-operations"
   slug = "dlp-v2beta1-v2beta1-inspect-operations"
-  url_pattern = "//v2beta1/inspect/operations"
+  url_pattern = "/v2beta1/inspect/operations"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
   whitelist = ["done", "metadata", "name", "response"]
@@ -78,9 +78,10 @@
 [[backends]]
   group = "dlp-v2beta1-rootcategories"
   slug = "dlp-v2beta1-v2beta1-rootcategories"
-  url_pattern = "//v2beta1/rootCategories"
+  url_pattern = "/v2beta1/rootCategories"
   method = "GET"
   host = ["https://dlp.googleapis.com"]
+  query_string_params = ["languageCode"]
   whitelist = ["categories"]
   concurrent_calls = 1
   [backends.mapping]
@@ -92,9 +93,11 @@
 [[backends]]
   group = "dlp-v2beta1-rootcategories-category-infotypes"
   slug = "dlp-v2beta1-v2beta1-rootcategories-category-infotypes"
-  url_pattern = "//v2beta1/rootCategories/{category}/infoTypes"
+  url_pattern = "/v2beta1/rootCategories/{category}/infoTypes"
   method = "GET"
   host = ["https://dlp.googleapis.com"]
+  url_keys = ["category"]
+  query_string_params = ["languageCode"]
   whitelist = ["infoTypes"]
   concurrent_calls = 1
   [backends.mapping]
@@ -106,9 +109,10 @@
 [[backends]]
   group = "dlp-v2beta1-name"
   slug = "dlp-v2beta1-v2beta1-name"
-  url_pattern = "//v2beta1/{name}"
+  url_pattern = "/v2beta1/{name}"
   method = "GET"
   host = ["https://dlp.googleapis.com"]
+  url_keys = ["name"]
   whitelist = ["done", "metadata", "name", "response"]
   concurrent_calls = 1
   [backends.mapping]
@@ -123,9 +127,11 @@
 [[backends]]
   group = "dlp-v2beta1-name-findings"
   slug = "dlp-v2beta1-v2beta1-name-findings"
-  url_pattern = "//v2beta1/{name}/findings"
+  url_pattern = "/v2beta1/{name}/findings"
   method = "GET"
   host = ["https://dlp.googleapis.com"]
+  url_keys = ["name"]
+  query_string_params = ["filter", "pageSize", "pageToken"]
   whitelist = ["nextPageToken"]
   concurrent_calls = 1
   [backends.mapping]
@@ -137,9 +143,10 @@
 [[backends]]
   group = "dlp-v2beta1-name-cancel"
   slug = "dlp-v2beta1-v2beta1-name-cancel"
-  url_pattern = "//v2beta1/{name}:cancel"
+  url_pattern = "/v2beta1/{name}:cancel"
   method = "POST"
   host = ["https://dlp.googleapis.com"]
+  url_keys = ["name"]
   concurrent_calls = 1
   [backends.extra_config]
     hosts = ["https://dlp.googleapis.com"]
