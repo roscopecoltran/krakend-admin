@@ -21,6 +21,10 @@ func ConvertToProtobuf(swaggerFile string, prefixPath string, annotate bool) {
 		fmt.Println("unable to load spec: ", err)
 		return
 	}
+
+	// fmt.Println("loaded spec struct: ")
+	// pp.Print(api)
+
 	out, err := openapi2proto.GenerateProto(api, annotate)
 	if err != nil {
 		fmt.Println("unable to generate protobuf: ", err)

@@ -16,7 +16,7 @@ func ParseSpecs(apis []SpecsRegistryAPI, ignoreList []string) error {
 		var contentURL string
 		var isSkip bool
 		for _, v := range api.Versions {
-			contentURL = fmt.Sprintf("%s", v.SwaggerYamlURL)
+			contentURL = fmt.Sprintf("%s", v.SwaggerURL)
 			if len(ignoreList) > 0 {
 				for _, pattern := range ignoreList {
 					if strings.Contains(contentURL, pattern) == true {
@@ -34,6 +34,7 @@ func ParseSpecs(apis []SpecsRegistryAPI, ignoreList []string) error {
 				fmt.Println("ParseSpecs(...): |- fileName: ", fileName, ", fullPath: ", fullPath, ", fullName: ", fullName, "filePathAbsolute: ", filePathAbs)
 				// openapiSplit(filePathAbsolute, prefixPathAbsolute)
 				openapi.ConvertToProtobuf(filePathAbs, fullPath, true)
+				openapi.ConvertToKrakend(filePathAbs, fullPath, "json")
 			}
 		}
 	}

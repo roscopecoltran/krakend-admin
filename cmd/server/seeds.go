@@ -25,7 +25,6 @@ func convert(p provider.Provider) (gateway.Export, gateway.Backend) {
 	fmt.Println(dotSlugifier.Slugify("Hello, world!")) // Will print: hello.world
 
 	paths := make([]map[string]string, 0)
-
 	holders := make([]map[string]string, 0)
 	mapping := make(map[string]string)
 	parameters := make(map[string]string)
@@ -114,7 +113,7 @@ func createNewApiGuruProfile(apis []restful.SpecsRegistryAPI) error {
 	}
 	for k, api := range apis {
 		if ok := db.Store.Gorm.DB.NewRecord(api); ok {
-			pp.Print(api)
+			// pp.Print(api)
 			if err := db.Store.Gorm.DB.Create(&api).Error; err != nil {
 				fmt.Println("error: ", err)
 			}
@@ -135,7 +134,7 @@ func createNewApiGuruProfile(apis []restful.SpecsRegistryAPI) error {
 				if err != nil {
 					continue
 				}
-				fmt.Printf("filePathAbsolute:", filePathAbsolute)
+				fmt.Printf("filePathAbsolute: %s \n", filePathAbsolute)
 				// loadSwaggerFile(filePathAbsolute)
 				// openapi2Protobuf(filePathAbsolute, fullPath, true)
 				//if err := configor.Load(&Cfg.Specs.Registry[k].Versions[m].OpenAPI, filePathAbsolute); err != nil {

@@ -12,7 +12,7 @@ all:
 	@gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" $(shell glide novendor)
 
 server:
-	@gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" ./cmd/server/...
+	gox -verbose -os="darwin" -arch="amd64" -output="{{.Dir}}" ./cmd/server/...
 
 dev:
 	@go build -v $(shell glide novendor) && ./convert 
