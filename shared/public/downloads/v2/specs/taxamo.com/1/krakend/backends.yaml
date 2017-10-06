@@ -1,16 +1,14 @@
 backends:
 - group: taxamo-api-v1-dictionaries-countries
   slug: taxamo-1-api-v1-dictionaries-countries
-  url_pattern: /api/v1/dictionaries/countries
+  url_pattern: //api/v1/dictionaries/countries
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - tax_supported
   whitelist:
   - dictionary
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     dictionary: dictionary
   extra_config:
@@ -24,14 +22,14 @@ backends:
     - https
 - group: taxamo-api-v1-dictionaries-currencies
   slug: taxamo-1-api-v1-dictionaries-currencies
-  url_pattern: /api/v1/dictionaries/currencies
+  url_pattern: //api/v1/dictionaries/currencies
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
   whitelist:
   - dictionary
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     dictionary: dictionary
   extra_config:
@@ -45,14 +43,14 @@ backends:
     - https
 - group: taxamo-api-v1-dictionaries-product-types
   slug: taxamo-1-api-v1-dictionaries-product-types
-  url_pattern: /api/v1/dictionaries/product_types
+  url_pattern: //api/v1/dictionaries/product_types
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
   whitelist:
   - dictionary
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     dictionary: dictionary
   extra_config:
@@ -66,7 +64,7 @@ backends:
     - https
 - group: taxamo-api-v1-geoip
   slug: taxamo-1-api-v1-geoip
-  url_pattern: /api/v1/geoip
+  url_pattern: //api/v1/geoip
   method: GET
   encoding: json
   host:
@@ -74,7 +72,7 @@ backends:
   whitelist:
   - country_code
   - remote_addr
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     country_code: country_code
     remote_addr: remote_addr
@@ -89,17 +87,15 @@ backends:
     - https
 - group: taxamo-api-v1-geoip-ip
   slug: taxamo-1-api-v1-geoip-ip
-  url_pattern: /api/v1/geoip/{ip}
+  url_pattern: //api/v1/geoip/{ip}
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - ip
   whitelist:
   - country_code
   - remote_addr
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     country_code: country_code
     remote_addr: remote_addr
@@ -114,18 +110,11 @@ backends:
     - https
 - group: taxamo-api-v1-reports-domestic-summary
   slug: taxamo-1-api-v1-reports-domestic-summary
-  url_pattern: /api/v1/reports/domestic/summary
+  url_pattern: //api/v1/reports/domestic/summary
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - country_code
-  - currency_code
-  - end_month
-  - format
-  - fx_date_type
-  - start_month
   whitelist:
   - currency_code
   - domestic_refunds_amount
@@ -140,7 +129,7 @@ backends:
   - global_sales_amount
   - global_sales_tax_amount
   - start_date
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     currency_code: currency_code
     domestic_refunds_amount: domestic_refunds_amount
@@ -166,28 +155,17 @@ backends:
     - https
 - group: taxamo-api-v1-reports-eu-vies
   slug: taxamo-1-api-v1-reports-eu-vies
-  url_pattern: /api/v1/reports/eu/vies
+  url_pattern: //api/v1/reports/eu/vies
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - currency_code
-  - end_month
-  - eu_country_code
-  - format
-  - fx_date_type
-  - lff_sequence_number
-  - period_length
-  - start_month
-  - tax_id
-  - transformation
   whitelist:
   - currency_code
   - end_date
   - report
   - start_date
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     currency_code: currency_code
     end_date: end_date
@@ -204,21 +182,14 @@ backends:
     - https
 - group: taxamo-api-v1-settlement-detailed-refunds
   slug: taxamo-1-api-v1-settlement-detailed-refunds
-  url_pattern: /api/v1/settlement/detailed_refunds
+  url_pattern: //api/v1/settlement/detailed_refunds
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - country_codes
-  - date_from
-  - date_to
-  - format
-  - limit
-  - offset
   whitelist:
   - report
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     report: report
   extra_config:
@@ -232,19 +203,14 @@ backends:
     - https
 - group: taxamo-api-v1-settlement-refunds
   slug: taxamo-1-api-v1-settlement-refunds
-  url_pattern: /api/v1/settlement/refunds
+  url_pattern: //api/v1/settlement/refunds
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - format
-  - moss_country_code
-  - tax_region
   whitelist:
   - report
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     report: report
   extra_config:
@@ -258,20 +224,12 @@ backends:
     - https
 - group: taxamo-api-v1-settlement-summary-quarter
   slug: taxamo-1-api-v1-settlement-summary-quarter
-  url_pattern: /api/v1/settlement/summary/{quarter}
+  url_pattern: //api/v1/settlement/summary/{quarter}
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - quarter
-  query_string_params:
-  - end_month
-  - moss_country_code
-  - start_month
-  - tax_region
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     consumes:
     - json
@@ -283,30 +241,18 @@ backends:
     - https
 - group: taxamo-api-v1-settlement-quarter
   slug: taxamo-1-api-v1-settlement-quarter
-  url_pattern: /api/v1/settlement/{quarter}
+  url_pattern: //api/v1/settlement/{quarter}
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - quarter
-  query_string_params:
-  - currency_code
-  - end_month
-  - format
-  - moss_country_code
-  - moss_tax_id
-  - refund_date_kind_override
-  - start_month
-  - tax_country_code
-  - tax_id
   whitelist:
   - end_date
   - fx_rate_date
   - indicative
   - report
   - start_date
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     end_date: end_date
     fx_rate_date: fx_rate_date
@@ -324,17 +270,14 @@ backends:
     - https
 - group: taxamo-api-v1-stats-settlement-by-country
   slug: taxamo-1-api-v1-stats-settlement-by-country
-  url_pattern: /api/v1/stats/settlement/by_country
+  url_pattern: //api/v1/stats/settlement/by_country
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - date_to
   whitelist:
   - by_country
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     by_country: by_country
   extra_config:
@@ -348,16 +291,12 @@ backends:
     - https
 - group: taxamo-api-v1-stats-settlement-by-taxation-type
   slug: taxamo-1-api-v1-stats-settlement-by-taxation-type
-  url_pattern: /api/v1/stats/settlement/by_taxation_type
+  url_pattern: //api/v1/stats/settlement/by_taxation_type
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - date_to
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     consumes:
     - json
@@ -369,18 +308,14 @@ backends:
     - https
 - group: taxamo-api-v1-stats-settlement-daily
   slug: taxamo-1-api-v1-stats-settlement-daily
-  url_pattern: /api/v1/stats/settlement/daily
+  url_pattern: //api/v1/stats/settlement/daily
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - date_to
-  - interval
   whitelist:
   - settlement_daily
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     settlement_daily: settlement_daily
   extra_config:
@@ -394,17 +329,12 @@ backends:
     - https
 - group: taxamo-api-v1-stats-transactions
   slug: taxamo-1-api-v1-stats-transactions
-  url_pattern: /api/v1/stats/transactions
+  url_pattern: //api/v1/stats/transactions
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - date_to
-  - interval
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     consumes:
     - json
@@ -416,18 +346,14 @@ backends:
     - https
 - group: taxamo-api-v1-stats-transactions-by-country
   slug: taxamo-1-api-v1-stats-transactions-by-country
-  url_pattern: /api/v1/stats/transactions/by_country
+  url_pattern: //api/v1/stats/transactions/by_country
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - date_from
-  - date_to
-  - global_currency_code
   whitelist:
   - by_country
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     by_country: by_country
   extra_config:
@@ -441,31 +367,15 @@ backends:
     - https
 - group: taxamo-api-v1-tax-calculate
   slug: taxamo-1-api-v1-tax-calculate
-  url_pattern: /api/v1/tax/calculate
+  url_pattern: //api/v1/tax/calculate
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - amount
-  - billing_country_code
-  - buyer_credit_card_prefix
-  - buyer_tax_number
-  - currency_code
-  - force_country_code
-  - invoice_address_city
-  - invoice_address_postal_code
-  - invoice_address_region
-  - order_date
-  - product_type
-  - quantity
-  - tax_deducted
-  - total_amount
-  - unit_price
   whitelist:
   - storage_required_fields
   - tax_required_fields
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     storage_required_fields: storage_required_fields
     tax_required_fields: tax_required_fields
@@ -480,14 +390,11 @@ backends:
     - https
 - group: taxamo-api-v1-tax-location-calculate
   slug: taxamo-1-api-v1-tax-location-calculate
-  url_pattern: /api/v1/tax/location/calculate
+  url_pattern: //api/v1/tax/location/calculate
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - billing_country_code
-  - buyer_credit_card_prefix
   whitelist:
   - billing_country_code
   - buyer_credit_card_prefix
@@ -495,7 +402,7 @@ backends:
   - tax_country_code
   - tax_deducted
   - tax_supported
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     billing_country_code: billing_country_code
     buyer_credit_card_prefix: buyer_credit_card_prefix
@@ -514,21 +421,17 @@ backends:
     - https
 - group: taxamo-api-v1-tax-vat-numbers-tax-number-validate
   slug: taxamo-1-api-v1-tax-vat-numbers-tax-number-validate
-  url_pattern: /api/v1/tax/vat_numbers/{tax_number}/validate
+  url_pattern: //api/v1/tax/vat_numbers/{tax_number}/validate
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - tax_number
-  query_string_params:
-  - country_code
   whitelist:
   - billing_country_code
   - buyer_tax_number
   - buyer_tax_number_valid
   - tax_deducted
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     billing_country_code: billing_country_code
     buyer_tax_number: buyer_tax_number
@@ -545,32 +448,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions
   slug: taxamo-1-api-v1-transactions
-  url_pattern: /api/v1/transactions
+  url_pattern: //api/v1/transactions
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  query_string_params:
-  - currency_code
-  - filter_text
-  - format
-  - has_note
-  - invoice_number
-  - key_or_custom_id
-  - limit
-  - offset
-  - order_date_from
-  - order_date_to
-  - original_transaction_key
-  - sort_reverse
-  - statuses
-  - tax_country_code
-  - tax_country_codes
-  - total_amount_greater_than
-  - total_amount_less_than
   whitelist:
   - transactions
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     transactions: transactions
   extra_config:
@@ -584,17 +469,15 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key
   slug: taxamo-1-api-v1-transactions-key
-  url_pattern: /api/v1/transactions/{key}
+  url_pattern: //api/v1/transactions/{key}
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - storage_required_fields
   - tax_required_fields
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     storage_required_fields: storage_required_fields
     tax_required_fields: tax_required_fields
@@ -609,17 +492,15 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-confirm
   slug: taxamo-1-api-v1-transactions-key-confirm
-  url_pattern: /api/v1/transactions/{key}/confirm
+  url_pattern: //api/v1/transactions/{key}/confirm
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - storage_required_fields
   - tax_required_fields
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     storage_required_fields: storage_required_fields
     tax_required_fields: tax_required_fields
@@ -634,17 +515,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-invoice-refunds-refund-note-number-send-email
   slug: taxamo-1-api-v1-transactions-key-invoice-refunds-refund-note-number-send-email
-  url_pattern: /api/v1/transactions/{key}/invoice/refunds/{refund_note_number}/send_email
+  url_pattern: //api/v1/transactions/{key}/invoice/refunds/{refund_note_number}/send_email
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
-  - refund_note_number
   whitelist:
   - success
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     success: success
   extra_config:
@@ -658,16 +536,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-invoice-send-email
   slug: taxamo-1-api-v1-transactions-key-invoice-send-email
-  url_pattern: /api/v1/transactions/{key}/invoice/send_email
+  url_pattern: //api/v1/transactions/{key}/invoice/send_email
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - success
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     success: success
   extra_config:
@@ -681,19 +557,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-payments
   slug: taxamo-1-api-v1-transactions-key-payments
-  url_pattern: /api/v1/transactions/{key}/payments
+  url_pattern: //api/v1/transactions/{key}/payments
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
-  query_string_params:
-  - limit
-  - offset
   whitelist:
   - payments
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     payments: payments
   extra_config:
@@ -707,16 +578,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-payments-capture
   slug: taxamo-1-api-v1-transactions-key-payments-capture
-  url_pattern: /api/v1/transactions/{key}/payments/capture
+  url_pattern: //api/v1/transactions/{key}/payments/capture
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - success
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     success: success
   extra_config:
@@ -730,16 +599,14 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-refunds
   slug: taxamo-1-api-v1-transactions-key-refunds
-  url_pattern: /api/v1/transactions/{key}/refunds
+  url_pattern: //api/v1/transactions/{key}/refunds
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - refunds
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     refunds: refunds
   extra_config:
@@ -753,17 +620,15 @@ backends:
     - https
 - group: taxamo-api-v1-transactions-key-unconfirm
   slug: taxamo-1-api-v1-transactions-key-unconfirm
-  url_pattern: /api/v1/transactions/{key}/unconfirm
+  url_pattern: //api/v1/transactions/{key}/unconfirm
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - key
   whitelist:
   - storage_required_fields
   - tax_required_fields
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     storage_required_fields: storage_required_fields
     tax_required_fields: tax_required_fields
@@ -778,14 +643,14 @@ backends:
     - https
 - group: taxamo-api-v1-verification-sms
   slug: taxamo-1-api-v1-verification-sms
-  url_pattern: /api/v1/verification/sms
+  url_pattern: //api/v1/verification/sms
   method: POST
   encoding: json
   host:
   - https://api.taxamo.com
   whitelist:
   - success
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     success: success
   extra_config:
@@ -799,16 +664,14 @@ backends:
     - https
 - group: taxamo-api-v1-verification-sms-token
   slug: taxamo-1-api-v1-verification-sms-token
-  url_pattern: /api/v1/verification/sms/{token}
+  url_pattern: //api/v1/verification/sms/{token}
   method: GET
   encoding: json
   host:
   - https://api.taxamo.com
-  url_keys:
-  - token
   whitelist:
   - country_code
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     country_code: country_code
   extra_config:

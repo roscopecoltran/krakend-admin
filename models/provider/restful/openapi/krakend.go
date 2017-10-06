@@ -55,7 +55,7 @@ type SwaggerExport struct {
 	RespAttrRef       string            `json:"-" yaml:"-" toml:"-"`
 	RespAttrRefPath   string            `json:"-" yaml:"-" toml:"-"`
 	ConcurrentCalls   int               `default:"1" json:"concurrent_calls" yaml:"concurrent_calls" toml:"concurrent_calls"`
-	Mapping           map[string]string `json:"mapping" yaml:"mapping" toml:"mapping"`
+	Mapping           map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty" toml:"mapping,omitempty"`
 	Extra             struct {
 		Bodies    []string `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
 		Encodings []string `json:"-" yaml:"-" toml:"-"`
@@ -227,14 +227,23 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					continue
 				}
 				backend := &SwaggerExport{}
-				backend.UrlPattern = path
+
+				basePath := typed.String("basePath")
+
+				backend.UrlPattern = fmt.Sprintf("%s%s", basePath, path) // path
 				backend.Method = strings.ToUpper(parts[2])
 				backend.Extra.LocalFile = swaggerFile
+				backend.ConcurrentCalls = 1
 
 				var paramsKeyLength, respAttrLength, respAttrRef string
 				var paramsKeyLengthInt, respAttrLengthInt int
 
 				host := typed.String("host")
+
+				if basePath == "/" {
+					basePath = ""
+				}
+
 				consumes := typed.Strings("consumes")
 				produces := typed.Strings("produces")
 				schemes := typed.StringsOr("schemes", []string{"https"})
@@ -290,6 +299,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					backend.Encoding = produces[0]
 				}
 
+				// basePath
 				backend.Host = []string{fmt.Sprintf("%s://%s", backend.Scheme, host)}
 
 				paramsKeyLength = findKeyValue(fmt.Sprintf("paths.%s.%s.parameters.length", parts[1], parts[2]), fm)

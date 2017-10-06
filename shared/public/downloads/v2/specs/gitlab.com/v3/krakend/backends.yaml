@@ -1,7 +1,7 @@
 backends:
-- group: gitlab-v3-application-settings
-  slug: gitlab-v3-v3-application-settings
-  url_pattern: /v3/application/settings
+- group: gitlab-api-v3-application-settings
+  slug: gitlab-v3-api-v3-application-settings
+  url_pattern: /api/v3/application/settings
   method: GET
   encoding: json
   host:
@@ -36,7 +36,7 @@ backends:
   - signup_enabled
   - updated_at
   - user_oauth_applications
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     after_sign_out_path: after_sign_out_path
     after_sign_up_text: after_sign_up_text
@@ -75,18 +75,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-ci-lint
-  slug: gitlab-v3-v3-ci-lint
-  url_pattern: /v3/ci/lint
+- group: gitlab-api-v3-ci-lint
+  slug: gitlab-v3-api-v3-ci-lint
+  url_pattern: /api/v3/ci/lint
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - content
     produces:
     - json
     - plain
@@ -94,15 +91,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-deploy-keys
-  slug: gitlab-v3-v3-deploy-keys
-  url_pattern: /v3/deploy_keys
+- group: gitlab-api-v3-deploy-keys
+  slug: gitlab-v3-api-v3-deploy-keys
+  url_pattern: /api/v3/deploy_keys
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -111,16 +107,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-dockerfiles
-  slug: gitlab-v3-v3-dockerfiles
-  url_pattern: /v3/dockerfiles
+- group: gitlab-api-v3-dockerfiles
+  slug: gitlab-v3-api-v3-dockerfiles
+  url_pattern: /api/v3/dockerfiles
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -131,19 +127,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-dockerfiles-name
-  slug: gitlab-v3-v3-dockerfiles-name
-  url_pattern: /v3/dockerfiles/{name}
+- group: gitlab-api-v3-dockerfiles-name
+  slug: gitlab-v3-api-v3-dockerfiles-name
+  url_pattern: /api/v3/dockerfiles/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -155,16 +149,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-gitignores
-  slug: gitlab-v3-v3-gitignores
-  url_pattern: /v3/gitignores
+- group: gitlab-api-v3-gitignores
+  slug: gitlab-v3-api-v3-gitignores
+  url_pattern: /api/v3/gitignores
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -175,19 +169,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-gitignores-name
-  slug: gitlab-v3-v3-gitignores-name
-  url_pattern: /v3/gitignores/{name}
+- group: gitlab-api-v3-gitignores-name
+  slug: gitlab-v3-api-v3-gitignores-name
+  url_pattern: /api/v3/gitignores/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -199,16 +191,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-gitlab-ci-ymls
-  slug: gitlab-v3-v3-gitlab-ci-ymls
-  url_pattern: /v3/gitlab_ci_ymls
+- group: gitlab-api-v3-gitlab-ci-ymls
+  slug: gitlab-v3-api-v3-gitlab-ci-ymls
+  url_pattern: /api/v3/gitlab_ci_ymls
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -219,19 +211,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-gitlab-ci-ymls-name
-  slug: gitlab-v3-v3-gitlab-ci-ymls-name
-  url_pattern: /v3/gitlab_ci_ymls/{name}
+- group: gitlab-api-v3-gitlab-ci-ymls-name
+  slug: gitlab-v3-api-v3-gitlab-ci-ymls-name
+  url_pattern: /api/v3/gitlab_ci_ymls/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -243,21 +233,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups
-  slug: gitlab-v3-v3-groups
-  url_pattern: /v3/groups
+- group: gitlab-api-v3-groups
+  slug: gitlab-v3-api-v3-groups
+  url_pattern: /api/v3/groups
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - all_available
-  - order_by
-  - page
-  - per_page
-  - search
-  - sort
-  - statistics
   whitelist:
   - avatar_url
   - description
@@ -269,51 +251,7 @@ backends:
   - statistics
   - visibility_level
   - web_url
-  concurrent_calls: 0
-  mapping:
-    avatar_url: avatar_url
-    description: description
-    id: id
-    lfs_enabled: lfs_enabled
-    name: name
-    path: path
-    request_access_enabled: request_access_enabled
-    statistics: statistics
-    visibility_level: visibility_level
-    web_url: web_url
-  extra_config:
-    form_data:
-    - skip_groups
-    produces:
-    - json
-    - plain
-    hosts:
-    - https://gitlab.com
-    schemes:
-    - https
-- group: gitlab-v3-groups-owned
-  slug: gitlab-v3-v3-groups-owned
-  url_pattern: /v3/groups/owned
-  method: GET
-  encoding: json
-  host:
-  - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
-  - statistics
-  whitelist:
-  - avatar_url
-  - description
-  - id
-  - lfs_enabled
-  - name
-  - path
-  - request_access_enabled
-  - statistics
-  - visibility_level
-  - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     description: description
@@ -333,15 +271,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id
-  slug: gitlab-v3-v3-groups-id
-  url_pattern: /v3/groups/{id}
+- group: gitlab-api-v3-groups-owned
+  slug: gitlab-v3-api-v3-groups-owned
+  url_pattern: /api/v3/groups/owned
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - avatar_url
   - description
@@ -353,7 +289,7 @@ backends:
   - statistics
   - visibility_level
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     description: description
@@ -373,18 +309,51 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-access-requests
-  slug: gitlab-v3-v3-groups-id-access-requests
-  url_pattern: /v3/groups/{id}/access_requests
+- group: gitlab-api-v3-groups-id
+  slug: gitlab-v3-api-v3-groups-id
+  url_pattern: /api/v3/groups/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
+  whitelist:
+  - avatar_url
+  - description
   - id
-  query_string_params:
-  - page
-  - per_page
+  - lfs_enabled
+  - name
+  - path
+  - request_access_enabled
+  - statistics
+  - visibility_level
+  - web_url
+  concurrent_calls: 1
+  mapping:
+    avatar_url: avatar_url
+    description: description
+    id: id
+    lfs_enabled: lfs_enabled
+    name: name
+    path: path
+    request_access_enabled: request_access_enabled
+    statistics: statistics
+    visibility_level: visibility_level
+    web_url: web_url
+  extra_config:
+    produces:
+    - json
+    - plain
+    hosts:
+    - https://gitlab.com
+    schemes:
+    - https
+- group: gitlab-api-v3-groups-id-access-requests
+  slug: gitlab-v3-api-v3-groups-id-access-requests
+  url_pattern: /api/v3/groups/{id}/access_requests
+  method: GET
+  encoding: json
+  host:
+  - https://gitlab.com
   whitelist:
   - avatar_url
   - id
@@ -393,7 +362,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     id: id
@@ -410,23 +379,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-issues
-  slug: gitlab-v3-v3-groups-id-issues
-  url_pattern: /v3/groups/{id}/issues
+- group: gitlab-api-v3-groups-id-issues
+  slug: gitlab-v3-api-v3-groups-id-issues
+  url_pattern: /api/v3/groups/{id}/issues
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - labels
-  - milestone
-  - order_by
-  - page
-  - per_page
-  - sort
-  - state
   whitelist:
   - confidential
   - created_at
@@ -444,7 +403,7 @@ backends:
   - upvotes
   - user_notes_count
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     confidential: confidential
     created_at: created_at
@@ -470,19 +429,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-members
-  slug: gitlab-v3-v3-groups-id-members
-  url_pattern: /v3/groups/{id}/members
+- group: gitlab-api-v3-groups-id-members
+  slug: gitlab-v3-api-v3-groups-id-members
+  url_pattern: /api/v3/groups/{id}/members
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - query
   whitelist:
   - access_level
   - avatar_url
@@ -492,7 +445,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     access_level: access_level
     avatar_url: avatar_url
@@ -510,16 +463,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-members-user-id
-  slug: gitlab-v3-v3-groups-id-members-user-id
-  url_pattern: /v3/groups/{id}/members/{user_id}
+- group: gitlab-api-v3-groups-id-members-user-id
+  slug: gitlab-v3-api-v3-groups-id-members-user-id
+  url_pattern: /api/v3/groups/{id}/members/{user_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - user_id
   whitelist:
   - access_level
   - avatar_url
@@ -529,7 +479,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     access_level: access_level
     avatar_url: avatar_url
@@ -547,19 +497,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-notification-settings
-  slug: gitlab-v3-v3-groups-id-notification-settings
-  url_pattern: /v3/groups/{id}/notification_settings
+- group: gitlab-api-v3-groups-id-notification-settings
+  slug: gitlab-v3-api-v3-groups-id-notification-settings
+  url_pattern: /api/v3/groups/{id}/notification_settings
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - events
   - level
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     events: events
     level: level
@@ -571,24 +519,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-projects
-  slug: gitlab-v3-v3-groups-id-projects
-  url_pattern: /v3/groups/{id}/projects
+- group: gitlab-api-v3-groups-id-projects
+  slug: gitlab-v3-api-v3-groups-id-projects
+  url_pattern: /api/v3/groups/{id}/projects
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - visibility
   whitelist:
   - archived
   - avatar_url
@@ -625,7 +562,7 @@ backends:
   - visibility_level
   - web_url
   - wiki_enabled
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     archived: archived
     avatar_url: avatar_url
@@ -670,18 +607,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-groups-id-projects-project-id
-  slug: gitlab-v3-v3-groups-id-projects-project-id
-  url_pattern: /v3/groups/{id}/projects/{project_id}
+- group: gitlab-api-v3-groups-id-projects-project-id
+  slug: gitlab-v3-api-v3-groups-id-projects-project-id
+  url_pattern: /api/v3/groups/{id}/projects/{project_id}
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - project_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -690,9 +623,9 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-hooks
-  slug: gitlab-v3-v3-hooks
-  url_pattern: /v3/hooks
+- group: gitlab-api-v3-hooks
+  slug: gitlab-v3-api-v3-hooks
+  url_pattern: /api/v3/hooks
   method: GET
   encoding: json
   host:
@@ -704,7 +637,7 @@ backends:
   - push_events
   - tag_push_events
   - url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     enable_ssl_verification: enable_ssl_verification
@@ -720,15 +653,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-hooks-id
-  slug: gitlab-v3-v3-hooks-id
-  url_pattern: /v3/hooks/{id}
+- group: gitlab-api-v3-hooks-id
+  slug: gitlab-v3-api-v3-hooks-id
+  url_pattern: /api/v3/hooks/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - created_at
   - enable_ssl_verification
@@ -736,7 +667,7 @@ backends:
   - push_events
   - tag_push_events
   - url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     enable_ssl_verification: enable_ssl_verification
@@ -752,15 +683,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-allowed
-  slug: gitlab-v3-v3-internal-allowed
-  url_pattern: /v3/internal/allowed
+- group: gitlab-api-v3-internal-allowed
+  slug: gitlab-v3-api-v3-internal-allowed
+  url_pattern: /api/v3/internal/allowed
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -769,15 +699,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-broadcast-message
-  slug: gitlab-v3-v3-internal-broadcast-message
-  url_pattern: /v3/internal/broadcast_message
+- group: gitlab-api-v3-internal-broadcast-message
+  slug: gitlab-v3-api-v3-internal-broadcast-message
+  url_pattern: /api/v3/internal/broadcast_message
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -786,15 +715,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-check
-  slug: gitlab-v3-v3-internal-check
-  url_pattern: /v3/internal/check
+- group: gitlab-api-v3-internal-check
+  slug: gitlab-v3-api-v3-internal-check
+  url_pattern: /api/v3/internal/check
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -803,15 +731,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-discover
-  slug: gitlab-v3-v3-internal-discover
-  url_pattern: /v3/internal/discover
+- group: gitlab-api-v3-internal-discover
+  slug: gitlab-v3-api-v3-internal-discover
+  url_pattern: /api/v3/internal/discover
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -820,15 +747,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-lfs-authenticate
-  slug: gitlab-v3-v3-internal-lfs-authenticate
-  url_pattern: /v3/internal/lfs_authenticate
+- group: gitlab-api-v3-internal-lfs-authenticate
+  slug: gitlab-v3-api-v3-internal-lfs-authenticate
+  url_pattern: /api/v3/internal/lfs_authenticate
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -837,15 +763,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-merge-request-urls
-  slug: gitlab-v3-v3-internal-merge-request-urls
-  url_pattern: /v3/internal/merge_request_urls
+- group: gitlab-api-v3-internal-merge-request-urls
+  slug: gitlab-v3-api-v3-internal-merge-request-urls
+  url_pattern: /api/v3/internal/merge_request_urls
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -854,15 +779,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-internal-two-factor-recovery-codes
-  slug: gitlab-v3-v3-internal-two-factor-recovery-codes
-  url_pattern: /v3/internal/two_factor_recovery_codes
+- group: gitlab-api-v3-internal-two-factor-recovery-codes
+  slug: gitlab-v3-api-v3-internal-two-factor-recovery-codes
+  url_pattern: /api/v3/internal/two_factor_recovery_codes
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -871,21 +795,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-issues
-  slug: gitlab-v3-v3-issues
-  url_pattern: /v3/issues
+- group: gitlab-api-v3-issues
+  slug: gitlab-v3-api-v3-issues
+  url_pattern: /api/v3/issues
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - labels
-  - milestone
-  - order_by
-  - page
-  - per_page
-  - sort
-  - state
   whitelist:
   - confidential
   - created_at
@@ -903,7 +819,7 @@ backends:
   - upvotes
   - user_notes_count
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     confidential: confidential
     created_at: created_at
@@ -929,22 +845,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-keys-id
-  slug: gitlab-v3-v3-keys-id
-  url_pattern: /v3/keys/{id}
+- group: gitlab-api-v3-keys-id
+  slug: gitlab-v3-api-v3-keys-id
+  url_pattern: /api/v3/keys/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -959,15 +873,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-licenses
-  slug: gitlab-v3-v3-licenses
-  url_pattern: /v3/licenses
+- group: gitlab-api-v3-licenses
+  slug: gitlab-v3-api-v3-licenses
+  url_pattern: /api/v3/licenses
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - popular
   whitelist:
   - conditions
   - content
@@ -980,7 +892,7 @@ backends:
   - permissions
   - popular
   - source_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     conditions: conditions
     content: content
@@ -1001,15 +913,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-licenses-name
-  slug: gitlab-v3-v3-licenses-name
-  url_pattern: /v3/licenses/{name}
+- group: gitlab-api-v3-licenses-name
+  slug: gitlab-v3-api-v3-licenses-name
+  url_pattern: /api/v3/licenses/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - conditions
   - content
@@ -1022,7 +932,7 @@ backends:
   - permissions
   - popular
   - source_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     conditions: conditions
     content: content
@@ -1043,23 +953,19 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-namespaces
-  slug: gitlab-v3-v3-namespaces
-  url_pattern: /v3/namespaces
+- group: gitlab-api-v3-namespaces
+  slug: gitlab-v3-api-v3-namespaces
+  url_pattern: /api/v3/namespaces
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
-  - search
   whitelist:
   - id
   - kind
   - name
   - path
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     id: id
     kind: kind
@@ -1073,9 +979,9 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-notification-settings
-  slug: gitlab-v3-v3-notification-settings
-  url_pattern: /v3/notification_settings
+- group: gitlab-api-v3-notification-settings
+  slug: gitlab-v3-api-v3-notification-settings
+  url_pattern: /api/v3/notification_settings
   method: GET
   encoding: json
   host:
@@ -1084,7 +990,7 @@ backends:
   - events
   - level
   - notification_email
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     events: events
     level: level
@@ -1097,22 +1003,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects
-  slug: gitlab-v3-v3-projects
-  url_pattern: /v3/projects
+- group: gitlab-api-v3-projects
+  slug: gitlab-v3-api-v3-projects
+  url_pattern: /api/v3/projects
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - visibility
   whitelist:
   - http_url_to_repo
   - id
@@ -1121,7 +1018,7 @@ backends:
   - path
   - path_with_namespace
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     http_url_to_repo: http_url_to_repo
     id: id
@@ -1138,23 +1035,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-all
-  slug: gitlab-v3-v3-projects-all
-  url_pattern: /v3/projects/all
+- group: gitlab-api-v3-projects-all
+  slug: gitlab-v3-api-v3-projects-all
+  url_pattern: /api/v3/projects/all
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - statistics
-  - visibility
   whitelist:
   - http_url_to_repo
   - id
@@ -1163,7 +1050,7 @@ backends:
   - path
   - path_with_namespace
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     http_url_to_repo: http_url_to_repo
     id: id
@@ -1180,20 +1067,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-fork-id
-  slug: gitlab-v3-v3-projects-fork-id
-  url_pattern: /v3/projects/fork/{id}
+- group: gitlab-api-v3-projects-fork-id
+  slug: gitlab-v3-api-v3-projects-fork-id
+  url_pattern: /api/v3/projects/fork/{id}
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - namespace
     produces:
     - json
     - plain
@@ -1201,23 +1083,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-owned
-  slug: gitlab-v3-v3-projects-owned
-  url_pattern: /v3/projects/owned
+- group: gitlab-api-v3-projects-owned
+  slug: gitlab-v3-api-v3-projects-owned
+  url_pattern: /api/v3/projects/owned
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - statistics
-  - visibility
   whitelist:
   - http_url_to_repo
   - id
@@ -1226,7 +1098,7 @@ backends:
   - path
   - path_with_namespace
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     http_url_to_repo: http_url_to_repo
     id: id
@@ -1243,20 +1115,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-search-query
-  slug: gitlab-v3-v3-projects-search-query
-  url_pattern: /v3/projects/search/{query}
+- group: gitlab-api-v3-projects-search-query
+  slug: gitlab-v3-api-v3-projects-search-query
+  url_pattern: /api/v3/projects/search/{query}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - query
-  query_string_params:
-  - order_by
-  - page
-  - per_page
-  - sort
   whitelist:
   - archived
   - avatar_url
@@ -1293,7 +1158,7 @@ backends:
   - visibility_level
   - web_url
   - wiki_enabled
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     archived: archived
     avatar_url: avatar_url
@@ -1338,22 +1203,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-starred
-  slug: gitlab-v3-v3-projects-starred
-  url_pattern: /v3/projects/starred
+- group: gitlab-api-v3-projects-starred
+  slug: gitlab-v3-api-v3-projects-starred
+  url_pattern: /api/v3/projects/starred
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - visibility
   whitelist:
   - http_url_to_repo
   - id
@@ -1362,7 +1218,7 @@ backends:
   - path
   - path_with_namespace
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     http_url_to_repo: http_url_to_repo
     id: id
@@ -1379,38 +1235,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-user-user-id
-  slug: gitlab-v3-v3-projects-user-user-id
-  url_pattern: /v3/projects/user/{user_id}
+- group: gitlab-api-v3-projects-user-user-id
+  slug: gitlab-v3-api-v3-projects-user-user-id
+  url_pattern: /api/v3/projects/user/{user_id}
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - user_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - builds_enabled
-    - container_registry_enabled
-    - default_branch
-    - description
-    - import_url
-    - issues_enabled
-    - lfs_enabled
-    - merge_requests_enabled
-    - name
-    - namespace_id
-    - only_allow_merge_if_all_discussions_are_resolved
-    - only_allow_merge_if_build_succeeds
-    - public
-    - public_builds
-    - request_access_enabled
-    - shared_runners_enabled
-    - snippets_enabled
-    - visibility_level
-    - wiki_enabled
     produces:
     - json
     - plain
@@ -1418,22 +1251,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-visible
-  slug: gitlab-v3-v3-projects-visible
-  url_pattern: /v3/projects/visible
+- group: gitlab-api-v3-projects-visible
+  slug: gitlab-v3-api-v3-projects-visible
+  url_pattern: /api/v3/projects/visible
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - archived
-  - order_by
-  - page
-  - per_page
-  - search
-  - simple
-  - sort
-  - visibility
   whitelist:
   - http_url_to_repo
   - id
@@ -1442,7 +1266,7 @@ backends:
   - path
   - path_with_namespace
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     http_url_to_repo: http_url_to_repo
     id: id
@@ -1459,15 +1283,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id
-  slug: gitlab-v3-v3-projects-id
-  url_pattern: /v3/projects/{id}
+- group: gitlab-api-v3-projects-id
+  slug: gitlab-v3-api-v3-projects-id
+  url_pattern: /api/v3/projects/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - archived
   - avatar_url
@@ -1505,7 +1327,7 @@ backends:
   - visibility_level
   - web_url
   - wiki_enabled
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     archived: archived
     avatar_url: avatar_url
@@ -1551,21 +1373,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-ref-ref-trigger-builds
-  slug: gitlab-v3-v3-projects-id-ref-ref-trigger-builds
-  url_pattern: /v3/projects/{id}/(ref/{ref}/)trigger/builds
+- group: gitlab-api-v3-projects-id-ref-ref-trigger-builds
+  slug: gitlab-v3-api-v3-projects-id-ref-ref-trigger-builds
+  url_pattern: /api/v3/projects/{id}/(ref/{ref}/)trigger/builds
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - ref
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - token
     produces:
     - json
     - plain
@@ -1573,18 +1389,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-access-requests
-  slug: gitlab-v3-v3-projects-id-access-requests
-  url_pattern: /v3/projects/{id}/access_requests
+- group: gitlab-api-v3-projects-id-access-requests
+  slug: gitlab-v3-api-v3-projects-id-access-requests
+  url_pattern: /api/v3/projects/{id}/access_requests
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - avatar_url
   - id
@@ -1593,7 +1404,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     id: id
@@ -1610,17 +1421,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-archive
-  slug: gitlab-v3-v3-projects-id-archive
-  url_pattern: /v3/projects/{id}/archive
+- group: gitlab-api-v3-projects-id-archive
+  slug: gitlab-v3-api-v3-projects-id-archive
+  url_pattern: /api/v3/projects/{id}/archive
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1629,18 +1437,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-boards
-  slug: gitlab-v3-v3-projects-id-boards
-  url_pattern: /v3/projects/{id}/boards
+- group: gitlab-api-v3-projects-id-boards
+  slug: gitlab-v3-api-v3-projects-id-boards
+  url_pattern: /api/v3/projects/{id}/boards
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - id
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     id: id
   extra_config:
@@ -1651,20 +1457,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-boards-board-id-lists
-  slug: gitlab-v3-v3-projects-id-boards-board-id-lists
-  url_pattern: /v3/projects/{id}/boards/{board_id}/lists
+- group: gitlab-api-v3-projects-id-boards-board-id-lists
+  slug: gitlab-v3-api-v3-projects-id-boards-board-id-lists
+  url_pattern: /api/v3/projects/{id}/boards/{board_id}/lists
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - board_id
-  - id
   whitelist:
   - id
   - position
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     id: id
     position: position
@@ -1676,21 +1479,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-boards-board-id-lists-list-id
-  slug: gitlab-v3-v3-projects-id-boards-board-id-lists-list-id
-  url_pattern: /v3/projects/{id}/boards/{board_id}/lists/{list_id}
+- group: gitlab-api-v3-projects-id-boards-board-id-lists-list-id
+  slug: gitlab-v3-api-v3-projects-id-boards-board-id-lists-list-id
+  url_pattern: /api/v3/projects/{id}/boards/{board_id}/lists/{list_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - board_id
-  - id
-  - list_id
   whitelist:
   - id
   - position
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     id: id
     position: position
@@ -1702,19 +1501,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds
-  slug: gitlab-v3-v3-projects-id-builds
-  url_pattern: /v3/projects/{id}/builds
+- group: gitlab-api-v3-projects-id-builds
+  slug: gitlab-v3-api-v3-projects-id-builds
+  url_pattern: /api/v3/projects/{id}/builds
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - coverage
   - created_at
@@ -1726,7 +1519,7 @@ backends:
   - started_at
   - status
   - tag
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     coverage: coverage
     created_at: created_at
@@ -1746,20 +1539,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-artifacts-ref-name-download
-  slug: gitlab-v3-v3-projects-id-builds-artifacts-ref-name-download
-  url_pattern: /v3/projects/{id}/builds/artifacts/{ref_name}/download
+- group: gitlab-api-v3-projects-id-builds-artifacts-ref-name-download
+  slug: gitlab-v3-api-v3-projects-id-builds-artifacts-ref-name-download
+  url_pattern: /api/v3/projects/{id}/builds/artifacts/{ref_name}/download
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - ref_name
-  query_string_params:
-  - job
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1768,16 +1555,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id
-  slug: gitlab-v3-v3-projects-id-builds-build-id
-  url_pattern: /v3/projects/{id}/builds/{build_id}
+- group: gitlab-api-v3-projects-id-builds-build-id
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
   whitelist:
   - coverage
   - created_at
@@ -1789,7 +1573,7 @@ backends:
   - started_at
   - status
   - tag
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     coverage: coverage
     created_at: created_at
@@ -1809,18 +1593,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-artifacts
-  slug: gitlab-v3-v3-projects-id-builds-build-id-artifacts
-  url_pattern: /v3/projects/{id}/builds/{build_id}/artifacts
+- group: gitlab-api-v3-projects-id-builds-build-id-artifacts
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-artifacts
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/artifacts
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1829,18 +1609,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-artifacts-keep
-  slug: gitlab-v3-v3-projects-id-builds-build-id-artifacts-keep
-  url_pattern: /v3/projects/{id}/builds/{build_id}/artifacts/keep
+- group: gitlab-api-v3-projects-id-builds-build-id-artifacts-keep
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-artifacts-keep
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/artifacts/keep
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1849,18 +1625,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-cancel
-  slug: gitlab-v3-v3-projects-id-builds-build-id-cancel
-  url_pattern: /v3/projects/{id}/builds/{build_id}/cancel
+- group: gitlab-api-v3-projects-id-builds-build-id-cancel
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-cancel
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/cancel
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1869,18 +1641,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-erase
-  slug: gitlab-v3-v3-projects-id-builds-build-id-erase
-  url_pattern: /v3/projects/{id}/builds/{build_id}/erase
+- group: gitlab-api-v3-projects-id-builds-build-id-erase
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-erase
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/erase
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1889,18 +1657,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-play
-  slug: gitlab-v3-v3-projects-id-builds-build-id-play
-  url_pattern: /v3/projects/{id}/builds/{build_id}/play
+- group: gitlab-api-v3-projects-id-builds-build-id-play
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-play
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/play
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1909,18 +1673,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-retry
-  slug: gitlab-v3-v3-projects-id-builds-build-id-retry
-  url_pattern: /v3/projects/{id}/builds/{build_id}/retry
+- group: gitlab-api-v3-projects-id-builds-build-id-retry
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-retry
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/retry
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1929,18 +1689,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-builds-build-id-trace
-  slug: gitlab-v3-v3-projects-id-builds-build-id-trace
-  url_pattern: /v3/projects/{id}/builds/{build_id}/trace
+- group: gitlab-api-v3-projects-id-builds-build-id-trace
+  slug: gitlab-v3-api-v3-projects-id-builds-build-id-trace
+  url_pattern: /api/v3/projects/{id}/builds/{build_id}/trace
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - build_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -1949,22 +1705,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-deploy-keys
-  slug: gitlab-v3-v3-projects-id-deploy-keys
-  url_pattern: /v3/projects/{id}/deploy_keys
+- group: gitlab-api-v3-projects-id-deploy-keys
+  slug: gitlab-v3-api-v3-projects-id-deploy-keys
+  url_pattern: /api/v3/projects/{id}/deploy_keys
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -1979,23 +1733,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-deploy-keys-key-id
-  slug: gitlab-v3-v3-projects-id-deploy-keys-key-id
-  url_pattern: /v3/projects/{id}/deploy_keys/{key_id}
+- group: gitlab-api-v3-projects-id-deploy-keys-key-id
+  slug: gitlab-v3-api-v3-projects-id-deploy-keys-key-id
+  url_pattern: /api/v3/projects/{id}/deploy_keys/{key_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - key_id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -2010,18 +1761,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-deploy-keys-key-id-enable
-  slug: gitlab-v3-v3-projects-id-deploy-keys-key-id-enable
-  url_pattern: /v3/projects/{id}/deploy_keys/{key_id}/enable
+- group: gitlab-api-v3-projects-id-deploy-keys-key-id-enable
+  slug: gitlab-v3-api-v3-projects-id-deploy-keys-key-id-enable
+  url_pattern: /api/v3/projects/{id}/deploy_keys/{key_id}/enable
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - key_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2030,25 +1777,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-deployments
-  slug: gitlab-v3-v3-projects-id-deployments
-  url_pattern: /v3/projects/{id}/deployments
+- group: gitlab-api-v3-projects-id-deployments
+  slug: gitlab-v3-api-v3-projects-id-deployments
+  url_pattern: /api/v3/projects/{id}/deployments
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - created_at
   - id
   - iid
   - ref
   - sha
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     id: id
@@ -2063,23 +1805,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-deployments-deployment-id
-  slug: gitlab-v3-v3-projects-id-deployments-deployment-id
-  url_pattern: /v3/projects/{id}/deployments/{deployment_id}
+- group: gitlab-api-v3-projects-id-deployments-deployment-id
+  slug: gitlab-v3-api-v3-projects-id-deployments-deployment-id
+  url_pattern: /api/v3/projects/{id}/deployments/{deployment_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - deployment_id
-  - id
   whitelist:
   - created_at
   - id
   - iid
   - ref
   - sha
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     id: id
@@ -2094,24 +1833,19 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-environments
-  slug: gitlab-v3-v3-projects-id-environments
-  url_pattern: /v3/projects/{id}/environments
+- group: gitlab-api-v3-projects-id-environments
+  slug: gitlab-v3-api-v3-projects-id-environments
+  url_pattern: /api/v3/projects/{id}/environments
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - external_url
   - id
   - name
   - slug
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     external_url: external_url
     id: id
@@ -2125,18 +1859,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-events
-  slug: gitlab-v3-v3-projects-id-events
-  url_pattern: /v3/projects/{id}/events
+- group: gitlab-api-v3-projects-id-events
+  slug: gitlab-v3-api-v3-projects-id-events
+  url_pattern: /api/v3/projects/{id}/events
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - action_name
   - author_id
@@ -2148,7 +1877,7 @@ backends:
   - target_title
   - target_type
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     action_name: action_name
     author_id: author_id
@@ -2168,18 +1897,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-fork-forked-from-id
-  slug: gitlab-v3-v3-projects-id-fork-forked-from-id
-  url_pattern: /v3/projects/{id}/fork/{forked_from_id}
+- group: gitlab-api-v3-projects-id-fork-forked-from-id
+  slug: gitlab-v3-api-v3-projects-id-fork-forked-from-id
+  url_pattern: /api/v3/projects/{id}/fork/{forked_from_id}
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - forked_from_id
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2188,18 +1913,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-hooks
-  slug: gitlab-v3-v3-projects-id-hooks
-  url_pattern: /v3/projects/{id}/hooks
+- group: gitlab-api-v3-projects-id-hooks
+  slug: gitlab-v3-api-v3-projects-id-hooks
+  url_pattern: /api/v3/projects/{id}/hooks
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - build_events
   - created_at
@@ -2214,7 +1934,7 @@ backends:
   - tag_push_events
   - url
   - wiki_page_events
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     build_events: build_events
     created_at: created_at
@@ -2237,16 +1957,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-hooks-hook-id
-  slug: gitlab-v3-v3-projects-id-hooks-hook-id
-  url_pattern: /v3/projects/{id}/hooks/{hook_id}
+- group: gitlab-api-v3-projects-id-hooks-hook-id
+  slug: gitlab-v3-api-v3-projects-id-hooks-hook-id
+  url_pattern: /api/v3/projects/{id}/hooks/{hook_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - hook_id
-  - id
   whitelist:
   - build_events
   - created_at
@@ -2261,7 +1978,7 @@ backends:
   - tag_push_events
   - url
   - wiki_page_events
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     build_events: build_events
     created_at: created_at
@@ -2284,24 +2001,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues
-  slug: gitlab-v3-v3-projects-id-issues
-  url_pattern: /v3/projects/{id}/issues
+- group: gitlab-api-v3-projects-id-issues
+  slug: gitlab-v3-api-v3-projects-id-issues
+  url_pattern: /api/v3/projects/{id}/issues
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - iid
-  - labels
-  - milestone
-  - order_by
-  - page
-  - per_page
-  - sort
-  - state
   whitelist:
   - confidential
   - created_at
@@ -2319,7 +2025,7 @@ backends:
   - upvotes
   - user_notes_count
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     confidential: confidential
     created_at: created_at
@@ -2345,16 +2051,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id
-  slug: gitlab-v3-v3-projects-id-issues-issue-id
-  url_pattern: /v3/projects/{id}/issues/{issue_id}
+- group: gitlab-api-v3-projects-id-issues-issue-id
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
   whitelist:
   - confidential
   - created_at
@@ -2372,7 +2075,7 @@ backends:
   - upvotes
   - user_notes_count
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     confidential: confidential
     created_at: created_at
@@ -2398,21 +2101,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-add-spent-time
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-add-spent-time
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/add_spent_time
+- group: gitlab-api-v3-projects-id-issues-issue-id-add-spent-time
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-add-spent-time
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/add_spent_time
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - duration
     produces:
     - json
     - plain
@@ -2420,19 +2117,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-award-emoji
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/award_emoji
+- group: gitlab-api-v3-projects-id-issues-issue-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -2440,7 +2131,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -2456,17 +2147,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-issues-issue-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - issue_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -2474,7 +2161,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -2490,21 +2177,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-move
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-move
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/move
+- group: gitlab-api-v3-projects-id-issues-issue-id-move
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-move
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/move
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - to_project_id
     produces:
     - json
     - plain
@@ -2512,20 +2193,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-notes-note-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-notes-note-id-award-emoji
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/notes/{note_id}/award_emoji
+- group: gitlab-api-v3-projects-id-issues-issue-id-notes-note-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-notes-note-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/notes/{note_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  - note_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -2533,7 +2207,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -2549,18 +2223,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-notes-note-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-notes-note-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/notes/{note_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-issues-issue-id-notes-note-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-notes-note-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/notes/{note_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - issue_id
-  - note_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -2568,7 +2237,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -2584,18 +2253,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-reset-spent-time
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-reset-spent-time
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/reset_spent_time
+- group: gitlab-api-v3-projects-id-issues-issue-id-reset-spent-time
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-reset-spent-time
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/reset_spent_time
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2604,18 +2269,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-reset-time-estimate
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-reset-time-estimate
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/reset_time_estimate
+- group: gitlab-api-v3-projects-id-issues-issue-id-reset-time-estimate
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-reset-time-estimate
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/reset_time_estimate
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2624,21 +2285,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-time-estimate
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-time-estimate
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/time_estimate
+- group: gitlab-api-v3-projects-id-issues-issue-id-time-estimate
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-time-estimate
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/time_estimate
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - duration
     produces:
     - json
     - plain
@@ -2646,18 +2301,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-time-stats
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-time-stats
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/time_stats
+- group: gitlab-api-v3-projects-id-issues-issue-id-time-stats
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-time-stats
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/time_stats
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2666,18 +2317,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-issue-id-todo
-  slug: gitlab-v3-v3-projects-id-issues-issue-id-todo
-  url_pattern: /v3/projects/{id}/issues/{issue_id}/todo
+- group: gitlab-api-v3-projects-id-issues-issue-id-todo
+  slug: gitlab-v3-api-v3-projects-id-issues-issue-id-todo
+  url_pattern: /api/v3/projects/{id}/issues/{issue_id}/todo
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - issue_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2686,19 +2333,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-noteable-id-notes
-  slug: gitlab-v3-v3-projects-id-issues-noteable-id-notes
-  url_pattern: /v3/projects/{id}/issues/{noteable_id}/notes
+- group: gitlab-api-v3-projects-id-issues-noteable-id-notes
+  slug: gitlab-v3-api-v3-projects-id-issues-noteable-id-notes
+  url_pattern: /api/v3/projects/{id}/issues/{noteable_id}/notes
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - noteable_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - attachment
   - body
@@ -2710,7 +2351,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -2730,17 +2371,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-noteable-id-notes-note-id
-  slug: gitlab-v3-v3-projects-id-issues-noteable-id-notes-note-id
-  url_pattern: /v3/projects/{id}/issues/{noteable_id}/notes/{note_id}
+- group: gitlab-api-v3-projects-id-issues-noteable-id-notes-note-id
+  slug: gitlab-v3-api-v3-projects-id-issues-noteable-id-notes-note-id
+  url_pattern: /api/v3/projects/{id}/issues/{noteable_id}/notes/{note_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - note_id
-  - noteable_id
   whitelist:
   - attachment
   - body
@@ -2752,7 +2389,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -2772,18 +2409,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-issues-subscribable-id-subscription
-  slug: gitlab-v3-v3-projects-id-issues-subscribable-id-subscription
-  url_pattern: /v3/projects/{id}/issues/{subscribable_id}/subscription
+- group: gitlab-api-v3-projects-id-issues-subscribable-id-subscription
+  slug: gitlab-v3-api-v3-projects-id-issues-subscribable-id-subscription
+  url_pattern: /api/v3/projects/{id}/issues/{subscribable_id}/subscription
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - subscribable_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2792,22 +2425,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-keys
-  slug: gitlab-v3-v3-projects-id-keys
-  url_pattern: /v3/projects/{id}/keys
+- group: gitlab-api-v3-projects-id-keys
+  slug: gitlab-v3-api-v3-projects-id-keys
+  url_pattern: /api/v3/projects/{id}/keys
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -2822,23 +2453,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-keys-key-id
-  slug: gitlab-v3-v3-projects-id-keys-key-id
-  url_pattern: /v3/projects/{id}/keys/{key_id}
+- group: gitlab-api-v3-projects-id-keys-key-id
+  slug: gitlab-v3-api-v3-projects-id-keys-key-id
+  url_pattern: /api/v3/projects/{id}/keys/{key_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - key_id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -2853,18 +2481,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-keys-key-id-enable
-  slug: gitlab-v3-v3-projects-id-keys-key-id-enable
-  url_pattern: /v3/projects/{id}/keys/{key_id}/enable
+- group: gitlab-api-v3-projects-id-keys-key-id-enable
+  slug: gitlab-v3-api-v3-projects-id-keys-key-id-enable
+  url_pattern: /api/v3/projects/{id}/keys/{key_id}/enable
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - key_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2873,15 +2497,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-labels
-  slug: gitlab-v3-v3-projects-id-labels
-  url_pattern: /v3/projects/{id}/labels
+- group: gitlab-api-v3-projects-id-labels
+  slug: gitlab-v3-api-v3-projects-id-labels
+  url_pattern: /api/v3/projects/{id}/labels
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - closed_issues_count
   - color
@@ -2892,7 +2514,7 @@ backends:
   - open_merge_requests_count
   - priority
   - subscribed
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     closed_issues_count: closed_issues_count
     color: color
@@ -2911,18 +2533,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-labels-subscribable-id-subscription
-  slug: gitlab-v3-v3-projects-id-labels-subscribable-id-subscription
-  url_pattern: /v3/projects/{id}/labels/{subscribable_id}/subscription
+- group: gitlab-api-v3-projects-id-labels-subscribable-id-subscription
+  slug: gitlab-v3-api-v3-projects-id-labels-subscribable-id-subscription
+  url_pattern: /api/v3/projects/{id}/labels/{subscribable_id}/subscription
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - subscribable_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -2931,19 +2549,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-members
-  slug: gitlab-v3-v3-projects-id-members
-  url_pattern: /v3/projects/{id}/members
+- group: gitlab-api-v3-projects-id-members
+  slug: gitlab-v3-api-v3-projects-id-members
+  url_pattern: /api/v3/projects/{id}/members
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - query
   whitelist:
   - access_level
   - avatar_url
@@ -2953,7 +2565,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     access_level: access_level
     avatar_url: avatar_url
@@ -2971,16 +2583,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-members-user-id
-  slug: gitlab-v3-v3-projects-id-members-user-id
-  url_pattern: /v3/projects/{id}/members/{user_id}
+- group: gitlab-api-v3-projects-id-members-user-id
+  slug: gitlab-v3-api-v3-projects-id-members-user-id
+  url_pattern: /api/v3/projects/{id}/members/{user_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - user_id
   whitelist:
   - access_level
   - avatar_url
@@ -2990,7 +2599,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     access_level: access_level
     avatar_url: avatar_url
@@ -3008,16 +2617,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - created_at
   - description
@@ -3044,7 +2650,7 @@ backends:
   - user_notes_count
   - web_url
   - work_in_progress
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     description: description
@@ -3079,18 +2685,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id-cancel-merge-when-build-succeeds
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id-cancel-merge-when-build-succeeds
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}/cancel_merge_when_build_succeeds
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id-cancel-merge-when-build-succeeds
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id-cancel-merge-when-build-succeeds
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}/cancel_merge_when_build_succeeds
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3099,16 +2701,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id-changes
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id-changes
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}/changes
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id-changes
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id-changes
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}/changes
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - created_at
   - description
@@ -3135,7 +2734,7 @@ backends:
   - user_notes_count
   - web_url
   - work_in_progress
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     description: description
@@ -3170,22 +2769,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id-closes-issues
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id-closes-issues
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}/closes_issues
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id-closes-issues
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id-closes-issues
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}/closes_issues
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - note
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     note: note
   extra_config:
@@ -3196,22 +2789,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id-comments
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id-comments
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}/comments
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id-comments
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id-comments
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}/comments
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - note
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     note: note
   extra_config:
@@ -3222,16 +2809,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-merge-request-id-commits
-  slug: gitlab-v3-v3-projects-id-merge-request-merge-request-id-commits
-  url_pattern: /v3/projects/{id}/merge_request/{merge_request_id}/commits
+- group: gitlab-api-v3-projects-id-merge-request-merge-request-id-commits
+  slug: gitlab-v3-api-v3-projects-id-merge-request-merge-request-id-commits
+  url_pattern: /api/v3/projects/{id}/merge_request/{merge_request_id}/commits
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - author_email
   - author_name
@@ -3242,7 +2826,7 @@ backends:
   - message
   - short_id
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     author_email: author_email
     author_name: author_name
@@ -3261,18 +2845,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-request-subscribable-id-subscription
-  slug: gitlab-v3-v3-projects-id-merge-request-subscribable-id-subscription
-  url_pattern: /v3/projects/{id}/merge_request/{subscribable_id}/subscription
+- group: gitlab-api-v3-projects-id-merge-request-subscribable-id-subscription
+  slug: gitlab-v3-api-v3-projects-id-merge-request-subscribable-id-subscription
+  url_pattern: /api/v3/projects/{id}/merge_request/{subscribable_id}/subscription
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - subscribable_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3281,21 +2861,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests
-  slug: gitlab-v3-v3-projects-id-merge-requests
-  url_pattern: /v3/projects/{id}/merge_requests
+- group: gitlab-api-v3-projects-id-merge-requests
+  slug: gitlab-v3-api-v3-projects-id-merge-requests
+  url_pattern: /api/v3/projects/{id}/merge_requests
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - order_by
-  - page
-  - per_page
-  - sort
-  - state
   whitelist:
   - created_at
   - description
@@ -3322,80 +2894,7 @@ backends:
   - user_notes_count
   - web_url
   - work_in_progress
-  concurrent_calls: 0
-  mapping:
-    created_at: created_at
-    description: description
-    downvotes: downvotes
-    force_remove_source_branch: force_remove_source_branch
-    id: id
-    iid: iid
-    labels: labels
-    merge_commit_sha: merge_commit_sha
-    merge_status: merge_status
-    merge_when_build_succeeds: merge_when_build_succeeds
-    project_id: project_id
-    sha: sha
-    should_remove_source_branch: should_remove_source_branch
-    source_branch: source_branch
-    source_project_id: source_project_id
-    state: state
-    subscribed: subscribed
-    target_branch: target_branch
-    target_project_id: target_project_id
-    title: title
-    updated_at: updated_at
-    upvotes: upvotes
-    user_notes_count: user_notes_count
-    web_url: web_url
-    work_in_progress: work_in_progress
-  extra_config:
-    form_data:
-    - iid
-    produces:
-    - json
-    - plain
-    hosts:
-    - https://gitlab.com
-    schemes:
-    - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}
-  method: GET
-  encoding: json
-  host:
-  - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  whitelist:
-  - created_at
-  - description
-  - downvotes
-  - force_remove_source_branch
-  - id
-  - iid
-  - labels
-  - merge_commit_sha
-  - merge_status
-  - merge_when_build_succeeds
-  - project_id
-  - sha
-  - should_remove_source_branch
-  - source_branch
-  - source_project_id
-  - state
-  - subscribed
-  - target_branch
-  - target_project_id
-  - title
-  - updated_at
-  - upvotes
-  - user_notes_count
-  - web_url
-  - work_in_progress
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     description: description
@@ -3430,21 +2929,67 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-add-spent-time
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-add-spent-time
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/add_spent_time
-  method: POST
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}
+  method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
+  whitelist:
+  - created_at
+  - description
+  - downvotes
+  - force_remove_source_branch
   - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  - iid
+  - labels
+  - merge_commit_sha
+  - merge_status
+  - merge_when_build_succeeds
+  - project_id
+  - sha
+  - should_remove_source_branch
+  - source_branch
+  - source_project_id
+  - state
+  - subscribed
+  - target_branch
+  - target_project_id
+  - title
+  - updated_at
+  - upvotes
+  - user_notes_count
+  - web_url
+  - work_in_progress
+  concurrent_calls: 1
+  mapping:
+    created_at: created_at
+    description: description
+    downvotes: downvotes
+    force_remove_source_branch: force_remove_source_branch
+    id: id
+    iid: iid
+    labels: labels
+    merge_commit_sha: merge_commit_sha
+    merge_status: merge_status
+    merge_when_build_succeeds: merge_when_build_succeeds
+    project_id: project_id
+    sha: sha
+    should_remove_source_branch: should_remove_source_branch
+    source_branch: source_branch
+    source_project_id: source_project_id
+    state: state
+    subscribed: subscribed
+    target_branch: target_branch
+    target_project_id: target_project_id
+    title: title
+    updated_at: updated_at
+    upvotes: upvotes
+    user_notes_count: user_notes_count
+    web_url: web_url
+    work_in_progress: work_in_progress
   extra_config:
-    form_data:
-    - duration
     produces:
     - json
     - plain
@@ -3452,19 +2997,29 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-award-emoji
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/award_emoji
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-add-spent-time
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-add-spent-time
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/add_spent_time
+  method: POST
+  encoding: json
+  host:
+  - https://gitlab.com
+  concurrent_calls: 1
+  extra_config:
+    produces:
+    - json
+    - plain
+    hosts:
+    - https://gitlab.com
+    schemes:
+    - https
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -3472,7 +3027,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -3488,17 +3043,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - merge_request_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -3506,7 +3057,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -3522,18 +3073,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-cancel-merge-when-build-succeeds
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-cancel-merge-when-build-succeeds
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/cancel_merge_when_build_succeeds
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-cancel-merge-when-build-succeeds
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-cancel-merge-when-build-succeeds
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/cancel_merge_when_build_succeeds
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3542,16 +3089,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-changes
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-changes
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/changes
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-changes
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-changes
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/changes
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - created_at
   - description
@@ -3578,7 +3122,7 @@ backends:
   - user_notes_count
   - web_url
   - work_in_progress
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     description: description
@@ -3613,22 +3157,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-closes-issues
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-closes-issues
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/closes_issues
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-closes-issues
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-closes-issues
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/closes_issues
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - note
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     note: note
   extra_config:
@@ -3639,22 +3177,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-comments
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-comments
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/comments
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-comments
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-comments
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/comments
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - note
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     note: note
   extra_config:
@@ -3665,16 +3197,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-commits
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-commits
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/commits
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-commits
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-commits
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/commits
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - author_email
   - author_name
@@ -3685,7 +3214,7 @@ backends:
   - message
   - short_id
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     author_email: author_email
     author_name: author_name
@@ -3704,20 +3233,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/notes/{note_id}/award_emoji
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/notes/{note_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  - note_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -3725,7 +3247,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -3741,18 +3263,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/notes/{note_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-notes-note-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/notes/{note_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - merge_request_id
-  - note_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -3760,7 +3277,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -3776,18 +3293,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-reset-spent-time
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-reset-spent-time
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/reset_spent_time
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-reset-spent-time
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-reset-spent-time
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/reset_spent_time
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3796,18 +3309,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-reset-time-estimate
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-reset-time-estimate
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/reset_time_estimate
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-reset-time-estimate
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-reset-time-estimate
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/reset_time_estimate
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3816,21 +3325,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-time-estimate
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-time-estimate
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/time_estimate
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-time-estimate
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-time-estimate
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/time_estimate
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - duration
     produces:
     - json
     - plain
@@ -3838,18 +3341,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-time-stats
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-time-stats
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/time_stats
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-time-stats
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-time-stats
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/time_stats
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3858,18 +3357,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-todo
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-todo
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/todo
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-todo
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-todo
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/todo
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -3878,16 +3373,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-versions
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-versions
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/versions
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-versions
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-versions
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/versions
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
   whitelist:
   - base_commit_sha
   - created_at
@@ -3897,7 +3389,7 @@ backends:
   - real_size
   - start_commit_sha
   - state
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     base_commit_sha: base_commit_sha
     created_at: created_at
@@ -3915,17 +3407,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-merge-request-id-versions-version-id
-  slug: gitlab-v3-v3-projects-id-merge-requests-merge-request-id-versions-version-id
-  url_pattern: /v3/projects/{id}/merge_requests/{merge_request_id}/versions/{version_id}
+- group: gitlab-api-v3-projects-id-merge-requests-merge-request-id-versions-version-id
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-merge-request-id-versions-version-id
+  url_pattern: /api/v3/projects/{id}/merge_requests/{merge_request_id}/versions/{version_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - merge_request_id
-  - version_id
   whitelist:
   - base_commit_sha
   - created_at
@@ -3935,7 +3423,7 @@ backends:
   - real_size
   - start_commit_sha
   - state
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     base_commit_sha: base_commit_sha
     created_at: created_at
@@ -3953,19 +3441,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-noteable-id-notes
-  slug: gitlab-v3-v3-projects-id-merge-requests-noteable-id-notes
-  url_pattern: /v3/projects/{id}/merge_requests/{noteable_id}/notes
+- group: gitlab-api-v3-projects-id-merge-requests-noteable-id-notes
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-noteable-id-notes
+  url_pattern: /api/v3/projects/{id}/merge_requests/{noteable_id}/notes
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - noteable_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - attachment
   - body
@@ -3977,7 +3459,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -3997,17 +3479,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-noteable-id-notes-note-id
-  slug: gitlab-v3-v3-projects-id-merge-requests-noteable-id-notes-note-id
-  url_pattern: /v3/projects/{id}/merge_requests/{noteable_id}/notes/{note_id}
+- group: gitlab-api-v3-projects-id-merge-requests-noteable-id-notes-note-id
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-noteable-id-notes-note-id
+  url_pattern: /api/v3/projects/{id}/merge_requests/{noteable_id}/notes/{note_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - note_id
-  - noteable_id
   whitelist:
   - attachment
   - body
@@ -4019,7 +3497,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -4039,18 +3517,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-merge-requests-subscribable-id-subscription
-  slug: gitlab-v3-v3-projects-id-merge-requests-subscribable-id-subscription
-  url_pattern: /v3/projects/{id}/merge_requests/{subscribable_id}/subscription
+- group: gitlab-api-v3-projects-id-merge-requests-subscribable-id-subscription
+  slug: gitlab-v3-api-v3-projects-id-merge-requests-subscribable-id-subscription
+  url_pattern: /api/v3/projects/{id}/merge_requests/{subscribable_id}/subscription
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - subscribable_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4059,19 +3533,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-milestones
-  slug: gitlab-v3-v3-projects-id-milestones
-  url_pattern: /v3/projects/{id}/milestones
+- group: gitlab-api-v3-projects-id-milestones
+  slug: gitlab-v3-api-v3-projects-id-milestones
+  url_pattern: /api/v3/projects/{id}/milestones
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - state
   whitelist:
   - created_at
   - description
@@ -4083,50 +3551,7 @@ backends:
   - state
   - title
   - updated_at
-  concurrent_calls: 0
-  mapping:
-    created_at: created_at
-    description: description
-    due_date: due_date
-    id: id
-    iid: iid
-    project_id: project_id
-    start_date: start_date
-    state: state
-    title: title
-    updated_at: updated_at
-  extra_config:
-    form_data:
-    - iid
-    produces:
-    - json
-    - plain
-    hosts:
-    - https://gitlab.com
-    schemes:
-    - https
-- group: gitlab-v3-projects-id-milestones-milestone-id
-  slug: gitlab-v3-v3-projects-id-milestones-milestone-id
-  url_pattern: /v3/projects/{id}/milestones/{milestone_id}
-  method: GET
-  encoding: json
-  host:
-  - https://gitlab.com
-  url_keys:
-  - id
-  - milestone_id
-  whitelist:
-  - created_at
-  - description
-  - due_date
-  - id
-  - iid
-  - project_id
-  - start_date
-  - state
-  - title
-  - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     description: description
@@ -4146,19 +3571,51 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-milestones-milestone-id-issues
-  slug: gitlab-v3-v3-projects-id-milestones-milestone-id-issues
-  url_pattern: /v3/projects/{id}/milestones/{milestone_id}/issues
+- group: gitlab-api-v3-projects-id-milestones-milestone-id
+  slug: gitlab-v3-api-v3-projects-id-milestones-milestone-id
+  url_pattern: /api/v3/projects/{id}/milestones/{milestone_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
+  whitelist:
+  - created_at
+  - description
+  - due_date
   - id
-  - milestone_id
-  query_string_params:
-  - page
-  - per_page
+  - iid
+  - project_id
+  - start_date
+  - state
+  - title
+  - updated_at
+  concurrent_calls: 1
+  mapping:
+    created_at: created_at
+    description: description
+    due_date: due_date
+    id: id
+    iid: iid
+    project_id: project_id
+    start_date: start_date
+    state: state
+    title: title
+    updated_at: updated_at
+  extra_config:
+    produces:
+    - json
+    - plain
+    hosts:
+    - https://gitlab.com
+    schemes:
+    - https
+- group: gitlab-api-v3-projects-id-milestones-milestone-id-issues
+  slug: gitlab-v3-api-v3-projects-id-milestones-milestone-id-issues
+  url_pattern: /api/v3/projects/{id}/milestones/{milestone_id}/issues
+  method: GET
+  encoding: json
+  host:
+  - https://gitlab.com
   whitelist:
   - confidential
   - created_at
@@ -4176,7 +3633,7 @@ backends:
   - upvotes
   - user_notes_count
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     confidential: confidential
     created_at: created_at
@@ -4202,19 +3659,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-notification-settings
-  slug: gitlab-v3-v3-projects-id-notification-settings
-  url_pattern: /v3/projects/{id}/notification_settings
+- group: gitlab-api-v3-projects-id-notification-settings
+  slug: gitlab-v3-api-v3-projects-id-notification-settings
+  url_pattern: /api/v3/projects/{id}/notification_settings
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - events
   - level
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     events: events
     level: level
@@ -4226,20 +3681,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-pipeline
-  slug: gitlab-v3-v3-projects-id-pipeline
-  url_pattern: /v3/projects/{id}/pipeline
+- group: gitlab-api-v3-projects-id-pipeline
+  slug: gitlab-v3-api-v3-projects-id-pipeline
+  url_pattern: /api/v3/projects/{id}/pipeline
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - ref
     produces:
     - json
     - plain
@@ -4247,19 +3697,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-pipelines
-  slug: gitlab-v3-v3-projects-id-pipelines
-  url_pattern: /v3/projects/{id}/pipelines
+- group: gitlab-api-v3-projects-id-pipelines
+  slug: gitlab-v3-api-v3-projects-id-pipelines
+  url_pattern: /api/v3/projects/{id}/pipelines
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - before_sha
   - committed_at
@@ -4275,7 +3719,7 @@ backends:
   - tag
   - updated_at
   - yaml_errors
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     before_sha: before_sha
     committed_at: committed_at
@@ -4299,16 +3743,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-pipelines-pipeline-id
-  slug: gitlab-v3-v3-projects-id-pipelines-pipeline-id
-  url_pattern: /v3/projects/{id}/pipelines/{pipeline_id}
+- group: gitlab-api-v3-projects-id-pipelines-pipeline-id
+  slug: gitlab-v3-api-v3-projects-id-pipelines-pipeline-id
+  url_pattern: /api/v3/projects/{id}/pipelines/{pipeline_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - pipeline_id
   whitelist:
   - before_sha
   - committed_at
@@ -4324,7 +3765,7 @@ backends:
   - tag
   - updated_at
   - yaml_errors
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     before_sha: before_sha
     committed_at: committed_at
@@ -4348,18 +3789,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-pipelines-pipeline-id-cancel
-  slug: gitlab-v3-v3-projects-id-pipelines-pipeline-id-cancel
-  url_pattern: /v3/projects/{id}/pipelines/{pipeline_id}/cancel
+- group: gitlab-api-v3-projects-id-pipelines-pipeline-id-cancel
+  slug: gitlab-v3-api-v3-projects-id-pipelines-pipeline-id-cancel
+  url_pattern: /api/v3/projects/{id}/pipelines/{pipeline_id}/cancel
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - pipeline_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4368,18 +3805,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-pipelines-pipeline-id-retry
-  slug: gitlab-v3-v3-projects-id-pipelines-pipeline-id-retry
-  url_pattern: /v3/projects/{id}/pipelines/{pipeline_id}/retry
+- group: gitlab-api-v3-projects-id-pipelines-pipeline-id-retry
+  slug: gitlab-v3-api-v3-projects-id-pipelines-pipeline-id-retry
+  url_pattern: /api/v3/projects/{id}/pipelines/{pipeline_id}/retry
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - pipeline_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4388,20 +3821,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-archive
-  slug: gitlab-v3-v3-projects-id-repository-archive
-  url_pattern: /v3/projects/{id}/repository/archive
+- group: gitlab-api-v3-projects-id-repository-archive
+  slug: gitlab-v3-api-v3-projects-id-repository-archive
+  url_pattern: /api/v3/projects/{id}/repository/archive
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - format
-  - sha
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4410,20 +3837,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-blobs-sha
-  slug: gitlab-v3-v3-projects-id-repository-blobs-sha
-  url_pattern: /v3/projects/{id}/repository/blobs/{sha}
+- group: gitlab-api-v3-projects-id-repository-blobs-sha
+  slug: gitlab-v3-api-v3-projects-id-repository-blobs-sha
+  url_pattern: /api/v3/projects/{id}/repository/blobs/{sha}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  query_string_params:
-  - filepath
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4432,15 +3853,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-branches
-  slug: gitlab-v3-v3-projects-id-repository-branches
-  url_pattern: /v3/projects/{id}/repository/branches
+- group: gitlab-api-v3-projects-id-repository-branches
+  slug: gitlab-v3-api-v3-projects-id-repository-branches
+  url_pattern: /api/v3/projects/{id}/repository/branches
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - commit
   - developers_can_merge
@@ -4448,7 +3867,7 @@ backends:
   - merged
   - name
   - protected
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     commit: commit
     developers_can_merge: developers_can_merge
@@ -4464,16 +3883,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-branches-branch
-  slug: gitlab-v3-v3-projects-id-repository-branches-branch
-  url_pattern: /v3/projects/{id}/repository/branches/{branch}
+- group: gitlab-api-v3-projects-id-repository-branches-branch
+  slug: gitlab-v3-api-v3-projects-id-repository-branches-branch
+  url_pattern: /api/v3/projects/{id}/repository/branches/{branch}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - branch
-  - id
   whitelist:
   - commit
   - developers_can_merge
@@ -4481,7 +3897,7 @@ backends:
   - merged
   - name
   - protected
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     commit: commit
     developers_can_merge: developers_can_merge
@@ -4497,22 +3913,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits
-  slug: gitlab-v3-v3-projects-id-repository-commits
-  url_pattern: /v3/projects/{id}/repository/commits
+- group: gitlab-api-v3-projects-id-repository-commits
+  slug: gitlab-v3-api-v3-projects-id-repository-commits
+  url_pattern: /api/v3/projects/{id}/repository/commits
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - path
-  - per_page
-  - ref_name
-  - since
-  - until
   whitelist:
   - author_email
   - author_name
@@ -4523,7 +3930,7 @@ backends:
   - message
   - short_id
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     author_email: author_email
     author_name: author_name
@@ -4542,16 +3949,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}
+- group: gitlab-api-v3-projects-id-repository-commits-sha
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
   whitelist:
   - author_email
   - author_name
@@ -4566,7 +3970,7 @@ backends:
   - short_id
   - status
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     author_email: author_email
     author_name: author_name
@@ -4589,20 +3993,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-blob
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-blob
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/blob
+- group: gitlab-api-v3-projects-id-repository-commits-sha-blob
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-blob
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/blob
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  query_string_params:
-  - filepath
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4611,20 +4009,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-builds
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-builds
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/builds
+- group: gitlab-api-v3-projects-id-repository-commits-sha-builds
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-builds
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/builds
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - coverage
   - created_at
@@ -4636,7 +4027,7 @@ backends:
   - started_at
   - status
   - tag
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     coverage: coverage
     created_at: created_at
@@ -4656,21 +4047,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-cherry-pick
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-cherry-pick
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/cherry_pick
+- group: gitlab-api-v3-projects-id-repository-commits-sha-cherry-pick
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-cherry-pick
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/cherry_pick
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - branch
     produces:
     - json
     - plain
@@ -4678,26 +4063,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-comments
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-comments
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/comments
+- group: gitlab-api-v3-projects-id-repository-commits-sha-comments
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-comments
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/comments
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - created_at
   - line
   - line_type
   - note
   - path
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     line: line
@@ -4712,18 +4091,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-diff
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-diff
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/diff
+- group: gitlab-api-v3-projects-id-repository-commits-sha-diff
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-diff
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/diff
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4732,23 +4107,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-commits-sha-statuses
-  slug: gitlab-v3-v3-projects-id-repository-commits-sha-statuses
-  url_pattern: /v3/projects/{id}/repository/commits/{sha}/statuses
+- group: gitlab-api-v3-projects-id-repository-commits-sha-statuses
+  slug: gitlab-v3-api-v3-projects-id-repository-commits-sha-statuses
+  url_pattern: /api/v3/projects/{id}/repository/commits/{sha}/statuses
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  query_string_params:
-  - all
-  - name
-  - page
-  - per_page
-  - ref
-  - stage
   whitelist:
   - allow_failure
   - created_at
@@ -4761,7 +4126,7 @@ backends:
   - started_at
   - status
   - target_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     allow_failure: allow_failure
     created_at: created_at
@@ -4782,22 +4147,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-compare
-  slug: gitlab-v3-v3-projects-id-repository-compare
-  url_pattern: /v3/projects/{id}/repository/compare
+- group: gitlab-api-v3-projects-id-repository-compare
+  slug: gitlab-v3-api-v3-projects-id-repository-compare
+  url_pattern: /api/v3/projects/{id}/repository/compare
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - from
-  - to
   whitelist:
   - compare_same_ref
   - compare_timeout
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     compare_same_ref: compare_same_ref
     compare_timeout: compare_timeout
@@ -4809,22 +4169,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-contributors
-  slug: gitlab-v3-v3-projects-id-repository-contributors
-  url_pattern: /v3/projects/{id}/repository/contributors
+- group: gitlab-api-v3-projects-id-repository-contributors
+  slug: gitlab-v3-api-v3-projects-id-repository-contributors
+  url_pattern: /api/v3/projects/{id}/repository/contributors
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - additions
   - commits
   - deletions
   - email
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     additions: additions
     commits: commits
@@ -4839,20 +4197,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-files
-  slug: gitlab-v3-v3-projects-id-repository-files
-  url_pattern: /v3/projects/{id}/repository/files
+- group: gitlab-api-v3-projects-id-repository-files
+  slug: gitlab-v3-api-v3-projects-id-repository-files
+  url_pattern: /api/v3/projects/{id}/repository/files
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - file_path
-  - ref
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4861,18 +4213,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-raw-blobs-sha
-  slug: gitlab-v3-v3-projects-id-repository-raw-blobs-sha
-  url_pattern: /v3/projects/{id}/repository/raw_blobs/{sha}
+- group: gitlab-api-v3-projects-id-repository-raw-blobs-sha
+  slug: gitlab-v3-api-v3-projects-id-repository-raw-blobs-sha
+  url_pattern: /api/v3/projects/{id}/repository/raw_blobs/{sha}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -4881,20 +4229,18 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-tags
-  slug: gitlab-v3-v3-projects-id-repository-tags
-  url_pattern: /v3/projects/{id}/repository/tags
+- group: gitlab-api-v3-projects-id-repository-tags
+  slug: gitlab-v3-api-v3-projects-id-repository-tags
+  url_pattern: /api/v3/projects/{id}/repository/tags
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - commit
   - message
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     commit: commit
     message: message
@@ -4907,21 +4253,18 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-tags-tag-name
-  slug: gitlab-v3-v3-projects-id-repository-tags-tag-name
-  url_pattern: /v3/projects/{id}/repository/tags/{tag_name}
+- group: gitlab-api-v3-projects-id-repository-tags-tag-name
+  slug: gitlab-v3-api-v3-projects-id-repository-tags-tag-name
+  url_pattern: /api/v3/projects/{id}/repository/tags/{tag_name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - tag_name
   whitelist:
   - commit
   - message
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     commit: commit
     message: message
@@ -4934,21 +4277,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-tags-tag-name-release
-  slug: gitlab-v3-v3-projects-id-repository-tags-tag-name-release
-  url_pattern: /v3/projects/{id}/repository/tags/{tag_name}/release
+- group: gitlab-api-v3-projects-id-repository-tags-tag-name-release
+  slug: gitlab-v3-api-v3-projects-id-repository-tags-tag-name-release
+  url_pattern: /api/v3/projects/{id}/repository/tags/{tag_name}/release
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - tag_name
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - description
     produces:
     - json
     - plain
@@ -4956,26 +4293,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-repository-tree
-  slug: gitlab-v3-v3-projects-id-repository-tree
-  url_pattern: /v3/projects/{id}/repository/tree
+- group: gitlab-api-v3-projects-id-repository-tree
+  slug: gitlab-v3-api-v3-projects-id-repository-tree
+  url_pattern: /api/v3/projects/{id}/repository/tree
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - path
-  - recursive
-  - ref_name
   whitelist:
   - id
   - mode
   - name
   - path
   - type
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     id: id
     mode: mode
@@ -4990,26 +4321,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-runners
-  slug: gitlab-v3-v3-projects-id-runners
-  url_pattern: /v3/projects/{id}/runners
+- group: gitlab-api-v3-projects-id-runners
+  slug: gitlab-v3-api-v3-projects-id-runners
+  url_pattern: /api/v3/projects/{id}/runners
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - active
   - description
   - id
   - is_shared
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     active: active
     description: description
@@ -5024,20 +4349,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-services-mattermost-slash-commands-trigger
-  slug: gitlab-v3-v3-projects-id-services-mattermost-slash-commands-trigger
-  url_pattern: /v3/projects/{id}/services/mattermost_slash_commands/trigger
+- group: gitlab-api-v3-projects-id-services-mattermost-slash-commands-trigger
+  slug: gitlab-v3-api-v3-projects-id-services-mattermost-slash-commands-trigger
+  url_pattern: /api/v3/projects/{id}/services/mattermost_slash_commands/trigger
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - token
     produces:
     - json
     - plain
@@ -5045,20 +4365,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-services-slack-slash-commands-trigger
-  slug: gitlab-v3-v3-projects-id-services-slack-slash-commands-trigger
-  url_pattern: /v3/projects/{id}/services/slack_slash_commands/trigger
+- group: gitlab-api-v3-projects-id-services-slack-slash-commands-trigger
+  slug: gitlab-v3-api-v3-projects-id-services-slack-slash-commands-trigger
+  url_pattern: /api/v3/projects/{id}/services/slack_slash_commands/trigger
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - token
     produces:
     - json
     - plain
@@ -5066,16 +4381,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-services-service-slug
-  slug: gitlab-v3-v3-projects-id-services-service-slug
-  url_pattern: /v3/projects/{id}/services/{service_slug}
+- group: gitlab-api-v3-projects-id-services-service-slug
+  slug: gitlab-v3-api-v3-projects-id-services-service-slug
+  url_pattern: /api/v3/projects/{id}/services/{service_slug}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - service_slug
   whitelist:
   - active
   - build_events
@@ -5090,7 +4402,7 @@ backends:
   - tag_push_events
   - title
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     active: active
     build_events: build_events
@@ -5113,22 +4425,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-share
-  slug: gitlab-v3-v3-projects-id-share
-  url_pattern: /v3/projects/{id}/share
+- group: gitlab-api-v3-projects-id-share
+  slug: gitlab-v3-api-v3-projects-id-share
+  url_pattern: /api/v3/projects/{id}/share
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - expires_at
-    - group_access
-    - group_id
     produces:
     - json
     - plain
@@ -5136,18 +4441,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets
-  slug: gitlab-v3-v3-projects-id-snippets
-  url_pattern: /v3/projects/{id}/snippets
+- group: gitlab-api-v3-projects-id-snippets
+  slug: gitlab-v3-api-v3-projects-id-snippets
+  url_pattern: /api/v3/projects/{id}/snippets
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - created_at
   - expires_at
@@ -5156,7 +4456,7 @@ backends:
   - title
   - updated_at
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     expires_at: expires_at
@@ -5173,19 +4473,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-noteable-id-notes
-  slug: gitlab-v3-v3-projects-id-snippets-noteable-id-notes
-  url_pattern: /v3/projects/{id}/snippets/{noteable_id}/notes
+- group: gitlab-api-v3-projects-id-snippets-noteable-id-notes
+  slug: gitlab-v3-api-v3-projects-id-snippets-noteable-id-notes
+  url_pattern: /api/v3/projects/{id}/snippets/{noteable_id}/notes
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - noteable_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - attachment
   - body
@@ -5197,7 +4491,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -5217,17 +4511,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-noteable-id-notes-note-id
-  slug: gitlab-v3-v3-projects-id-snippets-noteable-id-notes-note-id
-  url_pattern: /v3/projects/{id}/snippets/{noteable_id}/notes/{note_id}
+- group: gitlab-api-v3-projects-id-snippets-noteable-id-notes-note-id
+  slug: gitlab-v3-api-v3-projects-id-snippets-noteable-id-notes-note-id
+  url_pattern: /api/v3/projects/{id}/snippets/{noteable_id}/notes/{note_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - note_id
-  - noteable_id
   whitelist:
   - attachment
   - body
@@ -5239,7 +4529,7 @@ backends:
   - system
   - updated_at
   - upvote?
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     attachment: attachment
     body: body
@@ -5259,16 +4549,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}
+- group: gitlab-api-v3-projects-id-snippets-snippet-id
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - snippet_id
   whitelist:
   - created_at
   - expires_at
@@ -5277,7 +4564,7 @@ backends:
   - title
   - updated_at
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     expires_at: expires_at
@@ -5294,19 +4581,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id-award-emoji
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}/award_emoji
+- group: gitlab-api-v3-projects-id-snippets-snippet-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - snippet_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -5314,7 +4595,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -5330,17 +4611,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-snippets-snippet-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - snippet_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -5348,7 +4625,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -5364,20 +4641,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}/notes/{note_id}/award_emoji
+- group: gitlab-api-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}/notes/{note_id}/award_emoji
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - note_id
-  - snippet_id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - awardable_id
   - awardable_type
@@ -5385,7 +4655,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -5401,18 +4671,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji-award-id
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji-award-id
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}/notes/{note_id}/award_emoji/{award_id}
+- group: gitlab-api-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji-award-id
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id-notes-note-id-award-emoji-award-id
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}/notes/{note_id}/award_emoji/{award_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - award_id
-  - id
-  - note_id
-  - snippet_id
   whitelist:
   - awardable_id
   - awardable_type
@@ -5420,7 +4685,7 @@ backends:
   - id
   - name
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     awardable_id: awardable_id
     awardable_type: awardable_type
@@ -5436,18 +4701,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-snippets-snippet-id-raw
-  slug: gitlab-v3-v3-projects-id-snippets-snippet-id-raw
-  url_pattern: /v3/projects/{id}/snippets/{snippet_id}/raw
+- group: gitlab-api-v3-projects-id-snippets-snippet-id-raw
+  slug: gitlab-v3-api-v3-projects-id-snippets-snippet-id-raw
+  url_pattern: /api/v3/projects/{id}/snippets/{snippet_id}/raw
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - snippet_id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5456,17 +4717,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-star
-  slug: gitlab-v3-v3-projects-id-star
-  url_pattern: /v3/projects/{id}/star
+- group: gitlab-api-v3-projects-id-star
+  slug: gitlab-v3-api-v3-projects-id-star
+  url_pattern: /api/v3/projects/{id}/star
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5475,26 +4733,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-statuses-sha
-  slug: gitlab-v3-v3-projects-id-statuses-sha
-  url_pattern: /v3/projects/{id}/statuses/{sha}
+- group: gitlab-api-v3-projects-id-statuses-sha
+  slug: gitlab-v3-api-v3-projects-id-statuses-sha
+  url_pattern: /api/v3/projects/{id}/statuses/{sha}
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - sha
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - context
-    - description
-    - name
-    - ref
-    - state
-    - target_url
     produces:
     - json
     - plain
@@ -5502,25 +4749,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-triggers
-  slug: gitlab-v3-v3-projects-id-triggers
-  url_pattern: /v3/projects/{id}/triggers
+- group: gitlab-api-v3-projects-id-triggers
+  slug: gitlab-v3-api-v3-projects-id-triggers
+  url_pattern: /api/v3/projects/{id}/triggers
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - created_at
   - deleted_at
   - last_used
   - token
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     deleted_at: deleted_at
@@ -5535,23 +4777,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-triggers-token
-  slug: gitlab-v3-v3-projects-id-triggers-token
-  url_pattern: /v3/projects/{id}/triggers/{token}
+- group: gitlab-api-v3-projects-id-triggers-token
+  slug: gitlab-v3-api-v3-projects-id-triggers-token
+  url_pattern: /api/v3/projects/{id}/triggers/{token}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - token
   whitelist:
   - created_at
   - deleted_at
   - last_used
   - token
   - updated_at
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     deleted_at: deleted_at
@@ -5566,17 +4805,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-unarchive
-  slug: gitlab-v3-v3-projects-id-unarchive
-  url_pattern: /v3/projects/{id}/unarchive
+- group: gitlab-api-v3-projects-id-unarchive
+  slug: gitlab-v3-api-v3-projects-id-unarchive
+  url_pattern: /api/v3/projects/{id}/unarchive
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5585,20 +4821,15 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-uploads
-  slug: gitlab-v3-v3-projects-id-uploads
-  url_pattern: /v3/projects/{id}/uploads
+- group: gitlab-api-v3-projects-id-uploads
+  slug: gitlab-v3-api-v3-projects-id-uploads
+  url_pattern: /api/v3/projects/{id}/uploads
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
-    form_data:
-    - file
     produces:
     - json
     - plain
@@ -5606,19 +4837,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-users
-  slug: gitlab-v3-v3-projects-id-users
-  url_pattern: /v3/projects/{id}/users
+- group: gitlab-api-v3-projects-id-users
+  slug: gitlab-v3-api-v3-projects-id-users
+  url_pattern: /api/v3/projects/{id}/users
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
-  - search
   whitelist:
   - avatar_url
   - id
@@ -5626,7 +4851,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     id: id
@@ -5642,22 +4867,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-variables
-  slug: gitlab-v3-v3-projects-id-variables
-  url_pattern: /v3/projects/{id}/variables
+- group: gitlab-api-v3-projects-id-variables
+  slug: gitlab-v3-api-v3-projects-id-variables
+  url_pattern: /api/v3/projects/{id}/variables
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - key
   - value
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     key: key
     value: value
@@ -5669,20 +4889,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-projects-id-variables-key
-  slug: gitlab-v3-v3-projects-id-variables-key
-  url_pattern: /v3/projects/{id}/variables/{key}
+- group: gitlab-api-v3-projects-id-variables-key
+  slug: gitlab-v3-api-v3-projects-id-variables-key
+  url_pattern: /api/v3/projects/{id}/variables/{key}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  - key
   whitelist:
   - key
   - value
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     key: key
     value: value
@@ -5694,24 +4911,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-runners
-  slug: gitlab-v3-v3-runners
-  url_pattern: /v3/runners
+- group: gitlab-api-v3-runners
+  slug: gitlab-v3-api-v3-runners
+  url_pattern: /api/v3/runners
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - active
   - description
   - id
   - is_shared
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     active: active
     description: description
@@ -5726,24 +4939,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-runners-all
-  slug: gitlab-v3-v3-runners-all
-  url_pattern: /v3/runners/all
+- group: gitlab-api-v3-runners-all
+  slug: gitlab-v3-api-v3-runners-all
+  url_pattern: /api/v3/runners/all
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
-  - scope
   whitelist:
   - active
   - description
   - id
   - is_shared
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     active: active
     description: description
@@ -5758,15 +4967,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-runners-id
-  slug: gitlab-v3-v3-runners-id
-  url_pattern: /v3/runners/{id}
+- group: gitlab-api-v3-runners-id
+  slug: gitlab-v3-api-v3-runners-id
+  url_pattern: /api/v3/runners/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - active
   - architecture
@@ -5782,7 +4989,7 @@ backends:
   - tag_list
   - token
   - version
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     active: active
     architecture: architecture
@@ -5806,36 +5013,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-session
-  slug: gitlab-v3-v3-session
-  url_pattern: /v3/session
+- group: gitlab-api-v3-session
+  slug: gitlab-v3-api-v3-session
+  url_pattern: /api/v3/session
   method: POST
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
-  extra_config:
-    form_data:
-    - email
-    - login
-    - password
-    produces:
-    - json
-    - plain
-    hosts:
-    - https://gitlab.com
-    schemes:
-    - https
-- group: gitlab-v3-sidekiq-compound-metrics
-  slug: gitlab-v3-v3-sidekiq-compound-metrics
-  url_pattern: /v3/sidekiq/compound_metrics
-  method: GET
-  encoding: json
-  host:
-  - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5844,15 +5029,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-sidekiq-job-stats
-  slug: gitlab-v3-v3-sidekiq-job-stats
-  url_pattern: /v3/sidekiq/job_stats
+- group: gitlab-api-v3-sidekiq-compound-metrics
+  slug: gitlab-v3-api-v3-sidekiq-compound-metrics
+  url_pattern: /api/v3/sidekiq/compound_metrics
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5861,15 +5045,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-sidekiq-process-metrics
-  slug: gitlab-v3-v3-sidekiq-process-metrics
-  url_pattern: /v3/sidekiq/process_metrics
+- group: gitlab-api-v3-sidekiq-job-stats
+  slug: gitlab-v3-api-v3-sidekiq-job-stats
+  url_pattern: /api/v3/sidekiq/job_stats
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5878,15 +5061,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-sidekiq-queue-metrics
-  slug: gitlab-v3-v3-sidekiq-queue-metrics
-  url_pattern: /v3/sidekiq/queue_metrics
+- group: gitlab-api-v3-sidekiq-process-metrics
+  slug: gitlab-v3-api-v3-sidekiq-process-metrics
+  url_pattern: /api/v3/sidekiq/process_metrics
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -5895,16 +5077,29 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-snippets
-  slug: gitlab-v3-v3-snippets
-  url_pattern: /v3/snippets
+- group: gitlab-api-v3-sidekiq-queue-metrics
+  slug: gitlab-v3-api-v3-sidekiq-queue-metrics
+  url_pattern: /api/v3/sidekiq/queue_metrics
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
+  concurrent_calls: 1
+  extra_config:
+    produces:
+    - json
+    - plain
+    hosts:
+    - https://gitlab.com
+    schemes:
+    - https
+- group: gitlab-api-v3-snippets
+  slug: gitlab-v3-api-v3-snippets
+  url_pattern: /api/v3/snippets
+  method: GET
+  encoding: json
+  host:
+  - https://gitlab.com
   whitelist:
   - created_at
   - file_name
@@ -5913,7 +5108,7 @@ backends:
   - title
   - updated_at
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     file_name: file_name
@@ -5930,16 +5125,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-snippets-public
-  slug: gitlab-v3-v3-snippets-public
-  url_pattern: /v3/snippets/public
+- group: gitlab-api-v3-snippets-public
+  slug: gitlab-v3-api-v3-snippets-public
+  url_pattern: /api/v3/snippets/public
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - created_at
   - file_name
@@ -5948,7 +5140,7 @@ backends:
   - title
   - updated_at
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     file_name: file_name
@@ -5965,15 +5157,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-snippets-id
-  slug: gitlab-v3-v3-snippets-id
-  url_pattern: /v3/snippets/{id}
+- group: gitlab-api-v3-snippets-id
+  slug: gitlab-v3-api-v3-snippets-id
+  url_pattern: /api/v3/snippets/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - created_at
   - file_name
@@ -5982,7 +5172,7 @@ backends:
   - title
   - updated_at
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     created_at: created_at
     file_name: file_name
@@ -5999,17 +5189,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-snippets-id-raw
-  slug: gitlab-v3-v3-snippets-id-raw
-  url_pattern: /v3/snippets/{id}/raw
+- group: gitlab-api-v3-snippets-id-raw
+  slug: gitlab-v3-api-v3-snippets-id-raw
+  url_pattern: /api/v3/snippets/{id}/raw
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
@@ -6018,16 +5205,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-dockerfiles
-  slug: gitlab-v3-v3-templates-dockerfiles
-  url_pattern: /v3/templates/dockerfiles
+- group: gitlab-api-v3-templates-dockerfiles
+  slug: gitlab-v3-api-v3-templates-dockerfiles
+  url_pattern: /api/v3/templates/dockerfiles
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -6038,19 +5225,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-dockerfiles-name
-  slug: gitlab-v3-v3-templates-dockerfiles-name
-  url_pattern: /v3/templates/dockerfiles/{name}
+- group: gitlab-api-v3-templates-dockerfiles-name
+  slug: gitlab-v3-api-v3-templates-dockerfiles-name
+  url_pattern: /api/v3/templates/dockerfiles/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -6062,16 +5247,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-gitignores
-  slug: gitlab-v3-v3-templates-gitignores
-  url_pattern: /v3/templates/gitignores
+- group: gitlab-api-v3-templates-gitignores
+  slug: gitlab-v3-api-v3-templates-gitignores
+  url_pattern: /api/v3/templates/gitignores
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -6082,19 +5267,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-gitignores-name
-  slug: gitlab-v3-v3-templates-gitignores-name
-  url_pattern: /v3/templates/gitignores/{name}
+- group: gitlab-api-v3-templates-gitignores-name
+  slug: gitlab-v3-api-v3-templates-gitignores-name
+  url_pattern: /api/v3/templates/gitignores/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -6106,16 +5289,16 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-gitlab-ci-ymls
-  slug: gitlab-v3-v3-templates-gitlab-ci-ymls
-  url_pattern: /v3/templates/gitlab_ci_ymls
+- group: gitlab-api-v3-templates-gitlab-ci-ymls
+  slug: gitlab-v3-api-v3-templates-gitlab-ci-ymls
+  url_pattern: /api/v3/templates/gitlab_ci_ymls
   method: GET
   encoding: json
   host:
   - https://gitlab.com
   whitelist:
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     name: name
   extra_config:
@@ -6126,19 +5309,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-gitlab-ci-ymls-name
-  slug: gitlab-v3-v3-templates-gitlab-ci-ymls-name
-  url_pattern: /v3/templates/gitlab_ci_ymls/{name}
+- group: gitlab-api-v3-templates-gitlab-ci-ymls-name
+  slug: gitlab-v3-api-v3-templates-gitlab-ci-ymls-name
+  url_pattern: /api/v3/templates/gitlab_ci_ymls/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - content
   - name
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     content: content
     name: name
@@ -6150,15 +5331,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-licenses
-  slug: gitlab-v3-v3-templates-licenses
-  url_pattern: /v3/templates/licenses
+- group: gitlab-api-v3-templates-licenses
+  slug: gitlab-v3-api-v3-templates-licenses
+  url_pattern: /api/v3/templates/licenses
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - popular
   whitelist:
   - conditions
   - content
@@ -6171,7 +5350,7 @@ backends:
   - permissions
   - popular
   - source_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     conditions: conditions
     content: content
@@ -6192,15 +5371,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-templates-licenses-name
-  slug: gitlab-v3-v3-templates-licenses-name
-  url_pattern: /v3/templates/licenses/{name}
+- group: gitlab-api-v3-templates-licenses-name
+  slug: gitlab-v3-api-v3-templates-licenses-name
+  url_pattern: /api/v3/templates/licenses/{name}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - name
   whitelist:
   - conditions
   - content
@@ -6213,7 +5390,7 @@ backends:
   - permissions
   - popular
   - source_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     conditions: conditions
     content: content
@@ -6234,16 +5411,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-todos
-  slug: gitlab-v3-v3-todos
-  url_pattern: /v3/todos
+- group: gitlab-api-v3-todos
+  slug: gitlab-v3-api-v3-todos
+  url_pattern: /api/v3/todos
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - action_name
   - body
@@ -6253,7 +5427,7 @@ backends:
   - target
   - target_type
   - target_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     action_name: action_name
     body: body
@@ -6271,9 +5445,9 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-user
-  slug: gitlab-v3-v3-user
-  url_pattern: /v3/user
+- group: gitlab-api-v3-user
+  slug: gitlab-v3-api-v3-user
+  url_pattern: /api/v3/user
   method: GET
   encoding: json
   host:
@@ -6305,7 +5479,7 @@ backends:
   - username
   - web_url
   - website_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     bio: bio
@@ -6341,9 +5515,9 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-user-emails
-  slug: gitlab-v3-v3-user-emails
-  url_pattern: /v3/user/emails
+- group: gitlab-api-v3-user-emails
+  slug: gitlab-v3-api-v3-user-emails
+  url_pattern: /api/v3/user/emails
   method: GET
   encoding: json
   host:
@@ -6351,7 +5525,7 @@ backends:
   whitelist:
   - email
   - id
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     email: email
     id: id
@@ -6363,19 +5537,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-user-emails-email-id
-  slug: gitlab-v3-v3-user-emails-email-id
-  url_pattern: /v3/user/emails/{email_id}
+- group: gitlab-api-v3-user-emails-email-id
+  slug: gitlab-v3-api-v3-user-emails-email-id
+  url_pattern: /api/v3/user/emails/{email_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - email_id
   whitelist:
   - email
   - id
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     email: email
     id: id
@@ -6387,9 +5559,9 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-user-keys
-  slug: gitlab-v3-v3-user-keys
-  url_pattern: /v3/user/keys
+- group: gitlab-api-v3-user-keys
+  slug: gitlab-v3-api-v3-user-keys
+  url_pattern: /api/v3/user/keys
   method: GET
   encoding: json
   host:
@@ -6400,7 +5572,7 @@ backends:
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -6415,22 +5587,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-user-keys-key-id
-  slug: gitlab-v3-v3-user-keys-key-id
-  url_pattern: /v3/user/keys/{key_id}
+- group: gitlab-api-v3-user-keys-key-id
+  slug: gitlab-v3-api-v3-user-keys-key-id
+  url_pattern: /api/v3/user/keys/{key_id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - key_id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -6445,21 +5615,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-users
-  slug: gitlab-v3-v3-users
-  url_pattern: /v3/users
+- group: gitlab-api-v3-users
+  slug: gitlab-v3-api-v3-users
+  url_pattern: /api/v3/users
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  query_string_params:
-  - active
-  - blocked
-  - external
-  - page
-  - per_page
-  - search
-  - username
   whitelist:
   - avatar_url
   - id
@@ -6467,7 +5629,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     id: id
@@ -6483,15 +5645,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-users-id
-  slug: gitlab-v3-v3-users-id
-  url_pattern: /v3/users/{id}
+- group: gitlab-api-v3-users-id
+  slug: gitlab-v3-api-v3-users-id
+  url_pattern: /api/v3/users/{id}
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - avatar_url
   - id
@@ -6499,7 +5659,7 @@ backends:
   - state
   - username
   - web_url
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     avatar_url: avatar_url
     id: id
@@ -6515,19 +5675,17 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-users-id-emails
-  slug: gitlab-v3-v3-users-id-emails
-  url_pattern: /v3/users/{id}/emails
+- group: gitlab-api-v3-users-id-emails
+  slug: gitlab-v3-api-v3-users-id-emails
+  url_pattern: /api/v3/users/{id}/emails
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - email
   - id
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     email: email
     id: id
@@ -6539,18 +5697,13 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-users-id-events
-  slug: gitlab-v3-v3-users-id-events
-  url_pattern: /v3/users/{id}/events
+- group: gitlab-api-v3-users-id-events
+  slug: gitlab-v3-api-v3-users-id-events
+  url_pattern: /api/v3/users/{id}/events
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
-  query_string_params:
-  - page
-  - per_page
   whitelist:
   - action_name
   - author_id
@@ -6562,7 +5715,7 @@ backends:
   - target_title
   - target_type
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     action_name: action_name
     author_id: author_id
@@ -6582,22 +5735,20 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-users-id-keys
-  slug: gitlab-v3-v3-users-id-keys
-  url_pattern: /v3/users/{id}/keys
+- group: gitlab-api-v3-users-id-keys
+  slug: gitlab-v3-api-v3-users-id-keys
+  url_pattern: /api/v3/users/{id}/keys
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  url_keys:
-  - id
   whitelist:
   - can_push
   - created_at
   - id
   - key
   - title
-  concurrent_calls: 0
+  concurrent_calls: 1
   mapping:
     can_push: can_push
     created_at: created_at
@@ -6612,15 +5763,14 @@ backends:
     - https://gitlab.com
     schemes:
     - https
-- group: gitlab-v3-version
-  slug: gitlab-v3-v3-version
-  url_pattern: /v3/version
+- group: gitlab-api-v3-version
+  slug: gitlab-v3-api-v3-version
+  url_pattern: /api/v3/version
   method: GET
   encoding: json
   host:
   - https://gitlab.com
-  concurrent_calls: 0
-  mapping: {}
+  concurrent_calls: 1
   extra_config:
     produces:
     - json
