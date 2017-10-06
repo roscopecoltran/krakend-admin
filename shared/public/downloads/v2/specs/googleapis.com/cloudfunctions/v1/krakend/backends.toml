@@ -6,6 +6,10 @@
   host = ["https://cloudfunctions.googleapis.com"]
   query_string_params = ["filter", "name", "pageSize", "pageToken"]
   whitelist = ["nextPageToken", "operations"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    operations = "operations"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -17,7 +21,13 @@
   method = "GET"
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["name"]
-  whitelist = ["metadata", "name", "response", "done"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -30,7 +40,11 @@
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["name"]
   query_string_params = ["filter", "pageSize", "pageToken"]
-  whitelist = ["nextPageToken", "locations"]
+  whitelist = ["locations", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    locations = "locations"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]

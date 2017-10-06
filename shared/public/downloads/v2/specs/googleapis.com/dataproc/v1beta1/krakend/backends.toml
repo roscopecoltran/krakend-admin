@@ -5,8 +5,12 @@
   method = "GET"
   host = ["https://dataproc.googleapis.com"]
   url_keys = ["projectId"]
-  query_string_params = ["pageToken", "pageSize", "filter"]
-  whitelist = ["nextPageToken", "clusters"]
+  query_string_params = ["filter", "pageSize", "pageToken"]
+  whitelist = ["clusters", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clusters = "clusters"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +21,15 @@
   url_pattern = "/v1beta1/projects/{projectId}/clusters/{clusterName}"
   method = "GET"
   host = ["https://dataproc.googleapis.com"]
-  url_keys = ["projectId", "clusterName"]
-  whitelist = ["labels", "clusterName", "statusHistory", "projectId", "clusterUuid"]
+  url_keys = ["clusterName", "projectId"]
+  whitelist = ["clusterName", "clusterUuid", "labels", "projectId", "statusHistory"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clusterName = "clusterName"
+    clusterUuid = "clusterUuid"
+    labels = "labels"
+    projectId = "projectId"
+    statusHistory = "statusHistory"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -29,8 +40,14 @@
   url_pattern = "/v1beta1/projects/{projectId}/clusters/{clusterName}:diagnose"
   method = "POST"
   host = ["https://dataproc.googleapis.com"]
-  url_keys = ["projectId", "clusterName"]
-  whitelist = ["metadata", "done", "name", "response"]
+  url_keys = ["clusterName", "projectId"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +59,12 @@
   method = "GET"
   host = ["https://dataproc.googleapis.com"]
   url_keys = ["projectId"]
-  query_string_params = ["pageToken", "pageSize", "clusterName", "filter", "jobStateMatcher"]
+  query_string_params = ["clusterName", "filter", "jobStateMatcher", "pageSize", "pageToken"]
   whitelist = ["jobs", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    jobs = "jobs"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -54,8 +75,18 @@
   url_pattern = "/v1beta1/projects/{projectId}/jobs/{jobId}"
   method = "GET"
   host = ["https://dataproc.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
-  whitelist = ["statusHistory", "driverOutputResourceUri", "driverControlFilesUri", "submittedBy", "interactive", "driverInputResourceUri", "yarnApplications", "labels"]
+  url_keys = ["jobId", "projectId"]
+  whitelist = ["driverControlFilesUri", "driverInputResourceUri", "driverOutputResourceUri", "interactive", "labels", "statusHistory", "submittedBy", "yarnApplications"]
+  concurrent_calls = 0
+  [backends.mapping]
+    driverControlFilesUri = "driverControlFilesUri"
+    driverInputResourceUri = "driverInputResourceUri"
+    driverOutputResourceUri = "driverOutputResourceUri"
+    interactive = "interactive"
+    labels = "labels"
+    statusHistory = "statusHistory"
+    submittedBy = "submittedBy"
+    yarnApplications = "yarnApplications"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -66,8 +97,18 @@
   url_pattern = "/v1beta1/projects/{projectId}/jobs/{jobId}:cancel"
   method = "POST"
   host = ["https://dataproc.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
-  whitelist = ["statusHistory", "driverOutputResourceUri", "driverControlFilesUri", "submittedBy", "interactive", "driverInputResourceUri", "yarnApplications", "labels"]
+  url_keys = ["jobId", "projectId"]
+  whitelist = ["driverControlFilesUri", "driverInputResourceUri", "driverOutputResourceUri", "interactive", "labels", "statusHistory", "submittedBy", "yarnApplications"]
+  concurrent_calls = 0
+  [backends.mapping]
+    driverControlFilesUri = "driverControlFilesUri"
+    driverInputResourceUri = "driverInputResourceUri"
+    driverOutputResourceUri = "driverOutputResourceUri"
+    interactive = "interactive"
+    labels = "labels"
+    statusHistory = "statusHistory"
+    submittedBy = "submittedBy"
+    yarnApplications = "yarnApplications"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -79,7 +120,17 @@
   method = "POST"
   host = ["https://dataproc.googleapis.com"]
   url_keys = ["projectId"]
-  whitelist = ["interactive", "driverInputResourceUri", "yarnApplications", "labels", "statusHistory", "driverOutputResourceUri", "driverControlFilesUri", "submittedBy"]
+  whitelist = ["driverControlFilesUri", "driverInputResourceUri", "driverOutputResourceUri", "interactive", "labels", "statusHistory", "submittedBy", "yarnApplications"]
+  concurrent_calls = 0
+  [backends.mapping]
+    driverControlFilesUri = "driverControlFilesUri"
+    driverInputResourceUri = "driverInputResourceUri"
+    driverOutputResourceUri = "driverOutputResourceUri"
+    interactive = "interactive"
+    labels = "labels"
+    statusHistory = "statusHistory"
+    submittedBy = "submittedBy"
+    yarnApplications = "yarnApplications"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -91,7 +142,13 @@
   method = "GET"
   host = ["https://dataproc.googleapis.com"]
   url_keys = ["name"]
-  whitelist = ["done", "name", "response", "metadata"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]
@@ -103,6 +160,7 @@
   method = "POST"
   host = ["https://dataproc.googleapis.com"]
   url_keys = ["name"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataproc.googleapis.com"]
     schemes = ["https"]

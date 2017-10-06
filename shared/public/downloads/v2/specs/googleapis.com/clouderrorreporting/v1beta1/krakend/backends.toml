@@ -5,7 +5,12 @@
   method = "GET"
   host = ["https://clouderrorreporting.googleapis.com"]
   url_keys = ["groupName"]
-  whitelist = ["trackingIssues", "groupId", "name"]
+  whitelist = ["groupId", "name", "trackingIssues"]
+  concurrent_calls = 0
+  [backends.mapping]
+    groupId = "groupId"
+    name = "name"
+    trackingIssues = "trackingIssues"
   [backends.extra_config]
     hosts = ["https://clouderrorreporting.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +22,13 @@
   method = "GET"
   host = ["https://clouderrorreporting.googleapis.com"]
   url_keys = ["projectName"]
-  query_string_params = ["groupId", "pageToken", "serviceFilter.service", "pageSize", "serviceFilter.version", "serviceFilter.resourceType", "timeRange.period"]
+  query_string_params = ["groupId", "pageSize", "pageToken", "serviceFilter.resourceType", "serviceFilter.service", "serviceFilter.version", "timeRange.period"]
   whitelist = ["errorEvents", "nextPageToken", "timeRangeBegin"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errorEvents = "errorEvents"
+    nextPageToken = "nextPageToken"
+    timeRangeBegin = "timeRangeBegin"
   [backends.extra_config]
     hosts = ["https://clouderrorreporting.googleapis.com"]
     schemes = ["https"]
@@ -30,6 +40,7 @@
   method = "POST"
   host = ["https://clouderrorreporting.googleapis.com"]
   url_keys = ["projectName"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://clouderrorreporting.googleapis.com"]
     schemes = ["https"]
@@ -41,8 +52,13 @@
   method = "GET"
   host = ["https://clouderrorreporting.googleapis.com"]
   url_keys = ["projectName"]
-  query_string_params = ["serviceFilter.service", "pageSize", "serviceFilter.version", "order", "serviceFilter.resourceType", "alignmentTime", "timedCountDuration", "pageToken", "timeRange.period", "alignment", "groupId"]
-  whitelist = ["nextPageToken", "timeRangeBegin", "errorGroupStats"]
+  query_string_params = ["alignment", "alignmentTime", "groupId", "order", "pageSize", "pageToken", "serviceFilter.resourceType", "serviceFilter.service", "serviceFilter.version", "timeRange.period", "timedCountDuration"]
+  whitelist = ["errorGroupStats", "nextPageToken", "timeRangeBegin"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errorGroupStats = "errorGroupStats"
+    nextPageToken = "nextPageToken"
+    timeRangeBegin = "timeRangeBegin"
   [backends.extra_config]
     hosts = ["https://clouderrorreporting.googleapis.com"]
     schemes = ["https"]

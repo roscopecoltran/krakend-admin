@@ -4,9 +4,13 @@
   url_pattern = "/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["agencyId", "advertiserId", "engineAccountId"]
-  query_string_params = ["endDate", "rowCount", "startDate", "startRow", "adGroupId", "adId", "campaignId", "criterionId"]
-  whitelist = ["kind", "conversion"]
+  url_keys = ["advertiserId", "agencyId", "engineAccountId"]
+  query_string_params = ["adGroupId", "adId", "campaignId", "criterionId", "endDate", "rowCount", "startDate", "startRow"]
+  whitelist = ["conversion", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    conversion = "conversion"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +21,12 @@
   url_pattern = "/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["agencyId", "advertiserId"]
+  url_keys = ["advertiserId", "agencyId"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -29,7 +37,11 @@
   url_pattern = "/conversion"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  whitelist = ["kind", "conversion"]
+  whitelist = ["conversion", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    conversion = "conversion"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -41,6 +53,9 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   whitelist = ["availabilities"]
+  concurrent_calls = 0
+  [backends.mapping]
+    availabilities = "availabilities"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -51,7 +66,17 @@
   url_pattern = "/reports"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  whitelist = ["files", "statisticsCurrencyCode", "isReportReady", "kind", "rowCount", "statisticsTimeZone", "rows", "id"]
+  whitelist = ["files", "id", "isReportReady", "kind", "rowCount", "rows", "statisticsCurrencyCode", "statisticsTimeZone"]
+  concurrent_calls = 0
+  [backends.mapping]
+    files = "files"
+    id = "id"
+    isReportReady = "isReportReady"
+    kind = "kind"
+    rowCount = "rowCount"
+    rows = "rows"
+    statisticsCurrencyCode = "statisticsCurrencyCode"
+    statisticsTimeZone = "statisticsTimeZone"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -62,7 +87,17 @@
   url_pattern = "/reports/generate"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  whitelist = ["statisticsTimeZone", "rows", "files", "id", "statisticsCurrencyCode", "isReportReady", "kind", "rowCount"]
+  whitelist = ["files", "id", "isReportReady", "kind", "rowCount", "rows", "statisticsCurrencyCode", "statisticsTimeZone"]
+  concurrent_calls = 0
+  [backends.mapping]
+    files = "files"
+    id = "id"
+    isReportReady = "isReportReady"
+    kind = "kind"
+    rowCount = "rowCount"
+    rows = "rows"
+    statisticsCurrencyCode = "statisticsCurrencyCode"
+    statisticsTimeZone = "statisticsTimeZone"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -74,7 +109,17 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["reportId"]
-  whitelist = ["kind", "rowCount", "statisticsTimeZone", "rows", "files", "id", "statisticsCurrencyCode", "isReportReady"]
+  whitelist = ["files", "id", "isReportReady", "kind", "rowCount", "rows", "statisticsCurrencyCode", "statisticsTimeZone"]
+  concurrent_calls = 0
+  [backends.mapping]
+    files = "files"
+    id = "id"
+    isReportReady = "isReportReady"
+    kind = "kind"
+    rowCount = "rowCount"
+    rows = "rows"
+    statisticsCurrencyCode = "statisticsCurrencyCode"
+    statisticsTimeZone = "statisticsTimeZone"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -85,7 +130,8 @@
   url_pattern = "/reports/{reportId}/files/{reportFragment}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["reportId", "reportFragment"]
+  url_keys = ["reportFragment", "reportId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

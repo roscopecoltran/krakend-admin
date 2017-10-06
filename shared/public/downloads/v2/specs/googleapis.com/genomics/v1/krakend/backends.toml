@@ -4,7 +4,19 @@
   url_pattern = "/v1/annotations"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["referenceName", "end", "type", "id", "start", "name", "info", "reverseStrand", "referenceId", "annotationSetId"]
+  whitelist = ["annotationSetId", "end", "id", "info", "name", "referenceId", "referenceName", "reverseStrand", "start", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationSetId = "annotationSetId"
+    end = "end"
+    id = "id"
+    info = "info"
+    name = "name"
+    referenceId = "referenceId"
+    referenceName = "referenceName"
+    reverseStrand = "reverseStrand"
+    start = "start"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -15,7 +27,11 @@
   url_pattern = "/v1/annotations/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["nextPageToken", "annotations"]
+  whitelist = ["annotations", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotations = "annotations"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -27,7 +43,19 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["annotationId"]
-  whitelist = ["referenceName", "end", "type", "id", "start", "name", "info", "reverseStrand", "referenceId", "annotationSetId"]
+  whitelist = ["annotationSetId", "end", "id", "info", "name", "referenceId", "referenceName", "reverseStrand", "start", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationSetId = "annotationSetId"
+    end = "end"
+    id = "id"
+    info = "info"
+    name = "name"
+    referenceId = "referenceId"
+    referenceName = "referenceName"
+    reverseStrand = "reverseStrand"
+    start = "start"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -39,6 +67,9 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   whitelist = ["entries"]
+  concurrent_calls = 0
+  [backends.mapping]
+    entries = "entries"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -49,7 +80,16 @@
   url_pattern = "/v1/annotationsets"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["sourceUri", "info", "datasetId", "type", "id", "referenceSetId", "name"]
+  whitelist = ["datasetId", "id", "info", "name", "referenceSetId", "sourceUri", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasetId = "datasetId"
+    id = "id"
+    info = "info"
+    name = "name"
+    referenceSetId = "referenceSetId"
+    sourceUri = "sourceUri"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -60,7 +100,11 @@
   url_pattern = "/v1/annotationsets/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["nextPageToken", "annotationSets"]
+  whitelist = ["annotationSets", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationSets = "annotationSets"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -72,7 +116,16 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["annotationSetId"]
-  whitelist = ["info", "referenceSetId", "name", "sourceUri", "datasetId", "type", "id"]
+  whitelist = ["datasetId", "id", "info", "name", "referenceSetId", "sourceUri", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasetId = "datasetId"
+    id = "id"
+    info = "info"
+    name = "name"
+    referenceSetId = "referenceSetId"
+    sourceUri = "sourceUri"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -83,7 +136,15 @@
   url_pattern = "/v1/callsets"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["sampleId", "info", "name", "created", "id", "variantSetIds"]
+  whitelist = ["created", "id", "info", "name", "sampleId", "variantSetIds"]
+  concurrent_calls = 0
+  [backends.mapping]
+    created = "created"
+    id = "id"
+    info = "info"
+    name = "name"
+    sampleId = "sampleId"
+    variantSetIds = "variantSetIds"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -95,6 +156,10 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   whitelist = ["callSets", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    callSets = "callSets"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -106,7 +171,15 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["callSetId"]
-  whitelist = ["sampleId", "info", "name", "created", "id", "variantSetIds"]
+  whitelist = ["created", "id", "info", "name", "sampleId", "variantSetIds"]
+  concurrent_calls = 0
+  [backends.mapping]
+    created = "created"
+    id = "id"
+    info = "info"
+    name = "name"
+    sampleId = "sampleId"
+    variantSetIds = "variantSetIds"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -117,8 +190,12 @@
   url_pattern = "/v1/datasets"
   method = "GET"
   host = ["https://genomics.googleapis.com"]
-  query_string_params = ["pageToken", "pageSize", "projectId"]
+  query_string_params = ["pageSize", "pageToken", "projectId"]
   whitelist = ["datasets", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasets = "datasets"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -130,7 +207,13 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["datasetId"]
-  whitelist = ["createTime", "name", "id", "projectId"]
+  whitelist = ["createTime", "id", "name", "projectId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    createTime = "createTime"
+    id = "id"
+    name = "name"
+    projectId = "projectId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -142,7 +225,13 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["datasetId"]
-  whitelist = ["projectId", "createTime", "name", "id"]
+  whitelist = ["createTime", "id", "name", "projectId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    createTime = "createTime"
+    id = "id"
+    name = "name"
+    projectId = "projectId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -154,6 +243,10 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   whitelist = ["nextPageToken", "readGroupSets"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    readGroupSets = "readGroupSets"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -165,7 +258,16 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["readGroupSetId"]
-  whitelist = ["readGroups", "filename", "name", "info", "referenceSetId", "datasetId", "id"]
+  whitelist = ["datasetId", "filename", "id", "info", "name", "readGroups", "referenceSetId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasetId = "datasetId"
+    filename = "filename"
+    id = "id"
+    info = "info"
+    name = "name"
+    readGroups = "readGroups"
+    referenceSetId = "referenceSetId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -177,8 +279,13 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["readGroupSetId"]
-  query_string_params = ["end", "pageToken", "pageSize", "start", "targetBucketWidth", "referenceName"]
+  query_string_params = ["end", "pageSize", "pageToken", "referenceName", "start", "targetBucketWidth"]
   whitelist = ["bucketWidth", "coverageBuckets", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bucketWidth = "bucketWidth"
+    coverageBuckets = "coverageBuckets"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -190,7 +297,13 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["readGroupSetId"]
-  whitelist = ["response", "metadata", "name", "done"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -201,7 +314,13 @@
   url_pattern = "/v1/readgroupsets:import"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["name", "done", "response", "metadata"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -212,7 +331,11 @@
   url_pattern = "/v1/reads/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["nextPageToken", "alignments"]
+  whitelist = ["alignments", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alignments = "alignments"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -223,7 +346,11 @@
   url_pattern = "/v1/references/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["references", "nextPageToken"]
+  whitelist = ["nextPageToken", "references"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    references = "references"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -235,7 +362,16 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["referenceId"]
-  whitelist = ["md5checksum", "ncbiTaxonId", "id", "sourceAccessions", "name", "length", "sourceUri"]
+  whitelist = ["id", "length", "md5checksum", "name", "ncbiTaxonId", "sourceAccessions", "sourceUri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    id = "id"
+    length = "length"
+    md5checksum = "md5checksum"
+    name = "name"
+    ncbiTaxonId = "ncbiTaxonId"
+    sourceAccessions = "sourceAccessions"
+    sourceUri = "sourceUri"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -247,8 +383,13 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["referenceId"]
-  query_string_params = ["end", "pageToken", "pageSize", "start"]
-  whitelist = ["nextPageToken", "sequence", "offset"]
+  query_string_params = ["end", "pageSize", "pageToken", "start"]
+  whitelist = ["nextPageToken", "offset", "sequence"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    offset = "offset"
+    sequence = "sequence"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -259,7 +400,11 @@
   url_pattern = "/v1/referencesets/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["referenceSets", "nextPageToken"]
+  whitelist = ["nextPageToken", "referenceSets"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    referenceSets = "referenceSets"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -271,7 +416,17 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["referenceSetId"]
-  whitelist = ["referenceIds", "assemblyId", "sourceAccessions", "ncbiTaxonId", "id", "md5checksum", "sourceUri", "description"]
+  whitelist = ["assemblyId", "description", "id", "md5checksum", "ncbiTaxonId", "referenceIds", "sourceAccessions", "sourceUri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    assemblyId = "assemblyId"
+    description = "description"
+    id = "id"
+    md5checksum = "md5checksum"
+    ncbiTaxonId = "ncbiTaxonId"
+    referenceIds = "referenceIds"
+    sourceAccessions = "sourceAccessions"
+    sourceUri = "sourceUri"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -282,7 +437,22 @@
   url_pattern = "/v1/variants"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["referenceName", "names", "alternateBases", "variantSetId", "end", "start", "info", "calls", "referenceBases", "filter", "quality", "created", "id"]
+  whitelist = ["alternateBases", "calls", "created", "end", "filter", "id", "info", "names", "quality", "referenceBases", "referenceName", "start", "variantSetId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateBases = "alternateBases"
+    calls = "calls"
+    created = "created"
+    end = "end"
+    filter = "filter"
+    id = "id"
+    info = "info"
+    names = "names"
+    quality = "quality"
+    referenceBases = "referenceBases"
+    referenceName = "referenceName"
+    start = "start"
+    variantSetId = "variantSetId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -293,7 +463,11 @@
   url_pattern = "/v1/variants/search"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["variants", "nextPageToken"]
+  whitelist = ["nextPageToken", "variants"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    variants = "variants"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -305,7 +479,22 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["variantId"]
-  whitelist = ["alternateBases", "info", "referenceName", "names", "variantSetId", "end", "start", "calls", "referenceBases", "filter", "quality", "created", "id"]
+  whitelist = ["alternateBases", "calls", "created", "end", "filter", "id", "info", "names", "quality", "referenceBases", "referenceName", "start", "variantSetId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateBases = "alternateBases"
+    calls = "calls"
+    created = "created"
+    end = "end"
+    filter = "filter"
+    id = "id"
+    info = "info"
+    names = "names"
+    quality = "quality"
+    referenceBases = "referenceBases"
+    referenceName = "referenceName"
+    start = "start"
+    variantSetId = "variantSetId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -316,7 +505,13 @@
   url_pattern = "/v1/variants:import"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["metadata", "name", "done", "response"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -327,6 +522,7 @@
   url_pattern = "/v1/variants:merge"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -337,7 +533,16 @@
   url_pattern = "/v1/variantsets"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["datasetId", "description", "referenceSetId", "name", "referenceBounds", "id", "metadata"]
+  whitelist = ["datasetId", "description", "id", "metadata", "name", "referenceBounds", "referenceSetId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasetId = "datasetId"
+    description = "description"
+    id = "id"
+    metadata = "metadata"
+    name = "name"
+    referenceBounds = "referenceBounds"
+    referenceSetId = "referenceSetId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -349,6 +554,10 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   whitelist = ["nextPageToken", "variantSets"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    variantSets = "variantSets"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -360,7 +569,16 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["variantSetId"]
-  whitelist = ["metadata", "datasetId", "description", "referenceSetId", "name", "referenceBounds", "id"]
+  whitelist = ["datasetId", "description", "id", "metadata", "name", "referenceBounds", "referenceSetId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    datasetId = "datasetId"
+    description = "description"
+    id = "id"
+    metadata = "metadata"
+    name = "name"
+    referenceBounds = "referenceBounds"
+    referenceSetId = "referenceSetId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -372,7 +590,13 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["variantSetId"]
-  whitelist = ["response", "metadata", "name", "done"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -386,6 +610,10 @@
   url_keys = ["name"]
   query_string_params = ["filter", "pageSize", "pageToken"]
   whitelist = ["nextPageToken", "operations"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    operations = "operations"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -397,6 +625,7 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["name"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -408,7 +637,12 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["resource"]
-  whitelist = ["etag", "bindings", "version"]
+  whitelist = ["bindings", "etag", "version"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bindings = "bindings"
+    etag = "etag"
+    version = "version"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -420,7 +654,12 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["resource"]
-  whitelist = ["etag", "bindings", "version"]
+  whitelist = ["bindings", "etag", "version"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bindings = "bindings"
+    etag = "etag"
+    version = "version"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -433,6 +672,9 @@
   host = ["https://genomics.googleapis.com"]
   url_keys = ["resource"]
   whitelist = ["permissions"]
+  concurrent_calls = 0
+  [backends.mapping]
+    permissions = "permissions"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]

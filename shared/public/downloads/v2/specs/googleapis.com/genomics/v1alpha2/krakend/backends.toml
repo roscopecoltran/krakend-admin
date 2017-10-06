@@ -4,8 +4,12 @@
   url_pattern = "/v1alpha2/pipelines"
   method = "GET"
   host = ["https://genomics.googleapis.com"]
-  query_string_params = ["pageToken", "pageSize", "projectId", "namePrefix"]
-  whitelist = ["pipelines", "nextPageToken"]
+  query_string_params = ["namePrefix", "pageSize", "pageToken", "projectId"]
+  whitelist = ["nextPageToken", "pipelines"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    pipelines = "pipelines"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -17,7 +21,15 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["pipelineId"]
-  whitelist = ["outputParameters", "description", "inputParameters", "pipelineId", "name", "projectId"]
+  whitelist = ["description", "inputParameters", "name", "outputParameters", "pipelineId", "projectId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    inputParameters = "inputParameters"
+    name = "name"
+    outputParameters = "outputParameters"
+    pipelineId = "pipelineId"
+    projectId = "projectId"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -29,7 +41,17 @@
   method = "GET"
   host = ["https://genomics.googleapis.com"]
   query_string_params = ["operationId", "validationToken"]
-  whitelist = ["vars", "gcsLogPath", "cmd", "gcsSinks", "machineType", "gcsSources", "disks", "image"]
+  whitelist = ["cmd", "disks", "gcsLogPath", "gcsSinks", "gcsSources", "image", "machineType", "vars"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cmd = "cmd"
+    disks = "disks"
+    gcsLogPath = "gcsLogPath"
+    gcsSinks = "gcsSinks"
+    gcsSources = "gcsSources"
+    image = "image"
+    machineType = "machineType"
+    vars = "vars"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -40,7 +62,13 @@
   url_pattern = "/v1alpha2/pipelines:run"
   method = "POST"
   host = ["https://genomics.googleapis.com"]
-  whitelist = ["name", "done", "response", "metadata"]
+  whitelist = ["done", "metadata", "name", "response"]
+  concurrent_calls = 0
+  [backends.mapping]
+    done = "done"
+    metadata = "metadata"
+    name = "name"
+    response = "response"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -54,6 +82,10 @@
   url_keys = ["name"]
   query_string_params = ["filter", "pageSize", "pageToken"]
   whitelist = ["nextPageToken", "operations"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    operations = "operations"
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]
@@ -65,6 +97,7 @@
   method = "POST"
   host = ["https://genomics.googleapis.com"]
   url_keys = ["name"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://genomics.googleapis.com"]
     schemes = ["https"]

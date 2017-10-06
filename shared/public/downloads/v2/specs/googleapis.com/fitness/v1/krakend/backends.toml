@@ -7,6 +7,9 @@
   url_keys = ["userId"]
   query_string_params = ["dataTypeName"]
   whitelist = ["dataSource"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dataSource = "dataSource"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +20,15 @@
   url_pattern = "/{userId}/dataSources/{dataSourceId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userId", "dataSourceId"]
-  whitelist = ["dataStreamName", "name", "type", "dataQualityStandard", "dataStreamId"]
+  url_keys = ["dataSourceId", "userId"]
+  whitelist = ["dataQualityStandard", "dataStreamId", "dataStreamName", "name", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dataQualityStandard = "dataQualityStandard"
+    dataStreamId = "dataStreamId"
+    dataStreamName = "dataStreamName"
+    name = "name"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -31,7 +41,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["dataSourceId", "userId"]
   query_string_params = ["limit", "pageToken"]
-  whitelist = ["insertedDataPoint", "dataSourceId", "deletedDataPoint", "nextPageToken"]
+  whitelist = ["dataSourceId", "deletedDataPoint", "insertedDataPoint", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dataSourceId = "dataSourceId"
+    deletedDataPoint = "deletedDataPoint"
+    insertedDataPoint = "insertedDataPoint"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,9 +58,16 @@
   url_pattern = "/{userId}/dataSources/{dataSourceId}/datasets/{datasetId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userId", "dataSourceId", "datasetId"]
+  url_keys = ["dataSourceId", "datasetId", "userId"]
   query_string_params = ["limit", "pageToken"]
-  whitelist = ["minStartTimeNs", "nextPageToken", "maxEndTimeNs", "point", "dataSourceId"]
+  whitelist = ["dataSourceId", "maxEndTimeNs", "minStartTimeNs", "nextPageToken", "point"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dataSourceId = "dataSourceId"
+    maxEndTimeNs = "maxEndTimeNs"
+    minStartTimeNs = "minStartTimeNs"
+    nextPageToken = "nextPageToken"
+    point = "point"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -57,6 +80,9 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["userId"]
   whitelist = ["bucket"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bucket = "bucket"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -69,7 +95,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["userId"]
   query_string_params = ["endTime", "includeDeleted", "pageToken", "startTime"]
-  whitelist = ["deletedSession", "nextPageToken", "hasMoreData", "session"]
+  whitelist = ["deletedSession", "hasMoreData", "nextPageToken", "session"]
+  concurrent_calls = 0
+  [backends.mapping]
+    deletedSession = "deletedSession"
+    hasMoreData = "hasMoreData"
+    nextPageToken = "nextPageToken"
+    session = "session"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

@@ -6,6 +6,9 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
   whitelist = ["workerMessageResponses"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workerMessageResponses = "workerMessageResponses"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +20,13 @@
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
-  query_string_params = ["filter", "location", "pageToken", "pageSize", "view"]
-  whitelist = ["jobs", "failedLocation", "nextPageToken"]
+  query_string_params = ["filter", "location", "pageSize", "pageToken", "view"]
+  whitelist = ["failedLocation", "jobs", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    failedLocation = "failedLocation"
+    jobs = "jobs"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -29,9 +37,28 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
-  query_string_params = ["view", "location"]
-  whitelist = ["projectId", "location", "id", "tempFiles", "createTime", "type", "name", "stageStates", "currentState", "labels", "requestedState", "transformNameMapping", "currentStateTime", "replacedByJobId", "clientRequestId", "steps", "replaceJobId"]
+  url_keys = ["jobId", "projectId"]
+  query_string_params = ["location", "view"]
+  whitelist = ["clientRequestId", "createTime", "currentState", "currentStateTime", "id", "labels", "location", "name", "projectId", "replaceJobId", "replacedByJobId", "requestedState", "stageStates", "steps", "tempFiles", "transformNameMapping", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clientRequestId = "clientRequestId"
+    createTime = "createTime"
+    currentState = "currentState"
+    currentStateTime = "currentStateTime"
+    id = "id"
+    labels = "labels"
+    location = "location"
+    name = "name"
+    projectId = "projectId"
+    replaceJobId = "replaceJobId"
+    replacedByJobId = "replacedByJobId"
+    requestedState = "requestedState"
+    stageStates = "stageStates"
+    steps = "steps"
+    tempFiles = "tempFiles"
+    transformNameMapping = "transformNameMapping"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +69,11 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/debug/getConfig"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
+  url_keys = ["jobId", "projectId"]
   whitelist = ["config"]
+  concurrent_calls = 0
+  [backends.mapping]
+    config = "config"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -54,7 +84,8 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/debug/sendCapture"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
+  url_keys = ["jobId", "projectId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -65,9 +96,14 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/messages"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
-  query_string_params = ["location", "endTime", "pageToken", "startTime", "pageSize", "minimumImportance"]
+  url_keys = ["jobId", "projectId"]
+  query_string_params = ["endTime", "location", "minimumImportance", "pageSize", "pageToken", "startTime"]
   whitelist = ["autoscalingEvents", "jobMessages", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    autoscalingEvents = "autoscalingEvents"
+    jobMessages = "jobMessages"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -78,9 +114,13 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/metrics"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
+  url_keys = ["jobId", "projectId"]
   query_string_params = ["location", "startTime"]
   whitelist = ["metricTime", "metrics"]
+  concurrent_calls = 0
+  [backends.mapping]
+    metricTime = "metricTime"
+    metrics = "metrics"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -91,8 +131,11 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/workItems:lease"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
+  url_keys = ["jobId", "projectId"]
   whitelist = ["workItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workItems = "workItems"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -103,8 +146,11 @@
   url_pattern = "/v1b3/projects/{projectId}/jobs/{jobId}/workItems:reportStatus"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "jobId"]
+  url_keys = ["jobId", "projectId"]
   whitelist = ["workItemServiceStates"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workItemServiceStates = "workItemServiceStates"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -117,7 +163,12 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
   query_string_params = ["filter", "location", "pageSize", "pageToken", "view"]
-  whitelist = ["failedLocation", "nextPageToken", "jobs"]
+  whitelist = ["failedLocation", "jobs", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    failedLocation = "failedLocation"
+    jobs = "jobs"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -130,6 +181,9 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["location", "projectId"]
   whitelist = ["workerMessageResponses"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workerMessageResponses = "workerMessageResponses"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -140,9 +194,14 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location"]
-  query_string_params = ["filter", "pageToken", "pageSize", "view"]
-  whitelist = ["jobs", "failedLocation", "nextPageToken"]
+  url_keys = ["location", "projectId"]
+  query_string_params = ["filter", "pageSize", "pageToken", "view"]
+  whitelist = ["failedLocation", "jobs", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    failedLocation = "failedLocation"
+    jobs = "jobs"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -153,9 +212,28 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location", "jobId"]
+  url_keys = ["jobId", "location", "projectId"]
   query_string_params = ["view"]
-  whitelist = ["labels", "steps", "replaceJobId", "projectId", "location", "id", "tempFiles", "createTime", "type", "name", "stageStates", "currentState", "requestedState", "transformNameMapping", "currentStateTime", "replacedByJobId", "clientRequestId"]
+  whitelist = ["clientRequestId", "createTime", "currentState", "currentStateTime", "id", "labels", "location", "name", "projectId", "replaceJobId", "replacedByJobId", "requestedState", "stageStates", "steps", "tempFiles", "transformNameMapping", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clientRequestId = "clientRequestId"
+    createTime = "createTime"
+    currentState = "currentState"
+    currentStateTime = "currentStateTime"
+    id = "id"
+    labels = "labels"
+    location = "location"
+    name = "name"
+    projectId = "projectId"
+    replaceJobId = "replaceJobId"
+    replacedByJobId = "replacedByJobId"
+    requestedState = "requestedState"
+    stageStates = "stageStates"
+    steps = "steps"
+    tempFiles = "tempFiles"
+    transformNameMapping = "transformNameMapping"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -168,6 +246,9 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["jobId", "location", "projectId"]
   whitelist = ["config"]
+  concurrent_calls = 0
+  [backends.mapping]
+    config = "config"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -179,6 +260,7 @@
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["jobId", "location", "projectId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -189,9 +271,14 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/messages"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location", "jobId"]
-  query_string_params = ["endTime", "startTime", "pageToken", "pageSize", "minimumImportance"]
+  url_keys = ["jobId", "location", "projectId"]
+  query_string_params = ["endTime", "minimumImportance", "pageSize", "pageToken", "startTime"]
   whitelist = ["autoscalingEvents", "jobMessages", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    autoscalingEvents = "autoscalingEvents"
+    jobMessages = "jobMessages"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -202,9 +289,13 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics"
   method = "GET"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location", "jobId"]
+  url_keys = ["jobId", "location", "projectId"]
   query_string_params = ["startTime"]
-  whitelist = ["metrics", "metricTime"]
+  whitelist = ["metricTime", "metrics"]
+  concurrent_calls = 0
+  [backends.mapping]
+    metricTime = "metricTime"
+    metrics = "metrics"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -215,8 +306,11 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/workItems:lease"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location", "jobId"]
+  url_keys = ["jobId", "location", "projectId"]
   whitelist = ["workItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workItems = "workItems"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -227,8 +321,11 @@
   url_pattern = "/v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/workItems:reportStatus"
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
-  url_keys = ["projectId", "location", "jobId"]
+  url_keys = ["jobId", "location", "projectId"]
   whitelist = ["workItemServiceStates"]
+  concurrent_calls = 0
+  [backends.mapping]
+    workItemServiceStates = "workItemServiceStates"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -240,7 +337,26 @@
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["location", "projectId"]
-  whitelist = ["createTime", "type", "name", "tempFiles", "stageStates", "currentState", "labels", "requestedState", "transformNameMapping", "currentStateTime", "replacedByJobId", "clientRequestId", "steps", "replaceJobId", "projectId", "location", "id"]
+  whitelist = ["clientRequestId", "createTime", "currentState", "currentStateTime", "id", "labels", "location", "name", "projectId", "replaceJobId", "replacedByJobId", "requestedState", "stageStates", "steps", "tempFiles", "transformNameMapping", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clientRequestId = "clientRequestId"
+    createTime = "createTime"
+    currentState = "currentState"
+    currentStateTime = "currentStateTime"
+    id = "id"
+    labels = "labels"
+    location = "location"
+    name = "name"
+    projectId = "projectId"
+    replaceJobId = "replaceJobId"
+    replacedByJobId = "replacedByJobId"
+    requestedState = "requestedState"
+    stageStates = "stageStates"
+    steps = "steps"
+    tempFiles = "tempFiles"
+    transformNameMapping = "transformNameMapping"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -253,6 +369,7 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["location", "projectId"]
   query_string_params = ["gcsPath", "view"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -265,6 +382,7 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["location", "projectId"]
   query_string_params = ["gcsPath", "validateOnly"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -276,7 +394,26 @@
   method = "POST"
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
-  whitelist = ["projectId", "location", "id", "tempFiles", "createTime", "type", "name", "stageStates", "currentState", "labels", "requestedState", "transformNameMapping", "currentStateTime", "replacedByJobId", "clientRequestId", "steps", "replaceJobId"]
+  whitelist = ["clientRequestId", "createTime", "currentState", "currentStateTime", "id", "labels", "location", "name", "projectId", "replaceJobId", "replacedByJobId", "requestedState", "stageStates", "steps", "tempFiles", "transformNameMapping", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clientRequestId = "clientRequestId"
+    createTime = "createTime"
+    currentState = "currentState"
+    currentStateTime = "currentStateTime"
+    id = "id"
+    labels = "labels"
+    location = "location"
+    name = "name"
+    projectId = "projectId"
+    replaceJobId = "replaceJobId"
+    replacedByJobId = "replacedByJobId"
+    requestedState = "requestedState"
+    stageStates = "stageStates"
+    steps = "steps"
+    tempFiles = "tempFiles"
+    transformNameMapping = "transformNameMapping"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -289,6 +426,7 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
   query_string_params = ["gcsPath", "location", "view"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]
@@ -301,6 +439,7 @@
   host = ["https://dataflow.googleapis.com"]
   url_keys = ["projectId"]
   query_string_params = ["gcsPath", "location", "validateOnly"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://dataflow.googleapis.com"]
     schemes = ["https"]

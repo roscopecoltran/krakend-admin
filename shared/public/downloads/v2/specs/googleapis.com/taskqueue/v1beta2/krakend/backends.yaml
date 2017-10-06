@@ -11,12 +11,18 @@ backends:
   query_string_params:
   - getStats
   whitelist:
-  - id
   - acl
-  - stats
+  - id
   - kind
   - maxLeases
-  mapping: {}
+  - stats
+  concurrent_calls: 0
+  mapping:
+    acl: acl
+    id: id
+    kind: kind
+    maxLeases: maxLeases
+    stats: stats
   extra_config:
     hosts:
     - https://www.googleapis.com
@@ -34,7 +40,10 @@ backends:
   whitelist:
   - items
   - kind
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    items: items
+    kind: kind
   extra_config:
     hosts:
     - https://www.googleapis.com
@@ -50,14 +59,17 @@ backends:
   - project
   - taskqueue
   query_string_params:
-  - numTasks
-  - leaseSecs
   - groupByTag
+  - leaseSecs
+  - numTasks
   - tag
   whitelist:
   - items
   - kind
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    items: items
+    kind: kind
   extra_config:
     hosts:
     - https://www.googleapis.com
@@ -71,18 +83,27 @@ backends:
   - https://www.googleapis.com
   url_keys:
   - project
-  - taskqueue
   - task
+  - taskqueue
   whitelist:
-  - id
-  - queueName
   - enqueueTimestamp
-  - retry_count
-  - leaseTimestamp
-  - tag
+  - id
   - kind
+  - leaseTimestamp
   - payloadBase64
-  mapping: {}
+  - queueName
+  - retry_count
+  - tag
+  concurrent_calls: 0
+  mapping:
+    enqueueTimestamp: enqueueTimestamp
+    id: id
+    kind: kind
+    leaseTimestamp: leaseTimestamp
+    payloadBase64: payloadBase64
+    queueName: queueName
+    retry_count: retry_count
+    tag: tag
   extra_config:
     hosts:
     - https://www.googleapis.com

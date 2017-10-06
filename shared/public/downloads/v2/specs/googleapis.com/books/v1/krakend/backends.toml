@@ -5,7 +5,13 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["drive_document_id", "mime_type", "name", "upload_client_token"]
-  whitelist = ["author", "volumeId", "title", "processingState"]
+  whitelist = ["author", "processingState", "title", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    author = "author"
+    processingState = "processingState"
+    title = "title"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,6 +23,7 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["volumeId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -27,7 +34,13 @@
   url_pattern = "/cloudloading/updateBook"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  whitelist = ["author", "volumeId", "title", "processingState"]
+  whitelist = ["author", "processingState", "title", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    author = "author"
+    processingState = "processingState"
+    title = "title"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -40,6 +53,10 @@
   host = ["https://www.googleapis.com"]
   query_string_params = ["cpksver"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -50,7 +67,12 @@
   url_pattern = "/myconfig/getUserSettings"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  whitelist = ["notification", "notesExport", "kind"]
+  whitelist = ["kind", "notesExport", "notification"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    notesExport = "notesExport"
+    notification = "notification"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -61,8 +83,12 @@
   url_pattern = "/myconfig/releaseDownloadAccess"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["volumeIds", "cpksver", "locale", "source"]
-  whitelist = ["kind", "downloadAccessList"]
+  query_string_params = ["cpksver", "locale", "source", "volumeIds"]
+  whitelist = ["downloadAccessList", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    downloadAccessList = "downloadAccessList"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -73,8 +99,11 @@
   url_pattern = "/myconfig/requestAccess"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["source", "volumeId", "nonce", "cpksver", "licenseTypes", "locale"]
+  query_string_params = ["cpksver", "licenseTypes", "locale", "nonce", "source", "volumeId"]
   whitelist = ["kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -85,8 +114,13 @@
   url_pattern = "/myconfig/syncVolumeLicenses"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["source", "nonce", "cpksver", "features", "includeNonComicsSeries", "locale", "showPreorders", "volumeIds"]
-  whitelist = ["totalItems", "items", "kind"]
+  query_string_params = ["cpksver", "features", "includeNonComicsSeries", "locale", "nonce", "showPreorders", "source", "volumeIds"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -97,7 +131,12 @@
   url_pattern = "/myconfig/updateUserSettings"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  whitelist = ["notification", "notesExport", "kind"]
+  whitelist = ["kind", "notesExport", "notification"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    notesExport = "notesExport"
+    notification = "notification"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -109,7 +148,13 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["contentVersion", "layerId", "layerIds", "maxResults", "pageToken", "showDeleted", "source", "updatedMax", "updatedMin", "volumeId"]
-  whitelist = ["kind", "nextPageToken", "totalItems", "items"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -121,7 +166,11 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["layerIds", "volumeId"]
-  whitelist = ["layers", "kind"]
+  whitelist = ["kind", "layers"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    layers = "layers"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -133,7 +182,11 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["source"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -146,7 +199,19 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["shelf"]
   query_string_params = ["source"]
-  whitelist = ["title", "access", "selfLink", "description", "created", "updated", "volumeCount", "volumesLastUpdated", "kind", "id"]
+  whitelist = ["access", "created", "description", "id", "kind", "selfLink", "title", "updated", "volumeCount", "volumesLastUpdated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    access = "access"
+    created = "created"
+    description = "description"
+    id = "id"
+    kind = "kind"
+    selfLink = "selfLink"
+    title = "title"
+    updated = "updated"
+    volumeCount = "volumeCount"
+    volumesLastUpdated = "volumesLastUpdated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -158,7 +223,8 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["shelf"]
-  query_string_params = ["volumeId", "reason", "source"]
+  query_string_params = ["reason", "source", "volumeId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -171,6 +237,7 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["shelf"]
   query_string_params = ["source"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -182,7 +249,8 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["shelf"]
-  query_string_params = ["volumeId", "volumePosition", "source"]
+  query_string_params = ["source", "volumeId", "volumePosition"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -194,7 +262,8 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["shelf"]
-  query_string_params = ["volumeId", "reason", "source"]
+  query_string_params = ["reason", "source", "volumeId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -208,6 +277,11 @@
   url_keys = ["shelf"]
   query_string_params = ["country", "maxResults", "projection", "q", "showPreorders", "source", "startIndex"]
   whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -220,7 +294,16 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["volumeId"]
   query_string_params = ["contentVersion", "source"]
-  whitelist = ["kind", "volumeId", "gbImagePosition", "gbTextPosition", "updated", "pdfPosition", "epubCfiPosition"]
+  whitelist = ["epubCfiPosition", "gbImagePosition", "gbTextPosition", "kind", "pdfPosition", "updated", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    epubCfiPosition = "epubCfiPosition"
+    gbImagePosition = "gbImagePosition"
+    gbTextPosition = "gbTextPosition"
+    kind = "kind"
+    pdfPosition = "pdfPosition"
+    updated = "updated"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -232,7 +315,8 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["volumeId"]
-  query_string_params = ["timestamp", "position", "action", "contentVersion", "deviceCookie", "source"]
+  query_string_params = ["action", "contentVersion", "deviceCookie", "position", "source", "timestamp"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -243,8 +327,24 @@
   url_pattern = "/notification/get"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["notification_id", "locale", "source"]
-  whitelist = ["show_notification_settings_action", "iconUrl", "doc_id", "body", "targetUrl", "title", "pcampaign_id", "doc_type", "crmExperimentIds", "notification_type", "dont_show_notification", "kind", "reason", "notificationGroup"]
+  query_string_params = ["locale", "notification_id", "source"]
+  whitelist = ["body", "crmExperimentIds", "doc_id", "doc_type", "dont_show_notification", "iconUrl", "kind", "notificationGroup", "notification_type", "pcampaign_id", "reason", "show_notification_settings_action", "targetUrl", "title"]
+  concurrent_calls = 0
+  [backends.mapping]
+    body = "body"
+    crmExperimentIds = "crmExperimentIds"
+    doc_id = "doc_id"
+    doc_type = "doc_type"
+    dont_show_notification = "dont_show_notification"
+    iconUrl = "iconUrl"
+    kind = "kind"
+    notificationGroup = "notificationGroup"
+    notification_type = "notification_type"
+    pcampaign_id = "pcampaign_id"
+    reason = "reason"
+    show_notification_settings_action = "show_notification_settings_action"
+    targetUrl = "targetUrl"
+    title = "title"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -256,7 +356,11 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["locale"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -268,7 +372,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["categoryId", "locale", "maxAllowedMaturityRating", "pageSize", "pageToken"]
-  whitelist = ["items", "nextPageToken", "kind"]
+  whitelist = ["items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -281,6 +390,11 @@
   host = ["https://www.googleapis.com"]
   query_string_params = ["locale", "maxAllowedMaturityRating", "source"]
   whitelist = ["clusters", "kind", "totalClusters"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clusters = "clusters"
+    kind = "kind"
+    totalClusters = "totalClusters"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -292,6 +406,7 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["androidId", "device", "manufacturer", "model", "offerId", "product", "serial", "volumeId"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -303,6 +418,7 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   query_string_params = ["androidId", "device", "manufacturer", "model", "offerId", "product", "serial"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -315,6 +431,10 @@
   host = ["https://www.googleapis.com"]
   query_string_params = ["androidId", "device", "manufacturer", "model", "product", "serial"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -326,7 +446,11 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["series_id"]
-  whitelist = ["series", "kind"]
+  whitelist = ["kind", "series"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    series = "series"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -337,8 +461,13 @@
   url_pattern = "/series/membership/get"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["series_id", "page_size", "page_token"]
+  query_string_params = ["page_size", "page_token", "series_id"]
   whitelist = ["kind", "member", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    member = "member"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -351,7 +480,11 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["userId"]
   query_string_params = ["source"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -362,9 +495,21 @@
   url_pattern = "/users/{userId}/bookshelves/{shelf}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userId", "shelf"]
+  url_keys = ["shelf", "userId"]
   query_string_params = ["source"]
-  whitelist = ["updated", "volumeCount", "volumesLastUpdated", "kind", "id", "title", "access", "selfLink", "description", "created"]
+  whitelist = ["access", "created", "description", "id", "kind", "selfLink", "title", "updated", "volumeCount", "volumesLastUpdated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    access = "access"
+    created = "created"
+    description = "description"
+    id = "id"
+    kind = "kind"
+    selfLink = "selfLink"
+    title = "title"
+    updated = "updated"
+    volumeCount = "volumeCount"
+    volumesLastUpdated = "volumesLastUpdated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -375,9 +520,14 @@
   url_pattern = "/users/{userId}/bookshelves/{shelf}/volumes"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userId", "shelf"]
+  url_keys = ["shelf", "userId"]
   query_string_params = ["maxResults", "showPreorders", "source", "startIndex"]
-  whitelist = ["totalItems", "items", "kind"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -388,8 +538,13 @@
   url_pattern = "/volumes"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["q", "download", "filter", "langRestrict", "libraryRestrict", "maxAllowedMaturityRating", "maxResults", "orderBy", "partner", "printType", "projection", "showPreorders", "source", "startIndex"]
-  whitelist = ["kind", "totalItems", "items"]
+  query_string_params = ["download", "filter", "langRestrict", "libraryRestrict", "maxAllowedMaturityRating", "maxResults", "orderBy", "partner", "printType", "projection", "q", "showPreorders", "source", "startIndex"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -401,7 +556,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["acquireMethod", "country", "locale", "maxResults", "processingState", "source", "startIndex"]
-  whitelist = ["kind", "totalItems", "items"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -414,6 +574,11 @@
   host = ["https://www.googleapis.com"]
   query_string_params = ["locale", "maxAllowedMaturityRating", "source"]
   whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -424,8 +589,11 @@
   url_pattern = "/volumes/recommended/rate"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["rating", "volumeId", "locale", "source"]
+  query_string_params = ["locale", "rating", "source", "volumeId"]
   whitelist = ["consistency_token"]
+  concurrent_calls = 0
+  [backends.mapping]
+    consistency_token = "consistency_token"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -437,7 +605,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["locale", "maxResults", "processingState", "source", "startIndex", "volumeId"]
-  whitelist = ["kind", "totalItems", "items"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -450,7 +623,20 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["volumeId"]
   query_string_params = ["country", "includeNonComicsSeries", "partner", "projection", "source", "user_library_consistent_read"]
-  whitelist = ["saleInfo", "volumeInfo", "userInfo", "recommendedInfo", "accessInfo", "layerInfo", "selfLink", "id", "etag", "searchInfo", "kind"]
+  whitelist = ["accessInfo", "etag", "id", "kind", "layerInfo", "recommendedInfo", "saleInfo", "searchInfo", "selfLink", "userInfo", "volumeInfo"]
+  concurrent_calls = 0
+  [backends.mapping]
+    accessInfo = "accessInfo"
+    etag = "etag"
+    id = "id"
+    kind = "kind"
+    layerInfo = "layerInfo"
+    recommendedInfo = "recommendedInfo"
+    saleInfo = "saleInfo"
+    searchInfo = "searchInfo"
+    selfLink = "selfLink"
+    userInfo = "userInfo"
+    volumeInfo = "volumeInfo"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -463,7 +649,12 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["volumeId"]
   query_string_params = ["association", "locale", "maxAllowedMaturityRating", "source"]
-  whitelist = ["totalItems", "items", "kind"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -474,9 +665,16 @@
   url_pattern = "/volumes/{volumeId}/layers/{layerId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["volumeId", "layerId"]
+  url_keys = ["layerId", "volumeId"]
   query_string_params = ["contentVersion", "endOffset", "endPosition", "locale", "maxResults", "pageToken", "showDeleted", "source", "startOffset", "startPosition", "updatedMax", "updatedMin", "volumeAnnotationsVersion"]
-  whitelist = ["kind", "items", "totalItems", "nextPageToken", "version"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems", "version"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
+    version = "version"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -487,9 +685,25 @@
   url_pattern = "/volumes/{volumeId}/layers/{layerId}/annotations/{annotationId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["volumeId", "layerId", "annotationId"]
+  url_keys = ["annotationId", "layerId", "volumeId"]
   query_string_params = ["locale", "source"]
-  whitelist = ["kind", "pageIds", "data", "contentRanges", "layerId", "updated", "selectedText", "selfLink", "deleted", "annotationType", "id", "annotationDataLink", "annotationDataId", "volumeId"]
+  whitelist = ["annotationDataId", "annotationDataLink", "annotationType", "contentRanges", "data", "deleted", "id", "kind", "layerId", "pageIds", "selectedText", "selfLink", "updated", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationDataId = "annotationDataId"
+    annotationDataLink = "annotationDataLink"
+    annotationType = "annotationType"
+    contentRanges = "contentRanges"
+    data = "data"
+    deleted = "deleted"
+    id = "id"
+    kind = "kind"
+    layerId = "layerId"
+    pageIds = "pageIds"
+    selectedText = "selectedText"
+    selfLink = "selfLink"
+    updated = "updated"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -500,9 +714,15 @@
   url_pattern = "/volumes/{volumeId}/layers/{layerId}/data"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["volumeId", "layerId"]
-  query_string_params = ["contentVersion", "annotationDataId", "h", "locale", "maxResults", "pageToken", "scale", "source", "updatedMax", "updatedMin", "w"]
-  whitelist = ["kind", "nextPageToken", "items", "totalItems"]
+  url_keys = ["layerId", "volumeId"]
+  query_string_params = ["annotationDataId", "contentVersion", "h", "locale", "maxResults", "pageToken", "scale", "source", "updatedMax", "updatedMin", "w"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -513,9 +733,19 @@
   url_pattern = "/volumes/{volumeId}/layers/{layerId}/data/{annotationDataId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["volumeId", "layerId", "annotationDataId"]
-  query_string_params = ["contentVersion", "allowWebDefinitions", "h", "locale", "scale", "source", "w"]
-  whitelist = ["annotationType", "encoded_data", "id", "updated", "layerId", "selfLink", "volumeId", "kind"]
+  url_keys = ["annotationDataId", "layerId", "volumeId"]
+  query_string_params = ["allowWebDefinitions", "contentVersion", "h", "locale", "scale", "source", "w"]
+  whitelist = ["annotationType", "encoded_data", "id", "kind", "layerId", "selfLink", "updated", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationType = "annotationType"
+    encoded_data = "encoded_data"
+    id = "id"
+    kind = "kind"
+    layerId = "layerId"
+    selfLink = "selfLink"
+    updated = "updated"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -528,7 +758,12 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["volumeId"]
   query_string_params = ["contentVersion", "maxResults", "pageToken", "source"]
-  whitelist = ["totalItems", "kind", "items"]
+  whitelist = ["items", "kind", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -539,9 +774,24 @@
   url_pattern = "/volumes/{volumeId}/layersummary/{summaryId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["volumeId", "summaryId"]
+  url_keys = ["summaryId", "volumeId"]
   query_string_params = ["contentVersion", "source"]
-  whitelist = ["annotationTypes", "id", "selfLink", "updated", "volumeAnnotationsVersion", "volumeId", "annotationsDataLink", "contentVersion", "layerId", "annotationCount", "annotationsLink", "dataCount", "kind"]
+  whitelist = ["annotationCount", "annotationTypes", "annotationsDataLink", "annotationsLink", "contentVersion", "dataCount", "id", "kind", "layerId", "selfLink", "updated", "volumeAnnotationsVersion", "volumeId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    annotationCount = "annotationCount"
+    annotationTypes = "annotationTypes"
+    annotationsDataLink = "annotationsDataLink"
+    annotationsLink = "annotationsLink"
+    contentVersion = "contentVersion"
+    dataCount = "dataCount"
+    id = "id"
+    kind = "kind"
+    layerId = "layerId"
+    selfLink = "selfLink"
+    updated = "updated"
+    volumeAnnotationsVersion = "volumeAnnotationsVersion"
+    volumeId = "volumeId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

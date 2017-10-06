@@ -4,8 +4,13 @@
   url_pattern = "/query"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["sql", "hdrs", "typed"]
-  whitelist = ["columns", "rows", "kind"]
+  query_string_params = ["hdrs", "sql", "typed"]
+  whitelist = ["columns", "kind", "rows"]
+  concurrent_calls = 0
+  [backends.mapping]
+    columns = "columns"
+    kind = "kind"
+    rows = "rows"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,7 +22,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["nextPageToken", "items", "kind"]
+  whitelist = ["items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -28,8 +38,20 @@
   url_pattern = "/tables/import"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["name", "delimiter", "encoding"]
-  whitelist = ["name", "baseTableIds", "kind", "description", "attributionLink", "tableId", "attribution", "sql", "isExportable", "columns"]
+  query_string_params = ["delimiter", "encoding", "name"]
+  whitelist = ["attribution", "attributionLink", "baseTableIds", "columns", "description", "isExportable", "kind", "name", "sql", "tableId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    attribution = "attribution"
+    attributionLink = "attributionLink"
+    baseTableIds = "baseTableIds"
+    columns = "columns"
+    description = "description"
+    isExportable = "isExportable"
+    kind = "kind"
+    name = "name"
+    sql = "sql"
+    tableId = "tableId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -41,7 +63,19 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
-  whitelist = ["sql", "isExportable", "baseTableIds", "columns", "name", "kind", "description", "attributionLink", "tableId", "attribution"]
+  whitelist = ["attribution", "attributionLink", "baseTableIds", "columns", "description", "isExportable", "kind", "name", "sql", "tableId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    attribution = "attribution"
+    attributionLink = "attributionLink"
+    baseTableIds = "baseTableIds"
+    columns = "columns"
+    description = "description"
+    isExportable = "isExportable"
+    kind = "kind"
+    name = "name"
+    sql = "sql"
+    tableId = "tableId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -55,6 +89,12 @@
   url_keys = ["tableId"]
   query_string_params = ["maxResults", "pageToken"]
   whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -65,8 +105,17 @@
   url_pattern = "/tables/{tableId}/columns/{columnId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["tableId", "columnId"]
-  whitelist = ["baseColumn", "type", "columnId", "kind", "name", "graph_predicate", "description"]
+  url_keys = ["columnId", "tableId"]
+  whitelist = ["baseColumn", "columnId", "description", "graph_predicate", "kind", "name", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    baseColumn = "baseColumn"
+    columnId = "columnId"
+    description = "description"
+    graph_predicate = "graph_predicate"
+    kind = "kind"
+    name = "name"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -79,7 +128,19 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
   query_string_params = ["copyPresentation"]
-  whitelist = ["isExportable", "baseTableIds", "columns", "name", "kind", "description", "attributionLink", "tableId", "attribution", "sql"]
+  whitelist = ["attribution", "attributionLink", "baseTableIds", "columns", "description", "isExportable", "kind", "name", "sql", "tableId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    attribution = "attribution"
+    attributionLink = "attributionLink"
+    baseTableIds = "baseTableIds"
+    columns = "columns"
+    description = "description"
+    isExportable = "isExportable"
+    kind = "kind"
+    name = "name"
+    sql = "sql"
+    tableId = "tableId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -93,6 +154,10 @@
   url_keys = ["tableId"]
   query_string_params = ["delimiter", "encoding", "endLine", "isStrict", "startLine"]
   whitelist = ["kind", "numRowsReceived"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    numRowsReceived = "numRowsReceived"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -105,7 +170,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
   query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["nextPageToken", "kind", "totalItems", "items"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -116,8 +187,14 @@
   url_pattern = "/tables/{tableId}/styles/{styleId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["tableId", "styleId"]
-  whitelist = ["name", "kind", "styleId", "tableId"]
+  url_keys = ["styleId", "tableId"]
+  whitelist = ["kind", "name", "styleId", "tableId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    name = "name"
+    styleId = "styleId"
+    tableId = "tableId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -130,7 +207,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
   query_string_params = ["maxResults", "pageToken", "startIndex"]
-  whitelist = ["totalItems", "items", "kind", "nextPageToken"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -142,7 +225,14 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId", "taskId"]
-  whitelist = ["progress", "type", "started", "kind", "taskId"]
+  whitelist = ["kind", "progress", "started", "taskId", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    progress = "progress"
+    started = "started"
+    taskId = "taskId"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -155,7 +245,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId"]
   query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["items", "nextPageToken", "kind", "totalItems"]
+  whitelist = ["items", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -167,7 +263,15 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tableId", "templateId"]
-  whitelist = ["automaticColumnNames", "name", "templateId", "tableId", "body", "kind"]
+  whitelist = ["automaticColumnNames", "body", "kind", "name", "tableId", "templateId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    automaticColumnNames = "automaticColumnNames"
+    body = "body"
+    kind = "kind"
+    name = "name"
+    tableId = "tableId"
+    templateId = "templateId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

@@ -5,7 +5,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.deutschebahn.com"]
-  query_string_params = ["type", "equipmentnumber", "stationnumber"]
+  query_string_params = ["equipmentnumber", "stationnumber", "type"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -20,7 +21,21 @@
   encoding = "json"
   host = ["https://api.deutschebahn.com"]
   url_keys = ["disruptionnumber"]
-  whitelist = ["equipmentnumber", "type", "plannedCompletion", "stationnumber", "disruptionnumber", "description", "outOfServiceOn", "outOfServiceReason", "state", "lastUpdate", "outOfServiceTo", "furtherDescription"]
+  whitelist = ["description", "disruptionnumber", "equipmentnumber", "furtherDescription", "lastUpdate", "outOfServiceOn", "outOfServiceReason", "outOfServiceTo", "plannedCompletion", "state", "stationnumber", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    disruptionnumber = "disruptionnumber"
+    equipmentnumber = "equipmentnumber"
+    furtherDescription = "furtherDescription"
+    lastUpdate = "lastUpdate"
+    outOfServiceOn = "outOfServiceOn"
+    outOfServiceReason = "outOfServiceReason"
+    outOfServiceTo = "outOfServiceTo"
+    plannedCompletion = "plannedCompletion"
+    state = "state"
+    stationnumber = "stationnumber"
+    type = "type"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -34,7 +49,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.deutschebahn.com"]
-  query_string_params = ["type", "state", "equipmentnumbers", "stationnumber", "area"]
+  query_string_params = ["area", "equipmentnumbers", "state", "stationnumber", "type"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -49,7 +65,16 @@
   encoding = "json"
   host = ["https://api.deutschebahn.com"]
   url_keys = ["equipmentnumber"]
-  whitelist = ["stationnumber", "equipmentnumber", "geocoordX", "type", "state", "geocoordY", "description"]
+  whitelist = ["description", "equipmentnumber", "geocoordX", "geocoordY", "state", "stationnumber", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    equipmentnumber = "equipmentnumber"
+    geocoordX = "geocoordX"
+    geocoordY = "geocoordY"
+    state = "state"
+    stationnumber = "stationnumber"
+    type = "type"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -64,7 +89,12 @@
   encoding = "json"
   host = ["https://api.deutschebahn.com"]
   url_keys = ["stationnumber"]
-  whitelist = ["facilities", "stationnumber", "name"]
+  whitelist = ["facilities", "name", "stationnumber"]
+  concurrent_calls = 0
+  [backends.mapping]
+    facilities = "facilities"
+    name = "name"
+    stationnumber = "stationnumber"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]

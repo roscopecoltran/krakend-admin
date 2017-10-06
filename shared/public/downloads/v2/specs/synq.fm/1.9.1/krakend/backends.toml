@@ -4,6 +4,7 @@
   url_pattern = "/video/create"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
     form_data = ["api_key", "userdata"]
     consumes = ["form-data", "x-www-form-urlencoded"]
@@ -16,6 +17,7 @@
   url_pattern = "/video/details"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
     form_data = ["api_key", "video_id"]
     consumes = ["form-data", "x-www-form-urlencoded"]
@@ -28,6 +30,7 @@
   url_pattern = "/video/query"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
     form_data = ["api_key", "filter"]
     consumes = ["form-data", "x-www-form-urlencoded"]
@@ -40,6 +43,7 @@
   url_pattern = "/video/stream"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
     form_data = ["api_key", "video_id"]
     consumes = ["form-data", "x-www-form-urlencoded"]
@@ -52,8 +56,9 @@
   url_pattern = "/video/update"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
-    form_data = ["api_key", "video_id", "source"]
+    form_data = ["api_key", "source", "video_id"]
     consumes = ["form-data", "x-www-form-urlencoded"]
     hosts = ["https://api.synq.fm"]
     schemes = ["https"]
@@ -64,7 +69,16 @@
   url_pattern = "/video/upload"
   method = "POST"
   host = ["https://api.synq.fm"]
-  whitelist = ["Content-Type", "action", "Signature", "acl", "AWSAccessKeyId", "Policy", "key"]
+  whitelist = ["AWSAccessKeyId", "Content-Type", "Policy", "Signature", "acl", "action", "key"]
+  concurrent_calls = 0
+  [backends.mapping]
+    AWSAccessKeyId = "AWSAccessKeyId"
+    Content-Type = "Content-Type"
+    Policy = "Policy"
+    Signature = "Signature"
+    acl = "acl"
+    action = "action"
+    key = "key"
   [backends.extra_config]
     form_data = ["api_key", "video_id"]
     consumes = ["form-data", "x-www-form-urlencoded"]
@@ -77,8 +91,9 @@
   url_pattern = "/video/uploader"
   method = "POST"
   host = ["https://api.synq.fm"]
+  concurrent_calls = 0
   [backends.extra_config]
-    form_data = ["api_key", "video_id", "timeout"]
+    form_data = ["api_key", "timeout", "video_id"]
     consumes = ["form-data", "x-www-form-urlencoded"]
     hosts = ["https://api.synq.fm"]
     schemes = ["https"]

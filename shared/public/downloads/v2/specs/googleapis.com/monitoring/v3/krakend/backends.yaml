@@ -9,11 +9,17 @@ backends:
   - name
   whitelist:
   - displayName
-  - name
-  - parentName
   - filter
   - isCluster
-  mapping: {}
+  - name
+  - parentName
+  concurrent_calls: 0
+  mapping:
+    displayName: displayName
+    filter: filter
+    isCluster: isCluster
+    name: name
+    parentName: parentName
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -29,7 +35,9 @@ backends:
   - name
   whitelist:
   - payloadErrors
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    payloadErrors: payloadErrors
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -44,15 +52,18 @@ backends:
   url_keys:
   - name
   query_string_params:
+  - ancestorsOfGroup
   - childrenOfGroup
   - descendantsOfGroup
-  - pageToken
   - pageSize
-  - ancestorsOfGroup
+  - pageToken
   whitelist:
   - group
   - nextPageToken
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    group: group
+    nextPageToken: nextPageToken
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -67,16 +78,20 @@ backends:
   url_keys:
   - name
   query_string_params:
-  - pageToken
+  - filter
+  - interval.endTime
   - interval.startTime
   - pageSize
-  - interval.endTime
-  - filter
+  - pageToken
   whitelist:
   - members
   - nextPageToken
   - totalSize
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    members: members
+    nextPageToken: nextPageToken
+    totalSize: totalSize
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -91,13 +106,16 @@ backends:
   url_keys:
   - name
   query_string_params:
-  - pageToken
-  - pageSize
   - filter
+  - pageSize
+  - pageToken
   whitelist:
-  - nextPageToken
   - metricDescriptors
-  mapping: {}
+  - nextPageToken
+  concurrent_calls: 0
+  mapping:
+    metricDescriptors: metricDescriptors
+    nextPageToken: nextPageToken
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -112,13 +130,16 @@ backends:
   url_keys:
   - name
   query_string_params:
-  - pageToken
-  - pageSize
   - filter
+  - pageSize
+  - pageToken
   whitelist:
   - nextPageToken
   - resourceDescriptors
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    nextPageToken: nextPageToken
+    resourceDescriptors: resourceDescriptors
   extra_config:
     hosts:
     - https://monitoring.googleapis.com
@@ -145,9 +166,12 @@ backends:
   - pageToken
   - view
   whitelist:
-  - timeSeries
   - nextPageToken
-  mapping: {}
+  - timeSeries
+  concurrent_calls: 0
+  mapping:
+    nextPageToken: nextPageToken
+    timeSeries: timeSeries
   extra_config:
     hosts:
     - https://monitoring.googleapis.com

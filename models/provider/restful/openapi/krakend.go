@@ -54,6 +54,7 @@ type SwaggerExport struct {
 	RespAttrCount     int               `default:"0" json:"-" yaml:"-" toml:"-"` // to remove
 	RespAttrRef       string            `json:"-" yaml:"-" toml:"-"`
 	RespAttrRefPath   string            `json:"-" yaml:"-" toml:"-"`
+	ConcurrentCalls   int               `default:"1" json:"concurrent_calls" yaml:"concurrent_calls" toml:"concurrent_calls"`
 	Mapping           map[string]string `json:"mapping" yaml:"mapping" toml:"mapping"`
 	Extra             struct {
 		Bodies    []string `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
@@ -86,7 +87,7 @@ func sliceToIntMap(elements []string) map[string]int {
 }
 
 func getDefaultScheme(schemes []string) string {
-	fmt.Sprintf("schemes: %T", schemes)
+	// fmt.Sprintf("schemes: %T", schemes)
 	for _, v := range schemes {
 		if v == "https" { // always push up https protocol
 			return fmt.Sprintf("%v", v)
@@ -128,8 +129,8 @@ func removeDuplicates(elements []string) []string {
 			result = append(result, elements[v])
 		}
 	}
-	// Return the new slice.
-	return result
+	sort.Strings(result)
+	return result // Return the new slice.
 }
 
 func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
@@ -210,20 +211,12 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 		for k := range fm {
 			ks = append(ks, k)
 		}
-
-		// fmt.Println("flatmap keys: ")
-		// pp.Print(ks)
-
 		sort.Strings(ks)
 
-		// directly from a map[string]interace{}
 		typed, err := typed.Json(jsonRaw)
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		// fmt.Println("typed input keys: ")
-		// pp.Println(typed.Keys())
 
 		queue := make(map[string]bool, 0)
 		for _, k := range ks {
@@ -323,7 +316,9 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 						defParts := strings.Split(respAttrRefPath, ".")
 						if len(defParts) > 1 {
 							defObjectName = defParts[1]
-							fmt.Println(" \n defParts[1]: ", defParts[1])
+							if debug {
+								fmt.Println(" \n defParts[1]: ", defParts[1])
+							}
 						}
 					}
 				}
@@ -333,20 +328,26 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					for k, _ := range fm {
 						if strings.HasPrefix(k, prefixPath) && strings.HasSuffix(k, ".type") {
 							propParts := strings.Split(k, ".")
-							fmt.Println(" --------- MATCH -------------")
-							fmt.Println("key: ", k, " / start with: ", prefixPath, " / end with: .type / len(propParts): ", len(propParts))
-							pp.Println(propParts)
+							if debug {
+								fmt.Println(" --------- MATCH -------------")
+								fmt.Println("key: ", k, " / start with: ", prefixPath, " / end with: .type / len(propParts): ", len(propParts))
+								pp.Println(propParts)
+							}
 							if len(propParts) >= 3 {
 								fieldList = append(fieldList, propParts[3])
 							}
-							fmt.Println("fieldList: ", fieldList)
+							if debug {
+								fmt.Println("fieldList: ", fieldList)
+							}
 						}
 					}
 				}
 				if len(fieldList) > 0 {
 					backend.Whitelist = removeDuplicates(fieldList)
-					pp.Print(backend.Whitelist)
-					// os.Exit(1)
+					backend.Mapping = sliceToStrMap(removeDuplicates(fieldList))
+					if debug {
+						pp.Print(backend.Whitelist)
+					}
 				}
 				swaggerExports.Backends = append(swaggerExports.Backends, *backend)
 				queue[path] = true
@@ -406,12 +407,13 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			}
 
 		}
-		if len(swaggerExports.Backends) > 0 {
+		if len(swaggerExports.Backends) > 0 && debug {
 			fmt.Println("SwaggerExports: ")
 			pp.Print(swaggerExports)
 		}
-		fmt.Println("Paths for swagger file: ", swaggerFile)
-
+		if debug {
+			fmt.Println("Paths for swagger file: ", swaggerFile)
+		}
 		if err := configor.Dump(swaggerExports, "backends", "json,yaml,toml", fmt.Sprintf("%s/krakend", prefixPath)); err != nil {
 			log.Fatal("ERROR while dumping the config struct:", err.Error())
 		}

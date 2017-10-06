@@ -4,8 +4,13 @@
   url_pattern = "/b"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["project", "maxResults", "pageToken", "projection"]
-  whitelist = ["items", "nextPageToken", "kind"]
+  query_string_params = ["maxResults", "pageToken", "project", "projection"]
+  whitelist = ["items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -18,7 +23,26 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket"]
   query_string_params = ["ifMetagenerationMatch", "ifMetagenerationNotMatch", "projection"]
-  whitelist = ["versioning", "lifecycle", "kind", "cors", "website", "storageClass", "selfLink", "name", "logging", "owner", "etag", "defaultObjectAcl", "acl", "id", "timeCreated", "metageneration", "location"]
+  whitelist = ["acl", "cors", "defaultObjectAcl", "etag", "id", "kind", "lifecycle", "location", "logging", "metageneration", "name", "owner", "selfLink", "storageClass", "timeCreated", "versioning", "website"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    cors = "cors"
+    defaultObjectAcl = "defaultObjectAcl"
+    etag = "etag"
+    id = "id"
+    kind = "kind"
+    lifecycle = "lifecycle"
+    location = "location"
+    logging = "logging"
+    metageneration = "metageneration"
+    name = "name"
+    owner = "owner"
+    selfLink = "selfLink"
+    storageClass = "storageClass"
+    timeCreated = "timeCreated"
+    versioning = "versioning"
+    website = "website"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -30,7 +54,11 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,7 +70,19 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket", "entity"]
-  whitelist = ["kind", "email", "id", "entity", "selfLink", "entityId", "role", "etag", "domain", "bucket"]
+  whitelist = ["bucket", "domain", "email", "entity", "entityId", "etag", "id", "kind", "role", "selfLink"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bucket = "bucket"
+    domain = "domain"
+    email = "email"
+    entity = "entity"
+    entityId = "entityId"
+    etag = "etag"
+    id = "id"
+    kind = "kind"
+    role = "role"
+    selfLink = "selfLink"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -56,6 +96,10 @@
   url_keys = ["bucket"]
   query_string_params = ["ifMetagenerationMatch", "ifMetagenerationNotMatch"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -67,7 +111,21 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket", "entity"]
-  whitelist = ["entityId", "selfLink", "email", "role", "id", "entity", "object", "domain", "etag", "bucket", "generation", "kind"]
+  whitelist = ["bucket", "domain", "email", "entity", "entityId", "etag", "generation", "id", "kind", "object", "role", "selfLink"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bucket = "bucket"
+    domain = "domain"
+    email = "email"
+    entity = "entity"
+    entityId = "entityId"
+    etag = "etag"
+    generation = "generation"
+    id = "id"
+    kind = "kind"
+    object = "object"
+    role = "role"
+    selfLink = "selfLink"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -80,7 +138,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket"]
   query_string_params = ["delimiter", "maxResults", "pageToken", "prefix", "projection", "versions"]
-  whitelist = ["prefixes", "items", "kind", "nextPageToken"]
+  whitelist = ["items", "kind", "nextPageToken", "prefixes"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    prefixes = "prefixes"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -93,7 +157,19 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket"]
   query_string_params = ["delimiter", "maxResults", "pageToken", "prefix", "projection", "versions"]
-  whitelist = ["payload", "id", "address", "resourceUri", "resourceId", "token", "kind", "type", "expiration", "params"]
+  whitelist = ["address", "expiration", "id", "kind", "params", "payload", "resourceId", "resourceUri", "token", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    address = "address"
+    expiration = "expiration"
+    id = "id"
+    kind = "kind"
+    params = "params"
+    payload = "payload"
+    resourceId = "resourceId"
+    resourceUri = "resourceUri"
+    token = "token"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -106,7 +182,33 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["bucket", "object"]
   query_string_params = ["generation", "ifGenerationMatch", "ifGenerationNotMatch", "ifMetagenerationMatch", "ifMetagenerationNotMatch", "projection"]
-  whitelist = ["mediaLink", "bucket", "crc32c", "kind", "generation", "etag", "owner", "contentDisposition", "componentCount", "cacheControl", "size", "metageneration", "acl", "contentLanguage", "metadata", "storageClass", "name", "selfLink", "updated", "md5Hash", "id", "contentEncoding", "contentType", "timeDeleted"]
+  whitelist = ["acl", "bucket", "cacheControl", "componentCount", "contentDisposition", "contentEncoding", "contentLanguage", "contentType", "crc32c", "etag", "generation", "id", "kind", "md5Hash", "mediaLink", "metadata", "metageneration", "name", "owner", "selfLink", "size", "storageClass", "timeDeleted", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    bucket = "bucket"
+    cacheControl = "cacheControl"
+    componentCount = "componentCount"
+    contentDisposition = "contentDisposition"
+    contentEncoding = "contentEncoding"
+    contentLanguage = "contentLanguage"
+    contentType = "contentType"
+    crc32c = "crc32c"
+    etag = "etag"
+    generation = "generation"
+    id = "id"
+    kind = "kind"
+    md5Hash = "md5Hash"
+    mediaLink = "mediaLink"
+    metadata = "metadata"
+    metageneration = "metageneration"
+    name = "name"
+    owner = "owner"
+    selfLink = "selfLink"
+    size = "size"
+    storageClass = "storageClass"
+    timeDeleted = "timeDeleted"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -120,6 +222,10 @@
   url_keys = ["bucket", "object"]
   query_string_params = ["generation"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -130,9 +236,23 @@
   url_pattern = "/b/{bucket}/o/{object}/acl/{entity}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["bucket", "object", "entity"]
+  url_keys = ["bucket", "entity", "object"]
   query_string_params = ["generation"]
-  whitelist = ["id", "entity", "object", "domain", "etag", "bucket", "generation", "kind", "entityId", "selfLink", "email", "role"]
+  whitelist = ["bucket", "domain", "email", "entity", "entityId", "etag", "generation", "id", "kind", "object", "role", "selfLink"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bucket = "bucket"
+    domain = "domain"
+    email = "email"
+    entity = "entity"
+    entityId = "entityId"
+    etag = "etag"
+    generation = "generation"
+    id = "id"
+    kind = "kind"
+    object = "object"
+    role = "role"
+    selfLink = "selfLink"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -145,7 +265,33 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["destinationBucket", "destinationObject"]
   query_string_params = ["ifGenerationMatch", "ifMetagenerationMatch"]
-  whitelist = ["contentDisposition", "componentCount", "cacheControl", "size", "owner", "metageneration", "acl", "contentLanguage", "metadata", "storageClass", "name", "selfLink", "updated", "md5Hash", "id", "contentEncoding", "contentType", "timeDeleted", "mediaLink", "bucket", "crc32c", "kind", "generation", "etag"]
+  whitelist = ["acl", "bucket", "cacheControl", "componentCount", "contentDisposition", "contentEncoding", "contentLanguage", "contentType", "crc32c", "etag", "generation", "id", "kind", "md5Hash", "mediaLink", "metadata", "metageneration", "name", "owner", "selfLink", "size", "storageClass", "timeDeleted", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    bucket = "bucket"
+    cacheControl = "cacheControl"
+    componentCount = "componentCount"
+    contentDisposition = "contentDisposition"
+    contentEncoding = "contentEncoding"
+    contentLanguage = "contentLanguage"
+    contentType = "contentType"
+    crc32c = "crc32c"
+    etag = "etag"
+    generation = "generation"
+    id = "id"
+    kind = "kind"
+    md5Hash = "md5Hash"
+    mediaLink = "mediaLink"
+    metadata = "metadata"
+    metageneration = "metageneration"
+    name = "name"
+    owner = "owner"
+    selfLink = "selfLink"
+    size = "size"
+    storageClass = "storageClass"
+    timeDeleted = "timeDeleted"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -156,9 +302,35 @@
   url_pattern = "/b/{sourceBucket}/o/{sourceObject}/copyTo/b/{destinationBucket}/o/{destinationObject}"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["sourceBucket", "sourceObject", "destinationBucket", "destinationObject"]
+  url_keys = ["destinationBucket", "destinationObject", "sourceBucket", "sourceObject"]
   query_string_params = ["ifGenerationMatch", "ifGenerationNotMatch", "ifMetagenerationMatch", "ifMetagenerationNotMatch", "ifSourceGenerationMatch", "ifSourceGenerationNotMatch", "ifSourceMetagenerationMatch", "ifSourceMetagenerationNotMatch", "projection", "sourceGeneration"]
-  whitelist = ["crc32c", "kind", "generation", "etag", "owner", "contentDisposition", "componentCount", "cacheControl", "size", "metageneration", "acl", "contentLanguage", "metadata", "storageClass", "name", "selfLink", "updated", "md5Hash", "id", "contentEncoding", "contentType", "timeDeleted", "mediaLink", "bucket"]
+  whitelist = ["acl", "bucket", "cacheControl", "componentCount", "contentDisposition", "contentEncoding", "contentLanguage", "contentType", "crc32c", "etag", "generation", "id", "kind", "md5Hash", "mediaLink", "metadata", "metageneration", "name", "owner", "selfLink", "size", "storageClass", "timeDeleted", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    bucket = "bucket"
+    cacheControl = "cacheControl"
+    componentCount = "componentCount"
+    contentDisposition = "contentDisposition"
+    contentEncoding = "contentEncoding"
+    contentLanguage = "contentLanguage"
+    contentType = "contentType"
+    crc32c = "crc32c"
+    etag = "etag"
+    generation = "generation"
+    id = "id"
+    kind = "kind"
+    md5Hash = "md5Hash"
+    mediaLink = "mediaLink"
+    metadata = "metadata"
+    metageneration = "metageneration"
+    name = "name"
+    owner = "owner"
+    selfLink = "selfLink"
+    size = "size"
+    storageClass = "storageClass"
+    timeDeleted = "timeDeleted"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -169,6 +341,7 @@
   url_pattern = "/channels/stop"
   method = "POST"
   host = ["https://www.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

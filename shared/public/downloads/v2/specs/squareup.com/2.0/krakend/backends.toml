@@ -5,7 +5,21 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["location_details", "language_code", "account_capabilities", "business_type", "email", "business_name", "country_code", "account_type", "currency_code", "id", "market_url", "name"]
+  whitelist = ["account_capabilities", "account_type", "business_name", "business_type", "country_code", "currency_code", "email", "id", "language_code", "location_details", "market_url", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    account_capabilities = "account_capabilities"
+    account_type = "account_type"
+    business_name = "business_name"
+    business_type = "business_type"
+    country_code = "country_code"
+    currency_code = "currency_code"
+    email = "email"
+    id = "id"
+    language_code = "language_code"
+    location_details = "location_details"
+    market_url = "market_url"
+    name = "name"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -19,7 +33,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  query_string_params = ["order", "begin_updated_at", "end_updated_at", "begin_created_at", "end_created_at", "status", "external_id", "limit", "batch_token"]
+  query_string_params = ["batch_token", "begin_created_at", "begin_updated_at", "end_created_at", "end_updated_at", "external_id", "limit", "order", "status"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -34,7 +49,19 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["employee_id"]
-  whitelist = ["updated_at", "role_ids", "email", "id", "authorized_location_ids", "last_name", "first_name", "created_at", "external_id", "status"]
+  whitelist = ["authorized_location_ids", "created_at", "email", "external_id", "first_name", "id", "last_name", "role_ids", "status", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    authorized_location_ids = "authorized_location_ids"
+    created_at = "created_at"
+    email = "email"
+    external_id = "external_id"
+    first_name = "first_name"
+    id = "id"
+    last_name = "last_name"
+    role_ids = "role_ids"
+    status = "status"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -48,6 +75,7 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -61,7 +89,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  query_string_params = ["order", "limit", "batch_token"]
+  query_string_params = ["batch_token", "limit", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -76,7 +105,15 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["role_id"]
-  whitelist = ["updated_at", "created_at", "is_owner", "name", "permissions", "id"]
+  whitelist = ["created_at", "id", "is_owner", "name", "permissions", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    created_at = "created_at"
+    id = "id"
+    is_owner = "is_owner"
+    name = "name"
+    permissions = "permissions"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -90,7 +127,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  query_string_params = ["order", "employee_id", "begin_clockin_time", "end_clockin_time", "begin_clockout_time", "end_clockout_time", "begin_updated_at", "end_updated_at", "deleted", "limit", "batch_token"]
+  query_string_params = ["batch_token", "begin_clockin_time", "begin_clockout_time", "begin_updated_at", "deleted", "employee_id", "end_clockin_time", "end_clockout_time", "end_updated_at", "limit", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -105,7 +143,18 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["timecard_id"]
-  whitelist = ["clockin_location_id", "id", "created_at", "deleted", "clockin_time", "clockout_location_id", "updated_at", "clockout_time", "employee_id"]
+  whitelist = ["clockin_location_id", "clockin_time", "clockout_location_id", "clockout_time", "created_at", "deleted", "employee_id", "id", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clockin_location_id = "clockin_location_id"
+    clockin_time = "clockin_time"
+    clockout_location_id = "clockout_location_id"
+    clockout_time = "clockout_time"
+    created_at = "created_at"
+    deleted = "deleted"
+    employee_id = "employee_id"
+    id = "id"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -120,6 +169,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["timecard_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -134,6 +184,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -147,8 +198,18 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  url_keys = ["location_id", "bank_account_id"]
-  whitelist = ["currency_code", "name", "bank_name", "routing_number", "id", "type", "account_number_suffix", "merchant_id"]
+  url_keys = ["bank_account_id", "location_id"]
+  whitelist = ["account_number_suffix", "bank_name", "currency_code", "id", "merchant_id", "name", "routing_number", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    account_number_suffix = "account_number_suffix"
+    bank_name = "bank_name"
+    currency_code = "currency_code"
+    id = "id"
+    merchant_id = "merchant_id"
+    name = "name"
+    routing_number = "routing_number"
+    type = "type"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -163,7 +224,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["order", "begin_time", "end_time"]
+  query_string_params = ["begin_time", "end_time", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -178,7 +240,20 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "shift_id"]
-  whitelist = ["ending_employee_id", "id", "opening_employee_id", "event_type", "closing_employee_id", "closed_at", "opened_at", "ended_at", "description", "events", "employee_ids"]
+  whitelist = ["closed_at", "closing_employee_id", "description", "employee_ids", "ended_at", "ending_employee_id", "event_type", "events", "id", "opened_at", "opening_employee_id"]
+  concurrent_calls = 0
+  [backends.mapping]
+    closed_at = "closed_at"
+    closing_employee_id = "closing_employee_id"
+    description = "description"
+    employee_ids = "employee_ids"
+    ended_at = "ended_at"
+    ending_employee_id = "ending_employee_id"
+    event_type = "event_type"
+    events = "events"
+    id = "id"
+    opened_at = "opened_at"
+    opening_employee_id = "opening_employee_id"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -193,6 +268,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -207,6 +283,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -221,6 +298,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -235,7 +313,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["limit", "batch_token"]
+  query_string_params = ["batch_token", "limit"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -250,7 +329,11 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "variation_id"]
-  whitelist = ["variation_id", "quantity_on_hand"]
+  whitelist = ["quantity_on_hand", "variation_id"]
+  concurrent_calls = 0
+  [backends.mapping]
+    quantity_on_hand = "quantity_on_hand"
+    variation_id = "variation_id"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -266,6 +349,7 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
   query_string_params = ["batch_token"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -279,8 +363,22 @@
   method = "GET"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  url_keys = ["location_id", "item_id"]
-  whitelist = ["available_online", "modifier_lists", "taxable", "visibility", "name", "id", "type", "variations", "fees", "description", "color", "abbreviation"]
+  url_keys = ["item_id", "location_id"]
+  whitelist = ["abbreviation", "available_online", "color", "description", "fees", "id", "modifier_lists", "name", "taxable", "type", "variations", "visibility"]
+  concurrent_calls = 0
+  [backends.mapping]
+    abbreviation = "abbreviation"
+    available_online = "available_online"
+    color = "color"
+    description = "description"
+    fees = "fees"
+    id = "id"
+    modifier_lists = "modifier_lists"
+    name = "name"
+    taxable = "taxable"
+    type = "type"
+    variations = "variations"
+    visibility = "visibility"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -294,8 +392,20 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  url_keys = ["location_id", "item_id"]
-  whitelist = ["user_data", "id", "name", "sku", "pricing_type", "item_id", "inventory_alert_threshold", "track_inventory", "ordinal", "inventory_alert_type"]
+  url_keys = ["item_id", "location_id"]
+  whitelist = ["id", "inventory_alert_threshold", "inventory_alert_type", "item_id", "name", "ordinal", "pricing_type", "sku", "track_inventory", "user_data"]
+  concurrent_calls = 0
+  [backends.mapping]
+    id = "id"
+    inventory_alert_threshold = "inventory_alert_threshold"
+    inventory_alert_type = "inventory_alert_type"
+    item_id = "item_id"
+    name = "name"
+    ordinal = "ordinal"
+    pricing_type = "pricing_type"
+    sku = "sku"
+    track_inventory = "track_inventory"
+    user_data = "user_data"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -310,6 +420,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -324,7 +435,13 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "modifier_list_id"]
-  whitelist = ["selection_type", "id", "name", "modifier_options"]
+  whitelist = ["id", "modifier_options", "name", "selection_type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    id = "id"
+    modifier_options = "modifier_options"
+    name = "name"
+    selection_type = "selection_type"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -339,7 +456,14 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "modifier_list_id"]
-  whitelist = ["name", "modifier_list_id", "ordinal", "on_by_default", "id"]
+  whitelist = ["id", "modifier_list_id", "name", "on_by_default", "ordinal"]
+  concurrent_calls = 0
+  [backends.mapping]
+    id = "id"
+    modifier_list_id = "modifier_list_id"
+    name = "name"
+    on_by_default = "on_by_default"
+    ordinal = "ordinal"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -354,7 +478,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["order", "limit", "batch_token"]
+  query_string_params = ["batch_token", "limit", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -369,7 +494,27 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "order_id"]
-  whitelist = ["recipient_name", "canceled_note", "errors", "expires_at", "payment_id", "id", "buyer_note", "recipient_phone_number", "completed_note", "btc_price_satoshi", "state", "refunded_note", "promo_code", "order_history", "btc_receive_address", "updated_at", "created_at", "buyer_email"]
+  whitelist = ["btc_price_satoshi", "btc_receive_address", "buyer_email", "buyer_note", "canceled_note", "completed_note", "created_at", "errors", "expires_at", "id", "order_history", "payment_id", "promo_code", "recipient_name", "recipient_phone_number", "refunded_note", "state", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    btc_price_satoshi = "btc_price_satoshi"
+    btc_receive_address = "btc_receive_address"
+    buyer_email = "buyer_email"
+    buyer_note = "buyer_note"
+    canceled_note = "canceled_note"
+    completed_note = "completed_note"
+    created_at = "created_at"
+    errors = "errors"
+    expires_at = "expires_at"
+    id = "id"
+    order_history = "order_history"
+    payment_id = "payment_id"
+    promo_code = "promo_code"
+    recipient_name = "recipient_name"
+    recipient_phone_number = "recipient_phone_number"
+    refunded_note = "refunded_note"
+    state = "state"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -384,6 +529,7 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -398,7 +544,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["order", "begin_time", "end_time", "limit", "batch_token"]
+  query_string_params = ["batch_token", "begin_time", "end_time", "limit", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -413,7 +560,20 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "payment_id"]
-  whitelist = ["refunds", "id", "additive_tax", "tender", "creator_id", "inclusive_tax", "created_at", "merchant_id", "itemizations", "payment_url", "receipt_url"]
+  whitelist = ["additive_tax", "created_at", "creator_id", "id", "inclusive_tax", "itemizations", "merchant_id", "payment_url", "receipt_url", "refunds", "tender"]
+  concurrent_calls = 0
+  [backends.mapping]
+    additive_tax = "additive_tax"
+    created_at = "created_at"
+    creator_id = "creator_id"
+    id = "id"
+    inclusive_tax = "inclusive_tax"
+    itemizations = "itemizations"
+    merchant_id = "merchant_id"
+    payment_url = "payment_url"
+    receipt_url = "receipt_url"
+    refunds = "refunds"
+    tender = "tender"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -428,7 +588,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["order", "begin_time", "end_time", "limit", "batch_token"]
+  query_string_params = ["batch_token", "begin_time", "end_time", "limit", "order"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -443,7 +604,8 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["order", "begin_time", "end_time", "limit", "status", "batch_token"]
+  query_string_params = ["batch_token", "begin_time", "end_time", "limit", "order", "status"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -458,7 +620,14 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "settlement_id"]
-  whitelist = ["bank_account_id", "entries", "initiated_at", "id", "status"]
+  whitelist = ["bank_account_id", "entries", "id", "initiated_at", "status"]
+  concurrent_calls = 0
+  [backends.mapping]
+    bank_account_id = "bank_account_id"
+    entries = "entries"
+    id = "id"
+    initiated_at = "initiated_at"
+    status = "status"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -472,7 +641,12 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["deleted_at", "errors", "deleted_object_ids"]
+  whitelist = ["deleted_at", "deleted_object_ids", "errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    deleted_at = "deleted_at"
+    deleted_object_ids = "deleted_object_ids"
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -486,7 +660,12 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["objects", "errors", "related_objects"]
+  whitelist = ["errors", "objects", "related_objects"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    objects = "objects"
+    related_objects = "related_objects"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -500,7 +679,13 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["updated_at", "objects", "id_mappings", "errors"]
+  whitelist = ["errors", "id_mappings", "objects", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    id_mappings = "id_mappings"
+    objects = "objects"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -515,6 +700,9 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -530,6 +718,11 @@
   host = ["https://connect.squareup.com"]
   query_string_params = ["cursor", "types"]
   whitelist = ["cursor", "errors", "objects"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cursor = "cursor"
+    errors = "errors"
+    objects = "objects"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -544,6 +737,10 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   whitelist = ["errors", "id_mappings"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    id_mappings = "id_mappings"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -560,6 +757,10 @@
   url_keys = ["object_id"]
   query_string_params = ["include_related_objects"]
   whitelist = ["errors", "related_objects"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    related_objects = "related_objects"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -573,7 +774,13 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["related_objects", "cursor", "objects", "errors"]
+  whitelist = ["cursor", "errors", "objects", "related_objects"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cursor = "cursor"
+    errors = "errors"
+    objects = "objects"
+    related_objects = "related_objects"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -588,6 +795,10 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   whitelist = ["errors", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -601,7 +812,11 @@
   method = "POST"
   encoding = "json"
   host = ["https://connect.squareup.com"]
-  whitelist = ["updated_at", "errors"]
+  whitelist = ["errors", "updated_at"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    updated_at = "updated_at"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -617,6 +832,11 @@
   host = ["https://connect.squareup.com"]
   query_string_params = ["cursor"]
   whitelist = ["cursor", "customers", "errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cursor = "cursor"
+    customers = "customers"
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -632,6 +852,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["customer_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -647,6 +870,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["customer_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -661,6 +887,10 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   whitelist = ["errors", "locations"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
+    locations = "locations"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -676,6 +906,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -690,8 +923,13 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["begin_time", "end_time", "sort_order", "cursor"]
+  query_string_params = ["begin_time", "cursor", "end_time", "sort_order"]
   whitelist = ["cursor", "errors", "refunds"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cursor = "cursor"
+    errors = "errors"
+    refunds = "refunds"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -706,8 +944,13 @@
   encoding = "json"
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id"]
-  query_string_params = ["begin_time", "end_time", "sort_order", "cursor"]
+  query_string_params = ["begin_time", "cursor", "end_time", "sort_order"]
   whitelist = ["cursor", "errors", "transactions"]
+  concurrent_calls = 0
+  [backends.mapping]
+    cursor = "cursor"
+    errors = "errors"
+    transactions = "transactions"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -723,6 +966,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "transaction_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -738,6 +984,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "transaction_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -753,6 +1002,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "transaction_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -768,6 +1020,9 @@
   host = ["https://connect.squareup.com"]
   url_keys = ["location_id", "transaction_id"]
   whitelist = ["errors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    errors = "errors"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]

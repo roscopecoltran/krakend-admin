@@ -6,14 +6,17 @@ backends:
   host:
   - https://genomics.googleapis.com
   query_string_params:
-  - pageToken
-  - pageSize
-  - projectId
   - namePrefix
+  - pageSize
+  - pageToken
+  - projectId
   whitelist:
-  - pipelines
   - nextPageToken
-  mapping: {}
+  - pipelines
+  concurrent_calls: 0
+  mapping:
+    nextPageToken: nextPageToken
+    pipelines: pipelines
   extra_config:
     hosts:
     - https://genomics.googleapis.com
@@ -28,13 +31,20 @@ backends:
   url_keys:
   - pipelineId
   whitelist:
-  - outputParameters
   - description
   - inputParameters
-  - pipelineId
   - name
+  - outputParameters
+  - pipelineId
   - projectId
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    description: description
+    inputParameters: inputParameters
+    name: name
+    outputParameters: outputParameters
+    pipelineId: pipelineId
+    projectId: projectId
   extra_config:
     hosts:
     - https://genomics.googleapis.com
@@ -50,15 +60,24 @@ backends:
   - operationId
   - validationToken
   whitelist:
-  - vars
-  - gcsLogPath
   - cmd
-  - gcsSinks
-  - machineType
-  - gcsSources
   - disks
+  - gcsLogPath
+  - gcsSinks
+  - gcsSources
   - image
-  mapping: {}
+  - machineType
+  - vars
+  concurrent_calls: 0
+  mapping:
+    cmd: cmd
+    disks: disks
+    gcsLogPath: gcsLogPath
+    gcsSinks: gcsSinks
+    gcsSources: gcsSources
+    image: image
+    machineType: machineType
+    vars: vars
   extra_config:
     hosts:
     - https://genomics.googleapis.com
@@ -71,11 +90,16 @@ backends:
   host:
   - https://genomics.googleapis.com
   whitelist:
-  - name
   - done
-  - response
   - metadata
-  mapping: {}
+  - name
+  - response
+  concurrent_calls: 0
+  mapping:
+    done: done
+    metadata: metadata
+    name: name
+    response: response
   extra_config:
     hosts:
     - https://genomics.googleapis.com
@@ -96,7 +120,10 @@ backends:
   whitelist:
   - nextPageToken
   - operations
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    nextPageToken: nextPageToken
+    operations: operations
   extra_config:
     hosts:
     - https://genomics.googleapis.com
@@ -110,6 +137,7 @@ backends:
   - https://genomics.googleapis.com
   url_keys:
   - name
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     hosts:

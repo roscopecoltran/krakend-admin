@@ -6,7 +6,12 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["project"]
   query_string_params = ["count", "pageToken", "query"]
-  whitelist = ["kind", "nextPageToken", "metrics"]
+  whitelist = ["kind", "metrics", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    metrics = "metrics"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,9 +22,16 @@
   url_pattern = "/{project}/timeseries/{metric}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["project", "metric"]
-  query_string_params = ["youngest", "aggregator", "count", "labels", "oldest", "pageToken", "timespan", "window"]
-  whitelist = ["youngest", "kind", "nextPageToken", "oldest", "timeseries"]
+  url_keys = ["metric", "project"]
+  query_string_params = ["aggregator", "count", "labels", "oldest", "pageToken", "timespan", "window", "youngest"]
+  whitelist = ["kind", "nextPageToken", "oldest", "timeseries", "youngest"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    oldest = "oldest"
+    timeseries = "timeseries"
+    youngest = "youngest"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -32,6 +44,9 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["project"]
   whitelist = ["kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,9 +57,16 @@
   url_pattern = "/{project}/timeseriesDescriptors/{metric}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["project", "metric"]
-  query_string_params = ["youngest", "aggregator", "count", "labels", "oldest", "pageToken", "timespan", "window"]
-  whitelist = ["oldest", "timeseries", "youngest", "kind", "nextPageToken"]
+  url_keys = ["metric", "project"]
+  query_string_params = ["aggregator", "count", "labels", "oldest", "pageToken", "timespan", "window", "youngest"]
+  whitelist = ["kind", "nextPageToken", "oldest", "timeseries", "youngest"]
+  concurrent_calls = 0
+  [backends.mapping]
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    oldest = "oldest"
+    timeseries = "timeseries"
+    youngest = "youngest"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

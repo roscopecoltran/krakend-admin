@@ -5,6 +5,10 @@
   method = "POST"
   host = ["https://logging.googleapis.com"]
   whitelist = ["entries", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    entries = "entries"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -15,6 +19,7 @@
   url_pattern = "/v2/entries:write"
   method = "POST"
   host = ["https://logging.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -25,8 +30,12 @@
   url_pattern = "/v2/monitoredResourceDescriptors"
   method = "GET"
   host = ["https://logging.googleapis.com"]
-  query_string_params = ["pageToken", "pageSize"]
-  whitelist = ["resourceDescriptors", "nextPageToken"]
+  query_string_params = ["pageSize", "pageToken"]
+  whitelist = ["nextPageToken", "resourceDescriptors"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    resourceDescriptors = "resourceDescriptors"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -38,7 +47,15 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["metricName"]
-  whitelist = ["labelExtractors", "name", "filter", "version", "description", "valueExtractor"]
+  whitelist = ["description", "filter", "labelExtractors", "name", "valueExtractor", "version"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    filter = "filter"
+    labelExtractors = "labelExtractors"
+    name = "name"
+    valueExtractor = "valueExtractor"
+    version = "version"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -50,7 +67,13 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["name"]
-  whitelist = ["filter", "name", "description", "disabled"]
+  whitelist = ["description", "disabled", "filter", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    disabled = "disabled"
+    filter = "filter"
+    name = "name"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -64,6 +87,10 @@
   url_keys = ["parent"]
   query_string_params = ["pageSize", "pageToken"]
   whitelist = ["exclusions", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    exclusions = "exclusions"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -75,8 +102,12 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["parent"]
-  query_string_params = ["pageToken", "pageSize"]
+  query_string_params = ["pageSize", "pageToken"]
   whitelist = ["logNames", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    logNames = "logNames"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -88,8 +119,12 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["parent"]
-  query_string_params = ["pageToken", "pageSize"]
-  whitelist = ["nextPageToken", "metrics"]
+  query_string_params = ["pageSize", "pageToken"]
+  whitelist = ["metrics", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    metrics = "metrics"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -101,8 +136,12 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["parent"]
-  query_string_params = ["pageToken", "pageSize"]
+  query_string_params = ["pageSize", "pageToken"]
   whitelist = ["nextPageToken", "sinks"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    sinks = "sinks"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]
@@ -114,7 +153,17 @@
   method = "GET"
   host = ["https://logging.googleapis.com"]
   url_keys = ["sinkName"]
-  whitelist = ["endTime", "includeChildren", "filter", "writerIdentity", "destination", "outputVersionFormat", "name", "startTime"]
+  whitelist = ["destination", "endTime", "filter", "includeChildren", "name", "outputVersionFormat", "startTime", "writerIdentity"]
+  concurrent_calls = 0
+  [backends.mapping]
+    destination = "destination"
+    endTime = "endTime"
+    filter = "filter"
+    includeChildren = "includeChildren"
+    name = "name"
+    outputVersionFormat = "outputVersionFormat"
+    startTime = "startTime"
+    writerIdentity = "writerIdentity"
   [backends.extra_config]
     hosts = ["https://logging.googleapis.com"]
     schemes = ["https"]

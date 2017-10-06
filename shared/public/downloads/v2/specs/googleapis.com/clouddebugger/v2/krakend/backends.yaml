@@ -5,6 +5,7 @@ backends:
   method: POST
   host:
   - https://clouddebugger.googleapis.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     hosts:
@@ -23,10 +24,14 @@ backends:
   - successOnTimeout
   - waitToken
   whitelist:
+  - breakpoints
   - nextWaitToken
   - waitExpired
-  - breakpoints
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    breakpoints: breakpoints
+    nextWaitToken: nextWaitToken
+    waitExpired: waitExpired
   extra_config:
     hosts:
     - https://clouddebugger.googleapis.com
@@ -44,7 +49,9 @@ backends:
   - project
   whitelist:
   - debuggees
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    debuggees: debuggees
   extra_config:
     hosts:
     - https://clouddebugger.googleapis.com
@@ -66,9 +73,12 @@ backends:
   - stripResults
   - waitToken
   whitelist:
-  - nextWaitToken
   - breakpoints
-  mapping: {}
+  - nextWaitToken
+  concurrent_calls: 0
+  mapping:
+    breakpoints: breakpoints
+    nextWaitToken: nextWaitToken
   extra_config:
     hosts:
     - https://clouddebugger.googleapis.com
@@ -84,6 +94,7 @@ backends:
   - debuggeeId
   query_string_params:
   - clientVersion
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     hosts:
@@ -101,6 +112,7 @@ backends:
   - debuggeeId
   query_string_params:
   - clientVersion
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     hosts:

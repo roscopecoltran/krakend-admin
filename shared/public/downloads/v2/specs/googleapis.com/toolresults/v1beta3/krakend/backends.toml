@@ -6,7 +6,11 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["projectId"]
   query_string_params = ["filterByName", "pageSize", "pageToken"]
-  whitelist = ["nextPageToken", "histories"]
+  whitelist = ["histories", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    histories = "histories"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +21,13 @@
   url_pattern = "/{projectId}/histories/{historyId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId"]
-  whitelist = ["name", "displayName", "historyId"]
+  url_keys = ["historyId", "projectId"]
+  whitelist = ["displayName", "historyId", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    displayName = "displayName"
+    historyId = "historyId"
+    name = "name"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -29,9 +38,13 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId"]
+  url_keys = ["historyId", "projectId"]
   query_string_params = ["pageSize", "pageToken"]
-  whitelist = ["nextPageToken", "executions"]
+  whitelist = ["executions", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    executions = "executions"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +55,13 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId"]
-  whitelist = ["state", "executionId", "testExecutionMatrixId"]
+  url_keys = ["executionId", "historyId", "projectId"]
+  whitelist = ["executionId", "state", "testExecutionMatrixId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    executionId = "executionId"
+    state = "state"
+    testExecutionMatrixId = "testExecutionMatrixId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -56,6 +74,9 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["executionId", "historyId", "projectId"]
   whitelist = ["clusters"]
+  concurrent_calls = 0
+  [backends.mapping]
+    clusters = "clusters"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -68,6 +89,11 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["clusterId", "executionId", "historyId", "projectId"]
   whitelist = ["activity", "clusterId", "screens"]
+  concurrent_calls = 0
+  [backends.mapping]
+    activity = "activity"
+    clusterId = "clusterId"
+    screens = "screens"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -78,9 +104,13 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId"]
+  url_keys = ["executionId", "historyId", "projectId"]
   query_string_params = ["pageSize", "pageToken"]
   whitelist = ["nextPageToken", "steps"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    steps = "steps"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -91,8 +121,17 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId"]
-  whitelist = ["dimensionValue", "name", "labels", "hasImages", "stepId", "state", "description"]
+  url_keys = ["executionId", "historyId", "projectId", "stepId"]
+  whitelist = ["description", "dimensionValue", "hasImages", "labels", "name", "state", "stepId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    dimensionValue = "dimensionValue"
+    hasImages = "hasImages"
+    labels = "labels"
+    name = "name"
+    state = "state"
+    stepId = "stepId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -103,8 +142,15 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}/perfMetricsSummary"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId"]
-  whitelist = ["perfMetrics", "executionId", "historyId", "projectId", "stepId"]
+  url_keys = ["executionId", "historyId", "projectId", "stepId"]
+  whitelist = ["executionId", "historyId", "perfMetrics", "projectId", "stepId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    executionId = "executionId"
+    historyId = "historyId"
+    perfMetrics = "perfMetrics"
+    projectId = "projectId"
+    stepId = "stepId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -118,6 +164,9 @@
   url_keys = ["executionId", "historyId", "projectId", "stepId"]
   query_string_params = ["filter"]
   whitelist = ["perfSampleSeries"]
+  concurrent_calls = 0
+  [backends.mapping]
+    perfSampleSeries = "perfSampleSeries"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -128,8 +177,15 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}/perfSampleSeries/{sampleSeriesId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId", "sampleSeriesId"]
-  whitelist = ["executionId", "projectId", "historyId", "stepId", "sampleSeriesId"]
+  url_keys = ["executionId", "historyId", "projectId", "sampleSeriesId", "stepId"]
+  whitelist = ["executionId", "historyId", "projectId", "sampleSeriesId", "stepId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    executionId = "executionId"
+    historyId = "historyId"
+    projectId = "projectId"
+    sampleSeriesId = "sampleSeriesId"
+    stepId = "stepId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -140,9 +196,13 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}/perfSampleSeries/{sampleSeriesId}/samples"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId", "sampleSeriesId"]
+  url_keys = ["executionId", "historyId", "projectId", "sampleSeriesId", "stepId"]
   query_string_params = ["pageSize", "pageToken"]
   whitelist = ["nextPageToken", "perfSamples"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    perfSamples = "perfSamples"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -153,8 +213,11 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}/perfSampleSeries/{sampleSeriesId}/samples:batchCreate"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId", "sampleSeriesId"]
+  url_keys = ["executionId", "historyId", "projectId", "sampleSeriesId", "stepId"]
   whitelist = ["perfSamples"]
+  concurrent_calls = 0
+  [backends.mapping]
+    perfSamples = "perfSamples"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -165,9 +228,13 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}/thumbnails"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId"]
+  url_keys = ["executionId", "historyId", "projectId", "stepId"]
   query_string_params = ["pageSize", "pageToken"]
   whitelist = ["nextPageToken", "thumbnails"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    thumbnails = "thumbnails"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -178,8 +245,17 @@
   url_pattern = "/{projectId}/histories/{historyId}/executions/{executionId}/steps/{stepId}:publishXunitXmlFiles"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["projectId", "historyId", "executionId", "stepId"]
-  whitelist = ["labels", "hasImages", "stepId", "state", "description", "dimensionValue", "name"]
+  url_keys = ["executionId", "historyId", "projectId", "stepId"]
+  whitelist = ["description", "dimensionValue", "hasImages", "labels", "name", "state", "stepId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    description = "description"
+    dimensionValue = "dimensionValue"
+    hasImages = "hasImages"
+    labels = "labels"
+    name = "name"
+    state = "state"
+    stepId = "stepId"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -192,6 +268,10 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["projectId"]
   whitelist = ["defaultBucket", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    defaultBucket = "defaultBucket"
+    name = "name"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -203,7 +283,11 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["projectId"]
-  whitelist = ["name", "defaultBucket"]
+  whitelist = ["defaultBucket", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    defaultBucket = "defaultBucket"
+    name = "name"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

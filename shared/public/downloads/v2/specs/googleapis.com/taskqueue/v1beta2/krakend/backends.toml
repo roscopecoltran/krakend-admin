@@ -6,7 +6,14 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
   query_string_params = ["getStats"]
-  whitelist = ["id", "acl", "stats", "kind", "maxLeases"]
+  whitelist = ["acl", "id", "kind", "maxLeases", "stats"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    id = "id"
+    kind = "kind"
+    maxLeases = "maxLeases"
+    stats = "stats"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -19,6 +26,10 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -30,8 +41,12 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
-  query_string_params = ["numTasks", "leaseSecs", "groupByTag", "tag"]
+  query_string_params = ["groupByTag", "leaseSecs", "numTasks", "tag"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +57,18 @@
   url_pattern = "/{project}/taskqueues/{taskqueue}/tasks/{task}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["project", "taskqueue", "task"]
-  whitelist = ["id", "queueName", "enqueueTimestamp", "retry_count", "leaseTimestamp", "tag", "kind", "payloadBase64"]
+  url_keys = ["project", "task", "taskqueue"]
+  whitelist = ["enqueueTimestamp", "id", "kind", "leaseTimestamp", "payloadBase64", "queueName", "retry_count", "tag"]
+  concurrent_calls = 0
+  [backends.mapping]
+    enqueueTimestamp = "enqueueTimestamp"
+    id = "id"
+    kind = "kind"
+    leaseTimestamp = "leaseTimestamp"
+    payloadBase64 = "payloadBase64"
+    queueName = "queueName"
+    retry_count = "retry_count"
+    tag = "tag"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

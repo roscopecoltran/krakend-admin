@@ -6,11 +6,12 @@ backends:
   encoding: json
   host:
   - https://upload.box.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
-    - file
     - attributes
+    - file
     consumes:
     - json
     produces:
@@ -26,6 +27,7 @@ backends:
   encoding: json
   host:
   - https://upload.box.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -45,6 +47,7 @@ backends:
   - https://upload.box.com
   url_keys:
   - SESSION_ID
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -68,6 +71,7 @@ backends:
   - Digest
   - If-Match
   - If-Non-Match
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -88,14 +92,19 @@ backends:
   url_keys:
   - SESSION_ID
   query_string_params:
-  - offset
   - limit
+  - offset
   whitelist:
-  - total_count
+  - entries
   - limit
   - offset
-  - entries
-  mapping: {}
+  - total_count
+  concurrent_calls: 0
+  mapping:
+    entries: entries
+    limit: limit
+    offset: offset
+    total_count: total_count
   extra_config:
     consumes:
     - json
@@ -116,6 +125,7 @@ backends:
   - FILE_ID
   header:
   - If-Match
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
@@ -138,6 +148,7 @@ backends:
   - https://upload.box.com
   url_keys:
   - FILE_ID
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:

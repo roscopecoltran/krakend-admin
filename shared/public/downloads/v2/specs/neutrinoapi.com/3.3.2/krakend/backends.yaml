@@ -7,16 +7,21 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - badWordsTotal
   - badWordsList
-  - isBad
+  - badWordsTotal
   - censoredContent
-  mapping: {}
+  - isBad
+  concurrent_calls: 0
+  mapping:
+    badWordsList: badWordsList
+    badWordsTotal: badWordsTotal
+    censoredContent: censoredContent
+    isBad: isBad
   extra_config:
     form_data:
-    - output-case
-    - content
     - censor-character
+    - content
+    - output-case
     consumes:
     - json
     produces:
@@ -33,28 +38,45 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - issuer
-  - issuerWebsite
-  - issuerPhone
-  - ipRegion
-  - cardCategory
-  - country
-  - ipBlocklisted
-  - valid
-  - ipCountryCode
   - cardBrand
-  - ipMatchesBin
-  - ipBlocklists
+  - cardCategory
   - cardType
+  - country
+  - countryCode
+  - ipBlocklisted
+  - ipBlocklists
   - ipCity
   - ipCountry
-  - countryCode
-  mapping: {}
+  - ipCountryCode
+  - ipMatchesBin
+  - ipRegion
+  - issuer
+  - issuerPhone
+  - issuerWebsite
+  - valid
+  concurrent_calls: 0
+  mapping:
+    cardBrand: cardBrand
+    cardCategory: cardCategory
+    cardType: cardType
+    country: country
+    countryCode: countryCode
+    ipBlocklisted: ipBlocklisted
+    ipBlocklists: ipBlocklists
+    ipCity: ipCity
+    ipCountry: ipCountry
+    ipCountryCode: ipCountryCode
+    ipMatchesBin: ipMatchesBin
+    ipRegion: ipRegion
+    issuer: issuer
+    issuerPhone: issuerPhone
+    issuerWebsite: issuerWebsite
+    valid: valid
   extra_config:
     form_data:
-    - output-case
     - bin-number
     - customer-ip
+    - output-case
     consumes:
     - json
     produces:
@@ -70,12 +92,13 @@ backends:
   encoding: json
   host:
   - https://neutrinoapi.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
+    - add-keyword-links
     - content
     - type
-    - add-keyword-links
     consumes:
     - json
     produces:
@@ -92,17 +115,23 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - result
   - fromType
-  - valid
   - fromValue
+  - result
   - toType
-  mapping: {}
+  - valid
+  concurrent_calls: 0
+  mapping:
+    fromType: fromType
+    fromValue: fromValue
+    result: result
+    toType: toType
+    valid: valid
   extra_config:
     form_data:
-    - output-case
-    - from-value
     - from-type
+    - from-value
+    - output-case
     - to-type
     consumes:
     - json
@@ -120,20 +149,29 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
+  - domain
   - domainError
-  - syntaxError
-  - valid
   - email
   - isDisposable
-  - domain
-  - typosFixed
   - isFreemail
-  mapping: {}
+  - syntaxError
+  - typosFixed
+  - valid
+  concurrent_calls: 0
+  mapping:
+    domain: domain
+    domainError: domainError
+    email: email
+    isDisposable: isDisposable
+    isFreemail: isFreemail
+    syntaxError: syntaxError
+    typosFixed: typosFixed
+    valid: valid
   extra_config:
     form_data:
-    - output-case
     - email
     - fix-typos
+    - output-case
     consumes:
     - json
     produces:
@@ -152,14 +190,17 @@ backends:
   whitelist:
   - found
   - locations
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    found: found
+    locations: locations
   extra_config:
     form_data:
-    - output-case
     - address
     - country-code
-    - language-code
     - fuzzy-search
+    - language-code
+    - output-case
     consumes:
     - json
     produces:
@@ -178,19 +219,28 @@ backends:
   whitelist:
   - address
   - addressComponents
-  - state
-  - countryCode
-  - postalCode
-  - found
   - city
   - country
-  mapping: {}
+  - countryCode
+  - found
+  - postalCode
+  - state
+  concurrent_calls: 0
+  mapping:
+    address: address
+    addressComponents: addressComponents
+    city: city
+    country: country
+    countryCode: countryCode
+    found: found
+    postalCode: postalCode
+    state: state
   extra_config:
     form_data:
-    - output-case
+    - language-code
     - latitude
     - longitude
-    - language-code
+    - output-case
     consumes:
     - json
     produces:
@@ -207,30 +257,49 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - numberType
-  - mnc
-  - imsi
-  - portedNetwork
-  - internationalNumber
-  - numberValid
-  - hlrValid
-  - localNumber
-  - isRoaming
-  - internationalCallingCode
-  - originNetwork
-  - msin
-  - isMobile
-  - mcc
-  - isPorted
-  - location
   - countryCode
   - hlrStatus
-  mapping: {}
+  - hlrValid
+  - imsi
+  - internationalCallingCode
+  - internationalNumber
+  - isMobile
+  - isPorted
+  - isRoaming
+  - localNumber
+  - location
+  - mcc
+  - mnc
+  - msin
+  - numberType
+  - numberValid
+  - originNetwork
+  - portedNetwork
+  concurrent_calls: 0
+  mapping:
+    countryCode: countryCode
+    hlrStatus: hlrStatus
+    hlrValid: hlrValid
+    imsi: imsi
+    internationalCallingCode: internationalCallingCode
+    internationalNumber: internationalNumber
+    isMobile: isMobile
+    isPorted: isPorted
+    isRoaming: isRoaming
+    localNumber: localNumber
+    location: location
+    mcc: mcc
+    mnc: mnc
+    msin: msin
+    numberType: numberType
+    numberValid: numberValid
+    originNetwork: originNetwork
+    portedNetwork: portedNetwork
   extra_config:
     form_data:
-    - output-case
-    - number
     - country-code
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -247,14 +316,18 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
+  - isListed
   - listCount
   - lists
-  - isListed
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    isListed: isListed
+    listCount: listCount
+    lists: lists
   extra_config:
     form_data:
-    - output-case
     - host
+    - output-case
     consumes:
     - json
     produces:
@@ -270,6 +343,7 @@ backends:
   encoding: json
   host:
   - https://neutrinoapi.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
@@ -293,14 +367,17 @@ backends:
   whitelist:
   - total
   - values
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    total: total
+    values: values
   extra_config:
     form_data:
-    - output-case
-    - content
-    - tag
     - attribute
     - base-url
+    - content
+    - output-case
+    - tag
     consumes:
     - json
     produces:
@@ -316,28 +393,29 @@ backends:
   encoding: json
   host:
   - https://neutrinoapi.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
-    - output-case
     - content
+    - css
     - format
-    - page-size
-    - title
+    - forms
+    - grayscale
+    - image-height
+    - image-width
+    - landscape
     - margin
+    - margin-bottom
     - margin-left
     - margin-right
     - margin-top
-    - margin-bottom
-    - landscape
-    - zoom
-    - grayscale
     - media-print
     - media-queries
-    - forms
-    - css
-    - image-width
-    - image-height
+    - output-case
+    - page-size
+    - title
+    - zoom
     consumes:
     - json
     produces:
@@ -353,13 +431,14 @@ backends:
   encoding: json
   host:
   - https://neutrinoapi.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
+    - format
+    - height
     - image-url
     - width
-    - height
-    - format
     consumes:
     - json
     produces:
@@ -375,16 +454,17 @@ backends:
   encoding: json
   host:
   - https://neutrinoapi.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
-    - image-url
-    - watermark-url
-    - opacity
     - format
-    - position
-    - width
     - height
+    - image-url
+    - opacity
+    - position
+    - watermark-url
+    - width
     consumes:
     - json
     produces:
@@ -401,25 +481,40 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - isMalware
-  - listCount
-  - isVpn
-  - isExploitBot
-  - isDshield
-  - isSpamBot
-  - isProxy
-  - isListed
-  - isSpyware
-  - isHijacked
-  - isTor
-  - lastSeen
-  - isSpider
   - isBot
-  mapping: {}
+  - isDshield
+  - isExploitBot
+  - isHijacked
+  - isListed
+  - isMalware
+  - isProxy
+  - isSpamBot
+  - isSpider
+  - isSpyware
+  - isTor
+  - isVpn
+  - lastSeen
+  - listCount
+  concurrent_calls: 0
+  mapping:
+    isBot: isBot
+    isDshield: isDshield
+    isExploitBot: isExploitBot
+    isHijacked: isHijacked
+    isListed: isListed
+    isMalware: isMalware
+    isProxy: isProxy
+    isSpamBot: isSpamBot
+    isSpider: isSpider
+    isSpyware: isSpyware
+    isTor: isTor
+    isVpn: isVpn
+    lastSeen: lastSeen
+    listCount: listCount
   extra_config:
     form_data:
-    - output-case
     - ip
+    - output-case
     consumes:
     - json
     produces:
@@ -436,19 +531,28 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - longitude
-  - country
   - city
-  - latitude
-  - region
+  - country
   - countryCode
-  - valid
   - hostname
-  mapping: {}
+  - latitude
+  - longitude
+  - region
+  - valid
+  concurrent_calls: 0
+  mapping:
+    city: city
+    country: country
+    countryCode: countryCode
+    hostname: hostname
+    latitude: latitude
+    longitude: longitude
+    region: region
+    valid: valid
   extra_config:
     form_data:
-    - output-case
     - ip
+    - output-case
     - reverse-lookup
     consumes:
     - json
@@ -466,22 +570,34 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - region
-  - provider-type
   - city
-  - valid
-  - provider-website
+  - country
+  - country-code
   - hostname
+  - ip
   - provider-description
   - provider-domain
-  - country-code
-  - ip
-  - country
-  mapping: {}
+  - provider-type
+  - provider-website
+  - region
+  - valid
+  concurrent_calls: 0
+  mapping:
+    city: city
+    country: country
+    country-code: country-code
+    hostname: hostname
+    ip: ip
+    provider-description: provider-description
+    provider-domain: provider-domain
+    provider-type: provider-type
+    provider-website: provider-website
+    region: region
+    valid: valid
   extra_config:
     form_data:
-    - output-case
     - ip
+    - output-case
     consumes:
     - json
     produces:
@@ -500,12 +616,15 @@ backends:
   whitelist:
   - calling
   - number-valid
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    calling: calling
+    number-valid: number-valid
   extra_config:
     form_data:
-    - output-case
-    - number
     - audio-url
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -522,21 +641,30 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - valid
-  - localNumber
-  - isMobile
-  - type
   - countryCode
-  - location
-  - internationalNumber
   - internationalCallingCode
-  mapping: {}
+  - internationalNumber
+  - isMobile
+  - localNumber
+  - location
+  - type
+  - valid
+  concurrent_calls: 0
+  mapping:
+    countryCode: countryCode
+    internationalCallingCode: internationalCallingCode
+    internationalNumber: internationalNumber
+    isMobile: isMobile
+    localNumber: localNumber
+    location: location
+    type: type
+    valid: valid
   extra_config:
     form_data:
-    - output-case
-    - number
     - country-code
     - ip
+    - number
+    - output-case
     consumes:
     - json
     produces:
@@ -553,19 +681,23 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - securityCode
-  - numberValid
   - calling
-  mapping: {}
+  - numberValid
+  - securityCode
+  concurrent_calls: 0
+  mapping:
+    calling: calling
+    numberValid: numberValid
+    securityCode: securityCode
   extra_config:
     form_data:
-    - output-case
-    - number
     - code-length
-    - security-code
-    - playback-delay
     - country-code
     - language-code
+    - number
+    - output-case
+    - playback-delay
+    - security-code
     consumes:
     - json
     produces:
@@ -583,13 +715,14 @@ backends:
   - https://neutrinoapi.com
   query_string_params:
   - width
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
-    - content
-    - height
-    - fg-color
     - bg-color
+    - content
+    - fg-color
+    - height
     consumes:
     - json
     produces:
@@ -606,18 +739,22 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - securityCode
   - numberValid
+  - securityCode
   - sent
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    numberValid: numberValid
+    securityCode: securityCode
+    sent: sent
   extra_config:
     form_data:
-    - output-case
-    - number
     - code-length
-    - security-code
     - country-code
     - language-code
+    - number
+    - output-case
+    - security-code
     consumes:
     - json
     produces:
@@ -634,35 +771,59 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - contentEncoding
-  - url
-  - serverCountry
-  - serverHostname
-  - query
-  - urlProtocol
-  - urlPath
-  - serverCity
-  - httpOk
   - content
-  - valid
-  - loadTime
-  - urlPort
-  - httpStatus
-  - serverCountryCode
-  - httpStatusMessage
-  - contentType
-  - serverName
-  - serverIp
-  - httpRedirect
-  - serverRegion
-  - real
+  - contentEncoding
   - contentSize
-  mapping: {}
+  - contentType
+  - httpOk
+  - httpRedirect
+  - httpStatus
+  - httpStatusMessage
+  - loadTime
+  - query
+  - real
+  - serverCity
+  - serverCountry
+  - serverCountryCode
+  - serverHostname
+  - serverIp
+  - serverName
+  - serverRegion
+  - url
+  - urlPath
+  - urlPort
+  - urlProtocol
+  - valid
+  concurrent_calls: 0
+  mapping:
+    content: content
+    contentEncoding: contentEncoding
+    contentSize: contentSize
+    contentType: contentType
+    httpOk: httpOk
+    httpRedirect: httpRedirect
+    httpStatus: httpStatus
+    httpStatusMessage: httpStatusMessage
+    loadTime: loadTime
+    query: query
+    real: real
+    serverCity: serverCity
+    serverCountry: serverCountry
+    serverCountryCode: serverCountryCode
+    serverHostname: serverHostname
+    serverIp: serverIp
+    serverName: serverName
+    serverRegion: serverRegion
+    url: url
+    urlPath: urlPath
+    urlPort: urlPort
+    urlProtocol: urlProtocol
+    valid: valid
   extra_config:
     form_data:
+    - fetch-content
     - output-case
     - url
-    - fetch-content
     consumes:
     - json
     produces:
@@ -679,22 +840,38 @@ backends:
   host:
   - https://neutrinoapi.com
   whitelist:
-  - mobileBrowser
+  - browserName
+  - isAndroid
   - isIos
-  - mobileScreenWidth
-  - mobileScreenHeight
-  - mobileModel
   - isMobile
-  - operatingSystemVersion
+  - mobileBrand
+  - mobileBrowser
+  - mobileModel
+  - mobileScreenHeight
+  - mobileScreenWidth
   - operatingSystem
   - operatingSystemFamily
+  - operatingSystemVersion
   - producer
-  - mobileBrand
-  - browserName
-  - version
   - type
-  - isAndroid
-  mapping: {}
+  - version
+  concurrent_calls: 0
+  mapping:
+    browserName: browserName
+    isAndroid: isAndroid
+    isIos: isIos
+    isMobile: isMobile
+    mobileBrand: mobileBrand
+    mobileBrowser: mobileBrowser
+    mobileModel: mobileModel
+    mobileScreenHeight: mobileScreenHeight
+    mobileScreenWidth: mobileScreenWidth
+    operatingSystem: operatingSystem
+    operatingSystemFamily: operatingSystemFamily
+    operatingSystemVersion: operatingSystemVersion
+    producer: producer
+    type: type
+    version: version
   extra_config:
     form_data:
     - output-case
@@ -716,7 +893,9 @@ backends:
   - https://neutrinoapi.com
   whitelist:
   - verified
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    verified: verified
   extra_config:
     form_data:
     - output-case

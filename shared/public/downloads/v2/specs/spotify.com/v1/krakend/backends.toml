@@ -6,6 +6,7 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   query_string_params = ["ids", "market"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -21,7 +22,25 @@
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
   query_string_params = ["market"]
-  whitelist = ["available_markets", "copyrights", "artists", "external_ids", "popularity", "album_type", "images", "href", "id", "release_date_precision", "release_date", "genres", "external_urls", "type", "uri", "name"]
+  whitelist = ["album_type", "artists", "available_markets", "copyrights", "external_ids", "external_urls", "genres", "href", "id", "images", "name", "popularity", "release_date", "release_date_precision", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    album_type = "album_type"
+    artists = "artists"
+    available_markets = "available_markets"
+    copyrights = "copyrights"
+    external_ids = "external_ids"
+    external_urls = "external_urls"
+    genres = "genres"
+    href = "href"
+    id = "id"
+    images = "images"
+    name = "name"
+    popularity = "popularity"
+    release_date = "release_date"
+    release_date_precision = "release_date_precision"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -36,8 +55,17 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
-  query_string_params = ["limit", "offset", "market"]
-  whitelist = ["next", "previous", "offset", "items", "total", "href", "limit"]
+  query_string_params = ["limit", "market", "offset"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -52,6 +80,7 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   query_string_params = ["ids"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -66,7 +95,18 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
-  whitelist = ["genres", "external_urls", "id", "name", "uri", "images", "type", "popularity", "href"]
+  whitelist = ["external_urls", "genres", "href", "id", "images", "name", "popularity", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    external_urls = "external_urls"
+    genres = "genres"
+    href = "href"
+    id = "id"
+    images = "images"
+    name = "name"
+    popularity = "popularity"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -81,8 +121,17 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
-  query_string_params = ["limit", "offset", "album_type", "market"]
-  whitelist = ["items", "total", "next", "previous", "href", "limit", "offset"]
+  query_string_params = ["album_type", "limit", "market", "offset"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -97,6 +146,7 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -112,6 +162,7 @@
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
   query_string_params = ["country"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -125,9 +176,18 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["limit", "offset", "country", "locale"]
+  query_string_params = ["country", "limit", "locale", "offset"]
   header = ["Accept"]
-  whitelist = ["previous", "next", "limit", "total", "offset", "items", "href"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -144,7 +204,13 @@
   url_keys = ["category_id"]
   query_string_params = ["country", "locale"]
   header = ["Accept"]
-  whitelist = ["name", "icons", "id", "href"]
+  whitelist = ["href", "icons", "id", "name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    icons = "icons"
+    id = "id"
+    name = "name"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -159,8 +225,9 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["category_id"]
-  query_string_params = ["limit", "offset", "country"]
+  query_string_params = ["country", "limit", "offset"]
   header = ["Accept"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -174,9 +241,12 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["limit", "offset", "country", "locale", "timestamp"]
+  query_string_params = ["country", "limit", "locale", "offset", "timestamp"]
   header = ["Accept"]
   whitelist = ["message"]
+  concurrent_calls = 0
+  [backends.mapping]
+    message = "message"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -190,9 +260,18 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["limit", "offset", "country"]
+  query_string_params = ["country", "limit", "offset"]
   header = ["Accept"]
-  whitelist = ["total", "next", "previous", "href", "limit", "offset", "items"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -206,7 +285,19 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  whitelist = ["href", "birthdate", "id", "displayName", "country", "external_urls", "product", "email", "type", "uri"]
+  whitelist = ["birthdate", "country", "displayName", "email", "external_urls", "href", "id", "product", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    birthdate = "birthdate"
+    country = "country"
+    displayName = "displayName"
+    email = "email"
+    external_urls = "external_urls"
+    href = "href"
+    id = "id"
+    product = "product"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -220,8 +311,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["type", "limit", "after"]
+  query_string_params = ["after", "limit", "type"]
   whitelist = ["artists"]
+  concurrent_calls = 0
+  [backends.mapping]
+    artists = "artists"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -235,7 +329,8 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["type", "ids"]
+  query_string_params = ["ids", "type"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -249,9 +344,18 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["limit", "offset", "market"]
+  query_string_params = ["limit", "market", "offset"]
   header = ["Accept"]
-  whitelist = ["previous", "href", "next", "items", "limit", "offset", "total"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -266,6 +370,7 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   query_string_params = ["ids"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -279,8 +384,13 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  query_string_params = ["limit", "offset", "q", "type", "market"]
-  whitelist = ["artists", "albums", "tracks"]
+  query_string_params = ["limit", "market", "offset", "q", "type"]
+  whitelist = ["albums", "artists", "tracks"]
+  concurrent_calls = 0
+  [backends.mapping]
+    albums = "albums"
+    artists = "artists"
+    tracks = "tracks"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -295,6 +405,7 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   query_string_params = ["ids", "market"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -310,7 +421,25 @@
   host = ["https://api.spotify.com"]
   url_keys = ["id"]
   query_string_params = ["market"]
-  whitelist = ["external_urls", "linked_from", "available_markets", "uri", "artists", "track_number", "preview_url", "name", "id", "external_ids", "is_playable", "disc_number", "href", "duration_ms", "type", "explicit"]
+  whitelist = ["artists", "available_markets", "disc_number", "duration_ms", "explicit", "external_ids", "external_urls", "href", "id", "is_playable", "linked_from", "name", "preview_url", "track_number", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    artists = "artists"
+    available_markets = "available_markets"
+    disc_number = "disc_number"
+    duration_ms = "duration_ms"
+    explicit = "explicit"
+    external_ids = "external_ids"
+    external_urls = "external_urls"
+    href = "href"
+    id = "id"
+    is_playable = "is_playable"
+    linked_from = "linked_from"
+    name = "name"
+    preview_url = "preview_url"
+    track_number = "track_number"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -325,7 +454,15 @@
   encoding = "json"
   host = ["https://api.spotify.com"]
   url_keys = ["user_id"]
-  whitelist = ["uri", "displayName", "id", "href", "external_urls", "type"]
+  whitelist = ["displayName", "external_urls", "href", "id", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    displayName = "displayName"
+    external_urls = "external_urls"
+    href = "href"
+    id = "id"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -342,7 +479,16 @@
   url_keys = ["user_id"]
   query_string_params = ["limit", "offset"]
   header = ["Accept"]
-  whitelist = ["limit", "next", "offset", "previous", "total", "href", "items"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -356,10 +502,24 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  url_keys = ["user_id", "playlist_id"]
+  url_keys = ["playlist_id", "user_id"]
   query_string_params = ["fields", "market"]
   header = ["Accept"]
-  whitelist = ["images", "name", "id", "public", "href", "description", "uri", "external_urls", "snapshot_id", "followers", "type", "collaborative"]
+  whitelist = ["collaborative", "description", "external_urls", "followers", "href", "id", "images", "name", "public", "snapshot_id", "type", "uri"]
+  concurrent_calls = 0
+  [backends.mapping]
+    collaborative = "collaborative"
+    description = "description"
+    external_urls = "external_urls"
+    followers = "followers"
+    href = "href"
+    id = "id"
+    images = "images"
+    name = "name"
+    public = "public"
+    snapshot_id = "snapshot_id"
+    type = "type"
+    uri = "uri"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -373,8 +533,9 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  url_keys = ["user_id", "playlist_id"]
+  url_keys = ["playlist_id", "user_id"]
   query_string_params = ["ids"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -388,10 +549,19 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.spotify.com"]
-  url_keys = ["user_id", "playlist_id"]
-  query_string_params = ["limit", "offset", "fields", "market"]
+  url_keys = ["playlist_id", "user_id"]
+  query_string_params = ["fields", "limit", "market", "offset"]
   header = ["Accept"]
-  whitelist = ["total", "next", "href", "offset", "previous", "items", "limit"]
+  whitelist = ["href", "items", "limit", "next", "offset", "previous", "total"]
+  concurrent_calls = 0
+  [backends.mapping]
+    href = "href"
+    items = "items"
+    limit = "limit"
+    next = "next"
+    offset = "offset"
+    previous = "previous"
+    total = "total"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]

@@ -7,6 +7,9 @@
   host = ["https://api.taxamo.com"]
   query_string_params = ["tax_supported"]
   whitelist = ["dictionary"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dictionary = "dictionary"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -21,6 +24,9 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   whitelist = ["dictionary"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dictionary = "dictionary"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -35,6 +41,9 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   whitelist = ["dictionary"]
+  concurrent_calls = 0
+  [backends.mapping]
+    dictionary = "dictionary"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -48,7 +57,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  whitelist = ["remote_addr", "country_code"]
+  whitelist = ["country_code", "remote_addr"]
+  concurrent_calls = 0
+  [backends.mapping]
+    country_code = "country_code"
+    remote_addr = "remote_addr"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -64,6 +77,10 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["ip"]
   whitelist = ["country_code", "remote_addr"]
+  concurrent_calls = 0
+  [backends.mapping]
+    country_code = "country_code"
+    remote_addr = "remote_addr"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -77,8 +94,23 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["format", "country_code", "currency_code", "start_month", "end_month", "fx_date_type"]
-  whitelist = ["global_sales_amount", "domestic_refunds_tax_amount", "global_refunds_amount", "eu_tax_deducted_refunds", "eu_tax_deducted_sales", "global_sales_tax_amount", "domestic_sales_amount", "domestic_tax_amount", "currency_code", "global_refunds_tax_amount", "end_date", "domestic_refunds_amount", "start_date"]
+  query_string_params = ["country_code", "currency_code", "end_month", "format", "fx_date_type", "start_month"]
+  whitelist = ["currency_code", "domestic_refunds_amount", "domestic_refunds_tax_amount", "domestic_sales_amount", "domestic_tax_amount", "end_date", "eu_tax_deducted_refunds", "eu_tax_deducted_sales", "global_refunds_amount", "global_refunds_tax_amount", "global_sales_amount", "global_sales_tax_amount", "start_date"]
+  concurrent_calls = 0
+  [backends.mapping]
+    currency_code = "currency_code"
+    domestic_refunds_amount = "domestic_refunds_amount"
+    domestic_refunds_tax_amount = "domestic_refunds_tax_amount"
+    domestic_sales_amount = "domestic_sales_amount"
+    domestic_tax_amount = "domestic_tax_amount"
+    end_date = "end_date"
+    eu_tax_deducted_refunds = "eu_tax_deducted_refunds"
+    eu_tax_deducted_sales = "eu_tax_deducted_sales"
+    global_refunds_amount = "global_refunds_amount"
+    global_refunds_tax_amount = "global_refunds_tax_amount"
+    global_sales_amount = "global_sales_amount"
+    global_sales_tax_amount = "global_sales_tax_amount"
+    start_date = "start_date"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -92,8 +124,14 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["period_length", "lff_sequence_number", "transformation", "currency_code", "end_month", "tax_id", "start_month", "eu_country_code", "fx_date_type", "format"]
-  whitelist = ["end_date", "start_date", "report", "currency_code"]
+  query_string_params = ["currency_code", "end_month", "eu_country_code", "format", "fx_date_type", "lff_sequence_number", "period_length", "start_month", "tax_id", "transformation"]
+  whitelist = ["currency_code", "end_date", "report", "start_date"]
+  concurrent_calls = 0
+  [backends.mapping]
+    currency_code = "currency_code"
+    end_date = "end_date"
+    report = "report"
+    start_date = "start_date"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -107,8 +145,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["format", "country_codes", "date_from", "date_to", "limit", "offset"]
+  query_string_params = ["country_codes", "date_from", "date_to", "format", "limit", "offset"]
   whitelist = ["report"]
+  concurrent_calls = 0
+  [backends.mapping]
+    report = "report"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -122,8 +163,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["format", "moss_country_code", "tax_region", "date_from"]
+  query_string_params = ["date_from", "format", "moss_country_code", "tax_region"]
   whitelist = ["report"]
+  concurrent_calls = 0
+  [backends.mapping]
+    report = "report"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -138,7 +182,8 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   url_keys = ["quarter"]
-  query_string_params = ["moss_country_code", "tax_region", "start_month", "end_month"]
+  query_string_params = ["end_month", "moss_country_code", "start_month", "tax_region"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -153,8 +198,15 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   url_keys = ["quarter"]
-  query_string_params = ["moss_tax_id", "currency_code", "end_month", "tax_id", "refund_date_kind_override", "start_month", "moss_country_code", "format", "tax_country_code"]
-  whitelist = ["start_date", "report", "fx_rate_date", "end_date", "indicative"]
+  query_string_params = ["currency_code", "end_month", "format", "moss_country_code", "moss_tax_id", "refund_date_kind_override", "start_month", "tax_country_code", "tax_id"]
+  whitelist = ["end_date", "fx_rate_date", "indicative", "report", "start_date"]
+  concurrent_calls = 0
+  [backends.mapping]
+    end_date = "end_date"
+    fx_rate_date = "fx_rate_date"
+    indicative = "indicative"
+    report = "report"
+    start_date = "start_date"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -170,6 +222,9 @@
   host = ["https://api.taxamo.com"]
   query_string_params = ["date_from", "date_to"]
   whitelist = ["by_country"]
+  concurrent_calls = 0
+  [backends.mapping]
+    by_country = "by_country"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -184,6 +239,7 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   query_string_params = ["date_from", "date_to"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -197,8 +253,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["interval", "date_from", "date_to"]
+  query_string_params = ["date_from", "date_to", "interval"]
   whitelist = ["settlement_daily"]
+  concurrent_calls = 0
+  [backends.mapping]
+    settlement_daily = "settlement_daily"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -213,6 +272,7 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   query_string_params = ["date_from", "date_to", "interval"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -226,8 +286,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["global_currency_code", "date_from", "date_to"]
+  query_string_params = ["date_from", "date_to", "global_currency_code"]
   whitelist = ["by_country"]
+  concurrent_calls = 0
+  [backends.mapping]
+    by_country = "by_country"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -241,8 +304,12 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["product_type", "invoice_address_city", "buyer_credit_card_prefix", "currency_code", "invoice_address_region", "unit_price", "quantity", "buyer_tax_number", "force_country_code", "order_date", "amount", "billing_country_code", "invoice_address_postal_code", "total_amount", "tax_deducted"]
-  whitelist = ["tax_required_fields", "storage_required_fields"]
+  query_string_params = ["amount", "billing_country_code", "buyer_credit_card_prefix", "buyer_tax_number", "currency_code", "force_country_code", "invoice_address_city", "invoice_address_postal_code", "invoice_address_region", "order_date", "product_type", "quantity", "tax_deducted", "total_amount", "unit_price"]
+  whitelist = ["storage_required_fields", "tax_required_fields"]
+  concurrent_calls = 0
+  [backends.mapping]
+    storage_required_fields = "storage_required_fields"
+    tax_required_fields = "tax_required_fields"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -257,7 +324,15 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   query_string_params = ["billing_country_code", "buyer_credit_card_prefix"]
-  whitelist = ["tax_supported", "billing_country_code", "buyer_credit_card_prefix", "buyer_ip", "tax_country_code", "tax_deducted"]
+  whitelist = ["billing_country_code", "buyer_credit_card_prefix", "buyer_ip", "tax_country_code", "tax_deducted", "tax_supported"]
+  concurrent_calls = 0
+  [backends.mapping]
+    billing_country_code = "billing_country_code"
+    buyer_credit_card_prefix = "buyer_credit_card_prefix"
+    buyer_ip = "buyer_ip"
+    tax_country_code = "tax_country_code"
+    tax_deducted = "tax_deducted"
+    tax_supported = "tax_supported"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -273,7 +348,13 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["tax_number"]
   query_string_params = ["country_code"]
-  whitelist = ["tax_deducted", "buyer_tax_number_valid", "buyer_tax_number", "billing_country_code"]
+  whitelist = ["billing_country_code", "buyer_tax_number", "buyer_tax_number_valid", "tax_deducted"]
+  concurrent_calls = 0
+  [backends.mapping]
+    billing_country_code = "billing_country_code"
+    buyer_tax_number = "buyer_tax_number"
+    buyer_tax_number_valid = "buyer_tax_number_valid"
+    tax_deducted = "tax_deducted"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -287,8 +368,11 @@
   method = "GET"
   encoding = "json"
   host = ["https://api.taxamo.com"]
-  query_string_params = ["filter_text", "offset", "has_note", "key_or_custom_id", "currency_code", "order_date_to", "sort_reverse", "limit", "invoice_number", "tax_country_codes", "statuses", "original_transaction_key", "order_date_from", "total_amount_greater_than", "format", "total_amount_less_than", "tax_country_code"]
+  query_string_params = ["currency_code", "filter_text", "format", "has_note", "invoice_number", "key_or_custom_id", "limit", "offset", "order_date_from", "order_date_to", "original_transaction_key", "sort_reverse", "statuses", "tax_country_code", "tax_country_codes", "total_amount_greater_than", "total_amount_less_than"]
   whitelist = ["transactions"]
+  concurrent_calls = 0
+  [backends.mapping]
+    transactions = "transactions"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -304,6 +388,10 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["storage_required_fields", "tax_required_fields"]
+  concurrent_calls = 0
+  [backends.mapping]
+    storage_required_fields = "storage_required_fields"
+    tax_required_fields = "tax_required_fields"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -319,6 +407,10 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["storage_required_fields", "tax_required_fields"]
+  concurrent_calls = 0
+  [backends.mapping]
+    storage_required_fields = "storage_required_fields"
+    tax_required_fields = "tax_required_fields"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -334,6 +426,9 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key", "refund_note_number"]
   whitelist = ["success"]
+  concurrent_calls = 0
+  [backends.mapping]
+    success = "success"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -349,6 +444,9 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["success"]
+  concurrent_calls = 0
+  [backends.mapping]
+    success = "success"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -365,6 +463,9 @@
   url_keys = ["key"]
   query_string_params = ["limit", "offset"]
   whitelist = ["payments"]
+  concurrent_calls = 0
+  [backends.mapping]
+    payments = "payments"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -380,6 +481,9 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["success"]
+  concurrent_calls = 0
+  [backends.mapping]
+    success = "success"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -395,6 +499,9 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["refunds"]
+  concurrent_calls = 0
+  [backends.mapping]
+    refunds = "refunds"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -410,6 +517,10 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["key"]
   whitelist = ["storage_required_fields", "tax_required_fields"]
+  concurrent_calls = 0
+  [backends.mapping]
+    storage_required_fields = "storage_required_fields"
+    tax_required_fields = "tax_required_fields"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -424,6 +535,9 @@
   encoding = "json"
   host = ["https://api.taxamo.com"]
   whitelist = ["success"]
+  concurrent_calls = 0
+  [backends.mapping]
+    success = "success"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -439,6 +553,9 @@
   host = ["https://api.taxamo.com"]
   url_keys = ["token"]
   whitelist = ["country_code"]
+  concurrent_calls = 0
+  [backends.mapping]
+    country_code = "country_code"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]

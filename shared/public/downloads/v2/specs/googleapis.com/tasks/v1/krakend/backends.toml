@@ -5,6 +5,7 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["tasklist"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,7 +18,13 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["tasklist"]
   query_string_params = ["completedMax", "completedMin", "dueMax", "dueMin", "maxResults", "pageToken", "showCompleted", "showDeleted", "showHidden", "updatedMin"]
-  whitelist = ["kind", "items", "etag", "nextPageToken"]
+  whitelist = ["etag", "items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -28,8 +35,25 @@
   url_pattern = "/lists/{tasklist}/tasks/{task}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["tasklist", "task"]
-  whitelist = ["links", "parent", "updated", "hidden", "deleted", "status", "selfLink", "title", "completed", "due", "kind", "position", "id", "notes", "etag"]
+  url_keys = ["task", "tasklist"]
+  whitelist = ["completed", "deleted", "due", "etag", "hidden", "id", "kind", "links", "notes", "parent", "position", "selfLink", "status", "title", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    completed = "completed"
+    deleted = "deleted"
+    due = "due"
+    etag = "etag"
+    hidden = "hidden"
+    id = "id"
+    kind = "kind"
+    links = "links"
+    notes = "notes"
+    parent = "parent"
+    position = "position"
+    selfLink = "selfLink"
+    status = "status"
+    title = "title"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -40,9 +64,26 @@
   url_pattern = "/lists/{tasklist}/tasks/{task}/move"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["tasklist", "task"]
+  url_keys = ["task", "tasklist"]
   query_string_params = ["parent", "previous"]
-  whitelist = ["updated", "hidden", "deleted", "status", "selfLink", "links", "title", "completed", "due", "kind", "position", "id", "notes", "etag", "parent"]
+  whitelist = ["completed", "deleted", "due", "etag", "hidden", "id", "kind", "links", "notes", "parent", "position", "selfLink", "status", "title", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    completed = "completed"
+    deleted = "deleted"
+    due = "due"
+    etag = "etag"
+    hidden = "hidden"
+    id = "id"
+    kind = "kind"
+    links = "links"
+    notes = "notes"
+    parent = "parent"
+    position = "position"
+    selfLink = "selfLink"
+    status = "status"
+    title = "title"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -54,7 +95,13 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["maxResults", "pageToken"]
-  whitelist = ["etag", "items", "nextPageToken", "kind"]
+  whitelist = ["etag", "items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -66,7 +113,15 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["tasklist"]
-  whitelist = ["etag", "selfLink", "id", "title", "updated", "kind"]
+  whitelist = ["etag", "id", "kind", "selfLink", "title", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    id = "id"
+    kind = "kind"
+    selfLink = "selfLink"
+    title = "title"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

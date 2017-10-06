@@ -5,8 +5,9 @@
   method = "POST"
   encoding = "json"
   host = ["https://upload.box.com"]
+  concurrent_calls = 0
   [backends.extra_config]
-    form_data = ["file", "attributes"]
+    form_data = ["attributes", "file"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://upload.box.com"]
@@ -19,6 +20,7 @@
   method = "POST"
   encoding = "json"
   host = ["https://upload.box.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -33,6 +35,7 @@
   encoding = "json"
   host = ["https://upload.box.com"]
   url_keys = ["SESSION_ID"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -48,6 +51,7 @@
   host = ["https://upload.box.com"]
   url_keys = ["SESSION_ID"]
   header = ["Digest", "If-Match", "If-Non-Match"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -62,8 +66,14 @@
   encoding = "json"
   host = ["https://upload.box.com"]
   url_keys = ["SESSION_ID"]
-  query_string_params = ["offset", "limit"]
-  whitelist = ["total_count", "limit", "offset", "entries"]
+  query_string_params = ["limit", "offset"]
+  whitelist = ["entries", "limit", "offset", "total_count"]
+  concurrent_calls = 0
+  [backends.mapping]
+    entries = "entries"
+    limit = "limit"
+    offset = "offset"
+    total_count = "total_count"
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]
@@ -79,6 +89,7 @@
   host = ["https://upload.box.com"]
   url_keys = ["FILE_ID"]
   header = ["If-Match"]
+  concurrent_calls = 0
   [backends.extra_config]
     form_data = ["attributes", "file"]
     consumes = ["json"]
@@ -94,6 +105,7 @@
   encoding = "json"
   host = ["https://upload.box.com"]
   url_keys = ["FILE_ID"]
+  concurrent_calls = 0
   [backends.extra_config]
     consumes = ["json"]
     produces = ["json"]

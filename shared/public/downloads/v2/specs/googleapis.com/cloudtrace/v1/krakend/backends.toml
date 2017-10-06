@@ -7,6 +7,10 @@
   url_keys = ["projectId"]
   query_string_params = ["endTime", "filter", "orderBy", "pageSize", "pageToken", "startTime", "view"]
   whitelist = ["nextPageToken", "traces"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    traces = "traces"
   [backends.extra_config]
     hosts = ["https://cloudtrace.googleapis.com"]
     schemes = ["https"]
@@ -18,7 +22,12 @@
   method = "GET"
   host = ["https://cloudtrace.googleapis.com"]
   url_keys = ["projectId", "traceId"]
-  whitelist = ["spans", "projectId", "traceId"]
+  whitelist = ["projectId", "spans", "traceId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    projectId = "projectId"
+    spans = "spans"
+    traceId = "traceId"
   [backends.extra_config]
     hosts = ["https://cloudtrace.googleapis.com"]
     schemes = ["https"]

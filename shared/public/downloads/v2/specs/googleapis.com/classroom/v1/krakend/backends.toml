@@ -4,8 +4,12 @@
   url_pattern = "/v1/courses"
   method = "GET"
   host = ["https://classroom.googleapis.com"]
-  query_string_params = ["courseStates", "pageSize", "teacherId", "studentId", "pageToken"]
+  query_string_params = ["courseStates", "pageSize", "pageToken", "studentId", "teacherId"]
   whitelist = ["courses", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    courses = "courses"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -18,7 +22,11 @@
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId"]
   query_string_params = ["pageSize", "pageToken"]
-  whitelist = ["nextPageToken", "aliases"]
+  whitelist = ["aliases", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    aliases = "aliases"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -31,7 +39,11 @@
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId"]
   query_string_params = ["announcementStates", "orderBy", "pageSize", "pageToken"]
-  whitelist = ["nextPageToken", "announcements"]
+  whitelist = ["announcements", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    announcements = "announcements"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -43,7 +55,20 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "id"]
-  whitelist = ["updateTime", "creationTime", "state", "scheduledTime", "materials", "assigneeMode", "courseId", "text", "alternateLink", "id", "creatorUserId"]
+  whitelist = ["alternateLink", "assigneeMode", "courseId", "creationTime", "creatorUserId", "id", "materials", "scheduledTime", "state", "text", "updateTime"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assigneeMode = "assigneeMode"
+    courseId = "courseId"
+    creationTime = "creationTime"
+    creatorUserId = "creatorUserId"
+    id = "id"
+    materials = "materials"
+    scheduledTime = "scheduledTime"
+    state = "state"
+    text = "text"
+    updateTime = "updateTime"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -55,7 +80,20 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "id"]
-  whitelist = ["alternateLink", "id", "creatorUserId", "creationTime", "updateTime", "state", "scheduledTime", "materials", "assigneeMode", "courseId", "text"]
+  whitelist = ["alternateLink", "assigneeMode", "courseId", "creationTime", "creatorUserId", "id", "materials", "scheduledTime", "state", "text", "updateTime"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assigneeMode = "assigneeMode"
+    courseId = "courseId"
+    creationTime = "creationTime"
+    creatorUserId = "creatorUserId"
+    id = "id"
+    materials = "materials"
+    scheduledTime = "scheduledTime"
+    state = "state"
+    text = "text"
+    updateTime = "updateTime"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -67,8 +105,12 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId"]
-  query_string_params = ["courseWorkStates", "pageSize", "orderBy", "pageToken"]
+  query_string_params = ["courseWorkStates", "orderBy", "pageSize", "pageToken"]
   whitelist = ["courseWork", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    courseWork = "courseWork"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -81,7 +123,11 @@
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId"]
   query_string_params = ["late", "pageSize", "pageToken", "states", "userId"]
-  whitelist = ["studentSubmissions", "nextPageToken"]
+  whitelist = ["nextPageToken", "studentSubmissions"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    studentSubmissions = "studentSubmissions"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -93,7 +139,23 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId", "id"]
-  whitelist = ["late", "updateTime", "courseWorkType", "alternateLink", "userId", "assignedGrade", "state", "courseWorkId", "creationTime", "id", "submissionHistory", "courseId", "draftGrade", "associatedWithDeveloper"]
+  whitelist = ["alternateLink", "assignedGrade", "associatedWithDeveloper", "courseId", "courseWorkId", "courseWorkType", "creationTime", "draftGrade", "id", "late", "state", "submissionHistory", "updateTime", "userId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assignedGrade = "assignedGrade"
+    associatedWithDeveloper = "associatedWithDeveloper"
+    courseId = "courseId"
+    courseWorkId = "courseWorkId"
+    courseWorkType = "courseWorkType"
+    creationTime = "creationTime"
+    draftGrade = "draftGrade"
+    id = "id"
+    late = "late"
+    state = "state"
+    submissionHistory = "submissionHistory"
+    updateTime = "updateTime"
+    userId = "userId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -105,7 +167,23 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId", "id"]
-  whitelist = ["late", "updateTime", "courseWorkType", "alternateLink", "userId", "assignedGrade", "state", "courseWorkId", "creationTime", "id", "submissionHistory", "courseId", "draftGrade", "associatedWithDeveloper"]
+  whitelist = ["alternateLink", "assignedGrade", "associatedWithDeveloper", "courseId", "courseWorkId", "courseWorkType", "creationTime", "draftGrade", "id", "late", "state", "submissionHistory", "updateTime", "userId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assignedGrade = "assignedGrade"
+    associatedWithDeveloper = "associatedWithDeveloper"
+    courseId = "courseId"
+    courseWorkId = "courseWorkId"
+    courseWorkType = "courseWorkType"
+    creationTime = "creationTime"
+    draftGrade = "draftGrade"
+    id = "id"
+    late = "late"
+    state = "state"
+    submissionHistory = "submissionHistory"
+    updateTime = "updateTime"
+    userId = "userId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -117,6 +195,7 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId", "id"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -128,6 +207,7 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId", "id"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -139,6 +219,7 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "courseWorkId", "id"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -150,7 +231,25 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "id"]
-  whitelist = ["updateTime", "state", "creationTime", "materials", "courseId", "creatorUserId", "associatedWithDeveloper", "workType", "submissionModificationMode", "assigneeMode", "alternateLink", "maxPoints", "title", "scheduledTime", "description", "id"]
+  whitelist = ["alternateLink", "assigneeMode", "associatedWithDeveloper", "courseId", "creationTime", "creatorUserId", "description", "id", "materials", "maxPoints", "scheduledTime", "state", "submissionModificationMode", "title", "updateTime", "workType"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assigneeMode = "assigneeMode"
+    associatedWithDeveloper = "associatedWithDeveloper"
+    courseId = "courseId"
+    creationTime = "creationTime"
+    creatorUserId = "creatorUserId"
+    description = "description"
+    id = "id"
+    materials = "materials"
+    maxPoints = "maxPoints"
+    scheduledTime = "scheduledTime"
+    state = "state"
+    submissionModificationMode = "submissionModificationMode"
+    title = "title"
+    updateTime = "updateTime"
+    workType = "workType"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -162,7 +261,25 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "id"]
-  whitelist = ["associatedWithDeveloper", "workType", "submissionModificationMode", "assigneeMode", "alternateLink", "maxPoints", "title", "scheduledTime", "description", "id", "updateTime", "state", "creationTime", "materials", "courseId", "creatorUserId"]
+  whitelist = ["alternateLink", "assigneeMode", "associatedWithDeveloper", "courseId", "creationTime", "creatorUserId", "description", "id", "materials", "maxPoints", "scheduledTime", "state", "submissionModificationMode", "title", "updateTime", "workType"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    assigneeMode = "assigneeMode"
+    associatedWithDeveloper = "associatedWithDeveloper"
+    courseId = "courseId"
+    creationTime = "creationTime"
+    creatorUserId = "creatorUserId"
+    description = "description"
+    id = "id"
+    materials = "materials"
+    maxPoints = "maxPoints"
+    scheduledTime = "scheduledTime"
+    state = "state"
+    submissionModificationMode = "submissionModificationMode"
+    title = "title"
+    updateTime = "updateTime"
+    workType = "workType"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -176,6 +293,10 @@
   url_keys = ["courseId"]
   query_string_params = ["pageSize", "pageToken"]
   whitelist = ["nextPageToken", "students"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    students = "students"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -188,6 +309,10 @@
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "userId"]
   whitelist = ["courseId", "userId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    courseId = "courseId"
+    userId = "userId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -200,7 +325,11 @@
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId"]
   query_string_params = ["pageSize", "pageToken"]
-  whitelist = ["teachers", "nextPageToken"]
+  whitelist = ["nextPageToken", "teachers"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    teachers = "teachers"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -212,7 +341,11 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["courseId", "userId"]
-  whitelist = ["userId", "courseId"]
+  whitelist = ["courseId", "userId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    courseId = "courseId"
+    userId = "userId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -224,7 +357,26 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["courseGroupEmail", "courseState", "guardiansEnabled", "calendarId", "section", "room", "updateTime", "enrollmentCode", "id", "courseMaterialSets", "ownerId", "teacherGroupEmail", "description", "creationTime", "descriptionHeading", "name", "alternateLink"]
+  whitelist = ["alternateLink", "calendarId", "courseGroupEmail", "courseMaterialSets", "courseState", "creationTime", "description", "descriptionHeading", "enrollmentCode", "guardiansEnabled", "id", "name", "ownerId", "room", "section", "teacherGroupEmail", "updateTime"]
+  concurrent_calls = 0
+  [backends.mapping]
+    alternateLink = "alternateLink"
+    calendarId = "calendarId"
+    courseGroupEmail = "courseGroupEmail"
+    courseMaterialSets = "courseMaterialSets"
+    courseState = "courseState"
+    creationTime = "creationTime"
+    description = "description"
+    descriptionHeading = "descriptionHeading"
+    enrollmentCode = "enrollmentCode"
+    guardiansEnabled = "guardiansEnabled"
+    id = "id"
+    name = "name"
+    ownerId = "ownerId"
+    room = "room"
+    section = "section"
+    teacherGroupEmail = "teacherGroupEmail"
+    updateTime = "updateTime"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -235,8 +387,12 @@
   url_pattern = "/v1/invitations"
   method = "GET"
   host = ["https://classroom.googleapis.com"]
-  query_string_params = ["courseId", "pageSize", "userId", "pageToken"]
-  whitelist = ["nextPageToken", "invitations"]
+  query_string_params = ["courseId", "pageSize", "pageToken", "userId"]
+  whitelist = ["invitations", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    invitations = "invitations"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -248,7 +404,13 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["id", "courseId", "role", "userId"]
+  whitelist = ["courseId", "id", "role", "userId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    courseId = "courseId"
+    id = "id"
+    role = "role"
+    userId = "userId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -260,6 +422,7 @@
   method = "POST"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["id"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -270,7 +433,11 @@
   url_pattern = "/v1/registrations"
   method = "POST"
   host = ["https://classroom.googleapis.com"]
-  whitelist = ["registrationId", "expiryTime"]
+  whitelist = ["expiryTime", "registrationId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    expiryTime = "expiryTime"
+    registrationId = "registrationId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -282,8 +449,12 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["studentId"]
-  query_string_params = ["pageSize", "invitedEmailAddress", "states", "pageToken"]
-  whitelist = ["nextPageToken", "guardianInvitations"]
+  query_string_params = ["invitedEmailAddress", "pageSize", "pageToken", "states"]
+  whitelist = ["guardianInvitations", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    guardianInvitations = "guardianInvitations"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -294,8 +465,15 @@
   url_pattern = "/v1/userProfiles/{studentId}/guardianInvitations/{invitationId}"
   method = "GET"
   host = ["https://classroom.googleapis.com"]
-  url_keys = ["studentId", "invitationId"]
-  whitelist = ["invitedEmailAddress", "state", "creationTime", "studentId", "invitationId"]
+  url_keys = ["invitationId", "studentId"]
+  whitelist = ["creationTime", "invitationId", "invitedEmailAddress", "state", "studentId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    creationTime = "creationTime"
+    invitationId = "invitationId"
+    invitedEmailAddress = "invitedEmailAddress"
+    state = "state"
+    studentId = "studentId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -307,8 +485,12 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["studentId"]
-  query_string_params = ["pageSize", "invitedEmailAddress", "pageToken"]
+  query_string_params = ["invitedEmailAddress", "pageSize", "pageToken"]
   whitelist = ["guardians", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    guardians = "guardians"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -319,8 +501,13 @@
   url_pattern = "/v1/userProfiles/{studentId}/guardians/{guardianId}"
   method = "GET"
   host = ["https://classroom.googleapis.com"]
-  url_keys = ["studentId", "guardianId"]
-  whitelist = ["guardianId", "studentId", "invitedEmailAddress"]
+  url_keys = ["guardianId", "studentId"]
+  whitelist = ["guardianId", "invitedEmailAddress", "studentId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    guardianId = "guardianId"
+    invitedEmailAddress = "invitedEmailAddress"
+    studentId = "studentId"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]
@@ -332,7 +519,14 @@
   method = "GET"
   host = ["https://classroom.googleapis.com"]
   url_keys = ["userId"]
-  whitelist = ["emailAddress", "permissions", "id", "photoUrl", "verifiedTeacher"]
+  whitelist = ["emailAddress", "id", "permissions", "photoUrl", "verifiedTeacher"]
+  concurrent_calls = 0
+  [backends.mapping]
+    emailAddress = "emailAddress"
+    id = "id"
+    permissions = "permissions"
+    photoUrl = "photoUrl"
+    verifiedTeacher = "verifiedTeacher"
   [backends.extra_config]
     hosts = ["https://classroom.googleapis.com"]
     schemes = ["https"]

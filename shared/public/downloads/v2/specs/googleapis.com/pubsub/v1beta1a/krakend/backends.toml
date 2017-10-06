@@ -4,8 +4,12 @@
   url_pattern = "/v1beta1a/subscriptions"
   method = "GET"
   host = ["https://pubsub.googleapis.com"]
-  query_string_params = ["pageToken", "query", "maxResults"]
-  whitelist = ["subscription", "nextPageToken"]
+  query_string_params = ["maxResults", "pageToken", "query"]
+  whitelist = ["nextPageToken", "subscription"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    subscription = "subscription"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -16,6 +20,7 @@
   url_pattern = "/v1beta1a/subscriptions/acknowledge"
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -26,6 +31,7 @@
   url_pattern = "/v1beta1a/subscriptions/modifyAckDeadline"
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -36,6 +42,7 @@
   url_pattern = "/v1beta1a/subscriptions/modifyPushConfig"
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -47,6 +54,9 @@
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
   whitelist = ["ackId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    ackId = "ackId"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -58,6 +68,9 @@
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
   whitelist = ["pullResponses"]
+  concurrent_calls = 0
+  [backends.mapping]
+    pullResponses = "pullResponses"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -69,7 +82,12 @@
   method = "GET"
   host = ["https://pubsub.googleapis.com"]
   url_keys = ["subscription"]
-  whitelist = ["topic", "ackDeadlineSeconds", "name"]
+  whitelist = ["ackDeadlineSeconds", "name", "topic"]
+  concurrent_calls = 0
+  [backends.mapping]
+    ackDeadlineSeconds = "ackDeadlineSeconds"
+    name = "name"
+    topic = "topic"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -80,8 +98,12 @@
   url_pattern = "/v1beta1a/topics"
   method = "GET"
   host = ["https://pubsub.googleapis.com"]
-  query_string_params = ["pageToken", "query", "maxResults"]
-  whitelist = ["topic", "nextPageToken"]
+  query_string_params = ["maxResults", "pageToken", "query"]
+  whitelist = ["nextPageToken", "topic"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    topic = "topic"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -92,6 +114,7 @@
   url_pattern = "/v1beta1a/topics/publish"
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -103,6 +126,9 @@
   method = "POST"
   host = ["https://pubsub.googleapis.com"]
   whitelist = ["messageIds"]
+  concurrent_calls = 0
+  [backends.mapping]
+    messageIds = "messageIds"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]
@@ -115,6 +141,9 @@
   host = ["https://pubsub.googleapis.com"]
   url_keys = ["topic"]
   whitelist = ["name"]
+  concurrent_calls = 0
+  [backends.mapping]
+    name = "name"
   [backends.extra_config]
     hosts = ["https://pubsub.googleapis.com"]
     schemes = ["https"]

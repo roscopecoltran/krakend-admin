@@ -9,6 +9,7 @@ backends:
   query_string_params:
   - ids
   - market
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -31,23 +32,40 @@ backends:
   query_string_params:
   - market
   whitelist:
+  - album_type
+  - artists
   - available_markets
   - copyrights
-  - artists
   - external_ids
-  - popularity
-  - album_type
-  - images
+  - external_urls
+  - genres
   - href
   - id
-  - release_date_precision
+  - images
+  - name
+  - popularity
   - release_date
-  - genres
-  - external_urls
+  - release_date_precision
   - type
   - uri
-  - name
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    album_type: album_type
+    artists: artists
+    available_markets: available_markets
+    copyrights: copyrights
+    external_ids: external_ids
+    external_urls: external_urls
+    genres: genres
+    href: href
+    id: id
+    images: images
+    name: name
+    popularity: popularity
+    release_date: release_date
+    release_date_precision: release_date_precision
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -68,17 +86,25 @@ backends:
   - id
   query_string_params:
   - limit
-  - offset
   - market
-  whitelist:
-  - next
-  - previous
   - offset
-  - items
-  - total
+  whitelist:
   - href
+  - items
   - limit
-  mapping: {}
+  - next
+  - offset
+  - previous
+  - total
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -97,6 +123,7 @@ backends:
   - https://api.spotify.com
   query_string_params:
   - ids
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -117,16 +144,26 @@ backends:
   url_keys:
   - id
   whitelist:
-  - genres
   - external_urls
-  - id
-  - name
-  - uri
-  - images
-  - type
-  - popularity
+  - genres
   - href
-  mapping: {}
+  - id
+  - images
+  - name
+  - popularity
+  - type
+  - uri
+  concurrent_calls: 0
+  mapping:
+    external_urls: external_urls
+    genres: genres
+    href: href
+    id: id
+    images: images
+    name: name
+    popularity: popularity
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -146,19 +183,27 @@ backends:
   url_keys:
   - id
   query_string_params:
-  - limit
-  - offset
   - album_type
-  - market
-  whitelist:
-  - items
-  - total
-  - next
-  - previous
-  - href
   - limit
+  - market
   - offset
-  mapping: {}
+  whitelist:
+  - href
+  - items
+  - limit
+  - next
+  - offset
+  - previous
+  - total
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -177,6 +222,7 @@ backends:
   - https://api.spotify.com
   url_keys:
   - id
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -198,6 +244,7 @@ backends:
   - id
   query_string_params:
   - country
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -216,21 +263,29 @@ backends:
   host:
   - https://api.spotify.com
   query_string_params:
-  - limit
-  - offset
   - country
+  - limit
   - locale
+  - offset
   header:
   - Accept
   whitelist:
-  - previous
-  - next
-  - limit
-  - total
-  - offset
-  - items
   - href
-  mapping: {}
+  - items
+  - limit
+  - next
+  - offset
+  - previous
+  - total
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -255,11 +310,16 @@ backends:
   header:
   - Accept
   whitelist:
-  - name
+  - href
   - icons
   - id
-  - href
-  mapping: {}
+  - name
+  concurrent_calls: 0
+  mapping:
+    href: href
+    icons: icons
+    id: id
+    name: name
   extra_config:
     consumes:
     - json
@@ -279,11 +339,12 @@ backends:
   url_keys:
   - category_id
   query_string_params:
+  - country
   - limit
   - offset
-  - country
   header:
   - Accept
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -302,16 +363,18 @@ backends:
   host:
   - https://api.spotify.com
   query_string_params:
-  - limit
-  - offset
   - country
+  - limit
   - locale
+  - offset
   - timestamp
   header:
   - Accept
   whitelist:
   - message
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    message: message
   extra_config:
     consumes:
     - json
@@ -329,20 +392,28 @@ backends:
   host:
   - https://api.spotify.com
   query_string_params:
+  - country
   - limit
   - offset
-  - country
   header:
   - Accept
   whitelist:
-  - total
-  - next
-  - previous
   - href
-  - limit
-  - offset
   - items
-  mapping: {}
+  - limit
+  - next
+  - offset
+  - previous
+  - total
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -360,17 +431,28 @@ backends:
   host:
   - https://api.spotify.com
   whitelist:
-  - href
   - birthdate
-  - id
-  - displayName
   - country
-  - external_urls
-  - product
+  - displayName
   - email
+  - external_urls
+  - href
+  - id
+  - product
   - type
   - uri
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    birthdate: birthdate
+    country: country
+    displayName: displayName
+    email: email
+    external_urls: external_urls
+    href: href
+    id: id
+    product: product
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -388,12 +470,14 @@ backends:
   host:
   - https://api.spotify.com
   query_string_params:
-  - type
-  - limit
   - after
+  - limit
+  - type
   whitelist:
   - artists
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    artists: artists
   extra_config:
     consumes:
     - json
@@ -411,8 +495,9 @@ backends:
   host:
   - https://api.spotify.com
   query_string_params:
-  - type
   - ids
+  - type
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -432,19 +517,27 @@ backends:
   - https://api.spotify.com
   query_string_params:
   - limit
-  - offset
   - market
+  - offset
   header:
   - Accept
   whitelist:
-  - previous
   - href
-  - next
   - items
   - limit
+  - next
   - offset
+  - previous
   - total
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -463,6 +556,7 @@ backends:
   - https://api.spotify.com
   query_string_params:
   - ids
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -482,15 +576,19 @@ backends:
   - https://api.spotify.com
   query_string_params:
   - limit
+  - market
   - offset
   - q
   - type
-  - market
   whitelist:
-  - artists
   - albums
+  - artists
   - tracks
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    albums: albums
+    artists: artists
+    tracks: tracks
   extra_config:
     consumes:
     - json
@@ -510,6 +608,7 @@ backends:
   query_string_params:
   - ids
   - market
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -532,23 +631,40 @@ backends:
   query_string_params:
   - market
   whitelist:
-  - external_urls
-  - linked_from
-  - available_markets
-  - uri
   - artists
-  - track_number
-  - preview_url
-  - name
-  - id
-  - external_ids
-  - is_playable
+  - available_markets
   - disc_number
-  - href
   - duration_ms
-  - type
   - explicit
-  mapping: {}
+  - external_ids
+  - external_urls
+  - href
+  - id
+  - is_playable
+  - linked_from
+  - name
+  - preview_url
+  - track_number
+  - type
+  - uri
+  concurrent_calls: 0
+  mapping:
+    artists: artists
+    available_markets: available_markets
+    disc_number: disc_number
+    duration_ms: duration_ms
+    explicit: explicit
+    external_ids: external_ids
+    external_urls: external_urls
+    href: href
+    id: id
+    is_playable: is_playable
+    linked_from: linked_from
+    name: name
+    preview_url: preview_url
+    track_number: track_number
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -568,13 +684,20 @@ backends:
   url_keys:
   - user_id
   whitelist:
-  - uri
   - displayName
-  - id
-  - href
   - external_urls
+  - href
+  - id
   - type
-  mapping: {}
+  - uri
+  concurrent_calls: 0
+  mapping:
+    displayName: displayName
+    external_urls: external_urls
+    href: href
+    id: id
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -599,14 +722,22 @@ backends:
   header:
   - Accept
   whitelist:
+  - href
+  - items
   - limit
   - next
   - offset
   - previous
   - total
-  - href
-  - items
-  mapping: {}
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json
@@ -624,27 +755,40 @@ backends:
   host:
   - https://api.spotify.com
   url_keys:
-  - user_id
   - playlist_id
+  - user_id
   query_string_params:
   - fields
   - market
   header:
   - Accept
   whitelist:
+  - collaborative
+  - description
+  - external_urls
+  - followers
+  - href
+  - id
   - images
   - name
-  - id
   - public
-  - href
-  - description
-  - uri
-  - external_urls
   - snapshot_id
-  - followers
   - type
-  - collaborative
-  mapping: {}
+  - uri
+  concurrent_calls: 0
+  mapping:
+    collaborative: collaborative
+    description: description
+    external_urls: external_urls
+    followers: followers
+    href: href
+    id: id
+    images: images
+    name: name
+    public: public
+    snapshot_id: snapshot_id
+    type: type
+    uri: uri
   extra_config:
     consumes:
     - json
@@ -662,10 +806,11 @@ backends:
   host:
   - https://api.spotify.com
   url_keys:
-  - user_id
   - playlist_id
+  - user_id
   query_string_params:
   - ids
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     consumes:
@@ -684,24 +829,32 @@ backends:
   host:
   - https://api.spotify.com
   url_keys:
-  - user_id
   - playlist_id
+  - user_id
   query_string_params:
-  - limit
-  - offset
   - fields
+  - limit
   - market
+  - offset
   header:
   - Accept
   whitelist:
-  - total
-  - next
   - href
-  - offset
-  - previous
   - items
   - limit
-  mapping: {}
+  - next
+  - offset
+  - previous
+  - total
+  concurrent_calls: 0
+  mapping:
+    href: href
+    items: items
+    limit: limit
+    next: next
+    offset: offset
+    previous: previous
+    total: total
   extra_config:
     consumes:
     - json

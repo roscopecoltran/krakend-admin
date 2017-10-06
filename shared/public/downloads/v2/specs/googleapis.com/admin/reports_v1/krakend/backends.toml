@@ -4,9 +4,15 @@
   url_pattern = "/activity/users/{userKey}/applications/{applicationName}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userKey", "applicationName"]
+  url_keys = ["applicationName", "userKey"]
   query_string_params = ["actorIpAddress", "customerId", "endTime", "eventName", "filters", "maxResults", "pageToken", "startTime"]
-  whitelist = ["etag", "items", "nextPageToken", "kind"]
+  whitelist = ["etag", "items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,9 +23,21 @@
   url_pattern = "/activity/users/{userKey}/applications/{applicationName}/watch"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userKey", "applicationName"]
+  url_keys = ["applicationName", "userKey"]
   query_string_params = ["actorIpAddress", "customerId", "endTime", "eventName", "filters", "maxResults", "pageToken", "startTime"]
-  whitelist = ["id", "expiration", "kind", "params", "type", "payload", "resourceId", "address", "token", "resourceUri"]
+  whitelist = ["address", "expiration", "id", "kind", "params", "payload", "resourceId", "resourceUri", "token", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    address = "address"
+    expiration = "expiration"
+    id = "id"
+    kind = "kind"
+    params = "params"
+    payload = "payload"
+    resourceId = "resourceId"
+    resourceUri = "resourceUri"
+    token = "token"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -30,6 +48,7 @@
   url_pattern = "/admin/reports_v1/channels/stop"
   method = "POST"
   host = ["https://www.googleapis.com"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,7 +61,14 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["date"]
   query_string_params = ["customerId", "pageToken", "parameters"]
-  whitelist = ["etag", "warnings", "nextPageToken", "kind", "usageReports"]
+  whitelist = ["etag", "kind", "nextPageToken", "usageReports", "warnings"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    usageReports = "usageReports"
+    warnings = "warnings"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -53,9 +79,16 @@
   url_pattern = "/usage/users/{userKey}/dates/{date}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userKey", "date"]
+  url_keys = ["date", "userKey"]
   query_string_params = ["customerId", "filters", "maxResults", "pageToken", "parameters"]
-  whitelist = ["etag", "warnings", "nextPageToken", "kind", "usageReports"]
+  whitelist = ["etag", "kind", "nextPageToken", "usageReports", "warnings"]
+  concurrent_calls = 0
+  [backends.mapping]
+    etag = "etag"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    usageReports = "usageReports"
+    warnings = "warnings"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

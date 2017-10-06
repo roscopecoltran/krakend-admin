@@ -4,8 +4,15 @@
   url_pattern = "/url"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  query_string_params = ["shortUrl", "projection"]
-  whitelist = ["longUrl", "created", "kind", "id", "status"]
+  query_string_params = ["projection", "shortUrl"]
+  whitelist = ["created", "id", "kind", "longUrl", "status"]
+  concurrent_calls = 0
+  [backends.mapping]
+    created = "created"
+    id = "id"
+    kind = "kind"
+    longUrl = "longUrl"
+    status = "status"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -17,7 +24,14 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["projection", "start-token"]
-  whitelist = ["nextPageToken", "items", "itemsPerPage", "totalItems", "kind"]
+  whitelist = ["items", "itemsPerPage", "kind", "nextPageToken", "totalItems"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    itemsPerPage = "itemsPerPage"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
+    totalItems = "totalItems"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

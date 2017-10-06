@@ -4,8 +4,14 @@
   url_pattern = "/accounts/{userToken}/{accountType}/{accountName}"
   method = "POST"
   host = ["https://www.googleapis.com"]
-  url_keys = ["userToken", "accountType", "accountName"]
-  whitelist = ["features", "password", "userData", "authTokens"]
+  url_keys = ["accountName", "accountType", "userToken"]
+  whitelist = ["authTokens", "features", "password", "userData"]
+  concurrent_calls = 0
+  [backends.mapping]
+    authTokens = "authTokens"
+    features = "features"
+    password = "password"
+    userData = "userData"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -16,7 +22,11 @@
   url_pattern = "/contacts"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -28,7 +38,21 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["phoneNumber", "sharingFeatures", "speakableName", "source", "id", "imageUrls", "displayName", "acceptTypes", "priority", "type", "kind", "acceptCommands"]
+  whitelist = ["acceptCommands", "acceptTypes", "displayName", "id", "imageUrls", "kind", "phoneNumber", "priority", "sharingFeatures", "source", "speakableName", "type"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acceptCommands = "acceptCommands"
+    acceptTypes = "acceptTypes"
+    displayName = "displayName"
+    id = "id"
+    imageUrls = "imageUrls"
+    kind = "kind"
+    phoneNumber = "phoneNumber"
+    priority = "priority"
+    sharingFeatures = "sharingFeatures"
+    source = "source"
+    speakableName = "speakableName"
+    type = "type"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -40,6 +64,10 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -51,7 +79,17 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["latitude", "accuracy", "kind", "timestamp", "longitude", "address", "id", "displayName"]
+  whitelist = ["accuracy", "address", "displayName", "id", "kind", "latitude", "longitude", "timestamp"]
+  concurrent_calls = 0
+  [backends.mapping]
+    accuracy = "accuracy"
+    address = "address"
+    displayName = "displayName"
+    id = "id"
+    kind = "kind"
+    latitude = "latitude"
+    longitude = "longitude"
+    timestamp = "timestamp"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -63,7 +101,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["id", "value", "kind"]
+  whitelist = ["id", "kind", "value"]
+  concurrent_calls = 0
+  [backends.mapping]
+    id = "id"
+    kind = "kind"
+    value = "value"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -74,7 +117,11 @@
   url_pattern = "/subscriptions"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -86,7 +133,12 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   query_string_params = ["bundleId", "includeDeleted", "maxResults", "orderBy", "pageToken", "pinnedOnly", "sourceItemId"]
-  whitelist = ["nextPageToken", "kind", "items"]
+  whitelist = ["items", "kind", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -98,7 +150,32 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["id"]
-  whitelist = ["isPinned", "updated", "sourceItemId", "html", "etag", "created", "canonicalUrl", "kind", "text", "isBundleCover", "selfLink", "displayTime", "speakableType", "title", "inReplyTo", "speakableText", "pinScore", "isDeleted", "id", "menuItems", "recipients", "bundleId", "attachments"]
+  whitelist = ["attachments", "bundleId", "canonicalUrl", "created", "displayTime", "etag", "html", "id", "inReplyTo", "isBundleCover", "isDeleted", "isPinned", "kind", "menuItems", "pinScore", "recipients", "selfLink", "sourceItemId", "speakableText", "speakableType", "text", "title", "updated"]
+  concurrent_calls = 0
+  [backends.mapping]
+    attachments = "attachments"
+    bundleId = "bundleId"
+    canonicalUrl = "canonicalUrl"
+    created = "created"
+    displayTime = "displayTime"
+    etag = "etag"
+    html = "html"
+    id = "id"
+    inReplyTo = "inReplyTo"
+    isBundleCover = "isBundleCover"
+    isDeleted = "isDeleted"
+    isPinned = "isPinned"
+    kind = "kind"
+    menuItems = "menuItems"
+    pinScore = "pinScore"
+    recipients = "recipients"
+    selfLink = "selfLink"
+    sourceItemId = "sourceItemId"
+    speakableText = "speakableText"
+    speakableType = "speakableType"
+    text = "text"
+    title = "title"
+    updated = "updated"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -111,6 +188,10 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["itemId"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -121,8 +202,14 @@
   url_pattern = "/timeline/{itemId}/attachments/{attachmentId}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["itemId", "attachmentId"]
-  whitelist = ["contentType", "isProcessingContent", "id", "contentUrl"]
+  url_keys = ["attachmentId", "itemId"]
+  whitelist = ["contentType", "contentUrl", "id", "isProcessingContent"]
+  concurrent_calls = 0
+  [backends.mapping]
+    contentType = "contentType"
+    contentUrl = "contentUrl"
+    id = "id"
+    isProcessingContent = "isProcessingContent"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

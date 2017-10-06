@@ -6,12 +6,13 @@ backends:
   encoding: json
   host:
   - https://api.box.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     form_data:
-    - token
     - client_id
     - client_secret
+    - token
     consumes:
     - json
     produces:
@@ -28,25 +29,32 @@ backends:
   host:
   - https://api.box.com
   whitelist:
-  - token_type
-  - issued_token_type
-  - refresh_token
   - access_token
   - expires_in
+  - issued_token_type
+  - refresh_token
   - restricted_to
-  mapping: {}
+  - token_type
+  concurrent_calls: 0
+  mapping:
+    access_token: access_token
+    expires_in: expires_in
+    issued_token_type: issued_token_type
+    refresh_token: refresh_token
+    restricted_to: restricted_to
+    token_type: token_type
   extra_config:
     form_data:
-    - grant_type
-    - code
-    - client_id
-    - client_secret
-    - refresh_token
-    - subject_token
-    - subject_token_type
-    - resource
     - actor_token
     - actor_token_type
+    - client_id
+    - client_secret
+    - code
+    - grant_type
+    - refresh_token
+    - resource
+    - subject_token
+    - subject_token_type
     consumes:
     - json
     produces:

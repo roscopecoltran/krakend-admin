@@ -5,7 +5,11 @@
   method = "GET"
   host = ["https://cloudfunctions.googleapis.com"]
   query_string_params = ["filter", "name", "pageSize", "pageToken"]
-  whitelist = ["operations", "nextPageToken"]
+  whitelist = ["nextPageToken", "operations"]
+  concurrent_calls = 0
+  [backends.mapping]
+    nextPageToken = "nextPageToken"
+    operations = "operations"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -17,8 +21,12 @@
   method = "GET"
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["location"]
-  query_string_params = ["pageToken", "pageSize"]
+  query_string_params = ["pageSize", "pageToken"]
   whitelist = ["functions", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    functions = "functions"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -30,7 +38,21 @@
   method = "GET"
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["name"]
-  whitelist = ["serviceAccount", "timeout", "availableMemoryMb", "name", "updateTime", "sourceArchiveUrl", "versionId", "latestOperation", "labels", "status", "sourceRepositoryUrl", "entryPoint"]
+  whitelist = ["availableMemoryMb", "entryPoint", "labels", "latestOperation", "name", "serviceAccount", "sourceArchiveUrl", "sourceRepositoryUrl", "status", "timeout", "updateTime", "versionId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    availableMemoryMb = "availableMemoryMb"
+    entryPoint = "entryPoint"
+    labels = "labels"
+    latestOperation = "latestOperation"
+    name = "name"
+    serviceAccount = "serviceAccount"
+    sourceArchiveUrl = "sourceArchiveUrl"
+    sourceRepositoryUrl = "sourceRepositoryUrl"
+    status = "status"
+    timeout = "timeout"
+    updateTime = "updateTime"
+    versionId = "versionId"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +64,12 @@
   method = "GET"
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["name"]
-  query_string_params = ["pageToken", "pageSize", "filter"]
-  whitelist = ["nextPageToken", "locations"]
+  query_string_params = ["filter", "pageSize", "pageToken"]
+  whitelist = ["locations", "nextPageToken"]
+  concurrent_calls = 0
+  [backends.mapping]
+    locations = "locations"
+    nextPageToken = "nextPageToken"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]
@@ -55,7 +81,12 @@
   method = "POST"
   host = ["https://cloudfunctions.googleapis.com"]
   url_keys = ["name"]
-  whitelist = ["error", "result", "executionId"]
+  whitelist = ["error", "executionId", "result"]
+  concurrent_calls = 0
+  [backends.mapping]
+    error = "error"
+    executionId = "executionId"
+    result = "result"
   [backends.extra_config]
     hosts = ["https://cloudfunctions.googleapis.com"]
     schemes = ["https"]

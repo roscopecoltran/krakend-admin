@@ -4,7 +4,16 @@
   url_pattern = "/v1/presentations"
   method = "POST"
   host = ["https://slides.googleapis.com"]
-  whitelist = ["revisionId", "locale", "layouts", "slides", "presentationId", "title", "masters"]
+  whitelist = ["layouts", "locale", "masters", "presentationId", "revisionId", "slides", "title"]
+  concurrent_calls = 0
+  [backends.mapping]
+    layouts = "layouts"
+    locale = "locale"
+    masters = "masters"
+    presentationId = "presentationId"
+    revisionId = "revisionId"
+    slides = "slides"
+    title = "title"
   [backends.extra_config]
     hosts = ["https://slides.googleapis.com"]
     schemes = ["https"]
@@ -16,7 +25,16 @@
   method = "GET"
   host = ["https://slides.googleapis.com"]
   url_keys = ["presentationId"]
-  whitelist = ["slides", "presentationId", "title", "masters", "revisionId", "locale", "layouts"]
+  whitelist = ["layouts", "locale", "masters", "presentationId", "revisionId", "slides", "title"]
+  concurrent_calls = 0
+  [backends.mapping]
+    layouts = "layouts"
+    locale = "locale"
+    masters = "masters"
+    presentationId = "presentationId"
+    revisionId = "revisionId"
+    slides = "slides"
+    title = "title"
   [backends.extra_config]
     hosts = ["https://slides.googleapis.com"]
     schemes = ["https"]
@@ -27,8 +45,14 @@
   url_pattern = "/v1/presentations/{presentationId}/pages/{pageObjectId}"
   method = "GET"
   host = ["https://slides.googleapis.com"]
-  url_keys = ["presentationId", "pageObjectId"]
-  whitelist = ["pageType", "pageElements", "revisionId", "objectId"]
+  url_keys = ["pageObjectId", "presentationId"]
+  whitelist = ["objectId", "pageElements", "pageType", "revisionId"]
+  concurrent_calls = 0
+  [backends.mapping]
+    objectId = "objectId"
+    pageElements = "pageElements"
+    pageType = "pageType"
+    revisionId = "revisionId"
   [backends.extra_config]
     hosts = ["https://slides.googleapis.com"]
     schemes = ["https"]
@@ -41,7 +65,12 @@
   host = ["https://slides.googleapis.com"]
   url_keys = ["pageObjectId", "presentationId"]
   query_string_params = ["thumbnailProperties.mimeType", "thumbnailProperties.thumbnailSize"]
-  whitelist = ["contentUrl", "width", "height"]
+  whitelist = ["contentUrl", "height", "width"]
+  concurrent_calls = 0
+  [backends.mapping]
+    contentUrl = "contentUrl"
+    height = "height"
+    width = "width"
   [backends.extra_config]
     hosts = ["https://slides.googleapis.com"]
     schemes = ["https"]
@@ -54,6 +83,10 @@
   host = ["https://slides.googleapis.com"]
   url_keys = ["presentationId"]
   whitelist = ["presentationId", "replies"]
+  concurrent_calls = 0
+  [backends.mapping]
+    presentationId = "presentationId"
+    replies = "replies"
   [backends.extra_config]
     hosts = ["https://slides.googleapis.com"]
     schemes = ["https"]

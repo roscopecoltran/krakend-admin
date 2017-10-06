@@ -5,6 +5,7 @@
   method = "GET"
   host = ["https://api.deutschebahn.com"]
   query_string_params = ["name"]
+  concurrent_calls = 0
   [backends.extra_config]
     hosts = ["https://api.deutschebahn.com", "http://api.deutschebahn.com"]
     schemes = ["https", "http"]
@@ -16,7 +17,22 @@
   method = "GET"
   host = ["https://api.deutschebahn.com"]
   url_keys = ["abbrev"]
-  whitelist = ["RB", "type", "name", "locationCode", "abbrev", "borderStation", "UIC", "timeTableRelevant", "validFrom", "id", "validTill", "status", "short"]
+  whitelist = ["RB", "UIC", "abbrev", "borderStation", "id", "locationCode", "name", "short", "status", "timeTableRelevant", "type", "validFrom", "validTill"]
+  concurrent_calls = 0
+  [backends.mapping]
+    RB = "RB"
+    UIC = "UIC"
+    abbrev = "abbrev"
+    borderStation = "borderStation"
+    id = "id"
+    locationCode = "locationCode"
+    name = "name"
+    short = "short"
+    status = "status"
+    timeTableRelevant = "timeTableRelevant"
+    type = "type"
+    validFrom = "validFrom"
+    validTill = "validTill"
   [backends.extra_config]
     hosts = ["https://api.deutschebahn.com", "http://api.deutschebahn.com"]
     schemes = ["https", "http"]

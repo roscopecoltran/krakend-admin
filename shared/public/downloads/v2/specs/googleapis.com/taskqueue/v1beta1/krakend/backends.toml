@@ -6,7 +6,14 @@
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
   query_string_params = ["getStats"]
-  whitelist = ["acl", "stats", "kind", "maxLeases", "id"]
+  whitelist = ["acl", "id", "kind", "maxLeases", "stats"]
+  concurrent_calls = 0
+  [backends.mapping]
+    acl = "acl"
+    id = "id"
+    kind = "kind"
+    maxLeases = "maxLeases"
+    stats = "stats"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -18,7 +25,11 @@
   method = "GET"
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
-  whitelist = ["kind", "items"]
+  whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -30,8 +41,12 @@
   method = "POST"
   host = ["https://www.googleapis.com"]
   url_keys = ["project", "taskqueue"]
-  query_string_params = ["numTasks", "leaseSecs"]
+  query_string_params = ["leaseSecs", "numTasks"]
   whitelist = ["items", "kind"]
+  concurrent_calls = 0
+  [backends.mapping]
+    items = "items"
+    kind = "kind"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]
@@ -42,8 +57,16 @@
   url_pattern = "/{project}/taskqueues/{taskqueue}/tasks/{task}"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  url_keys = ["project", "taskqueue", "task"]
-  whitelist = ["id", "payloadBase64", "queueName", "leaseTimestamp", "kind", "enqueueTimestamp"]
+  url_keys = ["project", "task", "taskqueue"]
+  whitelist = ["enqueueTimestamp", "id", "kind", "leaseTimestamp", "payloadBase64", "queueName"]
+  concurrent_calls = 0
+  [backends.mapping]
+    enqueueTimestamp = "enqueueTimestamp"
+    id = "id"
+    kind = "kind"
+    leaseTimestamp = "leaseTimestamp"
+    payloadBase64 = "payloadBase64"
+    queueName = "queueName"
   [backends.extra_config]
     hosts = ["https://www.googleapis.com"]
     schemes = ["https"]

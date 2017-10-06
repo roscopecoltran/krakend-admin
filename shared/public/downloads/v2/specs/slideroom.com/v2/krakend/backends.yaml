@@ -7,9 +7,10 @@ backends:
   host:
   - https://api.slideroom.com
   query_string_params:
+  - commonAppYear
   - email
   - pool
-  - commonAppYear
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     produces:
@@ -28,6 +29,7 @@ backends:
   encoding: json
   host:
   - https://api.slideroom.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     produces:
@@ -46,6 +48,7 @@ backends:
   encoding: json
   host:
   - https://api.slideroom.com
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     produces:
@@ -65,41 +68,45 @@ backends:
   host:
   - https://api.slideroom.com
   query_string_params:
-  - format
-  - roundType
-  - roundName
-  - tab.export
-  - pdf.includeForms
-  - pdf.includeReferences
-  - pdf.includeMedia
-  - pdf.includeApplicantAttachments
-  - pdf.includeOrganizationAttachments
-  - pdf.includeRatings
-  - pdf.includeFullPageMedia
-  - pdf.includeHighlights
-  - pdf.includeComments
-  - pdf.includeCommonApp
-  - zip.originalMedia
-  - zip.includeForms
-  - zip.includeReferences
-  - zip.includeMedia
-  - zip.includeApplicantAttachments
-  - zip.includeOrganizationAttachments
-  - zip.includeRatings
-  - zip.includeComments
-  - zip.includeCommonApp
   - delivery.account
   - delivery.folder
-  - since
-  - pool
-  - status
-  - searchName
   - email
+  - format
+  - pdf.includeApplicantAttachments
+  - pdf.includeComments
+  - pdf.includeCommonApp
+  - pdf.includeForms
+  - pdf.includeFullPageMedia
+  - pdf.includeHighlights
+  - pdf.includeMedia
+  - pdf.includeOrganizationAttachments
+  - pdf.includeRatings
+  - pdf.includeReferences
+  - pool
+  - roundName
+  - roundType
+  - searchName
+  - since
+  - status
+  - tab.export
+  - zip.includeApplicantAttachments
+  - zip.includeComments
+  - zip.includeCommonApp
+  - zip.includeForms
+  - zip.includeMedia
+  - zip.includeOrganizationAttachments
+  - zip.includeRatings
+  - zip.includeReferences
+  - zip.originalMedia
   whitelist:
-  - token
-  - submissions
   - message
-  mapping: {}
+  - submissions
+  - token
+  concurrent_calls: 0
+  mapping:
+    message: message
+    submissions: submissions
+    token: token
   extra_config:
     produces:
     - json
@@ -119,6 +126,7 @@ backends:
   - https://api.slideroom.com
   url_keys:
   - applicationId
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     produces:
@@ -140,31 +148,32 @@ backends:
   url_keys:
   - applicationId
   query_string_params:
-  - format
-  - roundType
-  - roundName
-  - tab.export
-  - pdf.includeForms
-  - pdf.includeReferences
-  - pdf.includeMedia
-  - pdf.includeApplicantAttachments
-  - pdf.includeOrganizationAttachments
-  - pdf.includeRatings
-  - pdf.includeFullPageMedia
-  - pdf.includeHighlights
-  - pdf.includeComments
-  - pdf.includeCommonApp
-  - zip.originalMedia
-  - zip.includeForms
-  - zip.includeReferences
-  - zip.includeMedia
-  - zip.includeApplicantAttachments
-  - zip.includeOrganizationAttachments
-  - zip.includeRatings
-  - zip.includeComments
-  - zip.includeCommonApp
   - delivery.account
   - delivery.folder
+  - format
+  - pdf.includeApplicantAttachments
+  - pdf.includeComments
+  - pdf.includeCommonApp
+  - pdf.includeForms
+  - pdf.includeFullPageMedia
+  - pdf.includeHighlights
+  - pdf.includeMedia
+  - pdf.includeOrganizationAttachments
+  - pdf.includeRatings
+  - pdf.includeReferences
+  - roundName
+  - roundType
+  - tab.export
+  - zip.includeApplicantAttachments
+  - zip.includeComments
+  - zip.includeCommonApp
+  - zip.includeForms
+  - zip.includeMedia
+  - zip.includeOrganizationAttachments
+  - zip.includeRatings
+  - zip.includeReferences
+  - zip.originalMedia
+  concurrent_calls: 0
   mapping: {}
   extra_config:
     produces:
@@ -186,11 +195,16 @@ backends:
   url_keys:
   - token
   whitelist:
-  - total_files
-  - file_urls
   - completed_files
+  - file_urls
   - status
-  mapping: {}
+  - total_files
+  concurrent_calls: 0
+  mapping:
+    completed_files: completed_files
+    file_urls: file_urls
+    status: status
+    total_files: total_files
   extra_config:
     produces:
     - json
