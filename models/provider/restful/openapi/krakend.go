@@ -36,8 +36,7 @@ type SwaggerExports struct {
 type SwaggerExport struct {
 	AttrsCount        int               `default:"0" json:"-" yaml:"-" toml:"-"`                               // to remove
 	Group             string            `json:"group,omitempty" yaml:"group,omitempty" toml:"group,omitempty"` // provider name, eg: github.com, bitbucket, aws.amazon
-	Slug              string            `json:"slug,omitempty" yaml:"slug,omitempty" toml:"slug,omitempty"`
-	Scheme            string            `json:"-" yaml:"-" toml:"-"` // `json:"scheme,omitempty" yaml:"scheme,omitempty" toml:"scheme,omitempty"`
+	Scheme            string            `json:"-" yaml:"-" toml:"-"`                                           // `json:"scheme,omitempty" yaml:"scheme,omitempty" toml:"scheme,omitempty"`
 	UrlPattern        string            `required:"true" json:"url_pattern" yaml:"url_pattern" toml:"url_pattern"`
 	Method            string            `default:"GET" json:"method,omitempty" yaml:"method,omitempty" toml:"method,omitempty"`
 	Encoding          string            `default:"json" json:"encoding,omitempty" yaml:"encoding,omitempty" toml:"encoding,omitempty"`
@@ -57,6 +56,7 @@ type SwaggerExport struct {
 	ConcurrentCalls   int               `default:"1" json:"concurrent_calls" yaml:"concurrent_calls" toml:"concurrent_calls"`
 	Mapping           map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty" toml:"mapping,omitempty"`
 	Extra             struct {
+		Slug      string   `json:"slug,omitempty" yaml:"slug,omitempty" toml:"slug,omitempty"`
 		Bodies    []string `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
 		Encodings []string `json:"-" yaml:"-" toml:"-"`
 		FormDatas []string `json:"form_data,omitempty" yaml:"form_data,omitempty" toml:"form_data,omitempty"`
@@ -65,7 +65,7 @@ type SwaggerExport struct {
 		Produces  []string `json:"produces,omitempty" yaml:"produces,omitempty" toml:"produces,omitempty"`
 		Consume   string   `json:"-" yaml:"-" toml:"-"`
 		Hosts     []string `json:"hosts,omitempty" yaml:"hosts,omitempty" toml:"hosts,omitempty"`
-		Tags      []string `json:"tags,omitempty" yaml:"tags,omitempty" toml:"tags,omitempty"`
+		Topics    []string `json:"topics,omitempty" yaml:"topics,omitempty" toml:"topics,omitempty"`
 		Schemes   []string `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
 		LocalFile string   `json:"-" yaml:"-" toml:"-"`
 	} `json:"extra_config" yaml:"extra_config" toml:"extra_config"`
@@ -263,7 +263,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				}
 
 				if len(tags) > 0 {
-					backend.Extra.Tags = tags
+					backend.Extra.Topics = tags
 				}
 
 				/*
@@ -403,7 +403,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			// SLug
 			title := findKeyValue("info.title", fm)
 			version := findKeyValue("info.version", fm)
-			swaggerExports.Backends[k].Slug = dotSlugifier.Slugify(fmt.Sprintf("%s %s %s", title, version, swaggerExports.Backends[k].UrlPattern))
+			swaggerExports.Backends[k].Extra.Slug = dotSlugifier.Slugify(fmt.Sprintf("%s %s %s", title, version, swaggerExports.Backends[k].UrlPattern))
 
 			// Group
 			swaggerExports.Backends[k].Group = dotSlugifier.Slugify(fmt.Sprintf("%s %s", title, version))
