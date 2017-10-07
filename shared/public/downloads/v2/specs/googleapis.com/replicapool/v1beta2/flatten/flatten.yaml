@@ -1,0 +1,880 @@
+basePath: /replicapool/v1beta2/projects
+definitions.InstanceGroupManager.description: An Instance Group Manager resource.
+definitions.InstanceGroupManager.properties.autoHealingPolicies.description: The autohealing
+  policy for this managed instance group. You can specify only one value.
+definitions.InstanceGroupManager.properties.autoHealingPolicies.items.$ref: '#/definitions/ReplicaPoolAutoHealingPolicy'
+definitions.InstanceGroupManager.properties.autoHealingPolicies.type: array
+definitions.InstanceGroupManager.properties.baseInstanceName.description: The base
+  instance name to use for instances in this group. The value must be a valid RFC1035
+  name. Supported characters are lowercase letters, numbers, and hyphens (-). Instances
+  are named by appending a hyphen and a random four-character string to the base instance
+  name.
+definitions.InstanceGroupManager.properties.baseInstanceName.type: string
+definitions.InstanceGroupManager.properties.creationTimestamp.description: '[Output
+  only] The time the instance group manager was created, in RFC3339 text format.'
+definitions.InstanceGroupManager.properties.creationTimestamp.type: string
+definitions.InstanceGroupManager.properties.currentSize.description: '[Output only]
+  The number of instances that currently exist and are a part of this group. This
+  includes instances that are starting but are not yet RUNNING, and instances that
+  are in the process of being deleted or abandoned.'
+definitions.InstanceGroupManager.properties.currentSize.format: int32
+definitions.InstanceGroupManager.properties.currentSize.type: integer
+definitions.InstanceGroupManager.properties.description.description: An optional textual
+  description of the instance group manager.
+definitions.InstanceGroupManager.properties.description.type: string
+definitions.InstanceGroupManager.properties.fingerprint.description: '[Output only]
+  Fingerprint of the instance group manager. This field is used for optimistic locking.
+  An up-to-date fingerprint must be provided in order to modify the Instance Group
+  Manager resource.'
+definitions.InstanceGroupManager.properties.fingerprint.format: byte
+definitions.InstanceGroupManager.properties.fingerprint.type: string
+definitions.InstanceGroupManager.properties.group.description: '[Output only] The
+  full URL of the instance group created by the manager. This group contains all of
+  the instances being managed, and cannot contain non-managed instances.'
+definitions.InstanceGroupManager.properties.group.type: string
+definitions.InstanceGroupManager.properties.id.description: '[Output only] A server-assigned
+  unique identifier for the resource.'
+definitions.InstanceGroupManager.properties.id.format: uint64
+definitions.InstanceGroupManager.properties.id.type: string
+definitions.InstanceGroupManager.properties.instanceTemplate.description: The full
+  URL to an instance template from which all new instances will be created.
+definitions.InstanceGroupManager.properties.instanceTemplate.type: string
+definitions.InstanceGroupManager.properties.kind.default: replicapool#instanceGroupManager
+definitions.InstanceGroupManager.properties.kind.description: '[Output only] The resource
+  type. Always replicapool#instanceGroupManager.'
+definitions.InstanceGroupManager.properties.kind.type: string
+definitions.InstanceGroupManager.properties.name.description: The name of the instance
+  group manager. Must be 1-63 characters long and comply with RFC1035. Supported characters
+  include lowercase letters, numbers, and hyphens.
+definitions.InstanceGroupManager.properties.name.type: string
+definitions.InstanceGroupManager.properties.selfLink.description: '[Output only] The
+  fully qualified URL for this resource.'
+definitions.InstanceGroupManager.properties.selfLink.type: string
+definitions.InstanceGroupManager.properties.targetPools.description: The full URL
+  of all target pools to which new instances in the group are added. Updating the
+  target pool values does not affect existing instances.
+definitions.InstanceGroupManager.properties.targetPools.items.type: string
+definitions.InstanceGroupManager.properties.targetPools.type: array
+definitions.InstanceGroupManager.properties.targetSize.description: '[Output only]
+  The number of instances that the manager is attempting to maintain. Deleting or
+  abandoning instances affects this number, as does resizing the group.'
+definitions.InstanceGroupManager.properties.targetSize.format: int32
+definitions.InstanceGroupManager.properties.targetSize.type: integer
+definitions.InstanceGroupManager.type: object
+definitions.InstanceGroupManagerList.properties.id.description: Unique identifier
+  for the resource; defined by the server (output only).
+definitions.InstanceGroupManagerList.properties.id.type: string
+definitions.InstanceGroupManagerList.properties.items.description: A list of instance
+  resources.
+definitions.InstanceGroupManagerList.properties.items.items.$ref: '#/definitions/InstanceGroupManager'
+definitions.InstanceGroupManagerList.properties.items.type: array
+definitions.InstanceGroupManagerList.properties.kind.default: replicapool#instanceGroupManagerList
+definitions.InstanceGroupManagerList.properties.kind.description: Type of resource.
+definitions.InstanceGroupManagerList.properties.kind.type: string
+definitions.InstanceGroupManagerList.properties.nextPageToken.description: A token
+  used to continue a truncated list request (output only).
+definitions.InstanceGroupManagerList.properties.nextPageToken.type: string
+definitions.InstanceGroupManagerList.properties.selfLink.description: Server defined
+  URL for this resource (output only).
+definitions.InstanceGroupManagerList.properties.selfLink.type: string
+definitions.InstanceGroupManagerList.type: object
+definitions.InstanceGroupManagersAbandonInstancesRequest.properties.instances.description: |-
+  The names of one or more instances to abandon. For example:
+  { 'instances': [ 'instance-c3po', 'instance-r2d2' ] }
+definitions.InstanceGroupManagersAbandonInstancesRequest.properties.instances.items.type: string
+definitions.InstanceGroupManagersAbandonInstancesRequest.properties.instances.type: array
+definitions.InstanceGroupManagersAbandonInstancesRequest.type: object
+definitions.InstanceGroupManagersDeleteInstancesRequest.properties.instances.description: |-
+  Names of instances to delete.
+
+  Example: 'instance-foo', 'instance-bar'
+definitions.InstanceGroupManagersDeleteInstancesRequest.properties.instances.items.type: string
+definitions.InstanceGroupManagersDeleteInstancesRequest.properties.instances.type: array
+definitions.InstanceGroupManagersDeleteInstancesRequest.type: object
+definitions.InstanceGroupManagersRecreateInstancesRequest.properties.instances.description: |-
+  The names of one or more instances to recreate. For example:
+  { 'instances': [ 'instance-c3po', 'instance-r2d2' ] }
+definitions.InstanceGroupManagersRecreateInstancesRequest.properties.instances.items.type: string
+definitions.InstanceGroupManagersRecreateInstancesRequest.properties.instances.type: array
+definitions.InstanceGroupManagersRecreateInstancesRequest.type: object
+definitions.InstanceGroupManagersSetInstanceTemplateRequest.properties.instanceTemplate.description: The
+  full URL to an Instance Template from which all new instances will be created.
+definitions.InstanceGroupManagersSetInstanceTemplateRequest.properties.instanceTemplate.type: string
+definitions.InstanceGroupManagersSetInstanceTemplateRequest.type: object
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.fingerprint.description: The
+  current fingerprint of the Instance Group Manager resource. If this does not match
+  the server-side fingerprint of the resource, then the request will be rejected.
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.fingerprint.format: byte
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.fingerprint.type: string
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.targetPools.description: A
+  list of fully-qualified URLs to existing Target Pool resources. New instances in
+  the Instance Group Manager will be added to the specified target pools; existing
+  instances are not affected.
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.targetPools.items.type: string
+definitions.InstanceGroupManagersSetTargetPoolsRequest.properties.targetPools.type: array
+definitions.InstanceGroupManagersSetTargetPoolsRequest.type: object
+definitions.Operation.description: An operation resource, used to manage asynchronous
+  API requests.
+definitions.Operation.properties.clientOperationId.description: '[Output only] An
+  optional identifier specified by the client when the mutation was initiated. Must
+  be unique for all operation resources in the project.'
+definitions.Operation.properties.clientOperationId.type: string
+definitions.Operation.properties.creationTimestamp.description: '[Output Only] The
+  time that this operation was requested, in RFC3339 text format.'
+definitions.Operation.properties.creationTimestamp.type: string
+definitions.Operation.properties.endTime.description: '[Output Only] The time that
+  this operation was completed, in RFC3339 text format.'
+definitions.Operation.properties.endTime.type: string
+definitions.Operation.properties.error.description: '[Output Only] If errors occurred
+  during processing of this operation, this field will be populated.'
+definitions.Operation.properties.error.properties.errors.description: '[Output Only]
+  The array of errors encountered while processing this operation.'
+definitions.Operation.properties.error.properties.errors.items.properties.code.description: '[Output
+  Only] The error type identifier for this error.'
+definitions.Operation.properties.error.properties.errors.items.properties.code.type: string
+definitions.Operation.properties.error.properties.errors.items.properties.location.description: '[Output
+  Only] Indicates the field in the request which caused the error. This property is
+  optional.'
+definitions.Operation.properties.error.properties.errors.items.properties.location.type: string
+definitions.Operation.properties.error.properties.errors.items.properties.message.description: '[Output
+  Only] An optional, human-readable error message.'
+definitions.Operation.properties.error.properties.errors.items.properties.message.type: string
+definitions.Operation.properties.error.properties.errors.items.type: object
+definitions.Operation.properties.error.properties.errors.type: array
+definitions.Operation.properties.error.type: object
+definitions.Operation.properties.httpErrorMessage.description: '[Output only] If operation
+  fails, the HTTP error message returned.'
+definitions.Operation.properties.httpErrorMessage.type: string
+definitions.Operation.properties.httpErrorStatusCode.description: '[Output only] If
+  operation fails, the HTTP error status code returned.'
+definitions.Operation.properties.httpErrorStatusCode.format: int32
+definitions.Operation.properties.httpErrorStatusCode.type: integer
+definitions.Operation.properties.id.description: '[Output Only] Unique identifier
+  for the resource, generated by the server.'
+definitions.Operation.properties.id.format: uint64
+definitions.Operation.properties.id.type: string
+definitions.Operation.properties.insertTime.description: '[Output Only] The time that
+  this operation was requested, in RFC3339 text format.'
+definitions.Operation.properties.insertTime.type: string
+definitions.Operation.properties.kind.default: replicapool#operation
+definitions.Operation.properties.kind.description: '[Output only] Type of the resource.'
+definitions.Operation.properties.kind.type: string
+definitions.Operation.properties.name.description: '[Output Only] Name of the resource.'
+definitions.Operation.properties.name.type: string
+definitions.Operation.properties.operationType.description: '[Output only] Type of
+  the operation. Operations include insert, update, and delete.'
+definitions.Operation.properties.operationType.type: string
+definitions.Operation.properties.progress.description: '[Output only] An optional
+  progress indicator that ranges from 0 to 100. There is no requirement that this
+  be linear or support any granularity of operations. This should not be used to guess
+  at when the operation will be complete. This number should be monotonically increasing
+  as the operation progresses.'
+definitions.Operation.properties.progress.format: int32
+definitions.Operation.properties.progress.type: integer
+definitions.Operation.properties.region.description: '[Output Only] URL of the region
+  where the operation resides. Only available when performing regional operations.'
+definitions.Operation.properties.region.type: string
+definitions.Operation.properties.selfLink.description: '[Output Only] Server-defined
+  fully-qualified URL for this resource.'
+definitions.Operation.properties.selfLink.type: string
+definitions.Operation.properties.startTime.description: '[Output Only] The time that
+  this operation was started by the server, in RFC3339 text format.'
+definitions.Operation.properties.startTime.type: string
+definitions.Operation.properties.status.description: '[Output Only] Status of the
+  operation.'
+definitions.Operation.properties.status.enum.length: 3
+definitions.Operation.properties.status.enum[0]: DONE
+definitions.Operation.properties.status.enum[1]: PENDING
+definitions.Operation.properties.status.enum[2]: RUNNING
+definitions.Operation.properties.status.type: string
+definitions.Operation.properties.statusMessage.description: '[Output Only] An optional
+  textual description of the current status of the operation.'
+definitions.Operation.properties.statusMessage.type: string
+definitions.Operation.properties.targetId.description: '[Output Only] Unique target
+  ID which identifies a particular incarnation of the target.'
+definitions.Operation.properties.targetId.format: uint64
+definitions.Operation.properties.targetId.type: string
+definitions.Operation.properties.targetLink.description: '[Output only] URL of the
+  resource the operation is mutating.'
+definitions.Operation.properties.targetLink.type: string
+definitions.Operation.properties.user.description: '[Output Only] User who requested
+  the operation, for example: user@example.com.'
+definitions.Operation.properties.user.type: string
+definitions.Operation.properties.warnings.description: '[Output Only] If there are
+  issues with this operation, a warning is returned.'
+definitions.Operation.properties.warnings.items.properties.code.description: '[Output
+  only] The warning type identifier for this warning.'
+definitions.Operation.properties.warnings.items.properties.code.enum.length: 13
+definitions.Operation.properties.warnings.items.properties.code.enum[0]: DEPRECATED_RESOURCE_USED
+definitions.Operation.properties.warnings.items.properties.code.enum[1]: DISK_SIZE_LARGER_THAN_IMAGE_SIZE
+definitions.Operation.properties.warnings.items.properties.code.enum[2]: INJECTED_KERNELS_DEPRECATED
+definitions.Operation.properties.warnings.items.properties.code.enum[3]: NEXT_HOP_ADDRESS_NOT_ASSIGNED
+definitions.Operation.properties.warnings.items.properties.code.enum[4]: NEXT_HOP_CANNOT_IP_FORWARD
+definitions.Operation.properties.warnings.items.properties.code.enum[5]: NEXT_HOP_INSTANCE_NOT_FOUND
+definitions.Operation.properties.warnings.items.properties.code.enum[6]: NEXT_HOP_INSTANCE_NOT_ON_NETWORK
+definitions.Operation.properties.warnings.items.properties.code.enum[7]: NEXT_HOP_NOT_RUNNING
+definitions.Operation.properties.warnings.items.properties.code.enum[8]: NO_RESULTS_ON_PAGE
+definitions.Operation.properties.warnings.items.properties.code.enum[9]: REQUIRED_TOS_AGREEMENT
+definitions.Operation.properties.warnings.items.properties.code.enum[10]: RESOURCE_NOT_DELETED
+definitions.Operation.properties.warnings.items.properties.code.enum[11]: SINGLE_INSTANCE_PROPERTY_TEMPLATE
+definitions.Operation.properties.warnings.items.properties.code.enum[12]: UNREACHABLE
+definitions.Operation.properties.warnings.items.properties.code.type: string
+definitions.Operation.properties.warnings.items.properties.data.description: '[Output
+  only] Metadata for this warning in key:value format.'
+definitions.Operation.properties.warnings.items.properties.data.items.properties.key.description: '[Output
+  Only] Metadata key for this warning.'
+definitions.Operation.properties.warnings.items.properties.data.items.properties.key.type: string
+definitions.Operation.properties.warnings.items.properties.data.items.properties.value.description: '[Output
+  Only] Metadata value for this warning.'
+definitions.Operation.properties.warnings.items.properties.data.items.properties.value.type: string
+definitions.Operation.properties.warnings.items.properties.data.items.type: object
+definitions.Operation.properties.warnings.items.properties.data.type: array
+definitions.Operation.properties.warnings.items.properties.message.description: '[Output
+  only] Optional human-readable details for this warning.'
+definitions.Operation.properties.warnings.items.properties.message.type: string
+definitions.Operation.properties.warnings.items.type: object
+definitions.Operation.properties.warnings.type: array
+definitions.Operation.properties.zone.description: '[Output Only] URL of the zone
+  where the operation resides. Only available when performing per-zone operations.'
+definitions.Operation.properties.zone.type: string
+definitions.Operation.type: object
+definitions.OperationList.properties.id.description: Unique identifier for the resource;
+  defined by the server (output only).
+definitions.OperationList.properties.id.type: string
+definitions.OperationList.properties.items.description: The operation resources.
+definitions.OperationList.properties.items.items.$ref: '#/definitions/Operation'
+definitions.OperationList.properties.items.type: array
+definitions.OperationList.properties.kind.default: replicapool#operationList
+definitions.OperationList.properties.kind.description: Type of resource.
+definitions.OperationList.properties.kind.type: string
+definitions.OperationList.properties.nextPageToken.description: A token used to continue
+  a truncated list request (output only).
+definitions.OperationList.properties.nextPageToken.type: string
+definitions.OperationList.properties.selfLink.description: Server defined URL for
+  this resource (output only).
+definitions.OperationList.properties.selfLink.type: string
+definitions.OperationList.type: object
+definitions.ReplicaPoolAutoHealingPolicy.properties.actionType.description: The action
+  to perform when an instance becomes unhealthy. Possible values are RECREATE or REBOOT.
+  RECREATE replaces an unhealthy instance with a new instance that is based on the
+  instance template for this managed instance group. REBOOT performs a soft reboot
+  on an instance. If the instance cannot reboot, the instance performs a hard restart.
+definitions.ReplicaPoolAutoHealingPolicy.properties.actionType.enum.length: 2
+definitions.ReplicaPoolAutoHealingPolicy.properties.actionType.enum[0]: REBOOT
+definitions.ReplicaPoolAutoHealingPolicy.properties.actionType.enum[1]: RECREATE
+definitions.ReplicaPoolAutoHealingPolicy.properties.actionType.type: string
+definitions.ReplicaPoolAutoHealingPolicy.properties.healthCheck.description: The URL
+  for the HealthCheck that signals autohealing.
+definitions.ReplicaPoolAutoHealingPolicy.properties.healthCheck.type: string
+definitions.ReplicaPoolAutoHealingPolicy.type: object
+externalDocs.url: https://developers.google.com/compute/docs/instance-groups/manager/v1beta2
+host: www.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: '[Deprecated. Please use Instance Group Manager in Compute API]
+  Provides groups of homogenous Compute Engine instances.'
+info.title: Google Compute Engine Instance Group Manager
+info.version: v1beta2
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://www.googleapis.com/discovery/v1/apis/replicapool/v1beta2/rest
+info.x-origin[0].version: v1
+info.x-preferred: true
+info.x-providerName: googleapis.com
+info.x-serviceName: replicapool
+parameters.alt.default: json
+parameters.alt.description: Data format for the response.
+parameters.alt.enum.length: 1
+parameters.alt.enum[0]: json
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters. Overrides userIp if both are provided.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.userIp.description: IP address of the site where the request originates.
+  Use this if you want to enforce per-user limits.
+parameters.userIp.in: query
+parameters.userIp.name: userIp
+parameters.userIp.type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.get.description: Retrieves the
+  list of Instance Group Manager resources contained within the specified zone.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.operationId: replicapool.instanceGroupManagers.list
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters.length: 5
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[2].description: Optional.
+  Filter expression for filtering listed resources.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[2].in: query
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[2].name: filter
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].default: 500
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].description: Optional.
+  Maximum count of results to be returned. Maximum value is 500 and default value
+  is 500.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].in: query
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].maximum: 500
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].minimum: 0
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].name: maxResults
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[3].type: integer
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[4].description: Optional.
+  Tag returned by a previous list request truncated by maxResults. Used to continue
+  a previous list request.
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[4].in: query
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[4].name: pageToken
+paths./{project}/zones/{zone}/instanceGroupManagers.get.parameters[4].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.get.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers.get.responses.200.schema.$ref: '#/definitions/InstanceGroupManagerList'
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[2].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[3].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.get.security[3].Oauth2[0]: https://www.googleapis.com/auth/compute.readonly
+paths./{project}/zones/{zone}/instanceGroupManagers.get.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.get.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers.post.description: Creates an instance
+  group manager, as well as the instance group and the specified number of instances.
+paths./{project}/zones/{zone}/instanceGroupManagers.post.operationId: replicapool.instanceGroupManagers.insert
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].description: Number
+  of instances that should exist.
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].in: query
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].minimum: 0
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].name: size
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[2].type: integer
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManager'
+paths./{project}/zones/{zone}/instanceGroupManagers.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.description: Deletes
+  the instance group manager and all instances contained within. If you'd like to
+  delete the manager without deleting the instances, you must first abandon the instances
+  to remove them from the group.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.operationId: replicapool.instanceGroupManagers.delete
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters.length: 3
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[2].description: Name
+  of the Instance Group Manager resource to delete.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.delete.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.description: Returns
+  the specified Instance Group Manager resource.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.operationId: replicapool.instanceGroupManagers.get
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters.length: 3
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[2].description: Name
+  of the instance resource to return.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.responses.200.schema.$ref: '#/definitions/InstanceGroupManager'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[2].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[3].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.security[3].Oauth2[0]: https://www.googleapis.com/auth/compute.readonly
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.get.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.description: Removes
+  the specified instances from the managed instance group, and from any target pools
+  of which they were members, without deleting the instances.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.operationId: replicapool.instanceGroupManagers.abandonInstances
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManagersAbandonInstancesRequest'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/abandonInstances.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.description: Deletes
+  the specified instances. The instances are deleted, then removed from the instance
+  group and any target pools of which they were a member. The targetSize of the instance
+  group manager is reduced by the number of instances deleted.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.operationId: replicapool.instanceGroupManagers.deleteInstances
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManagersDeleteInstancesRequest'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/deleteInstances.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.description: Recreates
+  the specified instances. The instances are deleted, then recreated using the instance
+  group manager's current instance template.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.operationId: replicapool.instanceGroupManagers.recreateInstances
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManagersRecreateInstancesRequest'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/recreateInstances.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.description: Resizes
+  the managed instance group up or down. If resized up, new instances are created
+  using the current instance template. If resized down, instances are removed in the
+  order outlined in Resizing a managed instance group.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.operationId: replicapool.instanceGroupManagers.resize
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].description: Number
+  of instances that should exist in this Instance Group Manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].in: query
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].minimum: 0
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].name: size
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.parameters[3].type: integer
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/resize.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.description: Sets
+  the instance template to use when creating new instances in this group. Existing
+  instances are not affected.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.operationId: replicapool.instanceGroupManagers.setInstanceTemplate
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManagersSetInstanceTemplateRequest'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setInstanceTemplate.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters.length: 7
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.description: Modifies
+  the target pools to which all new instances in this group are assigned. Existing
+  instances in the group are not affected.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.operationId: replicapool.instanceGroupManagers.setTargetPools
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters.length: 4
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[0].description: The
+  Google Developers Console project name.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[0].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[0].name: project
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[0].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[0].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[1].description: The
+  name of the zone in which the instance group manager resides.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[1].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[1].name: zone
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[1].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[1].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[2].description: The
+  name of the instance group manager.
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[2].in: path
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[2].name: instanceGroupManager
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[2].required: true
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[2].type: string
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[3].in: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[3].name: body
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.parameters[3].schema.$ref: '#/definitions/InstanceGroupManagersSetTargetPoolsRequest'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.security.length: 2
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.tags.length: 1
+paths./{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/setTargetPools.post.tags[0]: instanceGroupManagers
+paths./{project}/zones/{zone}/operations.get.description: Retrieves the list of operation
+  resources contained within the specified zone.
+paths./{project}/zones/{zone}/operations.get.operationId: replicapool.zoneOperations.list
+paths./{project}/zones/{zone}/operations.get.parameters.length: 5
+paths./{project}/zones/{zone}/operations.get.parameters[0].description: Name of the
+  project scoping this request.
+paths./{project}/zones/{zone}/operations.get.parameters[0].in: path
+paths./{project}/zones/{zone}/operations.get.parameters[0].name: project
+paths./{project}/zones/{zone}/operations.get.parameters[0].required: true
+paths./{project}/zones/{zone}/operations.get.parameters[0].type: string
+paths./{project}/zones/{zone}/operations.get.parameters[1].description: Name of the
+  zone scoping this request.
+paths./{project}/zones/{zone}/operations.get.parameters[1].in: path
+paths./{project}/zones/{zone}/operations.get.parameters[1].name: zone
+paths./{project}/zones/{zone}/operations.get.parameters[1].required: true
+paths./{project}/zones/{zone}/operations.get.parameters[1].type: string
+paths./{project}/zones/{zone}/operations.get.parameters[2].description: Optional.
+  Filter expression for filtering listed resources.
+paths./{project}/zones/{zone}/operations.get.parameters[2].in: query
+paths./{project}/zones/{zone}/operations.get.parameters[2].name: filter
+paths./{project}/zones/{zone}/operations.get.parameters[2].type: string
+paths./{project}/zones/{zone}/operations.get.parameters[3].default: 500
+paths./{project}/zones/{zone}/operations.get.parameters[3].description: Optional.
+  Maximum count of results to be returned. Maximum value is 500 and default value
+  is 500.
+paths./{project}/zones/{zone}/operations.get.parameters[3].in: query
+paths./{project}/zones/{zone}/operations.get.parameters[3].maximum: 500
+paths./{project}/zones/{zone}/operations.get.parameters[3].minimum: 0
+paths./{project}/zones/{zone}/operations.get.parameters[3].name: maxResults
+paths./{project}/zones/{zone}/operations.get.parameters[3].type: integer
+paths./{project}/zones/{zone}/operations.get.parameters[4].description: Optional.
+  Tag returned by a previous list request truncated by maxResults. Used to continue
+  a previous list request.
+paths./{project}/zones/{zone}/operations.get.parameters[4].in: query
+paths./{project}/zones/{zone}/operations.get.parameters[4].name: pageToken
+paths./{project}/zones/{zone}/operations.get.parameters[4].type: string
+paths./{project}/zones/{zone}/operations.get.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/operations.get.responses.200.schema.$ref: '#/definitions/OperationList'
+paths./{project}/zones/{zone}/operations.get.security.length: 2
+paths./{project}/zones/{zone}/operations.get.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/operations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/operations.get.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/operations.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/operations.get.tags.length: 1
+paths./{project}/zones/{zone}/operations.get.tags[0]: zoneOperations
+paths./{project}/zones/{zone}/operations.parameters.length: 7
+paths./{project}/zones/{zone}/operations.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/operations.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/operations.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/operations.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/operations.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/operations.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/operations.parameters[6].$ref: '#/parameters/userIp'
+paths./{project}/zones/{zone}/operations/{operation}.get.description: Retrieves the
+  specified zone-specific operation resource.
+paths./{project}/zones/{zone}/operations/{operation}.get.operationId: replicapool.zoneOperations.get
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters.length: 3
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[0].description: Name
+  of the project scoping this request.
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[0].in: path
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[0].name: project
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[0].required: true
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[0].type: string
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[1].description: Name
+  of the zone scoping this request.
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[1].in: path
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[1].name: zone
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[1].required: true
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[1].type: string
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[2].description: Name
+  of the operation resource to return.
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[2].in: path
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[2].name: operation
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[2].required: true
+paths./{project}/zones/{zone}/operations/{operation}.get.parameters[2].type: string
+paths./{project}/zones/{zone}/operations/{operation}.get.responses.200.description: Successful
+  response
+paths./{project}/zones/{zone}/operations/{operation}.get.responses.200.schema.$ref: '#/definitions/Operation'
+paths./{project}/zones/{zone}/operations/{operation}.get.security.length: 2
+paths./{project}/zones/{zone}/operations/{operation}.get.security[0].Oauth2.length: 1
+paths./{project}/zones/{zone}/operations/{operation}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./{project}/zones/{zone}/operations/{operation}.get.security[1].Oauth2.length: 1
+paths./{project}/zones/{zone}/operations/{operation}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./{project}/zones/{zone}/operations/{operation}.get.tags.length: 1
+paths./{project}/zones/{zone}/operations/{operation}.get.tags[0]: zoneOperations
+paths./{project}/zones/{zone}/operations/{operation}.parameters.length: 7
+paths./{project}/zones/{zone}/operations/{operation}.parameters[0].$ref: '#/parameters/alt'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[1].$ref: '#/parameters/fields'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[2].$ref: '#/parameters/key'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./{project}/zones/{zone}/operations/{operation}.parameters[6].$ref: '#/parameters/userIp'
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform.read-only: View
+  your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/compute: View and
+  manage your Google Compute Engine resources
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/compute.readonly: View
+  your Google Compute Engine resources
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 2
+tags[0].name: instanceGroupManagers
+tags[1].name: zoneOperations

@@ -1,0 +1,1206 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.AlreadyStreamedException.description: An exception thrown when a bulk
+  publish operation is requested less than 24 hours after a previous bulk publish
+  operation completed successfully.
+definitions.AlreadyStreamedException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.AlreadyStreamedException.properties.message.description: The message associated
+  with the AlreadyStreamedException exception.
+definitions.AlreadyStreamedException.required.length: 1
+definitions.AlreadyStreamedException.required[0]: message
+definitions.AlreadyStreamedException.type: object
+definitions.ApplicationArn.pattern: arn:aws:sns:[-0-9a-z]+:\d+:app/[A-Z_]+/[a-zA-Z0-9_.-]+
+definitions.ApplicationArn.type: string
+definitions.ApplicationArnList.items.$ref: '#/definitions/ApplicationArn'
+definitions.ApplicationArnList.type: array
+definitions.AssumeRoleArn.maxLength: 2048
+definitions.AssumeRoleArn.minLength: 20
+definitions.AssumeRoleArn.pattern: arn:aws:iam::\d+:role/.*
+definitions.AssumeRoleArn.type: string
+definitions.Boolean.type: boolean
+definitions.BulkPublishRequest.description: The input for the BulkPublish operation.
+definitions.BulkPublishRequest.type: object
+definitions.BulkPublishResponse.description: The output for the BulkPublish operation.
+definitions.BulkPublishResponse.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.BulkPublishResponse.properties.IdentityPoolId.description: A name-spaced
+  GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+  Cognito. GUID generation is unique within a region.
+definitions.BulkPublishResponse.type: object
+definitions.BulkPublishStatus.enum.length: 4
+definitions.BulkPublishStatus.enum[0]: NOT_STARTED
+definitions.BulkPublishStatus.enum[1]: IN_PROGRESS
+definitions.BulkPublishStatus.enum[2]: FAILED
+definitions.BulkPublishStatus.enum[3]: SUCCEEDED
+definitions.BulkPublishStatus.type: string
+definitions.ClientContext.type: string
+definitions.CognitoEventType.type: string
+definitions.CognitoStreams.description: Configuration options for configure Cognito
+  streams.
+definitions.CognitoStreams.properties.RoleArn.$ref: '#/definitions/AssumeRoleArn'
+definitions.CognitoStreams.properties.RoleArn.description: The ARN of the role Amazon
+  Cognito can assume in order to publish to the stream. This role must grant access
+  to Amazon Cognito (cognito-sync) to invoke PutRecord on your Cognito stream.
+definitions.CognitoStreams.properties.StreamName.$ref: '#/definitions/StreamName'
+definitions.CognitoStreams.properties.StreamName.description: The name of the Cognito
+  stream to receive updates. This stream must be in the developers account and in
+  the same region as the identity pool.
+definitions.CognitoStreams.properties.StreamingStatus.$ref: '#/definitions/StreamingStatus'
+definitions.CognitoStreams.properties.StreamingStatus.description: 'Status of the
+  Cognito streams. Valid values are: <p>ENABLED - Streaming of updates to identity
+  pool is enabled.</p> <p>DISABLED - Streaming of updates to identity pool is disabled.
+  Bulk publish will also fail if StreamingStatus is DISABLED.</p>'
+definitions.CognitoStreams.type: object
+definitions.ConcurrentModificationException.description: Thrown if there are parallel
+  requests to modify a resource.
+definitions.ConcurrentModificationException.properties.message.$ref: '#/definitions/String'
+definitions.ConcurrentModificationException.properties.message.description: The message
+  returned by a ConcurrentModicationException.
+definitions.ConcurrentModificationException.required.length: 1
+definitions.ConcurrentModificationException.required[0]: message
+definitions.ConcurrentModificationException.type: object
+definitions.Dataset.description: A collection of data for an identity pool. An identity
+  pool can have multiple datasets. A dataset is per identity and can be general or
+  associated with a particular entity in an application (like a saved game). Datasets
+  are automatically created if they don't exist. Data is synced by dataset, and a
+  dataset can hold up to 1MB of key-value pairs.
+definitions.Dataset.properties.CreationDate.$ref: '#/definitions/Date'
+definitions.Dataset.properties.CreationDate.description: Date on which the dataset
+  was created.
+definitions.Dataset.properties.DataStorage.$ref: '#/definitions/Long'
+definitions.Dataset.properties.DataStorage.description: Total size in bytes of the
+  records in this dataset.
+definitions.Dataset.properties.DatasetName.$ref: '#/definitions/DatasetName'
+definitions.Dataset.properties.DatasetName.description: A string of up to 128 characters.
+  Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
+definitions.Dataset.properties.IdentityId.$ref: '#/definitions/IdentityId'
+definitions.Dataset.properties.IdentityId.description: A name-spaced GUID (for example,
+  us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID
+  generation is unique within a region.
+definitions.Dataset.properties.LastModifiedBy.$ref: '#/definitions/String'
+definitions.Dataset.properties.LastModifiedBy.description: The device that made the
+  last change to this dataset.
+definitions.Dataset.properties.LastModifiedDate.$ref: '#/definitions/Date'
+definitions.Dataset.properties.LastModifiedDate.description: Date when the dataset
+  was last modified.
+definitions.Dataset.properties.NumRecords.$ref: '#/definitions/Long'
+definitions.Dataset.properties.NumRecords.description: Number of records in this dataset.
+definitions.Dataset.type: object
+definitions.DatasetList.items.$ref: '#/definitions/Dataset'
+definitions.DatasetList.type: array
+definitions.DatasetName.maxLength: 128
+definitions.DatasetName.minLength: 1
+definitions.DatasetName.pattern: '[a-zA-Z0-9_.:-]+'
+definitions.DatasetName.type: string
+definitions.Date.format: date-time
+definitions.Date.type: string
+definitions.DeleteDatasetRequest.description: A request to delete the specific dataset.
+definitions.DeleteDatasetRequest.type: object
+definitions.DeleteDatasetResponse.description: Response to a successful DeleteDataset
+  request.
+definitions.DeleteDatasetResponse.properties.Dataset.$ref: '#/definitions/Dataset'
+definitions.DeleteDatasetResponse.properties.Dataset.description: A collection of
+  data for an identity pool. An identity pool can have multiple datasets. A dataset
+  is per identity and can be general or associated with a particular entity in an
+  application (like a saved game). Datasets are automatically created if they don't
+  exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value
+  pairs.
+definitions.DeleteDatasetResponse.type: object
+definitions.DescribeDatasetRequest.description: A request for meta data about a dataset
+  (creation date, number of records, size) by owner and dataset name.
+definitions.DescribeDatasetRequest.type: object
+definitions.DescribeDatasetResponse.description: Response to a successful DescribeDataset
+  request.
+definitions.DescribeDatasetResponse.properties.Dataset.$ref: '#/definitions/Dataset'
+definitions.DescribeDatasetResponse.properties.Dataset.description: Meta data for
+  a collection of data for an identity. An identity can have multiple datasets. A
+  dataset can be general or associated with a particular entity in an application
+  (like a saved game). Datasets are automatically created if they don't exist. Data
+  is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+definitions.DescribeDatasetResponse.type: object
+definitions.DescribeIdentityPoolUsageRequest.description: A request for usage information
+  about the identity pool.
+definitions.DescribeIdentityPoolUsageRequest.type: object
+definitions.DescribeIdentityPoolUsageResponse.description: Response to a successful
+  DescribeIdentityPoolUsage request.
+definitions.DescribeIdentityPoolUsageResponse.properties.IdentityPoolUsage.$ref: '#/definitions/IdentityPoolUsage'
+definitions.DescribeIdentityPoolUsageResponse.properties.IdentityPoolUsage.description: Information
+  about the usage of the identity pool.
+definitions.DescribeIdentityPoolUsageResponse.type: object
+definitions.DescribeIdentityUsageRequest.description: A request for information about
+  the usage of an identity pool.
+definitions.DescribeIdentityUsageRequest.type: object
+definitions.DescribeIdentityUsageResponse.description: The response to a successful
+  DescribeIdentityUsage request.
+definitions.DescribeIdentityUsageResponse.properties.IdentityUsage.$ref: '#/definitions/IdentityUsage'
+definitions.DescribeIdentityUsageResponse.properties.IdentityUsage.description: Usage
+  information for the identity.
+definitions.DescribeIdentityUsageResponse.type: object
+definitions.DeviceId.maxLength: 256
+definitions.DeviceId.minLength: 1
+definitions.DeviceId.type: string
+definitions.DuplicateRequestException.description: An exception thrown when there
+  is an IN_PROGRESS bulk publish operation for the given identity pool.
+definitions.DuplicateRequestException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.DuplicateRequestException.properties.message.description: The message
+  associated with the DuplicateRequestException exception.
+definitions.DuplicateRequestException.required.length: 1
+definitions.DuplicateRequestException.required[0]: message
+definitions.DuplicateRequestException.type: object
+definitions.Events.items.properties.key.$ref: '#/definitions/CognitoEventType'
+definitions.Events.items.properties.value.$ref: '#/definitions/LambdaFunctionArn'
+definitions.Events.items.type: object
+definitions.Events.maxItems: 1
+definitions.Events.type: array
+definitions.ExceptionMessage.type: string
+definitions.GetBulkPublishDetailsRequest.description: The input for the GetBulkPublishDetails
+  operation.
+definitions.GetBulkPublishDetailsRequest.type: object
+definitions.GetBulkPublishDetailsResponse.description: The output for the GetBulkPublishDetails
+  operation.
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishCompleteTime.$ref: '#/definitions/Date'
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishCompleteTime.description: If
+  BulkPublishStatus is SUCCEEDED, the time the last bulk publish operation completed.
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishStartTime.$ref: '#/definitions/Date'
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishStartTime.description: The
+  date/time at which the last bulk publish was initiated.
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishStatus.$ref: '#/definitions/BulkPublishStatus'
+definitions.GetBulkPublishDetailsResponse.properties.BulkPublishStatus.description: 'Status
+  of the last bulk publish operation, valid values are: <p>NOT_STARTED - No bulk publish
+  has been requested for this identity pool</p> <p>IN_PROGRESS - Data is being published
+  to the configured stream</p> <p>SUCCEEDED - All data for the identity pool has been
+  published to the configured stream</p> <p>FAILED - Some portion of the data has
+  failed to publish, check FailureMessage for the cause.</p>'
+definitions.GetBulkPublishDetailsResponse.properties.FailureMessage.$ref: '#/definitions/String'
+definitions.GetBulkPublishDetailsResponse.properties.FailureMessage.description: If
+  BulkPublishStatus is FAILED this field will contain the error message that caused
+  the bulk publish to fail.
+definitions.GetBulkPublishDetailsResponse.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.GetBulkPublishDetailsResponse.properties.IdentityPoolId.description: A
+  name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created
+  by Amazon Cognito. GUID generation is unique within a region.
+definitions.GetBulkPublishDetailsResponse.type: object
+definitions.GetCognitoEventsRequest.description: A request for a list of the configured
+  Cognito Events
+definitions.GetCognitoEventsRequest.type: object
+definitions.GetCognitoEventsResponse.description: The response from the GetCognitoEvents
+  request
+definitions.GetCognitoEventsResponse.properties.Events.$ref: '#/definitions/Events'
+definitions.GetCognitoEventsResponse.properties.Events.description: The Cognito Events
+  returned from the GetCognitoEvents request
+definitions.GetCognitoEventsResponse.type: object
+definitions.GetIdentityPoolConfigurationRequest.description: The input for the GetIdentityPoolConfiguration
+  operation.
+definitions.GetIdentityPoolConfigurationRequest.type: object
+definitions.GetIdentityPoolConfigurationResponse.description: The output for the GetIdentityPoolConfiguration
+  operation.
+definitions.GetIdentityPoolConfigurationResponse.properties.CognitoStreams.$ref: '#/definitions/CognitoStreams'
+definitions.GetIdentityPoolConfigurationResponse.properties.CognitoStreams.description: Options
+  to apply to this identity pool for Amazon Cognito streams.
+definitions.GetIdentityPoolConfigurationResponse.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.GetIdentityPoolConfigurationResponse.properties.IdentityPoolId.description: A
+  name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created
+  by Amazon Cognito.
+definitions.GetIdentityPoolConfigurationResponse.properties.PushSync.$ref: '#/definitions/PushSync'
+definitions.GetIdentityPoolConfigurationResponse.properties.PushSync.description: Options
+  to apply to this identity pool for push synchronization.
+definitions.GetIdentityPoolConfigurationResponse.type: object
+definitions.IdentityId.maxLength: 55
+definitions.IdentityId.minLength: 1
+definitions.IdentityId.pattern: '[\w-]+:[0-9a-f-]+'
+definitions.IdentityId.type: string
+definitions.IdentityPoolId.maxLength: 55
+definitions.IdentityPoolId.minLength: 1
+definitions.IdentityPoolId.pattern: '[\w-]+:[0-9a-f-]+'
+definitions.IdentityPoolId.type: string
+definitions.IdentityPoolUsage.description: Usage information for the identity pool.
+definitions.IdentityPoolUsage.properties.DataStorage.$ref: '#/definitions/Long'
+definitions.IdentityPoolUsage.properties.DataStorage.description: Data storage information
+  for the identity pool.
+definitions.IdentityPoolUsage.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.IdentityPoolUsage.properties.IdentityPoolId.description: A name-spaced
+  GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+  Cognito. GUID generation is unique within a region.
+definitions.IdentityPoolUsage.properties.LastModifiedDate.$ref: '#/definitions/Date'
+definitions.IdentityPoolUsage.properties.LastModifiedDate.description: Date on which
+  the identity pool was last modified.
+definitions.IdentityPoolUsage.properties.SyncSessionsCount.$ref: '#/definitions/Long'
+definitions.IdentityPoolUsage.properties.SyncSessionsCount.description: Number of
+  sync sessions for the identity pool.
+definitions.IdentityPoolUsage.type: object
+definitions.IdentityPoolUsageList.items.$ref: '#/definitions/IdentityPoolUsage'
+definitions.IdentityPoolUsageList.type: array
+definitions.IdentityUsage.description: Usage information for the identity.
+definitions.IdentityUsage.properties.DataStorage.$ref: '#/definitions/Long'
+definitions.IdentityUsage.properties.DataStorage.description: Total data storage for
+  this identity.
+definitions.IdentityUsage.properties.DatasetCount.$ref: '#/definitions/Integer'
+definitions.IdentityUsage.properties.DatasetCount.description: Number of datasets
+  for the identity.
+definitions.IdentityUsage.properties.IdentityId.$ref: '#/definitions/IdentityId'
+definitions.IdentityUsage.properties.IdentityId.description: A name-spaced GUID (for
+  example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  GUID generation is unique within a region.
+definitions.IdentityUsage.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.IdentityUsage.properties.IdentityPoolId.description: A name-spaced GUID
+  (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+  Cognito. GUID generation is unique within a region.
+definitions.IdentityUsage.properties.LastModifiedDate.$ref: '#/definitions/Date'
+definitions.IdentityUsage.properties.LastModifiedDate.description: Date on which the
+  identity was last modified.
+definitions.IdentityUsage.type: object
+definitions.Integer.type: integer
+definitions.IntegerString.type: integer
+definitions.InternalErrorException.description: Indicates an internal service error.
+definitions.InternalErrorException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InternalErrorException.properties.message.description: Message returned
+  by InternalErrorException.
+definitions.InternalErrorException.required.length: 1
+definitions.InternalErrorException.required[0]: message
+definitions.InternalErrorException.type: object
+definitions.InvalidConfigurationException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidConfigurationException.properties.message.description: Message
+  returned by InvalidConfigurationException.
+definitions.InvalidConfigurationException.required.length: 1
+definitions.InvalidConfigurationException.required[0]: message
+definitions.InvalidConfigurationException.type: object
+definitions.InvalidLambdaFunctionOutputException.description: The AWS Lambda function
+  returned invalid output or an exception.
+definitions.InvalidLambdaFunctionOutputException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidLambdaFunctionOutputException.properties.message.description: A
+  message returned when an InvalidLambdaFunctionOutputException occurs
+definitions.InvalidLambdaFunctionOutputException.required.length: 1
+definitions.InvalidLambdaFunctionOutputException.required[0]: message
+definitions.InvalidLambdaFunctionOutputException.type: object
+definitions.InvalidParameterException.description: Thrown when a request parameter
+  does not comply with the associated constraints.
+definitions.InvalidParameterException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidParameterException.properties.message.description: Message returned
+  by InvalidParameterException.
+definitions.InvalidParameterException.required.length: 1
+definitions.InvalidParameterException.required[0]: message
+definitions.InvalidParameterException.type: object
+definitions.LambdaFunctionArn.type: string
+definitions.LambdaThrottledException.description: AWS Lambda throttled your account,
+  please contact AWS Support
+definitions.LambdaThrottledException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LambdaThrottledException.properties.message.description: A message returned
+  when an LambdaThrottledException is thrown
+definitions.LambdaThrottledException.required.length: 1
+definitions.LambdaThrottledException.required[0]: message
+definitions.LambdaThrottledException.type: object
+definitions.LimitExceededException.description: Thrown when the limit on the number
+  of objects or operations has been exceeded.
+definitions.LimitExceededException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LimitExceededException.properties.message.description: Message returned
+  by LimitExceededException.
+definitions.LimitExceededException.required.length: 1
+definitions.LimitExceededException.required[0]: message
+definitions.LimitExceededException.type: object
+definitions.ListDatasetsRequest.description: Request for a list of datasets for an
+  identity.
+definitions.ListDatasetsRequest.type: object
+definitions.ListDatasetsResponse.description: Returned for a successful ListDatasets
+  request.
+definitions.ListDatasetsResponse.properties.Count.$ref: '#/definitions/Integer'
+definitions.ListDatasetsResponse.properties.Count.description: Number of datasets
+  returned.
+definitions.ListDatasetsResponse.properties.Datasets.$ref: '#/definitions/DatasetList'
+definitions.ListDatasetsResponse.properties.Datasets.description: A set of datasets.
+definitions.ListDatasetsResponse.properties.NextToken.$ref: '#/definitions/String'
+definitions.ListDatasetsResponse.properties.NextToken.description: A pagination token
+  for obtaining the next page of results.
+definitions.ListDatasetsResponse.type: object
+definitions.ListIdentityPoolUsageRequest.description: A request for usage information
+  on an identity pool.
+definitions.ListIdentityPoolUsageRequest.type: object
+definitions.ListIdentityPoolUsageResponse.description: Returned for a successful ListIdentityPoolUsage
+  request.
+definitions.ListIdentityPoolUsageResponse.properties.Count.$ref: '#/definitions/Integer'
+definitions.ListIdentityPoolUsageResponse.properties.Count.description: Total number
+  of identities for the identity pool.
+definitions.ListIdentityPoolUsageResponse.properties.IdentityPoolUsages.$ref: '#/definitions/IdentityPoolUsageList'
+definitions.ListIdentityPoolUsageResponse.properties.IdentityPoolUsages.description: Usage
+  information for the identity pools.
+definitions.ListIdentityPoolUsageResponse.properties.MaxResults.$ref: '#/definitions/Integer'
+definitions.ListIdentityPoolUsageResponse.properties.MaxResults.description: The maximum
+  number of results to be returned.
+definitions.ListIdentityPoolUsageResponse.properties.NextToken.$ref: '#/definitions/String'
+definitions.ListIdentityPoolUsageResponse.properties.NextToken.description: A pagination
+  token for obtaining the next page of results.
+definitions.ListIdentityPoolUsageResponse.type: object
+definitions.ListRecordsRequest.description: A request for a list of records.
+definitions.ListRecordsRequest.type: object
+definitions.ListRecordsResponse.description: Returned for a successful ListRecordsRequest.
+definitions.ListRecordsResponse.properties.Count.$ref: '#/definitions/Integer'
+definitions.ListRecordsResponse.properties.Count.description: Total number of records.
+definitions.ListRecordsResponse.properties.DatasetDeletedAfterRequestedSyncCount.$ref: '#/definitions/Boolean'
+definitions.ListRecordsResponse.properties.DatasetDeletedAfterRequestedSyncCount.description: A
+  boolean value specifying whether to delete the dataset locally.
+definitions.ListRecordsResponse.properties.DatasetExists.$ref: '#/definitions/Boolean'
+definitions.ListRecordsResponse.properties.DatasetExists.description: Indicates whether
+  the dataset exists.
+definitions.ListRecordsResponse.properties.DatasetSyncCount.$ref: '#/definitions/Long'
+definitions.ListRecordsResponse.properties.DatasetSyncCount.description: Server sync
+  count for this dataset.
+definitions.ListRecordsResponse.properties.LastModifiedBy.$ref: '#/definitions/String'
+definitions.ListRecordsResponse.properties.LastModifiedBy.description: The user/device
+  that made the last change to this record.
+definitions.ListRecordsResponse.properties.MergedDatasetNames.$ref: '#/definitions/MergedDatasetNameList'
+definitions.ListRecordsResponse.properties.MergedDatasetNames.description: Names of
+  merged datasets.
+definitions.ListRecordsResponse.properties.NextToken.$ref: '#/definitions/String'
+definitions.ListRecordsResponse.properties.NextToken.description: A pagination token
+  for obtaining the next page of results.
+definitions.ListRecordsResponse.properties.Records.$ref: '#/definitions/RecordList'
+definitions.ListRecordsResponse.properties.Records.description: A list of all records.
+definitions.ListRecordsResponse.properties.SyncSessionToken.$ref: '#/definitions/String'
+definitions.ListRecordsResponse.properties.SyncSessionToken.description: A token containing
+  a session ID, identity ID, and expiration.
+definitions.ListRecordsResponse.type: object
+definitions.Long.type: integer
+definitions.MergedDatasetNameList.items.$ref: '#/definitions/String'
+definitions.MergedDatasetNameList.type: array
+definitions.NotAuthorizedException.description: Thrown when a user is not authorized
+  to access the requested resource.
+definitions.NotAuthorizedException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.NotAuthorizedException.properties.message.description: The message returned
+  by a NotAuthorizedException.
+definitions.NotAuthorizedException.required.length: 1
+definitions.NotAuthorizedException.required[0]: message
+definitions.NotAuthorizedException.type: object
+definitions.Operation.enum.length: 2
+definitions.Operation.enum[0]: replace
+definitions.Operation.enum[1]: remove
+definitions.Operation.type: string
+definitions.Platform.enum.length: 4
+definitions.Platform.enum[0]: APNS
+definitions.Platform.enum[1]: APNS_SANDBOX
+definitions.Platform.enum[2]: GCM
+definitions.Platform.enum[3]: ADM
+definitions.Platform.type: string
+definitions.PushSync.description: Configuration options to be applied to the identity
+  pool.
+definitions.PushSync.properties.ApplicationArns.$ref: '#/definitions/ApplicationArnList'
+definitions.PushSync.properties.ApplicationArns.description: List of SNS platform
+  application ARNs that could be used by clients.
+definitions.PushSync.properties.RoleArn.$ref: '#/definitions/AssumeRoleArn'
+definitions.PushSync.properties.RoleArn.description: A role configured to allow Cognito
+  to call SNS on behalf of the developer.
+definitions.PushSync.type: object
+definitions.PushToken.type: string
+definitions.Record.description: The basic data structure of a dataset.
+definitions.Record.properties.DeviceLastModifiedDate.$ref: '#/definitions/Date'
+definitions.Record.properties.DeviceLastModifiedDate.description: The last modified
+  date of the client device.
+definitions.Record.properties.Key.$ref: '#/definitions/RecordKey'
+definitions.Record.properties.Key.description: The key for the record.
+definitions.Record.properties.LastModifiedBy.$ref: '#/definitions/String'
+definitions.Record.properties.LastModifiedBy.description: The user/device that made
+  the last change to this record.
+definitions.Record.properties.LastModifiedDate.$ref: '#/definitions/Date'
+definitions.Record.properties.LastModifiedDate.description: The date on which the
+  record was last modified.
+definitions.Record.properties.SyncCount.$ref: '#/definitions/Long'
+definitions.Record.properties.SyncCount.description: The server sync count for this
+  record.
+definitions.Record.properties.Value.$ref: '#/definitions/RecordValue'
+definitions.Record.properties.Value.description: The value for the record.
+definitions.Record.type: object
+definitions.RecordKey.maxLength: 1024
+definitions.RecordKey.minLength: 1
+definitions.RecordKey.type: string
+definitions.RecordList.items.$ref: '#/definitions/Record'
+definitions.RecordList.type: array
+definitions.RecordPatch.description: An update operation for a record.
+definitions.RecordPatch.properties.DeviceLastModifiedDate.$ref: '#/definitions/Date'
+definitions.RecordPatch.properties.DeviceLastModifiedDate.description: The last modified
+  date of the client device.
+definitions.RecordPatch.properties.Key.$ref: '#/definitions/RecordKey'
+definitions.RecordPatch.properties.Key.description: The key associated with the record
+  patch.
+definitions.RecordPatch.properties.Op.$ref: '#/definitions/Operation'
+definitions.RecordPatch.properties.Op.description: An operation, either replace or
+  remove.
+definitions.RecordPatch.properties.SyncCount.$ref: '#/definitions/Long'
+definitions.RecordPatch.properties.SyncCount.description: Last known server sync count
+  for this record. Set to 0 if unknown.
+definitions.RecordPatch.properties.Value.$ref: '#/definitions/RecordValue'
+definitions.RecordPatch.properties.Value.description: The value associated with the
+  record patch.
+definitions.RecordPatch.required.length: 3
+definitions.RecordPatch.required[0]: Op
+definitions.RecordPatch.required[1]: Key
+definitions.RecordPatch.required[2]: SyncCount
+definitions.RecordPatch.type: object
+definitions.RecordPatchList.items.$ref: '#/definitions/RecordPatch'
+definitions.RecordPatchList.type: array
+definitions.RecordValue.maxLength: 1.048575e+06
+definitions.RecordValue.type: string
+definitions.RegisterDeviceRequest.description: A request to RegisterDevice.
+definitions.RegisterDeviceRequest.properties.Platform.$ref: '#/definitions/Platform'
+definitions.RegisterDeviceRequest.properties.Platform.description: The SNS platform
+  type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
+definitions.RegisterDeviceRequest.properties.Token.$ref: '#/definitions/PushToken'
+definitions.RegisterDeviceRequest.properties.Token.description: The push token.
+definitions.RegisterDeviceRequest.required.length: 2
+definitions.RegisterDeviceRequest.required[0]: Platform
+definitions.RegisterDeviceRequest.required[1]: Token
+definitions.RegisterDeviceRequest.type: object
+definitions.RegisterDeviceResponse.description: Response to a RegisterDevice request.
+definitions.RegisterDeviceResponse.properties.DeviceId.$ref: '#/definitions/DeviceId'
+definitions.RegisterDeviceResponse.properties.DeviceId.description: The unique ID
+  generated for this device by Cognito.
+definitions.RegisterDeviceResponse.type: object
+definitions.ResourceConflictException.description: Thrown if an update can't be applied
+  because the resource was changed by another call and this would result in a conflict.
+definitions.ResourceConflictException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.ResourceConflictException.properties.message.description: The message
+  returned by a ResourceConflictException.
+definitions.ResourceConflictException.required.length: 1
+definitions.ResourceConflictException.required[0]: message
+definitions.ResourceConflictException.type: object
+definitions.ResourceNotFoundException.description: Thrown if the resource doesn't
+  exist.
+definitions.ResourceNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.ResourceNotFoundException.properties.message.description: Message returned
+  by a ResourceNotFoundException.
+definitions.ResourceNotFoundException.required.length: 1
+definitions.ResourceNotFoundException.required[0]: message
+definitions.ResourceNotFoundException.type: object
+definitions.SetCognitoEventsRequest.description: <p>A request to configure Cognito
+  Events"</p>"
+definitions.SetCognitoEventsRequest.properties.Events.$ref: '#/definitions/Events'
+definitions.SetCognitoEventsRequest.properties.Events.description: The events to configure
+definitions.SetCognitoEventsRequest.required.length: 1
+definitions.SetCognitoEventsRequest.required[0]: Events
+definitions.SetCognitoEventsRequest.type: object
+definitions.SetIdentityPoolConfigurationRequest.description: The input for the SetIdentityPoolConfiguration
+  operation.
+definitions.SetIdentityPoolConfigurationRequest.properties.CognitoStreams.$ref: '#/definitions/CognitoStreams'
+definitions.SetIdentityPoolConfigurationRequest.properties.CognitoStreams.description: Options
+  to apply to this identity pool for Amazon Cognito streams.
+definitions.SetIdentityPoolConfigurationRequest.properties.PushSync.$ref: '#/definitions/PushSync'
+definitions.SetIdentityPoolConfigurationRequest.properties.PushSync.description: Options
+  to apply to this identity pool for push synchronization.
+definitions.SetIdentityPoolConfigurationRequest.type: object
+definitions.SetIdentityPoolConfigurationResponse.description: The output for the SetIdentityPoolConfiguration
+  operation
+definitions.SetIdentityPoolConfigurationResponse.properties.CognitoStreams.$ref: '#/definitions/CognitoStreams'
+definitions.SetIdentityPoolConfigurationResponse.properties.CognitoStreams.description: Options
+  to apply to this identity pool for Amazon Cognito streams.
+definitions.SetIdentityPoolConfigurationResponse.properties.IdentityPoolId.$ref: '#/definitions/IdentityPoolId'
+definitions.SetIdentityPoolConfigurationResponse.properties.IdentityPoolId.description: A
+  name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created
+  by Amazon Cognito.
+definitions.SetIdentityPoolConfigurationResponse.properties.PushSync.$ref: '#/definitions/PushSync'
+definitions.SetIdentityPoolConfigurationResponse.properties.PushSync.description: Options
+  to apply to this identity pool for push synchronization.
+definitions.SetIdentityPoolConfigurationResponse.type: object
+definitions.StreamName.maxLength: 128
+definitions.StreamName.minLength: 1
+definitions.StreamName.type: string
+definitions.StreamingStatus.enum.length: 2
+definitions.StreamingStatus.enum[0]: ENABLED
+definitions.StreamingStatus.enum[1]: DISABLED
+definitions.StreamingStatus.type: string
+definitions.String.type: string
+definitions.SubscribeToDatasetRequest.description: A request to SubscribeToDatasetRequest.
+definitions.SubscribeToDatasetRequest.type: object
+definitions.SubscribeToDatasetResponse.description: Response to a SubscribeToDataset
+  request.
+definitions.SubscribeToDatasetResponse.type: object
+definitions.SyncSessionToken.type: string
+definitions.TooManyRequestsException.description: Thrown if the request is throttled.
+definitions.TooManyRequestsException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.TooManyRequestsException.properties.message.description: Message returned
+  by a TooManyRequestsException.
+definitions.TooManyRequestsException.required.length: 1
+definitions.TooManyRequestsException.required[0]: message
+definitions.TooManyRequestsException.type: object
+definitions.UnsubscribeFromDatasetRequest.description: A request to UnsubscribeFromDataset.
+definitions.UnsubscribeFromDatasetRequest.type: object
+definitions.UnsubscribeFromDatasetResponse.description: Response to an UnsubscribeFromDataset
+  request.
+definitions.UnsubscribeFromDatasetResponse.type: object
+definitions.UpdateRecordsRequest.description: A request to post updates to records
+  or add and delete records for a dataset and user.
+definitions.UpdateRecordsRequest.properties.DeviceId.$ref: '#/definitions/DeviceId'
+definitions.UpdateRecordsRequest.properties.DeviceId.description: The unique ID generated
+  for this device by Cognito.
+definitions.UpdateRecordsRequest.properties.RecordPatches.$ref: '#/definitions/RecordPatchList'
+definitions.UpdateRecordsRequest.properties.RecordPatches.description: A list of patch
+  operations.
+definitions.UpdateRecordsRequest.properties.SyncSessionToken.$ref: '#/definitions/SyncSessionToken'
+definitions.UpdateRecordsRequest.properties.SyncSessionToken.description: The SyncSessionToken
+  returned by a previous call to ListRecords for this dataset and identity.
+definitions.UpdateRecordsRequest.required.length: 1
+definitions.UpdateRecordsRequest.required[0]: SyncSessionToken
+definitions.UpdateRecordsRequest.type: object
+definitions.UpdateRecordsResponse.description: Returned for a successful UpdateRecordsRequest.
+definitions.UpdateRecordsResponse.properties.Records.$ref: '#/definitions/RecordList'
+definitions.UpdateRecordsResponse.properties.Records.description: A list of records
+  that have been updated.
+definitions.UpdateRecordsResponse.type: object
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/cognito-sync/
+host: cognito-sync.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: <fullname>Amazon Cognito Sync</fullname> <p>Amazon Cognito Sync
+  provides an AWS service and client library that enable cross-device syncing of application-related
+  user data. High-level client libraries are available for both iOS and Android. You
+  can use these libraries to persist data locally so that it's available even if the
+  device is offline. Developer credentials don't need to be stored on the mobile device
+  to access the service. You can use Amazon Cognito to obtain a normalized user ID
+  and credentials. User data is persisted in a dataset that can store up to 1 MB of
+  key-value pairs, and you can have up to 20 datasets per user identity.</p> <p>With
+  Amazon Cognito Sync, the data stored for each identity is accessible only to credentials
+  assigned to that identity. In order to use the Cognito Sync service, you need to
+  make API calls using credentials retrieved with <a href="http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html">Amazon
+  Cognito Identity service</a>.</p> <p>If you want to use Cognito Sync in an Android
+  or iOS application, you will probably want to make API calls via the AWS Mobile
+  SDK. To learn more, see the <a href="http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html">Developer
+  Guide for Android</a> and the <a href="http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html">Developer
+  Guide for iOS</a>.</p>
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: Amazon Cognito Sync
+info.version: 2014-06-30
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cognito-sync-2014-06-30.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: cognito-sync
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./identitypools.get.description: <p>Gets a list of identity pools registered
+  with Cognito.</p> <p>ListIdentityPoolUsage can only be called with developer credentials.
+  You cannot make this API call with the temporary user credentials provided by Cognito
+  Identity.</p>
+paths./identitypools.get.operationId: ListIdentityPoolUsage
+paths./identitypools.get.parameters.length: 1
+paths./identitypools.get.parameters[0].in: body
+paths./identitypools.get.parameters[0].name: body
+paths./identitypools.get.parameters[0].required: true
+paths./identitypools.get.parameters[0].schema.$ref: '#/definitions/ListIdentityPoolUsageRequest'
+paths./identitypools.get.responses.200.description: Success
+paths./identitypools.get.responses.200.schema.$ref: '#/definitions/ListIdentityPoolUsageResponse'
+paths./identitypools.get.responses.400.description: InvalidParameterException
+paths./identitypools.get.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools.get.responses.400.x-aws-exception: true
+paths./identitypools.get.responses.403.description: NotAuthorizedException
+paths./identitypools.get.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools.get.responses.403.x-aws-exception: true
+paths./identitypools.get.responses.429.description: TooManyRequestsException
+paths./identitypools.get.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools.get.responses.429.x-aws-exception: true
+paths./identitypools.get.responses.500.description: InternalErrorException
+paths./identitypools.get.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools.get.responses.500.x-aws-exception: true
+paths./identitypools.parameters.length: 9
+paths./identitypools.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}.get.description: <p>Gets usage details (for
+  example, data storage) about a particular identity pool.</p> <p>This API can only
+  be called with developer credentials. You cannot call this API with the temporary
+  user credentials provided by Cognito Identity.</p>
+paths./identitypools/{IdentityPoolId}.get.operationId: DescribeIdentityPoolUsage
+paths./identitypools/{IdentityPoolId}.get.parameters.length: 2
+paths./identitypools/{IdentityPoolId}.get.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}.get.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}.get.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}.get.parameters[0].schema.$ref: '#/definitions/DescribeIdentityPoolUsageRequest'
+paths./identitypools/{IdentityPoolId}.get.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}.get.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}.get.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}.get.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}.get.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}.get.responses.200.schema.$ref: '#/definitions/DescribeIdentityPoolUsageResponse'
+paths./identitypools/{IdentityPoolId}.get.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}.get.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}.get.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}.get.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}.get.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}.get.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}.get.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}.get.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}.get.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}.get.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}.get.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}.get.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}.get.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}.get.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}.get.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}.parameters.length: 9
+paths./identitypools/{IdentityPoolId}.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/bulkpublish.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.description: <p>Initiates a
+  bulk publish of all existing datasets for an Identity Pool to the configured stream.
+  Customers are limited to one successful bulk publish per 24 hours. Bulk publish
+  is an asynchronous request, customers can see the status of the request via the
+  GetBulkPublishDetails operation.</p> <p>This API can only be called with developer
+  credentials. You cannot call this API with the temporary user credentials provided
+  by Cognito Identity.</p>
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.operationId: BulkPublish
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters.length: 2
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[0].schema.$ref: '#/definitions/BulkPublishRequest'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.200.schema.$ref: '#/definitions/BulkPublishResponse'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.400.description: AlreadyStreamedException
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.400.schema.$ref: '#/definitions/AlreadyStreamedException'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/bulkpublish.post.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/configuration.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/configuration.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/configuration.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/configuration.post.description: <p>Sets the
+  necessary configuration for push sync.</p> <p>This API can only be called with developer
+  credentials. You cannot call this API with the temporary user credentials provided
+  by Cognito Identity.</p>
+paths./identitypools/{IdentityPoolId}/configuration.post.operationId: SetIdentityPoolConfiguration
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters.length: 2
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[0].schema.$ref: '#/definitions/SetIdentityPoolConfigurationRequest'
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/configuration.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.200.schema.$ref: '#/definitions/SetIdentityPoolConfigurationResponse'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.400.description: ConcurrentModificationException
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.400.schema.$ref: '#/definitions/ConcurrentModificationException'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/configuration.post.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/events.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/events.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/events.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/events.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/events.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/events.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/events.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/events.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/events.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/events.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/events.post.description: <p>Sets the AWS Lambda
+  function for a given event type for an identity pool. This request only updates
+  the key/value pair specified. Other key/values pairs are not updated. To remove
+  a key value pair, pass a empty value for the particular key.</p> <p>This API can
+  only be called with developer credentials. You cannot call this API with the temporary
+  user credentials provided by Cognito Identity.</p>
+paths./identitypools/{IdentityPoolId}/events.post.operationId: SetCognitoEvents
+paths./identitypools/{IdentityPoolId}/events.post.parameters.length: 2
+paths./identitypools/{IdentityPoolId}/events.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/events.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/events.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/events.post.parameters[0].schema.$ref: '#/definitions/SetCognitoEventsRequest'
+paths./identitypools/{IdentityPoolId}/events.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/events.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/events.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/events.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/events.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/events.post.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}/events.post.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}/events.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/events.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/events.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/events.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/events.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/events.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/events.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/events.post.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/events.post.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/events.post.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/events.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/events.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/events.post.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.description: <p>Get
+  the status of the last BulkPublish operation for an identity pool.</p> <p>This API
+  can only be called with developer credentials. You cannot call this API with the
+  temporary user credentials provided by Cognito Identity.</p>
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.operationId: GetBulkPublishDetails
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters.length: 2
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[0].schema.$ref: '#/definitions/GetBulkPublishDetailsRequest'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.200.schema.$ref: '#/definitions/GetBulkPublishDetailsResponse'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/getBulkPublishDetails.post.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.description: <p>Gets
+  usage information for an identity, including number of datasets and data usage.</p>
+  <p>This API can be called with temporary user credentials provided by Cognito Identity
+  or with developer credentials.</p>
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.operationId: DescribeIdentityUsage
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters.length: 3
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[0].schema.$ref: '#/definitions/DescribeIdentityUsageRequest'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[2].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[2].name: IdentityId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[2].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.parameters[2].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.200.schema.$ref: '#/definitions/DescribeIdentityUsageResponse'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.get.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.description: <p>Lists
+  datasets for an identity. With Amazon Cognito Sync, each identity has access only
+  to its own data. Thus, the credentials used to make this API call need to have access
+  to the identity data.</p> <p>ListDatasets can be called with temporary user credentials
+  provided by Cognito Identity or with developer credentials. You should use the Cognito
+  Identity credentials to make this API call.</p>
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.operationId: ListDatasets
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters.length: 3
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[0].schema.$ref: '#/definitions/ListDatasetsRequest'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[2].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[2].name: IdentityId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[2].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.parameters[2].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.200.schema.$ref: '#/definitions/ListDatasetsResponse'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.get.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.description: <p>Posts
+  updates to records and adds and deletes records for a dataset and user.</p> <p>The
+  sync count in the record patch is your last known sync count for that record. The
+  server will reject an UpdateRecords request with a ResourceConflictException if
+  you try to patch a record with a new value but a stale sync count.</p> <p>For example,
+  if the sync count on the server is 5 for a key called highScore and you try and
+  submit a new highScore with sync count of 4, the request will be rejected. To obtain
+  the current sync count for a record, call ListRecords. On a successful update of
+  the record, the response returns the new sync count for that record. You should
+  present that sync count the next time you try to update that same record. When the
+  record does not exist, specify the sync count as 0.</p> <p>This API can be called
+  with temporary user credentials provided by Cognito Identity or with developer credentials.</p>
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.operationId: UpdateRecords
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters.length: 4
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[0].schema.$ref: '#/definitions/UpdateRecordsRequest'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[2].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[2].name: IdentityId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[2].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[2].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[3].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[3].name: DatasetName
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[3].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.parameters[3].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.200.schema.$ref: '#/definitions/UpdateRecordsResponse'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.400.description: InvalidLambdaFunctionOutputException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.400.schema.$ref: '#/definitions/InvalidLambdaFunctionOutputException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.409.description: ResourceConflictException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.409.schema.$ref: '#/definitions/ResourceConflictException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.409.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}.post.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.description: <p>Gets
+  paginated records, optionally changed after a particular sync count for a dataset
+  and identity. With Amazon Cognito Sync, each identity has access only to its own
+  data. Thus, the credentials used to make this API call need to have access to the
+  identity data.</p> <p>ListRecords can be called with temporary user credentials
+  provided by Cognito Identity or with developer credentials. You should use Cognito
+  Identity credentials to make this API call.</p>
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.operationId: ListRecords
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters.length: 4
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[0].schema.$ref: '#/definitions/ListRecordsRequest'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[2].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[2].name: IdentityId
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[2].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[2].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[3].in: path
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[3].name: DatasetName
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[3].required: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.parameters[3].type: string
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.200.schema.$ref: '#/definitions/ListRecordsResponse'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.400.description: InvalidParameterException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.400.schema.$ref: '#/definitions/InvalidParameterException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.get.responses.500.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.description: <p>Unsubscribes
+  from receiving notifications when a dataset is modified by another device.</p> <p>This
+  API can only be called with temporary credentials provided by Cognito Identity.
+  You cannot call this API with developer credentials.</p>
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.operationId: UnsubscribeFromDataset
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters.length
+: 5
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[0].in
+: body
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[0].name
+: body
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[0].required
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[0].schema.$ref
+: '#/definitions/UnsubscribeFromDatasetRequest'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[1].in
+: path
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[1].name
+: IdentityPoolId
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[1].required
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[1].type
+: string
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[2].in
+: path
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[2].name
+: IdentityId
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[2].required
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[2].type
+: string
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[3].in
+: path
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[3].name
+: DatasetName
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[3].required
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[3].type
+: string
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[4].in
+: path
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[4].name
+: DeviceId
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[4].required
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.parameters[4].type
+: string
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.200.description
+: Success
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.200.schema.$ref
+: '#/definitions/UnsubscribeFromDatasetResponse'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.400.description
+: InvalidConfigurationException
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.400.schema.$ref
+: '#/definitions/InvalidConfigurationException'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.400.x-aws-exception
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.403.description
+: NotAuthorizedException
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.403.schema.$ref
+: '#/definitions/NotAuthorizedException'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.403.x-aws-exception
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.404.description
+: ResourceNotFoundException
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.404.schema.$ref
+: '#/definitions/ResourceNotFoundException'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.404.x-aws-exception
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.429.description
+: TooManyRequestsException
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.429.schema.$ref
+: '#/definitions/TooManyRequestsException'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.429.x-aws-exception
+: true
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.500.description
+: InternalErrorException
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.500.schema.$ref
+: '#/definitions/InternalErrorException'
+? paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.delete.responses.500.x-aws-exception
+: true
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters.length: 9
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[0].$ref: '#/parameters/Action'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[1].$ref: '#/parameters/Version'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.description: <p>Registers
+  a device to receive push sync notifications.</p> <p>This API can only be called
+  with temporary credentials provided by Cognito Identity. You cannot call this API
+  with developer credentials.</p>
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.operationId: RegisterDevice
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters.length: 3
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[0].in: body
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[0].name: body
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[0].required: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[0].schema.$ref: '#/definitions/RegisterDeviceRequest'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[1].in: path
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[1].name: IdentityPoolId
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[1].required: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[1].type: string
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[2].in: path
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[2].name: IdentityId
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[2].required: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.parameters[2].type: string
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.200.description: Success
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.200.schema.$ref: '#/definitions/RegisterDeviceResponse'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.400.description: InvalidConfigurationException
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.400.schema.$ref: '#/definitions/InvalidConfigurationException'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.400.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.403.description: NotAuthorizedException
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.403.schema.$ref: '#/definitions/NotAuthorizedException'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.403.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.404.description: ResourceNotFoundException
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.404.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.404.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.429.description: TooManyRequestsException
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.429.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.429.x-aws-exception: true
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.500.description: InternalErrorException
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.500.schema.$ref: '#/definitions/InternalErrorException'
+paths./identitypools/{IdentityPoolId}/identity/{IdentityId}/device.post.responses.500.x-aws-exception: true
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"
+x-hasEquivalentPaths: true

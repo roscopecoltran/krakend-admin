@@ -1,0 +1,1699 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.AttemptContainerDetail.description: An object representing the details
+  of a container that is part of a job attempt.
+definitions.AttemptContainerDetail.properties.containerInstanceArn.$ref: '#/definitions/String'
+definitions.AttemptContainerDetail.properties.containerInstanceArn.description: The
+  Amazon Resource Name (ARN) of the Amazon ECS container instance that hosts the job
+  attempt.
+definitions.AttemptContainerDetail.properties.exitCode.$ref: '#/definitions/Integer'
+definitions.AttemptContainerDetail.properties.exitCode.description: The exit code
+  for the job attempt. A non-zero exit code is considered a failure.
+definitions.AttemptContainerDetail.properties.logStreamName.$ref: '#/definitions/String'
+definitions.AttemptContainerDetail.properties.logStreamName.description: The name
+  of the CloudWatch Logs log stream associated with the container. The log group for
+  AWS Batch jobs is <code>/aws/batch/job</code>. Each container attempt receives a
+  log stream name when they reach the <code>RUNNING</code> status.
+definitions.AttemptContainerDetail.properties.reason.$ref: '#/definitions/String'
+definitions.AttemptContainerDetail.properties.reason.description: A short (255 max
+  characters) human-readable string to provide additional details about a running
+  or stopped container.
+definitions.AttemptContainerDetail.properties.taskArn.$ref: '#/definitions/String'
+definitions.AttemptContainerDetail.properties.taskArn.description: The Amazon Resource
+  Name (ARN) of the Amazon ECS task that is associated with the job attempt.
+definitions.AttemptContainerDetail.type: object
+definitions.AttemptDetail.description: An object representing a job attempt.
+definitions.AttemptDetail.properties.container.$ref: '#/definitions/AttemptContainerDetail'
+definitions.AttemptDetail.properties.container.description: Details about the container
+  in this job attempt.
+definitions.AttemptDetail.properties.startedAt.$ref: '#/definitions/Long'
+definitions.AttemptDetail.properties.startedAt.description: The Unix timestamp for
+  when the attempt was started (when the task transitioned from the <code>PENDING</code>
+  state to the <code>RUNNING</code> state).
+definitions.AttemptDetail.properties.statusReason.$ref: '#/definitions/String'
+definitions.AttemptDetail.properties.statusReason.description: A short, human-readable
+  string to provide additional details about the current status of the job attempt.
+definitions.AttemptDetail.properties.stoppedAt.$ref: '#/definitions/Long'
+definitions.AttemptDetail.properties.stoppedAt.description: The Unix timestamp for
+  when the attempt was stopped (when the task transitioned from the <code>RUNNING</code>
+  state to the <code>STOPPED</code> state).
+definitions.AttemptDetail.type: object
+definitions.AttemptDetails.items.$ref: '#/definitions/AttemptDetail'
+definitions.AttemptDetails.type: array
+definitions.Boolean.type: boolean
+definitions.CEState.enum.length: 2
+definitions.CEState.enum[0]: ENABLED
+definitions.CEState.enum[1]: DISABLED
+definitions.CEState.type: string
+definitions.CEStatus.enum.length: 6
+definitions.CEStatus.enum[0]: CREATING
+definitions.CEStatus.enum[1]: UPDATING
+definitions.CEStatus.enum[2]: DELETING
+definitions.CEStatus.enum[3]: DELETED
+definitions.CEStatus.enum[4]: VALID
+definitions.CEStatus.enum[5]: INVALID
+definitions.CEStatus.type: string
+definitions.CEType.enum.length: 2
+definitions.CEType.enum[0]: MANAGED
+definitions.CEType.enum[1]: UNMANAGED
+definitions.CEType.type: string
+definitions.CRType.enum.length: 2
+definitions.CRType.enum[0]: EC2
+definitions.CRType.enum[1]: SPOT
+definitions.CRType.type: string
+definitions.CancelJobRequest.example.jobId: 1d828f65-7a4d-42e8-996d-3b900ed59dc4
+definitions.CancelJobRequest.example.reason: Cancelling job.
+definitions.CancelJobRequest.properties.jobId.$ref: '#/definitions/String'
+definitions.CancelJobRequest.properties.jobId.description: A list of up to 100 job
+  IDs to cancel.
+definitions.CancelJobRequest.properties.reason.$ref: '#/definitions/String'
+definitions.CancelJobRequest.properties.reason.description: 'A message to attach to
+  the job that explains the reason for cancelling it. This message is returned by
+  future <a>DescribeJobs</a> operations on the job. This message is also recorded
+  in the AWS Batch activity logs. '
+definitions.CancelJobRequest.required.length: 2
+definitions.CancelJobRequest.required[0]: jobId
+definitions.CancelJobRequest.required[1]: reason
+definitions.CancelJobRequest.type: object
+definitions.CancelJobResponse.type: object
+definitions.ClientException.description: 'These errors are usually caused by a client
+  action, such as using an action or resource on behalf of a user that doesn''t have
+  permission to use the action or resource, or specifying an identifier that is not
+  valid. '
+definitions.ClientException.properties.message.$ref: '#/definitions/String'
+definitions.ClientException.type: object
+definitions.ComputeEnvironmentDetail.description: An object representing an AWS Batch
+  compute environment.
+definitions.ComputeEnvironmentDetail.properties.computeEnvironmentArn.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentDetail.properties.computeEnvironmentArn.description: 'The
+  Amazon Resource Name (ARN) of the compute environment. '
+definitions.ComputeEnvironmentDetail.properties.computeEnvironmentName.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentDetail.properties.computeEnvironmentName.description: 'The
+  name of the compute environment. '
+definitions.ComputeEnvironmentDetail.properties.computeResources.$ref: '#/definitions/ComputeResource'
+definitions.ComputeEnvironmentDetail.properties.computeResources.description: 'The
+  compute resources defined for the compute environment. '
+definitions.ComputeEnvironmentDetail.properties.ecsClusterArn.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentDetail.properties.ecsClusterArn.description: 'The Amazon
+  Resource Name (ARN) of the underlying Amazon ECS cluster used by the compute environment. '
+definitions.ComputeEnvironmentDetail.properties.serviceRole.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentDetail.properties.serviceRole.description: The service
+  role associated with the compute environment that allows AWS Batch to make calls
+  to AWS API operations on your behalf.
+definitions.ComputeEnvironmentDetail.properties.state.$ref: '#/definitions/CEState'
+definitions.ComputeEnvironmentDetail.properties.state.description: 'The state of the
+  compute environment. The valid values are <code>ENABLED</code> or <code>DISABLED</code>.
+  An <code>ENABLED</code> state indicates that you can register instances with the
+  compute environment and that the associated instances can accept jobs. '
+definitions.ComputeEnvironmentDetail.properties.status.$ref: '#/definitions/CEStatus'
+definitions.ComputeEnvironmentDetail.properties.status.description: The current status
+  of the compute environment (for example, <code>CREATING</code> or <code>VALID</code>).
+definitions.ComputeEnvironmentDetail.properties.statusReason.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentDetail.properties.statusReason.description: A short,
+  human-readable string to provide additional details about the current status of
+  the compute environment.
+definitions.ComputeEnvironmentDetail.properties.type.$ref: '#/definitions/CEType'
+definitions.ComputeEnvironmentDetail.properties.type.description: The type of the
+  compute environment.
+definitions.ComputeEnvironmentDetail.required.length: 3
+definitions.ComputeEnvironmentDetail.required[0]: computeEnvironmentName
+definitions.ComputeEnvironmentDetail.required[1]: computeEnvironmentArn
+definitions.ComputeEnvironmentDetail.required[2]: ecsClusterArn
+definitions.ComputeEnvironmentDetail.type: object
+definitions.ComputeEnvironmentDetailList.items.$ref: '#/definitions/ComputeEnvironmentDetail'
+definitions.ComputeEnvironmentDetailList.type: array
+definitions.ComputeEnvironmentOrder.description: The order in which compute environments
+  are tried for job placement within a queue. Compute environments are tried in ascending
+  order. For example, if two compute environments are associated with a job queue,
+  the compute environment with a lower order integer value is tried for job placement
+  first.
+definitions.ComputeEnvironmentOrder.properties.computeEnvironment.$ref: '#/definitions/String'
+definitions.ComputeEnvironmentOrder.properties.computeEnvironment.description: The
+  Amazon Resource Name (ARN) of the compute environment.
+definitions.ComputeEnvironmentOrder.properties.order.$ref: '#/definitions/Integer'
+definitions.ComputeEnvironmentOrder.properties.order.description: The order of the
+  compute environment.
+definitions.ComputeEnvironmentOrder.required.length: 2
+definitions.ComputeEnvironmentOrder.required[0]: order
+definitions.ComputeEnvironmentOrder.required[1]: computeEnvironment
+definitions.ComputeEnvironmentOrder.type: object
+definitions.ComputeEnvironmentOrders.items.$ref: '#/definitions/ComputeEnvironmentOrder'
+definitions.ComputeEnvironmentOrders.type: array
+definitions.ComputeResource.description: An object representing an AWS Batch compute
+  resource.
+definitions.ComputeResource.properties.bidPercentage.$ref: '#/definitions/Integer'
+definitions.ComputeResource.properties.bidPercentage.description: The minimum percentage
+  that a Spot Instance price must be when compared with the On-Demand price for that
+  instance type before instances are launched. For example, if your bid percentage
+  is 20%, then the Spot price must be below 20% of the current On-Demand price for
+  that EC2 instance.
+definitions.ComputeResource.properties.desiredvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResource.properties.desiredvCpus.description: 'The desired number
+  of EC2 vCPUS in the compute environment. '
+definitions.ComputeResource.properties.ec2KeyPair.$ref: '#/definitions/String'
+definitions.ComputeResource.properties.ec2KeyPair.description: The EC2 key pair that
+  is used for instances launched in the compute environment.
+definitions.ComputeResource.properties.imageId.$ref: '#/definitions/String'
+definitions.ComputeResource.properties.imageId.description: The Amazon Machine Image
+  (AMI) ID used for instances launched in the compute environment.
+definitions.ComputeResource.properties.instanceRole.$ref: '#/definitions/String'
+definitions.ComputeResource.properties.instanceRole.description: The Amazon ECS instance
+  profile applied to Amazon EC2 instances in a compute environment. You can specify
+  the short name or full Amazon Resource Name (ARN) of an instance profile. For example,
+  <code>ecsInstanceRole</code> or <code>arn:aws:iam::&lt;aws_account_id&gt;:instance-profile/ecsInstanceRole</code>.
+  For more information, see <a href="http://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html">Amazon
+  ECS Instance Role</a> in the <i>AWS Batch User Guide</i>.
+definitions.ComputeResource.properties.instanceTypes.$ref: '#/definitions/StringList'
+definitions.ComputeResource.properties.instanceTypes.description: The instances types
+  that may launched.
+definitions.ComputeResource.properties.maxvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResource.properties.maxvCpus.description: 'The maximum number of
+  EC2 vCPUs that an environment can reach. '
+definitions.ComputeResource.properties.minvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResource.properties.minvCpus.description: 'The minimum number of
+  EC2 vCPUs that an environment should maintain. '
+definitions.ComputeResource.properties.securityGroupIds.$ref: '#/definitions/StringList'
+definitions.ComputeResource.properties.securityGroupIds.description: 'The EC2 security
+  group that is associated with instances launched in the compute environment. '
+definitions.ComputeResource.properties.spotIamFleetRole.$ref: '#/definitions/String'
+definitions.ComputeResource.properties.spotIamFleetRole.description: The Amazon Resource
+  Name (ARN) of the Amazon EC2 Spot Fleet IAM role applied to a <code>SPOT</code>
+  compute environment.
+definitions.ComputeResource.properties.subnets.$ref: '#/definitions/StringList'
+definitions.ComputeResource.properties.subnets.description: 'The VPC subnets into
+  which the compute resources are launched. '
+definitions.ComputeResource.properties.tags.$ref: '#/definitions/TagsMap'
+definitions.ComputeResource.properties.tags.description: 'Key-value pair tags to be
+  applied to resources that are launched in the compute environment. '
+definitions.ComputeResource.properties.type.$ref: '#/definitions/CRType'
+definitions.ComputeResource.properties.type.description: The type of compute environment.
+definitions.ComputeResource.required.length: 7
+definitions.ComputeResource.required[0]: type
+definitions.ComputeResource.required[1]: minvCpus
+definitions.ComputeResource.required[2]: maxvCpus
+definitions.ComputeResource.required[3]: instanceTypes
+definitions.ComputeResource.required[4]: subnets
+definitions.ComputeResource.required[5]: securityGroupIds
+definitions.ComputeResource.required[6]: instanceRole
+definitions.ComputeResource.type: object
+definitions.ComputeResourceUpdate.description: An object representing the attributes
+  of a compute environment that can be updated.
+definitions.ComputeResourceUpdate.properties.desiredvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResourceUpdate.properties.desiredvCpus.description: The desired
+  number of EC2 vCPUS in the compute environment.
+definitions.ComputeResourceUpdate.properties.maxvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResourceUpdate.properties.maxvCpus.description: The maximum number
+  of EC2 vCPUs that an environment can reach.
+definitions.ComputeResourceUpdate.properties.minvCpus.$ref: '#/definitions/Integer'
+definitions.ComputeResourceUpdate.properties.minvCpus.description: The minimum number
+  of EC2 vCPUs that an environment should maintain.
+definitions.ComputeResourceUpdate.type: object
+definitions.ContainerDetail.description: An object representing the details of a container
+  that is part of a job.
+definitions.ContainerDetail.properties.command.$ref: '#/definitions/StringList'
+definitions.ContainerDetail.properties.command.description: 'The command that is passed
+  to the container. '
+definitions.ContainerDetail.properties.containerInstanceArn.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.containerInstanceArn.description: The Amazon
+  Resource Name (ARN) of the container instance on which the container is running.
+definitions.ContainerDetail.properties.environment.$ref: '#/definitions/EnvironmentVariables'
+definitions.ContainerDetail.properties.environment.description: The environment variables
+  to pass to a container.
+definitions.ContainerDetail.properties.exitCode.$ref: '#/definitions/Integer'
+definitions.ContainerDetail.properties.exitCode.description: The exit code to return
+  upon completion.
+definitions.ContainerDetail.properties.image.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.image.description: The image used to start
+  the container.
+definitions.ContainerDetail.properties.jobRoleArn.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.jobRoleArn.description: 'The Amazon Resource
+  Name (ARN) associated with the job upon execution. '
+definitions.ContainerDetail.properties.logStreamName.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.logStreamName.description: The name of the
+  CloudWatch Logs log stream associated with the container. The log group for AWS
+  Batch jobs is <code>/aws/batch/job</code>. Each container attempt receives a log
+  stream name when they reach the <code>RUNNING</code> status.
+definitions.ContainerDetail.properties.memory.$ref: '#/definitions/Integer'
+definitions.ContainerDetail.properties.memory.description: The number of MiB of memory
+  reserved for the job.
+definitions.ContainerDetail.properties.mountPoints.$ref: '#/definitions/MountPoints'
+definitions.ContainerDetail.properties.mountPoints.description: The mount points for
+  data volumes in your container.
+definitions.ContainerDetail.properties.privileged.$ref: '#/definitions/Boolean'
+definitions.ContainerDetail.properties.privileged.description: When this parameter
+  is true, the container is given elevated privileges on the host container instance
+  (similar to the <code>root</code> user).
+definitions.ContainerDetail.properties.readonlyRootFilesystem.$ref: '#/definitions/Boolean'
+definitions.ContainerDetail.properties.readonlyRootFilesystem.description: When this
+  parameter is true, the container is given read-only access to its root file system.
+definitions.ContainerDetail.properties.reason.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.reason.description: A short (255 max characters)
+  human-readable string to provide additional details about a running or stopped container.
+definitions.ContainerDetail.properties.taskArn.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.taskArn.description: The Amazon Resource Name
+  (ARN) of the Amazon ECS task that is associated with the container job.
+definitions.ContainerDetail.properties.ulimits.$ref: '#/definitions/Ulimits'
+definitions.ContainerDetail.properties.ulimits.description: A list of <code>ulimit</code>
+  values to set in the container.
+definitions.ContainerDetail.properties.user.$ref: '#/definitions/String'
+definitions.ContainerDetail.properties.user.description: The user name to use inside
+  the container.
+definitions.ContainerDetail.properties.vcpus.$ref: '#/definitions/Integer'
+definitions.ContainerDetail.properties.vcpus.description: 'The number of VCPUs allocated
+  for the job. '
+definitions.ContainerDetail.properties.volumes.$ref: '#/definitions/Volumes'
+definitions.ContainerDetail.properties.volumes.description: A list of volumes associated
+  with the job.
+definitions.ContainerDetail.type: object
+definitions.ContainerOverrides.description: The overrides that should be sent to a
+  container.
+definitions.ContainerOverrides.properties.command.$ref: '#/definitions/StringList'
+definitions.ContainerOverrides.properties.command.description: The command to send
+  to the container that overrides the default command from the Docker image or the
+  job definition.
+definitions.ContainerOverrides.properties.environment.$ref: '#/definitions/EnvironmentVariables'
+definitions.ContainerOverrides.properties.environment.description: The environment
+  variables to send to the container. You can add new environment variables, which
+  are added to the container at launch, or you can override the existing environment
+  variables from the Docker image or the job definition.
+definitions.ContainerOverrides.properties.memory.$ref: '#/definitions/Integer'
+definitions.ContainerOverrides.properties.memory.description: The number of MiB of
+  memory reserved for the job. This value overrides the value set in the job definition.
+definitions.ContainerOverrides.properties.vcpus.$ref: '#/definitions/Integer'
+definitions.ContainerOverrides.properties.vcpus.description: The number of vCPUs to
+  reserve for the container. This value overrides the value set in the job definition.
+definitions.ContainerOverrides.type: object
+definitions.ContainerProperties.description: Container properties are used in job
+  definitions to describe the container that is launched as part of a job.
+definitions.ContainerProperties.properties.command.$ref: '#/definitions/StringList'
+definitions.ContainerProperties.properties.command.description: The command that is
+  passed to the container. This parameter maps to <code>Cmd</code> in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>COMMAND</code> parameter to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>. For more information, see <a href="https://docs.docker.com/engine/reference/builder/#cmd">https://docs.docker.com/engine/reference/builder/#cmd</a>.
+definitions.ContainerProperties.properties.environment.$ref: '#/definitions/EnvironmentVariables'
+definitions.ContainerProperties.properties.environment.description: <p>The environment
+  variables to pass to a container. This parameter maps to <code>Env</code> in the
+  <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--env</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.</p> <important> <p>We do not recommend using plain text environment variables
+  for sensitive information, such as credential data.</p> </important>
+definitions.ContainerProperties.properties.image.$ref: '#/definitions/String'
+definitions.ContainerProperties.properties.image.description: <p>The image used to
+  start a container. This string is passed directly to the Docker daemon. Images in
+  the Docker Hub registry are available by default. Other repositories are specified
+  with <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters
+  (uppercase and lowercase), numbers, hyphens, underscores, colons, periods, forward
+  slashes, and number signs are allowed. This parameter maps to <code>Image</code>
+  in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>IMAGE</code> parameter of <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.</p> <ul> <li> <p>Images in Amazon ECR repositories use the full registry
+  and repository URI (for example, <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+  </p> </li> <li> <p>Images in official repositories on Docker Hub use a single name
+  (for example, <code>ubuntu</code> or <code>mongo</code>).</p> </li> <li> <p>Images
+  in other repositories on Docker Hub are qualified with an organization name (for
+  example, <code>amazon/amazon-ecs-agent</code>).</p> </li> <li> <p>Images in other
+  online repositories are qualified further by a domain name (for example, <code>quay.io/assemblyline/ubuntu</code>).</p>
+  </li> </ul>
+definitions.ContainerProperties.properties.jobRoleArn.$ref: '#/definitions/String'
+definitions.ContainerProperties.properties.jobRoleArn.description: The Amazon Resource
+  Name (ARN) of the IAM role that the container can assume for AWS permissions.
+definitions.ContainerProperties.properties.memory.$ref: '#/definitions/Integer'
+definitions.ContainerProperties.properties.memory.description: The hard limit (in
+  MiB) of memory to present to the container. If your container attempts to exceed
+  the memory specified here, the container is killed. This parameter maps to <code>Memory</code>
+  in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>. You must specify at least 4 MiB of memory for a job.
+definitions.ContainerProperties.properties.mountPoints.$ref: '#/definitions/MountPoints'
+definitions.ContainerProperties.properties.mountPoints.description: The mount points
+  for data volumes in your container. This parameter maps to <code>Volumes</code>
+  in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--volume</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.
+definitions.ContainerProperties.properties.privileged.$ref: '#/definitions/Boolean'
+definitions.ContainerProperties.properties.privileged.description: When this parameter
+  is true, the container is given elevated privileges on the host container instance
+  (similar to the <code>root</code> user). This parameter maps to <code>Privileged</code>
+  in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--privileged</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.
+definitions.ContainerProperties.properties.readonlyRootFilesystem.$ref: '#/definitions/Boolean'
+definitions.ContainerProperties.properties.readonlyRootFilesystem.description: When
+  this parameter is true, the container is given read-only access to its root file
+  system. This parameter maps to <code>ReadonlyRootfs</code> in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--read-only</code> option to <code>docker run</code>.
+definitions.ContainerProperties.properties.ulimits.$ref: '#/definitions/Ulimits'
+definitions.ContainerProperties.properties.ulimits.description: A list of <code>ulimits</code>
+  to set in the container. This parameter maps to <code>Ulimits</code> in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.
+definitions.ContainerProperties.properties.user.$ref: '#/definitions/String'
+definitions.ContainerProperties.properties.user.description: The user name to use
+  inside the container. This parameter maps to <code>User</code> in the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--user</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>.
+definitions.ContainerProperties.properties.vcpus.$ref: '#/definitions/Integer'
+definitions.ContainerProperties.properties.vcpus.description: The number of vCPUs
+  reserved for the container. This parameter maps to <code>CpuShares</code> in the
+  <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create
+  a container</a> section of the <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker
+  Remote API</a> and the <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+  run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least
+  1 vCPU.
+definitions.ContainerProperties.properties.volumes.$ref: '#/definitions/Volumes'
+definitions.ContainerProperties.properties.volumes.description: A list of data volumes
+  used in a job.
+definitions.ContainerProperties.required.length: 3
+definitions.ContainerProperties.required[0]: image
+definitions.ContainerProperties.required[1]: vcpus
+definitions.ContainerProperties.required[2]: memory
+definitions.ContainerProperties.type: object
+definitions.CreateComputeEnvironmentRequest.example.computeEnvironmentName: M4Spot
+definitions.CreateComputeEnvironmentRequest.example.computeResources.bidPercentage: 20
+definitions.CreateComputeEnvironmentRequest.example.computeResources.desiredvCpus: 4
+definitions.CreateComputeEnvironmentRequest.example.computeResources.ec2KeyPair: id_rsa
+definitions.CreateComputeEnvironmentRequest.example.computeResources.instanceRole: ecsInstanceRole
+definitions.CreateComputeEnvironmentRequest.example.computeResources.instanceTypes.length: 1
+definitions.CreateComputeEnvironmentRequest.example.computeResources.instanceTypes[0]: m4
+definitions.CreateComputeEnvironmentRequest.example.computeResources.maxvCpus: 128
+definitions.CreateComputeEnvironmentRequest.example.computeResources.minvCpus: 0
+definitions.CreateComputeEnvironmentRequest.example.computeResources.securityGroupIds.length: 1
+definitions.CreateComputeEnvironmentRequest.example.computeResources.securityGroupIds[0]: sg-cf5093b2
+definitions.CreateComputeEnvironmentRequest.example.computeResources.spotIamFleetRole: arn:aws:iam::012345678910:role/aws-ec2-spot-fleet-role
+definitions.CreateComputeEnvironmentRequest.example.computeResources.subnets.length: 3
+definitions.CreateComputeEnvironmentRequest.example.computeResources.subnets[0]: subnet-220c0e0a
+definitions.CreateComputeEnvironmentRequest.example.computeResources.subnets[1]: subnet-1a95556d
+definitions.CreateComputeEnvironmentRequest.example.computeResources.subnets[2]: subnet-978f6dce
+definitions.CreateComputeEnvironmentRequest.example.computeResources.tags.Name: Batch
+  Instance - M4Spot
+definitions.CreateComputeEnvironmentRequest.example.computeResources.type: SPOT
+definitions.CreateComputeEnvironmentRequest.example.serviceRole: arn:aws:iam::012345678910:role/AWSBatchServiceRole
+definitions.CreateComputeEnvironmentRequest.example.state: ENABLED
+definitions.CreateComputeEnvironmentRequest.example.type: MANAGED
+definitions.CreateComputeEnvironmentRequest.properties.computeEnvironmentName.$ref: '#/definitions/String'
+definitions.CreateComputeEnvironmentRequest.properties.computeEnvironmentName.description: The
+  name for your compute environment. Up to 128 letters (uppercase and lowercase),
+  numbers, and underscores are allowed.
+definitions.CreateComputeEnvironmentRequest.properties.computeResources.$ref: '#/definitions/ComputeResource'
+definitions.CreateComputeEnvironmentRequest.properties.computeResources.description: Details
+  of the compute resources managed by the compute environment. This parameter is required
+  for managed compute environments.
+definitions.CreateComputeEnvironmentRequest.properties.serviceRole.$ref: '#/definitions/String'
+definitions.CreateComputeEnvironmentRequest.properties.serviceRole.description: <p>The
+  full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls
+  to other AWS services on your behalf.</p> <p>If your specified role has a path other
+  than <code>/</code>, then you must either specify the full role ARN (this is recommended)
+  or prefix the role name with the path.</p> <note> <p>Depending on how you created
+  your AWS Batch service role, its ARN may contain the <code>service-role</code> path
+  prefix. When you only specify the name of the service role, AWS Batch assumes that
+  your ARN does not use the <code>service-role</code> path prefix. Because of this,
+  we recommend that you specify the full ARN of your service role when you create
+  compute environments.</p> </note>
+definitions.CreateComputeEnvironmentRequest.properties.state.$ref: '#/definitions/CEState'
+definitions.CreateComputeEnvironmentRequest.properties.state.description: The state
+  of the compute environment. If the state is <code>ENABLED</code>, then the compute
+  environment accepts jobs from a queue and can scale out automatically based on queues.
+definitions.CreateComputeEnvironmentRequest.properties.type.$ref: '#/definitions/CEType'
+definitions.CreateComputeEnvironmentRequest.properties.type.description: 'The type
+  of the compute environment. '
+definitions.CreateComputeEnvironmentRequest.required.length: 3
+definitions.CreateComputeEnvironmentRequest.required[0]: computeEnvironmentName
+definitions.CreateComputeEnvironmentRequest.required[1]: type
+definitions.CreateComputeEnvironmentRequest.required[2]: serviceRole
+definitions.CreateComputeEnvironmentRequest.type: object
+definitions.CreateComputeEnvironmentResponse.example.computeEnvironmentArn: arn:aws:batch:us-east-1:012345678910:compute-environment/M4Spot
+definitions.CreateComputeEnvironmentResponse.example.computeEnvironmentName: M4Spot
+definitions.CreateComputeEnvironmentResponse.properties.computeEnvironmentArn.$ref: '#/definitions/String'
+definitions.CreateComputeEnvironmentResponse.properties.computeEnvironmentArn.description: 'The
+  Amazon Resource Name (ARN) of the compute environment. '
+definitions.CreateComputeEnvironmentResponse.properties.computeEnvironmentName.$ref: '#/definitions/String'
+definitions.CreateComputeEnvironmentResponse.properties.computeEnvironmentName.description: The
+  name of the compute environment.
+definitions.CreateComputeEnvironmentResponse.type: object
+definitions.CreateJobQueueRequest.example.computeEnvironmentOrder.length: 2
+definitions.CreateJobQueueRequest.example.computeEnvironmentOrder[0].computeEnvironment: C4OnDemand
+definitions.CreateJobQueueRequest.example.computeEnvironmentOrder[0].order: 1
+definitions.CreateJobQueueRequest.example.computeEnvironmentOrder[1].computeEnvironment: M4Spot
+definitions.CreateJobQueueRequest.example.computeEnvironmentOrder[1].order: 2
+definitions.CreateJobQueueRequest.example.jobQueueName: HighPriority
+definitions.CreateJobQueueRequest.example.priority: 10
+definitions.CreateJobQueueRequest.example.state: ENABLED
+definitions.CreateJobQueueRequest.properties.computeEnvironmentOrder.$ref: '#/definitions/ComputeEnvironmentOrders'
+definitions.CreateJobQueueRequest.properties.computeEnvironmentOrder.description: The
+  set of compute environments mapped to a job queue and their order relative to each
+  other. The job scheduler uses this parameter to determine which compute environment
+  should execute a given job. Compute environments must be in the <code>VALID</code>
+  state before you can associate them with a job queue. You can associate up to 3
+  compute environments with a job queue.
+definitions.CreateJobQueueRequest.properties.jobQueueName.$ref: '#/definitions/String'
+definitions.CreateJobQueueRequest.properties.jobQueueName.description: The name of
+  the job queue.
+definitions.CreateJobQueueRequest.properties.priority.$ref: '#/definitions/Integer'
+definitions.CreateJobQueueRequest.properties.priority.description: The priority of
+  the job queue. Job queues with a higher priority (or a higher integer value for
+  the <code>priority</code> parameter) are evaluated first when associated with same
+  compute environment. Priority is determined in descending order, for example, a
+  job queue with a priority value of <code>10</code> is given scheduling preference
+  over a job queue with a priority value of <code>1</code>.
+definitions.CreateJobQueueRequest.properties.state.$ref: '#/definitions/JQState'
+definitions.CreateJobQueueRequest.properties.state.description: The state of the job
+  queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+definitions.CreateJobQueueRequest.required.length: 3
+definitions.CreateJobQueueRequest.required[0]: jobQueueName
+definitions.CreateJobQueueRequest.required[1]: priority
+definitions.CreateJobQueueRequest.required[2]: computeEnvironmentOrder
+definitions.CreateJobQueueRequest.type: object
+definitions.CreateJobQueueResponse.example.jobQueueArn: arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority
+definitions.CreateJobQueueResponse.example.jobQueueName: HighPriority
+definitions.CreateJobQueueResponse.properties.jobQueueArn.$ref: '#/definitions/String'
+definitions.CreateJobQueueResponse.properties.jobQueueArn.description: The Amazon
+  Resource Name (ARN) of the job queue.
+definitions.CreateJobQueueResponse.properties.jobQueueName.$ref: '#/definitions/String'
+definitions.CreateJobQueueResponse.properties.jobQueueName.description: The name of
+  the job queue.
+definitions.CreateJobQueueResponse.required.length: 2
+definitions.CreateJobQueueResponse.required[0]: jobQueueName
+definitions.CreateJobQueueResponse.required[1]: jobQueueArn
+definitions.CreateJobQueueResponse.type: object
+definitions.DeleteComputeEnvironmentRequest.example.computeEnvironment: P2OnDemand
+definitions.DeleteComputeEnvironmentRequest.properties.computeEnvironment.$ref: '#/definitions/String'
+definitions.DeleteComputeEnvironmentRequest.properties.computeEnvironment.description: 'The
+  name or Amazon Resource Name (ARN) of the compute environment to delete. '
+definitions.DeleteComputeEnvironmentRequest.required.length: 1
+definitions.DeleteComputeEnvironmentRequest.required[0]: computeEnvironment
+definitions.DeleteComputeEnvironmentRequest.type: object
+definitions.DeleteComputeEnvironmentResponse.type: object
+definitions.DeleteJobQueueRequest.example.jobQueue: GPGPU
+definitions.DeleteJobQueueRequest.properties.jobQueue.$ref: '#/definitions/String'
+definitions.DeleteJobQueueRequest.properties.jobQueue.description: 'The short name
+  or full Amazon Resource Name (ARN) of the queue to delete. '
+definitions.DeleteJobQueueRequest.required.length: 1
+definitions.DeleteJobQueueRequest.required[0]: jobQueue
+definitions.DeleteJobQueueRequest.type: object
+definitions.DeleteJobQueueResponse.type: object
+definitions.DeregisterJobDefinitionRequest.example.jobDefinition: sleep10
+definitions.DeregisterJobDefinitionRequest.properties.jobDefinition.$ref: '#/definitions/String'
+definitions.DeregisterJobDefinitionRequest.properties.jobDefinition.description: 'The
+  name and revision (<code>name:revision</code>) or full Amazon Resource Name (ARN)
+  of the job definition to deregister. '
+definitions.DeregisterJobDefinitionRequest.required.length: 1
+definitions.DeregisterJobDefinitionRequest.required[0]: jobDefinition
+definitions.DeregisterJobDefinitionRequest.type: object
+definitions.DeregisterJobDefinitionResponse.type: object
+definitions.DescribeComputeEnvironmentsRequest.example.computeEnvironments.length: 1
+definitions.DescribeComputeEnvironmentsRequest.example.computeEnvironments[0]: P2OnDemand
+definitions.DescribeComputeEnvironmentsRequest.properties.computeEnvironments.$ref: '#/definitions/StringList'
+definitions.DescribeComputeEnvironmentsRequest.properties.computeEnvironments.description: 'A
+  list of up to 100 compute environment names or full Amazon Resource Name (ARN) entries. '
+definitions.DescribeComputeEnvironmentsRequest.properties.maxResults.$ref: '#/definitions/Integer'
+definitions.DescribeComputeEnvironmentsRequest.properties.maxResults.description: The
+  maximum number of cluster results returned by <code>DescribeComputeEnvironments</code>
+  in paginated output. When this parameter is used, <code>DescribeComputeEnvironments</code>
+  only returns <code>maxResults</code> results in a single page along with a <code>nextToken</code>
+  response element. The remaining results of the initial request can be seen by sending
+  another <code>DescribeComputeEnvironments</code> request with the returned <code>nextToken</code>
+  value. This value can be between 1 and 100. If this parameter is not used, then
+  <code>DescribeComputeEnvironments</code> returns up to 100 results and a <code>nextToken</code>
+  value if applicable.
+definitions.DescribeComputeEnvironmentsRequest.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeComputeEnvironmentsRequest.properties.nextToken.description: <p>The
+  <code>nextToken</code> value returned from a previous paginated <code>DescribeComputeEnvironments</code>
+  request where <code>maxResults</code> was used and the results exceeded the value
+  of that parameter. Pagination continues from the end of the previous results that
+  returned the <code>nextToken</code> value. This value is <code>null</code> when
+  there are no more results to return.</p> <note> <p>This token should be treated
+  as an opaque identifier that is only used to retrieve the next items in a list and
+  not for other programmatic purposes.</p> </note>
+definitions.DescribeComputeEnvironmentsRequest.type: object
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments.length: 1
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeEnvironmentArn: arn:aws:batch:us-east-1:012345678910:compute-environment/P2OnDemand
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeEnvironmentName: P2OnDemand
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.desiredvCpus: 48
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.ec2KeyPair: id_rsa
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.instanceRole: ecsInstanceRole
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.instanceTypes.length: 1
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.instanceTypes[0]: p2
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.maxvCpus: 128
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.minvCpus: 0
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.securityGroupIds.length: 1
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.securityGroupIds[0]: sg-cf5093b2
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.subnets.length: 3
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.subnets[0]: subnet-220c0e0a
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.subnets[1]: subnet-1a95556d
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.subnets[2]: subnet-978f6dce
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.tags.Name: Batch
+  Instance - P2OnDemand
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].computeResources.type: EC2
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].ecsClusterArn: arn:aws:ecs:us-east-1:012345678910:cluster/P2OnDemand_Batch_2c06f29d-d1fe-3a49-879d-42394c86effc
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].serviceRole: arn:aws:iam::012345678910:role/AWSBatchServiceRole
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].state: ENABLED
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].status: VALID
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].statusReason: ComputeEnvironment
+  Healthy
+definitions.DescribeComputeEnvironmentsResponse.example.computeEnvironments[0].type: MANAGED
+definitions.DescribeComputeEnvironmentsResponse.properties.computeEnvironments.$ref: '#/definitions/ComputeEnvironmentDetailList'
+definitions.DescribeComputeEnvironmentsResponse.properties.computeEnvironments.description: The
+  list of compute environments.
+definitions.DescribeComputeEnvironmentsResponse.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeComputeEnvironmentsResponse.properties.nextToken.description: The
+  <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code>
+  request. When the results of a <code>DescribeJobDefinitions</code> request exceed
+  <code>maxResults</code>, this value can be used to retrieve the next page of results.
+  This value is <code>null</code> when there are no more results to return.
+definitions.DescribeComputeEnvironmentsResponse.type: object
+definitions.DescribeJobDefinitionsRequest.example.status: ACTIVE
+definitions.DescribeJobDefinitionsRequest.properties.jobDefinitionName.$ref: '#/definitions/String'
+definitions.DescribeJobDefinitionsRequest.properties.jobDefinitionName.description: The
+  name of the job definition to describe.
+definitions.DescribeJobDefinitionsRequest.properties.jobDefinitions.$ref: '#/definitions/StringList'
+definitions.DescribeJobDefinitionsRequest.properties.jobDefinitions.description: A
+  space-separated list of up to 100 job definition names or full Amazon Resource Name
+  (ARN) entries.
+definitions.DescribeJobDefinitionsRequest.properties.maxResults.$ref: '#/definitions/Integer'
+definitions.DescribeJobDefinitionsRequest.properties.maxResults.description: The maximum
+  number of results returned by <code>DescribeJobDefinitions</code> in paginated output.
+  When this parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code>
+  results in a single page along with a <code>nextToken</code> response element. The
+  remaining results of the initial request can be seen by sending another <code>DescribeJobDefinitions</code>
+  request with the returned <code>nextToken</code> value. This value can be between
+  1 and 100. If this parameter is not used, then <code>DescribeJobDefinitions</code>
+  returns up to 100 results and a <code>nextToken</code> value if applicable.
+definitions.DescribeJobDefinitionsRequest.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeJobDefinitionsRequest.properties.nextToken.description: <p>The
+  <code>nextToken</code> value returned from a previous paginated <code>DescribeJobDefinitions</code>
+  request where <code>maxResults</code> was used and the results exceeded the value
+  of that parameter. Pagination continues from the end of the previous results that
+  returned the <code>nextToken</code> value. This value is <code>null</code> when
+  there are no more results to return.</p> <note> <p>This token should be treated
+  as an opaque identifier that is only used to retrieve the next items in a list and
+  not for other programmatic purposes.</p> </note>
+definitions.DescribeJobDefinitionsRequest.properties.status.$ref: '#/definitions/String'
+definitions.DescribeJobDefinitionsRequest.properties.status.description: The status
+  with which to filter job definitions.
+definitions.DescribeJobDefinitionsRequest.type: object
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions.length: 1
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.command.length: 2
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.command[0]: sleep
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.command[1]: "60"
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.environment.length: 0
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.image: busybox
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.memory: 128
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.mountPoints.length: 0
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.ulimits.length: 0
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.vcpus: 1
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].containerProperties.volumes.length: 0
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].jobDefinitionArn: arn:aws:batch:us-east-1:012345678910:job-definition/sleep60:1
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].jobDefinitionName: sleep60
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].revision: 1
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].status: ACTIVE
+definitions.DescribeJobDefinitionsResponse.example.jobDefinitions[0].type: container
+definitions.DescribeJobDefinitionsResponse.properties.jobDefinitions.$ref: '#/definitions/JobDefinitionList'
+definitions.DescribeJobDefinitionsResponse.properties.jobDefinitions.description: 'The
+  list of job definitions. '
+definitions.DescribeJobDefinitionsResponse.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeJobDefinitionsResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>DescribeJobDefinitions</code> request. When the
+  results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>,
+  this value can be used to retrieve the next page of results. This value is <code>null</code>
+  when there are no more results to return.
+definitions.DescribeJobDefinitionsResponse.type: object
+definitions.DescribeJobQueuesRequest.example.jobQueues.length: 1
+definitions.DescribeJobQueuesRequest.example.jobQueues[0]: HighPriority
+definitions.DescribeJobQueuesRequest.properties.jobQueues.$ref: '#/definitions/StringList'
+definitions.DescribeJobQueuesRequest.properties.jobQueues.description: A list of up
+  to 100 queue names or full queue Amazon Resource Name (ARN) entries.
+definitions.DescribeJobQueuesRequest.properties.maxResults.$ref: '#/definitions/Integer'
+definitions.DescribeJobQueuesRequest.properties.maxResults.description: The maximum
+  number of results returned by <code>DescribeJobQueues</code> in paginated output.
+  When this parameter is used, <code>DescribeJobQueues</code> only returns <code>maxResults</code>
+  results in a single page along with a <code>nextToken</code> response element. The
+  remaining results of the initial request can be seen by sending another <code>DescribeJobQueues</code>
+  request with the returned <code>nextToken</code> value. This value can be between
+  1 and 100. If this parameter is not used, then <code>DescribeJobQueues</code> returns
+  up to 100 results and a <code>nextToken</code> value if applicable.
+definitions.DescribeJobQueuesRequest.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeJobQueuesRequest.properties.nextToken.description: <p>The <code>nextToken</code>
+  value returned from a previous paginated <code>DescribeJobQueues</code> request
+  where <code>maxResults</code> was used and the results exceeded the value of that
+  parameter. Pagination continues from the end of the previous results that returned
+  the <code>nextToken</code> value. This value is <code>null</code> when there are
+  no more results to return.</p> <note> <p>This token should be treated as an opaque
+  identifier that is only used to retrieve the next items in a list and not for other
+  programmatic purposes.</p> </note>
+definitions.DescribeJobQueuesRequest.type: object
+definitions.DescribeJobQueuesResponse.example.jobQueues.length: 1
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].computeEnvironmentOrder.length: 1
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].computeEnvironmentOrder[0].computeEnvironment: arn:aws:batch:us-east-1:012345678910:compute-environment/C4OnDemand
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].computeEnvironmentOrder[0].order: 1
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].jobQueueArn: arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].jobQueueName: HighPriority
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].priority: 1
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].state: ENABLED
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].status: VALID
+definitions.DescribeJobQueuesResponse.example.jobQueues[0].statusReason: JobQueue
+  Healthy
+definitions.DescribeJobQueuesResponse.properties.jobQueues.$ref: '#/definitions/JobQueueDetailList'
+definitions.DescribeJobQueuesResponse.properties.jobQueues.description: 'The list
+  of job queues. '
+definitions.DescribeJobQueuesResponse.properties.nextToken.$ref: '#/definitions/String'
+definitions.DescribeJobQueuesResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>DescribeJobQueues</code> request. When the results
+  of a <code>DescribeJobQueues</code> request exceed <code>maxResults</code>, this
+  value can be used to retrieve the next page of results. This value is <code>null</code>
+  when there are no more results to return.
+definitions.DescribeJobQueuesResponse.type: object
+definitions.DescribeJobsRequest.example.jobs.length: 1
+definitions.DescribeJobsRequest.example.jobs[0]: 24fa2d7a-64c4-49d2-8b47-f8da4fbde8e9
+definitions.DescribeJobsRequest.properties.jobs.$ref: '#/definitions/StringList'
+definitions.DescribeJobsRequest.properties.jobs.description: A space-separated list
+  of up to 100 job IDs.
+definitions.DescribeJobsRequest.required.length: 1
+definitions.DescribeJobsRequest.required[0]: jobs
+definitions.DescribeJobsRequest.type: object
+definitions.DescribeJobsResponse.example.jobs.length: 1
+definitions.DescribeJobsResponse.example.jobs[0].container.command.length: 2
+definitions.DescribeJobsResponse.example.jobs[0].container.command[0]: sleep
+definitions.DescribeJobsResponse.example.jobs[0].container.command[1]: "60"
+definitions.DescribeJobsResponse.example.jobs[0].container.containerInstanceArn: arn:aws:ecs:us-east-1:012345678910:container-instance/5406d7cd-58bd-4b8f-9936-48d7c6b1526c
+definitions.DescribeJobsResponse.example.jobs[0].container.environment.length: 0
+definitions.DescribeJobsResponse.example.jobs[0].container.exitCode: 0
+definitions.DescribeJobsResponse.example.jobs[0].container.image: busybox
+definitions.DescribeJobsResponse.example.jobs[0].container.memory: 128
+definitions.DescribeJobsResponse.example.jobs[0].container.mountPoints.length: 0
+definitions.DescribeJobsResponse.example.jobs[0].container.ulimits.length: 0
+definitions.DescribeJobsResponse.example.jobs[0].container.vcpus: 1
+definitions.DescribeJobsResponse.example.jobs[0].container.volumes.length: 0
+definitions.DescribeJobsResponse.example.jobs[0].createdAt: 1.4804607e+12
+definitions.DescribeJobsResponse.example.jobs[0].dependsOn.length: 0
+definitions.DescribeJobsResponse.example.jobs[0].jobDefinition: sleep60
+definitions.DescribeJobsResponse.example.jobs[0].jobId: 24fa2d7a-64c4-49d2-8b47-f8da4fbde8e9
+definitions.DescribeJobsResponse.example.jobs[0].jobName: example
+definitions.DescribeJobsResponse.example.jobs[0].jobQueue: arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority
+definitions.DescribeJobsResponse.example.jobs[0].startedAt: 1.4804609e+12
+definitions.DescribeJobsResponse.example.jobs[0].status: SUCCEEDED
+definitions.DescribeJobsResponse.example.jobs[0].stoppedAt: 1.4804609e+12
+definitions.DescribeJobsResponse.properties.jobs.$ref: '#/definitions/JobDetailList'
+definitions.DescribeJobsResponse.properties.jobs.description: 'The list of jobs. '
+definitions.DescribeJobsResponse.type: object
+definitions.EnvironmentVariables.items.$ref: '#/definitions/KeyValuePair'
+definitions.EnvironmentVariables.type: array
+definitions.Host.description: The contents of the <code>host</code> parameter determine
+  whether your data volume persists on the host container instance and where it is
+  stored. If the host parameter is empty, then the Docker daemon assigns a host path
+  for your data volume, but the data is not guaranteed to persist after the containers
+  associated with it stop running.
+definitions.Host.properties.sourcePath.$ref: '#/definitions/String'
+definitions.Host.properties.sourcePath.description: The path on the host container
+  instance that is presented to the container. If this parameter is empty, then the
+  Docker daemon has assigned a host path for you. If the <code>host</code> parameter
+  contains a <code>sourcePath</code> file location, then the data volume persists
+  at the specified location on the host container instance until you delete it manually.
+  If the <code>sourcePath</code> value does not exist on the host container instance,
+  the Docker daemon creates it. If the location does exist, the contents of the source
+  path folder are exported.
+definitions.Host.type: object
+definitions.Integer.type: integer
+definitions.JQState.enum.length: 2
+definitions.JQState.enum[0]: ENABLED
+definitions.JQState.enum[1]: DISABLED
+definitions.JQState.type: string
+definitions.JQStatus.enum.length: 6
+definitions.JQStatus.enum[0]: CREATING
+definitions.JQStatus.enum[1]: UPDATING
+definitions.JQStatus.enum[2]: DELETING
+definitions.JQStatus.enum[3]: DELETED
+definitions.JQStatus.enum[4]: VALID
+definitions.JQStatus.enum[5]: INVALID
+definitions.JQStatus.type: string
+definitions.JobDefinition.description: An object representing an AWS Batch job definition.
+definitions.JobDefinition.properties.containerProperties.$ref: '#/definitions/ContainerProperties'
+definitions.JobDefinition.properties.containerProperties.description: 'An object with
+  various properties specific to container-based jobs. '
+definitions.JobDefinition.properties.jobDefinitionArn.$ref: '#/definitions/String'
+definitions.JobDefinition.properties.jobDefinitionArn.description: 'The Amazon Resource
+  Name (ARN) for the job definition. '
+definitions.JobDefinition.properties.jobDefinitionName.$ref: '#/definitions/String'
+definitions.JobDefinition.properties.jobDefinitionName.description: 'The name of the
+  job definition. '
+definitions.JobDefinition.properties.parameters.$ref: '#/definitions/ParametersMap'
+definitions.JobDefinition.properties.parameters.description: Default parameters or
+  parameter substitution placeholders that are set in the job definition. Parameters
+  are specified as a key-value pair mapping. Parameters in a <code>SubmitJob</code>
+  request override any corresponding parameter defaults from the job definition.
+definitions.JobDefinition.properties.retryStrategy.$ref: '#/definitions/RetryStrategy'
+definitions.JobDefinition.properties.retryStrategy.description: The retry strategy
+  to use for failed jobs that are submitted with this job definition.
+definitions.JobDefinition.properties.revision.$ref: '#/definitions/Integer'
+definitions.JobDefinition.properties.revision.description: The revision of the job
+  definition.
+definitions.JobDefinition.properties.status.$ref: '#/definitions/String'
+definitions.JobDefinition.properties.status.description: The status of the job definition.
+definitions.JobDefinition.properties.type.$ref: '#/definitions/String'
+definitions.JobDefinition.properties.type.description: The type of job definition.
+definitions.JobDefinition.required.length: 4
+definitions.JobDefinition.required[0]: jobDefinitionName
+definitions.JobDefinition.required[1]: jobDefinitionArn
+definitions.JobDefinition.required[2]: revision
+definitions.JobDefinition.required[3]: type
+definitions.JobDefinition.type: object
+definitions.JobDefinitionList.items.$ref: '#/definitions/JobDefinition'
+definitions.JobDefinitionList.type: array
+definitions.JobDefinitionType.enum.length: 1
+definitions.JobDefinitionType.enum[0]: container
+definitions.JobDefinitionType.type: string
+definitions.JobDependency.description: An object representing an AWS Batch job dependency.
+definitions.JobDependency.properties.jobId.$ref: '#/definitions/String'
+definitions.JobDependency.properties.jobId.description: The job ID of the AWS Batch
+  job associated with this dependency.
+definitions.JobDependency.type: object
+definitions.JobDependencyList.items.$ref: '#/definitions/JobDependency'
+definitions.JobDependencyList.type: array
+definitions.JobDetail.description: An object representing an AWS Batch job.
+definitions.JobDetail.properties.attempts.$ref: '#/definitions/AttemptDetails'
+definitions.JobDetail.properties.attempts.description: A list of job attempts associated
+  with this job.
+definitions.JobDetail.properties.container.$ref: '#/definitions/ContainerDetail'
+definitions.JobDetail.properties.container.description: An object representing the
+  details of the container that is associated with the job.
+definitions.JobDetail.properties.createdAt.$ref: '#/definitions/Long'
+definitions.JobDetail.properties.createdAt.description: 'The Unix timestamp for when
+  the job was created (when the task entered the <code>PENDING</code> state). '
+definitions.JobDetail.properties.dependsOn.$ref: '#/definitions/JobDependencyList'
+definitions.JobDetail.properties.dependsOn.description: A list of job names or IDs
+  on which this job depends.
+definitions.JobDetail.properties.jobDefinition.$ref: '#/definitions/String'
+definitions.JobDetail.properties.jobDefinition.description: The job definition that
+  is used by this job.
+definitions.JobDetail.properties.jobId.$ref: '#/definitions/String'
+definitions.JobDetail.properties.jobId.description: The ID for the job.
+definitions.JobDetail.properties.jobName.$ref: '#/definitions/String'
+definitions.JobDetail.properties.jobName.description: The name of the job.
+definitions.JobDetail.properties.jobQueue.$ref: '#/definitions/String'
+definitions.JobDetail.properties.jobQueue.description: The Amazon Resource Name (ARN)
+  of the job queue with which the job is associated.
+definitions.JobDetail.properties.parameters.$ref: '#/definitions/ParametersMap'
+definitions.JobDetail.properties.parameters.description: 'Additional parameters passed
+  to the job that replace parameter substitution placeholders or override any corresponding
+  parameter defaults from the job definition. '
+definitions.JobDetail.properties.retryStrategy.$ref: '#/definitions/RetryStrategy'
+definitions.JobDetail.properties.retryStrategy.description: The retry strategy to
+  use for this job if an attempt fails.
+definitions.JobDetail.properties.startedAt.$ref: '#/definitions/Long'
+definitions.JobDetail.properties.startedAt.description: 'The Unix timestamp for when
+  the job was started (when the task transitioned from the <code>PENDING</code> state
+  to the <code>RUNNING</code> state). '
+definitions.JobDetail.properties.status.$ref: '#/definitions/JobStatus'
+definitions.JobDetail.properties.status.description: The current status for the job.
+definitions.JobDetail.properties.statusReason.$ref: '#/definitions/String'
+definitions.JobDetail.properties.statusReason.description: 'A short, human-readable
+  string to provide additional details about the current status of the job. '
+definitions.JobDetail.properties.stoppedAt.$ref: '#/definitions/Long'
+definitions.JobDetail.properties.stoppedAt.description: The Unix timestamp for when
+  the job was stopped (when the task transitioned from the <code>RUNNING</code> state
+  to the <code>STOPPED</code> state).
+definitions.JobDetail.required.length: 6
+definitions.JobDetail.required[0]: jobName
+definitions.JobDetail.required[1]: jobId
+definitions.JobDetail.required[2]: jobQueue
+definitions.JobDetail.required[3]: status
+definitions.JobDetail.required[4]: startedAt
+definitions.JobDetail.required[5]: jobDefinition
+definitions.JobDetail.type: object
+definitions.JobDetailList.items.$ref: '#/definitions/JobDetail'
+definitions.JobDetailList.type: array
+definitions.JobQueueDetail.description: An object representing the details of an AWS
+  Batch job queue.
+definitions.JobQueueDetail.properties.computeEnvironmentOrder.$ref: '#/definitions/ComputeEnvironmentOrders'
+definitions.JobQueueDetail.properties.computeEnvironmentOrder.description: The compute
+  environments that are attached to the job queue and the order in which job placement
+  is preferred. Compute environments are selected for job placement in ascending order.
+definitions.JobQueueDetail.properties.jobQueueArn.$ref: '#/definitions/String'
+definitions.JobQueueDetail.properties.jobQueueArn.description: The Amazon Resource
+  Name (ARN) of the job queue.
+definitions.JobQueueDetail.properties.jobQueueName.$ref: '#/definitions/String'
+definitions.JobQueueDetail.properties.jobQueueName.description: The name of the job
+  queue.
+definitions.JobQueueDetail.properties.priority.$ref: '#/definitions/Integer'
+definitions.JobQueueDetail.properties.priority.description: 'The priority of the job
+  queue. '
+definitions.JobQueueDetail.properties.state.$ref: '#/definitions/JQState'
+definitions.JobQueueDetail.properties.state.description: Describes the ability of
+  the queue to accept new jobs.
+definitions.JobQueueDetail.properties.status.$ref: '#/definitions/JQStatus'
+definitions.JobQueueDetail.properties.status.description: The status of the job queue
+  (for example, <code>CREATING</code> or <code>VALID</code>).
+definitions.JobQueueDetail.properties.statusReason.$ref: '#/definitions/String'
+definitions.JobQueueDetail.properties.statusReason.description: A short, human-readable
+  string to provide additional details about the current status of the job queue.
+definitions.JobQueueDetail.required.length: 5
+definitions.JobQueueDetail.required[0]: jobQueueName
+definitions.JobQueueDetail.required[1]: jobQueueArn
+definitions.JobQueueDetail.required[2]: state
+definitions.JobQueueDetail.required[3]: priority
+definitions.JobQueueDetail.required[4]: computeEnvironmentOrder
+definitions.JobQueueDetail.type: object
+definitions.JobQueueDetailList.items.$ref: '#/definitions/JobQueueDetail'
+definitions.JobQueueDetailList.type: array
+definitions.JobStatus.enum.length: 7
+definitions.JobStatus.enum[0]: SUBMITTED
+definitions.JobStatus.enum[1]: PENDING
+definitions.JobStatus.enum[2]: RUNNABLE
+definitions.JobStatus.enum[3]: STARTING
+definitions.JobStatus.enum[4]: RUNNING
+definitions.JobStatus.enum[5]: SUCCEEDED
+definitions.JobStatus.enum[6]: FAILED
+definitions.JobStatus.type: string
+definitions.JobSummary.description: An object representing summary details of a job.
+definitions.JobSummary.properties.jobId.$ref: '#/definitions/String'
+definitions.JobSummary.properties.jobId.description: The ID of the job.
+definitions.JobSummary.properties.jobName.$ref: '#/definitions/String'
+definitions.JobSummary.properties.jobName.description: The name of the job.
+definitions.JobSummary.required.length: 2
+definitions.JobSummary.required[0]: jobId
+definitions.JobSummary.required[1]: jobName
+definitions.JobSummary.type: object
+definitions.JobSummaryList.items.$ref: '#/definitions/JobSummary'
+definitions.JobSummaryList.type: array
+definitions.KeyValuePair.description: A key-value pair object.
+definitions.KeyValuePair.properties.name.$ref: '#/definitions/String'
+definitions.KeyValuePair.properties.name.description: The name of the key value pair.
+  For environment variables, this is the name of the environment variable.
+definitions.KeyValuePair.properties.value.$ref: '#/definitions/String'
+definitions.KeyValuePair.properties.value.description: The value of the key value
+  pair. For environment variables, this is the value of the environment variable.
+definitions.KeyValuePair.type: object
+definitions.ListJobsRequest.example.jobQueue: HighPriority
+definitions.ListJobsRequest.example.jobStatus: SUBMITTED
+definitions.ListJobsRequest.properties.jobQueue.$ref: '#/definitions/String'
+definitions.ListJobsRequest.properties.jobQueue.description: The name or full Amazon
+  Resource Name (ARN) of the job queue with which to list jobs.
+definitions.ListJobsRequest.properties.jobStatus.$ref: '#/definitions/JobStatus'
+definitions.ListJobsRequest.properties.jobStatus.description: The job status with
+  which to filter jobs in the specified queue. If you do not specify a status, only
+  <code>RUNNING</code> jobs are returned.
+definitions.ListJobsRequest.properties.maxResults.$ref: '#/definitions/Integer'
+definitions.ListJobsRequest.properties.maxResults.description: The maximum number
+  of results returned by <code>ListJobs</code> in paginated output. When this parameter
+  is used, <code>ListJobs</code> only returns <code>maxResults</code> results in a
+  single page along with a <code>nextToken</code> response element. The remaining
+  results of the initial request can be seen by sending another <code>ListJobs</code>
+  request with the returned <code>nextToken</code> value. This value can be between
+  1 and 100. If this parameter is not used, then <code>ListJobs</code> returns up
+  to 100 results and a <code>nextToken</code> value if applicable.
+definitions.ListJobsRequest.properties.nextToken.$ref: '#/definitions/String'
+definitions.ListJobsRequest.properties.nextToken.description: <p>The <code>nextToken</code>
+  value returned from a previous paginated <code>ListJobs</code> request where <code>maxResults</code>
+  was used and the results exceeded the value of that parameter. Pagination continues
+  from the end of the previous results that returned the <code>nextToken</code> value.
+  This value is <code>null</code> when there are no more results to return.</p> <note>
+  <p>This token should be treated as an opaque identifier that is only used to retrieve
+  the next items in a list and not for other programmatic purposes.</p> </note>
+definitions.ListJobsRequest.required.length: 1
+definitions.ListJobsRequest.required[0]: jobQueue
+definitions.ListJobsRequest.type: object
+definitions.ListJobsResponse.example.jobSummaryList.length: 1
+definitions.ListJobsResponse.example.jobSummaryList[0].jobId: 68f0c163-fbd4-44e6-9fd1-25b14a434786
+definitions.ListJobsResponse.example.jobSummaryList[0].jobName: example
+definitions.ListJobsResponse.properties.jobSummaryList.$ref: '#/definitions/JobSummaryList'
+definitions.ListJobsResponse.properties.jobSummaryList.description: A list of job
+  summaries that match the request.
+definitions.ListJobsResponse.properties.nextToken.$ref: '#/definitions/String'
+definitions.ListJobsResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>ListJobs</code> request. When the results of
+  a <code>ListJobs</code> request exceed <code>maxResults</code>, this value can be
+  used to retrieve the next page of results. This value is <code>null</code> when
+  there are no more results to return.
+definitions.ListJobsResponse.required.length: 1
+definitions.ListJobsResponse.required[0]: jobSummaryList
+definitions.ListJobsResponse.type: object
+definitions.Long.type: integer
+definitions.MountPoint.description: Details on a Docker volume mount point that is
+  used in a job's container properties.
+definitions.MountPoint.properties.containerPath.$ref: '#/definitions/String'
+definitions.MountPoint.properties.containerPath.description: The path on the container
+  at which to mount the host volume.
+definitions.MountPoint.properties.readOnly.$ref: '#/definitions/Boolean'
+definitions.MountPoint.properties.readOnly.description: If this value is <code>true</code>,
+  the container has read-only access to the volume; otherwise, the container can write
+  to the volume. The default value is <code>false</code>.
+definitions.MountPoint.properties.sourceVolume.$ref: '#/definitions/String'
+definitions.MountPoint.properties.sourceVolume.description: The name of the volume
+  to mount.
+definitions.MountPoint.type: object
+definitions.MountPoints.items.$ref: '#/definitions/MountPoint'
+definitions.MountPoints.type: array
+definitions.ParametersMap.items.properties.key.$ref: '#/definitions/String'
+definitions.ParametersMap.items.properties.value.$ref: '#/definitions/String'
+definitions.ParametersMap.items.type: object
+definitions.ParametersMap.type: array
+definitions.RegisterJobDefinitionRequest.example.containerProperties.command.length: 2
+definitions.RegisterJobDefinitionRequest.example.containerProperties.command[0]: sleep
+definitions.RegisterJobDefinitionRequest.example.containerProperties.command[1]: "10"
+definitions.RegisterJobDefinitionRequest.example.containerProperties.image: busybox
+definitions.RegisterJobDefinitionRequest.example.containerProperties.memory: 128
+definitions.RegisterJobDefinitionRequest.example.containerProperties.vcpus: 1
+definitions.RegisterJobDefinitionRequest.example.jobDefinitionName: sleep10
+definitions.RegisterJobDefinitionRequest.example.type: container
+definitions.RegisterJobDefinitionRequest.properties.containerProperties.$ref: '#/definitions/ContainerProperties'
+definitions.RegisterJobDefinitionRequest.properties.containerProperties.description: An
+  object with various properties specific for container-based jobs. This parameter
+  is required if the <code>type</code> parameter is <code>container</code>.
+definitions.RegisterJobDefinitionRequest.properties.jobDefinitionName.$ref: '#/definitions/String'
+definitions.RegisterJobDefinitionRequest.properties.jobDefinitionName.description: The
+  name of the job definition to register. Up to 128 letters (uppercase and lowercase),
+  numbers, hyphens, and underscores are allowed.
+definitions.RegisterJobDefinitionRequest.properties.parameters.$ref: '#/definitions/ParametersMap'
+definitions.RegisterJobDefinitionRequest.properties.parameters.description: Default
+  parameter substitution placeholders to set in the job definition. Parameters are
+  specified as a key-value pair mapping. Parameters in a <code>SubmitJob</code> request
+  override any corresponding parameter defaults from the job definition.
+definitions.RegisterJobDefinitionRequest.properties.retryStrategy.$ref: '#/definitions/RetryStrategy'
+definitions.RegisterJobDefinitionRequest.properties.retryStrategy.description: The
+  retry strategy to use for failed jobs that are submitted with this job definition.
+  Any retry strategy that is specified during a <a>SubmitJob</a> operation overrides
+  the retry strategy defined here.
+definitions.RegisterJobDefinitionRequest.properties.type.$ref: '#/definitions/JobDefinitionType'
+definitions.RegisterJobDefinitionRequest.properties.type.description: The type of
+  job definition.
+definitions.RegisterJobDefinitionRequest.required.length: 2
+definitions.RegisterJobDefinitionRequest.required[0]: jobDefinitionName
+definitions.RegisterJobDefinitionRequest.required[1]: type
+definitions.RegisterJobDefinitionRequest.type: object
+definitions.RegisterJobDefinitionResponse.example.jobDefinitionArn: arn:aws:batch:us-east-1:012345678910:job-definition/sleep10:1
+definitions.RegisterJobDefinitionResponse.example.jobDefinitionName: sleep10
+definitions.RegisterJobDefinitionResponse.example.revision: 1
+definitions.RegisterJobDefinitionResponse.properties.jobDefinitionArn.$ref: '#/definitions/String'
+definitions.RegisterJobDefinitionResponse.properties.jobDefinitionArn.description: 'The
+  Amazon Resource Name (ARN) of the job definition. '
+definitions.RegisterJobDefinitionResponse.properties.jobDefinitionName.$ref: '#/definitions/String'
+definitions.RegisterJobDefinitionResponse.properties.jobDefinitionName.description: The
+  name of the job definition.
+definitions.RegisterJobDefinitionResponse.properties.revision.$ref: '#/definitions/Integer'
+definitions.RegisterJobDefinitionResponse.properties.revision.description: The revision
+  of the job definition.
+definitions.RegisterJobDefinitionResponse.required.length: 3
+definitions.RegisterJobDefinitionResponse.required[0]: jobDefinitionName
+definitions.RegisterJobDefinitionResponse.required[1]: jobDefinitionArn
+definitions.RegisterJobDefinitionResponse.required[2]: revision
+definitions.RegisterJobDefinitionResponse.type: object
+definitions.RetryStrategy.description: The retry strategy associated with a job.
+definitions.RetryStrategy.properties.attempts.$ref: '#/definitions/Integer'
+definitions.RetryStrategy.properties.attempts.description: The number of times to
+  move a job to the <code>RUNNABLE</code> status. You may specify between 1 and 10
+  attempts. If <code>attempts</code> is greater than one, the job is retried if it
+  fails until it has moved to <code>RUNNABLE</code> that many times.
+definitions.RetryStrategy.type: object
+definitions.ServerException.description: These errors are usually caused by a server
+  issue.
+definitions.ServerException.properties.message.$ref: '#/definitions/String'
+definitions.ServerException.type: object
+definitions.String.type: string
+definitions.StringList.items.$ref: '#/definitions/String'
+definitions.StringList.type: array
+definitions.SubmitJobRequest.example.jobDefinition: sleep60
+definitions.SubmitJobRequest.example.jobName: example
+definitions.SubmitJobRequest.example.jobQueue: HighPriority
+definitions.SubmitJobRequest.properties.containerOverrides.$ref: '#/definitions/ContainerOverrides'
+definitions.SubmitJobRequest.properties.containerOverrides.description: A list of
+  container overrides in JSON format that specify the name of a container in the specified
+  job definition and the overrides it should receive. You can override the default
+  command for a container (that is specified in the job definition or the Docker image)
+  with a <code>command</code> override. You can also override existing environment
+  variables (that are specified in the job definition or Docker image) on a container
+  or add new environment variables to it with an <code>environment</code> override.
+definitions.SubmitJobRequest.properties.dependsOn.$ref: '#/definitions/JobDependencyList'
+definitions.SubmitJobRequest.properties.dependsOn.description: 'A list of job IDs
+  on which this job depends. A job can depend upon a maximum of 20 jobs. '
+definitions.SubmitJobRequest.properties.jobDefinition.$ref: '#/definitions/String'
+definitions.SubmitJobRequest.properties.jobDefinition.description: The job definition
+  used by this job. This value can be either a <code>name:revision</code> or the Amazon
+  Resource Name (ARN) for the job definition.
+definitions.SubmitJobRequest.properties.jobName.$ref: '#/definitions/String'
+definitions.SubmitJobRequest.properties.jobName.description: 'The name of the job.
+  The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase),
+  numbers, hyphens, and underscores are allowed. '
+definitions.SubmitJobRequest.properties.jobQueue.$ref: '#/definitions/String'
+definitions.SubmitJobRequest.properties.jobQueue.description: 'The job queue into
+  which the job will be submitted. You can specify either the name or the Amazon Resource
+  Name (ARN) of the queue. '
+definitions.SubmitJobRequest.properties.parameters.$ref: '#/definitions/ParametersMap'
+definitions.SubmitJobRequest.properties.parameters.description: Additional parameters
+  passed to the job that replace parameter substitution placeholders that are set
+  in the job definition. Parameters are specified as a key and value pair mapping.
+  Parameters in a <code>SubmitJob</code> request override any corresponding parameter
+  defaults from the job definition.
+definitions.SubmitJobRequest.properties.retryStrategy.$ref: '#/definitions/RetryStrategy'
+definitions.SubmitJobRequest.properties.retryStrategy.description: The retry strategy
+  to use for failed jobs from this <a>SubmitJob</a> operation. When a retry strategy
+  is specified here, it overrides the retry strategy defined in the job definition.
+definitions.SubmitJobRequest.required.length: 3
+definitions.SubmitJobRequest.required[0]: jobName
+definitions.SubmitJobRequest.required[1]: jobQueue
+definitions.SubmitJobRequest.required[2]: jobDefinition
+definitions.SubmitJobRequest.type: object
+definitions.SubmitJobResponse.example.jobId: 876da822-4198-45f2-a252-6cea32512ea8
+definitions.SubmitJobResponse.example.jobName: example
+definitions.SubmitJobResponse.properties.jobId.$ref: '#/definitions/String'
+definitions.SubmitJobResponse.properties.jobId.description: The unique identifier
+  for the job.
+definitions.SubmitJobResponse.properties.jobName.$ref: '#/definitions/String'
+definitions.SubmitJobResponse.properties.jobName.description: 'The name of the job. '
+definitions.SubmitJobResponse.required.length: 2
+definitions.SubmitJobResponse.required[0]: jobName
+definitions.SubmitJobResponse.required[1]: jobId
+definitions.SubmitJobResponse.type: object
+definitions.TagsMap.items.properties.key.$ref: '#/definitions/String'
+definitions.TagsMap.items.properties.value.$ref: '#/definitions/String'
+definitions.TagsMap.items.type: object
+definitions.TagsMap.type: array
+definitions.TerminateJobRequest.example.jobId: 61e743ed-35e4-48da-b2de-5c8333821c84
+definitions.TerminateJobRequest.example.reason: Terminating job.
+definitions.TerminateJobRequest.properties.jobId.$ref: '#/definitions/String'
+definitions.TerminateJobRequest.properties.jobId.description: Job IDs to be terminated.
+  Up to 100 jobs can be specified.
+definitions.TerminateJobRequest.properties.reason.$ref: '#/definitions/String'
+definitions.TerminateJobRequest.properties.reason.description: 'A message to attach
+  to the job that explains the reason for cancelling it. This message is returned
+  by future <a>DescribeJobs</a> operations on the job. This message is also recorded
+  in the AWS Batch activity logs. '
+definitions.TerminateJobRequest.required.length: 2
+definitions.TerminateJobRequest.required[0]: jobId
+definitions.TerminateJobRequest.required[1]: reason
+definitions.TerminateJobRequest.type: object
+definitions.TerminateJobResponse.type: object
+definitions.Ulimit.description: The <code>ulimit</code> settings to pass to the container.
+definitions.Ulimit.properties.hardLimit.$ref: '#/definitions/Integer'
+definitions.Ulimit.properties.hardLimit.description: The hard limit for the <code>ulimit</code>
+  type.
+definitions.Ulimit.properties.name.$ref: '#/definitions/String'
+definitions.Ulimit.properties.name.description: The <code>type</code> of the <code>ulimit</code>.
+definitions.Ulimit.properties.softLimit.$ref: '#/definitions/Integer'
+definitions.Ulimit.properties.softLimit.description: The soft limit for the <code>ulimit</code>
+  type.
+definitions.Ulimit.required.length: 3
+definitions.Ulimit.required[0]: hardLimit
+definitions.Ulimit.required[1]: name
+definitions.Ulimit.required[2]: softLimit
+definitions.Ulimit.type: object
+definitions.Ulimits.items.$ref: '#/definitions/Ulimit'
+definitions.Ulimits.type: array
+definitions.UpdateComputeEnvironmentRequest.example.computeEnvironment: P2OnDemand
+definitions.UpdateComputeEnvironmentRequest.example.state: DISABLED
+definitions.UpdateComputeEnvironmentRequest.properties.computeEnvironment.$ref: '#/definitions/String'
+definitions.UpdateComputeEnvironmentRequest.properties.computeEnvironment.description: The
+  name or full Amazon Resource Name (ARN) of the compute environment to update.
+definitions.UpdateComputeEnvironmentRequest.properties.computeResources.$ref: '#/definitions/ComputeResourceUpdate'
+definitions.UpdateComputeEnvironmentRequest.properties.computeResources.description: Details
+  of the compute resources managed by the compute environment. Required for a managed
+  compute environment.
+definitions.UpdateComputeEnvironmentRequest.properties.serviceRole.$ref: '#/definitions/String'
+definitions.UpdateComputeEnvironmentRequest.properties.serviceRole.description: <p>The
+  full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls
+  to other AWS services on your behalf.</p> <p>If your specified role has a path other
+  than <code>/</code>, then you must either specify the full role ARN (this is recommended)
+  or prefix the role name with the path.</p> <note> <p>Depending on how you created
+  your AWS Batch service role, its ARN may contain the <code>service-role</code> path
+  prefix. When you only specify the name of the service role, AWS Batch assumes that
+  your ARN does not use the <code>service-role</code> path prefix. Because of this,
+  we recommend that you specify the full ARN of your service role when you create
+  compute environments.</p> </note>
+definitions.UpdateComputeEnvironmentRequest.properties.state.$ref: '#/definitions/CEState'
+definitions.UpdateComputeEnvironmentRequest.properties.state.description: The state
+  of the compute environment. Compute environments in the <code>ENABLED</code> state
+  can accept jobs from a queue and scale in or out automatically based on the workload
+  demand of its associated queues.
+definitions.UpdateComputeEnvironmentRequest.required.length: 1
+definitions.UpdateComputeEnvironmentRequest.required[0]: computeEnvironment
+definitions.UpdateComputeEnvironmentRequest.type: object
+definitions.UpdateComputeEnvironmentResponse.example.computeEnvironmentArn: arn:aws:batch:us-east-1:012345678910:compute-environment/P2OnDemand
+definitions.UpdateComputeEnvironmentResponse.example.computeEnvironmentName: P2OnDemand
+definitions.UpdateComputeEnvironmentResponse.properties.computeEnvironmentArn.$ref: '#/definitions/String'
+definitions.UpdateComputeEnvironmentResponse.properties.computeEnvironmentArn.description: 'The
+  Amazon Resource Name (ARN) of the compute environment. '
+definitions.UpdateComputeEnvironmentResponse.properties.computeEnvironmentName.$ref: '#/definitions/String'
+definitions.UpdateComputeEnvironmentResponse.properties.computeEnvironmentName.description: The
+  name of compute environment.
+definitions.UpdateComputeEnvironmentResponse.type: object
+definitions.UpdateJobQueueRequest.example.jobQueue: GPGPU
+definitions.UpdateJobQueueRequest.example.state: DISABLED
+definitions.UpdateJobQueueRequest.properties.computeEnvironmentOrder.$ref: '#/definitions/ComputeEnvironmentOrders'
+definitions.UpdateJobQueueRequest.properties.computeEnvironmentOrder.description: 'Details
+  the set of compute environments mapped to a job queue and their order relative to
+  each other. This is one of the parameters used by the job scheduler to determine
+  which compute environment should execute a given job. '
+definitions.UpdateJobQueueRequest.properties.jobQueue.$ref: '#/definitions/String'
+definitions.UpdateJobQueueRequest.properties.jobQueue.description: The name or the
+  Amazon Resource Name (ARN) of the job queue.
+definitions.UpdateJobQueueRequest.properties.priority.$ref: '#/definitions/Integer'
+definitions.UpdateJobQueueRequest.properties.priority.description: The priority of
+  the job queue. Job queues with a higher priority (or a higher integer value for
+  the <code>priority</code> parameter) are evaluated first when associated with same
+  compute environment. Priority is determined in descending order, for example, a
+  job queue with a priority value of <code>10</code> is given scheduling preference
+  over a job queue with a priority value of <code>1</code>.
+definitions.UpdateJobQueueRequest.properties.state.$ref: '#/definitions/JQState'
+definitions.UpdateJobQueueRequest.properties.state.description: Describes the queue's
+  ability to accept new jobs.
+definitions.UpdateJobQueueRequest.required.length: 1
+definitions.UpdateJobQueueRequest.required[0]: jobQueue
+definitions.UpdateJobQueueRequest.type: object
+definitions.UpdateJobQueueResponse.example.jobQueueArn: arn:aws:batch:us-east-1:012345678910:job-queue/GPGPU
+definitions.UpdateJobQueueResponse.example.jobQueueName: GPGPU
+definitions.UpdateJobQueueResponse.properties.jobQueueArn.$ref: '#/definitions/String'
+definitions.UpdateJobQueueResponse.properties.jobQueueArn.description: The Amazon
+  Resource Name (ARN) of the job queue.
+definitions.UpdateJobQueueResponse.properties.jobQueueName.$ref: '#/definitions/String'
+definitions.UpdateJobQueueResponse.properties.jobQueueName.description: The name of
+  the job queue.
+definitions.UpdateJobQueueResponse.type: object
+definitions.Volume.description: A data volume used in a job's container properties.
+definitions.Volume.properties.host.$ref: '#/definitions/Host'
+definitions.Volume.properties.host.description: The contents of the <code>host</code>
+  parameter determine whether your data volume persists on the host container instance
+  and where it is stored. If the host parameter is empty, then the Docker daemon assigns
+  a host path for your data volume, but the data is not guaranteed to persist after
+  the containers associated with it stop running.
+definitions.Volume.properties.name.$ref: '#/definitions/String'
+definitions.Volume.properties.name.description: The name of the volume. Up to 255
+  letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
+  This name is referenced in the <code>sourceVolume</code> parameter of container
+  definition <code>mountPoints</code>.
+definitions.Volume.type: object
+definitions.Volumes.items.$ref: '#/definitions/Volume'
+definitions.Volumes.type: array
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/batch/
+host: batch.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: <p>AWS Batch enables you to run batch computing workloads on the
+  AWS Cloud. Batch computing is a common way for developers, scientists, and engineers
+  to access large amounts of compute resources, and AWS Batch removes the undifferentiated
+  heavy lifting of configuring and managing the required infrastructure. AWS Batch
+  will be familiar to users of traditional batch computing software. This service
+  can efficiently provision resources in response to jobs submitted in order to eliminate
+  capacity constraints, reduce compute costs, and deliver results quickly.</p> <p>As
+  a fully managed service, AWS Batch enables developers, scientists, and engineers
+  to run batch computing workloads of any scale. AWS Batch automatically provisions
+  compute resources and optimizes the workload distribution based on the quantity
+  and scale of the workloads. With AWS Batch, there is no need to install or manage
+  batch computing software, which allows you to focus on analyzing results and solving
+  problems. AWS Batch reduces operational complexities, saves time, and reduces costs,
+  which makes it easy for developers, scientists, and engineers to run their batch
+  jobs in the AWS Cloud.</p>
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: AWS Batch
+info.version: 2016-08-10
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/batch-2016-08-10.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: batch
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./v1/canceljob.parameters.length: 9
+paths./v1/canceljob.parameters[0].$ref: '#/parameters/Action'
+paths./v1/canceljob.parameters[1].$ref: '#/parameters/Version'
+paths./v1/canceljob.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/canceljob.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/canceljob.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/canceljob.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/canceljob.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/canceljob.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/canceljob.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/canceljob.post.description: Cancels jobs in an AWS Batch job queue. Jobs
+  that are in the <code>SUBMITTED</code>, <code>PENDING</code>, or <code>RUNNABLE</code>
+  state are cancelled. Jobs that have progressed to <code>STARTING</code> or <code>RUNNING</code>
+  are not cancelled (but the API operation still succeeds, even if no jobs are cancelled);
+  these jobs must be terminated with the <a>TerminateJob</a> operation.
+paths./v1/canceljob.post.operationId: CancelJob
+paths./v1/canceljob.post.parameters.length: 1
+paths./v1/canceljob.post.parameters[0].in: body
+paths./v1/canceljob.post.parameters[0].name: body
+paths./v1/canceljob.post.parameters[0].required: true
+paths./v1/canceljob.post.parameters[0].schema.$ref: '#/definitions/CancelJobRequest'
+paths./v1/canceljob.post.responses.200.description: Success
+paths./v1/canceljob.post.responses.200.schema.$ref: '#/definitions/CancelJobResponse'
+paths./v1/canceljob.post.responses.480.description: ClientException
+paths./v1/canceljob.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/canceljob.post.responses.481.description: ServerException
+paths./v1/canceljob.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/createcomputeenvironment.parameters.length: 9
+paths./v1/createcomputeenvironment.parameters[0].$ref: '#/parameters/Action'
+paths./v1/createcomputeenvironment.parameters[1].$ref: '#/parameters/Version'
+paths./v1/createcomputeenvironment.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/createcomputeenvironment.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/createcomputeenvironment.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/createcomputeenvironment.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/createcomputeenvironment.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/createcomputeenvironment.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/createcomputeenvironment.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/createcomputeenvironment.post.description: <p>Creates an AWS Batch compute
+  environment. You can create <code>MANAGED</code> or <code>UNMANAGED</code> compute
+  environments.</p> <p>In a managed compute environment, AWS Batch manages the compute
+  resources within the environment, based on the compute resources that you specify.
+  Instances launched into a managed compute environment use a recent, approved version
+  of the Amazon ECS-optimized AMI. You can choose to use Amazon EC2 On-Demand instances
+  in your managed compute environment, or you can use Amazon EC2 Spot instances that
+  only launch when the Spot bid price is below a specified percentage of the On-Demand
+  price.</p> <p>In an unmanaged compute environment, you can manage your own compute
+  resources. This provides more compute resource configuration options, such as using
+  a custom AMI, but you must ensure that your AMI meets the Amazon ECS container instance
+  AMI specification. For more information, see <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
+  Instance AMIs</a> in the <i>Amazon EC2 Container Service Developer Guide</i>. After
+  you have created your unmanaged compute environment, you can use the <a>DescribeComputeEnvironments</a>
+  operation to find the Amazon ECS cluster that is associated with it and then manually
+  launch your container instances into that Amazon ECS cluster. For more information,
+  see <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
+  an Amazon ECS Container Instance</a> in the <i>Amazon EC2 Container Service Developer
+  Guide</i>.</p>
+paths./v1/createcomputeenvironment.post.operationId: CreateComputeEnvironment
+paths./v1/createcomputeenvironment.post.parameters.length: 1
+paths./v1/createcomputeenvironment.post.parameters[0].in: body
+paths./v1/createcomputeenvironment.post.parameters[0].name: body
+paths./v1/createcomputeenvironment.post.parameters[0].required: true
+paths./v1/createcomputeenvironment.post.parameters[0].schema.$ref: '#/definitions/CreateComputeEnvironmentRequest'
+paths./v1/createcomputeenvironment.post.responses.200.description: Success
+paths./v1/createcomputeenvironment.post.responses.200.schema.$ref: '#/definitions/CreateComputeEnvironmentResponse'
+paths./v1/createcomputeenvironment.post.responses.480.description: ClientException
+paths./v1/createcomputeenvironment.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/createcomputeenvironment.post.responses.481.description: ServerException
+paths./v1/createcomputeenvironment.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/createjobqueue.parameters.length: 9
+paths./v1/createjobqueue.parameters[0].$ref: '#/parameters/Action'
+paths./v1/createjobqueue.parameters[1].$ref: '#/parameters/Version'
+paths./v1/createjobqueue.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/createjobqueue.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/createjobqueue.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/createjobqueue.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/createjobqueue.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/createjobqueue.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/createjobqueue.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/createjobqueue.post.description: <p>Creates an AWS Batch job queue. When
+  you create a job queue, you associate one or more compute environments to the queue
+  and assign an order of preference for the compute environments.</p> <p>You also
+  set a priority to the job queue that determines the order in which the AWS Batch
+  scheduler places jobs onto its associated compute environments. For example, if
+  a compute environment is associated with more than one job queue, the job queue
+  with a higher priority is given preference for scheduling jobs to that compute environment.</p>
+paths./v1/createjobqueue.post.operationId: CreateJobQueue
+paths./v1/createjobqueue.post.parameters.length: 1
+paths./v1/createjobqueue.post.parameters[0].in: body
+paths./v1/createjobqueue.post.parameters[0].name: body
+paths./v1/createjobqueue.post.parameters[0].required: true
+paths./v1/createjobqueue.post.parameters[0].schema.$ref: '#/definitions/CreateJobQueueRequest'
+paths./v1/createjobqueue.post.responses.200.description: Success
+paths./v1/createjobqueue.post.responses.200.schema.$ref: '#/definitions/CreateJobQueueResponse'
+paths./v1/createjobqueue.post.responses.480.description: ClientException
+paths./v1/createjobqueue.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/createjobqueue.post.responses.481.description: ServerException
+paths./v1/createjobqueue.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/deletecomputeenvironment.parameters.length: 9
+paths./v1/deletecomputeenvironment.parameters[0].$ref: '#/parameters/Action'
+paths./v1/deletecomputeenvironment.parameters[1].$ref: '#/parameters/Version'
+paths./v1/deletecomputeenvironment.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/deletecomputeenvironment.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/deletecomputeenvironment.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/deletecomputeenvironment.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/deletecomputeenvironment.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/deletecomputeenvironment.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/deletecomputeenvironment.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/deletecomputeenvironment.post.description: <p>Deletes an AWS Batch compute
+  environment.</p> <p>Before you can delete a compute environment, you must set its
+  state to <code>DISABLED</code> with the <a>UpdateComputeEnvironment</a> API operation
+  and disassociate it from any job queues with the <a>UpdateJobQueue</a> API operation.</p>
+paths./v1/deletecomputeenvironment.post.operationId: DeleteComputeEnvironment
+paths./v1/deletecomputeenvironment.post.parameters.length: 1
+paths./v1/deletecomputeenvironment.post.parameters[0].in: body
+paths./v1/deletecomputeenvironment.post.parameters[0].name: body
+paths./v1/deletecomputeenvironment.post.parameters[0].required: true
+paths./v1/deletecomputeenvironment.post.parameters[0].schema.$ref: '#/definitions/DeleteComputeEnvironmentRequest'
+paths./v1/deletecomputeenvironment.post.responses.200.description: Success
+paths./v1/deletecomputeenvironment.post.responses.200.schema.$ref: '#/definitions/DeleteComputeEnvironmentResponse'
+paths./v1/deletecomputeenvironment.post.responses.480.description: ClientException
+paths./v1/deletecomputeenvironment.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/deletecomputeenvironment.post.responses.481.description: ServerException
+paths./v1/deletecomputeenvironment.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/deletejobqueue.parameters.length: 9
+paths./v1/deletejobqueue.parameters[0].$ref: '#/parameters/Action'
+paths./v1/deletejobqueue.parameters[1].$ref: '#/parameters/Version'
+paths./v1/deletejobqueue.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/deletejobqueue.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/deletejobqueue.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/deletejobqueue.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/deletejobqueue.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/deletejobqueue.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/deletejobqueue.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/deletejobqueue.post.description: <p>Deletes the specified job queue. You
+  must first disable submissions for a queue with the <a>UpdateJobQueue</a> operation.
+  All jobs in the queue are terminated when you delete a job queue.</p> <p>It is not
+  necessary to disassociate compute environments from a queue before submitting a
+  <code>DeleteJobQueue</code> request. </p>
+paths./v1/deletejobqueue.post.operationId: DeleteJobQueue
+paths./v1/deletejobqueue.post.parameters.length: 1
+paths./v1/deletejobqueue.post.parameters[0].in: body
+paths./v1/deletejobqueue.post.parameters[0].name: body
+paths./v1/deletejobqueue.post.parameters[0].required: true
+paths./v1/deletejobqueue.post.parameters[0].schema.$ref: '#/definitions/DeleteJobQueueRequest'
+paths./v1/deletejobqueue.post.responses.200.description: Success
+paths./v1/deletejobqueue.post.responses.200.schema.$ref: '#/definitions/DeleteJobQueueResponse'
+paths./v1/deletejobqueue.post.responses.480.description: ClientException
+paths./v1/deletejobqueue.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/deletejobqueue.post.responses.481.description: ServerException
+paths./v1/deletejobqueue.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/deregisterjobdefinition.parameters.length: 9
+paths./v1/deregisterjobdefinition.parameters[0].$ref: '#/parameters/Action'
+paths./v1/deregisterjobdefinition.parameters[1].$ref: '#/parameters/Version'
+paths./v1/deregisterjobdefinition.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/deregisterjobdefinition.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/deregisterjobdefinition.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/deregisterjobdefinition.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/deregisterjobdefinition.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/deregisterjobdefinition.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/deregisterjobdefinition.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/deregisterjobdefinition.post.description: Deregisters an AWS Batch job definition.
+paths./v1/deregisterjobdefinition.post.operationId: DeregisterJobDefinition
+paths./v1/deregisterjobdefinition.post.parameters.length: 1
+paths./v1/deregisterjobdefinition.post.parameters[0].in: body
+paths./v1/deregisterjobdefinition.post.parameters[0].name: body
+paths./v1/deregisterjobdefinition.post.parameters[0].required: true
+paths./v1/deregisterjobdefinition.post.parameters[0].schema.$ref: '#/definitions/DeregisterJobDefinitionRequest'
+paths./v1/deregisterjobdefinition.post.responses.200.description: Success
+paths./v1/deregisterjobdefinition.post.responses.200.schema.$ref: '#/definitions/DeregisterJobDefinitionResponse'
+paths./v1/deregisterjobdefinition.post.responses.480.description: ClientException
+paths./v1/deregisterjobdefinition.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/deregisterjobdefinition.post.responses.481.description: ServerException
+paths./v1/deregisterjobdefinition.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/describecomputeenvironments.parameters.length: 9
+paths./v1/describecomputeenvironments.parameters[0].$ref: '#/parameters/Action'
+paths./v1/describecomputeenvironments.parameters[1].$ref: '#/parameters/Version'
+paths./v1/describecomputeenvironments.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/describecomputeenvironments.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/describecomputeenvironments.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/describecomputeenvironments.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/describecomputeenvironments.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/describecomputeenvironments.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/describecomputeenvironments.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/describecomputeenvironments.post.description: <p>Describes one or more of
+  your compute environments.</p> <p>If you are using an unmanaged compute environment,
+  you can use the <code>DescribeComputeEnvironment</code> operation to determine the
+  <code>ecsClusterArn</code> that you should launch your Amazon ECS container instances
+  into.</p>
+paths./v1/describecomputeenvironments.post.operationId: DescribeComputeEnvironments
+paths./v1/describecomputeenvironments.post.parameters.length: 1
+paths./v1/describecomputeenvironments.post.parameters[0].in: body
+paths./v1/describecomputeenvironments.post.parameters[0].name: body
+paths./v1/describecomputeenvironments.post.parameters[0].required: true
+paths./v1/describecomputeenvironments.post.parameters[0].schema.$ref: '#/definitions/DescribeComputeEnvironmentsRequest'
+paths./v1/describecomputeenvironments.post.responses.200.description: Success
+paths./v1/describecomputeenvironments.post.responses.200.schema.$ref: '#/definitions/DescribeComputeEnvironmentsResponse'
+paths./v1/describecomputeenvironments.post.responses.480.description: ClientException
+paths./v1/describecomputeenvironments.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/describecomputeenvironments.post.responses.481.description: ServerException
+paths./v1/describecomputeenvironments.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/describejobdefinitions.parameters.length: 9
+paths./v1/describejobdefinitions.parameters[0].$ref: '#/parameters/Action'
+paths./v1/describejobdefinitions.parameters[1].$ref: '#/parameters/Version'
+paths./v1/describejobdefinitions.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/describejobdefinitions.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/describejobdefinitions.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/describejobdefinitions.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/describejobdefinitions.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/describejobdefinitions.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/describejobdefinitions.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/describejobdefinitions.post.description: Describes a list of job definitions.
+  You can specify a <code>status</code> (such as <code>ACTIVE</code>) to only return
+  job definitions that match that status.
+paths./v1/describejobdefinitions.post.operationId: DescribeJobDefinitions
+paths./v1/describejobdefinitions.post.parameters.length: 1
+paths./v1/describejobdefinitions.post.parameters[0].in: body
+paths./v1/describejobdefinitions.post.parameters[0].name: body
+paths./v1/describejobdefinitions.post.parameters[0].required: true
+paths./v1/describejobdefinitions.post.parameters[0].schema.$ref: '#/definitions/DescribeJobDefinitionsRequest'
+paths./v1/describejobdefinitions.post.responses.200.description: Success
+paths./v1/describejobdefinitions.post.responses.200.schema.$ref: '#/definitions/DescribeJobDefinitionsResponse'
+paths./v1/describejobdefinitions.post.responses.480.description: ClientException
+paths./v1/describejobdefinitions.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/describejobdefinitions.post.responses.481.description: ServerException
+paths./v1/describejobdefinitions.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/describejobqueues.parameters.length: 9
+paths./v1/describejobqueues.parameters[0].$ref: '#/parameters/Action'
+paths./v1/describejobqueues.parameters[1].$ref: '#/parameters/Version'
+paths./v1/describejobqueues.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/describejobqueues.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/describejobqueues.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/describejobqueues.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/describejobqueues.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/describejobqueues.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/describejobqueues.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/describejobqueues.post.description: Describes one or more of your job queues.
+paths./v1/describejobqueues.post.operationId: DescribeJobQueues
+paths./v1/describejobqueues.post.parameters.length: 1
+paths./v1/describejobqueues.post.parameters[0].in: body
+paths./v1/describejobqueues.post.parameters[0].name: body
+paths./v1/describejobqueues.post.parameters[0].required: true
+paths./v1/describejobqueues.post.parameters[0].schema.$ref: '#/definitions/DescribeJobQueuesRequest'
+paths./v1/describejobqueues.post.responses.200.description: Success
+paths./v1/describejobqueues.post.responses.200.schema.$ref: '#/definitions/DescribeJobQueuesResponse'
+paths./v1/describejobqueues.post.responses.480.description: ClientException
+paths./v1/describejobqueues.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/describejobqueues.post.responses.481.description: ServerException
+paths./v1/describejobqueues.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/describejobs.parameters.length: 9
+paths./v1/describejobs.parameters[0].$ref: '#/parameters/Action'
+paths./v1/describejobs.parameters[1].$ref: '#/parameters/Version'
+paths./v1/describejobs.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/describejobs.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/describejobs.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/describejobs.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/describejobs.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/describejobs.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/describejobs.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/describejobs.post.description: Describes a list of AWS Batch jobs.
+paths./v1/describejobs.post.operationId: DescribeJobs
+paths./v1/describejobs.post.parameters.length: 1
+paths./v1/describejobs.post.parameters[0].in: body
+paths./v1/describejobs.post.parameters[0].name: body
+paths./v1/describejobs.post.parameters[0].required: true
+paths./v1/describejobs.post.parameters[0].schema.$ref: '#/definitions/DescribeJobsRequest'
+paths./v1/describejobs.post.responses.200.description: Success
+paths./v1/describejobs.post.responses.200.schema.$ref: '#/definitions/DescribeJobsResponse'
+paths./v1/describejobs.post.responses.480.description: ClientException
+paths./v1/describejobs.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/describejobs.post.responses.481.description: ServerException
+paths./v1/describejobs.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/listjobs.parameters.length: 9
+paths./v1/listjobs.parameters[0].$ref: '#/parameters/Action'
+paths./v1/listjobs.parameters[1].$ref: '#/parameters/Version'
+paths./v1/listjobs.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/listjobs.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/listjobs.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/listjobs.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/listjobs.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/listjobs.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/listjobs.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/listjobs.post.description: Returns a list of task jobs for a specified job
+  queue. You can filter the results by job status with the <code>jobStatus</code>
+  parameter. If you do not specify a status, only <code>RUNNING</code> jobs are returned.
+paths./v1/listjobs.post.operationId: ListJobs
+paths./v1/listjobs.post.parameters.length: 1
+paths./v1/listjobs.post.parameters[0].in: body
+paths./v1/listjobs.post.parameters[0].name: body
+paths./v1/listjobs.post.parameters[0].required: true
+paths./v1/listjobs.post.parameters[0].schema.$ref: '#/definitions/ListJobsRequest'
+paths./v1/listjobs.post.responses.200.description: Success
+paths./v1/listjobs.post.responses.200.schema.$ref: '#/definitions/ListJobsResponse'
+paths./v1/listjobs.post.responses.480.description: ClientException
+paths./v1/listjobs.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/listjobs.post.responses.481.description: ServerException
+paths./v1/listjobs.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/registerjobdefinition.parameters.length: 9
+paths./v1/registerjobdefinition.parameters[0].$ref: '#/parameters/Action'
+paths./v1/registerjobdefinition.parameters[1].$ref: '#/parameters/Version'
+paths./v1/registerjobdefinition.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/registerjobdefinition.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/registerjobdefinition.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/registerjobdefinition.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/registerjobdefinition.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/registerjobdefinition.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/registerjobdefinition.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/registerjobdefinition.post.description: 'Registers an AWS Batch job definition. '
+paths./v1/registerjobdefinition.post.operationId: RegisterJobDefinition
+paths./v1/registerjobdefinition.post.parameters.length: 1
+paths./v1/registerjobdefinition.post.parameters[0].in: body
+paths./v1/registerjobdefinition.post.parameters[0].name: body
+paths./v1/registerjobdefinition.post.parameters[0].required: true
+paths./v1/registerjobdefinition.post.parameters[0].schema.$ref: '#/definitions/RegisterJobDefinitionRequest'
+paths./v1/registerjobdefinition.post.responses.200.description: Success
+paths./v1/registerjobdefinition.post.responses.200.schema.$ref: '#/definitions/RegisterJobDefinitionResponse'
+paths./v1/registerjobdefinition.post.responses.480.description: ClientException
+paths./v1/registerjobdefinition.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/registerjobdefinition.post.responses.481.description: ServerException
+paths./v1/registerjobdefinition.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/submitjob.parameters.length: 9
+paths./v1/submitjob.parameters[0].$ref: '#/parameters/Action'
+paths./v1/submitjob.parameters[1].$ref: '#/parameters/Version'
+paths./v1/submitjob.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/submitjob.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/submitjob.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/submitjob.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/submitjob.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/submitjob.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/submitjob.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/submitjob.post.description: 'Submits an AWS Batch job from a job definition.
+  Parameters specified during <a>SubmitJob</a> override parameters defined in the
+  job definition. '
+paths./v1/submitjob.post.operationId: SubmitJob
+paths./v1/submitjob.post.parameters.length: 1
+paths./v1/submitjob.post.parameters[0].in: body
+paths./v1/submitjob.post.parameters[0].name: body
+paths./v1/submitjob.post.parameters[0].required: true
+paths./v1/submitjob.post.parameters[0].schema.$ref: '#/definitions/SubmitJobRequest'
+paths./v1/submitjob.post.responses.200.description: Success
+paths./v1/submitjob.post.responses.200.schema.$ref: '#/definitions/SubmitJobResponse'
+paths./v1/submitjob.post.responses.480.description: ClientException
+paths./v1/submitjob.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/submitjob.post.responses.481.description: ServerException
+paths./v1/submitjob.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/terminatejob.parameters.length: 9
+paths./v1/terminatejob.parameters[0].$ref: '#/parameters/Action'
+paths./v1/terminatejob.parameters[1].$ref: '#/parameters/Version'
+paths./v1/terminatejob.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/terminatejob.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/terminatejob.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/terminatejob.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/terminatejob.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/terminatejob.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/terminatejob.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/terminatejob.post.description: Terminates jobs in a job queue. Jobs that
+  are in the <code>STARTING</code> or <code>RUNNING</code> state are terminated, which
+  causes them to transition to <code>FAILED</code>. Jobs that have not progressed
+  to the <code>STARTING</code> state are cancelled.
+paths./v1/terminatejob.post.operationId: TerminateJob
+paths./v1/terminatejob.post.parameters.length: 1
+paths./v1/terminatejob.post.parameters[0].in: body
+paths./v1/terminatejob.post.parameters[0].name: body
+paths./v1/terminatejob.post.parameters[0].required: true
+paths./v1/terminatejob.post.parameters[0].schema.$ref: '#/definitions/TerminateJobRequest'
+paths./v1/terminatejob.post.responses.200.description: Success
+paths./v1/terminatejob.post.responses.200.schema.$ref: '#/definitions/TerminateJobResponse'
+paths./v1/terminatejob.post.responses.480.description: ClientException
+paths./v1/terminatejob.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/terminatejob.post.responses.481.description: ServerException
+paths./v1/terminatejob.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/updatecomputeenvironment.parameters.length: 9
+paths./v1/updatecomputeenvironment.parameters[0].$ref: '#/parameters/Action'
+paths./v1/updatecomputeenvironment.parameters[1].$ref: '#/parameters/Version'
+paths./v1/updatecomputeenvironment.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/updatecomputeenvironment.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/updatecomputeenvironment.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/updatecomputeenvironment.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/updatecomputeenvironment.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/updatecomputeenvironment.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/updatecomputeenvironment.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/updatecomputeenvironment.post.description: Updates an AWS Batch compute
+  environment.
+paths./v1/updatecomputeenvironment.post.operationId: UpdateComputeEnvironment
+paths./v1/updatecomputeenvironment.post.parameters.length: 1
+paths./v1/updatecomputeenvironment.post.parameters[0].in: body
+paths./v1/updatecomputeenvironment.post.parameters[0].name: body
+paths./v1/updatecomputeenvironment.post.parameters[0].required: true
+paths./v1/updatecomputeenvironment.post.parameters[0].schema.$ref: '#/definitions/UpdateComputeEnvironmentRequest'
+paths./v1/updatecomputeenvironment.post.responses.200.description: Success
+paths./v1/updatecomputeenvironment.post.responses.200.schema.$ref: '#/definitions/UpdateComputeEnvironmentResponse'
+paths./v1/updatecomputeenvironment.post.responses.480.description: ClientException
+paths./v1/updatecomputeenvironment.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/updatecomputeenvironment.post.responses.481.description: ServerException
+paths./v1/updatecomputeenvironment.post.responses.481.schema.$ref: '#/definitions/ServerException'
+paths./v1/updatejobqueue.parameters.length: 9
+paths./v1/updatejobqueue.parameters[0].$ref: '#/parameters/Action'
+paths./v1/updatejobqueue.parameters[1].$ref: '#/parameters/Version'
+paths./v1/updatejobqueue.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./v1/updatejobqueue.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./v1/updatejobqueue.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./v1/updatejobqueue.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./v1/updatejobqueue.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./v1/updatejobqueue.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./v1/updatejobqueue.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./v1/updatejobqueue.post.description: Updates a job queue.
+paths./v1/updatejobqueue.post.operationId: UpdateJobQueue
+paths./v1/updatejobqueue.post.parameters.length: 1
+paths./v1/updatejobqueue.post.parameters[0].in: body
+paths./v1/updatejobqueue.post.parameters[0].name: body
+paths./v1/updatejobqueue.post.parameters[0].required: true
+paths./v1/updatejobqueue.post.parameters[0].schema.$ref: '#/definitions/UpdateJobQueueRequest'
+paths./v1/updatejobqueue.post.responses.200.description: Success
+paths./v1/updatejobqueue.post.responses.200.schema.$ref: '#/definitions/UpdateJobQueueResponse'
+paths./v1/updatejobqueue.post.responses.480.description: ClientException
+paths./v1/updatejobqueue.post.responses.480.schema.$ref: '#/definitions/ClientException'
+paths./v1/updatejobqueue.post.responses.481.description: ServerException
+paths./v1/updatejobqueue.post.responses.481.schema.$ref: '#/definitions/ServerException'
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"

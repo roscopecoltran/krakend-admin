@@ -1,0 +1,960 @@
+basePath: /
+definitions.Cohort.description: |-
+  Defines a cohort. A cohort is a group of users who share a common
+  characteristic. For example, all users with the same acquisition date
+  belong to the same cohort.
+definitions.Cohort.properties.dateRange.$ref: '#/definitions/DateRange'
+definitions.Cohort.properties.dateRange.description: |-
+  This is used for `FIRST_VISIT_DATE` cohort, the cohort selects users
+  whose first visit date is between start date and end date defined in the
+  DateRange. The date ranges should be aligned for cohort requests. If the
+  request contains `ga:cohortNthDay` it should be exactly one day long,
+  if `ga:cohortNthWeek` it should be aligned to the week boundary (starting
+  at Sunday and ending Saturday), and for `ga:cohortNthMonth` the date range
+  should be aligned to the month (starting at the first and ending on the
+  last day of the month).
+  For LTV requests there are no such restrictions.
+  You do not need to supply a date range for the
+  `reportsRequest.dateRanges` field.
+definitions.Cohort.properties.name.description: |-
+  A unique name for the cohort. If not defined name will be auto-generated
+  with values cohort_[1234...].
+definitions.Cohort.properties.name.type: string
+definitions.Cohort.properties.type.description: |-
+  Type of the cohort. The only supported type as of now is
+  `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
+  as `FIRST_VISIT_DATE` type cohort.
+definitions.Cohort.properties.type.enum.length: 2
+definitions.Cohort.properties.type.enum[0]: UNSPECIFIED_COHORT_TYPE
+definitions.Cohort.properties.type.enum[1]: FIRST_VISIT_DATE
+definitions.Cohort.properties.type.type: string
+definitions.Cohort.type: object
+definitions.CohortGroup.description: |-
+  Defines a cohort group.
+  For example:
+
+      "cohortGroup": {
+        "cohorts": [{
+          "name": "cohort 1",
+          "type": "FIRST_VISIT_DATE",
+          "dateRange": { "startDate": "2015-08-01", "endDate": "2015-08-01" }
+        },{
+          "name": "cohort 2"
+           "type": "FIRST_VISIT_DATE"
+           "dateRange": { "startDate": "2015-07-01", "endDate": "2015-07-01" }
+        }]
+      }
+definitions.CohortGroup.properties.cohorts.description: The definition for the cohort.
+definitions.CohortGroup.properties.cohorts.items.$ref: '#/definitions/Cohort'
+definitions.CohortGroup.properties.cohorts.type: array
+definitions.CohortGroup.properties.lifetimeValue.description: |-
+  Enable Life Time Value (LTV).  LTV measures lifetime value for users
+  acquired through different channels.
+  Please see:
+  [Cohort Analysis](https://support.google.com/analytics/answer/6074676) and
+  [Lifetime Value](https://support.google.com/analytics/answer/6182550)
+  If the value of lifetimeValue is false:
+
+  - The metric values are similar to the values in the web interface cohort
+    report.
+  - The cohort definition date ranges must be aligned to the calendar week
+    and month. i.e. while requesting `ga:cohortNthWeek` the `startDate` in
+    the cohort definition should be a Sunday and the `endDate` should be the
+    following Saturday, and for `ga:cohortNthMonth`, the `startDate`
+    should be the 1st of the month and `endDate` should be the last day
+    of the month.
+
+  When the lifetimeValue is true:
+
+  - The metric values will correspond to the values in the web interface
+    LifeTime value report.
+  - The Lifetime Value report shows you how user value (Revenue) and
+    engagement (Appviews, Goal Completions, Sessions, and Session Duration)
+    grow during the 90 days after a user is acquired.
+  - The metrics are calculated as a cumulative average per user per the time
+    increment.
+  - The cohort definition date ranges need not be aligned to the calendar
+    week and month boundaries.
+  - The `viewId` must be an
+    [app view ID](https://support.google.com/analytics/answer/2649553#WebVersusAppViews)
+definitions.CohortGroup.properties.lifetimeValue.type: boolean
+definitions.CohortGroup.type: object
+definitions.ColumnHeader.description: Column headers.
+definitions.ColumnHeader.properties.dimensions.description: The dimension names in
+  the response.
+definitions.ColumnHeader.properties.dimensions.items.type: string
+definitions.ColumnHeader.properties.dimensions.type: array
+definitions.ColumnHeader.properties.metricHeader.$ref: '#/definitions/MetricHeader'
+definitions.ColumnHeader.properties.metricHeader.description: Metric headers for the
+  metrics in the response.
+definitions.ColumnHeader.type: object
+definitions.DateRange.description: |-
+  A contiguous set of days: startDate, startDate + 1 day, ..., endDate.
+  The start and end dates are specified in
+  [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) date format `YYYY-MM-DD`.
+definitions.DateRange.properties.endDate.description: The end date for the query in
+  the format `YYYY-MM-DD`.
+definitions.DateRange.properties.endDate.type: string
+definitions.DateRange.properties.startDate.description: The start date for the query
+  in the format `YYYY-MM-DD`.
+definitions.DateRange.properties.startDate.type: string
+definitions.DateRange.type: object
+definitions.DateRangeValues.description: |-
+  Used to return a list of metrics for a single DateRange / dimension
+  combination
+definitions.DateRangeValues.properties.pivotValueRegions.description: The values of
+  each pivot region.
+definitions.DateRangeValues.properties.pivotValueRegions.items.$ref: '#/definitions/PivotValueRegion'
+definitions.DateRangeValues.properties.pivotValueRegions.type: array
+definitions.DateRangeValues.properties.values.description: Each value corresponds
+  to each Metric in the request.
+definitions.DateRangeValues.properties.values.items.type: string
+definitions.DateRangeValues.properties.values.type: array
+definitions.DateRangeValues.type: object
+definitions.Dimension.description: |-
+  [Dimensions](https://support.google.com/analytics/answer/1033861)
+  are attributes of your data. For example, the dimension `ga:city`
+  indicates the city, for example, "Paris" or "New York", from which
+  a session originates.
+definitions.Dimension.properties.histogramBuckets.description: |-
+  If non-empty, we place dimension values into buckets after string to
+  int64. Dimension values that are not the string representation of an
+  integral value will be converted to zero.  The bucket values have to be in
+  increasing order.  Each bucket is closed on the lower end, and open on the
+  upper end. The "first" bucket includes all values less than the first
+  boundary, the "last" bucket includes all values up to infinity. Dimension
+  values that fall in a bucket get transformed to a new dimension value. For
+  example, if one gives a list of "0, 1, 3, 4, 7", then we return the
+  following buckets:
+
+  - bucket #1: values < 0, dimension value "<0"
+  - bucket #2: values in [0,1), dimension value "0"
+  - bucket #3: values in [1,3), dimension value "1-2"
+  - bucket #4: values in [3,4), dimension value "3"
+  - bucket #5: values in [4,7), dimension value "4-6"
+  - bucket #6: values >= 7, dimension value "7+"
+
+  NOTE: If you are applying histogram mutation on any dimension, and using
+  that dimension in sort, you will want to use the sort type
+  `HISTOGRAM_BUCKET` for that purpose. Without that the dimension values
+  will be sorted according to dictionary
+  (lexicographic) order. For example the ascending dictionary order is:
+
+     "<50", "1001+", "121-1000", "50-120"
+
+  And the ascending `HISTOGRAM_BUCKET` order is:
+
+     "<50", "50-120", "121-1000", "1001+"
+
+  The client has to explicitly request `"orderType": "HISTOGRAM_BUCKET"`
+  for a histogram-mutated dimension.
+definitions.Dimension.properties.histogramBuckets.items.format: int64
+definitions.Dimension.properties.histogramBuckets.items.type: string
+definitions.Dimension.properties.histogramBuckets.type: array
+definitions.Dimension.properties.name.description: Name of the dimension to fetch,
+  for example `ga:browser`.
+definitions.Dimension.properties.name.type: string
+definitions.Dimension.type: object
+definitions.DimensionFilter.description: Dimension filter specifies the filtering
+  options on a dimension.
+definitions.DimensionFilter.properties.caseSensitive.description: Should the match
+  be case sensitive? Default is false.
+definitions.DimensionFilter.properties.caseSensitive.type: boolean
+definitions.DimensionFilter.properties.dimensionName.description: The dimension to
+  filter on. A DimensionFilter must contain a dimension.
+definitions.DimensionFilter.properties.dimensionName.type: string
+definitions.DimensionFilter.properties.expressions.description: |-
+  Strings or regular expression to match against. Only the first value of
+  the list is used for comparison unless the operator is `IN_LIST`.
+  If `IN_LIST` operator, then the entire list is used to filter the
+  dimensions as explained in the description of the `IN_LIST` operator.
+definitions.DimensionFilter.properties.expressions.items.type: string
+definitions.DimensionFilter.properties.expressions.type: array
+definitions.DimensionFilter.properties.not.description: |-
+  Logical `NOT` operator. If this boolean is set to true, then the matching
+  dimension values will be excluded in the report. The default is false.
+definitions.DimensionFilter.properties.not.type: boolean
+definitions.DimensionFilter.properties.operator.description: How to match the dimension
+  to the expression. The default is REGEXP.
+definitions.DimensionFilter.properties.operator.enum.length: 10
+definitions.DimensionFilter.properties.operator.enum[0]: OPERATOR_UNSPECIFIED
+definitions.DimensionFilter.properties.operator.enum[1]: REGEXP
+definitions.DimensionFilter.properties.operator.enum[2]: BEGINS_WITH
+definitions.DimensionFilter.properties.operator.enum[3]: ENDS_WITH
+definitions.DimensionFilter.properties.operator.enum[4]: PARTIAL
+definitions.DimensionFilter.properties.operator.enum[5]: EXACT
+definitions.DimensionFilter.properties.operator.enum[6]: NUMERIC_EQUAL
+definitions.DimensionFilter.properties.operator.enum[7]: NUMERIC_GREATER_THAN
+definitions.DimensionFilter.properties.operator.enum[8]: NUMERIC_LESS_THAN
+definitions.DimensionFilter.properties.operator.enum[9]: IN_LIST
+definitions.DimensionFilter.properties.operator.type: string
+definitions.DimensionFilter.type: object
+definitions.DimensionFilterClause.description: |-
+  A group of dimension filters. Set the operator value to specify how
+  the filters are logically combined.
+definitions.DimensionFilterClause.properties.filters.description: |-
+  The repeated set of filters. They are logically combined based on the
+  operator specified.
+definitions.DimensionFilterClause.properties.filters.items.$ref: '#/definitions/DimensionFilter'
+definitions.DimensionFilterClause.properties.filters.type: array
+definitions.DimensionFilterClause.properties.operator.description: |-
+  The operator for combining multiple dimension filters. If unspecified, it
+  is treated as an `OR`.
+definitions.DimensionFilterClause.properties.operator.enum.length: 3
+definitions.DimensionFilterClause.properties.operator.enum[0]: OPERATOR_UNSPECIFIED
+definitions.DimensionFilterClause.properties.operator.enum[1]: OR
+definitions.DimensionFilterClause.properties.operator.enum[2]: AND
+definitions.DimensionFilterClause.properties.operator.type: string
+definitions.DimensionFilterClause.type: object
+definitions.DynamicSegment.description: |-
+  Dynamic segment definition for defining the segment within the request.
+  A segment can select users, sessions or both.
+definitions.DynamicSegment.properties.name.description: The name of the dynamic segment.
+definitions.DynamicSegment.properties.name.type: string
+definitions.DynamicSegment.properties.sessionSegment.$ref: '#/definitions/SegmentDefinition'
+definitions.DynamicSegment.properties.sessionSegment.description: Session Segment
+  to select sessions to include in the segment.
+definitions.DynamicSegment.properties.userSegment.$ref: '#/definitions/SegmentDefinition'
+definitions.DynamicSegment.properties.userSegment.description: User Segment to select
+  users to include in the segment.
+definitions.DynamicSegment.type: object
+definitions.GetReportsRequest.description: The batch request containing multiple report
+  request.
+definitions.GetReportsRequest.properties.reportRequests.description: |-
+  Requests, each request will have a separate response.
+  There can be a maximum of 5 requests. All requests should have the same
+  `dateRanges`, `viewId`, `segments`, `samplingLevel`, and `cohortGroup`.
+definitions.GetReportsRequest.properties.reportRequests.items.$ref: '#/definitions/ReportRequest'
+definitions.GetReportsRequest.properties.reportRequests.type: array
+definitions.GetReportsRequest.type: object
+definitions.GetReportsResponse.description: |-
+  The main response class which holds the reports from the Reporting API
+  `batchGet` call.
+definitions.GetReportsResponse.properties.reports.description: Responses corresponding
+  to each of the request.
+definitions.GetReportsResponse.properties.reports.items.$ref: '#/definitions/Report'
+definitions.GetReportsResponse.properties.reports.type: array
+definitions.GetReportsResponse.type: object
+definitions.Metric.description: |-
+  [Metrics](https://support.google.com/analytics/answer/1033861)
+  are the quantitative measurements. For example, the metric `ga:users`
+  indicates the total number of users for the requested time period.
+definitions.Metric.properties.alias.description: |-
+  An alias for the metric expression is an alternate name for the
+  expression. The alias can be used for filtering and sorting. This field
+  is optional and is useful if the expression is not a single metric but
+  a complex expression which cannot be used in filtering and sorting.
+  The alias is also used in the response column header.
+definitions.Metric.properties.alias.type: string
+definitions.Metric.properties.expression.description: |-
+  A metric expression in the request. An expression is constructed from one
+  or more metrics and numbers. Accepted operators include: Plus (+), Minus
+  (-), Negation (Unary -), Divided by (/), Multiplied by (*), Parenthesis,
+  Positive cardinal numbers (0-9), can include decimals and is limited to
+  1024 characters. Example `ga:totalRefunds/ga:users`, in most cases the
+  metric expression is just a single metric name like `ga:users`.
+  Adding mixed `MetricType` (E.g., `CURRENCY` + `PERCENTAGE`) metrics
+  will result in unexpected results.
+definitions.Metric.properties.expression.type: string
+definitions.Metric.properties.formattingType.description: |-
+  Specifies how the metric expression should be formatted, for example
+  `INTEGER`.
+definitions.Metric.properties.formattingType.enum.length: 6
+definitions.Metric.properties.formattingType.enum[0]: METRIC_TYPE_UNSPECIFIED
+definitions.Metric.properties.formattingType.enum[1]: INTEGER
+definitions.Metric.properties.formattingType.enum[2]: FLOAT
+definitions.Metric.properties.formattingType.enum[3]: CURRENCY
+definitions.Metric.properties.formattingType.enum[4]: PERCENT
+definitions.Metric.properties.formattingType.enum[5]: TIME
+definitions.Metric.properties.formattingType.type: string
+definitions.Metric.type: object
+definitions.MetricFilter.description: MetricFilter specifies the filter on a metric.
+definitions.MetricFilter.properties.comparisonValue.description: The value to compare
+  against.
+definitions.MetricFilter.properties.comparisonValue.type: string
+definitions.MetricFilter.properties.metricName.description: |-
+  The metric that will be filtered on. A metricFilter must contain a metric
+  name. A metric name can be an alias earlier defined as a metric or it can
+  also be a metric expression.
+definitions.MetricFilter.properties.metricName.type: string
+definitions.MetricFilter.properties.not.description: |-
+  Logical `NOT` operator. If this boolean is set to true, then the matching
+  metric values will be excluded in the report. The default is false.
+definitions.MetricFilter.properties.not.type: boolean
+definitions.MetricFilter.properties.operator.description: |-
+  Is the metric `EQUAL`, `LESS_THAN` or `GREATER_THAN` the
+  comparisonValue, the default is `EQUAL`. If the operator is
+  `IS_MISSING`, checks if the metric is missing and would ignore the
+  comparisonValue.
+definitions.MetricFilter.properties.operator.enum.length: 5
+definitions.MetricFilter.properties.operator.enum[0]: OPERATOR_UNSPECIFIED
+definitions.MetricFilter.properties.operator.enum[1]: EQUAL
+definitions.MetricFilter.properties.operator.enum[2]: LESS_THAN
+definitions.MetricFilter.properties.operator.enum[3]: GREATER_THAN
+definitions.MetricFilter.properties.operator.enum[4]: IS_MISSING
+definitions.MetricFilter.properties.operator.type: string
+definitions.MetricFilter.type: object
+definitions.MetricFilterClause.description: |-
+  Represents a group of metric filters.
+  Set the operator value to specify how the filters are logically combined.
+definitions.MetricFilterClause.properties.filters.description: |-
+  The repeated set of filters. They are logically combined based on the
+  operator specified.
+definitions.MetricFilterClause.properties.filters.items.$ref: '#/definitions/MetricFilter'
+definitions.MetricFilterClause.properties.filters.type: array
+definitions.MetricFilterClause.properties.operator.description: |-
+  The operator for combining multiple metric filters. If unspecified, it is
+  treated as an `OR`.
+definitions.MetricFilterClause.properties.operator.enum.length: 3
+definitions.MetricFilterClause.properties.operator.enum[0]: OPERATOR_UNSPECIFIED
+definitions.MetricFilterClause.properties.operator.enum[1]: OR
+definitions.MetricFilterClause.properties.operator.enum[2]: AND
+definitions.MetricFilterClause.properties.operator.type: string
+definitions.MetricFilterClause.type: object
+definitions.MetricHeader.description: The headers for the metrics.
+definitions.MetricHeader.properties.metricHeaderEntries.description: Headers for the
+  metrics in the response.
+definitions.MetricHeader.properties.metricHeaderEntries.items.$ref: '#/definitions/MetricHeaderEntry'
+definitions.MetricHeader.properties.metricHeaderEntries.type: array
+definitions.MetricHeader.properties.pivotHeaders.description: Headers for the pivots
+  in the response.
+definitions.MetricHeader.properties.pivotHeaders.items.$ref: '#/definitions/PivotHeader'
+definitions.MetricHeader.properties.pivotHeaders.type: array
+definitions.MetricHeader.type: object
+definitions.MetricHeaderEntry.description: Header for the metrics.
+definitions.MetricHeaderEntry.properties.name.description: The name of the header.
+definitions.MetricHeaderEntry.properties.name.type: string
+definitions.MetricHeaderEntry.properties.type.description: The type of the metric,
+  for example `INTEGER`.
+definitions.MetricHeaderEntry.properties.type.enum.length: 6
+definitions.MetricHeaderEntry.properties.type.enum[0]: METRIC_TYPE_UNSPECIFIED
+definitions.MetricHeaderEntry.properties.type.enum[1]: INTEGER
+definitions.MetricHeaderEntry.properties.type.enum[2]: FLOAT
+definitions.MetricHeaderEntry.properties.type.enum[3]: CURRENCY
+definitions.MetricHeaderEntry.properties.type.enum[4]: PERCENT
+definitions.MetricHeaderEntry.properties.type.enum[5]: TIME
+definitions.MetricHeaderEntry.properties.type.type: string
+definitions.MetricHeaderEntry.type: object
+definitions.OrFiltersForSegment.description: |-
+  A list of segment filters in the `OR` group are combined with the logical OR
+  operator.
+definitions.OrFiltersForSegment.properties.segmentFilterClauses.description: List
+  of segment filters to be combined with a `OR` operator.
+definitions.OrFiltersForSegment.properties.segmentFilterClauses.items.$ref: '#/definitions/SegmentFilterClause'
+definitions.OrFiltersForSegment.properties.segmentFilterClauses.type: array
+definitions.OrFiltersForSegment.type: object
+definitions.OrderBy.description: Specifies the sorting options.
+definitions.OrderBy.properties.fieldName.description: |-
+  The field which to sort by. The default sort order is ascending. Example:
+  `ga:browser`.
+  Note, that you can only specify one field for sort here. For example,
+  `ga:browser, ga:city` is not valid.
+definitions.OrderBy.properties.fieldName.type: string
+definitions.OrderBy.properties.orderType.description: The order type. The default
+  orderType is `VALUE`.
+definitions.OrderBy.properties.orderType.enum.length: 6
+definitions.OrderBy.properties.orderType.enum[0]: ORDER_TYPE_UNSPECIFIED
+definitions.OrderBy.properties.orderType.enum[1]: VALUE
+definitions.OrderBy.properties.orderType.enum[2]: DELTA
+definitions.OrderBy.properties.orderType.enum[3]: SMART
+definitions.OrderBy.properties.orderType.enum[4]: HISTOGRAM_BUCKET
+definitions.OrderBy.properties.orderType.enum[5]: DIMENSION_AS_INTEGER
+definitions.OrderBy.properties.orderType.type: string
+definitions.OrderBy.properties.sortOrder.description: The sorting order for the field.
+definitions.OrderBy.properties.sortOrder.enum.length: 3
+definitions.OrderBy.properties.sortOrder.enum[0]: SORT_ORDER_UNSPECIFIED
+definitions.OrderBy.properties.sortOrder.enum[1]: ASCENDING
+definitions.OrderBy.properties.sortOrder.enum[2]: DESCENDING
+definitions.OrderBy.properties.sortOrder.type: string
+definitions.OrderBy.type: object
+definitions.Pivot.description: |-
+  The Pivot describes the pivot section in the request.
+  The Pivot helps rearrange the information in the table for certain reports
+  by pivoting your data on a second dimension.
+definitions.Pivot.properties.dimensionFilterClauses.description: |-
+  DimensionFilterClauses are logically combined with an `AND` operator: only
+  data that is included by all these DimensionFilterClauses contributes to
+  the values in this pivot region. Dimension filters can be used to restrict
+  the columns shown in the pivot region. For example if you have
+  `ga:browser` as the requested dimension in the pivot region, and you
+  specify key filters to restrict `ga:browser` to only "IE" or "Firefox",
+  then only those two browsers would show up as columns.
+definitions.Pivot.properties.dimensionFilterClauses.items.$ref: '#/definitions/DimensionFilterClause'
+definitions.Pivot.properties.dimensionFilterClauses.type: array
+definitions.Pivot.properties.dimensions.description: |-
+  A list of dimensions to show as pivot columns. A Pivot can have a maximum
+  of 4 dimensions. Pivot dimensions are part of the restriction on the
+  total number of dimensions allowed in the request.
+definitions.Pivot.properties.dimensions.items.$ref: '#/definitions/Dimension'
+definitions.Pivot.properties.dimensions.type: array
+definitions.Pivot.properties.maxGroupCount.description: |-
+  Specifies the maximum number of groups to return.
+  The default value is 10, also the maximum value is 1,000.
+definitions.Pivot.properties.maxGroupCount.format: int32
+definitions.Pivot.properties.maxGroupCount.type: integer
+definitions.Pivot.properties.metrics.description: |-
+  The pivot metrics. Pivot metrics are part of the
+  restriction on total number of metrics allowed in the request.
+definitions.Pivot.properties.metrics.items.$ref: '#/definitions/Metric'
+definitions.Pivot.properties.metrics.type: array
+definitions.Pivot.properties.startGroup.description: |-
+  If k metrics were requested, then the response will contain some
+  data-dependent multiple of k columns in the report.  E.g., if you pivoted
+  on the dimension `ga:browser` then you'd get k columns for "Firefox", k
+  columns for "IE", k columns for "Chrome", etc. The ordering of the groups
+  of columns is determined by descending order of "total" for the first of
+  the k values.  Ties are broken by lexicographic ordering of the first
+  pivot dimension, then lexicographic ordering of the second pivot
+  dimension, and so on.  E.g., if the totals for the first value for
+  Firefox, IE, and Chrome were 8, 2, 8, respectively, the order of columns
+  would be Chrome, Firefox, IE.
+
+  The following let you choose which of the groups of k columns are
+  included in the response.
+definitions.Pivot.properties.startGroup.format: int32
+definitions.Pivot.properties.startGroup.type: integer
+definitions.Pivot.type: object
+definitions.PivotHeader.description: The headers for each of the pivot sections defined
+  in the request.
+definitions.PivotHeader.properties.pivotHeaderEntries.description: A single pivot
+  section header.
+definitions.PivotHeader.properties.pivotHeaderEntries.items.$ref: '#/definitions/PivotHeaderEntry'
+definitions.PivotHeader.properties.pivotHeaderEntries.type: array
+definitions.PivotHeader.properties.totalPivotGroupsCount.description: The total number
+  of groups for this pivot.
+definitions.PivotHeader.properties.totalPivotGroupsCount.format: int32
+definitions.PivotHeader.properties.totalPivotGroupsCount.type: integer
+definitions.PivotHeader.type: object
+definitions.PivotHeaderEntry.description: |-
+  The headers for the each of the metric column corresponding to the metrics
+  requested in the pivots section of the response.
+definitions.PivotHeaderEntry.properties.dimensionNames.description: The name of the
+  dimensions in the pivot response.
+definitions.PivotHeaderEntry.properties.dimensionNames.items.type: string
+definitions.PivotHeaderEntry.properties.dimensionNames.type: array
+definitions.PivotHeaderEntry.properties.dimensionValues.description: The values for
+  the dimensions in the pivot.
+definitions.PivotHeaderEntry.properties.dimensionValues.items.type: string
+definitions.PivotHeaderEntry.properties.dimensionValues.type: array
+definitions.PivotHeaderEntry.properties.metric.$ref: '#/definitions/MetricHeaderEntry'
+definitions.PivotHeaderEntry.properties.metric.description: The metric header for
+  the metric in the pivot.
+definitions.PivotHeaderEntry.type: object
+definitions.PivotValueRegion.description: The metric values in the pivot region.
+definitions.PivotValueRegion.properties.values.description: The values of the metrics
+  in each of the pivot regions.
+definitions.PivotValueRegion.properties.values.items.type: string
+definitions.PivotValueRegion.properties.values.type: array
+definitions.PivotValueRegion.type: object
+definitions.Report.description: The data response corresponding to the request.
+definitions.Report.properties.columnHeader.$ref: '#/definitions/ColumnHeader'
+definitions.Report.properties.columnHeader.description: The column headers.
+definitions.Report.properties.data.$ref: '#/definitions/ReportData'
+definitions.Report.properties.data.description: Response data.
+definitions.Report.properties.nextPageToken.description: Page token to retrieve the
+  next page of results in the list.
+definitions.Report.properties.nextPageToken.type: string
+definitions.Report.type: object
+definitions.ReportData.description: The data part of the report.
+definitions.ReportData.properties.dataLastRefreshed.description: |-
+  The last time the data in the report was refreshed. All the hits received
+  before this timestamp are included in the calculation of the report.
+definitions.ReportData.properties.dataLastRefreshed.format: google-datetime
+definitions.ReportData.properties.dataLastRefreshed.type: string
+definitions.ReportData.properties.isDataGolden.description: |-
+  Indicates if response to this request is golden or not. Data is
+  golden when the exact same request will not produce any new results if
+  asked at a later point in time.
+definitions.ReportData.properties.isDataGolden.type: boolean
+definitions.ReportData.properties.maximums.description: |-
+  Minimum and maximum values seen over all matching rows. These are both
+  empty when `hideValueRanges` in the request is false, or when
+  rowCount is zero.
+definitions.ReportData.properties.maximums.items.$ref: '#/definitions/DateRangeValues'
+definitions.ReportData.properties.maximums.type: array
+definitions.ReportData.properties.minimums.description: |-
+  Minimum and maximum values seen over all matching rows. These are both
+  empty when `hideValueRanges` in the request is false, or when
+  rowCount is zero.
+definitions.ReportData.properties.minimums.items.$ref: '#/definitions/DateRangeValues'
+definitions.ReportData.properties.minimums.type: array
+definitions.ReportData.properties.rowCount.description: Total number of matching rows
+  for this query.
+definitions.ReportData.properties.rowCount.format: int32
+definitions.ReportData.properties.rowCount.type: integer
+definitions.ReportData.properties.rows.description: There's one ReportRow for every
+  unique combination of dimensions.
+definitions.ReportData.properties.rows.items.$ref: '#/definitions/ReportRow'
+definitions.ReportData.properties.rows.type: array
+definitions.ReportData.properties.samplesReadCounts.description: |-
+  If the results are
+  [sampled](https://support.google.com/analytics/answer/2637192),
+  this returns the total number of samples read, one entry per date range.
+  If the results are not sampled this field will not be defined. See
+  [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+  for details.
+definitions.ReportData.properties.samplesReadCounts.items.format: int64
+definitions.ReportData.properties.samplesReadCounts.items.type: string
+definitions.ReportData.properties.samplesReadCounts.type: array
+definitions.ReportData.properties.samplingSpaceSizes.description: |-
+  If the results are
+  [sampled](https://support.google.com/analytics/answer/2637192),
+  this returns the total number of
+  samples present, one entry per date range. If the results are not sampled
+  this field will not be defined. See
+  [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+  for details.
+definitions.ReportData.properties.samplingSpaceSizes.items.format: int64
+definitions.ReportData.properties.samplingSpaceSizes.items.type: string
+definitions.ReportData.properties.samplingSpaceSizes.type: array
+definitions.ReportData.properties.totals.description: |-
+  For each requested date range, for the set of all rows that match
+  the query, every requested value format gets a total. The total
+  for a value format is computed by first totaling the metrics
+  mentioned in the value format and then evaluating the value
+  format as a scalar expression.  E.g., The "totals" for
+  `3 / (ga:sessions + 2)` we compute
+  `3 / ((sum of all relevant ga:sessions) + 2)`.
+  Totals are computed before pagination.
+definitions.ReportData.properties.totals.items.$ref: '#/definitions/DateRangeValues'
+definitions.ReportData.properties.totals.type: array
+definitions.ReportData.type: object
+definitions.ReportRequest.description: The main request class which specifies the
+  Reporting API request.
+definitions.ReportRequest.properties.cohortGroup.$ref: '#/definitions/CohortGroup'
+definitions.ReportRequest.properties.cohortGroup.description: |-
+  Cohort group associated with this request. If there is a cohort group
+  in the request the `ga:cohort` dimension must be present.
+  Every [ReportRequest](#ReportRequest) within a `batchGet` method must
+  contain the same `cohortGroup` definition.
+definitions.ReportRequest.properties.dateRanges.description: |-
+  Date ranges in the request. The request can have a maximum of 2 date
+  ranges. The response will contain a set of metric values for each
+  combination of the dimensions for each date range in the request. So, if
+  there are two date ranges, there will be two set of metric values, one for
+  the original date range and one for the second date range.
+  The `reportRequest.dateRanges` field should not be specified for cohorts
+  or Lifetime value requests.
+  If a date range is not provided, the default date range is (startDate:
+  current date - 7 days, endDate: current date - 1 day). Every
+  [ReportRequest](#ReportRequest) within a `batchGet` method must
+  contain the same `dateRanges` definition.
+definitions.ReportRequest.properties.dateRanges.items.$ref: '#/definitions/DateRange'
+definitions.ReportRequest.properties.dateRanges.type: array
+definitions.ReportRequest.properties.dimensionFilterClauses.description: |-
+  The dimension filter clauses for filtering Dimension Values. They are
+  logically combined with the `AND` operator. Note that filtering occurs
+  before any dimensions are aggregated, so that the returned metrics
+  represent the total for only the relevant dimensions.
+definitions.ReportRequest.properties.dimensionFilterClauses.items.$ref: '#/definitions/DimensionFilterClause'
+definitions.ReportRequest.properties.dimensionFilterClauses.type: array
+definitions.ReportRequest.properties.dimensions.description: |-
+  The dimensions requested.
+  Requests can have a total of 7 dimensions.
+definitions.ReportRequest.properties.dimensions.items.$ref: '#/definitions/Dimension'
+definitions.ReportRequest.properties.dimensions.type: array
+definitions.ReportRequest.properties.filtersExpression.description: |-
+  Dimension or metric filters that restrict the data returned for your
+  request. To use the `filtersExpression`, supply a dimension or metric on
+  which to filter, followed by the filter expression. For example, the
+  following expression selects `ga:browser` dimension which starts with
+  Firefox; `ga:browser=~^Firefox`. For more information on dimensions
+  and metric filters, see
+  [Filters reference](https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters).
+definitions.ReportRequest.properties.filtersExpression.type: string
+definitions.ReportRequest.properties.hideTotals.description: |-
+  If set to true, hides the total of all metrics for all the matching rows,
+  for every date range. The default false and will return the totals.
+definitions.ReportRequest.properties.hideTotals.type: boolean
+definitions.ReportRequest.properties.hideValueRanges.description: |-
+  If set to true, hides the minimum and maximum across all matching rows.
+  The default is false and the value ranges are returned.
+definitions.ReportRequest.properties.hideValueRanges.type: boolean
+definitions.ReportRequest.properties.includeEmptyRows.description: |-
+  If set to false, the response does not include rows if all the retrieved
+  metrics are equal to zero. The default is false which will exclude these
+  rows.
+definitions.ReportRequest.properties.includeEmptyRows.type: boolean
+definitions.ReportRequest.properties.metricFilterClauses.description: |-
+  The metric filter clauses. They are logically combined with the `AND`
+  operator.  Metric filters look at only the first date range and not the
+  comparing date range. Note that filtering on metrics occurs after the
+  metrics are aggregated.
+definitions.ReportRequest.properties.metricFilterClauses.items.$ref: '#/definitions/MetricFilterClause'
+definitions.ReportRequest.properties.metricFilterClauses.type: array
+definitions.ReportRequest.properties.metrics.description: |-
+  The metrics requested.
+  Requests must specify at least one metric. Requests can have a
+  total of 10 metrics.
+definitions.ReportRequest.properties.metrics.items.$ref: '#/definitions/Metric'
+definitions.ReportRequest.properties.metrics.type: array
+definitions.ReportRequest.properties.orderBys.description: |-
+  Sort order on output rows. To compare two rows, the elements of the
+  following are applied in order until a difference is found.  All date
+  ranges in the output get the same row order.
+definitions.ReportRequest.properties.orderBys.items.$ref: '#/definitions/OrderBy'
+definitions.ReportRequest.properties.orderBys.type: array
+definitions.ReportRequest.properties.pageSize.description: |-
+  Page size is for paging and specifies the maximum number of returned rows.
+  Page size should be >= 0. A query returns the default of 1,000 rows.
+  The Analytics Core Reporting API returns a maximum of 10,000 rows per
+  request, no matter how many you ask for. It can also return fewer rows
+  than requested, if there aren't as many dimension segments as you expect.
+  For instance, there are fewer than 300 possible values for `ga:country`,
+  so when segmenting only by country, you can't get more than 300 rows,
+  even if you set `pageSize` to a higher value.
+definitions.ReportRequest.properties.pageSize.format: int32
+definitions.ReportRequest.properties.pageSize.type: integer
+definitions.ReportRequest.properties.pageToken.description: |-
+  A continuation token to get the next page of the results. Adding this to
+  the request will return the rows after the pageToken. The pageToken should
+  be the value returned in the nextPageToken parameter in the response to
+  the GetReports request.
+definitions.ReportRequest.properties.pageToken.type: string
+definitions.ReportRequest.properties.pivots.description: The pivot definitions. Requests
+  can have a maximum of 2 pivots.
+definitions.ReportRequest.properties.pivots.items.$ref: '#/definitions/Pivot'
+definitions.ReportRequest.properties.pivots.type: array
+definitions.ReportRequest.properties.samplingLevel.description: |-
+  The desired report
+  [sample](https://support.google.com/analytics/answer/2637192) size.
+  If the the `samplingLevel` field is unspecified the `DEFAULT` sampling
+  level is used. Every [ReportRequest](#ReportRequest) within a
+  `batchGet` method must contain the same `samplingLevel` definition. See
+  [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+   for details.
+definitions.ReportRequest.properties.samplingLevel.enum.length: 4
+definitions.ReportRequest.properties.samplingLevel.enum[0]: SAMPLING_UNSPECIFIED
+definitions.ReportRequest.properties.samplingLevel.enum[1]: DEFAULT
+definitions.ReportRequest.properties.samplingLevel.enum[2]: SMALL
+definitions.ReportRequest.properties.samplingLevel.enum[3]: LARGE
+definitions.ReportRequest.properties.samplingLevel.type: string
+definitions.ReportRequest.properties.segments.description: |-
+  Segment the data returned for the request. A segment definition helps look
+  at a subset of the segment request. A request can contain up to four
+  segments. Every [ReportRequest](#ReportRequest) within a
+  `batchGet` method must contain the same `segments` definition. Requests
+  with segments must have the `ga:segment` dimension.
+definitions.ReportRequest.properties.segments.items.$ref: '#/definitions/Segment'
+definitions.ReportRequest.properties.segments.type: array
+definitions.ReportRequest.properties.viewId.description: |-
+  The Analytics
+  [view ID](https://support.google.com/analytics/answer/1009618)
+  from which to retrieve data. Every [ReportRequest](#ReportRequest)
+  within a `batchGet` method must contain the same `viewId`.
+definitions.ReportRequest.properties.viewId.type: string
+definitions.ReportRequest.type: object
+definitions.ReportRow.description: A row in the report.
+definitions.ReportRow.properties.dimensions.description: List of requested dimensions.
+definitions.ReportRow.properties.dimensions.items.type: string
+definitions.ReportRow.properties.dimensions.type: array
+definitions.ReportRow.properties.metrics.description: List of metrics for each requested
+  DateRange.
+definitions.ReportRow.properties.metrics.items.$ref: '#/definitions/DateRangeValues'
+definitions.ReportRow.properties.metrics.type: array
+definitions.ReportRow.type: object
+definitions.Segment.description: |-
+  The segment definition, if the report needs to be segmented.
+  A Segment is a subset of the Analytics data. For example, of the entire
+  set of users, one Segment might be users from a particular country or city.
+definitions.Segment.properties.dynamicSegment.$ref: '#/definitions/DynamicSegment'
+definitions.Segment.properties.dynamicSegment.description: A dynamic segment definition
+  in the request.
+definitions.Segment.properties.segmentId.description: The segment ID of a built-in
+  or custom segment, for example `gaid::-3`.
+definitions.Segment.properties.segmentId.type: string
+definitions.Segment.type: object
+definitions.SegmentDefinition.description: |-
+  SegmentDefinition defines the segment to be a set of SegmentFilters which
+  are combined together with a logical `AND` operation.
+definitions.SegmentDefinition.properties.segmentFilters.description: |-
+  A segment is defined by a set of segment filters which are combined
+  together with a logical `AND` operation.
+definitions.SegmentDefinition.properties.segmentFilters.items.$ref: '#/definitions/SegmentFilter'
+definitions.SegmentDefinition.properties.segmentFilters.type: array
+definitions.SegmentDefinition.type: object
+definitions.SegmentDimensionFilter.description: Dimension filter specifies the filtering
+  options on a dimension.
+definitions.SegmentDimensionFilter.properties.caseSensitive.description: Should the
+  match be case sensitive, ignored for `IN_LIST` operator.
+definitions.SegmentDimensionFilter.properties.caseSensitive.type: boolean
+definitions.SegmentDimensionFilter.properties.dimensionName.description: Name of the
+  dimension for which the filter is being applied.
+definitions.SegmentDimensionFilter.properties.dimensionName.type: string
+definitions.SegmentDimensionFilter.properties.expressions.description: The list of
+  expressions, only the first element is used for all operators
+definitions.SegmentDimensionFilter.properties.expressions.items.type: string
+definitions.SegmentDimensionFilter.properties.expressions.type: array
+definitions.SegmentDimensionFilter.properties.maxComparisonValue.description: Maximum
+  comparison values for `BETWEEN` match type.
+definitions.SegmentDimensionFilter.properties.maxComparisonValue.type: string
+definitions.SegmentDimensionFilter.properties.minComparisonValue.description: Minimum
+  comparison values for `BETWEEN` match type.
+definitions.SegmentDimensionFilter.properties.minComparisonValue.type: string
+definitions.SegmentDimensionFilter.properties.operator.description: The operator to
+  use to match the dimension with the expressions.
+definitions.SegmentDimensionFilter.properties.operator.enum.length: 10
+definitions.SegmentDimensionFilter.properties.operator.enum[0]: OPERATOR_UNSPECIFIED
+definitions.SegmentDimensionFilter.properties.operator.enum[1]: REGEXP
+definitions.SegmentDimensionFilter.properties.operator.enum[2]: BEGINS_WITH
+definitions.SegmentDimensionFilter.properties.operator.enum[3]: ENDS_WITH
+definitions.SegmentDimensionFilter.properties.operator.enum[4]: PARTIAL
+definitions.SegmentDimensionFilter.properties.operator.enum[5]: EXACT
+definitions.SegmentDimensionFilter.properties.operator.enum[6]: IN_LIST
+definitions.SegmentDimensionFilter.properties.operator.enum[7]: NUMERIC_LESS_THAN
+definitions.SegmentDimensionFilter.properties.operator.enum[8]: NUMERIC_GREATER_THAN
+definitions.SegmentDimensionFilter.properties.operator.enum[9]: NUMERIC_BETWEEN
+definitions.SegmentDimensionFilter.properties.operator.type: string
+definitions.SegmentDimensionFilter.type: object
+definitions.SegmentFilter.description: |-
+  SegmentFilter defines the segment to be either a simple or a sequence
+  segment. A simple segment condition contains dimension and metric conditions
+  to select the sessions or users. A sequence segment condition can be used to
+  select users or sessions based on sequential conditions.
+definitions.SegmentFilter.properties.not.description: |-
+  If true, match the complement of simple or sequence segment.
+  For example, to match all visits not from "New York", we can define the
+  segment as follows:
+
+        "sessionSegment": {
+          "segmentFilters": [{
+            "simpleSegment" :{
+              "orFiltersForSegment": [{
+                "segmentFilterClauses":[{
+                  "dimensionFilter": {
+                    "dimensionName": "ga:city",
+                    "expressions": ["New York"]
+                  }
+                }]
+              }]
+            },
+            "not": "True"
+          }]
+        },
+definitions.SegmentFilter.properties.not.type: boolean
+definitions.SegmentFilter.properties.sequenceSegment.$ref: '#/definitions/SequenceSegment'
+definitions.SegmentFilter.properties.sequenceSegment.description: |-
+  Sequence conditions consist of one or more steps, where each step is
+  defined by one or more dimension/metric conditions. Multiple steps can
+  be combined with special sequence operators.
+definitions.SegmentFilter.properties.simpleSegment.$ref: '#/definitions/SimpleSegment'
+definitions.SegmentFilter.properties.simpleSegment.description: |-
+  A Simple segment conditions consist of one or more dimension/metric
+  conditions that can be combined
+definitions.SegmentFilter.type: object
+definitions.SegmentFilterClause.description: |-
+  Filter Clause to be used in a segment definition, can be wither a metric or
+  a dimension filter.
+definitions.SegmentFilterClause.properties.dimensionFilter.$ref: '#/definitions/SegmentDimensionFilter'
+definitions.SegmentFilterClause.properties.dimensionFilter.description: Dimension
+  Filter for the segment definition.
+definitions.SegmentFilterClause.properties.metricFilter.$ref: '#/definitions/SegmentMetricFilter'
+definitions.SegmentFilterClause.properties.metricFilter.description: Metric Filter
+  for the segment definition.
+definitions.SegmentFilterClause.properties.not.description: Matches the complement
+  (`!`) of the filter.
+definitions.SegmentFilterClause.properties.not.type: boolean
+definitions.SegmentFilterClause.type: object
+definitions.SegmentMetricFilter.description: Metric filter to be used in a segment
+  filter clause.
+definitions.SegmentMetricFilter.properties.comparisonValue.description: |-
+  The value to compare against. If the operator is `BETWEEN`, this value is
+  treated as minimum comparison value.
+definitions.SegmentMetricFilter.properties.comparisonValue.type: string
+definitions.SegmentMetricFilter.properties.maxComparisonValue.description: Max comparison
+  value is only used for `BETWEEN` operator.
+definitions.SegmentMetricFilter.properties.maxComparisonValue.type: string
+definitions.SegmentMetricFilter.properties.metricName.description: |-
+  The metric that will be filtered on. A `metricFilter` must contain a
+  metric name.
+definitions.SegmentMetricFilter.properties.metricName.type: string
+definitions.SegmentMetricFilter.properties.operator.description: |-
+  Specifies is the operation to perform to compare the metric. The default
+  is `EQUAL`.
+definitions.SegmentMetricFilter.properties.operator.enum.length: 5
+definitions.SegmentMetricFilter.properties.operator.enum[0]: UNSPECIFIED_OPERATOR
+definitions.SegmentMetricFilter.properties.operator.enum[1]: LESS_THAN
+definitions.SegmentMetricFilter.properties.operator.enum[2]: GREATER_THAN
+definitions.SegmentMetricFilter.properties.operator.enum[3]: EQUAL
+definitions.SegmentMetricFilter.properties.operator.enum[4]: BETWEEN
+definitions.SegmentMetricFilter.properties.operator.type: string
+definitions.SegmentMetricFilter.properties.scope.description: |-
+  Scope for a metric defines the level at which that metric is defined.  The
+  specified metric scope must be equal to or greater than its primary scope
+  as defined in the data model. The primary scope is defined by if the
+  segment is selecting users or sessions.
+definitions.SegmentMetricFilter.properties.scope.enum.length: 5
+definitions.SegmentMetricFilter.properties.scope.enum[0]: UNSPECIFIED_SCOPE
+definitions.SegmentMetricFilter.properties.scope.enum[1]: PRODUCT
+definitions.SegmentMetricFilter.properties.scope.enum[2]: HIT
+definitions.SegmentMetricFilter.properties.scope.enum[3]: SESSION
+definitions.SegmentMetricFilter.properties.scope.enum[4]: USER
+definitions.SegmentMetricFilter.properties.scope.type: string
+definitions.SegmentMetricFilter.type: object
+definitions.SegmentSequenceStep.description: A segment sequence definition.
+definitions.SegmentSequenceStep.properties.matchType.description: |-
+  Specifies if the step immediately precedes or can be any time before the
+  next step.
+definitions.SegmentSequenceStep.properties.matchType.enum.length: 3
+definitions.SegmentSequenceStep.properties.matchType.enum[0]: UNSPECIFIED_MATCH_TYPE
+definitions.SegmentSequenceStep.properties.matchType.enum[1]: PRECEDES
+definitions.SegmentSequenceStep.properties.matchType.enum[2]: IMMEDIATELY_PRECEDES
+definitions.SegmentSequenceStep.properties.matchType.type: string
+definitions.SegmentSequenceStep.properties.orFiltersForSegment.description: |-
+  A sequence is specified with a list of Or grouped filters which are
+  combined with `AND` operator.
+definitions.SegmentSequenceStep.properties.orFiltersForSegment.items.$ref: '#/definitions/OrFiltersForSegment'
+definitions.SegmentSequenceStep.properties.orFiltersForSegment.type: array
+definitions.SegmentSequenceStep.type: object
+definitions.SequenceSegment.description: |-
+  Sequence conditions consist of one or more steps, where each step is defined
+  by one or more dimension/metric conditions. Multiple steps can be combined
+  with special sequence operators.
+definitions.SequenceSegment.properties.firstStepShouldMatchFirstHit.description: |-
+  If set, first step condition must match the first hit of the visitor (in
+  the date range).
+definitions.SequenceSegment.properties.firstStepShouldMatchFirstHit.type: boolean
+definitions.SequenceSegment.properties.segmentSequenceSteps.description: The list
+  of steps in the sequence.
+definitions.SequenceSegment.properties.segmentSequenceSteps.items.$ref: '#/definitions/SegmentSequenceStep'
+definitions.SequenceSegment.properties.segmentSequenceSteps.type: array
+definitions.SequenceSegment.type: object
+definitions.SimpleSegment.description: |-
+  A Simple segment conditions consist of one or more dimension/metric
+  conditions that can be combined.
+definitions.SimpleSegment.properties.orFiltersForSegment.description: |-
+  A list of segment filters groups which are combined with logical `AND`
+  operator.
+definitions.SimpleSegment.properties.orFiltersForSegment.items.$ref: '#/definitions/OrFiltersForSegment'
+definitions.SimpleSegment.properties.orFiltersForSegment.type: array
+definitions.SimpleSegment.type: object
+externalDocs.url: https://developers.google.com/analytics/devguides/reporting/core/v4/
+host: analyticsreporting.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Accesses Analytics report data.
+info.title: Google Analytics Reporting
+info.version: v4
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: analytics
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://analyticsreporting.googleapis.com/$discovery/rest?version=v4
+info.x-origin[0].version: v1
+info.x-preferred: true
+info.x-providerName: googleapis.com
+info.x-serviceName: analyticsreporting
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v4/reports:batchGet.parameters.length: 13
+paths./v4/reports:batchGet.parameters[0].$ref: '#/parameters/quotaUser'
+paths./v4/reports:batchGet.parameters[1].$ref: '#/parameters/pp'
+paths./v4/reports:batchGet.parameters[2].$ref: '#/parameters/oauth_token'
+paths./v4/reports:batchGet.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v4/reports:batchGet.parameters[4].$ref: '#/parameters/upload_protocol'
+paths./v4/reports:batchGet.parameters[5].$ref: '#/parameters/prettyPrint'
+paths./v4/reports:batchGet.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/reports:batchGet.parameters[7].$ref: '#/parameters/fields'
+paths./v4/reports:batchGet.parameters[8].$ref: '#/parameters/$.xgafv'
+paths./v4/reports:batchGet.parameters[9].$ref: '#/parameters/callback'
+paths./v4/reports:batchGet.parameters[10].$ref: '#/parameters/alt'
+paths./v4/reports:batchGet.parameters[11].$ref: '#/parameters/access_token'
+paths./v4/reports:batchGet.parameters[12].$ref: '#/parameters/key'
+paths./v4/reports:batchGet.post.description: Returns the Analytics data.
+paths./v4/reports:batchGet.post.operationId: analyticsreporting.reports.batchGet
+paths./v4/reports:batchGet.post.parameters.length: 1
+paths./v4/reports:batchGet.post.parameters[0].in: body
+paths./v4/reports:batchGet.post.parameters[0].name: body
+paths./v4/reports:batchGet.post.parameters[0].schema.$ref: '#/definitions/GetReportsRequest'
+paths./v4/reports:batchGet.post.responses.200.description: Successful response
+paths./v4/reports:batchGet.post.responses.200.schema.$ref: '#/definitions/GetReportsResponse'
+paths./v4/reports:batchGet.post.security.length: 2
+paths./v4/reports:batchGet.post.security[0].Oauth2.length: 1
+paths./v4/reports:batchGet.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/analytics
+paths./v4/reports:batchGet.post.security[1].Oauth2.length: 1
+paths./v4/reports:batchGet.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/analytics.readonly
+paths./v4/reports:batchGet.post.tags.length: 1
+paths./v4/reports:batchGet.post.tags[0]: reports
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/analytics: View
+  and manage your Google Analytics data
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/analytics.readonly: View
+  your Google Analytics data
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 1
+tags[0].name: reports

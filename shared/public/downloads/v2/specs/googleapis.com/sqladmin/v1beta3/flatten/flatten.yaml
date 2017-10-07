@@ -1,0 +1,1556 @@
+basePath: /sql/v1beta3
+definitions.BackupConfiguration.description: Database instance backup configuration.
+definitions.BackupConfiguration.properties.binaryLogEnabled.description: Whether binary
+  log is enabled. If backup configuration is disabled, binary log must be disabled
+  as well.
+definitions.BackupConfiguration.properties.binaryLogEnabled.type: boolean
+definitions.BackupConfiguration.properties.enabled.description: Whether this configuration
+  is enabled.
+definitions.BackupConfiguration.properties.enabled.type: boolean
+definitions.BackupConfiguration.properties.id.description: Identifier for this configuration.
+  This gets generated automatically when a backup configuration is created.
+definitions.BackupConfiguration.properties.id.type: string
+definitions.BackupConfiguration.properties.kind.default: sql#backupConfiguration
+definitions.BackupConfiguration.properties.kind.description: This is always sql#backupConfiguration.
+definitions.BackupConfiguration.properties.kind.type: string
+definitions.BackupConfiguration.properties.startTime.description: Start time for the
+  daily backup configuration in UTC timezone in the 24 hour format - HH:MM.
+definitions.BackupConfiguration.properties.startTime.type: string
+definitions.BackupConfiguration.type: object
+definitions.BackupRun.description: A database instance backup run resource.
+definitions.BackupRun.properties.backupConfiguration.description: Backup Configuration
+  identifier.
+definitions.BackupRun.properties.backupConfiguration.type: string
+definitions.BackupRun.properties.dueTime.description: The due time of this run in
+  UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.BackupRun.properties.dueTime.format: date-time
+definitions.BackupRun.properties.dueTime.type: string
+definitions.BackupRun.properties.endTime.description: The time the backup operation
+  completed in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.BackupRun.properties.endTime.format: date-time
+definitions.BackupRun.properties.endTime.type: string
+definitions.BackupRun.properties.enqueuedTime.description: The time the run was enqueued
+  in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.BackupRun.properties.enqueuedTime.format: date-time
+definitions.BackupRun.properties.enqueuedTime.type: string
+definitions.BackupRun.properties.error.$ref: '#/definitions/OperationError'
+definitions.BackupRun.properties.error.description: Information about why the backup
+  operation failed. This is only present if the run has the FAILED status.
+definitions.BackupRun.properties.instance.description: Name of the database instance.
+definitions.BackupRun.properties.instance.type: string
+definitions.BackupRun.properties.kind.default: sql#backupRun
+definitions.BackupRun.properties.kind.description: This is always sql#backupRun.
+definitions.BackupRun.properties.kind.type: string
+definitions.BackupRun.properties.startTime.description: The time the backup operation
+  actually started in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.BackupRun.properties.startTime.format: date-time
+definitions.BackupRun.properties.startTime.type: string
+definitions.BackupRun.properties.status.description: The status of this run.
+definitions.BackupRun.properties.status.type: string
+definitions.BackupRun.type: object
+definitions.BackupRunsListResponse.description: Backup run list results.
+definitions.BackupRunsListResponse.properties.items.description: A list of backup
+  runs in reverse chronological order of the enqueued time.
+definitions.BackupRunsListResponse.properties.items.items.$ref: '#/definitions/BackupRun'
+definitions.BackupRunsListResponse.properties.items.type: array
+definitions.BackupRunsListResponse.properties.kind.default: sql#backupRunsList
+definitions.BackupRunsListResponse.properties.kind.description: This is always sql#backupRunsList.
+definitions.BackupRunsListResponse.properties.kind.type: string
+definitions.BackupRunsListResponse.properties.nextPageToken.description: The continuation
+  token, used to page through large result sets. Provide this value in a subsequent
+  request to return the next page of results.
+definitions.BackupRunsListResponse.properties.nextPageToken.type: string
+definitions.BackupRunsListResponse.type: object
+definitions.BinLogCoordinates.description: Binary log coordinates.
+definitions.BinLogCoordinates.properties.binLogFileName.description: Name of the binary
+  log file for a Cloud SQL instance.
+definitions.BinLogCoordinates.properties.binLogFileName.type: string
+definitions.BinLogCoordinates.properties.binLogPosition.description: Position (offset)
+  within the binary log file.
+definitions.BinLogCoordinates.properties.binLogPosition.format: int64
+definitions.BinLogCoordinates.properties.binLogPosition.type: string
+definitions.BinLogCoordinates.properties.kind.default: sql#binLogCoordinates
+definitions.BinLogCoordinates.properties.kind.description: This is always sql#binLogCoordinates.
+definitions.BinLogCoordinates.properties.kind.type: string
+definitions.BinLogCoordinates.type: object
+definitions.CloneContext.description: Database instance clone context.
+definitions.CloneContext.properties.binLogCoordinates.$ref: '#/definitions/BinLogCoordinates'
+definitions.CloneContext.properties.binLogCoordinates.description: Binary log coordinates,
+  if specified, indentify the position up to which the source instance should be cloned.
+  If not specified, the source instance is cloned up to the most recent binary log
+  coordinates.
+definitions.CloneContext.properties.destinationInstanceName.description: Name of the
+  Cloud SQL instance to be created as a clone.
+definitions.CloneContext.properties.destinationInstanceName.type: string
+definitions.CloneContext.properties.kind.default: sql#cloneContext
+definitions.CloneContext.properties.kind.description: This is always sql#cloneContext.
+definitions.CloneContext.properties.kind.type: string
+definitions.CloneContext.properties.sourceInstanceName.description: Name of the Cloud
+  SQL instance to be cloned.
+definitions.CloneContext.properties.sourceInstanceName.type: string
+definitions.CloneContext.type: object
+definitions.DatabaseFlags.description: MySQL flags for Cloud SQL instances.
+definitions.DatabaseFlags.properties.name.description: The name of the flag. These
+  flags are passed at instance startup, so include both MySQL server options and MySQL
+  system variables. Flags should be specified with underscores, not hyphens. For more
+  information, see Configuring MySQL Flags in the Google Cloud SQL documentation,
+  as well as the official MySQL documentation for server options and system variables.
+definitions.DatabaseFlags.properties.name.type: string
+definitions.DatabaseFlags.properties.value.description: The value of the flag. Booleans
+  should be set to on for true and off for false. This field must be omitted if the
+  flag doesn't take a value.
+definitions.DatabaseFlags.properties.value.type: string
+definitions.DatabaseFlags.type: object
+definitions.DatabaseInstance.description: A Cloud SQL instance resource.
+definitions.DatabaseInstance.properties.connectionName.description: Connection name
+  of the Cloud SQL instance used in connection strings.
+definitions.DatabaseInstance.properties.connectionName.type: string
+definitions.DatabaseInstance.properties.currentDiskSize.description: The current disk
+  usage of the instance in bytes.
+definitions.DatabaseInstance.properties.currentDiskSize.format: int64
+definitions.DatabaseInstance.properties.currentDiskSize.type: string
+definitions.DatabaseInstance.properties.databaseVersion.description: The database
+  engine type and version. Can be MYSQL_5_5 or MYSQL_5_6. Defaults to MYSQL_5_5. The
+  databaseVersion cannot be changed after instance creation.
+definitions.DatabaseInstance.properties.databaseVersion.type: string
+definitions.DatabaseInstance.properties.etag.description: HTTP 1.1 Entity tag for
+  the resource.
+definitions.DatabaseInstance.properties.etag.type: string
+definitions.DatabaseInstance.properties.instance.description: Name of the Cloud SQL
+  instance. This does not include the project ID.
+definitions.DatabaseInstance.properties.instance.type: string
+definitions.DatabaseInstance.properties.instanceType.description: |-
+  The instance type. This can be one of the following.
+  CLOUD_SQL_INSTANCE: Regular Cloud SQL instance.
+  READ_REPLICA_INSTANCE: Cloud SQL instance acting as a read-replica.
+definitions.DatabaseInstance.properties.instanceType.type: string
+definitions.DatabaseInstance.properties.ipAddresses.description: The assigned IP addresses
+  for the instance.
+definitions.DatabaseInstance.properties.ipAddresses.items.$ref: '#/definitions/IpMapping'
+definitions.DatabaseInstance.properties.ipAddresses.type: array
+definitions.DatabaseInstance.properties.ipv6Address.description: The IPv6 address
+  assigned to the instance.
+definitions.DatabaseInstance.properties.ipv6Address.type: string
+definitions.DatabaseInstance.properties.kind.default: sql#instance
+definitions.DatabaseInstance.properties.kind.description: This is always sql#instance.
+definitions.DatabaseInstance.properties.kind.type: string
+definitions.DatabaseInstance.properties.masterInstanceName.description: The name of
+  the instance which will act as master in the replication setup.
+definitions.DatabaseInstance.properties.masterInstanceName.type: string
+definitions.DatabaseInstance.properties.maxDiskSize.description: The maximum disk
+  size of the instance in bytes.
+definitions.DatabaseInstance.properties.maxDiskSize.format: int64
+definitions.DatabaseInstance.properties.maxDiskSize.type: string
+definitions.DatabaseInstance.properties.project.description: The project ID of the
+  project containing the Cloud SQL instance. The Google apps domain is prefixed if
+  applicable.
+definitions.DatabaseInstance.properties.project.type: string
+definitions.DatabaseInstance.properties.region.description: The geographical region.
+  Can be us-central, asia-east1 or europe-west1. Defaults to us-central. The region
+  can not be changed after instance creation.
+definitions.DatabaseInstance.properties.region.type: string
+definitions.DatabaseInstance.properties.replicaNames.description: The replicas of
+  the instance.
+definitions.DatabaseInstance.properties.replicaNames.items.type: string
+definitions.DatabaseInstance.properties.replicaNames.type: array
+definitions.DatabaseInstance.properties.serverCaCert.$ref: '#/definitions/SslCert'
+definitions.DatabaseInstance.properties.serverCaCert.description: SSL configuration.
+definitions.DatabaseInstance.properties.serviceAccountEmailAddress.description: The
+  service account email address assigned to the instance.
+definitions.DatabaseInstance.properties.serviceAccountEmailAddress.type: string
+definitions.DatabaseInstance.properties.settings.$ref: '#/definitions/Settings'
+definitions.DatabaseInstance.properties.settings.description: The user settings.
+definitions.DatabaseInstance.properties.state.description: |-
+  The current serving state of the Cloud SQL instance. This can be one of the following.
+  RUNNABLE: The instance is running, or is ready to run when accessed.
+  SUSPENDED: The instance is not available, for example due to problems with billing.
+  PENDING_CREATE: The instance is being created.
+  MAINTENANCE: The instance is down for maintenance.
+  UNKNOWN_STATE: The state of the instance is unknown.
+definitions.DatabaseInstance.properties.state.type: string
+definitions.DatabaseInstance.type: object
+definitions.ExportContext.description: Database instance export context.
+definitions.ExportContext.properties.database.description: Databases (for example,
+  guestbook) from which the export is made. If unspecified, all databases are exported.
+definitions.ExportContext.properties.database.items.type: string
+definitions.ExportContext.properties.database.type: array
+definitions.ExportContext.properties.kind.default: sql#exportContext
+definitions.ExportContext.properties.kind.description: This is always sql#exportContext.
+definitions.ExportContext.properties.kind.type: string
+definitions.ExportContext.properties.table.description: Tables to export, or that
+  were exported, from the specified database. If you specify tables, specify one and
+  only one database.
+definitions.ExportContext.properties.table.items.type: string
+definitions.ExportContext.properties.table.type: array
+definitions.ExportContext.properties.uri.description: The path to the file in Google
+  Cloud Storage where the export will be stored, or where it was already stored. The
+  URI is in the form gs://bucketName/fileName. If the file already exists, the operation
+  fails. If the filename ends with .gz, the contents are compressed.
+definitions.ExportContext.properties.uri.type: string
+definitions.ExportContext.type: object
+definitions.Flag.description: A Google Cloud SQL service flag resource.
+definitions.Flag.properties.allowedStringValues.description: For STRING flags, a list
+  of strings that the value can be set to.
+definitions.Flag.properties.allowedStringValues.items.type: string
+definitions.Flag.properties.allowedStringValues.type: array
+definitions.Flag.properties.appliesTo.description: The database version this flag
+  applies to. Currently this can only be [MYSQL_5_5].
+definitions.Flag.properties.appliesTo.items.type: string
+definitions.Flag.properties.appliesTo.type: array
+definitions.Flag.properties.kind.default: sql#flag
+definitions.Flag.properties.kind.description: This is always sql#flag.
+definitions.Flag.properties.kind.type: string
+definitions.Flag.properties.maxValue.description: For INTEGER flags, the maximum allowed
+  value.
+definitions.Flag.properties.maxValue.format: int64
+definitions.Flag.properties.maxValue.type: string
+definitions.Flag.properties.minValue.description: For INTEGER flags, the minimum allowed
+  value.
+definitions.Flag.properties.minValue.format: int64
+definitions.Flag.properties.minValue.type: string
+definitions.Flag.properties.name.description: This is the name of the flag. Flag names
+  always use underscores, not hyphens, e.g. max_allowed_packet
+definitions.Flag.properties.name.type: string
+definitions.Flag.properties.type.description: The type of the flag. Flags are typed
+  to being BOOLEAN, STRING, INTEGER or NONE. NONE is used for flags which do not take
+  a value, such as skip_grant_tables.
+definitions.Flag.properties.type.type: string
+definitions.Flag.type: object
+definitions.FlagsListResponse.description: Flags list response.
+definitions.FlagsListResponse.properties.items.description: List of flags.
+definitions.FlagsListResponse.properties.items.items.$ref: '#/definitions/Flag'
+definitions.FlagsListResponse.properties.items.type: array
+definitions.FlagsListResponse.properties.kind.default: sql#flagsList
+definitions.FlagsListResponse.properties.kind.description: This is always sql#flagsList.
+definitions.FlagsListResponse.properties.kind.type: string
+definitions.FlagsListResponse.type: object
+definitions.ImportContext.description: Database instance import context.
+definitions.ImportContext.properties.database.description: The database (for example,
+  guestbook) to which the import is made. If not set, it is assumed that the database
+  is specified in the file to be imported.
+definitions.ImportContext.properties.database.type: string
+definitions.ImportContext.properties.kind.default: sql#importContext
+definitions.ImportContext.properties.kind.description: This is always sql#importContext.
+definitions.ImportContext.properties.kind.type: string
+definitions.ImportContext.properties.uri.description: A path to the MySQL dump file
+  in Google Cloud Storage from which the import is made. The URI is in the form gs://bucketName/fileName.
+  Compressed gzip files (.gz) are also supported.
+definitions.ImportContext.properties.uri.items.type: string
+definitions.ImportContext.properties.uri.type: array
+definitions.ImportContext.type: object
+definitions.InstanceOperation.description: An Operations resource contains information
+  about database instance operations such as create, delete, and restart. Operations
+  resources are created in response to operations that were initiated; you never create
+  them directly.
+definitions.InstanceOperation.properties.endTime.description: The time this operation
+  finished in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.InstanceOperation.properties.endTime.format: date-time
+definitions.InstanceOperation.properties.endTime.type: string
+definitions.InstanceOperation.properties.enqueuedTime.description: The time this operation
+  was enqueued in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.InstanceOperation.properties.enqueuedTime.format: date-time
+definitions.InstanceOperation.properties.enqueuedTime.type: string
+definitions.InstanceOperation.properties.error.description: The error(s) encountered
+  by this operation. Only set if the operation results in an error.
+definitions.InstanceOperation.properties.error.items.$ref: '#/definitions/OperationError'
+definitions.InstanceOperation.properties.error.type: array
+definitions.InstanceOperation.properties.exportContext.$ref: '#/definitions/ExportContext'
+definitions.InstanceOperation.properties.exportContext.description: The context for
+  export operation, if applicable.
+definitions.InstanceOperation.properties.importContext.$ref: '#/definitions/ImportContext'
+definitions.InstanceOperation.properties.importContext.description: The context for
+  import operation, if applicable.
+definitions.InstanceOperation.properties.instance.description: Name of the database
+  instance.
+definitions.InstanceOperation.properties.instance.type: string
+definitions.InstanceOperation.properties.kind.default: sql#instanceOperation
+definitions.InstanceOperation.properties.kind.description: This is always sql#instanceOperation.
+definitions.InstanceOperation.properties.kind.type: string
+definitions.InstanceOperation.properties.operation.description: An identifier that
+  uniquely identifies the operation. You can use this identifier to retrieve the Operations
+  resource that has information about the operation.
+definitions.InstanceOperation.properties.operation.type: string
+definitions.InstanceOperation.properties.operationType.description: The type of the
+  operation. Valid values are CREATE, DELETE, UPDATE, RESTART, IMPORT, EXPORT, BACKUP_VOLUME,
+  RESTORE_VOLUME.
+definitions.InstanceOperation.properties.operationType.type: string
+definitions.InstanceOperation.properties.startTime.description: The time this operation
+  actually started in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+definitions.InstanceOperation.properties.startTime.format: date-time
+definitions.InstanceOperation.properties.startTime.type: string
+definitions.InstanceOperation.properties.state.description: The state of an operation.
+  Valid values are PENDING, RUNNING, DONE, UNKNOWN.
+definitions.InstanceOperation.properties.state.type: string
+definitions.InstanceOperation.properties.userEmailAddress.description: The email address
+  of the user who initiated this operation.
+definitions.InstanceOperation.properties.userEmailAddress.type: string
+definitions.InstanceOperation.type: object
+definitions.InstanceSetRootPasswordRequest.description: Database instance set root
+  password request.
+definitions.InstanceSetRootPasswordRequest.properties.setRootPasswordContext.$ref: '#/definitions/SetRootPasswordContext'
+definitions.InstanceSetRootPasswordRequest.properties.setRootPasswordContext.description: Set
+  Root Password Context.
+definitions.InstanceSetRootPasswordRequest.type: object
+definitions.InstancesCloneRequest.description: Database instance clone request.
+definitions.InstancesCloneRequest.properties.cloneContext.$ref: '#/definitions/CloneContext'
+definitions.InstancesCloneRequest.properties.cloneContext.description: Contains details
+  about the clone operation.
+definitions.InstancesCloneRequest.type: object
+definitions.InstancesCloneResponse.description: Database instance clone response.
+definitions.InstancesCloneResponse.properties.kind.default: sql#instancesClone
+definitions.InstancesCloneResponse.properties.kind.description: This is always sql#instancesClone.
+definitions.InstancesCloneResponse.properties.kind.type: string
+definitions.InstancesCloneResponse.properties.operation.description: An unique identifier
+  for the operation associated with the cloned instance. You can use this identifier
+  to retrieve the Operations resource, which has information about the operation.
+definitions.InstancesCloneResponse.properties.operation.type: string
+definitions.InstancesCloneResponse.type: object
+definitions.InstancesDeleteResponse.description: Database instance delete response.
+definitions.InstancesDeleteResponse.properties.kind.default: sql#instancesDelete
+definitions.InstancesDeleteResponse.properties.kind.description: This is always sql#instancesDelete.
+definitions.InstancesDeleteResponse.properties.kind.type: string
+definitions.InstancesDeleteResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesDeleteResponse.properties.operation.type: string
+definitions.InstancesDeleteResponse.type: object
+definitions.InstancesExportRequest.description: Database instance export request.
+definitions.InstancesExportRequest.properties.exportContext.$ref: '#/definitions/ExportContext'
+definitions.InstancesExportRequest.properties.exportContext.description: Contains
+  details about the export operation.
+definitions.InstancesExportRequest.type: object
+definitions.InstancesExportResponse.description: Database instance export response.
+definitions.InstancesExportResponse.properties.kind.default: sql#instancesExport
+definitions.InstancesExportResponse.properties.kind.description: This is always sql#instancesExport.
+definitions.InstancesExportResponse.properties.kind.type: string
+definitions.InstancesExportResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesExportResponse.properties.operation.type: string
+definitions.InstancesExportResponse.type: object
+definitions.InstancesImportRequest.description: Database instance import request.
+definitions.InstancesImportRequest.properties.importContext.$ref: '#/definitions/ImportContext'
+definitions.InstancesImportRequest.properties.importContext.description: Contains
+  details about the import operation.
+definitions.InstancesImportRequest.type: object
+definitions.InstancesImportResponse.description: Database instance import response.
+definitions.InstancesImportResponse.properties.kind.default: sql#instancesImport
+definitions.InstancesImportResponse.properties.kind.description: This is always sql#instancesImport.
+definitions.InstancesImportResponse.properties.kind.type: string
+definitions.InstancesImportResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesImportResponse.properties.operation.type: string
+definitions.InstancesImportResponse.type: object
+definitions.InstancesInsertResponse.description: Database instance insert response.
+definitions.InstancesInsertResponse.properties.kind.default: sql#instancesInsert
+definitions.InstancesInsertResponse.properties.kind.description: This is always sql#instancesInsert.
+definitions.InstancesInsertResponse.properties.kind.type: string
+definitions.InstancesInsertResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesInsertResponse.properties.operation.type: string
+definitions.InstancesInsertResponse.type: object
+definitions.InstancesListResponse.description: Database instances list response.
+definitions.InstancesListResponse.properties.items.description: List of database instance
+  resources.
+definitions.InstancesListResponse.properties.items.items.$ref: '#/definitions/DatabaseInstance'
+definitions.InstancesListResponse.properties.items.type: array
+definitions.InstancesListResponse.properties.kind.default: sql#instancesList
+definitions.InstancesListResponse.properties.kind.description: This is always sql#instancesList.
+definitions.InstancesListResponse.properties.kind.type: string
+definitions.InstancesListResponse.properties.nextPageToken.description: The continuation
+  token, used to page through large result sets. Provide this value in a subsequent
+  request to return the next page of results.
+definitions.InstancesListResponse.properties.nextPageToken.type: string
+definitions.InstancesListResponse.type: object
+definitions.InstancesPromoteReplicaResponse.description: Database promote read replica
+  response.
+definitions.InstancesPromoteReplicaResponse.properties.kind.default: sql#instancesPromoteReplica
+definitions.InstancesPromoteReplicaResponse.properties.kind.description: This is always
+  sql#instancesPromoteReplica.
+definitions.InstancesPromoteReplicaResponse.properties.kind.type: string
+definitions.InstancesPromoteReplicaResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesPromoteReplicaResponse.properties.operation.type: string
+definitions.InstancesPromoteReplicaResponse.type: object
+definitions.InstancesResetSslConfigResponse.description: Database instance resetSslConfig
+  response.
+definitions.InstancesResetSslConfigResponse.properties.kind.default: sql#instancesResetSslConfig
+definitions.InstancesResetSslConfigResponse.properties.kind.description: This is always
+  sql#instancesResetSslConfig.
+definitions.InstancesResetSslConfigResponse.properties.kind.type: string
+definitions.InstancesResetSslConfigResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation. All ssl client
+  certificates will be deleted and a new server certificate will be created. Does
+  not take effect until the next instance restart.
+definitions.InstancesResetSslConfigResponse.properties.operation.type: string
+definitions.InstancesResetSslConfigResponse.type: object
+definitions.InstancesRestartResponse.description: Database instance restart response.
+definitions.InstancesRestartResponse.properties.kind.default: sql#instancesRestart
+definitions.InstancesRestartResponse.properties.kind.description: This is always sql#instancesRestart.
+definitions.InstancesRestartResponse.properties.kind.type: string
+definitions.InstancesRestartResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesRestartResponse.properties.operation.type: string
+definitions.InstancesRestartResponse.type: object
+definitions.InstancesRestoreBackupResponse.description: Database instance restore
+  backup response.
+definitions.InstancesRestoreBackupResponse.properties.kind.default: sql#instancesRestoreBackup
+definitions.InstancesRestoreBackupResponse.properties.kind.description: This is always
+  sql#instancesRestoreBackup.
+definitions.InstancesRestoreBackupResponse.properties.kind.type: string
+definitions.InstancesRestoreBackupResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.InstancesRestoreBackupResponse.properties.operation.type: string
+definitions.InstancesRestoreBackupResponse.type: object
+definitions.InstancesSetRootPasswordResponse.description: Database instance set root
+  password response.
+definitions.InstancesSetRootPasswordResponse.properties.kind.default: sql#instancesSetRootPassword
+definitions.InstancesSetRootPasswordResponse.properties.kind.description: This is
+  always sql#instancesSetRootPassword.
+definitions.InstancesSetRootPasswordResponse.properties.kind.type: string
+definitions.InstancesSetRootPasswordResponse.properties.operation.description: An
+  identifier that uniquely identifies the operation. You can use this identifier to
+  retrieve the Operations resource that has information about the operation.
+definitions.InstancesSetRootPasswordResponse.properties.operation.type: string
+definitions.InstancesSetRootPasswordResponse.type: object
+definitions.InstancesUpdateResponse.description: Database instance update response.
+definitions.InstancesUpdateResponse.properties.kind.default: sql#instancesUpdate
+definitions.InstancesUpdateResponse.properties.kind.description: This is always sql#instancesUpdate.
+definitions.InstancesUpdateResponse.properties.kind.type: string
+definitions.InstancesUpdateResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  information about the operation.
+definitions.InstancesUpdateResponse.properties.operation.type: string
+definitions.InstancesUpdateResponse.type: object
+definitions.IpConfiguration.description: IP Management configuration.
+definitions.IpConfiguration.properties.authorizedNetworks.description: The list of
+  external networks that are allowed to connect to the instance using the IP. In CIDR
+  notation, also known as 'slash' notation (e.g. 192.168.100.0/24).
+definitions.IpConfiguration.properties.authorizedNetworks.items.type: string
+definitions.IpConfiguration.properties.authorizedNetworks.type: array
+definitions.IpConfiguration.properties.enabled.description: Whether the instance should
+  be assigned an IP address or not.
+definitions.IpConfiguration.properties.enabled.type: boolean
+definitions.IpConfiguration.properties.kind.default: sql#ipConfiguration
+definitions.IpConfiguration.properties.kind.description: This is always sql#ipConfiguration.
+definitions.IpConfiguration.properties.kind.type: string
+definitions.IpConfiguration.properties.requireSsl.description: Whether SSL connections
+  over IP should be enforced or not.
+definitions.IpConfiguration.properties.requireSsl.type: boolean
+definitions.IpConfiguration.type: object
+definitions.IpMapping.description: Database instance IP Mapping.
+definitions.IpMapping.properties.ipAddress.description: The IP address assigned.
+definitions.IpMapping.properties.ipAddress.type: string
+definitions.IpMapping.properties.timeToRetire.description: The due time for this IP
+  to be retired in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. This field
+  is only available when the IP is scheduled to be retired.
+definitions.IpMapping.properties.timeToRetire.format: date-time
+definitions.IpMapping.properties.timeToRetire.type: string
+definitions.IpMapping.type: object
+definitions.LocationPreference.description: Preferred location. This specifies where
+  a Cloud SQL instance should preferably be located, either in a specific Compute
+  Engine zone, or co-located with an App Engine application. Note that if the preferred
+  location is not available, the instance will be located as close as possible within
+  the region. Only one location may be specified.
+definitions.LocationPreference.properties.followGaeApplication.description: The App
+  Engine application to follow, it must be in the same region as the Cloud SQL instance.
+definitions.LocationPreference.properties.followGaeApplication.type: string
+definitions.LocationPreference.properties.kind.default: sql#locationPreference
+definitions.LocationPreference.properties.kind.description: This is always sql#locationPreference.
+definitions.LocationPreference.properties.kind.type: string
+definitions.LocationPreference.properties.zone.description: The preferred Compute
+  Engine zone (e.g. us-centra1-a, us-central1-b, etc.).
+definitions.LocationPreference.properties.zone.type: string
+definitions.LocationPreference.type: object
+definitions.OperationError.description: Database instance operation error.
+definitions.OperationError.properties.code.description: Identifies the specific error
+  that occurred.
+definitions.OperationError.properties.code.type: string
+definitions.OperationError.properties.kind.default: sql#operationError
+definitions.OperationError.properties.kind.description: This is always sql#operationError.
+definitions.OperationError.properties.kind.type: string
+definitions.OperationError.type: object
+definitions.OperationsListResponse.description: Database instance list operations
+  response.
+definitions.OperationsListResponse.properties.items.description: List of operation
+  resources.
+definitions.OperationsListResponse.properties.items.items.$ref: '#/definitions/InstanceOperation'
+definitions.OperationsListResponse.properties.items.type: array
+definitions.OperationsListResponse.properties.kind.default: sql#operationsList
+definitions.OperationsListResponse.properties.kind.description: This is always sql#operationsList.
+definitions.OperationsListResponse.properties.kind.type: string
+definitions.OperationsListResponse.properties.nextPageToken.description: The continuation
+  token, used to page through large result sets. Provide this value in a subsequent
+  request to return the next page of results.
+definitions.OperationsListResponse.properties.nextPageToken.type: string
+definitions.OperationsListResponse.type: object
+definitions.SetRootPasswordContext.description: Database instance set root password
+  context.
+definitions.SetRootPasswordContext.properties.kind.default: sql#setRootUserContext
+definitions.SetRootPasswordContext.properties.kind.description: This is always sql#setRootUserContext.
+definitions.SetRootPasswordContext.properties.kind.type: string
+definitions.SetRootPasswordContext.properties.password.description: The password for
+  the root user.
+definitions.SetRootPasswordContext.properties.password.type: string
+definitions.SetRootPasswordContext.type: object
+definitions.Settings.description: Database instance settings.
+definitions.Settings.properties.activationPolicy.description: |-
+  The activation policy for this instance. This specifies when the instance should be activated and is applicable only when the instance state is RUNNABLE. This can be one of the following.
+  ALWAYS: The instance should always be active.
+  NEVER: The instance should never be activated.
+  ON_DEMAND: The instance is activated upon receiving requests.
+definitions.Settings.properties.activationPolicy.type: string
+definitions.Settings.properties.authorizedGaeApplications.description: The App Engine
+  app IDs that can access this instance.
+definitions.Settings.properties.authorizedGaeApplications.items.type: string
+definitions.Settings.properties.authorizedGaeApplications.type: array
+definitions.Settings.properties.backupConfiguration.description: The daily backup
+  configuration for the instance.
+definitions.Settings.properties.backupConfiguration.items.$ref: '#/definitions/BackupConfiguration'
+definitions.Settings.properties.backupConfiguration.type: array
+definitions.Settings.properties.databaseFlags.description: The database flags passed
+  to the instance at startup.
+definitions.Settings.properties.databaseFlags.items.$ref: '#/definitions/DatabaseFlags'
+definitions.Settings.properties.databaseFlags.type: array
+definitions.Settings.properties.databaseReplicationEnabled.description: Configuration
+  specific to read replica instance. Indicates whether replication is enabled or not.
+definitions.Settings.properties.databaseReplicationEnabled.type: boolean
+definitions.Settings.properties.ipConfiguration.$ref: '#/definitions/IpConfiguration'
+definitions.Settings.properties.ipConfiguration.description: The settings for IP Management.
+  This allows to enable or disable the instance IP and manage which external networks
+  can connect to the instance.
+definitions.Settings.properties.kind.default: sql#settings
+definitions.Settings.properties.kind.description: This is always sql#settings.
+definitions.Settings.properties.kind.type: string
+definitions.Settings.properties.locationPreference.$ref: '#/definitions/LocationPreference'
+definitions.Settings.properties.locationPreference.description: The location preference
+  settings. This allows the instance to be located as near as possible to either an
+  App Engine app or GCE zone for better performance.
+definitions.Settings.properties.pricingPlan.description: The pricing plan for this
+  instance. This can be either PER_USE or PACKAGE.
+definitions.Settings.properties.pricingPlan.type: string
+definitions.Settings.properties.replicationType.description: The type of replication
+  this instance uses. This can be either ASYNCHRONOUS or SYNCHRONOUS.
+definitions.Settings.properties.replicationType.type: string
+definitions.Settings.properties.settingsVersion.description: The version of instance
+  settings. This is a required field for update method to make sure concurrent updates
+  are handled properly. During update, use the most recent settingsVersion value for
+  this instance and do not try to update this value.
+definitions.Settings.properties.settingsVersion.format: int64
+definitions.Settings.properties.settingsVersion.type: string
+definitions.Settings.properties.tier.description: The tier of service for this instance,
+  for example D1, D2. For more information, see pricing.
+definitions.Settings.properties.tier.type: string
+definitions.Settings.type: object
+definitions.SslCert.description: SslCerts Resource
+definitions.SslCert.properties.cert.description: PEM representation.
+definitions.SslCert.properties.cert.type: string
+definitions.SslCert.properties.certSerialNumber.description: Serial number, as extracted
+  from the certificate.
+definitions.SslCert.properties.certSerialNumber.type: string
+definitions.SslCert.properties.commonName.description: User supplied name. Constrained
+  to [a-zA-Z.-_ ]+.
+definitions.SslCert.properties.commonName.type: string
+definitions.SslCert.properties.createTime.description: Time when the certificate was
+  created.
+definitions.SslCert.properties.createTime.format: date-time
+definitions.SslCert.properties.createTime.type: string
+definitions.SslCert.properties.expirationTime.description: Time when the certificate
+  expires.
+definitions.SslCert.properties.expirationTime.format: date-time
+definitions.SslCert.properties.expirationTime.type: string
+definitions.SslCert.properties.instance.description: Name of the database instance.
+definitions.SslCert.properties.instance.type: string
+definitions.SslCert.properties.kind.default: sql#sslCert
+definitions.SslCert.properties.kind.description: This is always sql#sslCert.
+definitions.SslCert.properties.kind.type: string
+definitions.SslCert.properties.sha1Fingerprint.description: Sha1 Fingerprint.
+definitions.SslCert.properties.sha1Fingerprint.type: string
+definitions.SslCert.type: object
+definitions.SslCertDetail.description: SslCertDetail.
+definitions.SslCertDetail.properties.certInfo.$ref: '#/definitions/SslCert'
+definitions.SslCertDetail.properties.certInfo.description: The public information
+  about the cert.
+definitions.SslCertDetail.properties.certPrivateKey.description: The private key for
+  the client cert, in pem format. Keep private in order to protect your security.
+definitions.SslCertDetail.properties.certPrivateKey.type: string
+definitions.SslCertDetail.type: object
+definitions.SslCertsDeleteResponse.description: SslCert delete response.
+definitions.SslCertsDeleteResponse.properties.kind.default: sql#sslCertsDelete
+definitions.SslCertsDeleteResponse.properties.kind.description: This is always sql#sslCertsDelete.
+definitions.SslCertsDeleteResponse.properties.kind.type: string
+definitions.SslCertsDeleteResponse.properties.operation.description: An identifier
+  that uniquely identifies the operation. You can use this identifier to retrieve
+  the Operations resource that has information about the operation.
+definitions.SslCertsDeleteResponse.properties.operation.type: string
+definitions.SslCertsDeleteResponse.type: object
+definitions.SslCertsInsertRequest.description: SslCerts insert request.
+definitions.SslCertsInsertRequest.properties.commonName.description: User supplied
+  name. Must be a distinct name from the other certificates for this instance. New
+  certificates will not be usable until the instance is restarted.
+definitions.SslCertsInsertRequest.properties.commonName.type: string
+definitions.SslCertsInsertRequest.type: object
+definitions.SslCertsInsertResponse.description: SslCert insert response.
+definitions.SslCertsInsertResponse.properties.clientCert.$ref: '#/definitions/SslCertDetail'
+definitions.SslCertsInsertResponse.properties.clientCert.description: The new client
+  certificate and private key. The new certificate will not work until the instance
+  is restarted.
+definitions.SslCertsInsertResponse.properties.kind.default: sql#sslCertsInsert
+definitions.SslCertsInsertResponse.properties.kind.description: This is always sql#sslCertsInsert.
+definitions.SslCertsInsertResponse.properties.kind.type: string
+definitions.SslCertsInsertResponse.properties.serverCaCert.$ref: '#/definitions/SslCert'
+definitions.SslCertsInsertResponse.properties.serverCaCert.description: The server
+  Certificate Authority's certificate. If this is missing you can force a new one
+  to be generated by calling resetSslConfig method on instances resource..
+definitions.SslCertsInsertResponse.type: object
+definitions.SslCertsListResponse.description: SslCerts list response.
+definitions.SslCertsListResponse.properties.items.description: List of client certificates
+  for the instance.
+definitions.SslCertsListResponse.properties.items.items.$ref: '#/definitions/SslCert'
+definitions.SslCertsListResponse.properties.items.type: array
+definitions.SslCertsListResponse.properties.kind.default: sql#sslCertsList
+definitions.SslCertsListResponse.properties.kind.description: This is always sql#sslCertsList.
+definitions.SslCertsListResponse.properties.kind.type: string
+definitions.SslCertsListResponse.type: object
+definitions.Tier.description: A Google Cloud SQL service tier resource.
+definitions.Tier.properties.DiskQuota.description: The maximum disk size of this tier
+  in bytes.
+definitions.Tier.properties.DiskQuota.format: int64
+definitions.Tier.properties.DiskQuota.type: string
+definitions.Tier.properties.RAM.description: The maximum RAM usage of this tier in
+  bytes.
+definitions.Tier.properties.RAM.format: int64
+definitions.Tier.properties.RAM.type: string
+definitions.Tier.properties.kind.default: sql#tier
+definitions.Tier.properties.kind.description: This is always sql#tier.
+definitions.Tier.properties.kind.type: string
+definitions.Tier.properties.region.description: The applicable regions for this tier.
+definitions.Tier.properties.region.items.type: string
+definitions.Tier.properties.region.type: array
+definitions.Tier.properties.tier.description: An identifier for the service tier,
+  for example D1, D2 etc. For related information, see Pricing.
+definitions.Tier.properties.tier.type: string
+definitions.Tier.type: object
+definitions.TiersListResponse.description: Tiers list response.
+definitions.TiersListResponse.properties.items.description: List of tiers.
+definitions.TiersListResponse.properties.items.items.$ref: '#/definitions/Tier'
+definitions.TiersListResponse.properties.items.type: array
+definitions.TiersListResponse.properties.kind.default: sql#tiersList
+definitions.TiersListResponse.properties.kind.description: This is always sql#tiersList.
+definitions.TiersListResponse.properties.kind.type: string
+definitions.TiersListResponse.type: object
+externalDocs.url: https://cloud.google.com/sql/docs/reference/latest
+host: www.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Creates and configures Cloud SQL instances, which provide fully-managed
+  MySQL databases.
+info.title: Cloud SQL Administration
+info.version: v1beta3
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_cloud.google.com__static_images_new-gcp-logo.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://www.googleapis.com/discovery/v1/apis/sqladmin/v1beta3/rest
+info.x-origin[0].version: v1
+info.x-preferred: false
+info.x-providerName: googleapis.com
+info.x-serviceName: sqladmin
+parameters.alt.default: json
+parameters.alt.description: Data format for the response.
+parameters.alt.enum.length: 1
+parameters.alt.enum[0]: json
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters. Overrides userIp if both are provided.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.userIp.description: IP address of the site where the request originates.
+  Use this if you want to enforce per-user limits.
+parameters.userIp.in: query
+parameters.userIp.name: userIp
+parameters.userIp.type: string
+paths./flags.get.description: Lists all database flags that can be set for Google
+  Cloud SQL instances.
+paths./flags.get.operationId: sql.flags.list
+paths./flags.get.responses.200.description: Successful response
+paths./flags.get.responses.200.schema.$ref: '#/definitions/FlagsListResponse'
+paths./flags.get.security.length: 2
+paths./flags.get.security[0].Oauth2.length: 1
+paths./flags.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./flags.get.security[1].Oauth2.length: 1
+paths./flags.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./flags.get.tags.length: 1
+paths./flags.get.tags[0]: flags
+paths./flags.parameters.length: 7
+paths./flags.parameters[0].$ref: '#/parameters/alt'
+paths./flags.parameters[1].$ref: '#/parameters/fields'
+paths./flags.parameters[2].$ref: '#/parameters/key'
+paths./flags.parameters[3].$ref: '#/parameters/oauth_token'
+paths./flags.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./flags.parameters[5].$ref: '#/parameters/quotaUser'
+paths./flags.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances.get.description: Lists instances for a given project,
+  in alphabetical order by instance name.
+paths./projects/{project}/instances.get.operationId: sql.instances.list
+paths./projects/{project}/instances.get.parameters.length: 3
+paths./projects/{project}/instances.get.parameters[0].description: Project ID of the
+  project for which to list Cloud SQL instances.
+paths./projects/{project}/instances.get.parameters[0].in: path
+paths./projects/{project}/instances.get.parameters[0].name: project
+paths./projects/{project}/instances.get.parameters[0].required: true
+paths./projects/{project}/instances.get.parameters[0].type: string
+paths./projects/{project}/instances.get.parameters[1].description: The maximum number
+  of results to return per response.
+paths./projects/{project}/instances.get.parameters[1].in: query
+paths./projects/{project}/instances.get.parameters[1].name: maxResults
+paths./projects/{project}/instances.get.parameters[1].type: integer
+paths./projects/{project}/instances.get.parameters[2].description: A previously-returned
+  page token representing part of the larger set of results to view.
+paths./projects/{project}/instances.get.parameters[2].in: query
+paths./projects/{project}/instances.get.parameters[2].name: pageToken
+paths./projects/{project}/instances.get.parameters[2].type: string
+paths./projects/{project}/instances.get.responses.200.description: Successful response
+paths./projects/{project}/instances.get.responses.200.schema.$ref: '#/definitions/InstancesListResponse'
+paths./projects/{project}/instances.get.security.length: 2
+paths./projects/{project}/instances.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances.get.tags.length: 1
+paths./projects/{project}/instances.get.tags[0]: instances
+paths./projects/{project}/instances.parameters.length: 7
+paths./projects/{project}/instances.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances.post.description: Creates a new Cloud SQL instance.
+paths./projects/{project}/instances.post.operationId: sql.instances.insert
+paths./projects/{project}/instances.post.parameters.length: 2
+paths./projects/{project}/instances.post.parameters[0].description: Project ID of
+  the project to which the newly created Cloud SQL instances should belong.
+paths./projects/{project}/instances.post.parameters[0].in: path
+paths./projects/{project}/instances.post.parameters[0].name: project
+paths./projects/{project}/instances.post.parameters[0].required: true
+paths./projects/{project}/instances.post.parameters[0].type: string
+paths./projects/{project}/instances.post.parameters[1].in: body
+paths./projects/{project}/instances.post.parameters[1].name: body
+paths./projects/{project}/instances.post.parameters[1].schema.$ref: '#/definitions/DatabaseInstance'
+paths./projects/{project}/instances.post.responses.200.description: Successful response
+paths./projects/{project}/instances.post.responses.200.schema.$ref: '#/definitions/InstancesInsertResponse'
+paths./projects/{project}/instances.post.security.length: 2
+paths./projects/{project}/instances.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances.post.tags.length: 1
+paths./projects/{project}/instances.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}.delete.description: Deletes a Cloud
+  SQL instance.
+paths./projects/{project}/instances/{instance}.delete.operationId: sql.instances.delete
+paths./projects/{project}/instances/{instance}.delete.parameters.length: 2
+paths./projects/{project}/instances/{instance}.delete.parameters[0].description: Project
+  ID of the project that contains the instance to be deleted.
+paths./projects/{project}/instances/{instance}.delete.parameters[0].in: path
+paths./projects/{project}/instances/{instance}.delete.parameters[0].name: project
+paths./projects/{project}/instances/{instance}.delete.parameters[0].required: true
+paths./projects/{project}/instances/{instance}.delete.parameters[0].type: string
+paths./projects/{project}/instances/{instance}.delete.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}.delete.parameters[1].in: path
+paths./projects/{project}/instances/{instance}.delete.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}.delete.parameters[1].required: true
+paths./projects/{project}/instances/{instance}.delete.parameters[1].type: string
+paths./projects/{project}/instances/{instance}.delete.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}.delete.responses.200.schema.$ref: '#/definitions/InstancesDeleteResponse'
+paths./projects/{project}/instances/{instance}.delete.security.length: 2
+paths./projects/{project}/instances/{instance}.delete.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}.delete.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.delete.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}.delete.tags.length: 1
+paths./projects/{project}/instances/{instance}.delete.tags[0]: instances
+paths./projects/{project}/instances/{instance}.get.description: Retrieves information
+  about a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}.get.operationId: sql.instances.get
+paths./projects/{project}/instances/{instance}.get.parameters.length: 2
+paths./projects/{project}/instances/{instance}.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}.get.parameters[1].description: Database
+  instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}.get.responses.200.schema.$ref: '#/definitions/DatabaseInstance'
+paths./projects/{project}/instances/{instance}.get.security.length: 2
+paths./projects/{project}/instances/{instance}.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}.get.tags.length: 1
+paths./projects/{project}/instances/{instance}.get.tags[0]: instances
+paths./projects/{project}/instances/{instance}.parameters.length: 7
+paths./projects/{project}/instances/{instance}.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}.patch.description: Updates the settings
+  of a Cloud SQL instance. This method supports patch semantics.
+paths./projects/{project}/instances/{instance}.patch.operationId: sql.instances.patch
+paths./projects/{project}/instances/{instance}.patch.parameters.length: 3
+paths./projects/{project}/instances/{instance}.patch.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}.patch.parameters[0].in: path
+paths./projects/{project}/instances/{instance}.patch.parameters[0].name: project
+paths./projects/{project}/instances/{instance}.patch.parameters[0].required: true
+paths./projects/{project}/instances/{instance}.patch.parameters[0].type: string
+paths./projects/{project}/instances/{instance}.patch.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}.patch.parameters[1].in: path
+paths./projects/{project}/instances/{instance}.patch.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}.patch.parameters[1].required: true
+paths./projects/{project}/instances/{instance}.patch.parameters[1].type: string
+paths./projects/{project}/instances/{instance}.patch.parameters[2].in: body
+paths./projects/{project}/instances/{instance}.patch.parameters[2].name: body
+paths./projects/{project}/instances/{instance}.patch.parameters[2].schema.$ref: '#/definitions/DatabaseInstance'
+paths./projects/{project}/instances/{instance}.patch.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}.patch.responses.200.schema.$ref: '#/definitions/InstancesUpdateResponse'
+paths./projects/{project}/instances/{instance}.patch.security.length: 2
+paths./projects/{project}/instances/{instance}.patch.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.patch.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}.patch.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.patch.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}.patch.tags.length: 1
+paths./projects/{project}/instances/{instance}.patch.tags[0]: instances
+paths./projects/{project}/instances/{instance}.put.description: Updates the settings
+  of a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}.put.operationId: sql.instances.update
+paths./projects/{project}/instances/{instance}.put.parameters.length: 3
+paths./projects/{project}/instances/{instance}.put.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}.put.parameters[0].in: path
+paths./projects/{project}/instances/{instance}.put.parameters[0].name: project
+paths./projects/{project}/instances/{instance}.put.parameters[0].required: true
+paths./projects/{project}/instances/{instance}.put.parameters[0].type: string
+paths./projects/{project}/instances/{instance}.put.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}.put.parameters[1].in: path
+paths./projects/{project}/instances/{instance}.put.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}.put.parameters[1].required: true
+paths./projects/{project}/instances/{instance}.put.parameters[1].type: string
+paths./projects/{project}/instances/{instance}.put.parameters[2].in: body
+paths./projects/{project}/instances/{instance}.put.parameters[2].name: body
+paths./projects/{project}/instances/{instance}.put.parameters[2].schema.$ref: '#/definitions/DatabaseInstance'
+paths./projects/{project}/instances/{instance}.put.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}.put.responses.200.schema.$ref: '#/definitions/InstancesUpdateResponse'
+paths./projects/{project}/instances/{instance}.put.security.length: 2
+paths./projects/{project}/instances/{instance}.put.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.put.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}.put.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}.put.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}.put.tags.length: 1
+paths./projects/{project}/instances/{instance}.put.tags[0]: instances
+paths./projects/{project}/instances/{instance}/backupRuns.get.description: Lists all
+  backup runs associated with a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/backupRuns.get.operationId: sql.backupRuns.list
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters.length: 5
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[2].description: Identifier
+  for the backup configuration. This gets generated automatically when a backup configuration
+  is created.
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[2].in: query
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[2].name: backupConfiguration
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[3].description: Maximum
+  number of backup runs per response.
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[3].in: query
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[3].name: maxResults
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[3].type: integer
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[4].description: A
+  previously-returned page token representing part of the larger set of results to
+  view.
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[4].in: query
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[4].name: pageToken
+paths./projects/{project}/instances/{instance}/backupRuns.get.parameters[4].type: string
+paths./projects/{project}/instances/{instance}/backupRuns.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/backupRuns.get.responses.200.schema.$ref: '#/definitions/BackupRunsListResponse'
+paths./projects/{project}/instances/{instance}/backupRuns.get.security.length: 2
+paths./projects/{project}/instances/{instance}/backupRuns.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/backupRuns.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/backupRuns.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns.get.tags[0]: backupRuns
+paths./projects/{project}/instances/{instance}/backupRuns.parameters.length: 7
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/backupRuns.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.description: Retrieves
+  information about a specified backup run for a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.operationId: sql.backupRuns.get
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters.length: 4
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[2].description: Identifier
+  for the backup configuration. This gets generated automatically when a backup configuration
+  is created.
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[2].in: path
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[2].name: backupConfiguration
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[3].description: The
+  start time of the four-hour backup window. The backup can occur any time in the
+  window. The time is in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[3].in: query
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[3].name: dueTime
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[3].required: true
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.parameters[3].type: string
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.responses.200.schema.$ref: '#/definitions/BackupRun'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.security.length: 2
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.get.tags[0]: backupRuns
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters.length: 7
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/backupRuns/{backupConfiguration}.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/export.parameters.length: 7
+paths./projects/{project}/instances/{instance}/export.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/export.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/export.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/export.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/export.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/export.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/export.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/export.post.description: Exports data
+  from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file.
+paths./projects/{project}/instances/{instance}/export.post.operationId: sql.instances.export
+paths./projects/{project}/instances/{instance}/export.post.parameters.length: 3
+paths./projects/{project}/instances/{instance}/export.post.parameters[0].description: Project
+  ID of the project that contains the instance to be exported.
+paths./projects/{project}/instances/{instance}/export.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/export.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/export.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/export.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/export.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/export.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/export.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/export.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/export.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/export.post.parameters[2].in: body
+paths./projects/{project}/instances/{instance}/export.post.parameters[2].name: body
+paths./projects/{project}/instances/{instance}/export.post.parameters[2].schema.$ref: '#/definitions/InstancesExportRequest'
+paths./projects/{project}/instances/{instance}/export.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/export.post.responses.200.schema.$ref: '#/definitions/InstancesExportResponse'
+paths./projects/{project}/instances/{instance}/export.post.security.length: 1
+paths./projects/{project}/instances/{instance}/export.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/export.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/export.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/export.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/import.parameters.length: 7
+paths./projects/{project}/instances/{instance}/import.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/import.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/import.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/import.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/import.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/import.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/import.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/import.post.description: Imports data
+  into a Cloud SQL instance from a MySQL dump file stored in a Google Cloud Storage
+  bucket.
+paths./projects/{project}/instances/{instance}/import.post.operationId: sql.instances.import
+paths./projects/{project}/instances/{instance}/import.post.parameters.length: 3
+paths./projects/{project}/instances/{instance}/import.post.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/import.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/import.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/import.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/import.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/import.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/import.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/import.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/import.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/import.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/import.post.parameters[2].in: body
+paths./projects/{project}/instances/{instance}/import.post.parameters[2].name: body
+paths./projects/{project}/instances/{instance}/import.post.parameters[2].schema.$ref: '#/definitions/InstancesImportRequest'
+paths./projects/{project}/instances/{instance}/import.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/import.post.responses.200.schema.$ref: '#/definitions/InstancesImportResponse'
+paths./projects/{project}/instances/{instance}/import.post.security.length: 1
+paths./projects/{project}/instances/{instance}/import.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/import.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/import.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/import.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/operations.get.description: Lists all
+  operations that have been performed on a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/operations.get.operationId: sql.operations.list
+paths./projects/{project}/instances/{instance}/operations.get.parameters.length: 4
+paths./projects/{project}/instances/{instance}/operations.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/operations.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/operations.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/operations.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/operations.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/operations.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/operations.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/operations.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/operations.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/operations.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/operations.get.parameters[2].description: Maximum
+  number of operations per response.
+paths./projects/{project}/instances/{instance}/operations.get.parameters[2].in: query
+paths./projects/{project}/instances/{instance}/operations.get.parameters[2].name: maxResults
+paths./projects/{project}/instances/{instance}/operations.get.parameters[2].type: integer
+paths./projects/{project}/instances/{instance}/operations.get.parameters[3].description: A
+  previously-returned page token representing part of the larger set of results to
+  view.
+paths./projects/{project}/instances/{instance}/operations.get.parameters[3].in: query
+paths./projects/{project}/instances/{instance}/operations.get.parameters[3].name: pageToken
+paths./projects/{project}/instances/{instance}/operations.get.parameters[3].type: string
+paths./projects/{project}/instances/{instance}/operations.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/operations.get.responses.200.schema.$ref: '#/definitions/OperationsListResponse'
+paths./projects/{project}/instances/{instance}/operations.get.security.length: 2
+paths./projects/{project}/instances/{instance}/operations.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/operations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/operations.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/operations.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/operations.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/operations.get.tags[0]: operations
+paths./projects/{project}/instances/{instance}/operations.parameters.length: 7
+paths./projects/{project}/instances/{instance}/operations.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/operations.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/operations.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/operations.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/operations.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/operations.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/operations.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.description: Retrieves
+  information about a specific operation that was performed on a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.operationId: sql.operations.get
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters.length: 3
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[2].description: Instance
+  operation ID.
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[2].in: path
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[2].name: operation
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.responses.200.schema.$ref: '#/definitions/InstanceOperation'
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.security.length: 2
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/operations/{operation}.get.tags[0]: operations
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters.length: 7
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/operations/{operation}.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters.length: 7
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/promoteReplica.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/promoteReplica.post.description: Promotes
+  the read replica instance to be a stand-alone Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/promoteReplica.post.operationId: sql.instances.promoteReplica
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters.length: 2
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[0].description: ID
+  of the project that contains the read replica.
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[1].description: Cloud
+  SQL read replica instance name.
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/promoteReplica.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/promoteReplica.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/promoteReplica.post.responses.200.schema.$ref: '#/definitions/InstancesPromoteReplicaResponse'
+paths./projects/{project}/instances/{instance}/promoteReplica.post.security.length: 2
+paths./projects/{project}/instances/{instance}/promoteReplica.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/promoteReplica.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/promoteReplica.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/promoteReplica.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/promoteReplica.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/promoteReplica.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters.length: 7
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/resetSslConfig.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.description: Deletes
+  all client certificates and generates a new server SSL certificate for a Cloud SQL
+  instance.
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.operationId: sql.instances.resetSslConfig
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters.length: 2
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.responses.200.schema.$ref: '#/definitions/InstancesResetSslConfigResponse'
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.security.length: 2
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/resetSslConfig.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/restart.parameters.length: 7
+paths./projects/{project}/instances/{instance}/restart.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/restart.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/restart.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/restart.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/restart.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/restart.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/restart.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/restart.post.description: Restarts
+  a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/restart.post.operationId: sql.instances.restart
+paths./projects/{project}/instances/{instance}/restart.post.parameters.length: 2
+paths./projects/{project}/instances/{instance}/restart.post.parameters[0].description: Project
+  ID of the project that contains the instance to be restarted.
+paths./projects/{project}/instances/{instance}/restart.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/restart.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/restart.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/restart.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/restart.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/restart.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/restart.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/restart.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/restart.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/restart.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/restart.post.responses.200.schema.$ref: '#/definitions/InstancesRestartResponse'
+paths./projects/{project}/instances/{instance}/restart.post.security.length: 2
+paths./projects/{project}/instances/{instance}/restart.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/restart.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/restart.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/restart.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/restart.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/restart.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters.length: 7
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/restoreBackup.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/restoreBackup.post.description: Restores
+  a backup of a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/restoreBackup.post.operationId: sql.instances.restoreBackup
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters.length: 4
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[2].description: The
+  identifier of the backup configuration. This gets generated automatically when a
+  backup configuration is created.
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[2].in: query
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[2].name: backupConfiguration
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[3].description: The
+  start time of the four-hour backup window. The backup can occur any time in the
+  window. The time is in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[3].in: query
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[3].name: dueTime
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[3].required: true
+paths./projects/{project}/instances/{instance}/restoreBackup.post.parameters[3].type: string
+paths./projects/{project}/instances/{instance}/restoreBackup.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/restoreBackup.post.responses.200.schema.$ref: '#/definitions/InstancesRestoreBackupResponse'
+paths./projects/{project}/instances/{instance}/restoreBackup.post.security.length: 2
+paths./projects/{project}/instances/{instance}/restoreBackup.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/restoreBackup.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/restoreBackup.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/restoreBackup.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/restoreBackup.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/restoreBackup.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters.length: 7
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/setRootPassword.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/setRootPassword.post.description: Sets
+  the password for the root user of the specified Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/setRootPassword.post.operationId: sql.instances.setRootPassword
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters.length: 3
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[2].in: body
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[2].name: body
+paths./projects/{project}/instances/{instance}/setRootPassword.post.parameters[2].schema.$ref: '#/definitions/InstanceSetRootPasswordRequest'
+paths./projects/{project}/instances/{instance}/setRootPassword.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/setRootPassword.post.responses.200.schema.$ref: '#/definitions/InstancesSetRootPasswordResponse'
+paths./projects/{project}/instances/{instance}/setRootPassword.post.security.length: 2
+paths./projects/{project}/instances/{instance}/setRootPassword.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/setRootPassword.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/setRootPassword.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/setRootPassword.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/setRootPassword.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/setRootPassword.post.tags[0]: instances
+paths./projects/{project}/instances/{instance}/sslCerts.get.description: Lists all
+  of the current SSL certificates defined for a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/sslCerts.get.operationId: sql.sslCerts.list
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters.length: 2
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[0].description: Project
+  ID of the project for which to list Cloud SQL instances.
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/sslCerts.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/sslCerts.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/sslCerts.get.responses.200.schema.$ref: '#/definitions/SslCertsListResponse'
+paths./projects/{project}/instances/{instance}/sslCerts.get.security.length: 2
+paths./projects/{project}/instances/{instance}/sslCerts.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/sslCerts.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/sslCerts.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.get.tags[0]: sslCerts
+paths./projects/{project}/instances/{instance}/sslCerts.parameters.length: 7
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/sslCerts.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/{instance}/sslCerts.post.description: Creates
+  an SSL certificate and returns the certificate, the associated private key, and
+  the server certificate authority.
+paths./projects/{project}/instances/{instance}/sslCerts.post.operationId: sql.sslCerts.insert
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters.length: 3
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[0].description: Project
+  ID of the project to which the newly created Cloud SQL instances should belong.
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[2].in: body
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[2].name: body
+paths./projects/{project}/instances/{instance}/sslCerts.post.parameters[2].schema.$ref: '#/definitions/SslCertsInsertRequest'
+paths./projects/{project}/instances/{instance}/sslCerts.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/sslCerts.post.responses.200.schema.$ref: '#/definitions/SslCertsInsertResponse'
+paths./projects/{project}/instances/{instance}/sslCerts.post.security.length: 2
+paths./projects/{project}/instances/{instance}/sslCerts.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/sslCerts.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/sslCerts.post.tags.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts.post.tags[0]: sslCerts
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.description: Deletes
+  an SSL certificate from a Cloud SQL instance.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.operationId: sql.sslCerts.delete
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters.length: 3
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[0].description: Project
+  ID of the project that contains the instance to be deleted.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[2].description: Sha1
+  FingerPrint.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[2].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[2].name: sha1Fingerprint
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.responses.200.schema.$ref: '#/definitions/SslCertsDeleteResponse'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.security.length: 2
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.tags.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.delete.tags[0]: sslCerts
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.description: Retrieves
+  an SSL certificate as specified by its SHA-1 fingerprint.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.operationId: sql.sslCerts.get
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters.length: 3
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[0].description: Project
+  ID of the project that contains the instance.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[0].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[0].name: project
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[0].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[0].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[1].description: Cloud
+  SQL instance ID. This does not include the project ID.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[1].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[1].name: instance
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[1].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[1].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[2].description: Sha1
+  FingerPrint.
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[2].in: path
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[2].name: sha1Fingerprint
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[2].required: true
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.parameters[2].type: string
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.responses.200.schema.$ref: '#/definitions/SslCert'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.security.length: 2
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.tags.length: 1
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.get.tags[0]: sslCerts
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters.length: 7
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/{instance}/sslCerts/{sha1Fingerprint}.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/clone.parameters.length: 7
+paths./projects/{project}/instances/clone.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/instances/clone.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/instances/clone.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/instances/clone.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/instances/clone.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/instances/clone.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/instances/clone.parameters[6].$ref: '#/parameters/userIp'
+paths./projects/{project}/instances/clone.post.description: Creates a Cloud SQL instance
+  as a clone of a source instance.
+paths./projects/{project}/instances/clone.post.operationId: sql.instances.clone
+paths./projects/{project}/instances/clone.post.parameters.length: 2
+paths./projects/{project}/instances/clone.post.parameters[0].description: Project
+  ID of the source as well as the clone Cloud SQL instance.
+paths./projects/{project}/instances/clone.post.parameters[0].in: path
+paths./projects/{project}/instances/clone.post.parameters[0].name: project
+paths./projects/{project}/instances/clone.post.parameters[0].required: true
+paths./projects/{project}/instances/clone.post.parameters[0].type: string
+paths./projects/{project}/instances/clone.post.parameters[1].in: body
+paths./projects/{project}/instances/clone.post.parameters[1].name: body
+paths./projects/{project}/instances/clone.post.parameters[1].schema.$ref: '#/definitions/InstancesCloneRequest'
+paths./projects/{project}/instances/clone.post.responses.200.description: Successful
+  response
+paths./projects/{project}/instances/clone.post.responses.200.schema.$ref: '#/definitions/InstancesCloneResponse'
+paths./projects/{project}/instances/clone.post.security.length: 2
+paths./projects/{project}/instances/clone.post.security[0].Oauth2.length: 1
+paths./projects/{project}/instances/clone.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/instances/clone.post.security[1].Oauth2.length: 1
+paths./projects/{project}/instances/clone.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/instances/clone.post.tags.length: 1
+paths./projects/{project}/instances/clone.post.tags[0]: instances
+paths./projects/{project}/tiers.get.description: Lists service tiers that can be used
+  to create Google Cloud SQL instances.
+paths./projects/{project}/tiers.get.operationId: sql.tiers.list
+paths./projects/{project}/tiers.get.parameters.length: 1
+paths./projects/{project}/tiers.get.parameters[0].description: Project ID of the project
+  for which to list tiers.
+paths./projects/{project}/tiers.get.parameters[0].in: path
+paths./projects/{project}/tiers.get.parameters[0].name: project
+paths./projects/{project}/tiers.get.parameters[0].required: true
+paths./projects/{project}/tiers.get.parameters[0].type: string
+paths./projects/{project}/tiers.get.responses.200.description: Successful response
+paths./projects/{project}/tiers.get.responses.200.schema.$ref: '#/definitions/TiersListResponse'
+paths./projects/{project}/tiers.get.security.length: 2
+paths./projects/{project}/tiers.get.security[0].Oauth2.length: 1
+paths./projects/{project}/tiers.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./projects/{project}/tiers.get.security[1].Oauth2.length: 1
+paths./projects/{project}/tiers.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/sqlservice.admin
+paths./projects/{project}/tiers.get.tags.length: 1
+paths./projects/{project}/tiers.get.tags[0]: tiers
+paths./projects/{project}/tiers.parameters.length: 7
+paths./projects/{project}/tiers.parameters[0].$ref: '#/parameters/alt'
+paths./projects/{project}/tiers.parameters[1].$ref: '#/parameters/fields'
+paths./projects/{project}/tiers.parameters[2].$ref: '#/parameters/key'
+paths./projects/{project}/tiers.parameters[3].$ref: '#/parameters/oauth_token'
+paths./projects/{project}/tiers.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./projects/{project}/tiers.parameters[5].$ref: '#/parameters/quotaUser'
+paths./projects/{project}/tiers.parameters[6].$ref: '#/parameters/userIp'
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/sqlservice.admin: Manage
+  your Google SQL Service instances
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 6
+tags[0].name: backupRuns
+tags[1].name: flags
+tags[2].name: instances
+tags[3].name: operations
+tags[4].name: sslCerts
+tags[5].name: tiers

@@ -1,0 +1,785 @@
+basePath: /identity/v1
+consumes.length: 1
+consumes[0]: application/json
+definitions.AuthenticationSchemes.description: Specifies supported Authentication
+  Scheme properties
+definitions.AuthenticationSchemes.properties.description.description: The description
+  of the Authentication Scheme
+definitions.AuthenticationSchemes.properties.description.type: string
+definitions.AuthenticationSchemes.properties.documentationUrl.description: A HTTP
+  addressable URL pointing to the Authentication Scheme's usage documentation
+definitions.AuthenticationSchemes.properties.documentationUrl.type: string
+definitions.AuthenticationSchemes.properties.name.description: The common authentication
+  scheme name, e.g. HTTP Basic
+definitions.AuthenticationSchemes.properties.name.type: string
+definitions.AuthenticationSchemes.properties.specUrl.description: A HTTP addressable
+  URL pointing to the Authentication Scheme's specification
+definitions.AuthenticationSchemes.properties.specUrl.type: string
+definitions.AuthenticationSchemes.required.length: 4
+definitions.AuthenticationSchemes.required[0]: name
+definitions.AuthenticationSchemes.required[1]: description
+definitions.AuthenticationSchemes.required[2]: specUrl
+definitions.AuthenticationSchemes.required[3]: documentationUrl
+definitions.Bulk.description: Specifies BULK configuration options
+definitions.Bulk.properties.supported.description: Specifies whether the operation
+  is supported
+definitions.Bulk.properties.supported.type: boolean
+definitions.Bulk.required.length: 1
+definitions.Bulk.required[0]: supported
+definitions.ChangePassword.description: Specifies Change Password configuration options
+definitions.ChangePassword.properties.supported.description: Specifies whether the
+  operation is supported
+definitions.ChangePassword.properties.supported.type: boolean
+definitions.ChangePassword.required.length: 1
+definitions.ChangePassword.required[0]: supported
+definitions.Etag.description: Specifies Etag configuration options
+definitions.Etag.properties.supported.description: Specifies whether the operation
+  is supported
+definitions.Etag.properties.supported.type: boolean
+definitions.Etag.required.length: 1
+definitions.Etag.required[0]: supported
+definitions.Filter.description: Specifies FILTER options
+definitions.Filter.properties.supported.description: Specifies whether the operation
+  is supported
+definitions.Filter.properties.supported.type: boolean
+definitions.Filter.required.length: 1
+definitions.Filter.required[0]: supported
+definitions.Group.description: Describes a group belonging to an organization
+definitions.Group.properties.displayName.description: The group's display name
+definitions.Group.properties.displayName.type: string
+definitions.Group.properties.id.description: The group's unique key
+definitions.Group.properties.id.type: string
+definitions.Group.properties.members.description: An array of members
+definitions.Group.properties.members.items.$ref: '#/definitions/Member'
+definitions.Group.properties.members.type: array
+definitions.Group.properties.meta.$ref: '#/definitions/GroupMetadata'
+definitions.Group.properties.meta.description: Group metadata
+definitions.Group.required.length: 3
+definitions.Group.required[0]: meta
+definitions.Group.required[1]: id
+definitions.Group.required[2]: displayName
+definitions.GroupCollection.description: Class describing a collection of groups
+definitions.GroupCollection.properties.resources.description: An array of groups
+definitions.GroupCollection.properties.resources.items.$ref: '#/definitions/Group'
+definitions.GroupCollection.properties.resources.type: array
+definitions.GroupCollection.properties.totalResults.description: The number of groups
+  in the collection
+definitions.GroupCollection.properties.totalResults.format: int64
+definitions.GroupCollection.properties.totalResults.type: integer
+definitions.GroupCollection.required.length: 2
+definitions.GroupCollection.required[0]: resources
+definitions.GroupCollection.required[1]: totalResults
+definitions.GroupDefinition.description: Describes the group to create
+definitions.GroupDefinition.properties.displayName.description: The group's display
+  name
+definitions.GroupDefinition.properties.displayName.type: string
+definitions.GroupDefinition.properties.members.description: An array of members
+definitions.GroupDefinition.properties.members.items.$ref: '#/definitions/Member'
+definitions.GroupDefinition.properties.members.type: array
+definitions.GroupDefinition.required.length: 1
+definitions.GroupDefinition.required[0]: displayName
+definitions.GroupMetadata.description: Group metadata
+definitions.GroupMetadata.properties.created.description: The date and time the group
+  was created
+definitions.GroupMetadata.properties.created.format: date-time
+definitions.GroupMetadata.properties.created.type: string
+definitions.GroupMetadata.properties.location.description: The URL where the group
+  can be accessed
+definitions.GroupMetadata.properties.location.type: string
+definitions.GroupMetadata.required.length: 2
+definitions.GroupMetadata.required[0]: created
+definitions.GroupMetadata.required[1]: location
+definitions.Member.description: A member of a group. This can be a group or an user
+definitions.Member.properties.type.description: The type of member
+definitions.Member.properties.type.enum.length: 2
+definitions.Member.properties.type.enum[0]: group
+definitions.Member.properties.type.enum[1]: user
+definitions.Member.properties.type.type: string
+definitions.Member.properties.value.description: Depending on the member type this
+  is a groupKey or an userKey
+definitions.Member.properties.value.type: string
+definitions.Member.required.length: 2
+definitions.Member.required[0]: type
+definitions.Member.required[1]: value
+definitions.Patch.description: Specifies PATCH configuration options
+definitions.Patch.properties.supported.description: Specifies whether the operation
+  is supported
+definitions.Patch.properties.supported.type: boolean
+definitions.Patch.required.length: 1
+definitions.Patch.required[0]: supported
+definitions.ResourceSchema.description: Describes the attributes and metadata constituting
+  a resource such as a user.
+definitions.ResourceSchema.properties.attributes.description: The resource's attributes
+definitions.ResourceSchema.properties.attributes.items.$ref: '#/definitions/SchemaAttribute'
+definitions.ResourceSchema.properties.attributes.type: array
+definitions.ResourceSchema.properties.description.description: The resource's description
+definitions.ResourceSchema.properties.description.type: string
+definitions.ResourceSchema.properties.endpoint.description: The resource's HTTP addressable
+  endpoint relative to the base URL, e.g. /Users.
+definitions.ResourceSchema.properties.endpoint.type: string
+definitions.ResourceSchema.properties.id.description: The resource's id, e.g. urn:scim:schemas:core:1.0:User
+definitions.ResourceSchema.properties.id.type: string
+definitions.ResourceSchema.properties.name.description: The resource's name, e.g.
+  "User"
+definitions.ResourceSchema.properties.name.type: string
+definitions.ResourceSchema.properties.schema.description: The resource's associated
+  schema, e.g. urn:scim:schemas:core:1.0
+definitions.ResourceSchema.properties.schema.type: string
+definitions.ResourceSchema.required.length: 6
+definitions.ResourceSchema.required[0]: id
+definitions.ResourceSchema.required[1]: name
+definitions.ResourceSchema.required[2]: description
+definitions.ResourceSchema.required[3]: schema
+definitions.ResourceSchema.required[4]: endpoint
+definitions.ResourceSchema.required[5]: attributes
+definitions.SchemaAttribute.description: Describes a resource attribute
+definitions.SchemaAttribute.properties.caseExact.description: Indicates whether the
+  attribute is case sensitive
+definitions.SchemaAttribute.properties.caseExact.type: boolean
+definitions.SchemaAttribute.properties.description.description: The attribute's description
+definitions.SchemaAttribute.properties.description.type: string
+definitions.SchemaAttribute.properties.multiValued.description: Indicates whether
+  the attribute can have multiple values
+definitions.SchemaAttribute.properties.multiValued.type: boolean
+definitions.SchemaAttribute.properties.name.description: The attribute's name
+definitions.SchemaAttribute.properties.name.type: string
+definitions.SchemaAttribute.properties.readOnly.description: Indicates whether the
+  attribute is mutable
+definitions.SchemaAttribute.properties.readOnly.type: boolean
+definitions.SchemaAttribute.properties.required.description: Indicates whether the
+  attribute is required
+definitions.SchemaAttribute.properties.required.type: boolean
+definitions.SchemaAttribute.properties.schema.description: The attribute's associated
+  scheme, e.g. urn:scim:schemas:core:1.0
+definitions.SchemaAttribute.properties.schema.type: string
+definitions.SchemaAttribute.properties.subAttributes.description: The attribute's
+  potential sub-attributes
+definitions.SchemaAttribute.properties.subAttributes.items.$ref: '#/definitions/SchemaSubAttribute'
+definitions.SchemaAttribute.properties.subAttributes.type: array
+definitions.SchemaAttribute.properties.type.description: The attribute's data type,
+  e.g. String
+definitions.SchemaAttribute.properties.type.type: string
+definitions.SchemaAttribute.required.length: 8
+definitions.SchemaAttribute.required[0]: name
+definitions.SchemaAttribute.required[1]: type
+definitions.SchemaAttribute.required[2]: multiValued
+definitions.SchemaAttribute.required[3]: description
+definitions.SchemaAttribute.required[4]: schema
+definitions.SchemaAttribute.required[5]: readOnly
+definitions.SchemaAttribute.required[6]: required
+definitions.SchemaAttribute.required[7]: caseExact
+definitions.SchemaSubAttribute.description: Describes the sub-attribute of a resource
+  attribute
+definitions.SchemaSubAttribute.properties.caseExact.description: Indicates whether
+  the attribute is case sensitive
+definitions.SchemaSubAttribute.properties.caseExact.type: boolean
+definitions.SchemaSubAttribute.properties.description.description: The attribute's
+  description
+definitions.SchemaSubAttribute.properties.description.type: string
+definitions.SchemaSubAttribute.properties.name.description: The attribute's name
+definitions.SchemaSubAttribute.properties.name.type: string
+definitions.SchemaSubAttribute.properties.readOnly.description: Indicates whether
+  the attribute is mutable
+definitions.SchemaSubAttribute.properties.readOnly.type: boolean
+definitions.SchemaSubAttribute.properties.required.description: Indicates whether
+  the attribute is required
+definitions.SchemaSubAttribute.properties.required.type: boolean
+definitions.SchemaSubAttribute.properties.type.description: The attribute's data type,
+  e.g. String
+definitions.SchemaSubAttribute.properties.type.type: string
+definitions.SchemaSubAttribute.required.length: 6
+definitions.SchemaSubAttribute.required[0]: name
+definitions.SchemaSubAttribute.required[1]: type
+definitions.SchemaSubAttribute.required[2]: description
+definitions.SchemaSubAttribute.required[3]: readOnly
+definitions.SchemaSubAttribute.required[4]: required
+definitions.SchemaSubAttribute.required[5]: caseExact
+definitions.ServiceProviderConfigs.description: Represents the Service Provider's
+  configuration
+definitions.ServiceProviderConfigs.properties.authenticationSchemes.$ref: '#/definitions/AuthenticationSchemes'
+definitions.ServiceProviderConfigs.properties.authenticationSchemes.description: Specifies
+  whether the XML data format is supported
+definitions.ServiceProviderConfigs.properties.bulk.$ref: '#/definitions/Bulk'
+definitions.ServiceProviderConfigs.properties.bulk.description: Specifies BULK configuration
+  options
+definitions.ServiceProviderConfigs.properties.changePassword.$ref: '#/definitions/ChangePassword'
+definitions.ServiceProviderConfigs.properties.changePassword.description: Specifies
+  Change Password configuration options
+definitions.ServiceProviderConfigs.properties.documentationUrl.description: An HTTP
+  addressable URL pointing to the Service Provider's help documentation
+definitions.ServiceProviderConfigs.properties.documentationUrl.type: string
+definitions.ServiceProviderConfigs.properties.etag.$ref: '#/definitions/Etag'
+definitions.ServiceProviderConfigs.properties.etag.description: Specifies Etag configuration
+  options
+definitions.ServiceProviderConfigs.properties.filter.$ref: '#/definitions/Filter'
+definitions.ServiceProviderConfigs.properties.filter.description: Specifies FILTER
+  options
+definitions.ServiceProviderConfigs.properties.patch.$ref: '#/definitions/Patch'
+definitions.ServiceProviderConfigs.properties.patch.description: Specifies PATCH configuration
+  options
+definitions.ServiceProviderConfigs.properties.sort.$ref: '#/definitions/Sort'
+definitions.ServiceProviderConfigs.properties.sort.description: Specifies Sort configuration
+  options
+definitions.ServiceProviderConfigs.properties.xmlDataFormat.$ref: '#/definitions/XmlDataFormat'
+definitions.ServiceProviderConfigs.properties.xmlDataFormat.description: Specifies
+  supported Authentication Scheme properties
+definitions.ServiceProviderConfigs.required.length: 9
+definitions.ServiceProviderConfigs.required[0]: documentationUrl
+definitions.ServiceProviderConfigs.required[1]: patch
+definitions.ServiceProviderConfigs.required[2]: bulk
+definitions.ServiceProviderConfigs.required[3]: filter
+definitions.ServiceProviderConfigs.required[4]: changePassword
+definitions.ServiceProviderConfigs.required[5]: sort
+definitions.ServiceProviderConfigs.required[6]: etag
+definitions.ServiceProviderConfigs.required[7]: authenticationSchemes
+definitions.ServiceProviderConfigs.required[8]: xmlDataFormat
+definitions.Sort.description: Specifies Sort configuration options
+definitions.Sort.properties.supported.description: Specifies whether the operation
+  is supported
+definitions.Sort.properties.supported.type: boolean
+definitions.Sort.required.length: 1
+definitions.Sort.required[0]: supported
+definitions.User.description: Describes a user belonging to an organization
+definitions.User.properties.displayName.description: The user's display name
+definitions.User.properties.displayName.type: string
+definitions.User.properties.id.description: The user's unique key
+definitions.User.properties.id.type: string
+definitions.User.properties.locale.description: The user's language settings
+definitions.User.properties.locale.type: string
+definitions.User.properties.meta.$ref: '#/definitions/UserMetadata'
+definitions.User.properties.meta.description: User metadata
+definitions.User.properties.name.$ref: '#/definitions/UserFullName'
+definitions.User.properties.name.description: The user's full name
+definitions.User.properties.timezone.description: The user's time zone
+definitions.User.properties.timezone.type: string
+definitions.User.properties.userName.description: The user's username, usually their
+  email address
+definitions.User.properties.userName.type: string
+definitions.User.required.length: 7
+definitions.User.required[0]: displayName
+definitions.User.required[1]: id
+definitions.User.required[2]: locale
+definitions.User.required[3]: meta
+definitions.User.required[4]: name
+definitions.User.required[5]: timezone
+definitions.User.required[6]: userName
+definitions.UserCollection.description: Class describing a collection of users
+definitions.UserCollection.properties.resources.description: The list of users
+definitions.UserCollection.properties.resources.items.$ref: '#/definitions/User'
+definitions.UserCollection.properties.resources.type: array
+definitions.UserCollection.properties.totalResults.description: The number of users
+  in the collection
+definitions.UserCollection.properties.totalResults.format: int64
+definitions.UserCollection.properties.totalResults.type: integer
+definitions.UserCollection.required.length: 2
+definitions.UserCollection.required[0]: resources
+definitions.UserCollection.required[1]: totalResults
+definitions.UserDefinition.description: Describes a new user
+definitions.UserDefinition.properties.displayName.description: The user's display
+  name
+definitions.UserDefinition.properties.displayName.type: string
+definitions.UserDefinition.properties.locale.description: The user's language settings
+definitions.UserDefinition.properties.locale.type: string
+definitions.UserDefinition.properties.name.$ref: '#/definitions/UserFullName'
+definitions.UserDefinition.properties.name.description: The user's full name
+definitions.UserDefinition.properties.password.description: The user's password
+definitions.UserDefinition.properties.password.type: string
+definitions.UserDefinition.properties.timezone.description: The user's time zone
+definitions.UserDefinition.properties.timezone.type: string
+definitions.UserDefinition.properties.userName.description: The user's username, usually
+  their email address
+definitions.UserDefinition.properties.userName.type: string
+definitions.UserFullName.description: The full name of the user
+definitions.UserFullName.properties.familyName.description: The user's surname
+definitions.UserFullName.properties.familyName.type: string
+definitions.UserFullName.properties.givenName.description: The user's first name
+definitions.UserFullName.properties.givenName.type: string
+definitions.UserFullName.required.length: 2
+definitions.UserFullName.required[0]: familyName
+definitions.UserFullName.required[1]: givenName
+definitions.UserMetadata.description: User metadata
+definitions.UserMetadata.properties.created.description: The date and time the user
+  was created
+definitions.UserMetadata.properties.created.format: date-time
+definitions.UserMetadata.properties.created.type: string
+definitions.UserMetadata.properties.location.description: The URL where the user can
+  be accessed
+definitions.UserMetadata.properties.location.type: string
+definitions.UserMetadata.required.length: 2
+definitions.UserMetadata.required[0]: created
+definitions.UserMetadata.required[1]: location
+definitions.XmlDataFormat.description: Specifies whether the XML data format is supported
+definitions.XmlDataFormat.properties.supported.description: Specifies whether the
+  operation is supported
+definitions.XmlDataFormat.properties.supported.type: boolean
+definitions.XmlDataFormat.required.length: 1
+definitions.XmlDataFormat.required[0]: supported
+externalDocs.url: https://developer.citrixonline.com/
+host: api.citrixonline.com
+info.contact.email: developer-support@citrixonline.com
+info.contact.name: Developer Support
+info.contact.url: https://developer.citrixonline.com
+info.description: The SCIM API lets you manage users in your organization. You can
+  then automate the provisioning of product licenses for these users, and they can
+  use your company's Single Sign-On solution through an Identity Provider.
+info.termsOfService: https://developer.citrixonline.com/terms-use
+info.title: SCIM
+info.version: N/A
+info.x-logo.backgroundColor: '#5F6166'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_developer.citrixonline.com_sites_all_themes_citrix_responsive_logo.png
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://developer.citrixonline.com/sites/default/files/citrix/citrix-apis/scim.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: citrixonline.com
+info.x-serviceName: scim
+parameters.Authorization.description: Access token prefixed with 'Bearer ', e.g. 'Bearer
+  123456abcdef'
+parameters.Authorization.in: header
+parameters.Authorization.name: Authorization
+parameters.Authorization.required: true
+parameters.Authorization.type: string
+parameters.groupKey.description: The key of the group to query. The group must be
+  in the organization domain
+parameters.groupKey.format: int64
+parameters.groupKey.in: path
+parameters.groupKey.name: groupKey
+parameters.groupKey.required: true
+parameters.groupKey.type: integer
+parameters.userKey.description: The key of the user to query. The user must be in
+  the organization domain
+parameters.userKey.format: int64
+parameters.userKey.in: path
+parameters.userKey.name: userKey
+parameters.userKey.required: true
+parameters.userKey.type: integer
+paths./Groups.get.description: Queries multiple group identities in the organization
+  domain. Filtering, sorting and pagination are available. This call requires the
+  role ROLE_ORG_READ.
+paths./Groups.get.operationId: getGroups
+paths./Groups.get.parameters.length: 2
+paths./Groups.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups.get.parameters[1].description: ' Without a filter, all groups are returned.
+  The filter parameter must be a properly formed SCIM filter using the operator "eq"
+  (equals), "sw" (starts with), or "co" (contains). The filter works for the displayName
+  attribute. Sorting and pagination are supported. For example, GET /Groups?filter=displayName%20eq%20%22Engineering%22&sortBy=displayName&sortOrder=ascending&count=50&startIndex=51'
+paths./Groups.get.parameters[1].in: query
+paths./Groups.get.parameters[1].name: filter
+paths./Groups.get.parameters[1].type: string
+paths./Groups.get.responses.200.description: The request has succeeded
+paths./Groups.get.responses.200.schema.$ref: '#/definitions/GroupCollection'
+paths./Groups.get.responses.400.description: Invalid filter syntax
+paths./Groups.get.responses.401.description: Client is not sufficiently authorized
+paths./Groups.get.responses.403.description: Invalid token passed
+paths./Groups.get.responses.502.description: Authentication or account gateway error
+  occurred
+paths./Groups.get.responses.504.description: Authentication or account gateway timeout
+  occurred
+paths./Groups.get.summary: Get Groups
+paths./Groups.get.tags.length: 1
+paths./Groups.get.tags[0]: Groups
+paths./Groups.post.description: Creates a new organization group and adds it to the
+  user domain. Member groups and member users must be in the organization. This call
+  requires the role ROLE_ORG_WRITE.
+paths./Groups.post.operationId: createGroup
+paths./Groups.post.parameters.length: 2
+paths./Groups.post.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups.post.parameters[1].description: The details of the group to create
+paths./Groups.post.parameters[1].in: body
+paths./Groups.post.parameters[1].name: body
+paths./Groups.post.parameters[1].required: true
+paths./Groups.post.parameters[1].schema.$ref: '#/definitions/GroupDefinition'
+paths./Groups.post.responses.201.description: The group has been created
+paths./Groups.post.responses.201.schema.$ref: '#/definitions/Group'
+paths./Groups.post.responses.400.description: Possible reasons are:<br />The displayName
+  field is not set<br />The displayName field is malformed<br />The displayName field
+  exceeds 128 characters<br />The members array exceeds 100 elements<br />
+paths./Groups.post.responses.401.description: Client is not sufficiently authorized
+paths./Groups.post.responses.403.description: Invalid token passed
+paths./Groups.post.responses.409.description: The displayName is already in use within
+  the organization
+paths./Groups.post.responses.502.description: An authentication or account gateway
+  error occurred
+paths./Groups.post.responses.504.description: An authentication or account, or gateway
+  timeout occurred.
+paths./Groups.post.summary: Create Group
+paths./Groups.post.tags.length: 1
+paths./Groups.post.tags[0]: Groups
+paths./Groups/{groupKey}.delete.description: Deletes a group from the organization
+  (but not from the account). The group must be in the organization. This call requires
+  the role ROLE_ORG_WRITE.
+paths./Groups/{groupKey}.delete.operationId: deleteGroup
+paths./Groups/{groupKey}.delete.parameters.length: 2
+paths./Groups/{groupKey}.delete.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups/{groupKey}.delete.parameters[1].$ref: '#/parameters/groupKey'
+paths./Groups/{groupKey}.delete.responses.200.description: The request has succeeded
+paths./Groups/{groupKey}.delete.responses.401.description: Client is not sufficiently
+  authorized or group does not exist in organization
+paths./Groups/{groupKey}.delete.responses.403.description: Invalid token passed
+paths./Groups/{groupKey}.delete.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Groups/{groupKey}.delete.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Groups/{groupKey}.delete.summary: Delete Group
+paths./Groups/{groupKey}.delete.tags.length: 1
+paths./Groups/{groupKey}.delete.tags[0]: Groups
+paths./Groups/{groupKey}.get.description: Queries group details in the organization
+  domain. This call requires the role ROLE_ORG_READ.
+paths./Groups/{groupKey}.get.operationId: getGroup
+paths./Groups/{groupKey}.get.parameters.length: 2
+paths./Groups/{groupKey}.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups/{groupKey}.get.parameters[1].$ref: '#/parameters/groupKey'
+paths./Groups/{groupKey}.get.responses.200.description: The request has succeeded
+paths./Groups/{groupKey}.get.responses.200.schema.$ref: '#/definitions/Group'
+paths./Groups/{groupKey}.get.responses.401.description: Client is not sufficiently
+  authorized or group does not exist in organization
+paths./Groups/{groupKey}.get.responses.403.description: Invalid token passed
+paths./Groups/{groupKey}.get.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Groups/{groupKey}.get.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Groups/{groupKey}.get.summary: Get Group
+paths./Groups/{groupKey}.get.tags.length: 1
+paths./Groups/{groupKey}.get.tags[0]: Groups
+paths./Groups/{groupKey}.patch.description: Updates one or more values of an existing
+  group without sending the full definition. Member groups and member users must be
+  in the organization. This call requires the role ROLE_ORG_WRITE.
+paths./Groups/{groupKey}.patch.operationId: updateGroup
+paths./Groups/{groupKey}.patch.parameters.length: 3
+paths./Groups/{groupKey}.patch.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups/{groupKey}.patch.parameters[1].$ref: '#/parameters/groupKey'
+paths./Groups/{groupKey}.patch.parameters[2].description: The group data to update.
+  It is allowed to update one or more values of the group definition
+paths./Groups/{groupKey}.patch.parameters[2].in: body
+paths./Groups/{groupKey}.patch.parameters[2].name: body
+paths./Groups/{groupKey}.patch.parameters[2].required: true
+paths./Groups/{groupKey}.patch.parameters[2].schema.$ref: '#/definitions/GroupDefinition'
+paths./Groups/{groupKey}.patch.responses.200.description: The group has been updated
+paths./Groups/{groupKey}.patch.responses.200.schema.$ref: '#/definitions/Group'
+paths./Groups/{groupKey}.patch.responses.400.description: Possible reasons are:<br
+  />The displayName field is not set<br />The displayName field is malformed<br />The
+  displayName field exceeds 128 characters<br />The members array exceeds 100 elements<br
+  />
+paths./Groups/{groupKey}.patch.responses.401.description: Client is not sufficiently
+  authorized or group does not exist in organization
+paths./Groups/{groupKey}.patch.responses.403.description: Invalid token passed
+paths./Groups/{groupKey}.patch.responses.409.description: The displayName is already
+  in use within the organization
+paths./Groups/{groupKey}.patch.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Groups/{groupKey}.patch.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Groups/{groupKey}.patch.summary: Update Group
+paths./Groups/{groupKey}.patch.tags.length: 1
+paths./Groups/{groupKey}.patch.tags[0]: Groups
+paths./Groups/{groupKey}.put.description: Updates an existing group. The request must
+  include the full group definition. To modify one or more values without sending
+  the full definition, see "Update Group". Member groups and member users must be
+  in the organization. This call requires the role ROLE_ORG_WRITE.
+paths./Groups/{groupKey}.put.operationId: replaceGroup
+paths./Groups/{groupKey}.put.parameters.length: 3
+paths./Groups/{groupKey}.put.parameters[0].$ref: '#/parameters/Authorization'
+paths./Groups/{groupKey}.put.parameters[1].$ref: '#/parameters/groupKey'
+paths./Groups/{groupKey}.put.parameters[2].description: The new group definition
+paths./Groups/{groupKey}.put.parameters[2].in: body
+paths./Groups/{groupKey}.put.parameters[2].name: body
+paths./Groups/{groupKey}.put.parameters[2].required: true
+paths./Groups/{groupKey}.put.parameters[2].schema.$ref: '#/definitions/GroupDefinition'
+paths./Groups/{groupKey}.put.responses.200.description: The group has been replaced.
+paths./Groups/{groupKey}.put.responses.200.schema.$ref: '#/definitions/Group'
+paths./Groups/{groupKey}.put.responses.400.description: Possible reasons are:<br />The
+  displayName field is not set<br />The displayName field is malformed<br />The displayName
+  field exceeds 128 characters<br />The members array exceeds 100 elements<br />
+paths./Groups/{groupKey}.put.responses.401.description: Client is not sufficiently
+  authorized or group does not exist in organization
+paths./Groups/{groupKey}.put.responses.403.description: Invalid token passed
+paths./Groups/{groupKey}.put.responses.409.description: The displayName is already
+  in use within the organization
+paths./Groups/{groupKey}.put.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Groups/{groupKey}.put.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Groups/{groupKey}.put.summary: Replace Group
+paths./Groups/{groupKey}.put.tags.length: 1
+paths./Groups/{groupKey}.put.tags[0]: Groups
+paths./Schemas/Users.get.description: Queries the user schema. The user schema is
+  defined in SCIM Core Schema (http://www.simplecloud.info/specs/draft-scim-core-schema-01.html#resource-schema).
+paths./Schemas/Users.get.operationId: getUserSchema
+paths./Schemas/Users.get.parameters.length: 1
+paths./Schemas/Users.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Schemas/Users.get.responses.200.description: The request has succeeded.
+paths./Schemas/Users.get.responses.200.schema.$ref: '#/definitions/ResourceSchema'
+paths./Schemas/Users.get.responses.403.description: Invalid token passed
+paths./Schemas/Users.get.responses.502.description: Authentication or account gateway
+  error occurred
+paths./Schemas/Users.get.responses.504.description: Authentication or account gateway
+  timeout occurred
+paths./Schemas/Users.get.summary: Get User Schema
+paths./Schemas/Users.get.tags.length: 1
+paths./Schemas/Users.get.tags[0]: Schemas
+paths./ServiceProviderConfigs.get.description: Queries service provider configurations.
+  The service provider configurations are defined in SCIM Core Schema (http://www.simplecloud.info/specs/draft-scim-core-schema-01.html#anchor6).
+  This call returns a description, a documentationURL, name, and specURL.
+paths./ServiceProviderConfigs.get.operationId: getServiceProviderConfigs
+paths./ServiceProviderConfigs.get.parameters.length: 1
+paths./ServiceProviderConfigs.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./ServiceProviderConfigs.get.responses.200.description: The request has succeeded.
+paths./ServiceProviderConfigs.get.responses.200.schema.$ref: '#/definitions/ServiceProviderConfigs'
+paths./ServiceProviderConfigs.get.responses.403.description: Invalid token passed
+paths./ServiceProviderConfigs.get.responses.502.description: Authentication or account
+  gateway error occurred
+paths./ServiceProviderConfigs.get.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./ServiceProviderConfigs.get.summary: Get Service Provider Configurations
+paths./ServiceProviderConfigs.get.tags.length: 1
+paths./ServiceProviderConfigs.get.tags[0]: Schemas
+paths./Users.get.description: Queries multiple user identities in the organization
+  domain. Filtering is available.
+paths./Users.get.operationId: getUsers
+paths./Users.get.parameters.length: 2
+paths./Users.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users.get.parameters[1].description: ' Without a filter, all users in a user
+  domain are returned. The filter parameter must be a properly formed SCIM filter
+  using either the operator eq (equals) or the operator sw (starts with). The filter
+  works for userName, displayName, name.givenName, and name.familyName attributes.
+  For example, /Users?filter=name.familyName%20eq%20%%22Smith%22'
+paths./Users.get.parameters[1].in: query
+paths./Users.get.parameters[1].name: filter
+paths./Users.get.parameters[1].type: string
+paths./Users.get.responses.200.description: The request has succeeded.
+paths./Users.get.responses.200.schema.$ref: '#/definitions/UserCollection'
+paths./Users.get.responses.400.description: Invalid filter syntax
+paths./Users.get.responses.401.description: Client is not sufficiently authorized
+paths./Users.get.responses.403.description: Invalid token passed
+paths./Users.get.responses.502.description: Authentication or account gateway error
+  occurred
+paths./Users.get.responses.504.description: Authentication or account gateway timeout
+  occurred
+paths./Users.get.summary: Get Users
+paths./Users.get.tags.length: 1
+paths./Users.get.tags[0]: Users
+paths./Users.post.description: Creates a new organization user and adds them to the
+  user domain. The user email domain must match an existing organization email domain.
+paths./Users.post.operationId: createUsers
+paths./Users.post.parameters.length: 2
+paths./Users.post.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users.post.parameters[1].description: The details of the user to create
+paths./Users.post.parameters[1].in: body
+paths./Users.post.parameters[1].name: body
+paths./Users.post.parameters[1].required: true
+paths./Users.post.parameters[1].schema.$ref: '#/definitions/UserDefinition'
+paths./Users.post.responses.201.description: The user has been created.
+paths./Users.post.responses.201.schema.$ref: '#/definitions/User'
+paths./Users.post.responses.400.description: One of the following requirements is
+  not met:<br />The userName field is required.<br />The userName field must be non-empty.<br
+  />The userName field cannot exceed 128 characters.<br />The locale field must be
+  composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br
+  />The locale country sub-field must be ISO-3166.<br />The timezone field must be
+  a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The
+  familyName field must not exceed 60 characters.
+paths./Users.post.responses.401.description: Client is not sufficiently authorized.
+paths./Users.post.responses.403.description: Invalid token passed
+paths./Users.post.responses.409.description: Username is already in use.
+paths./Users.post.responses.502.description: Authentication, account, or email verification
+  gateway error occurred.
+paths./Users.post.responses.504.description: Authentication, account, or email verification
+  gateway timeout occurred.
+paths./Users.post.summary: Create User
+paths./Users.post.tags.length: 1
+paths./Users.post.tags[0]: Users
+paths./Users/{userKey}.delete.description: Deletes a user from the organization (but
+  not from the account).
+paths./Users/{userKey}.delete.operationId: deleteUser
+paths./Users/{userKey}.delete.parameters.length: 2
+paths./Users/{userKey}.delete.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/{userKey}.delete.parameters[1].$ref: '#/parameters/userKey'
+paths./Users/{userKey}.delete.responses.200.description: The request has succeeded.
+paths./Users/{userKey}.delete.responses.401.description: Client is not sufficiently
+  authorized
+paths./Users/{userKey}.delete.responses.403.description: Invalid token passed
+paths./Users/{userKey}.delete.responses.404.description: User not found
+paths./Users/{userKey}.delete.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Users/{userKey}.delete.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Users/{userKey}.delete.summary: Delete User
+paths./Users/{userKey}.delete.tags.length: 1
+paths./Users/{userKey}.delete.tags[0]: Users
+paths./Users/{userKey}.get.description: Queries user identity in the organization
+  domain.
+paths./Users/{userKey}.get.operationId: getUser
+paths./Users/{userKey}.get.parameters.length: 2
+paths./Users/{userKey}.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/{userKey}.get.parameters[1].$ref: '#/parameters/userKey'
+paths./Users/{userKey}.get.responses.200.description: The request has succeeded.
+paths./Users/{userKey}.get.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/{userKey}.get.responses.401.description: Client is not sufficiently authorized
+paths./Users/{userKey}.get.responses.403.description: Invalid token passed
+paths./Users/{userKey}.get.responses.404.description: User not found
+paths./Users/{userKey}.get.responses.502.description: Authentication or account gateway
+  error occurred
+paths./Users/{userKey}.get.responses.504.description: Authentication or account gateway
+  timeout occurred
+paths./Users/{userKey}.get.summary: Get User
+paths./Users/{userKey}.get.tags.length: 1
+paths./Users/{userKey}.get.tags[0]: Users
+paths./Users/{userKey}.patch.description: Changes a limited set (or all if you choose)
+  of the user's data. The updated user email domain must be an existing organization
+  email domain.
+paths./Users/{userKey}.patch.operationId: updateUser
+paths./Users/{userKey}.patch.parameters.length: 3
+paths./Users/{userKey}.patch.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/{userKey}.patch.parameters[1].$ref: '#/parameters/userKey'
+paths./Users/{userKey}.patch.parameters[2].description: The new user data
+paths./Users/{userKey}.patch.parameters[2].in: body
+paths./Users/{userKey}.patch.parameters[2].name: body
+paths./Users/{userKey}.patch.parameters[2].required: true
+paths./Users/{userKey}.patch.parameters[2].schema.$ref: '#/definitions/UserDefinition'
+paths./Users/{userKey}.patch.responses.200.description: The user has been updated.
+paths./Users/{userKey}.patch.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/{userKey}.patch.responses.400.description: One of the following requirements
+  is not met:<br />The userName field is required.<br />The userName field must be
+  non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale
+  field must be composed of 1 or 2 parts.<br />The locale language sub-field must
+  be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone
+  field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br
+  />The familyName field must not exceed 60 characters.
+paths./Users/{userKey}.patch.responses.401.description: Client is not sufficiently
+  authorized
+paths./Users/{userKey}.patch.responses.403.description: Invalid token passed
+paths./Users/{userKey}.patch.responses.404.description: User not found
+paths./Users/{userKey}.patch.responses.409.description: Email address conflict
+paths./Users/{userKey}.patch.responses.502.description: Authentication or account
+  gateway error occurred
+paths./Users/{userKey}.patch.responses.504.description: Authentication or account
+  gateway timeout occurred
+paths./Users/{userKey}.patch.summary: Update User
+paths./Users/{userKey}.patch.tags.length: 1
+paths./Users/{userKey}.patch.tags[0]: Users
+paths./Users/{userKey}.put.description: Changes an existing user's displayName, locale,
+  timezone, username and password. The request must include the full user definition
+  (to modify one or more values without sending the full definition, see Update User).
+  The replaced user email domain must be an existing organization email domain.
+paths./Users/{userKey}.put.operationId: replaceUser
+paths./Users/{userKey}.put.parameters.length: 3
+paths./Users/{userKey}.put.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/{userKey}.put.parameters[1].$ref: '#/parameters/userKey'
+paths./Users/{userKey}.put.parameters[2].description: The new user data
+paths./Users/{userKey}.put.parameters[2].in: body
+paths./Users/{userKey}.put.parameters[2].name: body
+paths./Users/{userKey}.put.parameters[2].required: true
+paths./Users/{userKey}.put.parameters[2].schema.$ref: '#/definitions/UserDefinition'
+paths./Users/{userKey}.put.responses.200.description: The user has been replaced.
+paths./Users/{userKey}.put.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/{userKey}.put.responses.400.description: One of the following requirements
+  is not met:<br />The userName field is required.<br />The userName field must be
+  non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale
+  field must be composed of 1 or 2 parts.<br />The locale language sub-field must
+  be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone
+  field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br
+  />The familyName field must not exceed 60 characters.
+paths./Users/{userKey}.put.responses.401.description: Client is not sufficiently authorized
+paths./Users/{userKey}.put.responses.403.description: Invalid token passed
+paths./Users/{userKey}.put.responses.404.description: User not found
+paths./Users/{userKey}.put.responses.409.description: Email address conflict
+paths./Users/{userKey}.put.responses.502.description: Authentication or account gateway
+  error occurred
+paths./Users/{userKey}.put.responses.504.description: Authentication or account gateway
+  timeout occurred
+paths./Users/{userKey}.put.summary: Replace User
+paths./Users/{userKey}.put.tags.length: 1
+paths./Users/{userKey}.put.tags[0]: Users
+paths./Users/me.get.description: Queries the identity of the current authenticated
+  user.
+paths./Users/me.get.operationId: getMe
+paths./Users/me.get.parameters.length: 1
+paths./Users/me.get.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/me.get.responses.200.description: The request has succeeded.
+paths./Users/me.get.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/me.get.responses.401.description: Client is not sufficiently authorized
+paths./Users/me.get.responses.403.description: Invalid token passed
+paths./Users/me.get.responses.404.description: User not found
+paths./Users/me.get.responses.502.description: Authentication or account gateway error
+  occurred
+paths./Users/me.get.responses.504.description: Authentication or account gateway timeout
+  occurred
+paths./Users/me.get.summary: Get Current User
+paths./Users/me.get.tags.length: 1
+paths./Users/me.get.tags[0]: Users
+paths./Users/me.patch.description: 'Changes a limited set (or all if you choose) of
+  the current authenticated user''s data. The updated user email domain must be an
+  existing organization email domain. '
+paths./Users/me.patch.operationId: updateMe
+paths./Users/me.patch.parameters.length: 2
+paths./Users/me.patch.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/me.patch.parameters[1].description: The new user data
+paths./Users/me.patch.parameters[1].in: body
+paths./Users/me.patch.parameters[1].name: body
+paths./Users/me.patch.parameters[1].required: true
+paths./Users/me.patch.parameters[1].schema.$ref: '#/definitions/UserDefinition'
+paths./Users/me.patch.responses.200.description: The current user has been updated.
+paths./Users/me.patch.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/me.patch.responses.400.description: One of the following requirements
+  is not met:<br />The userName field is required.<br />The userName field must be
+  non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale
+  field must be composed of 1 or 2 parts.<br />The locale language sub-field must
+  be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone
+  field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br
+  />The familyName field must not exceed 60 characters.
+paths./Users/me.patch.responses.401.description: Client is not sufficiently authorized
+paths./Users/me.patch.responses.403.description: Invalid token passed
+paths./Users/me.patch.responses.404.description: User not found
+paths./Users/me.patch.responses.409.description: Email address conflict
+paths./Users/me.patch.responses.502.description: Authentication or account gateway
+  error occurred
+paths./Users/me.patch.responses.504.description: Authentication or account gateway
+  timeout occurred
+paths./Users/me.patch.summary: Update Current User
+paths./Users/me.patch.tags.length: 1
+paths./Users/me.patch.tags[0]: Users
+paths./Users/me.put.description: 'Changes the current authenticated user''s displayName,
+  locale, timezone, username and password. The request must include the full user
+  definition (to modify one or more values without sending the full definition, see
+  Update User). The replaced user email domain must be an existing organization email
+  domain. '
+paths./Users/me.put.operationId: replaceMe
+paths./Users/me.put.parameters.length: 2
+paths./Users/me.put.parameters[0].$ref: '#/parameters/Authorization'
+paths./Users/me.put.parameters[1].description: The new user data
+paths./Users/me.put.parameters[1].in: body
+paths./Users/me.put.parameters[1].name: body
+paths./Users/me.put.parameters[1].required: true
+paths./Users/me.put.parameters[1].schema.$ref: '#/definitions/UserDefinition'
+paths./Users/me.put.responses.200.description: The current user has been replaced.
+paths./Users/me.put.responses.200.schema.$ref: '#/definitions/User'
+paths./Users/me.put.responses.400.description: One of the following requirements is
+  not met:<br />The userName field is required.<br />The userName field must be non-empty.<br
+  />The userName field cannot exceed 128 characters.<br />The locale field must be
+  composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br
+  />The locale country sub-field must be ISO-3166.<br />The timezone field must be
+  a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The
+  familyName field must not exceed 60 characters.
+paths./Users/me.put.responses.401.description: Client is not sufficiently authorized
+paths./Users/me.put.responses.403.description: Invalid token passed
+paths./Users/me.put.responses.404.description: User not found
+paths./Users/me.put.responses.409.description: Email address conflict
+paths./Users/me.put.responses.502.description: Authentication or account gateway error
+  occurred
+paths./Users/me.put.responses.504.description: Authentication or account gateway timeout
+  occurred
+paths./Users/me.put.summary: Replace Current User
+paths./Users/me.put.tags.length: 1
+paths./Users/me.put.tags[0]: Users
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: https
+swagger: "2.0"
+tags.length: 3
+tags[0].description: Operations on users belonging to an organization
+tags[0].name: Users
+tags[1].description: Operations on groups belonging to an organization
+tags[1].name: Groups
+tags[2].description: Operations on schemas
+tags[2].name: Schemas

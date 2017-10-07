@@ -1,0 +1,2276 @@
+basePath: /Rail.svc
+host: api.wmata.com
+info.description: Rail line and station information, including locations, fares, times,
+  and parking.
+info.title: Rail Station Information
+info.version: "1.0"
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: transport
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_pbs.twimg.com_profile_images_874608810190622720_rRcPRXuu_400x400.jpg
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://developer.wmata.com/docs/services/5476364f031f590f38092507/export?DocumentFormat=Swagger
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: wmata.com
+info.x-serviceName: rail-station
+paths./Lines.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  information about all rail lines.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Lines</td>\r\n\r\n<td>\r\nArray
+  containing line information (<a href=\"#Line\">Line</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Line\"
+  name=\"Line\">Line Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DisplayName</td>\r\n\r\n<td>Full
+  name of line color.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>EndStationCode</td>\r\n\r\n<td>End
+  station code. For example, will be E10 (Greenbelt) for the\r\nGreen Line, B11 (Glenmont)
+  for the Red Line, etc. Use this value in\r\nother rail-related APIs to retrieve
+  data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>InternalDestination1</td>\r\n\r\n<td>Intermediate
+  terminal station code. During normal service, some\r\ntrains on some lines might
+  end their trip prior to the\r\nStartStationCode or EndStationCode. A good example
+  is on the Red\r\nLine where some trains stop at A11 (Grosvenor) or B08 (Silver\r\nSpring).
+  Empty string if not defined.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>InternalDestination2</td>\r\n\r\n<td>Similar
+  to InternalDestination1.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StartStationCode</td>\r\n\r\n<td>Start
+  station code. For example, will be F11 (Branch Avenue)\r\nfor the Green Line, A15
+  (Shady Grove) for the Red Line, etc. Use\r\nthis value in other rail-related APIs
+  to retrieve data about a\r\nstation.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./Lines.get.operationId: XML - Lines
+paths./Lines.get.produces.length: 1
+paths./Lines.get.produces[0]: application/xml
+paths./Lines.get.responses.200.description: Default response code.
+paths./Lines.get.responses.200.examples.application/xml: |-
+  <LinesResp xmlns="http://www.wmata.com" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <Lines>
+          <Line>
+              <DisplayName>Green</DisplayName>
+              <EndStationCode>E10</EndStationCode>
+              <InternalDestination1/>
+              <InternalDestination2/>
+              <LineCode>GR</LineCode>
+              <StartStationCode>F11</StartStationCode>
+          </Line>
+          <Line>
+              <DisplayName>Blue</DisplayName>
+              <EndStationCode>G05</EndStationCode>
+              <InternalDestination1/>
+              <InternalDestination2/>
+              <LineCode>BL</LineCode>
+              <StartStationCode>J03</StartStationCode>
+          </Line>
+          <Line>
+              <DisplayName>Silver</DisplayName>
+              <EndStationCode>G05</EndStationCode>
+              <InternalDestination1/>
+              <InternalDestination2/>
+              <LineCode>SV</LineCode>
+              <StartStationCode>N06</StartStationCode>
+          </Line>
+          <Line>
+              <DisplayName>Red</DisplayName>
+              <EndStationCode>B11</EndStationCode>
+              <InternalDestination1>A11</InternalDestination1>
+              <InternalDestination2>B08</InternalDestination2>
+              <LineCode>RD</LineCode>
+              <StartStationCode>A15</StartStationCode>
+          </Line>
+          <Line>
+              <DisplayName>Orange</DisplayName>
+              <EndStationCode>D13</EndStationCode>
+              <InternalDestination1/>
+              <InternalDestination2/>
+              <LineCode>OR</LineCode>
+              <StartStationCode>K08</StartStationCode>
+          </Line>
+          <Line>
+              <DisplayName>Yellow</DisplayName>
+              <EndStationCode>E06</EndStationCode>
+              <InternalDestination1>E01</InternalDestination1>
+              <InternalDestination2/>
+              <LineCode>YL</LineCode>
+              <StartStationCode>C15</StartStationCode>
+          </Line>
+      </Lines>
+  </LinesResp>
+paths./Path.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a set of ordered stations and distances between two stations on the\r\n<em>same
+  line</em>.</p>\r\n\r\n<p>Note that this method is not suitable on its own as a pathfinding
+  solution\r\nbetween stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response Elements</h4>\r\n\r\n<table
+  class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Path</td>\r\n\r\n<td>\r\nArray
+  containing path details (<a href=\r\n\"#MetroPathItem\">MetroPathItem</a>)\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"MetroPathItem\"
+  name=\"MetroPathItem\">MetroPathItem\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DistanceToPrev</td>\r\n\r\n<td>Distance
+  in feet to the previous station in the list.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) this station's platform
+  is on.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SeqNum</td>\r\n\r\n<td>Ordered sequence
+  number.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode</td>\r\n\r\n<td>Station code
+  for this station. Use this value in other\r\nrail-related APIs to retrieve data
+  about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationName</td>\r\n\r\n<td>Full
+  name for this station, as shown on the WMATA website.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./Path.get.operationId: XML - Path Between Stations
+paths./Path.get.parameters.length: 2
+paths./Path.get.parameters[0].default: N06
+paths./Path.get.parameters[0].description: Station code for the origin station.  Use
+  the Station List method to return a list of all station codes.
+paths./Path.get.parameters[0].enum.length: 1
+paths./Path.get.parameters[0].enum[0]: N06
+paths./Path.get.parameters[0].in: query
+paths./Path.get.parameters[0].name: FromStationCode
+paths./Path.get.parameters[0].required: true
+paths./Path.get.parameters[0].type: string
+paths./Path.get.parameters[1].default: G05
+paths./Path.get.parameters[1].description: Station code for the origin station.  Use
+  the Station List method to return a list of all station codes.
+paths./Path.get.parameters[1].enum.length: 1
+paths./Path.get.parameters[1].enum[0]: G05
+paths./Path.get.parameters[1].in: query
+paths./Path.get.parameters[1].name: ToStationCode
+paths./Path.get.parameters[1].required: true
+paths./Path.get.parameters[1].type: string
+paths./Path.get.produces.length: 1
+paths./Path.get.produces[0]: application/xml
+paths./Path.get.responses.200.description: Default response code.
+paths./Path.get.responses.200.examples.application/xml: |2-
+
+
+  <PathResp
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <Path>
+          <MetroPathItem>
+              <DistanceToPrev>0</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>1</SeqNum>
+              <StationCode>N06</StationCode>
+              <StationName>Wiehle-Reston East</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>30867</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>2</SeqNum>
+              <StationCode>N04</StationCode>
+              <StationName>Spring Hill</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3634</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>3</SeqNum>
+              <StationCode>N03</StationCode>
+              <StationName>Greensboro</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3902</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>4</SeqNum>
+              <StationCode>N02</StationCode>
+              <StationName>Tysons Corner</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3440</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>5</SeqNum>
+              <StationCode>N01</StationCode>
+              <StationName>McLean</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>24745</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>6</SeqNum>
+              <StationCode>K05</StationCode>
+              <StationName>E Falls Church</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>13156</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>7</SeqNum>
+              <StationCode>K04</StationCode>
+              <StationName>Ballston</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2980</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>8</SeqNum>
+              <StationCode>K03</StationCode>
+              <StationName>Virginia Square</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2473</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>9</SeqNum>
+              <StationCode>K02</StationCode>
+              <StationName>Clarendon</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2687</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>10</SeqNum>
+              <StationCode>K01</StationCode>
+              <StationName>Court House</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>4936</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>11</SeqNum>
+              <StationCode>C05</StationCode>
+              <StationName>Rosslyn</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>6993</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>12</SeqNum>
+              <StationCode>C04</StationCode>
+              <StationName>Foggy Bottom</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2783</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>13</SeqNum>
+              <StationCode>C03</StationCode>
+              <StationName>Farragut West</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2001</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>14</SeqNum>
+              <StationCode>C02</StationCode>
+              <StationName>McPherson Square</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2359</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>15</SeqNum>
+              <StationCode>C01</StationCode>
+              <StationName>Metro Center</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>1561</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>16</SeqNum>
+              <StationCode>D01</StationCode>
+              <StationName>Federal Triangle</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2016</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>17</SeqNum>
+              <StationCode>D02</StationCode>
+              <StationName>Smithsonian</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2643</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>18</SeqNum>
+              <StationCode>D03</StationCode>
+              <StationName>L'Enfant Plaza</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>1757</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>19</SeqNum>
+              <StationCode>D04</StationCode>
+              <StationName>Federal Center SW</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3052</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>20</SeqNum>
+              <StationCode>D05</StationCode>
+              <StationName>Capitol South</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>2703</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>21</SeqNum>
+              <StationCode>D06</StationCode>
+              <StationName>Eastern Market</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3289</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>22</SeqNum>
+              <StationCode>D07</StationCode>
+              <StationName>Potomac Avenue</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>3750</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>23</SeqNum>
+              <StationCode>D08</StationCode>
+              <StationName>Stadium Armory</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>12162</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>24</SeqNum>
+              <StationCode>G01</StationCode>
+              <StationName>Benning Road</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>7779</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>25</SeqNum>
+              <StationCode>G02</StationCode>
+              <StationName>Capitol Heights</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>5215</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>26</SeqNum>
+              <StationCode>G03</StationCode>
+              <StationName>Addison Road</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>7960</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>27</SeqNum>
+              <StationCode>G04</StationCode>
+              <StationName>Morgan Blvd</StationName>
+          </MetroPathItem>
+          <MetroPathItem>
+              <DistanceToPrev>7256</DistanceToPrev>
+              <LineCode>SV</LineCode>
+              <SeqNum>28</SeqNum>
+              <StationCode>G05</StationCode>
+              <StationName>Largo Town Center</StationName>
+          </MetroPathItem>
+      </Path>
+  </PathResp>
+paths./SrcStationToDstStationInfo.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a distance, fare information, and estimated travel time between any\r\ntwo stations,
+  including those on different lines. Omit both parameters to\r\nretrieve data for
+  all stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response Elements</h4>\r\n\r\n<table
+  class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationToStationInfos</td>\r\n\r\n<td>\r\nArray
+  containing station to station information (<a href=\r\n\"#StationToStationInfo\">StationToStationInfo</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationToStationInfo\"
+  name=\r\n\"StationToStationInfo\">StationToStationInfo Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>CompositeMiles</td>\r\n\r\n<td>Distance
+  in miles from the source to destination station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Destination
+  station code. Use this value in other rail-related\r\nAPIs to retrieve data about
+  a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RailFare</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#RailFare\">fare</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RailTime</td>\r\n\r\n<td>Estimated
+  travel time (schedule time) in minutes between the source and destination station.
+  This is not correlated to minutes <span class=\"text-info\">(Min)</span> in Real-Time
+  Rail Predictions.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SourceStation</td>\r\n\r\n<td>Origin
+  station code. Use this value in other rail-related APIs\r\nto retrieve data about
+  a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td colspan=\"2\">\r\n<div class=\"text-primary\"
+  style=\"margin-top: 1em\">\r\n<a id=\"RailFare\" name=\"RailFare\">RailFare Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>OffPeakTime</td>\r\n\r\n<td>Fare
+  during off-peak times (times other than the ones described\r\nbelow).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>PeakTime</td>\r\n\r\n<td>Fare
+  during peak times (weekdays from opening to 9:30 AM and\r\n3-7 PM, and weekends
+  from midnight to closing).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SeniorDisabled</td>\r\n\r\n<td>\r\nReduced
+  fare for <a href=\r\n\"http://www.wmata.com/fares/reduced.cfm\">senior citizens
+  or\r\npeople with disabilities</a>.\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./SrcStationToDstStationInfo.get.operationId: XML - Station to Station Information
+paths./SrcStationToDstStationInfo.get.parameters.length: 2
+paths./SrcStationToDstStationInfo.get.parameters[0].default: E10
+paths./SrcStationToDstStationInfo.get.parameters[0].description: Station code for
+  the origin station.  Use the Station List method to return a list of all station
+  codes.
+paths./SrcStationToDstStationInfo.get.parameters[0].enum.length: 1
+paths./SrcStationToDstStationInfo.get.parameters[0].enum[0]: E10
+paths./SrcStationToDstStationInfo.get.parameters[0].in: query
+paths./SrcStationToDstStationInfo.get.parameters[0].name: FromStationCode
+paths./SrcStationToDstStationInfo.get.parameters[0].type: string
+paths./SrcStationToDstStationInfo.get.parameters[1].default: J03
+paths./SrcStationToDstStationInfo.get.parameters[1].description: Station code for
+  the destination station.  Use the Station List method to return a list of all station
+  codes.
+paths./SrcStationToDstStationInfo.get.parameters[1].enum.length: 1
+paths./SrcStationToDstStationInfo.get.parameters[1].enum[0]: J03
+paths./SrcStationToDstStationInfo.get.parameters[1].in: query
+paths./SrcStationToDstStationInfo.get.parameters[1].name: ToStationCode
+paths./SrcStationToDstStationInfo.get.parameters[1].type: string
+paths./SrcStationToDstStationInfo.get.produces.length: 1
+paths./SrcStationToDstStationInfo.get.produces[0]: application/xml
+paths./SrcStationToDstStationInfo.get.responses.200.description: Default response
+  code.
+paths./SrcStationToDstStationInfo.get.responses.200.examples.application/xml: |-
+  <StationToStationInfoResp xmlns="http://www.wmata.com" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <StationToStationInfos>
+          <StationToStationInfo>
+              <CompositeMiles>25.41</CompositeMiles>
+              <DestinationStation>J03</DestinationStation>
+              <RailFare>
+                  <OffPeakTime>3.60</OffPeakTime>
+                  <PeakTime>5.90</PeakTime>
+                  <SeniorDisabled>2.95</SeniorDisabled>
+              </RailFare>
+              <RailTime>66</RailTime>
+              <SourceStation>E10</SourceStation>
+          </StationToStationInfo>
+      </StationToStationInfos>
+  </StationToStationInfoResp>
+paths./StationEntrances.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a list of nearby station entrances based on latitude, longitude, and\r\nradius (meters).
+  Omit search parameters to return all station entrances.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Entrances</td>\r\n\r\n<td>\r\nArray
+  containing detailed information about station entrances\r\n(<a href=\"#StationEntrance\">StationEntrance</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationEntrance\"
+  name=\r\n\"StationEntrance\">StationEntrance Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Description</td>\r\n\r\n<td>Additional
+  information for the entrance, if available.\r\nCurrently available data usually
+  shows the same value as the Name\r\nelement.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td style=\"text-decoration:
+  line-through\">ID</td>\r\n\r\n<td><span class=\"text-danger\">Deprecated.</span></td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Name
+  of the entrance (usually the station name and nearest\r\nintersection).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode1</td>\r\n\r\n<td>The
+  station code associated with this entrance. Use this value\r\nin other rail-related
+  APIs to retrieve data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode2</td>\r\n\r\n<td>For
+  stations containing multiple platforms (e.g.: Gallery\r\nPlace, Fort Totten, L'Enfant
+  Plaza, and Metro Center), the other\r\nstation code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./StationEntrances.get.operationId: XML - Station Entrances
+paths./StationEntrances.get.parameters.length: 3
+paths./StationEntrances.get.parameters[0].description: Center point Latitude, required
+  if Longitude and Radius are specified.
+paths./StationEntrances.get.parameters[0].enum.length: 1
+paths./StationEntrances.get.parameters[0].enum[0]: "38.8978168"
+paths./StationEntrances.get.parameters[0].in: query
+paths./StationEntrances.get.parameters[0].name: Lat
+paths./StationEntrances.get.parameters[0].type: number
+paths./StationEntrances.get.parameters[1].description: Center point Longitude, required
+  if Latitude and Radius are specified.
+paths./StationEntrances.get.parameters[1].enum.length: 1
+paths./StationEntrances.get.parameters[1].enum[0]: "-77.0404246"
+paths./StationEntrances.get.parameters[1].in: query
+paths./StationEntrances.get.parameters[1].name: Lon
+paths./StationEntrances.get.parameters[1].type: number
+paths./StationEntrances.get.parameters[2].description: Radius (meters) to include
+  in the search area, required if Latitude and Longitude are specified.
+paths./StationEntrances.get.parameters[2].enum.length: 1
+paths./StationEntrances.get.parameters[2].enum[0]: "500"
+paths./StationEntrances.get.parameters[2].in: query
+paths./StationEntrances.get.parameters[2].name: Radius
+paths./StationEntrances.get.parameters[2].type: number
+paths./StationEntrances.get.produces.length: 1
+paths./StationEntrances.get.produces[0]: application/xml
+paths./StationEntrances.get.responses.200.description: Default response code.
+paths./StationEntrances.get.responses.200.examples.application/xml: |-
+  <StationEntrancesResp
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <Entrances>
+          <StationEntrance>
+              <Description>Farragut West, 17th &amp; I St</Description>
+              <ID>100</ID>
+              <Lat>38.901098</Lat>
+              <Lon>-77.039293</Lon>
+              <Name>Farragut West 17th &amp; I St</Name>
+              <StationCode1>C03</StationCode1>
+              <StationCode2/>
+          </StationEntrance>
+          <StationEntrance>
+              <Description>Farragut West, 18th &amp; I St</Description>
+              <ID>101</ID>
+              <Lat>38.901453</Lat>
+              <Lon>-77.042093</Lon>
+              <Name>Farragut West 18th &amp; I St</Name>
+              <StationCode1>C03</StationCode1>
+              <StationCode2/>
+          </StationEntrance>
+      </Entrances>
+  </StationEntrancesResp>
+paths./StationInfo.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  station location and address information based on a given\r\nStationCode.</p>\r\n\r\n<h4
+  class=\"text-primary\">Response Elements</h4>\r\n\r\n<table class=\"table table-condensed
+  table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Address</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#Address\">address</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Repeated from input.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode1</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) served by this station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode2</td>\r\n\r\n<td>Additional
+  line served by this station. This is often the case\r\nwhen stations have multiple
+  platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and Metro Center).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode3</td>\r\n\r\n<td>Similar
+  to function as LineCodeX.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode4</td>\r\n\r\n<td>Similar
+  to function as LineCodeX. Currently not in use.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Station
+  name.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether1</td>\r\n\r\n<td>For stations
+  with multiple platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and
+  Metro Center), the additional\r\nStationCode will be listed here.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether2</td>\r\n\r\n<td>Similar
+  in function to StationTogether2. Currently not in\r\nuse.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a name=\"Address\">Address
+  Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>City</td>\r\n\r\n<td>City.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>State</td>\r\n\r\n<td>State
+  (abbreviated).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Street</td>\r\n\r\n<td>Street address
+  (for GPS use).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Zip</td>\r\n\r\n<td>Zip code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./StationInfo.get.operationId: XML - Station Information
+paths./StationInfo.get.parameters.length: 1
+paths./StationInfo.get.parameters[0].default: A01
+paths./StationInfo.get.parameters[0].description: Station code.  Use the Station List
+  method to return a list of all station codes.
+paths./StationInfo.get.parameters[0].enum.length: 1
+paths./StationInfo.get.parameters[0].enum[0]: A01
+paths./StationInfo.get.parameters[0].in: query
+paths./StationInfo.get.parameters[0].name: StationCode
+paths./StationInfo.get.parameters[0].required: true
+paths./StationInfo.get.parameters[0].type: string
+paths./StationInfo.get.produces.length: 1
+paths./StationInfo.get.produces[0]: application/xml
+paths./StationInfo.get.responses.200.description: Default response code.
+paths./StationInfo.get.responses.200.examples.application/xml: |-
+  <Station
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <Address>
+          <City>Washington</City>
+          <State>DC</State>
+          <Street>607 13th St. NW</Street>
+          <Zip>20005</Zip>
+      </Address>
+      <Code>A01</Code>
+      <Lat>38.8983144732</Lat>
+      <LineCode1>RD</LineCode1>
+      <LineCode2 i:nil="true"/>
+      <LineCode3 i:nil="true"/>
+      <LineCode4 i:nil="true"/>
+      <Lon>-77.0280779971</Lon>
+      <Name>Metro Center</Name>
+      <StationTogether1>C01</StationTogether1>
+      <StationTogether2/>
+  </Station>
+paths./StationParking.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  parking information at a station based on a given StationCode. Omit\r\nthe StationCode
+  to return parking information for all stations.</p>\r\n\r\n<p>If a station has no
+  parking, the StationsParking element will contain no\r\nchild elements.</p>\r\n\r\n<h4
+  class=\"text-primary\">Response Elements</h4>\r\n\r\n<table class=\"table table-condensed
+  table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationsParking</td>\r\n\r\n<td>\r\nArray
+  containing station parking information (<a href=\r\n\"#StationParking\">StationParking</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationParking\"
+  name=\"StationParking\">StationParking\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Useful when returning parking information for all\r\nstations. Use this value
+  in other rail-related APIs to retrieve\r\ndata about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Notes</td>\r\n\r\n<td>When
+  not NULL, provides additional parking resources such as\r\nnearby lots.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>AllDayParking</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#AllDayParking\">all-day\r\nparking</a> options.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>ShortTermParking</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#ShortTermParking\">short-term\r\nparking</a> options.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"AllDayParking\"
+  name=\"AllDayParking\">AllDayParking\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>TotalCount</td>\r\n\r\n<td>Number
+  of all-day parking spots available at a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RiderCost</td>\r\n\r\n<td>All-day
+  cost per day for Metro riders. NULL when no all-day\r\nspots are available. For
+  most stations, this value is identical to\r\nthe NonRiderCost.<br>\r\n<br>\r\nFor
+  cases where the NonRiderCost is different, the lower cost per\r\nday requires a
+  valid rail trip using a SmarTrip&reg; card\r\noriginating from a station other than
+  the one where the patron\r\nparked. To receive this lower rate, patrons must pay
+  for their\r\nparking with the same SmarTrip&reg; card used to enter/exit\r\nMetrorail,
+  and must exit the parking lot within two hours of\r\nexiting Metrorail.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>NonRiderCost</td>\r\n\r\n<td>All-day
+  cost per day for non-Metro riders. NULL when no all-day\r\nspots are available.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"ShortTermParking\"
+  name=\r\n\"ShortTermParking\">ShortTermParking Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>TotalCount</td>\r\n\r\n<td>Number
+  of short-term parking spots available at a station\r\n(parking meters).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Notes</td>\r\n\r\n<td>Misc.
+  information relating to short-term parking. NULL when no\r\nshort-term spots are
+  available.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./StationParking.get.operationId: XML - Parking Information
+paths./StationParking.get.parameters.length: 1
+paths./StationParking.get.parameters[0].description: Station code.  Use the Station
+  List method to return a list of all station codes.
+paths./StationParking.get.parameters[0].enum.length: 2
+paths./StationParking.get.parameters[0].enum[0]: E08
+paths./StationParking.get.parameters[0].enum[1]: F06
+paths./StationParking.get.parameters[0].in: query
+paths./StationParking.get.parameters[0].name: StationCode
+paths./StationParking.get.parameters[0].type: string
+paths./StationParking.get.produces.length: 1
+paths./StationParking.get.produces[0]: application/xml
+paths./StationParking.get.responses.200.description: Default response code.
+paths./StationParking.get.responses.200.examples.application/xml: |-
+  <StationParkingResp
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <StationsParking>
+          <StationParking>
+              <Code>F06</Code>
+              <Notes>325 spaces metered for 12-hr. max. @ $1.00 per 60 mins.</Notes>
+              <AllDayParking>
+                  <TotalCount>808</TotalCount>
+                  <RiderCost>4.60</RiderCost>
+                  <NonRiderCost>4.60</NonRiderCost>
+              </AllDayParking>
+              <ShortTermParking>
+                  <TotalCount>15</TotalCount>
+                  <Notes>Short term parking available 5 am - 2 am, time limit 12 hours</Notes>
+              </ShortTermParking>
+          </StationParking>
+      </StationsParking>
+  </StationParkingResp>
+paths./StationTimes.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  opening and scheduled first/last train times based on a given\r\nStationCode. Omit
+  the StationCode to return timing information for all\r\nstations.</p>\r\n\r\n<p>Note
+  that for stations with multiple platforms (e.g.: Metro Center, L'Enfant\r\nPlaza,
+  etc.), a distinct call is required for each StationCode to retrieve the\r\nfull
+  set of train times at such stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationTimes</td>\r\n\r\n<td>\r\nArray
+  containing station timing information (<a href=\r\n\"#StationTime\">StationTime</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationTime\"
+  name=\"StationTime\">StationTime\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code for this station. Use this value in other\r\nrail-related APIs to retrieve
+  data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationName</td>\r\n\r\n<td>Full
+  name of the station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>*Day Elements</td>\r\n\r\n<td>\r\nContainer
+  elements containing timing information based on\r\n<a href=\"#dow\">day of the week.</a>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"dow\"
+  name=\"dow\">Monday/Tuesday/Wednesday/etc.\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>OpeningTime</td>\r\n\r\n<td>Station
+  opening time. Format is HH:mm.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>FirstTrains</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#first\">first train</a>\r\ninformation.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LastTrains</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#last\">last train</a>\r\ninformation.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"first\"
+  name=\"first\">FirstTrains Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Time</td>\r\n\r\n<td>First
+  train leaves the station at this time. Format is\r\nHH:mm.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Station
+  code for the train's destination. Use this value in\r\nother rail-related APIs to
+  retrieve data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td colspan=\"2\">\r\n<div
+  class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"last\" name=\"last\">LastTrains
+  Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Time</td>\r\n\r\n<td>Last
+  train leaves the station at this time. Format is HH:mm.\r\nNote that when the time
+  is AM, it signifies the next day. For\r\nexample, a value of 02:30 under a Saturday
+  element means the last\r\ntrain leaves on Sunday at 2:30 AM.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Station
+  code for the train's destination. Use this value in\r\nother rail-related APIs to
+  retrieve data about a station.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./StationTimes.get.operationId: XML - Station Timings
+paths./StationTimes.get.parameters.length: 1
+paths./StationTimes.get.parameters[0].default: E10
+paths./StationTimes.get.parameters[0].description: Station code.  Use the Station
+  List method to return a list of all station codes.
+paths./StationTimes.get.parameters[0].enum.length: 1
+paths./StationTimes.get.parameters[0].enum[0]: E10
+paths./StationTimes.get.parameters[0].in: query
+paths./StationTimes.get.parameters[0].name: StationCode
+paths./StationTimes.get.parameters[0].type: string
+paths./StationTimes.get.produces.length: 1
+paths./StationTimes.get.produces[0]: application/xml
+paths./StationTimes.get.responses.200.description: Default response code.
+paths./StationTimes.get.responses.200.examples.application/xml: |-
+  <StationTimeResp
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <StationTimes>
+          <StationTime>
+              <Code>E10</Code>
+              <StationName>Greenbelt</StationName>
+              <Monday>
+                  <OpeningTime>04:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>05:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>23:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Monday>
+              <Tuesday>
+                  <OpeningTime>04:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>05:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>23:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Tuesday>
+              <Wednesday>
+                  <OpeningTime>04:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>05:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>23:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Wednesday>
+              <Thursday>
+                  <OpeningTime>04:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>05:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>23:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Thursday>
+              <Friday>
+                  <OpeningTime>04:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>05:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>02:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Friday>
+              <Saturday>
+                  <OpeningTime>06:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>07:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>02:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Saturday>
+              <Sunday>
+                  <OpeningTime>06:50</OpeningTime>
+                  <FirstTrains>
+                      <Train>
+                          <Time>07:00</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </FirstTrains>
+                  <LastTrains>
+                      <Train>
+                          <Time>23:30</Time>
+                          <DestinationStation>F11</DestinationStation>
+                      </Train>
+                  </LastTrains>
+              </Sunday>
+          </StationTime>
+      </StationTimes>
+  </StationTimeResp>
+paths./Stations.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a list of station location and address information based on a given\r\nLineCode.
+  Omit the LineCode to return all stations. The response is an array of\r\nobjects
+  identical to those returned in the Station Information method.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Stations</td>\r\n\r\n<td>\r\nArray
+  containing station information (<a href=\r\n\"#Station\">Station</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Station\"
+  name=\"Station\">Station Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Address</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#Address\">address</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Repeated from input.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode1</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) served by this station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode2</td>\r\n\r\n<td>Additional
+  line served by this station. This is often the case\r\nwhen stations have multiple
+  platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and Metro Center).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode3</td>\r\n\r\n<td>Similar
+  to function as LineCodeX.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode4</td>\r\n\r\n<td>Similar
+  to function as LineCodeX. Currently not in use.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Station
+  name.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether1</td>\r\n\r\n<td>For stations
+  with multiple platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and
+  Metro Center), the additional\r\nStationCode will be listed here.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether2</td>\r\n\r\n<td>Similar
+  in function to StationTogether2. Currently not in\r\nuse.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Address\"
+  name=\"Address\">Address Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>City</td>\r\n\r\n<td>City.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>State</td>\r\n\r\n<td>State
+  (abbreviated).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Street</td>\r\n\r\n<td>Street address
+  (for GPS use).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Zip</td>\r\n\r\n<td>Zip code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./Stations.get.operationId: XML - Station List
+paths./Stations.get.parameters.length: 1
+paths./Stations.get.parameters[0].description: |-
+  Two-letter line code abbreviation:
+
+  <ul>
+  <li>RD - Red</li>
+  <li>YL - Yellow</li>
+  <li>GR - Green</li>
+  <li>BL - Blue</li>
+  <li>OR - Orange</li>
+  <li>SV - Silver</li>
+  </ul>
+paths./Stations.get.parameters[0].enum.length: 6
+paths./Stations.get.parameters[0].enum[0]: RD
+paths./Stations.get.parameters[0].enum[1]: YL
+paths./Stations.get.parameters[0].enum[2]: GR
+paths./Stations.get.parameters[0].enum[3]: BL
+paths./Stations.get.parameters[0].enum[4]: OR
+paths./Stations.get.parameters[0].enum[5]: SV
+paths./Stations.get.parameters[0].in: query
+paths./Stations.get.parameters[0].name: LineCode
+paths./Stations.get.parameters[0].type: string
+paths./Stations.get.produces.length: 1
+paths./Stations.get.produces[0]: application/xml
+paths./Stations.get.responses.200.description: Default response code.
+paths./Stations.get.responses.200.examples.application/xml: |2-
+
+
+  <StationsResp
+      xmlns="http://www.wmata.com"
+      xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <Stations>
+          <Station>
+              <Address>
+                  <City>Rockville</City>
+                  <State>MD</State>
+                  <Street>15903 Somerville Drive</Street>
+                  <Zip>20855</Zip>
+              </Address>
+              <Code>A15</Code>
+              <Lat>39.1199273249</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.1646273343</Lon>
+              <Name>Shady Grove</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Rockville</City>
+                  <State>MD</State>
+                  <Street>251 Hungerford Drive</Street>
+                  <Zip>20850</Zip>
+              </Address>
+              <Code>A14</Code>
+              <Lat>39.0843216075</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.1461253392</Lon>
+              <Name>Rockville</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Rockville</City>
+                  <State>MD</State>
+                  <Street>1600 Chapman Avenue</Street>
+                  <Zip>20852</Zip>
+              </Address>
+              <Code>A13</Code>
+              <Lat>39.0624676517</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.1208179517</Lon>
+              <Name>Twinbrook</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Rockville</City>
+                  <State>MD</State>
+                  <Street>5500 Marinelli Road</Street>
+                  <Zip>20852</Zip>
+              </Address>
+              <Code>A12</Code>
+              <Lat>39.0481513573</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.112829859</Lon>
+              <Name>White Flint</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Bethesda</City>
+                  <State>MD</State>
+                  <Street>10300 Rockville Pike</Street>
+                  <Zip>20852</Zip>
+              </Address>
+              <Code>A11</Code>
+              <Lat>39.02926895</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.10384972</Lon>
+              <Name>Grosvenor</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Bethesda</City>
+                  <State>MD</State>
+                  <Street>8810 Rockville Pike</Street>
+                  <Zip>20814</Zip>
+              </Address>
+              <Code>A10</Code>
+              <Lat>39.0000564843</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0969522905</Lon>
+              <Name>Medical Center</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Bethesda</City>
+                  <State>MD</State>
+                  <Street>7450 Wisconsin Avenue</Street>
+                  <Zip>20814</Zip>
+              </Address>
+              <Code>A09</Code>
+              <Lat>38.9843936603</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0941291922</Lon>
+              <Name>Bethesda</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>5337 Wisconsin Avenue NW</Street>
+                  <Zip>20015</Zip>
+              </Address>
+              <Code>A08</Code>
+              <Lat>38.9594838736</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.084995805</Lon>
+              <Name>Friendship Heights</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>4501 Wisconsin Avenue NW</Street>
+                  <Zip>20016</Zip>
+              </Address>
+              <Code>A07</Code>
+              <Lat>38.9488514351</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0795873255</Lon>
+              <Name>Tenleytown</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>4200 Connecticut Avenue NW</Street>
+                  <Zip>20008</Zip>
+              </Address>
+              <Code>A06</Code>
+              <Lat>38.9432652883</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0629861805</Lon>
+              <Name>Van Ness UDC</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>3599 Connecticut Avenue NW</Street>
+                  <Zip>20008</Zip>
+              </Address>
+              <Code>A05</Code>
+              <Lat>38.9347628908</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0580425191</Lon>
+              <Name>Cleveland Park</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>2700 Connecticut Ave., NW</Street>
+                  <Zip>20008</Zip>
+              </Address>
+              <Code>A04</Code>
+              <Lat>38.9250851371</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0524180207</Lon>
+              <Name>Woodley Park Zoo</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>1525 20th St. NW</Street>
+                  <Zip>20036</Zip>
+              </Address>
+              <Code>A03</Code>
+              <Lat>38.9095980575</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0434143597</Lon>
+              <Name>Dupont Circle</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>1001 Connecticut Avenue NW</Street>
+                  <Zip>20036</Zip>
+              </Address>
+              <Code>A02</Code>
+              <Lat>38.9032019462</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0397008272</Lon>
+              <Name>Farragut North</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>607 13th St. NW</Street>
+                  <Zip>20005</Zip>
+              </Address>
+              <Code>A01</Code>
+              <Lat>38.8983144732</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0280779971</Lon>
+              <Name>Metro Center</Name>
+              <StationTogether1>C01</StationTogether1>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>630 H St. NW</Street>
+                  <Zip>20001</Zip>
+              </Address>
+              <Code>B01</Code>
+              <Lat>38.8983168097</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0219153904</Lon>
+              <Name>Gallery Place</Name>
+              <StationTogether1>F01</StationTogether1>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>450 F Street NW</Street>
+                  <Zip>20001</Zip>
+              </Address>
+              <Code>B02</Code>
+              <Lat>38.8960903176</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0166389566</Lon>
+              <Name>Judiciary Square</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>701 First St. NE</Street>
+                  <Zip>20002</Zip>
+              </Address>
+              <Code>B03</Code>
+              <Lat>38.8977660392</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0074142921</Lon>
+              <Name>Union Station</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>200 Florida Ave N.E.</Street>
+                  <Zip>20002</Zip>
+              </Address>
+              <Code>B35</Code>
+              <Lat>38.9070162121</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0030204472</Lon>
+              <Name>New York Avenue</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>919 Rhode Island Avenue NE</Street>
+                  <Zip>20018</Zip>
+              </Address>
+              <Code>B04</Code>
+              <Lat>38.9210596891</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-76.9959369166</Lon>
+              <Name>Rhode Island Avenue</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>801 Michigan Avenue NE</Street>
+                  <Zip>20017</Zip>
+              </Address>
+              <Code>B05</Code>
+              <Lat>38.9332109913</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-76.9945342851</Lon>
+              <Name>Brookland</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>550 Galloway Street NE</Street>
+                  <Zip>20011</Zip>
+              </Address>
+              <Code>B06</Code>
+              <Lat>38.9518467675</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0022030768</Lon>
+              <Name>Fort Totten</Name>
+              <StationTogether1>E06</StationTogether1>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Washington</City>
+                  <State>DC</State>
+                  <Street>327 Cedar Street NW</Street>
+                  <Zip>20012</Zip>
+              </Address>
+              <Code>B07</Code>
+              <Lat>38.976078531</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0181766987</Lon>
+              <Name>Takoma</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Silver Spring</City>
+                  <State>MD</State>
+                  <Street>8400 Colesville Road</Street>
+                  <Zip>20910</Zip>
+              </Address>
+              <Code>B08</Code>
+              <Lat>38.9939493747</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0310178268</Lon>
+              <Name>Silver Spring</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Forest Glen</City>
+                  <State>MD</State>
+                  <Street>9730 Georgia Avenue</Street>
+                  <Zip>20910</Zip>
+              </Address>
+              <Code>B09</Code>
+              <Lat>39.0149542752</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0429165548</Lon>
+              <Name>Forest Glen</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Silver Spring</City>
+                  <State>MD</State>
+                  <Street>11171 Georgia Avenue</Street>
+                  <Zip>20902</Zip>
+              </Address>
+              <Code>B10</Code>
+              <Lat>39.0375271436</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0501070535</Lon>
+              <Name>Wheaton</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+          <Station>
+              <Address>
+                  <City>Silver Spring</City>
+                  <State>MD</State>
+                  <Street>12501 Georgia Avenue</Street>
+                  <Zip>20906</Zip>
+              </Address>
+              <Code>B11</Code>
+              <Lat>39.0617837655</Lat>
+              <LineCode1>RD</LineCode1>
+              <LineCode2 i:nil="true"/>
+              <LineCode3 i:nil="true"/>
+              <LineCode4 i:nil="true"/>
+              <Lon>-77.0535573593</Lon>
+              <Name>Glenmont</Name>
+              <StationTogether1/>
+              <StationTogether2/>
+          </Station>
+      </Stations>
+  </StationsResp>
+paths./json/jLines.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  information about all rail lines.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Lines</td>\r\n\r\n<td>\r\nArray
+  containing line information (<a href=\"#Line\">Line</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Line\"
+  name=\"Line\">Line Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DisplayName</td>\r\n\r\n<td>Full
+  name of line color.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>EndStationCode</td>\r\n\r\n<td>End
+  station code. For example, will be E10 (Greenbelt) for the\r\nGreen Line, B11 (Glenmont)
+  for the Red Line, etc. Use this value in\r\nother rail-related APIs to retrieve
+  data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>InternalDestination1</td>\r\n\r\n<td>Intermediate
+  terminal station code. During normal service, some\r\ntrains on some lines might
+  end their trip prior to the\r\nStartStationCode or EndStationCode. A good example
+  is on the Red\r\nLine where some trains stop at A11 (Grosvenor) or B08 (Silver\r\nSpring).
+  Empty string if not defined.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>InternalDestination2</td>\r\n\r\n<td>Similar
+  to InternalDestination1.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StartStationCode</td>\r\n\r\n<td>Start
+  station code. For example, will be F11 (Branch Avenue)\r\nfor the Green Line, A15
+  (Shady Grove) for the Red Line, etc. Use\r\nthis value in other rail-related APIs
+  to retrieve data about a\r\nstation.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jLines.get.operationId: JSON - Lines
+paths./json/jLines.get.produces.length: 1
+paths./json/jLines.get.produces[0]: application/json
+paths./json/jLines.get.responses.200.description: Default response code.
+paths./json/jLines.get.responses.200.examples.application/json.Lines.length: 6
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].DisplayName: Green
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].EndStationCode: E10
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].InternalDestination1: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].InternalDestination2: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].LineCode: GR
+paths./json/jLines.get.responses.200.examples.application/json.Lines[0].StartStationCode: F11
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].DisplayName: Blue
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].EndStationCode: G05
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].InternalDestination1: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].InternalDestination2: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].LineCode: BL
+paths./json/jLines.get.responses.200.examples.application/json.Lines[1].StartStationCode: J03
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].DisplayName: Silver
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].EndStationCode: G05
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].InternalDestination1: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].InternalDestination2: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].LineCode: SV
+paths./json/jLines.get.responses.200.examples.application/json.Lines[2].StartStationCode: N06
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].DisplayName: Red
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].EndStationCode: B11
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].InternalDestination1: A11
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].InternalDestination2: B08
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].LineCode: RD
+paths./json/jLines.get.responses.200.examples.application/json.Lines[3].StartStationCode: A15
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].DisplayName: Orange
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].EndStationCode: D13
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].InternalDestination1: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].InternalDestination2: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].LineCode: OR
+paths./json/jLines.get.responses.200.examples.application/json.Lines[4].StartStationCode: K08
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].DisplayName: Yellow
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].EndStationCode: E06
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].InternalDestination1: E01
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].InternalDestination2: ""
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].LineCode: YL
+paths./json/jLines.get.responses.200.examples.application/json.Lines[5].StartStationCode: C15
+paths./json/jPath.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a set of ordered stations and distances between two stations on the\r\n<em>same
+  line</em>.</p>\r\n\r\n<p>Note that this method is not suitable on its own as a pathfinding
+  solution\r\nbetween stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response Elements</h4>\r\n\r\n<table
+  class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Path</td>\r\n\r\n<td>\r\nArray
+  containing path details (<a href=\r\n\"#MetroPathItem\">MetroPathItem</a>)\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"MetroPathItem\"
+  name=\"MetroPathItem\">MetroPathItem\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DistanceToPrev</td>\r\n\r\n<td>Distance
+  in feet to the previous station in the list.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) this station's platform
+  is on.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SeqNum</td>\r\n\r\n<td>Ordered sequence
+  number.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode</td>\r\n\r\n<td>Station code
+  for this station. Use this value in other\r\nrail-related APIs to retrieve data
+  about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationName</td>\r\n\r\n<td>Full
+  name for this station, as shown on the WMATA website.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jPath.get.operationId: JSON - Path Between Stations
+paths./json/jPath.get.parameters.length: 2
+paths./json/jPath.get.parameters[0].default: N06
+paths./json/jPath.get.parameters[0].description: Station code for the origin station.  Use
+  the Station List method to return a list of all station codes.
+paths./json/jPath.get.parameters[0].enum.length: 1
+paths./json/jPath.get.parameters[0].enum[0]: N06
+paths./json/jPath.get.parameters[0].in: query
+paths./json/jPath.get.parameters[0].name: FromStationCode
+paths./json/jPath.get.parameters[0].required: true
+paths./json/jPath.get.parameters[0].type: string
+paths./json/jPath.get.parameters[1].default: G05
+paths./json/jPath.get.parameters[1].description: Station code for the destination
+  station.  Use the Station List method to return a list of all station codes.
+paths./json/jPath.get.parameters[1].enum.length: 1
+paths./json/jPath.get.parameters[1].enum[0]: G05
+paths./json/jPath.get.parameters[1].in: query
+paths./json/jPath.get.parameters[1].name: ToStationCode
+paths./json/jPath.get.parameters[1].required: true
+paths./json/jPath.get.parameters[1].type: string
+paths./json/jPath.get.produces.length: 1
+paths./json/jPath.get.produces[0]: application/json
+paths./json/jPath.get.responses.200.description: Default response code.
+paths./json/jPath.get.responses.200.examples.application/json.Path.length: 28
+paths./json/jPath.get.responses.200.examples.application/json.Path[0].DistanceToPrev: 0
+paths./json/jPath.get.responses.200.examples.application/json.Path[0].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[0].SeqNum: 1
+paths./json/jPath.get.responses.200.examples.application/json.Path[0].StationCode: N06
+paths./json/jPath.get.responses.200.examples.application/json.Path[0].StationName: Wiehle-Reston
+  East
+paths./json/jPath.get.responses.200.examples.application/json.Path[1].DistanceToPrev: 30867
+paths./json/jPath.get.responses.200.examples.application/json.Path[1].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[1].SeqNum: 2
+paths./json/jPath.get.responses.200.examples.application/json.Path[1].StationCode: N04
+paths./json/jPath.get.responses.200.examples.application/json.Path[1].StationName: Spring
+  Hill
+paths./json/jPath.get.responses.200.examples.application/json.Path[2].DistanceToPrev: 3634
+paths./json/jPath.get.responses.200.examples.application/json.Path[2].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[2].SeqNum: 3
+paths./json/jPath.get.responses.200.examples.application/json.Path[2].StationCode: N03
+paths./json/jPath.get.responses.200.examples.application/json.Path[2].StationName: Greensboro
+paths./json/jPath.get.responses.200.examples.application/json.Path[3].DistanceToPrev: 3902
+paths./json/jPath.get.responses.200.examples.application/json.Path[3].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[3].SeqNum: 4
+paths./json/jPath.get.responses.200.examples.application/json.Path[3].StationCode: N02
+paths./json/jPath.get.responses.200.examples.application/json.Path[3].StationName: Tysons
+  Corner
+paths./json/jPath.get.responses.200.examples.application/json.Path[4].DistanceToPrev: 3440
+paths./json/jPath.get.responses.200.examples.application/json.Path[4].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[4].SeqNum: 5
+paths./json/jPath.get.responses.200.examples.application/json.Path[4].StationCode: N01
+paths./json/jPath.get.responses.200.examples.application/json.Path[4].StationName: McLean
+paths./json/jPath.get.responses.200.examples.application/json.Path[5].DistanceToPrev: 24745
+paths./json/jPath.get.responses.200.examples.application/json.Path[5].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[5].SeqNum: 6
+paths./json/jPath.get.responses.200.examples.application/json.Path[5].StationCode: K05
+paths./json/jPath.get.responses.200.examples.application/json.Path[5].StationName: E
+  Falls Church
+paths./json/jPath.get.responses.200.examples.application/json.Path[6].DistanceToPrev: 13156
+paths./json/jPath.get.responses.200.examples.application/json.Path[6].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[6].SeqNum: 7
+paths./json/jPath.get.responses.200.examples.application/json.Path[6].StationCode: K04
+paths./json/jPath.get.responses.200.examples.application/json.Path[6].StationName: Ballston
+paths./json/jPath.get.responses.200.examples.application/json.Path[7].DistanceToPrev: 2980
+paths./json/jPath.get.responses.200.examples.application/json.Path[7].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[7].SeqNum: 8
+paths./json/jPath.get.responses.200.examples.application/json.Path[7].StationCode: K03
+paths./json/jPath.get.responses.200.examples.application/json.Path[7].StationName: Virginia
+  Square
+paths./json/jPath.get.responses.200.examples.application/json.Path[8].DistanceToPrev: 2473
+paths./json/jPath.get.responses.200.examples.application/json.Path[8].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[8].SeqNum: 9
+paths./json/jPath.get.responses.200.examples.application/json.Path[8].StationCode: K02
+paths./json/jPath.get.responses.200.examples.application/json.Path[8].StationName: Clarendon
+paths./json/jPath.get.responses.200.examples.application/json.Path[9].DistanceToPrev: 2687
+paths./json/jPath.get.responses.200.examples.application/json.Path[9].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[9].SeqNum: 10
+paths./json/jPath.get.responses.200.examples.application/json.Path[9].StationCode: K01
+paths./json/jPath.get.responses.200.examples.application/json.Path[9].StationName: Court
+  House
+paths./json/jPath.get.responses.200.examples.application/json.Path[10].DistanceToPrev: 4936
+paths./json/jPath.get.responses.200.examples.application/json.Path[10].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[10].SeqNum: 11
+paths./json/jPath.get.responses.200.examples.application/json.Path[10].StationCode: C05
+paths./json/jPath.get.responses.200.examples.application/json.Path[10].StationName: Rosslyn
+paths./json/jPath.get.responses.200.examples.application/json.Path[11].DistanceToPrev: 6993
+paths./json/jPath.get.responses.200.examples.application/json.Path[11].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[11].SeqNum: 12
+paths./json/jPath.get.responses.200.examples.application/json.Path[11].StationCode: C04
+paths./json/jPath.get.responses.200.examples.application/json.Path[11].StationName: Foggy
+  Bottom
+paths./json/jPath.get.responses.200.examples.application/json.Path[12].DistanceToPrev: 2783
+paths./json/jPath.get.responses.200.examples.application/json.Path[12].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[12].SeqNum: 13
+paths./json/jPath.get.responses.200.examples.application/json.Path[12].StationCode: C03
+paths./json/jPath.get.responses.200.examples.application/json.Path[12].StationName: Farragut
+  West
+paths./json/jPath.get.responses.200.examples.application/json.Path[13].DistanceToPrev: 2001
+paths./json/jPath.get.responses.200.examples.application/json.Path[13].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[13].SeqNum: 14
+paths./json/jPath.get.responses.200.examples.application/json.Path[13].StationCode: C02
+paths./json/jPath.get.responses.200.examples.application/json.Path[13].StationName: McPherson
+  Square
+paths./json/jPath.get.responses.200.examples.application/json.Path[14].DistanceToPrev: 2359
+paths./json/jPath.get.responses.200.examples.application/json.Path[14].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[14].SeqNum: 15
+paths./json/jPath.get.responses.200.examples.application/json.Path[14].StationCode: C01
+paths./json/jPath.get.responses.200.examples.application/json.Path[14].StationName: Metro
+  Center
+paths./json/jPath.get.responses.200.examples.application/json.Path[15].DistanceToPrev: 1561
+paths./json/jPath.get.responses.200.examples.application/json.Path[15].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[15].SeqNum: 16
+paths./json/jPath.get.responses.200.examples.application/json.Path[15].StationCode: D01
+paths./json/jPath.get.responses.200.examples.application/json.Path[15].StationName: Federal
+  Triangle
+paths./json/jPath.get.responses.200.examples.application/json.Path[16].DistanceToPrev: 2016
+paths./json/jPath.get.responses.200.examples.application/json.Path[16].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[16].SeqNum: 17
+paths./json/jPath.get.responses.200.examples.application/json.Path[16].StationCode: D02
+paths./json/jPath.get.responses.200.examples.application/json.Path[16].StationName: Smithsonian
+paths./json/jPath.get.responses.200.examples.application/json.Path[17].DistanceToPrev: 2643
+paths./json/jPath.get.responses.200.examples.application/json.Path[17].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[17].SeqNum: 18
+paths./json/jPath.get.responses.200.examples.application/json.Path[17].StationCode: D03
+paths./json/jPath.get.responses.200.examples.application/json.Path[17].StationName: L'Enfant
+  Plaza
+paths./json/jPath.get.responses.200.examples.application/json.Path[18].DistanceToPrev: 1757
+paths./json/jPath.get.responses.200.examples.application/json.Path[18].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[18].SeqNum: 19
+paths./json/jPath.get.responses.200.examples.application/json.Path[18].StationCode: D04
+paths./json/jPath.get.responses.200.examples.application/json.Path[18].StationName: Federal
+  Center SW
+paths./json/jPath.get.responses.200.examples.application/json.Path[19].DistanceToPrev: 3052
+paths./json/jPath.get.responses.200.examples.application/json.Path[19].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[19].SeqNum: 20
+paths./json/jPath.get.responses.200.examples.application/json.Path[19].StationCode: D05
+paths./json/jPath.get.responses.200.examples.application/json.Path[19].StationName: Capitol
+  South
+paths./json/jPath.get.responses.200.examples.application/json.Path[20].DistanceToPrev: 2703
+paths./json/jPath.get.responses.200.examples.application/json.Path[20].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[20].SeqNum: 21
+paths./json/jPath.get.responses.200.examples.application/json.Path[20].StationCode: D06
+paths./json/jPath.get.responses.200.examples.application/json.Path[20].StationName: Eastern
+  Market
+paths./json/jPath.get.responses.200.examples.application/json.Path[21].DistanceToPrev: 3289
+paths./json/jPath.get.responses.200.examples.application/json.Path[21].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[21].SeqNum: 22
+paths./json/jPath.get.responses.200.examples.application/json.Path[21].StationCode: D07
+paths./json/jPath.get.responses.200.examples.application/json.Path[21].StationName: Potomac
+  Avenue
+paths./json/jPath.get.responses.200.examples.application/json.Path[22].DistanceToPrev: 3750
+paths./json/jPath.get.responses.200.examples.application/json.Path[22].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[22].SeqNum: 23
+paths./json/jPath.get.responses.200.examples.application/json.Path[22].StationCode: D08
+paths./json/jPath.get.responses.200.examples.application/json.Path[22].StationName: Stadium
+  Armory
+paths./json/jPath.get.responses.200.examples.application/json.Path[23].DistanceToPrev: 12162
+paths./json/jPath.get.responses.200.examples.application/json.Path[23].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[23].SeqNum: 24
+paths./json/jPath.get.responses.200.examples.application/json.Path[23].StationCode: G01
+paths./json/jPath.get.responses.200.examples.application/json.Path[23].StationName: Benning
+  Road
+paths./json/jPath.get.responses.200.examples.application/json.Path[24].DistanceToPrev: 7779
+paths./json/jPath.get.responses.200.examples.application/json.Path[24].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[24].SeqNum: 25
+paths./json/jPath.get.responses.200.examples.application/json.Path[24].StationCode: G02
+paths./json/jPath.get.responses.200.examples.application/json.Path[24].StationName: Capitol
+  Heights
+paths./json/jPath.get.responses.200.examples.application/json.Path[25].DistanceToPrev: 5215
+paths./json/jPath.get.responses.200.examples.application/json.Path[25].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[25].SeqNum: 26
+paths./json/jPath.get.responses.200.examples.application/json.Path[25].StationCode: G03
+paths./json/jPath.get.responses.200.examples.application/json.Path[25].StationName: Addison
+  Road
+paths./json/jPath.get.responses.200.examples.application/json.Path[26].DistanceToPrev: 7960
+paths./json/jPath.get.responses.200.examples.application/json.Path[26].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[26].SeqNum: 27
+paths./json/jPath.get.responses.200.examples.application/json.Path[26].StationCode: G04
+paths./json/jPath.get.responses.200.examples.application/json.Path[26].StationName: Morgan
+  Blvd
+paths./json/jPath.get.responses.200.examples.application/json.Path[27].DistanceToPrev: 7256
+paths./json/jPath.get.responses.200.examples.application/json.Path[27].LineCode: SV
+paths./json/jPath.get.responses.200.examples.application/json.Path[27].SeqNum: 28
+paths./json/jPath.get.responses.200.examples.application/json.Path[27].StationCode: G05
+paths./json/jPath.get.responses.200.examples.application/json.Path[27].StationName: Largo
+  Town Center
+paths./json/jSrcStationToDstStationInfo.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a distance, fare information, and estimated travel time between any\r\ntwo stations,
+  including those on different lines. Omit both parameters to\r\nretrieve data for
+  all stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response Elements</h4>\r\n\r\n<table
+  class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationToStationInfos</td>\r\n\r\n<td>\r\nArray
+  containing station to station information (<a href=\r\n\"#StationToStationInfo\">StationToStationInfo</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationToStationInfo\"
+  name=\r\n\"StationToStationInfo\">StationToStationInfo Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>CompositeMiles</td>\r\n\r\n<td>Distance
+  in miles from the source to destination station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Destination
+  station code. Use this value in other rail-related\r\nAPIs to retrieve data about
+  a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RailFare</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#RailFare\">fare</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RailTime</td>\r\n\r\n<td>Estimated
+  travel time (schedule time) in minutes between the source and\r\ndestination station.
+  This is not correlated to minutes <span class=\"text-info\">(Min)</span> in Real-Time
+  Rail Predictions.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SourceStation</td>\r\n\r\n<td>Origin
+  station code. Use this value in other rail-related APIs\r\nto retrieve data about
+  a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td colspan=\"2\">\r\n<div class=\"text-primary\"
+  style=\"margin-top: 1em\">\r\n<a id=\"RailFare\" name=\"RailFare\">RailFare Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>OffPeakTime</td>\r\n\r\n<td>Fare
+  during off-peak times (times other than the ones described\r\nbelow).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>PeakTime</td>\r\n\r\n<td>Fare
+  during peak times (weekdays from opening to 9:30 AM and\r\n3-7 PM, and weekends
+  from midnight to closing).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>SeniorDisabled</td>\r\n\r\n<td>\r\nReduced
+  fare for <a href=\r\n\"http://www.wmata.com/fares/reduced.cfm\">senior citizens
+  or\r\npeople with disabilities</a>.\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jSrcStationToDstStationInfo.get.operationId: JSON - Station to Station
+  Information
+paths./json/jSrcStationToDstStationInfo.get.parameters.length: 2
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].default: E10
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].description: Station code
+  for the origin station.  Use the Station List method to return a list of all station
+  codes.
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].enum.length: 1
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].enum[0]: E10
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].in: query
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].name: FromStationCode
+paths./json/jSrcStationToDstStationInfo.get.parameters[0].type: string
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].default: J03
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].description: Station code
+  for the destination station.  Use the Station List method to return a list of all
+  station codes.
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].enum.length: 1
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].enum[0]: J03
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].in: query
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].name: ToStationCode
+paths./json/jSrcStationToDstStationInfo.get.parameters[1].type: string
+paths./json/jSrcStationToDstStationInfo.get.produces.length: 1
+paths./json/jSrcStationToDstStationInfo.get.produces[0]: application/json
+paths./json/jSrcStationToDstStationInfo.get.responses.200.description: Default response
+  code.
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos.length: 1
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].CompositeMiles: 25.41
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].DestinationStation: J03
+? paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].RailFare.OffPeakTime
+: 3.6
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].RailFare.PeakTime: 5.9
+? paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].RailFare.SeniorDisabled
+: 2.95
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].RailTime: 66
+paths./json/jSrcStationToDstStationInfo.get.responses.200.examples.application/json.StationToStationInfos[0].SourceStation: E10
+paths./json/jStationEntrances.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a list of nearby station entrances based on latitude, longitude, and\r\nradius (meters).
+  Omit search parameters to return all station entrances.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Entrances</td>\r\n\r\n<td>\r\nArray
+  containing detailed information about station entrances\r\n(<a href=\"#StationEntrance\">StationEntrance</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationEntrance\"
+  name=\r\n\"StationEntrance\">StationEntrance Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Description</td>\r\n\r\n<td>Additional
+  information for the entrance, if available.\r\nCurrently available data usually
+  shows the same value as the Name\r\nelement.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td style=\"text-decoration:
+  line-through\">ID</td>\r\n\r\n<td><span class=\"text-danger\">Deprecated.</span></td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Name
+  of the entrance (usually the station name and nearest\r\nintersection).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode1</td>\r\n\r\n<td>The
+  station code associated with this entrance. Use this value\r\nin other rail-related
+  APIs to retrieve data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationCode2</td>\r\n\r\n<td>For
+  stations containing multiple platforms (e.g.: Gallery\r\nPlace, Fort Totten, L'Enfant
+  Plaza, and Metro Center), the other\r\nstation code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jStationEntrances.get.operationId: JSON - Station Entrances
+paths./json/jStationEntrances.get.parameters.length: 3
+paths./json/jStationEntrances.get.parameters[0].description: Center point Latitude,
+  required if Longitude and Radius are specified.
+paths./json/jStationEntrances.get.parameters[0].enum.length: 1
+paths./json/jStationEntrances.get.parameters[0].enum[0]: "38.8978168"
+paths./json/jStationEntrances.get.parameters[0].in: query
+paths./json/jStationEntrances.get.parameters[0].name: Lat
+paths./json/jStationEntrances.get.parameters[0].type: number
+paths./json/jStationEntrances.get.parameters[1].description: Center point Longitude,
+  required if Latitude and Radius are specified.
+paths./json/jStationEntrances.get.parameters[1].enum.length: 1
+paths./json/jStationEntrances.get.parameters[1].enum[0]: "-77.0404246"
+paths./json/jStationEntrances.get.parameters[1].in: query
+paths./json/jStationEntrances.get.parameters[1].name: Lon
+paths./json/jStationEntrances.get.parameters[1].type: number
+paths./json/jStationEntrances.get.parameters[2].description: Radius (meters) to include
+  in the search area, required if Latitude and Longitude are specified.
+paths./json/jStationEntrances.get.parameters[2].enum.length: 1
+paths./json/jStationEntrances.get.parameters[2].enum[0]: "500"
+paths./json/jStationEntrances.get.parameters[2].in: query
+paths./json/jStationEntrances.get.parameters[2].name: Radius
+paths./json/jStationEntrances.get.parameters[2].type: number
+paths./json/jStationEntrances.get.produces.length: 1
+paths./json/jStationEntrances.get.produces[0]: application/json
+paths./json/jStationEntrances.get.responses.200.description: Default response code.
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances.length: 2
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].Description: Farragut
+  West, 17th & I St
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].ID: "100"
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].Lat: 38.901096
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].Lon: -77.03929
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].Name: Farragut
+  West 17th & I St
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].StationCode1: C03
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[0].StationCode2: ""
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].Description: Farragut
+  West, 18th & I St
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].ID: "101"
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].Lat: 38.90145
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].Lon: -77.04209
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].Name: Farragut
+  West 18th & I St
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].StationCode1: C03
+paths./json/jStationEntrances.get.responses.200.examples.application/json.Entrances[1].StationCode2: ""
+paths./json/jStationInfo.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  station location and address information based on a given\r\nStationCode.</p>\r\n\r\n<h4
+  class=\"text-primary\">Response Elements</h4>\r\n\r\n<table class=\"table table-condensed
+  table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Address</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#Address\">address</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Repeated from input.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode1</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) served by this station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode2</td>\r\n\r\n<td>Additional
+  line served by this station. This is often the case\r\nwhen stations have multiple
+  platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and Metro Center).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode3</td>\r\n\r\n<td>Similar
+  to function as LineCodeX.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode4</td>\r\n\r\n<td>Similar
+  to function as LineCodeX. Currently not in use.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Station
+  name.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether1</td>\r\n\r\n<td>For stations
+  with multiple platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and
+  Metro Center), the additional\r\nStationCode will be listed here.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether2</td>\r\n\r\n<td>Similar
+  in function to StationTogether2. Currently not in\r\nuse.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a name=\"Address\">Address
+  Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>City</td>\r\n\r\n<td>City.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>State</td>\r\n\r\n<td>State
+  (abbreviated).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Street</td>\r\n\r\n<td>Street address
+  (for GPS use).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Zip</td>\r\n\r\n<td>Zip code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jStationInfo.get.operationId: JSON - Station Information
+paths./json/jStationInfo.get.parameters.length: 1
+paths./json/jStationInfo.get.parameters[0].default: A01
+paths./json/jStationInfo.get.parameters[0].description: Station code.  Use the Station
+  List method to return a list of all station codes.
+paths./json/jStationInfo.get.parameters[0].enum.length: 1
+paths./json/jStationInfo.get.parameters[0].enum[0]: A01
+paths./json/jStationInfo.get.parameters[0].in: query
+paths./json/jStationInfo.get.parameters[0].name: StationCode
+paths./json/jStationInfo.get.parameters[0].required: true
+paths./json/jStationInfo.get.parameters[0].type: string
+paths./json/jStationInfo.get.produces.length: 1
+paths./json/jStationInfo.get.produces[0]: application/json
+paths./json/jStationInfo.get.responses.200.description: Default response code.
+paths./json/jStationInfo.get.responses.200.examples.application/json.Address.City: Washington
+paths./json/jStationInfo.get.responses.200.examples.application/json.Address.State: DC
+paths./json/jStationInfo.get.responses.200.examples.application/json.Address.Street: 607
+  13th St. NW
+paths./json/jStationInfo.get.responses.200.examples.application/json.Address.Zip: "20005"
+paths./json/jStationInfo.get.responses.200.examples.application/json.Code: A01
+paths./json/jStationInfo.get.responses.200.examples.application/json.Lat: 38.898315
+paths./json/jStationInfo.get.responses.200.examples.application/json.LineCode1: RD
+paths./json/jStationInfo.get.responses.200.examples.application/json.Lon: -77.028076
+paths./json/jStationInfo.get.responses.200.examples.application/json.Name: Metro Center
+paths./json/jStationInfo.get.responses.200.examples.application/json.StationTogether1: C01
+paths./json/jStationInfo.get.responses.200.examples.application/json.StationTogether2: ""
+paths./json/jStationParking.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  parking information at a station based on a given StationCode. Omit\r\nthe StationCode
+  to return parking information for all stations.</p>\r\n\r\n<p>If a station has no
+  parking, the StationsParking element will contain no\r\nchild elements.</p>\r\n\r\n<h4
+  class=\"text-primary\">Response Elements</h4>\r\n\r\n<table class=\"table table-condensed
+  table-hover\">\r\n<thead>\r\n<tr>\r\n<th class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationsParking</td>\r\n\r\n<td>\r\nArray
+  containing station parking information (<a href=\r\n\"#StationParking\">StationParking</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationParking\"
+  name=\"StationParking\">StationParking\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Useful when returning parking information for all\r\nstations. Use this value
+  in other rail-related APIs to retrieve\r\ndata about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Notes</td>\r\n\r\n<td>When
+  not NULL, provides additional parking resources such as\r\nnearby lots.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>AllDayParking</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#AllDayParking\">all-day\r\nparking</a> options.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>ShortTermParking</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#ShortTermParking\">short-term\r\nparking</a> options.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"AllDayParking\"
+  name=\"AllDayParking\">AllDayParking\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>TotalCount</td>\r\n\r\n<td>Number
+  of all-day parking spots available at a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>RiderCost</td>\r\n\r\n<td>All-day
+  cost per day for Metro riders. NULL when no all-day\r\nspots are available. For
+  most stations, this value is identical to\r\nthe NonRiderCost.<br>\r\n<br>\r\nFor
+  cases where the NonRiderCost is different, the lower cost per\r\nday requires a
+  valid rail trip using a SmarTrip&reg; card\r\noriginating from a station other than
+  the one where the patron\r\nparked. To receive this lower rate, patrons must pay
+  for their\r\nparking with the same SmarTrip&reg; card used to enter/exit\r\nMetrorail,
+  and must exit the parking lot within two hours of\r\nexiting Metrorail.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>NonRiderCost</td>\r\n\r\n<td>All-day
+  cost per day for non-Metro riders. NULL when no all-day\r\nspots are available.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"ShortTermParking\"
+  name=\r\n\"ShortTermParking\">ShortTermParking Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>TotalCount</td>\r\n\r\n<td>Number
+  of short-term parking spots available at a station\r\n(parking meters).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Notes</td>\r\n\r\n<td>Misc.
+  information relating to short-term parking. NULL when no\r\nshort-term spots are
+  available.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jStationParking.get.operationId: JSON - Parking Information
+paths./json/jStationParking.get.parameters.length: 1
+paths./json/jStationParking.get.parameters[0].description: Station code.  Use the
+  Station List method to return a list of all station codes.
+paths./json/jStationParking.get.parameters[0].enum.length: 2
+paths./json/jStationParking.get.parameters[0].enum[0]: E08
+paths./json/jStationParking.get.parameters[0].enum[1]: F06
+paths./json/jStationParking.get.parameters[0].in: query
+paths./json/jStationParking.get.parameters[0].name: StationCode
+paths./json/jStationParking.get.parameters[0].type: string
+paths./json/jStationParking.get.produces.length: 1
+paths./json/jStationParking.get.produces[0]: application/json
+paths./json/jStationParking.get.responses.200.description: Default response code.
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking.length: 1
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].AllDayParking.NonRiderCost: 4.6
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].AllDayParking.RiderCost: 4.6
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].AllDayParking.TotalCount: 808
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].Code: F06
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].Notes: 325
+  spaces metered for 12-hr. max. @ $1.00 per 60 mins.
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].ShortTermParking.Notes: Short
+  term parking available 5 am - 2 am, time limit 12 hours
+paths./json/jStationParking.get.responses.200.examples.application/json.StationsParking[0].ShortTermParking.TotalCount: 15
+paths./json/jStationTimes.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  opening and scheduled first/last train times based on a given\r\nStationCode. Omit
+  the StationCode to return timing information for all\r\nstations.</p>\r\n\r\n<p>Note
+  that for stations with multiple platforms (e.g.: Metro Center, L'Enfant\r\nPlaza,
+  etc.), a distinct call is required for each StationCode to retrieve the\r\nfull
+  set of train times at such stations.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>StationTimes</td>\r\n\r\n<td>\r\nArray
+  containing station timing information (<a href=\r\n\"#StationTime\">StationTime</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"StationTime\"
+  name=\"StationTime\">StationTime\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code for this station. Use this value in other\r\nrail-related APIs to retrieve
+  data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationName</td>\r\n\r\n<td>Full
+  name of the station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>*Day Elements</td>\r\n\r\n<td>\r\nContainer
+  elements containing timing information based on\r\n<a href=\"#dow\">day of the week.</a>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"dow\"
+  name=\"dow\">Monday/Tuesday/Wednesday/etc.\r\nElements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>OpeningTime</td>\r\n\r\n<td>Station
+  opening time. Format is HH:mm.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>FirstTrains</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#first\">first train</a>\r\ninformation.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LastTrains</td>\r\n\r\n<td>\r\nStructure
+  containing <a href=\"#last\">last train</a>\r\ninformation.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"first\"
+  name=\"first\">FirstTrains Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Time</td>\r\n\r\n<td>First
+  train leaves the station at this time. Format is\r\nHH:mm.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Station
+  code for the train's destination. Use this value in\r\nother rail-related APIs to
+  retrieve data about a station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td colspan=\"2\">\r\n<div
+  class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"last\" name=\"last\">LastTrains
+  Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Time</td>\r\n\r\n<td>Last
+  train leaves the station at this time. Format is HH:mm.\r\nNote that when the time
+  is AM, it signifies the next day. For\r\nexample, a value of 02:30 under a Saturday
+  element means the last\r\ntrain leaves on Sunday at 2:30 AM.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>DestinationStation</td>\r\n\r\n<td>Station
+  code for the train's destination. Use this value in\r\nother rail-related APIs to
+  retrieve data about a station.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jStationTimes.get.operationId: JSON - Station Timings
+paths./json/jStationTimes.get.parameters.length: 1
+paths./json/jStationTimes.get.parameters[0].default: E10
+paths./json/jStationTimes.get.parameters[0].description: Station code.  Use the Station
+  List method to return a list of all station codes.
+paths./json/jStationTimes.get.parameters[0].enum.length: 1
+paths./json/jStationTimes.get.parameters[0].enum[0]: E10
+paths./json/jStationTimes.get.parameters[0].in: query
+paths./json/jStationTimes.get.parameters[0].name: StationCode
+paths./json/jStationTimes.get.parameters[0].type: string
+paths./json/jStationTimes.get.produces.length: 1
+paths./json/jStationTimes.get.produces[0]: application/json
+paths./json/jStationTimes.get.responses.200.description: Default response code.
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Code: E10
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.FirstTrains[0].Time: "05:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.LastTrains[0].Time: "02:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Friday.OpeningTime: "04:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.FirstTrains[0].Time: "05:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.LastTrains[0].Time: "23:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Monday.OpeningTime: "04:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.FirstTrains[0].Time: "07:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.LastTrains[0].Time: "02:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Saturday.OpeningTime: "06:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].StationName: Greenbelt
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.FirstTrains[0].Time: "07:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.LastTrains[0].Time: "23:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Sunday.OpeningTime: "06:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.FirstTrains[0].Time: "05:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.LastTrains[0].Time: "23:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Thursday.OpeningTime: "04:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.FirstTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.FirstTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.FirstTrains[0].Time: "05:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.LastTrains[0].Time: "23:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Tuesday.OpeningTime: "04:50"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.FirstTrains.length: 1
+? paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.FirstTrains[0].DestinationStation
+: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.FirstTrains[0].Time: "05:00"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.LastTrains.length: 1
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.LastTrains[0].DestinationStation: F11
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.LastTrains[0].Time: "23:30"
+paths./json/jStationTimes.get.responses.200.examples.application/json.StationTimes[0].Wednesday.OpeningTime: "04:50"
+paths./json/jStations.get.description: "<h4 class=\"text-primary\">Description</h4>\r\n\r\n<p>Returns
+  a list of station location and address information based on a given\r\nLineCode.
+  Omit the LineCode to return all stations. The response is an array of\r\nobjects
+  identical to those returned in the Station Information method.</p>\r\n\r\n<h4 class=\"text-primary\">Response
+  Elements</h4>\r\n\r\n<table class=\"table table-condensed table-hover\">\r\n<thead>\r\n<tr>\r\n<th
+  class=\"col-md-3\">Element</th>\r\n\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n<td>Stations</td>\r\n\r\n<td>\r\nArray
+  containing station information (<a href=\r\n\"#Station\">Station</a>).\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Station\"
+  name=\"Station\">Station Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Address</td>\r\n\r\n<td>\r\nStructure
+  describing <a href=\"#Address\">address</a> information.\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Code</td>\r\n\r\n<td>Station
+  code. Repeated from input.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lat</td>\r\n\r\n<td>Latitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode1</td>\r\n\r\n<td>Two-letter
+  abbreviation for the line (e.g.: RD, BL, YL, OR, GR,\r\nor SV) served by this station.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode2</td>\r\n\r\n<td>Additional
+  line served by this station. This is often the case\r\nwhen stations have multiple
+  platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and Metro Center).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode3</td>\r\n\r\n<td>Similar
+  to function as LineCodeX.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>LineCode4</td>\r\n\r\n<td>Similar
+  to function as LineCodeX. Currently not in use.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Lon</td>\r\n\r\n<td>Longitude.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Name</td>\r\n\r\n<td>Station
+  name.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether1</td>\r\n\r\n<td>For stations
+  with multiple platforms (e.g.: Gallery Place, Fort\r\nTotten, L'Enfant Plaza, and
+  Metro Center), the additional\r\nStationCode will be listed here.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>StationTogether2</td>\r\n\r\n<td>Similar
+  in function to StationTogether2. Currently not in\r\nuse.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td
+  colspan=\"2\">\r\n<div class=\"text-primary\" style=\"margin-top: 1em\">\r\n<a id=\"Address\"
+  name=\"Address\">Address Elements</a>\r\n</div>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>City</td>\r\n\r\n<td>City.</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>State</td>\r\n\r\n<td>State
+  (abbreviated).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Street</td>\r\n\r\n<td>Street address
+  (for GPS use).</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>Zip</td>\r\n\r\n<td>Zip code.</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+paths./json/jStations.get.operationId: JSON - Station List
+paths./json/jStations.get.parameters.length: 1
+paths./json/jStations.get.parameters[0].description: |-
+  Two-letter line code abbreviation:
+
+  <ul>
+  <li>RD - Red</li>
+  <li>YL - Yellow</li>
+  <li>GR - Green</li>
+  <li>BL - Blue</li>
+  <li>OR - Orange</li>
+  <li>SV - Silver</li>
+  </ul>
+paths./json/jStations.get.parameters[0].enum.length: 6
+paths./json/jStations.get.parameters[0].enum[0]: RD
+paths./json/jStations.get.parameters[0].enum[1]: YL
+paths./json/jStations.get.parameters[0].enum[2]: GR
+paths./json/jStations.get.parameters[0].enum[3]: BL
+paths./json/jStations.get.parameters[0].enum[4]: OR
+paths./json/jStations.get.parameters[0].enum[5]: SV
+paths./json/jStations.get.parameters[0].in: query
+paths./json/jStations.get.parameters[0].name: LineCode
+paths./json/jStations.get.parameters[0].type: string
+paths./json/jStations.get.produces.length: 1
+paths./json/jStations.get.produces[0]: application/json
+paths./json/jStations.get.responses.200.description: Default response code.
+paths./json/jStations.get.responses.200.examples.application/json.Stations.length: 27
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Address.City: Rockville
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Address.Street: 15903
+  Somerville Drive
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Address.Zip: "20855"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Code: A15
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Lat: 39.119926
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Lon: -77.16463
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].Name: Shady
+  Grove
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[0].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Address.City: Rockville
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Address.Street: 251
+  Hungerford Drive
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Address.Zip: "20850"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Code: A14
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Lat: 39.08432
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Lon: -77.146126
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].Name: Rockville
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[1].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Address.City: Rockville
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Address.Street: 1600
+  Chapman Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Address.Zip: "20852"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Code: A13
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Lat: 39.06247
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Lon: -77.12082
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].Name: Twinbrook
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[2].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Address.City: Rockville
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Address.Street: 5500
+  Marinelli Road
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Address.Zip: "20852"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Code: A12
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Lat: 39.048153
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Lon: -77.11283
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].Name: White
+  Flint
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[3].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Address.City: Bethesda
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Address.Street: 10300
+  Rockville Pike
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Address.Zip: "20852"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Code: A11
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Lat: 39.02927
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Lon: -77.10385
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].Name: Grosvenor
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[4].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Address.City: Bethesda
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Address.Street: 8810
+  Rockville Pike
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Address.Zip: "20814"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Code: A10
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Lat: 39.000057
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Lon: -77.096954
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].Name: Medical
+  Center
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[5].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Address.City: Bethesda
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Address.Street: 7450
+  Wisconsin Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Address.Zip: "20814"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Code: A09
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Lat: 38.984394
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Lon: -77.09413
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].Name: Bethesda
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[6].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Address.Street: 5337
+  Wisconsin Avenue NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Address.Zip: "20015"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Code: A08
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Lat: 38.959484
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Lon: -77.085
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].Name: Friendship
+  Heights
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[7].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Address.Street: 4501
+  Wisconsin Avenue NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Address.Zip: "20016"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Code: A07
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Lat: 38.948853
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Lon: -77.07959
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].Name: Tenleytown
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[8].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Address.Street: 4200
+  Connecticut Avenue NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Address.Zip: "20008"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Code: A06
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Lat: 38.943264
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Lon: -77.06299
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].Name: Van
+  Ness UDC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[9].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Address.Street: 3599
+  Connecticut Avenue NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Address.Zip: "20008"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Code: A05
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Lat: 38.93476
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Lon: -77.058044
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].Name: Cleveland
+  Park
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[10].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Address.Street: 2700
+  Connecticut Ave., NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Address.Zip: "20008"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Code: A04
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Lat: 38.925087
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Lon: -77.05242
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].Name: Woodley
+  Park Zoo
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[11].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Address.Street: 1525
+  20th St. NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Address.Zip: "20036"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Code: A03
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Lat: 38.9096
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Lon: -77.04341
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].Name: Dupont
+  Circle
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[12].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Address.Street: 1001
+  Connecticut Avenue NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Address.Zip: "20036"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Code: A02
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Lat: 38.903202
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Lon: -77.0397
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].Name: Farragut
+  North
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[13].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Address.Street: 607
+  13th St. NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Address.Zip: "20005"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Code: A01
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Lat: 38.898315
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Lon: -77.028076
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].Name: Metro
+  Center
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].StationTogether1: C01
+paths./json/jStations.get.responses.200.examples.application/json.Stations[14].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Address.Street: 630
+  H St. NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Address.Zip: "20001"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Code: B01
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Lat: 38.898315
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Lon: -77.02191
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].Name: Gallery
+  Place
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].StationTogether1: F01
+paths./json/jStations.get.responses.200.examples.application/json.Stations[15].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Address.Street: 450
+  F Street NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Address.Zip: "20001"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Code: B02
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Lat: 38.89609
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Lon: -77.01664
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].Name: Judiciary
+  Square
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[16].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Address.Street: 701
+  First St. NE
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Address.Zip: "20002"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Code: B03
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Lat: 38.897766
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Lon: -77.007416
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].Name: Union
+  Station
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[17].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Address.Street: 200
+  Florida Ave N.E.
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Address.Zip: "20002"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Code: B35
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Lat: 38.907017
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Lon: -77.00302
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].Name: New
+  York Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[18].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Address.Street: 919
+  Rhode Island Avenue NE
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Address.Zip: "20018"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Code: B04
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Lat: 38.92106
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Lon: -76.99593
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].Name: Rhode
+  Island Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[19].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Address.Street: 801
+  Michigan Avenue NE
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Address.Zip: "20017"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Code: B05
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Lat: 38.933212
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Lon: -76.99454
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].Name: Brookland
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[20].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Address.Street: 550
+  Galloway Street NE
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Address.Zip: "20011"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Code: B06
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Lat: 38.951847
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Lon: -77.002205
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].Name: Fort
+  Totten
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].StationTogether1: E06
+paths./json/jStations.get.responses.200.examples.application/json.Stations[21].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Address.City: Washington
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Address.State: DC
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Address.Street: 327
+  Cedar Street NW
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Address.Zip: "20012"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Code: B07
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Lat: 38.976078
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Lon: -77.01817
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].Name: Takoma
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[22].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Address.City: Silver
+  Spring
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Address.Street: 8400
+  Colesville Road
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Address.Zip: "20910"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Code: B08
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Lat: 38.99395
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Lon: -77.03102
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].Name: Silver
+  Spring
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[23].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Address.City: Forest
+  Glen
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Address.Street: 9730
+  Georgia Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Address.Zip: "20910"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Code: B09
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Lat: 39.014954
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Lon: -77.042915
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].Name: Forest
+  Glen
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[24].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Address.City: Silver
+  Spring
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Address.Street: 11171
+  Georgia Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Address.Zip: "20902"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Code: B10
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Lat: 39.03753
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Lon: -77.05011
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].Name: Wheaton
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[25].StationTogether2: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Address.City: Silver
+  Spring
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Address.State: MD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Address.Street: 12501
+  Georgia Avenue
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Address.Zip: "20906"
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Code: B11
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Lat: 39.061783
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].LineCode1: RD
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Lon: -77.05356
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].Name: Glenmont
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].StationTogether1: ""
+paths./json/jStations.get.responses.200.examples.application/json.Stations[26].StationTogether2: ""
+schemes.length: 2
+schemes[0]: http
+schemes[1]: https
+security.length: 2
+security[0].apiKeyHeader.length: 0
+security[1].apiKeyQuery.length: 0
+securityDefinitions.apiKeyHeader.in: header
+securityDefinitions.apiKeyHeader.name: api_key
+securityDefinitions.apiKeyHeader.type: apiKey
+securityDefinitions.apiKeyQuery.in: query
+securityDefinitions.apiKeyQuery.name: api_key
+securityDefinitions.apiKeyQuery.type: apiKey
+swagger: "2.0"

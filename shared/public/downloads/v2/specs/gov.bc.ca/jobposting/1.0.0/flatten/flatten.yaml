@@ -1,0 +1,265 @@
+basePath: /v1
+definitions.Error.properties.Message.type: string
+definitions.Error.type: object
+definitions.Industry.properties.Caption.description: The name of the Industries.
+definitions.Industry.properties.Caption.type: string
+definitions.Industry.properties.ID.description: Industry ID.
+definitions.Industry.properties.ID.type: integer
+definitions.Industry.properties.SubIndustries.items.$ref: '#/definitions/SubIndustry'
+definitions.Industry.properties.SubIndustries.type: array
+definitions.Industry.type: object
+definitions.Job.properties.EmployerName.description: The name of the employer who
+  is offering the job.
+definitions.Job.properties.EmployerName.type: string
+definitions.Job.properties.ExpiryDate.description: The date that the job will expire.
+  It is the caller's responsibility to remove job postings once they expire. After
+  this date the supplied Url will show a 404 page.
+definitions.Job.properties.ExpiryDate.format: date-time
+definitions.Job.properties.ExpiryDate.type: string
+definitions.Job.properties.JobDescription.description: Details of the job posting.
+  This is limited to 250 characters, and HTML tags are stripped out. For a full description,
+  use the Url property to view the job posting on the WorkBC website.
+definitions.Job.properties.JobDescription.type: string
+definitions.Job.properties.JobID.description: The unique id of the job in the WorkBC
+  Job Board database.
+definitions.Job.properties.JobID.type: integer
+definitions.Job.properties.JobTitle.description: The name of the job posting.
+definitions.Job.properties.JobTitle.type: string
+definitions.Job.properties.JobTypes.description: The types of work associated with
+  this job.
+definitions.Job.properties.JobTypes.items.$ref: '#/definitions/JobType'
+definitions.Job.properties.JobTypes.type: array
+definitions.Job.properties.Locations.description: Details of all of the locations
+  where the job is available.
+definitions.Job.properties.Locations.items.$ref: '#/definitions/Location'
+definitions.Job.properties.Locations.type: array
+definitions.Job.properties.MajorProject.$ref: '#/definitions/MajorProject'
+definitions.Job.properties.PostedDate.description: The date that the job was posted.
+definitions.Job.properties.PostedDate.format: date-time
+definitions.Job.properties.PostedDate.type: string
+definitions.Job.properties.RecordType.$ref: '#/definitions/RecordType'
+definitions.Job.properties.SalaryMax.format: double
+definitions.Job.properties.SalaryMax.type: number
+definitions.Job.properties.SalaryMin.format: double
+definitions.Job.properties.SalaryMin.type: number
+definitions.Job.properties.SalaryMultiplier.description: The amount to multiply SalaryMin
+  and SalaryMax by in order to convert to annual values. This is needed if you want
+  to compare salaries for jobs that have been posted using different salary types.
+definitions.Job.properties.SalaryMultiplier.type: integer
+definitions.Job.properties.SalaryType.type: string
+definitions.Job.properties.Url.description: The URL for the live job posting on the
+  WorkBC website.
+definitions.Job.properties.Url.type: string
+definitions.Job.type: object
+definitions.JobFeedResponse.properties.Jobs.items.$ref: '#/definitions/Job'
+definitions.JobFeedResponse.properties.Jobs.type: array
+definitions.JobFeedResponse.type: object
+definitions.JobType.properties.Caption.description: The name of the Job Type.
+definitions.JobType.properties.Caption.type: string
+definitions.JobType.properties.ID.$ref: '#/definitions/JobTypeID'
+definitions.JobType.type: object
+definitions.JobTypeID.description: The type of work.
+definitions.JobTypeID.enum.length: 15
+definitions.JobTypeID.enum[0]: Undefined0
+definitions.JobTypeID.enum[1]: Full-Time
+definitions.JobTypeID.enum[2]: Part-Time
+definitions.JobTypeID.enum[3]: Contract
+definitions.JobTypeID.enum[4]: Undefined4
+definitions.JobTypeID.enum[5]: Undefined5
+definitions.JobTypeID.enum[6]: Student
+definitions.JobTypeID.enum[7]: Undefined7
+definitions.JobTypeID.enum[8]: Undefined8
+definitions.JobTypeID.enum[9]: Casual
+definitions.JobTypeID.enum[10]: Seasonal
+definitions.JobTypeID.enum[11]: Temporary
+definitions.JobTypeID.enum[12]: Permanent
+definitions.JobTypeID.enum[13]: Co-op
+definitions.JobTypeID.enum[14]: Apprenticeship
+definitions.JobTypeID.type: integer
+definitions.Location.description: Details of where a job is located. A job can have
+  up to three associated locations.
+definitions.Location.properties.City.description: The name of the city where the job
+  is located.
+definitions.Location.properties.City.type: string
+definitions.Location.properties.Province.description: The name of the province where
+  the job is located.
+definitions.Location.properties.Province.type: string
+definitions.Location.properties.RegionID.$ref: '#/definitions/Region'
+definitions.Location.properties.RegionName.description: The name of the region in
+  B.C. where the job is located.
+definitions.Location.properties.RegionName.type: string
+definitions.Location.type: object
+definitions.MajorProject.properties.Caption.description: The name of the Major Project.
+definitions.MajorProject.properties.Caption.type: string
+definitions.MajorProject.properties.ID.description: The unique ID of the Major Project
+  in the WorkBC Job Board database. Use this when restricting the Job Feed to only
+  one Major Project.
+definitions.MajorProject.properties.ID.type: integer
+definitions.MajorProject.type: object
+definitions.RecordType.description: The type of change that has happened to this job.
+definitions.RecordType.enum.length: 3
+definitions.RecordType.enum[0]: Undefined
+definitions.RecordType.enum[1]: Update
+definitions.RecordType.enum[2]: Delete
+definitions.RecordType.type: integer
+definitions.Region.properties.Caption.description: The name of the Region.
+definitions.Region.properties.Caption.type: string
+definitions.Region.properties.ID.$ref: '#/definitions/RegionID'
+definitions.Region.type: object
+definitions.RegionID.description: A region within B.C.
+definitions.RegionID.enum.length: 9
+definitions.RegionID.enum[0]: Undefined
+definitions.RegionID.enum[1]: Vancouver Island/Coast
+definitions.RegionID.enum[2]: Mainland/Southwest
+definitions.RegionID.enum[3]: Thompson-Okanagan
+definitions.RegionID.enum[4]: Kootenay
+definitions.RegionID.enum[5]: Cariboo
+definitions.RegionID.enum[6]: North Coast
+definitions.RegionID.enum[7]: Nechako
+definitions.RegionID.enum[8]: Northeast
+definitions.RegionID.type: integer
+definitions.SubIndustry.properties.Caption.description: The name of the SubIndustries.
+definitions.SubIndustry.properties.Caption.type: string
+definitions.SubIndustry.properties.ID.description: Sub Industry ID.
+definitions.SubIndustry.properties.ID.type: integer
+definitions.SubIndustry.type: object
+host: workbcjobs.api.gov.bc.ca
+info.description: This API allows you to receive a feed of jobs from WorkBC's Job
+  Board. Please see our <a href="https://github.com/bcgov/api-specs/blob/master/COLLECTION_NOTICE.md#collection-notice"
+  target="_blank">data collection notice</a>.
+info.title: WorkBC Job Posting
+info.version: 1.0.0
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: open_data
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_avatars1.githubusercontent.com_u_916280.jpeg
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://raw.githubusercontent.com/bcgov/api-specs/master/jobposting/jobposting.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: gov.bc.ca
+info.x-serviceName: jobposting
+paths./Industries.get.description: "The Industries endpoint returns all the Industries
+  and related sub industries \ndefined in WorkBC's Job Board. The response includes
+  the id and caption for \neach industry and each sub industry.\n"
+paths./Industries.get.responses.200.description: An array of industries and sub industries
+paths./Industries.get.responses.200.schema.items.$ref: '#/definitions/Industry'
+paths./Industries.get.responses.200.schema.type: array
+paths./Industries.get.responses.default.description: Unexpected error
+paths./Industries.get.responses.default.schema.$ref: '#/definitions/Error'
+paths./Industries.get.summary: Industries
+paths./Industries.get.tags.length: 1
+paths./Industries.get.tags[0]: Job Feed
+paths./jobTypes.get.description: |
+  The Job Types endpoint returns details of all of the
+  job types defined in WorkBC's Job Board. The response includes the
+  id and caption.
+paths./jobTypes.get.responses.200.description: An array of job types
+paths./jobTypes.get.responses.200.schema.items.$ref: '#/definitions/JobType'
+paths./jobTypes.get.responses.200.schema.type: array
+paths./jobTypes.get.responses.default.description: Unexpected error
+paths./jobTypes.get.responses.default.schema.$ref: '#/definitions/Error'
+paths./jobTypes.get.summary: Job Types
+paths./jobTypes.get.tags.length: 1
+paths./jobTypes.get.tags[0]: Job Feed
+paths./jobs.post.description: The job feed endpoint returns an array of job records
+  that satisfy the supplied criteria.
+paths./jobs.post.parameters.length: 8
+paths./jobs.post.parameters[0].description: The date of the last request. Only job
+  postings changed or deleted after this time will be included in the response. Default
+  is _today_ - 10 days.
+paths./jobs.post.parameters[0].format: date-time
+paths./jobs.post.parameters[0].in: formData
+paths./jobs.post.parameters[0].name: lastRequestDate
+paths./jobs.post.parameters[0].type: string
+paths./jobs.post.parameters[1].description: The unique id of a region within B.C.
+  Only job postings located within the specified region will be included in the response.
+  If not specified, the data is not filtered by region.
+paths./jobs.post.parameters[1].format: int32
+paths./jobs.post.parameters[1].in: formData
+paths./jobs.post.parameters[1].name: region
+paths./jobs.post.parameters[1].type: integer
+paths./jobs.post.parameters[2].description: The name of a city within B.C. Only job
+  postings located within the specified city will be included in the response. If
+  not specified, the data is not filtered by city.
+paths./jobs.post.parameters[2].in: formData
+paths./jobs.post.parameters[2].name: city
+paths./jobs.post.parameters[2].type: string
+paths./jobs.post.parameters[3].collectionFormat: multi
+paths./jobs.post.parameters[3].description: ID values for types of job to filter on.
+  Only job postings matching all specified values will be included in the response.
+  If not specified, the data is not filtered by job type.
+paths./jobs.post.parameters[3].in: formData
+paths./jobs.post.parameters[3].items.type: integer
+paths./jobs.post.parameters[3].name: jobTypes
+paths./jobs.post.parameters[3].type: array
+paths./jobs.post.parameters[4].description: When true, only include job postings that
+  have a Major Project associated with them.  When false, only include job postings
+  that do not have a Major Project associated with them. If not specified, the data
+  is not filtered by major project, unless the MajorProjectID parameter is used.
+paths./jobs.post.parameters[4].in: formData
+paths./jobs.post.parameters[4].name: majorProjects
+paths./jobs.post.parameters[4].type: boolean
+paths./jobs.post.parameters[5].description: The unique id of a major project within
+  the WorkBC Job Board database. When specified, only job postings associated with
+  the specified major project will be included in the response. This parameter has
+  no effect if the MajorProjects parameter is supplied with the value false. If not
+  specified, the data is not filtered by major project, unless the MajorProjects parameter
+  is used.
+paths./jobs.post.parameters[5].format: int32
+paths./jobs.post.parameters[5].in: formData
+paths./jobs.post.parameters[5].name: majorProjectID
+paths./jobs.post.parameters[5].type: integer
+paths./jobs.post.parameters[6].collectionFormat: multi
+paths./jobs.post.parameters[6].description: ID values for industries to filter on.
+  Only job postings matching all specified values will be included in the response.
+  If not specified, the data is not filtered by industry.
+paths./jobs.post.parameters[6].in: formData
+paths./jobs.post.parameters[6].items.type: integer
+paths./jobs.post.parameters[6].name: industries
+paths./jobs.post.parameters[6].type: array
+paths./jobs.post.parameters[7].collectionFormat: multi
+paths./jobs.post.parameters[7].description: ID values for sub industries to filter
+  on. Only job postings matching all specified values will be included in the response.
+  If not specified, the data is not filtered by sub industry.
+paths./jobs.post.parameters[7].in: formData
+paths./jobs.post.parameters[7].items.type: integer
+paths./jobs.post.parameters[7].name: subIndustries
+paths./jobs.post.parameters[7].type: array
+paths./jobs.post.responses.200.description: A set of job records.
+paths./jobs.post.responses.200.schema.$ref: '#/definitions/JobFeedResponse'
+paths./jobs.post.responses.default.description: Unexpected error
+paths./jobs.post.responses.default.schema.$ref: '#/definitions/Error'
+paths./jobs.post.summary: Job Feed
+paths./jobs.post.tags.length: 1
+paths./jobs.post.tags[0]: Job Feed
+paths./majorProjects.get.description: |
+  The Major Projects endpoint returns details of all of the
+  major projects defined in WorkBC's Job Board. The response includes the
+  id and caption.
+paths./majorProjects.get.responses.200.description: An array of major projects
+paths./majorProjects.get.responses.200.schema.items.$ref: '#/definitions/MajorProject'
+paths./majorProjects.get.responses.200.schema.type: array
+paths./majorProjects.get.responses.default.description: Unexpected error
+paths./majorProjects.get.responses.default.schema.$ref: '#/definitions/Error'
+paths./majorProjects.get.summary: Major Projects
+paths./majorProjects.get.tags.length: 1
+paths./majorProjects.get.tags[0]: Job Feed
+paths./regions.get.description: |
+  The Regions endpoint returns details of all of the
+  regions defined in WorkBC's Job Board. The response includes the
+  id and caption.
+paths./regions.get.responses.200.description: An array of regions
+paths./regions.get.responses.200.schema.items.$ref: '#/definitions/Region'
+paths./regions.get.responses.200.schema.type: array
+paths./regions.get.responses.default.description: Unexpected error
+paths./regions.get.responses.default.schema.$ref: '#/definitions/Error'
+paths./regions.get.summary: Regions
+paths./regions.get.tags.length: 1
+paths./regions.get.tags[0]: Job Feed
+produces.length: 1
+produces[0]: application/json
+schemes.length: 2
+schemes[0]: http
+schemes[1]: https
+swagger: "2.0"

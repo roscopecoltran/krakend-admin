@@ -1,0 +1,1094 @@
+basePath: /
+definitions.CheckValidCredsRequest.description: |-
+  A request to determine whether the user has valid credentials. This method
+  is used to limit the number of OAuth popups in the user interface. The
+  user id is inferred from the API call context.
+  If the data source has the Google+ authorization type, this method
+  returns false, as it cannot be determined whether the credentials are
+  already valid merely based on the user id.
+definitions.CheckValidCredsRequest.type: object
+definitions.CheckValidCredsResponse.description: A response indicating whether the
+  credentials exist and are valid.
+definitions.CheckValidCredsResponse.properties.hasValidCreds.description: If set to
+  `true`, the credentials exist and are valid.
+definitions.CheckValidCredsResponse.properties.hasValidCreds.type: boolean
+definitions.CheckValidCredsResponse.type: object
+definitions.DataSource.description: |-
+  Represents data source metadata. Metadata is sufficient to
+  render UI and request proper OAuth tokens.
+definitions.DataSource.properties.authorizationType.description: Indicates the type
+  of authorization.
+definitions.DataSource.properties.authorizationType.enum.length: 3
+definitions.DataSource.properties.authorizationType.enum[0]: AUTHORIZATION_TYPE_UNSPECIFIED
+definitions.DataSource.properties.authorizationType.enum[1]: AUTHORIZATION_CODE
+definitions.DataSource.properties.authorizationType.enum[2]: GOOGLE_PLUS_AUTHORIZATION_CODE
+definitions.DataSource.properties.authorizationType.type: string
+definitions.DataSource.properties.clientId.description: |-
+  Data source client id which should be used to receive refresh token.
+  When not supplied, no offline credentials are populated for data transfer.
+definitions.DataSource.properties.clientId.type: string
+definitions.DataSource.properties.dataRefreshType.description: |-
+  Specifies whether the data source supports automatic data refresh for the
+  past few days, and how it's supported.
+  For some data sources, data might not be complete until a few days later,
+  so it's useful to refresh data automatically.
+definitions.DataSource.properties.dataRefreshType.enum.length: 3
+definitions.DataSource.properties.dataRefreshType.enum[0]: DATA_REFRESH_TYPE_UNSPECIFIED
+definitions.DataSource.properties.dataRefreshType.enum[1]: SLIDING_WINDOW
+definitions.DataSource.properties.dataRefreshType.enum[2]: CUSTOM_SLIDING_WINDOW
+definitions.DataSource.properties.dataRefreshType.type: string
+definitions.DataSource.properties.dataSourceId.description: Data source id.
+definitions.DataSource.properties.dataSourceId.type: string
+definitions.DataSource.properties.defaultDataRefreshWindowDays.description: |-
+  Default data refresh window on days.
+  Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`.
+definitions.DataSource.properties.defaultDataRefreshWindowDays.format: int32
+definitions.DataSource.properties.defaultDataRefreshWindowDays.type: integer
+definitions.DataSource.properties.defaultSchedule.description: |-
+  Default data transfer schedule.
+  Examples of valid schedules include:
+  `1st,3rd monday of month 15:30`,
+  `every wed,fri of jan,jun 13:15`, and
+  `first sunday of quarter 00:00`.
+definitions.DataSource.properties.defaultSchedule.type: string
+definitions.DataSource.properties.description.description: User friendly data source
+  description string.
+definitions.DataSource.properties.description.type: string
+definitions.DataSource.properties.displayName.description: User friendly data source
+  name.
+definitions.DataSource.properties.displayName.type: string
+definitions.DataSource.properties.helpUrl.description: Url for the help document for
+  this data source.
+definitions.DataSource.properties.helpUrl.type: string
+definitions.DataSource.properties.manualRunsDisabled.description: |-
+  Disables backfilling and manual run scheduling
+  for the data source.
+definitions.DataSource.properties.manualRunsDisabled.type: boolean
+definitions.DataSource.properties.minimumScheduleInterval.description: The minimum
+  interval between two consecutive scheduled runs.
+definitions.DataSource.properties.minimumScheduleInterval.format: google-duration
+definitions.DataSource.properties.minimumScheduleInterval.type: string
+definitions.DataSource.properties.name.description: Data source resource name.
+definitions.DataSource.properties.name.type: string
+definitions.DataSource.properties.parameters.description: Data source parameters.
+definitions.DataSource.properties.parameters.items.$ref: '#/definitions/DataSourceParameter'
+definitions.DataSource.properties.parameters.type: array
+definitions.DataSource.properties.scopes.description: |-
+  Api auth scopes for which refresh token needs to be obtained. Only valid
+  when `client_id` is specified. Ignored otherwise. These are scopes needed
+  by a data source to prepare data and ingest them into BigQuery,
+  e.g., https://www.googleapis.com/auth/bigquery
+definitions.DataSource.properties.scopes.items.type: string
+definitions.DataSource.properties.scopes.type: array
+definitions.DataSource.properties.supportsCustomSchedule.description: |-
+  Specifies whether the data source supports a user defined schedule, or
+  operates on the default schedule.
+  When set to `true`, user can override default schedule.
+definitions.DataSource.properties.supportsCustomSchedule.type: boolean
+definitions.DataSource.properties.supportsMultipleTransfers.description: |-
+  Indicates whether the data source supports multiple transfers
+  to different BigQuery targets.
+definitions.DataSource.properties.supportsMultipleTransfers.type: boolean
+definitions.DataSource.properties.transferType.description: |-
+  Transfer type. Currently supports only batch transfers,
+  which are transfers that use the BigQuery batch APIs (load or
+  query) to ingest the data.
+definitions.DataSource.properties.transferType.enum.length: 3
+definitions.DataSource.properties.transferType.enum[0]: TRANSFER_TYPE_UNSPECIFIED
+definitions.DataSource.properties.transferType.enum[1]: BATCH
+definitions.DataSource.properties.transferType.enum[2]: STREAMING
+definitions.DataSource.properties.transferType.type: string
+definitions.DataSource.properties.updateDeadlineSeconds.description: |-
+  The number of seconds to wait for an update from the data source
+  before BigQuery marks the transfer as failed.
+definitions.DataSource.properties.updateDeadlineSeconds.format: int32
+definitions.DataSource.properties.updateDeadlineSeconds.type: integer
+definitions.DataSource.type: object
+definitions.DataSourceParameter.description: |-
+  Represents a data source parameter with validation rules, so that
+  parameters can be rendered in the UI. These parameters are given to us by
+  supported data sources, and include all needed information for rendering
+  and validation.
+  Thus, whoever uses this api can decide to generate either generic ui,
+  or custom data source specific forms.
+definitions.DataSourceParameter.properties.allowedValues.description: All possible
+  values for the parameter.
+definitions.DataSourceParameter.properties.allowedValues.items.type: string
+definitions.DataSourceParameter.properties.allowedValues.type: array
+definitions.DataSourceParameter.properties.description.description: Parameter description.
+definitions.DataSourceParameter.properties.description.type: string
+definitions.DataSourceParameter.properties.displayName.description: Parameter display
+  name in the user interface.
+definitions.DataSourceParameter.properties.displayName.type: string
+definitions.DataSourceParameter.properties.fields.description: When parameter is a
+  record, describes child fields.
+definitions.DataSourceParameter.properties.fields.items.$ref: '#/definitions/DataSourceParameter'
+definitions.DataSourceParameter.properties.fields.type: array
+definitions.DataSourceParameter.properties.immutable.description: Cannot be changed
+  after initial creation.
+definitions.DataSourceParameter.properties.immutable.type: boolean
+definitions.DataSourceParameter.properties.maxValue.description: For integer and double
+  values specifies maxminum allowed value.
+definitions.DataSourceParameter.properties.maxValue.format: double
+definitions.DataSourceParameter.properties.maxValue.type: number
+definitions.DataSourceParameter.properties.minValue.description: For integer and double
+  values specifies minimum allowed value.
+definitions.DataSourceParameter.properties.minValue.format: double
+definitions.DataSourceParameter.properties.minValue.type: number
+definitions.DataSourceParameter.properties.paramId.description: Parameter identifier.
+definitions.DataSourceParameter.properties.paramId.type: string
+definitions.DataSourceParameter.properties.recurse.description: |-
+  If set to true, schema should be taken from the parent with the same
+  parameter_id. Only applicable when parameter type is RECORD.
+definitions.DataSourceParameter.properties.recurse.type: boolean
+definitions.DataSourceParameter.properties.repeated.description: Can parameter have
+  multiple values.
+definitions.DataSourceParameter.properties.repeated.type: boolean
+definitions.DataSourceParameter.properties.required.description: Is parameter required.
+definitions.DataSourceParameter.properties.required.type: boolean
+definitions.DataSourceParameter.properties.type.description: Parameter type.
+definitions.DataSourceParameter.properties.type.enum.length: 7
+definitions.DataSourceParameter.properties.type.enum[0]: TYPE_UNSPECIFIED
+definitions.DataSourceParameter.properties.type.enum[1]: STRING
+definitions.DataSourceParameter.properties.type.enum[2]: INTEGER
+definitions.DataSourceParameter.properties.type.enum[3]: DOUBLE
+definitions.DataSourceParameter.properties.type.enum[4]: BOOLEAN
+definitions.DataSourceParameter.properties.type.enum[5]: RECORD
+definitions.DataSourceParameter.properties.type.enum[6]: PLUS_PAGE
+definitions.DataSourceParameter.properties.type.type: string
+definitions.DataSourceParameter.properties.validationDescription.description: |-
+  Description of the requirements for this field, in case the user input does
+  not fulfill the regex pattern or min/max values.
+definitions.DataSourceParameter.properties.validationDescription.type: string
+definitions.DataSourceParameter.properties.validationHelpUrl.description: URL to a
+  help document to further explain the naming requirements.
+definitions.DataSourceParameter.properties.validationHelpUrl.type: string
+definitions.DataSourceParameter.properties.validationRegex.description: Regular expression
+  which can be used for parameter validation.
+definitions.DataSourceParameter.properties.validationRegex.type: string
+definitions.DataSourceParameter.type: object
+definitions.Empty.description: |-
+  A generic empty message that you can re-use to avoid defining duplicated
+  empty messages in your APIs. A typical example is to use it as the request
+  or the response type of an API method. For instance:
+
+      service Foo {
+        rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+      }
+
+  The JSON representation for `Empty` is empty JSON object `{}`.
+definitions.Empty.type: object
+definitions.ListDataSourcesResponse.description: Returns list of supported data sources
+  and their metadata.
+definitions.ListDataSourcesResponse.properties.dataSources.description: List of supported
+  data sources and their transfer settings.
+definitions.ListDataSourcesResponse.properties.dataSources.items.$ref: '#/definitions/DataSource'
+definitions.ListDataSourcesResponse.properties.dataSources.type: array
+definitions.ListDataSourcesResponse.properties.nextPageToken.description: |-
+  Output only. The next-pagination token. For multiple-page list results,
+  this token can be used as the
+  `ListDataSourcesRequest.page_token`
+  to request the next page of list results.
+definitions.ListDataSourcesResponse.properties.nextPageToken.type: string
+definitions.ListDataSourcesResponse.type: object
+definitions.ListLocationsResponse.description: The response message for Locations.ListLocations.
+definitions.ListLocationsResponse.properties.locations.description: A list of locations
+  that matches the specified filter in the request.
+definitions.ListLocationsResponse.properties.locations.items.$ref: '#/definitions/Location'
+definitions.ListLocationsResponse.properties.locations.type: array
+definitions.ListLocationsResponse.properties.nextPageToken.description: The standard
+  List next-page token.
+definitions.ListLocationsResponse.properties.nextPageToken.type: string
+definitions.ListLocationsResponse.type: object
+definitions.ListTransferConfigsResponse.description: The returned list of pipelines
+  in the project.
+definitions.ListTransferConfigsResponse.properties.nextPageToken.description: |-
+  Output only. The next-pagination token. For multiple-page list results,
+  this token can be used as the
+  `ListTransferConfigsRequest.page_token`
+  to request the next page of list results.
+definitions.ListTransferConfigsResponse.properties.nextPageToken.type: string
+definitions.ListTransferConfigsResponse.properties.transferConfigs.description: Output
+  only. The stored pipeline transfer configurations.
+definitions.ListTransferConfigsResponse.properties.transferConfigs.items.$ref: '#/definitions/TransferConfig'
+definitions.ListTransferConfigsResponse.properties.transferConfigs.type: array
+definitions.ListTransferConfigsResponse.type: object
+definitions.ListTransferLogsResponse.description: The returned list transfer run messages.
+definitions.ListTransferLogsResponse.properties.nextPageToken.description: |-
+  Output only. The next-pagination token. For multiple-page list results,
+  this token can be used as the
+  `GetTransferRunLogRequest.page_token`
+  to request the next page of list results.
+definitions.ListTransferLogsResponse.properties.nextPageToken.type: string
+definitions.ListTransferLogsResponse.properties.transferMessages.description: Output
+  only. The stored pipeline transfer messages.
+definitions.ListTransferLogsResponse.properties.transferMessages.items.$ref: '#/definitions/TransferMessage'
+definitions.ListTransferLogsResponse.properties.transferMessages.type: array
+definitions.ListTransferLogsResponse.type: object
+definitions.ListTransferRunsResponse.description: The returned list of pipelines in
+  the project.
+definitions.ListTransferRunsResponse.properties.nextPageToken.description: |-
+  Output only. The next-pagination token. For multiple-page list results,
+  this token can be used as the
+  `ListTransferRunsRequest.page_token`
+  to request the next page of list results.
+definitions.ListTransferRunsResponse.properties.nextPageToken.type: string
+definitions.ListTransferRunsResponse.properties.transferRuns.description: Output only.
+  The stored pipeline transfer runs.
+definitions.ListTransferRunsResponse.properties.transferRuns.items.$ref: '#/definitions/TransferRun'
+definitions.ListTransferRunsResponse.properties.transferRuns.type: array
+definitions.ListTransferRunsResponse.type: object
+definitions.Location.description: A resource that represents Google Cloud Platform
+  location.
+definitions.Location.properties.labels.additionalProperties.type: string
+definitions.Location.properties.labels.description: |-
+  Cross-service attributes for the location. For example
+
+      {"cloud.googleapis.com/region": "us-east1"}
+definitions.Location.properties.labels.type: object
+definitions.Location.properties.locationId.description: 'The canonical id for this
+  location. For example: `"us-east1"`.'
+definitions.Location.properties.locationId.type: string
+definitions.Location.properties.metadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Location.properties.metadata.description: |-
+  Service-specific metadata. For example the available capacity at the given
+  location.
+definitions.Location.properties.metadata.type: object
+definitions.Location.properties.name.description: |-
+  Resource name for the location, which may vary between implementations.
+  For example: `"projects/example-project/locations/us-east1"`
+definitions.Location.properties.name.type: string
+definitions.Location.type: object
+definitions.ScheduleTransferRunsRequest.description: A request to schedule transfer
+  runs for a time range.
+definitions.ScheduleTransferRunsRequest.properties.endTime.description: |-
+  End time of the range of transfer runs. For example,
+  `"2017-05-30T00:00:00+00:00"`.
+definitions.ScheduleTransferRunsRequest.properties.endTime.format: google-datetime
+definitions.ScheduleTransferRunsRequest.properties.endTime.type: string
+definitions.ScheduleTransferRunsRequest.properties.startTime.description: |-
+  Start time of the range of transfer runs. For example,
+  `"2017-05-25T00:00:00+00:00"`.
+definitions.ScheduleTransferRunsRequest.properties.startTime.format: google-datetime
+definitions.ScheduleTransferRunsRequest.properties.startTime.type: string
+definitions.ScheduleTransferRunsRequest.type: object
+definitions.ScheduleTransferRunsResponse.description: A response to schedule transfer
+  runs for a time range.
+definitions.ScheduleTransferRunsResponse.properties.runs.description: The transfer
+  runs that were scheduled.
+definitions.ScheduleTransferRunsResponse.properties.runs.items.$ref: '#/definitions/TransferRun'
+definitions.ScheduleTransferRunsResponse.properties.runs.type: array
+definitions.ScheduleTransferRunsResponse.type: object
+definitions.TransferConfig.description: |-
+  Represents a data transfer configuration. A transfer configuration
+  contains all metadata needed to perform a data transfer. For example,
+  `destination_dataset_id` specifies where data should be stored.
+  When a new transfer configuration is created, the specified
+  `destination_dataset_id` is created when needed and shared with the
+  appropriate data source service account.
+definitions.TransferConfig.properties.dataRefreshWindowDays.description: |-
+  The number of days to look back to automatically refresh the data.
+  For example, if `data_refresh_window_days = 10`, then every day
+  BigQuery reingests data for [today-10, today-1], rather than ingesting data
+  for just [today-1].
+  Only valid if the data source supports the feature. Set the value to  0
+  to use the default value.
+definitions.TransferConfig.properties.dataRefreshWindowDays.format: int32
+definitions.TransferConfig.properties.dataRefreshWindowDays.type: integer
+definitions.TransferConfig.properties.dataSourceId.description: Data source id. Cannot
+  be changed once data transfer is created.
+definitions.TransferConfig.properties.dataSourceId.type: string
+definitions.TransferConfig.properties.datasetRegion.description: Output only. Region
+  in which BigQuery dataset is located.
+definitions.TransferConfig.properties.datasetRegion.type: string
+definitions.TransferConfig.properties.destinationDatasetId.description: The BigQuery
+  target dataset id.
+definitions.TransferConfig.properties.destinationDatasetId.type: string
+definitions.TransferConfig.properties.disabled.description: |-
+  Is this config disabled. When set to true, no runs are scheduled
+  for a given transfer.
+definitions.TransferConfig.properties.disabled.type: boolean
+definitions.TransferConfig.properties.displayName.description: User specified display
+  name for the data transfer.
+definitions.TransferConfig.properties.displayName.type: string
+definitions.TransferConfig.properties.name.description: |-
+  The resource name of the transfer config.
+  Transfer config names have the form
+  `projects/{project_id}/transferConfigs/{config_id}`.
+  Where `config_id` is usually a uuid, even though it is not
+  guaranteed or required. The name is ignored when creating a transfer
+  config.
+definitions.TransferConfig.properties.name.type: string
+definitions.TransferConfig.properties.nextRunTime.description: Output only. Next time
+  when data transfer will run.
+definitions.TransferConfig.properties.nextRunTime.format: google-datetime
+definitions.TransferConfig.properties.nextRunTime.type: string
+definitions.TransferConfig.properties.params.additionalProperties.description: Properties
+  of the object.
+definitions.TransferConfig.properties.params.description: Data transfer specific parameters.
+definitions.TransferConfig.properties.params.type: object
+definitions.TransferConfig.properties.schedule.description: |-
+  Data transfer schedule.
+  If the data source does not support a custom schedule, this should be
+  empty. If it is empty, the default value for the data source will be
+  used.
+  The specified times are in UTC.
+  Examples of valid format:
+  `1st,3rd monday of month 15:30`,
+  `every wed,fri of jan,jun 13:15`, and
+  `first sunday of quarter 00:00`.
+  See more explanation about the format here:
+  https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml#the_schedule_format
+  NOTE: the granularity should be at least 8 hours, or less frequent.
+definitions.TransferConfig.properties.schedule.type: string
+definitions.TransferConfig.properties.state.description: Output only. State of the
+  most recently updated transfer run.
+definitions.TransferConfig.properties.state.enum.length: 7
+definitions.TransferConfig.properties.state.enum[0]: TRANSFER_STATE_UNSPECIFIED
+definitions.TransferConfig.properties.state.enum[1]: INACTIVE
+definitions.TransferConfig.properties.state.enum[2]: PENDING
+definitions.TransferConfig.properties.state.enum[3]: RUNNING
+definitions.TransferConfig.properties.state.enum[4]: SUCCEEDED
+definitions.TransferConfig.properties.state.enum[5]: FAILED
+definitions.TransferConfig.properties.state.enum[6]: CANCELLED
+definitions.TransferConfig.properties.state.type: string
+definitions.TransferConfig.properties.updateTime.description: Output only. Data transfer
+  modification time. Ignored by server on input.
+definitions.TransferConfig.properties.updateTime.format: google-datetime
+definitions.TransferConfig.properties.updateTime.type: string
+definitions.TransferConfig.properties.userId.description: |-
+  Output only. Unique ID of the user on whose behalf transfer is done.
+  Applicable only to data sources that do not support service accounts.
+  When set to 0, the data source service account credentials are used.
+definitions.TransferConfig.properties.userId.format: int64
+definitions.TransferConfig.properties.userId.type: string
+definitions.TransferConfig.type: object
+definitions.TransferMessage.description: Represents a user facing message for a particular
+  data transfer run.
+definitions.TransferMessage.properties.messageText.description: Message text.
+definitions.TransferMessage.properties.messageText.type: string
+definitions.TransferMessage.properties.messageTime.description: Time when message
+  was logged.
+definitions.TransferMessage.properties.messageTime.format: google-datetime
+definitions.TransferMessage.properties.messageTime.type: string
+definitions.TransferMessage.properties.severity.description: Message severity.
+definitions.TransferMessage.properties.severity.enum.length: 4
+definitions.TransferMessage.properties.severity.enum[0]: MESSAGE_SEVERITY_UNSPECIFIED
+definitions.TransferMessage.properties.severity.enum[1]: INFO
+definitions.TransferMessage.properties.severity.enum[2]: WARNING
+definitions.TransferMessage.properties.severity.enum[3]: ERROR
+definitions.TransferMessage.properties.severity.type: string
+definitions.TransferMessage.type: object
+definitions.TransferRun.description: Represents a data transfer run.
+definitions.TransferRun.properties.dataSourceId.description: Output only. Data source
+  id.
+definitions.TransferRun.properties.dataSourceId.type: string
+definitions.TransferRun.properties.datasetRegion.description: Output only. Region
+  in which BigQuery dataset is located.
+definitions.TransferRun.properties.datasetRegion.type: string
+definitions.TransferRun.properties.destinationDatasetId.description: The BigQuery
+  target dataset id.
+definitions.TransferRun.properties.destinationDatasetId.type: string
+definitions.TransferRun.properties.endTime.description: |-
+  Output only. Time when transfer run ended.
+  Parameter ignored by server for input requests.
+definitions.TransferRun.properties.endTime.format: google-datetime
+definitions.TransferRun.properties.endTime.type: string
+definitions.TransferRun.properties.name.description: |-
+  The resource name of the transfer run.
+  Transfer run names have the form
+  `projects/{project_id}/locations/{location}/transferConfigs/{config_id}/runs/{run_id}`.
+  The name is ignored when creating a transfer run.
+definitions.TransferRun.properties.name.type: string
+definitions.TransferRun.properties.params.additionalProperties.description: Properties
+  of the object.
+definitions.TransferRun.properties.params.description: Data transfer specific parameters.
+definitions.TransferRun.properties.params.type: object
+definitions.TransferRun.properties.runTime.description: |-
+  For batch transfer runs, specifies the date and time that
+  data should be ingested.
+definitions.TransferRun.properties.runTime.format: google-datetime
+definitions.TransferRun.properties.runTime.type: string
+definitions.TransferRun.properties.schedule.description: |-
+  Output only. Describes the schedule of this transfer run if it was
+  created as part of a regular schedule. For batch transfer runs that are
+  scheduled manually, this is empty.
+  NOTE: the system might choose to delay the schedule depending on the
+  current load, so `schedule_time` doesn't always matches this.
+definitions.TransferRun.properties.schedule.type: string
+definitions.TransferRun.properties.scheduleTime.description: Minimum time after which
+  a transfer run can be started.
+definitions.TransferRun.properties.scheduleTime.format: google-datetime
+definitions.TransferRun.properties.scheduleTime.type: string
+definitions.TransferRun.properties.startTime.description: |-
+  Output only. Time when transfer run was started.
+  Parameter ignored by server for input requests.
+definitions.TransferRun.properties.startTime.format: google-datetime
+definitions.TransferRun.properties.startTime.type: string
+definitions.TransferRun.properties.state.description: Output only. Data transfer run
+  state. Ignored for input requests.
+definitions.TransferRun.properties.state.enum.length: 7
+definitions.TransferRun.properties.state.enum[0]: TRANSFER_STATE_UNSPECIFIED
+definitions.TransferRun.properties.state.enum[1]: INACTIVE
+definitions.TransferRun.properties.state.enum[2]: PENDING
+definitions.TransferRun.properties.state.enum[3]: RUNNING
+definitions.TransferRun.properties.state.enum[4]: SUCCEEDED
+definitions.TransferRun.properties.state.enum[5]: FAILED
+definitions.TransferRun.properties.state.enum[6]: CANCELLED
+definitions.TransferRun.properties.state.type: string
+definitions.TransferRun.properties.updateTime.description: Output only. Last time
+  the data transfer run state was updated.
+definitions.TransferRun.properties.updateTime.format: google-datetime
+definitions.TransferRun.properties.updateTime.type: string
+definitions.TransferRun.properties.userId.description: |-
+  Output only. Unique ID of the user on whose behalf transfer is done.
+  Applicable only to data sources that do not support service accounts.
+  When set to 0, the data source service account credentials are used.
+definitions.TransferRun.properties.userId.format: int64
+definitions.TransferRun.properties.userId.type: string
+definitions.TransferRun.type: object
+externalDocs.url: https://cloud.google.com/bigquery/
+host: bigquerydatatransfer.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Transfers data from partner SaaS applications to Google BigQuery
+  on a scheduled, managed basis.
+info.title: BigQuery Data Transfer
+info.version: v1
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://bigquerydatatransfer.googleapis.com/$discovery/rest?version=v1
+info.x-origin[0].version: v1
+info.x-preferred: true
+info.x-providerName: googleapis.com
+info.x-serviceName: bigquerydatatransfer
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v1/{name}.delete.description: Deletes the specified transfer run.
+paths./v1/{name}.delete.operationId: bigquerydatatransfer.projects.transferConfigs.runs.delete
+paths./v1/{name}.delete.parameters.length: 1
+paths./v1/{name}.delete.parameters[0].description: |-
+  The field will contain name of the resource requested, for example:
+  `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
+paths./v1/{name}.delete.parameters[0].in: path
+paths./v1/{name}.delete.parameters[0].name: name
+paths./v1/{name}.delete.parameters[0].required: true
+paths./v1/{name}.delete.parameters[0].type: string
+paths./v1/{name}.delete.parameters[0].x-reservedExpansion: true
+paths./v1/{name}.delete.responses.200.description: Successful response
+paths./v1/{name}.delete.responses.200.schema.$ref: '#/definitions/Empty'
+paths./v1/{name}.delete.security.length: 2
+paths./v1/{name}.delete.security[0].Oauth2.length: 1
+paths./v1/{name}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{name}.delete.security[1].Oauth2.length: 1
+paths./v1/{name}.delete.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{name}.delete.tags.length: 1
+paths./v1/{name}.delete.tags[0]: projects
+paths./v1/{name}.get.description: |-
+  Retrieves a supported data source and returns its settings,
+  which can be used for UI rendering.
+paths./v1/{name}.get.operationId: bigquerydatatransfer.projects.dataSources.get
+paths./v1/{name}.get.parameters.length: 1
+paths./v1/{name}.get.parameters[0].description: |-
+  The field will contain name of the resource requested, for example:
+  `projects/{project_id}/dataSources/{data_source_id}`
+paths./v1/{name}.get.parameters[0].in: path
+paths./v1/{name}.get.parameters[0].name: name
+paths./v1/{name}.get.parameters[0].required: true
+paths./v1/{name}.get.parameters[0].type: string
+paths./v1/{name}.get.parameters[0].x-reservedExpansion: true
+paths./v1/{name}.get.responses.200.description: Successful response
+paths./v1/{name}.get.responses.200.schema.$ref: '#/definitions/DataSource'
+paths./v1/{name}.get.security.length: 3
+paths./v1/{name}.get.security[0].Oauth2.length: 1
+paths./v1/{name}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{name}.get.security[1].Oauth2.length: 1
+paths./v1/{name}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{name}.get.security[2].Oauth2.length: 1
+paths./v1/{name}.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{name}.get.tags.length: 1
+paths./v1/{name}.get.tags[0]: projects
+paths./v1/{name}.parameters.length: 13
+paths./v1/{name}.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{name}.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{name}.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{name}.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{name}.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{name}.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{name}.parameters[6].$ref: '#/parameters/key'
+paths./v1/{name}.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{name}.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{name}.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{name}.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{name}.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{name}.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{name}.patch.description: |-
+  Updates a data transfer configuration.
+  All fields must be set, even if they are not updated.
+paths./v1/{name}.patch.operationId: bigquerydatatransfer.projects.transferConfigs.patch
+paths./v1/{name}.patch.parameters.length: 4
+paths./v1/{name}.patch.parameters[0].description: |-
+  Optional OAuth2 authorization code to use with this transfer configuration.
+  If it is provided, the transfer configuration will be associated with the
+  gaia id of the authorizing user.
+  In order to obtain authorization_code, please make a
+  request to
+  https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
+
+  * client_id should be OAuth client_id of BigQuery DTS API for the given
+    data source returned by ListDataSources method.
+  * data_source_scopes are the scopes returned by ListDataSources method.
+  * redirect_uri is an optional parameter. If not specified, then
+    authorization code is posted to the opener of authorization flow window.
+    Otherwise it will be sent to the redirect uri. A special value of
+    urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+    returned in the title bar of the browser, with the page text prompting
+    the user to copy the code and paste it in the application.
+paths./v1/{name}.patch.parameters[0].in: query
+paths./v1/{name}.patch.parameters[0].name: authorizationCode
+paths./v1/{name}.patch.parameters[0].type: string
+paths./v1/{name}.patch.parameters[1].in: body
+paths./v1/{name}.patch.parameters[1].name: body
+paths./v1/{name}.patch.parameters[1].schema.$ref: '#/definitions/TransferConfig'
+paths./v1/{name}.patch.parameters[2].description: |-
+  The resource name of the transfer config.
+  Transfer config names have the form
+  `projects/{project_id}/transferConfigs/{config_id}`.
+  Where `config_id` is usually a uuid, even though it is not
+  guaranteed or required. The name is ignored when creating a transfer
+  config.
+paths./v1/{name}.patch.parameters[2].in: path
+paths./v1/{name}.patch.parameters[2].name: name
+paths./v1/{name}.patch.parameters[2].required: true
+paths./v1/{name}.patch.parameters[2].type: string
+paths./v1/{name}.patch.parameters[2].x-reservedExpansion: true
+paths./v1/{name}.patch.parameters[3].description: Required list of fields to be updated
+  in this request.
+paths./v1/{name}.patch.parameters[3].in: query
+paths./v1/{name}.patch.parameters[3].name: updateMask
+paths./v1/{name}.patch.parameters[3].type: string
+paths./v1/{name}.patch.responses.200.description: Successful response
+paths./v1/{name}.patch.responses.200.schema.$ref: '#/definitions/TransferConfig'
+paths./v1/{name}.patch.security.length: 2
+paths./v1/{name}.patch.security[0].Oauth2.length: 1
+paths./v1/{name}.patch.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{name}.patch.security[1].Oauth2.length: 1
+paths./v1/{name}.patch.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{name}.patch.tags.length: 1
+paths./v1/{name}.patch.tags[0]: projects
+paths./v1/{name}/locations.get.description: Lists information about the supported
+  locations for this service.
+paths./v1/{name}/locations.get.operationId: bigquerydatatransfer.projects.locations.list
+paths./v1/{name}/locations.get.parameters.length: 4
+paths./v1/{name}/locations.get.parameters[0].description: The standard list filter.
+paths./v1/{name}/locations.get.parameters[0].in: query
+paths./v1/{name}/locations.get.parameters[0].name: filter
+paths./v1/{name}/locations.get.parameters[0].type: string
+paths./v1/{name}/locations.get.parameters[1].description: The resource that owns the
+  locations collection, if applicable.
+paths./v1/{name}/locations.get.parameters[1].in: path
+paths./v1/{name}/locations.get.parameters[1].name: name
+paths./v1/{name}/locations.get.parameters[1].required: true
+paths./v1/{name}/locations.get.parameters[1].type: string
+paths./v1/{name}/locations.get.parameters[1].x-reservedExpansion: true
+paths./v1/{name}/locations.get.parameters[2].description: The standard list page size.
+paths./v1/{name}/locations.get.parameters[2].in: query
+paths./v1/{name}/locations.get.parameters[2].name: pageSize
+paths./v1/{name}/locations.get.parameters[2].type: integer
+paths./v1/{name}/locations.get.parameters[3].description: The standard list page token.
+paths./v1/{name}/locations.get.parameters[3].in: query
+paths./v1/{name}/locations.get.parameters[3].name: pageToken
+paths./v1/{name}/locations.get.parameters[3].type: string
+paths./v1/{name}/locations.get.responses.200.description: Successful response
+paths./v1/{name}/locations.get.responses.200.schema.$ref: '#/definitions/ListLocationsResponse'
+paths./v1/{name}/locations.get.security.length: 3
+paths./v1/{name}/locations.get.security[0].Oauth2.length: 1
+paths./v1/{name}/locations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{name}/locations.get.security[1].Oauth2.length: 1
+paths./v1/{name}/locations.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{name}/locations.get.security[2].Oauth2.length: 1
+paths./v1/{name}/locations.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{name}/locations.get.tags.length: 1
+paths./v1/{name}/locations.get.tags[0]: projects
+paths./v1/{name}/locations.parameters.length: 13
+paths./v1/{name}/locations.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{name}/locations.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{name}/locations.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{name}/locations.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{name}/locations.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{name}/locations.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{name}/locations.parameters[6].$ref: '#/parameters/key'
+paths./v1/{name}/locations.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{name}/locations.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{name}/locations.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{name}/locations.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{name}/locations.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{name}/locations.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{name}:checkValidCreds.parameters.length: 13
+paths./v1/{name}:checkValidCreds.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{name}:checkValidCreds.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{name}:checkValidCreds.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{name}:checkValidCreds.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{name}:checkValidCreds.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{name}:checkValidCreds.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{name}:checkValidCreds.parameters[6].$ref: '#/parameters/key'
+paths./v1/{name}:checkValidCreds.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{name}:checkValidCreds.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{name}:checkValidCreds.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{name}:checkValidCreds.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{name}:checkValidCreds.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{name}:checkValidCreds.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{name}:checkValidCreds.post.description: |-
+  Returns true if valid credentials exist for the given data source and
+  requesting user.
+  Some data sources doesn't support service account, so we need to talk to
+  them on behalf of the end user. This API just checks whether we have OAuth
+  token for the particular user, which is a pre-requisite before user can
+  create a transfer config.
+paths./v1/{name}:checkValidCreds.post.operationId: bigquerydatatransfer.projects.dataSources.checkValidCreds
+paths./v1/{name}:checkValidCreds.post.parameters.length: 2
+paths./v1/{name}:checkValidCreds.post.parameters[0].in: body
+paths./v1/{name}:checkValidCreds.post.parameters[0].name: body
+paths./v1/{name}:checkValidCreds.post.parameters[0].schema.$ref: '#/definitions/CheckValidCredsRequest'
+paths./v1/{name}:checkValidCreds.post.parameters[1].description: |-
+  The data source in the form:
+  `projects/{project_id}/dataSources/{data_source_id}`
+paths./v1/{name}:checkValidCreds.post.parameters[1].in: path
+paths./v1/{name}:checkValidCreds.post.parameters[1].name: name
+paths./v1/{name}:checkValidCreds.post.parameters[1].required: true
+paths./v1/{name}:checkValidCreds.post.parameters[1].type: string
+paths./v1/{name}:checkValidCreds.post.parameters[1].x-reservedExpansion: true
+paths./v1/{name}:checkValidCreds.post.responses.200.description: Successful response
+paths./v1/{name}:checkValidCreds.post.responses.200.schema.$ref: '#/definitions/CheckValidCredsResponse'
+paths./v1/{name}:checkValidCreds.post.security.length: 3
+paths./v1/{name}:checkValidCreds.post.security[0].Oauth2.length: 1
+paths./v1/{name}:checkValidCreds.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{name}:checkValidCreds.post.security[1].Oauth2.length: 1
+paths./v1/{name}:checkValidCreds.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{name}:checkValidCreds.post.security[2].Oauth2.length: 1
+paths./v1/{name}:checkValidCreds.post.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{name}:checkValidCreds.post.tags.length: 1
+paths./v1/{name}:checkValidCreds.post.tags[0]: projects
+paths./v1/{parent}/dataSources.get.description: |-
+  Lists supported data sources and returns their settings,
+  which can be used for UI rendering.
+paths./v1/{parent}/dataSources.get.operationId: bigquerydatatransfer.projects.dataSources.list
+paths./v1/{parent}/dataSources.get.parameters.length: 3
+paths./v1/{parent}/dataSources.get.parameters[0].description: Page size. The default
+  page size is the maximum value of 1000 results.
+paths./v1/{parent}/dataSources.get.parameters[0].in: query
+paths./v1/{parent}/dataSources.get.parameters[0].name: pageSize
+paths./v1/{parent}/dataSources.get.parameters[0].type: integer
+paths./v1/{parent}/dataSources.get.parameters[1].description: |-
+  Pagination token, which can be used to request a specific page
+  of `ListDataSourcesRequest` list results. For multiple-page
+  results, `ListDataSourcesResponse` outputs
+  a `next_page` token, which can be used as the
+  `page_token` value to request the next page of list results.
+paths./v1/{parent}/dataSources.get.parameters[1].in: query
+paths./v1/{parent}/dataSources.get.parameters[1].name: pageToken
+paths./v1/{parent}/dataSources.get.parameters[1].type: string
+paths./v1/{parent}/dataSources.get.parameters[2].description: |-
+  The BigQuery project id for which data sources should be returned.
+  Must be in the form: `projects/{project_id}`
+paths./v1/{parent}/dataSources.get.parameters[2].in: path
+paths./v1/{parent}/dataSources.get.parameters[2].name: parent
+paths./v1/{parent}/dataSources.get.parameters[2].required: true
+paths./v1/{parent}/dataSources.get.parameters[2].type: string
+paths./v1/{parent}/dataSources.get.parameters[2].x-reservedExpansion: true
+paths./v1/{parent}/dataSources.get.responses.200.description: Successful response
+paths./v1/{parent}/dataSources.get.responses.200.schema.$ref: '#/definitions/ListDataSourcesResponse'
+paths./v1/{parent}/dataSources.get.security.length: 3
+paths./v1/{parent}/dataSources.get.security[0].Oauth2.length: 1
+paths./v1/{parent}/dataSources.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}/dataSources.get.security[1].Oauth2.length: 1
+paths./v1/{parent}/dataSources.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}/dataSources.get.security[2].Oauth2.length: 1
+paths./v1/{parent}/dataSources.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{parent}/dataSources.get.tags.length: 1
+paths./v1/{parent}/dataSources.get.tags[0]: projects
+paths./v1/{parent}/dataSources.parameters.length: 13
+paths./v1/{parent}/dataSources.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{parent}/dataSources.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{parent}/dataSources.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{parent}/dataSources.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{parent}/dataSources.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{parent}/dataSources.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{parent}/dataSources.parameters[6].$ref: '#/parameters/key'
+paths./v1/{parent}/dataSources.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{parent}/dataSources.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{parent}/dataSources.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{parent}/dataSources.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{parent}/dataSources.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{parent}/dataSources.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{parent}/runs.get.description: Returns information about running and completed
+  jobs.
+paths./v1/{parent}/runs.get.operationId: bigquerydatatransfer.projects.transferConfigs.runs.list
+paths./v1/{parent}/runs.get.parameters.length: 5
+paths./v1/{parent}/runs.get.parameters[0].description: Page size. The default page
+  size is the maximum value of 1000 results.
+paths./v1/{parent}/runs.get.parameters[0].in: query
+paths./v1/{parent}/runs.get.parameters[0].name: pageSize
+paths./v1/{parent}/runs.get.parameters[0].type: integer
+paths./v1/{parent}/runs.get.parameters[1].description: |-
+  Pagination token, which can be used to request a specific page
+  of `ListTransferRunsRequest` list results. For multiple-page
+  results, `ListTransferRunsResponse` outputs
+  a `next_page` token, which can be used as the
+  `page_token` value to request the next page of list results.
+paths./v1/{parent}/runs.get.parameters[1].in: query
+paths./v1/{parent}/runs.get.parameters[1].name: pageToken
+paths./v1/{parent}/runs.get.parameters[1].type: string
+paths./v1/{parent}/runs.get.parameters[2].description: |-
+  Name of transfer configuration for which transfer runs should be retrieved.
+  Format of transfer configuration resource name is:
+  `projects/{project_id}/transferConfigs/{config_id}`.
+paths./v1/{parent}/runs.get.parameters[2].in: path
+paths./v1/{parent}/runs.get.parameters[2].name: parent
+paths./v1/{parent}/runs.get.parameters[2].required: true
+paths./v1/{parent}/runs.get.parameters[2].type: string
+paths./v1/{parent}/runs.get.parameters[2].x-reservedExpansion: true
+paths./v1/{parent}/runs.get.parameters[3].description: Indicates how run attempts
+  are to be pulled.
+paths./v1/{parent}/runs.get.parameters[3].enum.length: 2
+paths./v1/{parent}/runs.get.parameters[3].enum[0]: RUN_ATTEMPT_UNSPECIFIED
+paths./v1/{parent}/runs.get.parameters[3].enum[1]: LATEST
+paths./v1/{parent}/runs.get.parameters[3].in: query
+paths./v1/{parent}/runs.get.parameters[3].name: runAttempt
+paths./v1/{parent}/runs.get.parameters[3].type: string
+paths./v1/{parent}/runs.get.parameters[4].collectionFormat: multi
+paths./v1/{parent}/runs.get.parameters[4].description: When specified, only transfer
+  runs with requested states are returned.
+paths./v1/{parent}/runs.get.parameters[4].in: query
+paths./v1/{parent}/runs.get.parameters[4].items.enum.length: 7
+paths./v1/{parent}/runs.get.parameters[4].items.enum[0]: TRANSFER_STATE_UNSPECIFIED
+paths./v1/{parent}/runs.get.parameters[4].items.enum[1]: INACTIVE
+paths./v1/{parent}/runs.get.parameters[4].items.enum[2]: PENDING
+paths./v1/{parent}/runs.get.parameters[4].items.enum[3]: RUNNING
+paths./v1/{parent}/runs.get.parameters[4].items.enum[4]: SUCCEEDED
+paths./v1/{parent}/runs.get.parameters[4].items.enum[5]: FAILED
+paths./v1/{parent}/runs.get.parameters[4].items.enum[6]: CANCELLED
+paths./v1/{parent}/runs.get.parameters[4].items.type: string
+paths./v1/{parent}/runs.get.parameters[4].name: states
+paths./v1/{parent}/runs.get.parameters[4].type: array
+paths./v1/{parent}/runs.get.responses.200.description: Successful response
+paths./v1/{parent}/runs.get.responses.200.schema.$ref: '#/definitions/ListTransferRunsResponse'
+paths./v1/{parent}/runs.get.security.length: 3
+paths./v1/{parent}/runs.get.security[0].Oauth2.length: 1
+paths./v1/{parent}/runs.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}/runs.get.security[1].Oauth2.length: 1
+paths./v1/{parent}/runs.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}/runs.get.security[2].Oauth2.length: 1
+paths./v1/{parent}/runs.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{parent}/runs.get.tags.length: 1
+paths./v1/{parent}/runs.get.tags[0]: projects
+paths./v1/{parent}/runs.parameters.length: 13
+paths./v1/{parent}/runs.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{parent}/runs.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{parent}/runs.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{parent}/runs.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{parent}/runs.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{parent}/runs.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{parent}/runs.parameters[6].$ref: '#/parameters/key'
+paths./v1/{parent}/runs.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{parent}/runs.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{parent}/runs.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{parent}/runs.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{parent}/runs.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{parent}/runs.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{parent}/transferConfigs.get.description: Returns information about all
+  data transfers in the project.
+paths./v1/{parent}/transferConfigs.get.operationId: bigquerydatatransfer.projects.transferConfigs.list
+paths./v1/{parent}/transferConfigs.get.parameters.length: 4
+paths./v1/{parent}/transferConfigs.get.parameters[0].collectionFormat: multi
+paths./v1/{parent}/transferConfigs.get.parameters[0].description: When specified,
+  only configurations of requested data sources are returned.
+paths./v1/{parent}/transferConfigs.get.parameters[0].in: query
+paths./v1/{parent}/transferConfigs.get.parameters[0].items.type: string
+paths./v1/{parent}/transferConfigs.get.parameters[0].name: dataSourceIds
+paths./v1/{parent}/transferConfigs.get.parameters[0].type: array
+paths./v1/{parent}/transferConfigs.get.parameters[1].description: Page size. The default
+  page size is the maximum value of 1000 results.
+paths./v1/{parent}/transferConfigs.get.parameters[1].in: query
+paths./v1/{parent}/transferConfigs.get.parameters[1].name: pageSize
+paths./v1/{parent}/transferConfigs.get.parameters[1].type: integer
+paths./v1/{parent}/transferConfigs.get.parameters[2].description: |-
+  Pagination token, which can be used to request a specific page
+  of `ListTransfersRequest` list results. For multiple-page
+  results, `ListTransfersResponse` outputs
+  a `next_page` token, which can be used as the
+  `page_token` value to request the next page of list results.
+paths./v1/{parent}/transferConfigs.get.parameters[2].in: query
+paths./v1/{parent}/transferConfigs.get.parameters[2].name: pageToken
+paths./v1/{parent}/transferConfigs.get.parameters[2].type: string
+paths./v1/{parent}/transferConfigs.get.parameters[3].description: |-
+  The BigQuery project id for which data sources
+  should be returned: `projects/{project_id}`.
+paths./v1/{parent}/transferConfigs.get.parameters[3].in: path
+paths./v1/{parent}/transferConfigs.get.parameters[3].name: parent
+paths./v1/{parent}/transferConfigs.get.parameters[3].required: true
+paths./v1/{parent}/transferConfigs.get.parameters[3].type: string
+paths./v1/{parent}/transferConfigs.get.parameters[3].x-reservedExpansion: true
+paths./v1/{parent}/transferConfigs.get.responses.200.description: Successful response
+paths./v1/{parent}/transferConfigs.get.responses.200.schema.$ref: '#/definitions/ListTransferConfigsResponse'
+paths./v1/{parent}/transferConfigs.get.security.length: 3
+paths./v1/{parent}/transferConfigs.get.security[0].Oauth2.length: 1
+paths./v1/{parent}/transferConfigs.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}/transferConfigs.get.security[1].Oauth2.length: 1
+paths./v1/{parent}/transferConfigs.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}/transferConfigs.get.security[2].Oauth2.length: 1
+paths./v1/{parent}/transferConfigs.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{parent}/transferConfigs.get.tags.length: 1
+paths./v1/{parent}/transferConfigs.get.tags[0]: projects
+paths./v1/{parent}/transferConfigs.parameters.length: 13
+paths./v1/{parent}/transferConfigs.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{parent}/transferConfigs.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{parent}/transferConfigs.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{parent}/transferConfigs.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{parent}/transferConfigs.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{parent}/transferConfigs.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{parent}/transferConfigs.parameters[6].$ref: '#/parameters/key'
+paths./v1/{parent}/transferConfigs.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{parent}/transferConfigs.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{parent}/transferConfigs.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{parent}/transferConfigs.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{parent}/transferConfigs.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{parent}/transferConfigs.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{parent}/transferConfigs.post.description: Creates a new data transfer configuration.
+paths./v1/{parent}/transferConfigs.post.operationId: bigquerydatatransfer.projects.transferConfigs.create
+paths./v1/{parent}/transferConfigs.post.parameters.length: 3
+paths./v1/{parent}/transferConfigs.post.parameters[0].description: |-
+  Optional OAuth2 authorization code to use with this transfer configuration.
+  This is required if new credentials are needed, as indicated by
+  `CheckValidCreds`.
+  In order to obtain authorization_code, please make a
+  request to
+  https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
+
+  * client_id should be OAuth client_id of BigQuery DTS API for the given
+    data source returned by ListDataSources method.
+  * data_source_scopes are the scopes returned by ListDataSources method.
+  * redirect_uri is an optional parameter. If not specified, then
+    authorization code is posted to the opener of authorization flow window.
+    Otherwise it will be sent to the redirect uri. A special value of
+    urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+    returned in the title bar of the browser, with the page text prompting
+    the user to copy the code and paste it in the application.
+paths./v1/{parent}/transferConfigs.post.parameters[0].in: query
+paths./v1/{parent}/transferConfigs.post.parameters[0].name: authorizationCode
+paths./v1/{parent}/transferConfigs.post.parameters[0].type: string
+paths./v1/{parent}/transferConfigs.post.parameters[1].in: body
+paths./v1/{parent}/transferConfigs.post.parameters[1].name: body
+paths./v1/{parent}/transferConfigs.post.parameters[1].schema.$ref: '#/definitions/TransferConfig'
+paths./v1/{parent}/transferConfigs.post.parameters[2].description: |-
+  The BigQuery project id where the transfer configuration should be created.
+  Must be in the format /projects/{project_id}/locations/{location_id}
+  or
+  /projects/{project_id}/locations/-
+  In case when '-' is specified as location_id, location is infered from
+  the destination dataset region.
+paths./v1/{parent}/transferConfigs.post.parameters[2].in: path
+paths./v1/{parent}/transferConfigs.post.parameters[2].name: parent
+paths./v1/{parent}/transferConfigs.post.parameters[2].required: true
+paths./v1/{parent}/transferConfigs.post.parameters[2].type: string
+paths./v1/{parent}/transferConfigs.post.parameters[2].x-reservedExpansion: true
+paths./v1/{parent}/transferConfigs.post.responses.200.description: Successful response
+paths./v1/{parent}/transferConfigs.post.responses.200.schema.$ref: '#/definitions/TransferConfig'
+paths./v1/{parent}/transferConfigs.post.security.length: 2
+paths./v1/{parent}/transferConfigs.post.security[0].Oauth2.length: 1
+paths./v1/{parent}/transferConfigs.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}/transferConfigs.post.security[1].Oauth2.length: 1
+paths./v1/{parent}/transferConfigs.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}/transferConfigs.post.tags.length: 1
+paths./v1/{parent}/transferConfigs.post.tags[0]: projects
+paths./v1/{parent}/transferLogs.get.description: Returns user facing log messages
+  for the data transfer run.
+paths./v1/{parent}/transferLogs.get.operationId: bigquerydatatransfer.projects.transferConfigs.runs.transferLogs.list
+paths./v1/{parent}/transferLogs.get.parameters.length: 4
+paths./v1/{parent}/transferLogs.get.parameters[0].collectionFormat: multi
+paths./v1/{parent}/transferLogs.get.parameters[0].description: |-
+  Message types to return. If not populated - INFO, WARNING and ERROR
+  messages are returned.
+paths./v1/{parent}/transferLogs.get.parameters[0].in: query
+paths./v1/{parent}/transferLogs.get.parameters[0].items.enum.length: 4
+paths./v1/{parent}/transferLogs.get.parameters[0].items.enum[0]: MESSAGE_SEVERITY_UNSPECIFIED
+paths./v1/{parent}/transferLogs.get.parameters[0].items.enum[1]: INFO
+paths./v1/{parent}/transferLogs.get.parameters[0].items.enum[2]: WARNING
+paths./v1/{parent}/transferLogs.get.parameters[0].items.enum[3]: ERROR
+paths./v1/{parent}/transferLogs.get.parameters[0].items.type: string
+paths./v1/{parent}/transferLogs.get.parameters[0].name: messageTypes
+paths./v1/{parent}/transferLogs.get.parameters[0].type: array
+paths./v1/{parent}/transferLogs.get.parameters[1].description: Page size. The default
+  page size is the maximum value of 1000 results.
+paths./v1/{parent}/transferLogs.get.parameters[1].in: query
+paths./v1/{parent}/transferLogs.get.parameters[1].name: pageSize
+paths./v1/{parent}/transferLogs.get.parameters[1].type: integer
+paths./v1/{parent}/transferLogs.get.parameters[2].description: |-
+  Pagination token, which can be used to request a specific page
+  of `ListTransferLogsRequest` list results. For multiple-page
+  results, `ListTransferLogsResponse` outputs
+  a `next_page` token, which can be used as the
+  `page_token` value to request the next page of list results.
+paths./v1/{parent}/transferLogs.get.parameters[2].in: query
+paths./v1/{parent}/transferLogs.get.parameters[2].name: pageToken
+paths./v1/{parent}/transferLogs.get.parameters[2].type: string
+paths./v1/{parent}/transferLogs.get.parameters[3].description: |-
+  Transfer run name in the form:
+  `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`.
+paths./v1/{parent}/transferLogs.get.parameters[3].in: path
+paths./v1/{parent}/transferLogs.get.parameters[3].name: parent
+paths./v1/{parent}/transferLogs.get.parameters[3].required: true
+paths./v1/{parent}/transferLogs.get.parameters[3].type: string
+paths./v1/{parent}/transferLogs.get.parameters[3].x-reservedExpansion: true
+paths./v1/{parent}/transferLogs.get.responses.200.description: Successful response
+paths./v1/{parent}/transferLogs.get.responses.200.schema.$ref: '#/definitions/ListTransferLogsResponse'
+paths./v1/{parent}/transferLogs.get.security.length: 3
+paths./v1/{parent}/transferLogs.get.security[0].Oauth2.length: 1
+paths./v1/{parent}/transferLogs.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}/transferLogs.get.security[1].Oauth2.length: 1
+paths./v1/{parent}/transferLogs.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}/transferLogs.get.security[2].Oauth2.length: 1
+paths./v1/{parent}/transferLogs.get.security[2].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform.read-only
+paths./v1/{parent}/transferLogs.get.tags.length: 1
+paths./v1/{parent}/transferLogs.get.tags[0]: projects
+paths./v1/{parent}/transferLogs.parameters.length: 13
+paths./v1/{parent}/transferLogs.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{parent}/transferLogs.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{parent}/transferLogs.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{parent}/transferLogs.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{parent}/transferLogs.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{parent}/transferLogs.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{parent}/transferLogs.parameters[6].$ref: '#/parameters/key'
+paths./v1/{parent}/transferLogs.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{parent}/transferLogs.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{parent}/transferLogs.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{parent}/transferLogs.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{parent}/transferLogs.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{parent}/transferLogs.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{parent}:scheduleRuns.parameters.length: 13
+paths./v1/{parent}:scheduleRuns.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1/{parent}:scheduleRuns.parameters[1].$ref: '#/parameters/access_token'
+paths./v1/{parent}:scheduleRuns.parameters[2].$ref: '#/parameters/alt'
+paths./v1/{parent}:scheduleRuns.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1/{parent}:scheduleRuns.parameters[4].$ref: '#/parameters/callback'
+paths./v1/{parent}:scheduleRuns.parameters[5].$ref: '#/parameters/fields'
+paths./v1/{parent}:scheduleRuns.parameters[6].$ref: '#/parameters/key'
+paths./v1/{parent}:scheduleRuns.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1/{parent}:scheduleRuns.parameters[8].$ref: '#/parameters/pp'
+paths./v1/{parent}:scheduleRuns.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1/{parent}:scheduleRuns.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1/{parent}:scheduleRuns.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1/{parent}:scheduleRuns.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1/{parent}:scheduleRuns.post.description: |-
+  Creates transfer runs for a time range [range_start_time, range_end_time].
+  For each date - or whatever granularity the data source supports - in the
+  range, one transfer run is created.
+  Note that runs are created per UTC time in the time range.
+paths./v1/{parent}:scheduleRuns.post.operationId: bigquerydatatransfer.projects.transferConfigs.scheduleRuns
+paths./v1/{parent}:scheduleRuns.post.parameters.length: 2
+paths./v1/{parent}:scheduleRuns.post.parameters[0].in: body
+paths./v1/{parent}:scheduleRuns.post.parameters[0].name: body
+paths./v1/{parent}:scheduleRuns.post.parameters[0].schema.$ref: '#/definitions/ScheduleTransferRunsRequest'
+paths./v1/{parent}:scheduleRuns.post.parameters[1].description: |-
+  Transfer configuration name in the form:
+  `projects/{project_id}/transferConfigs/{config_id}`.
+paths./v1/{parent}:scheduleRuns.post.parameters[1].in: path
+paths./v1/{parent}:scheduleRuns.post.parameters[1].name: parent
+paths./v1/{parent}:scheduleRuns.post.parameters[1].required: true
+paths./v1/{parent}:scheduleRuns.post.parameters[1].type: string
+paths./v1/{parent}:scheduleRuns.post.parameters[1].x-reservedExpansion: true
+paths./v1/{parent}:scheduleRuns.post.responses.200.description: Successful response
+paths./v1/{parent}:scheduleRuns.post.responses.200.schema.$ref: '#/definitions/ScheduleTransferRunsResponse'
+paths./v1/{parent}:scheduleRuns.post.security.length: 2
+paths./v1/{parent}:scheduleRuns.post.security[0].Oauth2.length: 1
+paths./v1/{parent}:scheduleRuns.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/bigquery
+paths./v1/{parent}:scheduleRuns.post.security[1].Oauth2.length: 1
+paths./v1/{parent}:scheduleRuns.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/{parent}:scheduleRuns.post.tags.length: 1
+paths./v1/{parent}:scheduleRuns.post.tags[0]: projects
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/bigquery: View and
+  manage your data in Google BigQuery
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform.read-only: View
+  your data across Google Cloud Platform services
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 1
+tags[0].name: projects

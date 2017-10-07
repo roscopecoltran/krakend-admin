@@ -1,0 +1,428 @@
+basePath: /adexchangebuyer/v1.2
+definitions.Account.description: Configuration data for an Ad Exchange buyer account.
+definitions.Account.properties.bidderLocation.description: Your bidder locations that
+  have distinct URLs.
+definitions.Account.properties.bidderLocation.items.properties.maximumQps.description: The
+  maximum queries per second the Ad Exchange will send.
+definitions.Account.properties.bidderLocation.items.properties.maximumQps.format: int32
+definitions.Account.properties.bidderLocation.items.properties.maximumQps.type: integer
+definitions.Account.properties.bidderLocation.items.properties.region.description: "The
+  geographical region the Ad Exchange should send requests from. Only used by some
+  quota systems, but always setting the value is recommended. Allowed values:  \n-
+  ASIA \n- EUROPE \n- US_EAST \n- US_WEST"
+definitions.Account.properties.bidderLocation.items.properties.region.type: string
+definitions.Account.properties.bidderLocation.items.properties.url.description: The
+  URL to which the Ad Exchange will send bid requests.
+definitions.Account.properties.bidderLocation.items.properties.url.type: string
+definitions.Account.properties.bidderLocation.items.type: object
+definitions.Account.properties.bidderLocation.type: array
+definitions.Account.properties.cookieMatchingNid.description: The nid parameter value
+  used in cookie match requests. Please contact your technical account manager if
+  you need to change this.
+definitions.Account.properties.cookieMatchingNid.type: string
+definitions.Account.properties.cookieMatchingUrl.description: The base URL used in
+  cookie match requests.
+definitions.Account.properties.cookieMatchingUrl.type: string
+definitions.Account.properties.id.description: Account id.
+definitions.Account.properties.id.format: int32
+definitions.Account.properties.id.type: integer
+definitions.Account.properties.kind.default: adexchangebuyer#account
+definitions.Account.properties.kind.description: Resource type.
+definitions.Account.properties.kind.type: string
+definitions.Account.properties.maximumActiveCreatives.description: The maximum number
+  of active creatives that an account can have, where a creative is active if it was
+  inserted or bid with in the last 30 days. Please contact your technical account
+  manager if you need to change this.
+definitions.Account.properties.maximumActiveCreatives.format: int32
+definitions.Account.properties.maximumActiveCreatives.type: integer
+definitions.Account.properties.maximumTotalQps.description: The sum of all bidderLocation.maximumQps
+  values cannot exceed this. Please contact your technical account manager if you
+  need to change this.
+definitions.Account.properties.maximumTotalQps.format: int32
+definitions.Account.properties.maximumTotalQps.type: integer
+definitions.Account.properties.numberActiveCreatives.description: The number of creatives
+  that this account inserted or bid with in the last 30 days.
+definitions.Account.properties.numberActiveCreatives.format: int32
+definitions.Account.properties.numberActiveCreatives.type: integer
+definitions.Account.type: object
+definitions.AccountsList.description: An account feed lists Ad Exchange buyer accounts
+  that the user has access to. Each entry in the feed corresponds to a single buyer
+  account.
+definitions.AccountsList.properties.items.description: A list of accounts.
+definitions.AccountsList.properties.items.items.$ref: '#/definitions/Account'
+definitions.AccountsList.properties.items.type: array
+definitions.AccountsList.properties.kind.default: adexchangebuyer#accountsList
+definitions.AccountsList.properties.kind.description: Resource type.
+definitions.AccountsList.properties.kind.type: string
+definitions.AccountsList.type: object
+definitions.Creative.description: A creative and its classification data.
+definitions.Creative.properties.HTMLSnippet.description: The HTML snippet that displays
+  the ad when inserted in the web page. If set, videoURL should not be set.
+definitions.Creative.properties.HTMLSnippet.type: string
+definitions.Creative.properties.accountId.description: Account id.
+definitions.Creative.properties.accountId.format: int32
+definitions.Creative.properties.accountId.type: integer
+definitions.Creative.properties.advertiserId.description: Detected advertiser id,
+  if any. Read-only. This field should not be set in requests.
+definitions.Creative.properties.advertiserId.items.format: int64
+definitions.Creative.properties.advertiserId.items.type: string
+definitions.Creative.properties.advertiserId.type: array
+definitions.Creative.properties.advertiserName.description: The name of the company
+  being advertised in the creative.
+definitions.Creative.properties.advertiserName.type: string
+definitions.Creative.properties.agencyId.description: The agency id for this creative.
+definitions.Creative.properties.agencyId.format: int64
+definitions.Creative.properties.agencyId.type: string
+definitions.Creative.properties.apiUploadTimestamp.description: The last upload timestamp
+  of this creative if it was uploaded via API. Read-only. The value of this field
+  is generated, and will be ignored for uploads. (formatted RFC 3339 timestamp).
+definitions.Creative.properties.apiUploadTimestamp.format: date-time
+definitions.Creative.properties.apiUploadTimestamp.type: string
+definitions.Creative.properties.attribute.description: All attributes for the ads
+  that may be shown from this snippet.
+definitions.Creative.properties.attribute.items.format: int32
+definitions.Creative.properties.attribute.items.type: integer
+definitions.Creative.properties.attribute.type: array
+definitions.Creative.properties.buyerCreativeId.description: A buyer-specific id identifying
+  the creative in this ad.
+definitions.Creative.properties.buyerCreativeId.type: string
+definitions.Creative.properties.clickThroughUrl.description: The set of destination
+  urls for the snippet.
+definitions.Creative.properties.clickThroughUrl.items.type: string
+definitions.Creative.properties.clickThroughUrl.type: array
+definitions.Creative.properties.corrections.description: Shows any corrections that
+  were applied to this creative. Read-only. This field should not be set in requests.
+definitions.Creative.properties.corrections.items.properties.details.description: Additional
+  details about the correction.
+definitions.Creative.properties.corrections.items.properties.details.items.type: string
+definitions.Creative.properties.corrections.items.properties.details.type: array
+definitions.Creative.properties.corrections.items.properties.reason.description: The
+  type of correction that was applied to the creative.
+definitions.Creative.properties.corrections.items.properties.reason.type: string
+definitions.Creative.properties.corrections.items.type: object
+definitions.Creative.properties.corrections.type: array
+definitions.Creative.properties.disapprovalReasons.description: The reasons for disapproval,
+  if any. Note that not all disapproval reasons may be categorized, so it is possible
+  for the creative to have a status of DISAPPROVED with an empty list for disapproval_reasons.
+  In this case, please reach out to your TAM to help debug the issue. Read-only. This
+  field should not be set in requests.
+definitions.Creative.properties.disapprovalReasons.items.properties.details.description: Additional
+  details about the reason for disapproval.
+definitions.Creative.properties.disapprovalReasons.items.properties.details.items.type: string
+definitions.Creative.properties.disapprovalReasons.items.properties.details.type: array
+definitions.Creative.properties.disapprovalReasons.items.properties.reason.description: The
+  categorized reason for disapproval.
+definitions.Creative.properties.disapprovalReasons.items.properties.reason.type: string
+definitions.Creative.properties.disapprovalReasons.items.type: object
+definitions.Creative.properties.disapprovalReasons.type: array
+definitions.Creative.properties.filteringReasons.description: The filtering reasons
+  for the creative. Read-only. This field should not be set in requests.
+definitions.Creative.properties.filteringReasons.properties.date.description: The
+  date in ISO 8601 format for the data. The data is collected from 00:00:00 to 23:59:59
+  in PST.
+definitions.Creative.properties.filteringReasons.properties.date.type: string
+definitions.Creative.properties.filteringReasons.properties.reasons.description: The
+  filtering reasons.
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringCount.description: The
+  number of times the creative was filtered for the status. The count is aggregated
+  across all publishers on the exchange.
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringCount.format: int64
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringCount.type: string
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringStatus.description: The
+  filtering status code. Please refer to the creative-status-codes.txt file for different
+  statuses.
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringStatus.format: int32
+definitions.Creative.properties.filteringReasons.properties.reasons.items.properties.filteringStatus.type: integer
+definitions.Creative.properties.filteringReasons.properties.reasons.items.type: object
+definitions.Creative.properties.filteringReasons.properties.reasons.type: array
+definitions.Creative.properties.filteringReasons.type: object
+definitions.Creative.properties.height.description: Ad height.
+definitions.Creative.properties.height.format: int32
+definitions.Creative.properties.height.type: integer
+definitions.Creative.properties.impressionTrackingUrl.description: The set of urls
+  to be called to record an impression.
+definitions.Creative.properties.impressionTrackingUrl.items.type: string
+definitions.Creative.properties.impressionTrackingUrl.type: array
+definitions.Creative.properties.kind.default: adexchangebuyer#creative
+definitions.Creative.properties.kind.description: Resource type.
+definitions.Creative.properties.kind.type: string
+definitions.Creative.properties.productCategories.description: Detected product categories,
+  if any. Read-only. This field should not be set in requests.
+definitions.Creative.properties.productCategories.items.format: int32
+definitions.Creative.properties.productCategories.items.type: integer
+definitions.Creative.properties.productCategories.type: array
+definitions.Creative.properties.restrictedCategories.description: All restricted categories
+  for the ads that may be shown from this snippet.
+definitions.Creative.properties.restrictedCategories.items.format: int32
+definitions.Creative.properties.restrictedCategories.items.type: integer
+definitions.Creative.properties.restrictedCategories.type: array
+definitions.Creative.properties.sensitiveCategories.description: Detected sensitive
+  categories, if any. Read-only. This field should not be set in requests.
+definitions.Creative.properties.sensitiveCategories.items.format: int32
+definitions.Creative.properties.sensitiveCategories.items.type: integer
+definitions.Creative.properties.sensitiveCategories.type: array
+definitions.Creative.properties.status.description: Creative serving status. Read-only.
+  This field should not be set in requests.
+definitions.Creative.properties.status.type: string
+definitions.Creative.properties.vendorType.description: All vendor types for the ads
+  that may be shown from this snippet.
+definitions.Creative.properties.vendorType.items.format: int32
+definitions.Creative.properties.vendorType.items.type: integer
+definitions.Creative.properties.vendorType.type: array
+definitions.Creative.properties.version.description: The version for this creative.
+  Read-only. This field should not be set in requests.
+definitions.Creative.properties.version.format: int32
+definitions.Creative.properties.version.type: integer
+definitions.Creative.properties.videoURL.description: The url to fetch a video ad.
+  If set, HTMLSnippet should not be set.
+definitions.Creative.properties.videoURL.type: string
+definitions.Creative.properties.width.description: Ad width.
+definitions.Creative.properties.width.format: int32
+definitions.Creative.properties.width.type: integer
+definitions.Creative.type: object
+definitions.CreativesList.description: The creatives feed lists the active creatives
+  for the Ad Exchange buyer accounts that the user has access to. Each entry in the
+  feed corresponds to a single creative.
+definitions.CreativesList.properties.items.description: A list of creatives.
+definitions.CreativesList.properties.items.items.$ref: '#/definitions/Creative'
+definitions.CreativesList.properties.items.type: array
+definitions.CreativesList.properties.kind.default: adexchangebuyer#creativesList
+definitions.CreativesList.properties.kind.description: Resource type.
+definitions.CreativesList.properties.kind.type: string
+definitions.CreativesList.properties.nextPageToken.description: Continuation token
+  used to page through creatives. To retrieve the next page of results, set the next
+  request's "pageToken" value to this.
+definitions.CreativesList.properties.nextPageToken.type: string
+definitions.CreativesList.type: object
+externalDocs.url: https://developers.google.com/ad-exchange/buyer-rest
+host: www.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Accesses your bidding-account information, submits creatives for
+  validation, finds available direct deals, and retrieves performance reports.
+info.title: Ad Exchange Buyer
+info.version: v1.2
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.doubleclickbygoogle.com_static_core_img_doubleclick-google-logo-wide.svg
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://www.googleapis.com/discovery/v1/apis/adexchangebuyer/v1.2/rest
+info.x-origin[0].version: v1
+info.x-preferred: false
+info.x-providerName: googleapis.com
+info.x-serviceName: adexchangebuyer
+parameters.alt.default: json
+parameters.alt.description: Data format for the response.
+parameters.alt.enum.length: 1
+parameters.alt.enum[0]: json
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters. Overrides userIp if both are provided.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.userIp.description: IP address of the site where the request originates.
+  Use this if you want to enforce per-user limits.
+parameters.userIp.in: query
+parameters.userIp.name: userIp
+parameters.userIp.type: string
+paths./accounts.get.description: Retrieves the authenticated user's list of accounts.
+paths./accounts.get.operationId: adexchangebuyer.accounts.list
+paths./accounts.get.responses.200.description: Successful response
+paths./accounts.get.responses.200.schema.$ref: '#/definitions/AccountsList'
+paths./accounts.get.security.length: 1
+paths./accounts.get.security[0].Oauth2.length: 1
+paths./accounts.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./accounts.get.tags.length: 1
+paths./accounts.get.tags[0]: accounts
+paths./accounts.parameters.length: 7
+paths./accounts.parameters[0].$ref: '#/parameters/alt'
+paths./accounts.parameters[1].$ref: '#/parameters/fields'
+paths./accounts.parameters[2].$ref: '#/parameters/key'
+paths./accounts.parameters[3].$ref: '#/parameters/oauth_token'
+paths./accounts.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./accounts.parameters[5].$ref: '#/parameters/quotaUser'
+paths./accounts.parameters[6].$ref: '#/parameters/userIp'
+paths./accounts/{id}.get.description: Gets one account by ID.
+paths./accounts/{id}.get.operationId: adexchangebuyer.accounts.get
+paths./accounts/{id}.get.parameters.length: 1
+paths./accounts/{id}.get.parameters[0].description: The account id
+paths./accounts/{id}.get.parameters[0].in: path
+paths./accounts/{id}.get.parameters[0].name: id
+paths./accounts/{id}.get.parameters[0].required: true
+paths./accounts/{id}.get.parameters[0].type: integer
+paths./accounts/{id}.get.responses.200.description: Successful response
+paths./accounts/{id}.get.responses.200.schema.$ref: '#/definitions/Account'
+paths./accounts/{id}.get.security.length: 1
+paths./accounts/{id}.get.security[0].Oauth2.length: 1
+paths./accounts/{id}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./accounts/{id}.get.tags.length: 1
+paths./accounts/{id}.get.tags[0]: accounts
+paths./accounts/{id}.parameters.length: 7
+paths./accounts/{id}.parameters[0].$ref: '#/parameters/alt'
+paths./accounts/{id}.parameters[1].$ref: '#/parameters/fields'
+paths./accounts/{id}.parameters[2].$ref: '#/parameters/key'
+paths./accounts/{id}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./accounts/{id}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./accounts/{id}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./accounts/{id}.parameters[6].$ref: '#/parameters/userIp'
+paths./accounts/{id}.patch.description: Updates an existing account. This method supports
+  patch semantics.
+paths./accounts/{id}.patch.operationId: adexchangebuyer.accounts.patch
+paths./accounts/{id}.patch.parameters.length: 2
+paths./accounts/{id}.patch.parameters[0].description: The account id
+paths./accounts/{id}.patch.parameters[0].in: path
+paths./accounts/{id}.patch.parameters[0].name: id
+paths./accounts/{id}.patch.parameters[0].required: true
+paths./accounts/{id}.patch.parameters[0].type: integer
+paths./accounts/{id}.patch.parameters[1].in: body
+paths./accounts/{id}.patch.parameters[1].name: body
+paths./accounts/{id}.patch.parameters[1].schema.$ref: '#/definitions/Account'
+paths./accounts/{id}.patch.responses.200.description: Successful response
+paths./accounts/{id}.patch.responses.200.schema.$ref: '#/definitions/Account'
+paths./accounts/{id}.patch.security.length: 1
+paths./accounts/{id}.patch.security[0].Oauth2.length: 1
+paths./accounts/{id}.patch.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./accounts/{id}.patch.tags.length: 1
+paths./accounts/{id}.patch.tags[0]: accounts
+paths./accounts/{id}.put.description: Updates an existing account.
+paths./accounts/{id}.put.operationId: adexchangebuyer.accounts.update
+paths./accounts/{id}.put.parameters.length: 2
+paths./accounts/{id}.put.parameters[0].description: The account id
+paths./accounts/{id}.put.parameters[0].in: path
+paths./accounts/{id}.put.parameters[0].name: id
+paths./accounts/{id}.put.parameters[0].required: true
+paths./accounts/{id}.put.parameters[0].type: integer
+paths./accounts/{id}.put.parameters[1].in: body
+paths./accounts/{id}.put.parameters[1].name: body
+paths./accounts/{id}.put.parameters[1].schema.$ref: '#/definitions/Account'
+paths./accounts/{id}.put.responses.200.description: Successful response
+paths./accounts/{id}.put.responses.200.schema.$ref: '#/definitions/Account'
+paths./accounts/{id}.put.security.length: 1
+paths./accounts/{id}.put.security[0].Oauth2.length: 1
+paths./accounts/{id}.put.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./accounts/{id}.put.tags.length: 1
+paths./accounts/{id}.put.tags[0]: accounts
+paths./creatives.get.description: Retrieves a list of the authenticated user's active
+  creatives. A creative will be available 30-40 minutes after submission.
+paths./creatives.get.operationId: adexchangebuyer.creatives.list
+paths./creatives.get.parameters.length: 3
+paths./creatives.get.parameters[0].description: Maximum number of entries returned
+  on one result page. If not set, the default is 100. Optional.
+paths./creatives.get.parameters[0].in: query
+paths./creatives.get.parameters[0].maximum: 1000
+paths./creatives.get.parameters[0].minimum: 1
+paths./creatives.get.parameters[0].name: maxResults
+paths./creatives.get.parameters[0].type: integer
+paths./creatives.get.parameters[1].description: A continuation token, used to page
+  through ad clients. To retrieve the next page, set this parameter to the value of
+  "nextPageToken" from the previous response. Optional.
+paths./creatives.get.parameters[1].in: query
+paths./creatives.get.parameters[1].name: pageToken
+paths./creatives.get.parameters[1].type: string
+paths./creatives.get.parameters[2].description: When specified, only creatives having
+  the given status are returned.
+paths./creatives.get.parameters[2].enum.length: 3
+paths./creatives.get.parameters[2].enum[0]: approved
+paths./creatives.get.parameters[2].enum[1]: disapproved
+paths./creatives.get.parameters[2].enum[2]: not_checked
+paths./creatives.get.parameters[2].in: query
+paths./creatives.get.parameters[2].name: statusFilter
+paths./creatives.get.parameters[2].type: string
+paths./creatives.get.responses.200.description: Successful response
+paths./creatives.get.responses.200.schema.$ref: '#/definitions/CreativesList'
+paths./creatives.get.security.length: 1
+paths./creatives.get.security[0].Oauth2.length: 1
+paths./creatives.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./creatives.get.tags.length: 1
+paths./creatives.get.tags[0]: creatives
+paths./creatives.parameters.length: 7
+paths./creatives.parameters[0].$ref: '#/parameters/alt'
+paths./creatives.parameters[1].$ref: '#/parameters/fields'
+paths./creatives.parameters[2].$ref: '#/parameters/key'
+paths./creatives.parameters[3].$ref: '#/parameters/oauth_token'
+paths./creatives.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./creatives.parameters[5].$ref: '#/parameters/quotaUser'
+paths./creatives.parameters[6].$ref: '#/parameters/userIp'
+paths./creatives.post.description: Submit a new creative.
+paths./creatives.post.operationId: adexchangebuyer.creatives.insert
+paths./creatives.post.parameters.length: 1
+paths./creatives.post.parameters[0].in: body
+paths./creatives.post.parameters[0].name: body
+paths./creatives.post.parameters[0].schema.$ref: '#/definitions/Creative'
+paths./creatives.post.responses.200.description: Successful response
+paths./creatives.post.responses.200.schema.$ref: '#/definitions/Creative'
+paths./creatives.post.security.length: 1
+paths./creatives.post.security[0].Oauth2.length: 1
+paths./creatives.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./creatives.post.tags.length: 1
+paths./creatives.post.tags[0]: creatives
+paths./creatives/{accountId}/{buyerCreativeId}.get.description: Gets the status for
+  a single creative. A creative will be available 30-40 minutes after submission.
+paths./creatives/{accountId}/{buyerCreativeId}.get.operationId: adexchangebuyer.creatives.get
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters.length: 2
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[0].description: The
+  id for the account that will serve this creative.
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[0].in: path
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[0].name: accountId
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[0].required: true
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[0].type: integer
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[1].description: The
+  buyer-specific id for this creative.
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[1].in: path
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[1].name: buyerCreativeId
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[1].required: true
+paths./creatives/{accountId}/{buyerCreativeId}.get.parameters[1].type: string
+paths./creatives/{accountId}/{buyerCreativeId}.get.responses.200.description: Successful
+  response
+paths./creatives/{accountId}/{buyerCreativeId}.get.responses.200.schema.$ref: '#/definitions/Creative'
+paths./creatives/{accountId}/{buyerCreativeId}.get.security.length: 1
+paths./creatives/{accountId}/{buyerCreativeId}.get.security[0].Oauth2.length: 1
+paths./creatives/{accountId}/{buyerCreativeId}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/adexchange.buyer
+paths./creatives/{accountId}/{buyerCreativeId}.get.tags.length: 1
+paths./creatives/{accountId}/{buyerCreativeId}.get.tags[0]: creatives
+paths./creatives/{accountId}/{buyerCreativeId}.parameters.length: 7
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[0].$ref: '#/parameters/alt'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[1].$ref: '#/parameters/fields'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[2].$ref: '#/parameters/key'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[3].$ref: '#/parameters/oauth_token'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[5].$ref: '#/parameters/quotaUser'
+paths./creatives/{accountId}/{buyerCreativeId}.parameters[6].$ref: '#/parameters/userIp'
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/adexchange.buyer: Manage
+  your Ad Exchange buyer account configuration
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 2
+tags[0].name: accounts
+tags[1].name: creatives

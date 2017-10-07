@@ -1,0 +1,1147 @@
+basePath: /
+definitions.AnnotateImageRequest.description: |-
+  Request for performing Google Cloud Vision API tasks over a user-provided
+  image, with user-requested features.
+definitions.AnnotateImageRequest.properties.features.description: Requested features.
+definitions.AnnotateImageRequest.properties.features.items.$ref: '#/definitions/Feature'
+definitions.AnnotateImageRequest.properties.features.type: array
+definitions.AnnotateImageRequest.properties.image.$ref: '#/definitions/Image'
+definitions.AnnotateImageRequest.properties.image.description: The image to be processed.
+definitions.AnnotateImageRequest.properties.imageContext.$ref: '#/definitions/ImageContext'
+definitions.AnnotateImageRequest.properties.imageContext.description: Additional context
+  that may accompany the image.
+definitions.AnnotateImageRequest.type: object
+definitions.AnnotateImageResponse.description: Response to an image annotation request.
+definitions.AnnotateImageResponse.properties.cropHintsAnnotation.$ref: '#/definitions/CropHintsAnnotation'
+definitions.AnnotateImageResponse.properties.cropHintsAnnotation.description: If present,
+  crop hints have completed successfully.
+definitions.AnnotateImageResponse.properties.error.$ref: '#/definitions/Status'
+definitions.AnnotateImageResponse.properties.error.description: |-
+  If set, represents the error message for the operation.
+  Note that filled-in image annotations are guaranteed to be
+  correct, even when `error` is set.
+definitions.AnnotateImageResponse.properties.faceAnnotations.description: If present,
+  face detection has completed successfully.
+definitions.AnnotateImageResponse.properties.faceAnnotations.items.$ref: '#/definitions/FaceAnnotation'
+definitions.AnnotateImageResponse.properties.faceAnnotations.type: array
+definitions.AnnotateImageResponse.properties.fullTextAnnotation.$ref: '#/definitions/TextAnnotation'
+definitions.AnnotateImageResponse.properties.fullTextAnnotation.description: |-
+  If present, text (OCR) detection or document (OCR) text detection has
+  completed successfully.
+  This annotation provides the structural hierarchy for the OCR detected
+  text.
+definitions.AnnotateImageResponse.properties.imagePropertiesAnnotation.$ref: '#/definitions/ImageProperties'
+definitions.AnnotateImageResponse.properties.imagePropertiesAnnotation.description: If
+  present, image properties were extracted successfully.
+definitions.AnnotateImageResponse.properties.labelAnnotations.description: If present,
+  label detection has completed successfully.
+definitions.AnnotateImageResponse.properties.labelAnnotations.items.$ref: '#/definitions/EntityAnnotation'
+definitions.AnnotateImageResponse.properties.labelAnnotations.type: array
+definitions.AnnotateImageResponse.properties.landmarkAnnotations.description: If present,
+  landmark detection has completed successfully.
+definitions.AnnotateImageResponse.properties.landmarkAnnotations.items.$ref: '#/definitions/EntityAnnotation'
+definitions.AnnotateImageResponse.properties.landmarkAnnotations.type: array
+definitions.AnnotateImageResponse.properties.logoAnnotations.description: If present,
+  logo detection has completed successfully.
+definitions.AnnotateImageResponse.properties.logoAnnotations.items.$ref: '#/definitions/EntityAnnotation'
+definitions.AnnotateImageResponse.properties.logoAnnotations.type: array
+definitions.AnnotateImageResponse.properties.safeSearchAnnotation.$ref: '#/definitions/SafeSearchAnnotation'
+definitions.AnnotateImageResponse.properties.safeSearchAnnotation.description: If
+  present, safe-search annotation has completed successfully.
+definitions.AnnotateImageResponse.properties.textAnnotations.description: If present,
+  text (OCR) detection has completed successfully.
+definitions.AnnotateImageResponse.properties.textAnnotations.items.$ref: '#/definitions/EntityAnnotation'
+definitions.AnnotateImageResponse.properties.textAnnotations.type: array
+definitions.AnnotateImageResponse.properties.webDetection.$ref: '#/definitions/WebDetection'
+definitions.AnnotateImageResponse.properties.webDetection.description: If present,
+  web detection has completed successfully.
+definitions.AnnotateImageResponse.type: object
+definitions.BatchAnnotateImagesRequest.description: Multiple image annotation requests
+  are batched into a single service call.
+definitions.BatchAnnotateImagesRequest.properties.requests.description: Individual
+  image annotation requests for this batch.
+definitions.BatchAnnotateImagesRequest.properties.requests.items.$ref: '#/definitions/AnnotateImageRequest'
+definitions.BatchAnnotateImagesRequest.properties.requests.type: array
+definitions.BatchAnnotateImagesRequest.type: object
+definitions.BatchAnnotateImagesResponse.description: Response to a batch image annotation
+  request.
+definitions.BatchAnnotateImagesResponse.properties.responses.description: Individual
+  responses to image annotation requests within the batch.
+definitions.BatchAnnotateImagesResponse.properties.responses.items.$ref: '#/definitions/AnnotateImageResponse'
+definitions.BatchAnnotateImagesResponse.properties.responses.type: array
+definitions.BatchAnnotateImagesResponse.type: object
+definitions.Block.description: Logical element on the page.
+definitions.Block.properties.blockType.description: Detected block type (text, image
+  etc) for this block.
+definitions.Block.properties.blockType.enum.length: 6
+definitions.Block.properties.blockType.enum[0]: UNKNOWN
+definitions.Block.properties.blockType.enum[1]: TEXT
+definitions.Block.properties.blockType.enum[2]: TABLE
+definitions.Block.properties.blockType.enum[3]: PICTURE
+definitions.Block.properties.blockType.enum[4]: RULER
+definitions.Block.properties.blockType.enum[5]: BARCODE
+definitions.Block.properties.blockType.type: string
+definitions.Block.properties.boundingBox.$ref: '#/definitions/BoundingPoly'
+definitions.Block.properties.boundingBox.description: |-
+  The bounding box for the block.
+  The vertices are in the order of top-left, top-right, bottom-right,
+  bottom-left. When a rotation of the bounding box is detected the rotation
+  is represented as around the top-left corner as defined when the text is
+  read in the 'natural' orientation.
+  For example:
+    * when the text is horizontal it might look like:
+       0----1
+       |    |
+       3----2
+    * when it's rotated 180 degrees around the top-left corner it becomes:
+       2----3
+       |    |
+       1----0
+    and the vertice order will still be (0, 1, 2, 3).
+definitions.Block.properties.paragraphs.description: List of paragraphs in this block
+  (if this blocks is of type text).
+definitions.Block.properties.paragraphs.items.$ref: '#/definitions/Paragraph'
+definitions.Block.properties.paragraphs.type: array
+definitions.Block.properties.property.$ref: '#/definitions/TextProperty'
+definitions.Block.properties.property.description: Additional information detected
+  for the block.
+definitions.Block.type: object
+definitions.BoundingPoly.description: A bounding polygon for the detected image annotation.
+definitions.BoundingPoly.properties.vertices.description: The bounding polygon vertices.
+definitions.BoundingPoly.properties.vertices.items.$ref: '#/definitions/Vertex'
+definitions.BoundingPoly.properties.vertices.type: array
+definitions.BoundingPoly.type: object
+definitions.Color.description: |-
+  Represents a color in the RGBA color space. This representation is designed
+  for simplicity of conversion to/from color representations in various
+  languages over compactness; for example, the fields of this representation
+  can be trivially provided to the constructor of "java.awt.Color" in Java; it
+  can also be trivially provided to UIColor's "+colorWithRed:green:blue:alpha"
+  method in iOS; and, with just a little work, it can be easily formatted into
+  a CSS "rgba()" string in JavaScript, as well. Here are some examples:
+
+  Example (Java):
+
+       import com.google.type.Color;
+
+       // ...
+       public static java.awt.Color fromProto(Color protocolor) {
+         float alpha = protocolor.hasAlpha()
+             ? protocolor.getAlpha().getValue()
+             : 1.0;
+
+         return new java.awt.Color(
+             protocolor.getRed(),
+             protocolor.getGreen(),
+             protocolor.getBlue(),
+             alpha);
+       }
+
+       public static Color toProto(java.awt.Color color) {
+         float red = (float) color.getRed();
+         float green = (float) color.getGreen();
+         float blue = (float) color.getBlue();
+         float denominator = 255.0;
+         Color.Builder resultBuilder =
+             Color
+                 .newBuilder()
+                 .setRed(red / denominator)
+                 .setGreen(green / denominator)
+                 .setBlue(blue / denominator);
+         int alpha = color.getAlpha();
+         if (alpha != 255) {
+           result.setAlpha(
+               FloatValue
+                   .newBuilder()
+                   .setValue(((float) alpha) / denominator)
+                   .build());
+         }
+         return resultBuilder.build();
+       }
+       // ...
+
+  Example (iOS / Obj-C):
+
+       // ...
+       static UIColor* fromProto(Color* protocolor) {
+          float red = [protocolor red];
+          float green = [protocolor green];
+          float blue = [protocolor blue];
+          FloatValue* alpha_wrapper = [protocolor alpha];
+          float alpha = 1.0;
+          if (alpha_wrapper != nil) {
+            alpha = [alpha_wrapper value];
+          }
+          return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+       }
+
+       static Color* toProto(UIColor* color) {
+           CGFloat red, green, blue, alpha;
+           if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) {
+             return nil;
+           }
+           Color* result = [Color alloc] init];
+           [result setRed:red];
+           [result setGreen:green];
+           [result setBlue:blue];
+           if (alpha <= 0.9999) {
+             [result setAlpha:floatWrapperWithValue(alpha)];
+           }
+           [result autorelease];
+           return result;
+      }
+      // ...
+
+   Example (JavaScript):
+
+      // ...
+
+      var protoToCssColor = function(rgb_color) {
+         var redFrac = rgb_color.red || 0.0;
+         var greenFrac = rgb_color.green || 0.0;
+         var blueFrac = rgb_color.blue || 0.0;
+         var red = Math.floor(redFrac * 255);
+         var green = Math.floor(greenFrac * 255);
+         var blue = Math.floor(blueFrac * 255);
+
+         if (!('alpha' in rgb_color)) {
+            return rgbToCssColor_(red, green, blue);
+         }
+
+         var alphaFrac = rgb_color.alpha.value || 0.0;
+         var rgbParams = [red, green, blue].join(',');
+         return ['rgba(', rgbParams, ',', alphaFrac, ')'].join('');
+      };
+
+      var rgbToCssColor_ = function(red, green, blue) {
+        var rgbNumber = new Number((red << 16) | (green << 8) | blue);
+        var hexString = rgbNumber.toString(16);
+        var missingZeros = 6 - hexString.length;
+        var resultBuilder = ['#'];
+        for (var i = 0; i < missingZeros; i++) {
+           resultBuilder.push('0');
+        }
+        resultBuilder.push(hexString);
+        return resultBuilder.join('');
+      };
+
+      // ...
+definitions.Color.properties.alpha.description: |-
+  The fraction of this color that should be applied to the pixel. That is,
+  the final pixel color is defined by the equation:
+
+    pixel color = alpha * (this color) + (1.0 - alpha) * (background color)
+
+  This means that a value of 1.0 corresponds to a solid color, whereas
+  a value of 0.0 corresponds to a completely transparent color. This
+  uses a wrapper message rather than a simple float scalar so that it is
+  possible to distinguish between a default value and the value being unset.
+  If omitted, this color object is to be rendered as a solid color
+  (as if the alpha value had been explicitly given with a value of 1.0).
+definitions.Color.properties.alpha.format: float
+definitions.Color.properties.alpha.type: number
+definitions.Color.properties.blue.description: The amount of blue in the color as
+  a value in the interval [0, 1].
+definitions.Color.properties.blue.format: float
+definitions.Color.properties.blue.type: number
+definitions.Color.properties.green.description: The amount of green in the color as
+  a value in the interval [0, 1].
+definitions.Color.properties.green.format: float
+definitions.Color.properties.green.type: number
+definitions.Color.properties.red.description: The amount of red in the color as a
+  value in the interval [0, 1].
+definitions.Color.properties.red.format: float
+definitions.Color.properties.red.type: number
+definitions.Color.type: object
+definitions.ColorInfo.description: |-
+  Color information consists of RGB channels, score, and the fraction of
+  the image that the color occupies in the image.
+definitions.ColorInfo.properties.color.$ref: '#/definitions/Color'
+definitions.ColorInfo.properties.color.description: RGB components of the color.
+definitions.ColorInfo.properties.pixelFraction.description: |-
+  The fraction of pixels the color occupies in the image.
+  Value in range [0, 1].
+definitions.ColorInfo.properties.pixelFraction.format: float
+definitions.ColorInfo.properties.pixelFraction.type: number
+definitions.ColorInfo.properties.score.description: Image-specific score for this
+  color. Value in range [0, 1].
+definitions.ColorInfo.properties.score.format: float
+definitions.ColorInfo.properties.score.type: number
+definitions.ColorInfo.type: object
+definitions.CropHint.description: Single crop hint that is used to generate a new
+  crop when serving an image.
+definitions.CropHint.properties.boundingPoly.$ref: '#/definitions/BoundingPoly'
+definitions.CropHint.properties.boundingPoly.description: |-
+  The bounding polygon for the crop region. The coordinates of the bounding
+  box are in the original image's scale, as returned in `ImageParams`.
+definitions.CropHint.properties.confidence.description: Confidence of this being a
+  salient region.  Range [0, 1].
+definitions.CropHint.properties.confidence.format: float
+definitions.CropHint.properties.confidence.type: number
+definitions.CropHint.properties.importanceFraction.description: |-
+  Fraction of importance of this salient region with respect to the original
+  image.
+definitions.CropHint.properties.importanceFraction.format: float
+definitions.CropHint.properties.importanceFraction.type: number
+definitions.CropHint.type: object
+definitions.CropHintsAnnotation.description: Set of crop hints that are used to generate
+  new crops when serving images.
+definitions.CropHintsAnnotation.properties.cropHints.description: Crop hint results.
+definitions.CropHintsAnnotation.properties.cropHints.items.$ref: '#/definitions/CropHint'
+definitions.CropHintsAnnotation.properties.cropHints.type: array
+definitions.CropHintsAnnotation.type: object
+definitions.CropHintsParams.description: Parameters for crop hints annotation request.
+definitions.CropHintsParams.properties.aspectRatios.description: |-
+  Aspect ratios in floats, representing the ratio of the width to the height
+  of the image. For example, if the desired aspect ratio is 4/3, the
+  corresponding float value should be 1.33333.  If not specified, the
+  best possible crop is returned. The number of provided aspect ratios is
+  limited to a maximum of 16; any aspect ratios provided after the 16th are
+  ignored.
+definitions.CropHintsParams.properties.aspectRatios.items.format: float
+definitions.CropHintsParams.properties.aspectRatios.items.type: number
+definitions.CropHintsParams.properties.aspectRatios.type: array
+definitions.CropHintsParams.type: object
+definitions.DetectedBreak.description: Detected start or end of a structural component.
+definitions.DetectedBreak.properties.isPrefix.description: True if break prepends
+  the element.
+definitions.DetectedBreak.properties.isPrefix.type: boolean
+definitions.DetectedBreak.properties.type.description: Detected break type.
+definitions.DetectedBreak.properties.type.enum.length: 6
+definitions.DetectedBreak.properties.type.enum[0]: UNKNOWN
+definitions.DetectedBreak.properties.type.enum[1]: SPACE
+definitions.DetectedBreak.properties.type.enum[2]: SURE_SPACE
+definitions.DetectedBreak.properties.type.enum[3]: EOL_SURE_SPACE
+definitions.DetectedBreak.properties.type.enum[4]: HYPHEN
+definitions.DetectedBreak.properties.type.enum[5]: LINE_BREAK
+definitions.DetectedBreak.properties.type.type: string
+definitions.DetectedBreak.type: object
+definitions.DetectedLanguage.description: Detected language for a structural component.
+definitions.DetectedLanguage.properties.confidence.description: Confidence of detected
+  language. Range [0, 1].
+definitions.DetectedLanguage.properties.confidence.format: float
+definitions.DetectedLanguage.properties.confidence.type: number
+definitions.DetectedLanguage.properties.languageCode.description: |-
+  The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+  information, see
+  http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+definitions.DetectedLanguage.properties.languageCode.type: string
+definitions.DetectedLanguage.type: object
+definitions.DominantColorsAnnotation.description: Set of dominant colors and their
+  corresponding scores.
+definitions.DominantColorsAnnotation.properties.colors.description: RGB color values
+  with their score and pixel fraction.
+definitions.DominantColorsAnnotation.properties.colors.items.$ref: '#/definitions/ColorInfo'
+definitions.DominantColorsAnnotation.properties.colors.type: array
+definitions.DominantColorsAnnotation.type: object
+definitions.EntityAnnotation.description: Set of detected entity features.
+definitions.EntityAnnotation.properties.boundingPoly.$ref: '#/definitions/BoundingPoly'
+definitions.EntityAnnotation.properties.boundingPoly.description: |-
+  Image region to which this entity belongs. Not produced
+  for `LABEL_DETECTION` features.
+definitions.EntityAnnotation.properties.confidence.description: |-
+  The accuracy of the entity detection in an image.
+  For example, for an image in which the "Eiffel Tower" entity is detected,
+  this field represents the confidence that there is a tower in the query
+  image. Range [0, 1].
+definitions.EntityAnnotation.properties.confidence.format: float
+definitions.EntityAnnotation.properties.confidence.type: number
+definitions.EntityAnnotation.properties.description.description: Entity textual description,
+  expressed in its `locale` language.
+definitions.EntityAnnotation.properties.description.type: string
+definitions.EntityAnnotation.properties.locale.description: |-
+  The language code for the locale in which the entity textual
+  `description` is expressed.
+definitions.EntityAnnotation.properties.locale.type: string
+definitions.EntityAnnotation.properties.locations.description: |-
+  The location information for the detected entity. Multiple
+  `LocationInfo` elements can be present because one location may
+  indicate the location of the scene in the image, and another location
+  may indicate the location of the place where the image was taken.
+  Location information is usually present for landmarks.
+definitions.EntityAnnotation.properties.locations.items.$ref: '#/definitions/LocationInfo'
+definitions.EntityAnnotation.properties.locations.type: array
+definitions.EntityAnnotation.properties.mid.description: |-
+  Opaque entity ID. Some IDs may be available in
+  [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
+definitions.EntityAnnotation.properties.mid.type: string
+definitions.EntityAnnotation.properties.properties.description: |-
+  Some entities may have optional user-supplied `Property` (name/value)
+  fields, such a score or string that qualifies the entity.
+definitions.EntityAnnotation.properties.properties.items.$ref: '#/definitions/Property'
+definitions.EntityAnnotation.properties.properties.type: array
+definitions.EntityAnnotation.properties.score.description: Overall score of the result.
+  Range [0, 1].
+definitions.EntityAnnotation.properties.score.format: float
+definitions.EntityAnnotation.properties.score.type: number
+definitions.EntityAnnotation.properties.topicality.description: |-
+  The relevancy of the ICA (Image Content Annotation) label to the
+  image. For example, the relevancy of "tower" is likely higher to an image
+  containing the detected "Eiffel Tower" than to an image containing a
+  detected distant towering building, even though the confidence that
+  there is a tower in each image may be the same. Range [0, 1].
+definitions.EntityAnnotation.properties.topicality.format: float
+definitions.EntityAnnotation.properties.topicality.type: number
+definitions.EntityAnnotation.type: object
+definitions.FaceAnnotation.description: A face annotation object contains the results
+  of face detection.
+definitions.FaceAnnotation.properties.angerLikelihood.description: Anger likelihood.
+definitions.FaceAnnotation.properties.angerLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.angerLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.angerLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.angerLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.angerLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.angerLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.angerLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.angerLikelihood.type: string
+definitions.FaceAnnotation.properties.blurredLikelihood.description: Blurred likelihood.
+definitions.FaceAnnotation.properties.blurredLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.blurredLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.blurredLikelihood.type: string
+definitions.FaceAnnotation.properties.boundingPoly.$ref: '#/definitions/BoundingPoly'
+definitions.FaceAnnotation.properties.boundingPoly.description: |-
+  The bounding polygon around the face. The coordinates of the bounding box
+  are in the original image's scale, as returned in `ImageParams`.
+  The bounding box is computed to "frame" the face in accordance with human
+  expectations. It is based on the landmarker results.
+  Note that one or more x and/or y coordinates may not be generated in the
+  `BoundingPoly` (the polygon will be unbounded) if only a partial face
+  appears in the image to be annotated.
+definitions.FaceAnnotation.properties.detectionConfidence.description: Detection confidence.
+  Range [0, 1].
+definitions.FaceAnnotation.properties.detectionConfidence.format: float
+definitions.FaceAnnotation.properties.detectionConfidence.type: number
+definitions.FaceAnnotation.properties.fdBoundingPoly.$ref: '#/definitions/BoundingPoly'
+definitions.FaceAnnotation.properties.fdBoundingPoly.description: |-
+  The `fd_bounding_poly` bounding polygon is tighter than the
+  `boundingPoly`, and encloses only the skin part of the face. Typically, it
+  is used to eliminate the face from any image analysis that detects the
+  "amount of skin" visible in an image. It is not based on the
+  landmarker results, only on the initial face detection, hence
+  the <code>fd</code> (face detection) prefix.
+definitions.FaceAnnotation.properties.headwearLikelihood.description: Headwear likelihood.
+definitions.FaceAnnotation.properties.headwearLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.headwearLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.headwearLikelihood.type: string
+definitions.FaceAnnotation.properties.joyLikelihood.description: Joy likelihood.
+definitions.FaceAnnotation.properties.joyLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.joyLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.joyLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.joyLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.joyLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.joyLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.joyLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.joyLikelihood.type: string
+definitions.FaceAnnotation.properties.landmarkingConfidence.description: Face landmarking
+  confidence. Range [0, 1].
+definitions.FaceAnnotation.properties.landmarkingConfidence.format: float
+definitions.FaceAnnotation.properties.landmarkingConfidence.type: number
+definitions.FaceAnnotation.properties.landmarks.description: Detected face landmarks.
+definitions.FaceAnnotation.properties.landmarks.items.$ref: '#/definitions/Landmark'
+definitions.FaceAnnotation.properties.landmarks.type: array
+definitions.FaceAnnotation.properties.panAngle.description: |-
+  Yaw angle, which indicates the leftward/rightward angle that the face is
+  pointing relative to the vertical plane perpendicular to the image. Range
+  [-180,180].
+definitions.FaceAnnotation.properties.panAngle.format: float
+definitions.FaceAnnotation.properties.panAngle.type: number
+definitions.FaceAnnotation.properties.rollAngle.description: |-
+  Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
+  of the face relative to the image vertical about the axis perpendicular to
+  the face. Range [-180,180].
+definitions.FaceAnnotation.properties.rollAngle.format: float
+definitions.FaceAnnotation.properties.rollAngle.type: number
+definitions.FaceAnnotation.properties.sorrowLikelihood.description: Sorrow likelihood.
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.sorrowLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.sorrowLikelihood.type: string
+definitions.FaceAnnotation.properties.surpriseLikelihood.description: Surprise likelihood.
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.surpriseLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.surpriseLikelihood.type: string
+definitions.FaceAnnotation.properties.tiltAngle.description: |-
+  Pitch angle, which indicates the upwards/downwards angle that the face is
+  pointing relative to the image's horizontal plane. Range [-180,180].
+definitions.FaceAnnotation.properties.tiltAngle.format: float
+definitions.FaceAnnotation.properties.tiltAngle.type: number
+definitions.FaceAnnotation.properties.underExposedLikelihood.description: Under-exposed
+  likelihood.
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum.length: 6
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[0]: UNKNOWN
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[1]: VERY_UNLIKELY
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[2]: UNLIKELY
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[3]: POSSIBLE
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[4]: LIKELY
+definitions.FaceAnnotation.properties.underExposedLikelihood.enum[5]: VERY_LIKELY
+definitions.FaceAnnotation.properties.underExposedLikelihood.type: string
+definitions.FaceAnnotation.type: object
+definitions.Feature.description: |-
+  Users describe the type of Google Cloud Vision API tasks to perform over
+  images by using *Feature*s. Each Feature indicates a type of image
+  detection task to perform. Features encode the Cloud Vision API
+  vertical to operate on and the number of top-scoring results to return.
+definitions.Feature.properties.maxResults.description: Maximum number of results of
+  this type.
+definitions.Feature.properties.maxResults.format: int32
+definitions.Feature.properties.maxResults.type: integer
+definitions.Feature.properties.type.description: The feature type.
+definitions.Feature.properties.type.enum.length: 11
+definitions.Feature.properties.type.enum[0]: TYPE_UNSPECIFIED
+definitions.Feature.properties.type.enum[1]: FACE_DETECTION
+definitions.Feature.properties.type.enum[2]: LANDMARK_DETECTION
+definitions.Feature.properties.type.enum[3]: LOGO_DETECTION
+definitions.Feature.properties.type.enum[4]: LABEL_DETECTION
+definitions.Feature.properties.type.enum[5]: TEXT_DETECTION
+definitions.Feature.properties.type.enum[6]: DOCUMENT_TEXT_DETECTION
+definitions.Feature.properties.type.enum[7]: SAFE_SEARCH_DETECTION
+definitions.Feature.properties.type.enum[8]: IMAGE_PROPERTIES
+definitions.Feature.properties.type.enum[9]: CROP_HINTS
+definitions.Feature.properties.type.enum[10]: WEB_DETECTION
+definitions.Feature.properties.type.type: string
+definitions.Feature.type: object
+definitions.Image.description: Client image to perform Google Cloud Vision API tasks
+  over.
+definitions.Image.properties.content.description: |-
+  Image content, represented as a stream of bytes.
+  Note: as with all `bytes` fields, protobuffers use a pure binary
+  representation, whereas JSON representations use base64.
+definitions.Image.properties.content.format: byte
+definitions.Image.properties.content.type: string
+definitions.Image.properties.source.$ref: '#/definitions/ImageSource'
+definitions.Image.properties.source.description: |-
+  Google Cloud Storage image location. If both `content` and `source`
+  are provided for an image, `content` takes precedence and is
+  used to perform the image annotation request.
+definitions.Image.type: object
+definitions.ImageContext.description: Image context and/or feature-specific parameters.
+definitions.ImageContext.properties.cropHintsParams.$ref: '#/definitions/CropHintsParams'
+definitions.ImageContext.properties.cropHintsParams.description: Parameters for crop
+  hints annotation request.
+definitions.ImageContext.properties.languageHints.description: |-
+  List of languages to use for TEXT_DETECTION. In most cases, an empty value
+  yields the best results since it enables automatic language detection. For
+  languages based on the Latin alphabet, setting `language_hints` is not
+  needed. In rare cases, when the language of the text in the image is known,
+  setting a hint will help get better results (although it will be a
+  significant hindrance if the hint is wrong). Text detection returns an
+  error if one or more of the specified languages is not one of the
+  [supported languages](/vision/docs/languages).
+definitions.ImageContext.properties.languageHints.items.type: string
+definitions.ImageContext.properties.languageHints.type: array
+definitions.ImageContext.properties.latLongRect.$ref: '#/definitions/LatLongRect'
+definitions.ImageContext.properties.latLongRect.description: lat/long rectangle that
+  specifies the location of the image.
+definitions.ImageContext.type: object
+definitions.ImageProperties.description: Stores image properties, such as dominant
+  colors.
+definitions.ImageProperties.properties.dominantColors.$ref: '#/definitions/DominantColorsAnnotation'
+definitions.ImageProperties.properties.dominantColors.description: If present, dominant
+  colors completed successfully.
+definitions.ImageProperties.type: object
+definitions.ImageSource.description: External image source (Google Cloud Storage image
+  location).
+definitions.ImageSource.properties.gcsImageUri.description: |-
+  NOTE: For new code `image_uri` below is preferred.
+  Google Cloud Storage image URI, which must be in the following form:
+  `gs://bucket_name/object_name` (for details, see
+  [Google Cloud Storage Request
+  URIs](https://cloud.google.com/storage/docs/reference-uris)).
+  NOTE: Cloud Storage object versioning is not supported.
+definitions.ImageSource.properties.gcsImageUri.type: string
+definitions.ImageSource.properties.imageUri.description: |-
+  Image URI which supports:
+  1) Google Cloud Storage image URI, which must be in the following form:
+  `gs://bucket_name/object_name` (for details, see
+  [Google Cloud Storage Request
+  URIs](https://cloud.google.com/storage/docs/reference-uris)).
+  NOTE: Cloud Storage object versioning is not supported.
+  2) Publicly accessible image HTTP/HTTPS URL.
+  This is preferred over the legacy `gcs_image_uri` above. When both
+  `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
+  precedence.
+definitions.ImageSource.properties.imageUri.type: string
+definitions.ImageSource.type: object
+definitions.Landmark.description: |-
+  A face-specific landmark (for example, a face feature).
+  Landmark positions may fall outside the bounds of the image
+  if the face is near one or more edges of the image.
+  Therefore it is NOT guaranteed that `0 <= x < width` or
+  `0 <= y < height`.
+definitions.Landmark.properties.position.$ref: '#/definitions/Position'
+definitions.Landmark.properties.position.description: Face landmark position.
+definitions.Landmark.properties.type.description: Face landmark type.
+definitions.Landmark.properties.type.enum.length: 35
+definitions.Landmark.properties.type.enum[0]: UNKNOWN_LANDMARK
+definitions.Landmark.properties.type.enum[1]: LEFT_EYE
+definitions.Landmark.properties.type.enum[2]: RIGHT_EYE
+definitions.Landmark.properties.type.enum[3]: LEFT_OF_LEFT_EYEBROW
+definitions.Landmark.properties.type.enum[4]: RIGHT_OF_LEFT_EYEBROW
+definitions.Landmark.properties.type.enum[5]: LEFT_OF_RIGHT_EYEBROW
+definitions.Landmark.properties.type.enum[6]: RIGHT_OF_RIGHT_EYEBROW
+definitions.Landmark.properties.type.enum[7]: MIDPOINT_BETWEEN_EYES
+definitions.Landmark.properties.type.enum[8]: NOSE_TIP
+definitions.Landmark.properties.type.enum[9]: UPPER_LIP
+definitions.Landmark.properties.type.enum[10]: LOWER_LIP
+definitions.Landmark.properties.type.enum[11]: MOUTH_LEFT
+definitions.Landmark.properties.type.enum[12]: MOUTH_RIGHT
+definitions.Landmark.properties.type.enum[13]: MOUTH_CENTER
+definitions.Landmark.properties.type.enum[14]: NOSE_BOTTOM_RIGHT
+definitions.Landmark.properties.type.enum[15]: NOSE_BOTTOM_LEFT
+definitions.Landmark.properties.type.enum[16]: NOSE_BOTTOM_CENTER
+definitions.Landmark.properties.type.enum[17]: LEFT_EYE_TOP_BOUNDARY
+definitions.Landmark.properties.type.enum[18]: LEFT_EYE_RIGHT_CORNER
+definitions.Landmark.properties.type.enum[19]: LEFT_EYE_BOTTOM_BOUNDARY
+definitions.Landmark.properties.type.enum[20]: LEFT_EYE_LEFT_CORNER
+definitions.Landmark.properties.type.enum[21]: RIGHT_EYE_TOP_BOUNDARY
+definitions.Landmark.properties.type.enum[22]: RIGHT_EYE_RIGHT_CORNER
+definitions.Landmark.properties.type.enum[23]: RIGHT_EYE_BOTTOM_BOUNDARY
+definitions.Landmark.properties.type.enum[24]: RIGHT_EYE_LEFT_CORNER
+definitions.Landmark.properties.type.enum[25]: LEFT_EYEBROW_UPPER_MIDPOINT
+definitions.Landmark.properties.type.enum[26]: RIGHT_EYEBROW_UPPER_MIDPOINT
+definitions.Landmark.properties.type.enum[27]: LEFT_EAR_TRAGION
+definitions.Landmark.properties.type.enum[28]: RIGHT_EAR_TRAGION
+definitions.Landmark.properties.type.enum[29]: LEFT_EYE_PUPIL
+definitions.Landmark.properties.type.enum[30]: RIGHT_EYE_PUPIL
+definitions.Landmark.properties.type.enum[31]: FOREHEAD_GLABELLA
+definitions.Landmark.properties.type.enum[32]: CHIN_GNATHION
+definitions.Landmark.properties.type.enum[33]: CHIN_LEFT_GONION
+definitions.Landmark.properties.type.enum[34]: CHIN_RIGHT_GONION
+definitions.Landmark.properties.type.type: string
+definitions.Landmark.type: object
+definitions.LatLng.description: |-
+  An object representing a latitude/longitude pair. This is expressed as a pair
+  of doubles representing degrees latitude and degrees longitude. Unless
+  specified otherwise, this must conform to the
+  <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
+  standard</a>. Values must be within normalized ranges.
+
+  Example of normalization code in Python:
+
+      def NormalizeLongitude(longitude):
+        """Wraps decimal degrees longitude to [-180.0, 180.0]."""
+        q, r = divmod(longitude, 360.0)
+        if r > 180.0 or (r == 180.0 and q <= -1.0):
+          return r - 360.0
+        return r
+
+      def NormalizeLatLng(latitude, longitude):
+        """Wraps decimal degrees latitude and longitude to
+        [-90.0, 90.0] and [-180.0, 180.0], respectively."""
+        r = latitude % 360.0
+        if r <= 90.0:
+          return r, NormalizeLongitude(longitude)
+        elif r >= 270.0:
+          return r - 360, NormalizeLongitude(longitude)
+        else:
+          return 180 - r, NormalizeLongitude(longitude + 180.0)
+
+      assert 180.0 == NormalizeLongitude(180.0)
+      assert -180.0 == NormalizeLongitude(-180.0)
+      assert -179.0 == NormalizeLongitude(181.0)
+      assert (0.0, 0.0) == NormalizeLatLng(360.0, 0.0)
+      assert (0.0, 0.0) == NormalizeLatLng(-360.0, 0.0)
+      assert (85.0, 180.0) == NormalizeLatLng(95.0, 0.0)
+      assert (-85.0, -170.0) == NormalizeLatLng(-95.0, 10.0)
+      assert (90.0, 10.0) == NormalizeLatLng(90.0, 10.0)
+      assert (-90.0, -10.0) == NormalizeLatLng(-90.0, -10.0)
+      assert (0.0, -170.0) == NormalizeLatLng(-180.0, 10.0)
+      assert (0.0, -170.0) == NormalizeLatLng(180.0, 10.0)
+      assert (-90.0, 10.0) == NormalizeLatLng(270.0, 10.0)
+      assert (90.0, 10.0) == NormalizeLatLng(-270.0, 10.0)
+definitions.LatLng.properties.latitude.description: The latitude in degrees. It must
+  be in the range [-90.0, +90.0].
+definitions.LatLng.properties.latitude.format: double
+definitions.LatLng.properties.latitude.type: number
+definitions.LatLng.properties.longitude.description: The longitude in degrees. It
+  must be in the range [-180.0, +180.0].
+definitions.LatLng.properties.longitude.format: double
+definitions.LatLng.properties.longitude.type: number
+definitions.LatLng.type: object
+definitions.LatLongRect.description: Rectangle determined by min and max `LatLng`
+  pairs.
+definitions.LatLongRect.properties.maxLatLng.$ref: '#/definitions/LatLng'
+definitions.LatLongRect.properties.maxLatLng.description: Max lat/long pair.
+definitions.LatLongRect.properties.minLatLng.$ref: '#/definitions/LatLng'
+definitions.LatLongRect.properties.minLatLng.description: Min lat/long pair.
+definitions.LatLongRect.type: object
+definitions.LocationInfo.description: Detected entity location information.
+definitions.LocationInfo.properties.latLng.$ref: '#/definitions/LatLng'
+definitions.LocationInfo.properties.latLng.description: lat/long location coordinates.
+definitions.LocationInfo.type: object
+definitions.Page.description: Detected page from OCR.
+definitions.Page.properties.blocks.description: List of blocks of text, images etc
+  on this page.
+definitions.Page.properties.blocks.items.$ref: '#/definitions/Block'
+definitions.Page.properties.blocks.type: array
+definitions.Page.properties.height.description: Page height in pixels.
+definitions.Page.properties.height.format: int32
+definitions.Page.properties.height.type: integer
+definitions.Page.properties.property.$ref: '#/definitions/TextProperty'
+definitions.Page.properties.property.description: Additional information detected
+  on the page.
+definitions.Page.properties.width.description: Page width in pixels.
+definitions.Page.properties.width.format: int32
+definitions.Page.properties.width.type: integer
+definitions.Page.type: object
+definitions.Paragraph.description: Structural unit of text representing a number of
+  words in certain order.
+definitions.Paragraph.properties.boundingBox.$ref: '#/definitions/BoundingPoly'
+definitions.Paragraph.properties.boundingBox.description: |-
+  The bounding box for the paragraph.
+  The vertices are in the order of top-left, top-right, bottom-right,
+  bottom-left. When a rotation of the bounding box is detected the rotation
+  is represented as around the top-left corner as defined when the text is
+  read in the 'natural' orientation.
+  For example:
+    * when the text is horizontal it might look like:
+       0----1
+       |    |
+       3----2
+    * when it's rotated 180 degrees around the top-left corner it becomes:
+       2----3
+       |    |
+       1----0
+    and the vertice order will still be (0, 1, 2, 3).
+definitions.Paragraph.properties.property.$ref: '#/definitions/TextProperty'
+definitions.Paragraph.properties.property.description: Additional information detected
+  for the paragraph.
+definitions.Paragraph.properties.words.description: List of words in this paragraph.
+definitions.Paragraph.properties.words.items.$ref: '#/definitions/Word'
+definitions.Paragraph.properties.words.type: array
+definitions.Paragraph.type: object
+definitions.Position.description: |-
+  A 3D position in the image, used primarily for Face detection landmarks.
+  A valid Position must have both x and y coordinates.
+  The position coordinates are in the same scale as the original image.
+definitions.Position.properties.x.description: X coordinate.
+definitions.Position.properties.x.format: float
+definitions.Position.properties.x.type: number
+definitions.Position.properties.y.description: Y coordinate.
+definitions.Position.properties.y.format: float
+definitions.Position.properties.y.type: number
+definitions.Position.properties.z.description: Z coordinate (or depth).
+definitions.Position.properties.z.format: float
+definitions.Position.properties.z.type: number
+definitions.Position.type: object
+definitions.Property.description: A `Property` consists of a user-supplied name/value
+  pair.
+definitions.Property.properties.name.description: Name of the property.
+definitions.Property.properties.name.type: string
+definitions.Property.properties.uint64Value.description: Value of numeric properties.
+definitions.Property.properties.uint64Value.format: uint64
+definitions.Property.properties.uint64Value.type: string
+definitions.Property.properties.value.description: Value of the property.
+definitions.Property.properties.value.type: string
+definitions.Property.type: object
+definitions.SafeSearchAnnotation.description: |-
+  Set of features pertaining to the image, computed by computer vision
+  methods over safe-search verticals (for example, adult, spoof, medical,
+  violence).
+definitions.SafeSearchAnnotation.properties.adult.description: Represents the adult
+  content likelihood for the image.
+definitions.SafeSearchAnnotation.properties.adult.enum.length: 6
+definitions.SafeSearchAnnotation.properties.adult.enum[0]: UNKNOWN
+definitions.SafeSearchAnnotation.properties.adult.enum[1]: VERY_UNLIKELY
+definitions.SafeSearchAnnotation.properties.adult.enum[2]: UNLIKELY
+definitions.SafeSearchAnnotation.properties.adult.enum[3]: POSSIBLE
+definitions.SafeSearchAnnotation.properties.adult.enum[4]: LIKELY
+definitions.SafeSearchAnnotation.properties.adult.enum[5]: VERY_LIKELY
+definitions.SafeSearchAnnotation.properties.adult.type: string
+definitions.SafeSearchAnnotation.properties.medical.description: Likelihood that this
+  is a medical image.
+definitions.SafeSearchAnnotation.properties.medical.enum.length: 6
+definitions.SafeSearchAnnotation.properties.medical.enum[0]: UNKNOWN
+definitions.SafeSearchAnnotation.properties.medical.enum[1]: VERY_UNLIKELY
+definitions.SafeSearchAnnotation.properties.medical.enum[2]: UNLIKELY
+definitions.SafeSearchAnnotation.properties.medical.enum[3]: POSSIBLE
+definitions.SafeSearchAnnotation.properties.medical.enum[4]: LIKELY
+definitions.SafeSearchAnnotation.properties.medical.enum[5]: VERY_LIKELY
+definitions.SafeSearchAnnotation.properties.medical.type: string
+definitions.SafeSearchAnnotation.properties.spoof.description: |-
+  Spoof likelihood. The likelihood that an modification
+  was made to the image's canonical version to make it appear
+  funny or offensive.
+definitions.SafeSearchAnnotation.properties.spoof.enum.length: 6
+definitions.SafeSearchAnnotation.properties.spoof.enum[0]: UNKNOWN
+definitions.SafeSearchAnnotation.properties.spoof.enum[1]: VERY_UNLIKELY
+definitions.SafeSearchAnnotation.properties.spoof.enum[2]: UNLIKELY
+definitions.SafeSearchAnnotation.properties.spoof.enum[3]: POSSIBLE
+definitions.SafeSearchAnnotation.properties.spoof.enum[4]: LIKELY
+definitions.SafeSearchAnnotation.properties.spoof.enum[5]: VERY_LIKELY
+definitions.SafeSearchAnnotation.properties.spoof.type: string
+definitions.SafeSearchAnnotation.properties.violence.description: Violence likelihood.
+definitions.SafeSearchAnnotation.properties.violence.enum.length: 6
+definitions.SafeSearchAnnotation.properties.violence.enum[0]: UNKNOWN
+definitions.SafeSearchAnnotation.properties.violence.enum[1]: VERY_UNLIKELY
+definitions.SafeSearchAnnotation.properties.violence.enum[2]: UNLIKELY
+definitions.SafeSearchAnnotation.properties.violence.enum[3]: POSSIBLE
+definitions.SafeSearchAnnotation.properties.violence.enum[4]: LIKELY
+definitions.SafeSearchAnnotation.properties.violence.enum[5]: VERY_LIKELY
+definitions.SafeSearchAnnotation.properties.violence.type: string
+definitions.SafeSearchAnnotation.type: object
+definitions.Status.description: |-
+  The `Status` type defines a logical error model that is suitable for different
+  programming environments, including REST APIs and RPC APIs. It is used by
+  [gRPC](https://github.com/grpc). The error model is designed to be:
+
+  - Simple to use and understand for most users
+  - Flexible enough to meet unexpected needs
+
+  # Overview
+
+  The `Status` message contains three pieces of data: error code, error message,
+  and error details. The error code should be an enum value of
+  google.rpc.Code, but it may accept additional error codes if needed.  The
+  error message should be a developer-facing English message that helps
+  developers *understand* and *resolve* the error. If a localized user-facing
+  error message is needed, put the localized message in the error details or
+  localize it in the client. The optional error details may contain arbitrary
+  information about the error. There is a predefined set of error detail types
+  in the package `google.rpc` that can be used for common error conditions.
+
+  # Language mapping
+
+  The `Status` message is the logical representation of the error model, but it
+  is not necessarily the actual wire format. When the `Status` message is
+  exposed in different client libraries and different wire protocols, it can be
+  mapped differently. For example, it will likely be mapped to some exceptions
+  in Java, but more likely mapped to some error codes in C.
+
+  # Other uses
+
+  The error model and the `Status` message can be used in a variety of
+  environments, either with or without APIs, to provide a
+  consistent developer experience across different environments.
+
+  Example uses of this error model include:
+
+  - Partial errors. If a service needs to return partial errors to the client,
+      it may embed the `Status` in the normal response to indicate the partial
+      errors.
+
+  - Workflow errors. A typical workflow has multiple steps. Each step may
+      have a `Status` message for error reporting.
+
+  - Batch operations. If a client uses batch request and batch response, the
+      `Status` message should be used directly inside batch response, one for
+      each error sub-response.
+
+  - Asynchronous operations. If an API call embeds asynchronous operation
+      results in its response, the status of those operations should be
+      represented directly using the `Status` message.
+
+  - Logging. If some API errors are stored in logs, the message `Status` could
+      be used directly after any stripping needed for security/privacy reasons.
+definitions.Status.properties.code.description: The status code, which should be an
+  enum value of google.rpc.Code.
+definitions.Status.properties.code.format: int32
+definitions.Status.properties.code.type: integer
+definitions.Status.properties.details.description: |-
+  A list of messages that carry the error details.  There is a common set of
+  message types for APIs to use.
+definitions.Status.properties.details.items.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Status.properties.details.items.type: object
+definitions.Status.properties.details.type: array
+definitions.Status.properties.message.description: |-
+  A developer-facing error message, which should be in English. Any
+  user-facing error message should be localized and sent in the
+  google.rpc.Status.details field, or localized by the client.
+definitions.Status.properties.message.type: string
+definitions.Status.type: object
+definitions.Symbol.description: A single symbol representation.
+definitions.Symbol.properties.boundingBox.$ref: '#/definitions/BoundingPoly'
+definitions.Symbol.properties.boundingBox.description: |-
+  The bounding box for the symbol.
+  The vertices are in the order of top-left, top-right, bottom-right,
+  bottom-left. When a rotation of the bounding box is detected the rotation
+  is represented as around the top-left corner as defined when the text is
+  read in the 'natural' orientation.
+  For example:
+    * when the text is horizontal it might look like:
+       0----1
+       |    |
+       3----2
+    * when it's rotated 180 degrees around the top-left corner it becomes:
+       2----3
+       |    |
+       1----0
+    and the vertice order will still be (0, 1, 2, 3).
+definitions.Symbol.properties.property.$ref: '#/definitions/TextProperty'
+definitions.Symbol.properties.property.description: Additional information detected
+  for the symbol.
+definitions.Symbol.properties.text.description: The actual UTF-8 representation of
+  the symbol.
+definitions.Symbol.properties.text.type: string
+definitions.Symbol.type: object
+definitions.TextAnnotation.description: |-
+  TextAnnotation contains a structured representation of OCR extracted text.
+  The hierarchy of an OCR extracted text structure is like this:
+      TextAnnotation -> Page -> Block -> Paragraph -> Word -> Symbol
+  Each structural component, starting from Page, may further have their own
+  properties. Properties describe detected languages, breaks etc.. Please
+  refer to the google.cloud.vision.v1.TextAnnotation.TextProperty message
+  definition below for more detail.
+definitions.TextAnnotation.properties.pages.description: List of pages detected by
+  OCR.
+definitions.TextAnnotation.properties.pages.items.$ref: '#/definitions/Page'
+definitions.TextAnnotation.properties.pages.type: array
+definitions.TextAnnotation.properties.text.description: UTF-8 text detected on the
+  pages.
+definitions.TextAnnotation.properties.text.type: string
+definitions.TextAnnotation.type: object
+definitions.TextProperty.description: Additional information detected on the structural
+  component.
+definitions.TextProperty.properties.detectedBreak.$ref: '#/definitions/DetectedBreak'
+definitions.TextProperty.properties.detectedBreak.description: Detected start or end
+  of a text segment.
+definitions.TextProperty.properties.detectedLanguages.description: A list of detected
+  languages together with confidence.
+definitions.TextProperty.properties.detectedLanguages.items.$ref: '#/definitions/DetectedLanguage'
+definitions.TextProperty.properties.detectedLanguages.type: array
+definitions.TextProperty.type: object
+definitions.Vertex.description: |-
+  A vertex represents a 2D point in the image.
+  NOTE: the vertex coordinates are in the same scale as the original image.
+definitions.Vertex.properties.x.description: X coordinate.
+definitions.Vertex.properties.x.format: int32
+definitions.Vertex.properties.x.type: integer
+definitions.Vertex.properties.y.description: Y coordinate.
+definitions.Vertex.properties.y.format: int32
+definitions.Vertex.properties.y.type: integer
+definitions.Vertex.type: object
+definitions.WebDetection.description: Relevant information for the image from the
+  Internet.
+definitions.WebDetection.properties.fullMatchingImages.description: |-
+  Fully matching images from the Internet.
+  Can include resized copies of the query image.
+definitions.WebDetection.properties.fullMatchingImages.items.$ref: '#/definitions/WebImage'
+definitions.WebDetection.properties.fullMatchingImages.type: array
+definitions.WebDetection.properties.pagesWithMatchingImages.description: Web pages
+  containing the matching images from the Internet.
+definitions.WebDetection.properties.pagesWithMatchingImages.items.$ref: '#/definitions/WebPage'
+definitions.WebDetection.properties.pagesWithMatchingImages.type: array
+definitions.WebDetection.properties.partialMatchingImages.description: |-
+  Partial matching images from the Internet.
+  Those images are similar enough to share some key-point features. For
+  example an original image will likely have partial matching for its crops.
+definitions.WebDetection.properties.partialMatchingImages.items.$ref: '#/definitions/WebImage'
+definitions.WebDetection.properties.partialMatchingImages.type: array
+definitions.WebDetection.properties.visuallySimilarImages.description: The visually
+  similar image results.
+definitions.WebDetection.properties.visuallySimilarImages.items.$ref: '#/definitions/WebImage'
+definitions.WebDetection.properties.visuallySimilarImages.type: array
+definitions.WebDetection.properties.webEntities.description: Deduced entities from
+  similar images on the Internet.
+definitions.WebDetection.properties.webEntities.items.$ref: '#/definitions/WebEntity'
+definitions.WebDetection.properties.webEntities.type: array
+definitions.WebDetection.type: object
+definitions.WebEntity.description: Entity deduced from similar images on the Internet.
+definitions.WebEntity.properties.description.description: Canonical description of
+  the entity, in English.
+definitions.WebEntity.properties.description.type: string
+definitions.WebEntity.properties.entityId.description: Opaque entity ID.
+definitions.WebEntity.properties.entityId.type: string
+definitions.WebEntity.properties.score.description: |-
+  Overall relevancy score for the entity.
+  Not normalized and not comparable across different image queries.
+definitions.WebEntity.properties.score.format: float
+definitions.WebEntity.properties.score.type: number
+definitions.WebEntity.type: object
+definitions.WebImage.description: Metadata for online images.
+definitions.WebImage.properties.score.description: (Deprecated) Overall relevancy
+  score for the image.
+definitions.WebImage.properties.score.format: float
+definitions.WebImage.properties.score.type: number
+definitions.WebImage.properties.url.description: The result image URL.
+definitions.WebImage.properties.url.type: string
+definitions.WebImage.type: object
+definitions.WebPage.description: Metadata for web pages.
+definitions.WebPage.properties.score.description: (Deprecated) Overall relevancy score
+  for the web page.
+definitions.WebPage.properties.score.format: float
+definitions.WebPage.properties.score.type: number
+definitions.WebPage.properties.url.description: The result web page URL.
+definitions.WebPage.properties.url.type: string
+definitions.WebPage.type: object
+definitions.Word.description: A word representation.
+definitions.Word.properties.boundingBox.$ref: '#/definitions/BoundingPoly'
+definitions.Word.properties.boundingBox.description: |-
+  The bounding box for the word.
+  The vertices are in the order of top-left, top-right, bottom-right,
+  bottom-left. When a rotation of the bounding box is detected the rotation
+  is represented as around the top-left corner as defined when the text is
+  read in the 'natural' orientation.
+  For example:
+    * when the text is horizontal it might look like:
+       0----1
+       |    |
+       3----2
+    * when it's rotated 180 degrees around the top-left corner it becomes:
+       2----3
+       |    |
+       1----0
+    and the vertice order will still be (0, 1, 2, 3).
+definitions.Word.properties.property.$ref: '#/definitions/TextProperty'
+definitions.Word.properties.property.description: Additional information detected
+  for the word.
+definitions.Word.properties.symbols.description: |-
+  List of symbols in the word.
+  The order of the symbols follows the natural reading order.
+definitions.Word.properties.symbols.items.$ref: '#/definitions/Symbol'
+definitions.Word.properties.symbols.type: array
+definitions.Word.type: object
+externalDocs.url: https://cloud.google.com/vision/
+host: vision.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Integrates Google Vision features, including image labeling, face,
+  logo, and landmark detection, optical character recognition (OCR), and detection
+  of explicit content, into applications.
+info.title: Google Cloud Vision
+info.version: v1
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-apisguru-categories.length: 2
+info.x-apisguru-categories[0]: machine_learning
+info.x-apisguru-categories[1]: analytics
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://vision.googleapis.com/$discovery/rest?version=v1
+info.x-origin[0].version: v1
+info.x-preferred: true
+info.x-providerName: googleapis.com
+info.x-serviceName: vision
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v1/images:annotate.parameters.length: 13
+paths./v1/images:annotate.parameters[0].$ref: '#/parameters/upload_protocol'
+paths./v1/images:annotate.parameters[1].$ref: '#/parameters/prettyPrint'
+paths./v1/images:annotate.parameters[2].$ref: '#/parameters/uploadType'
+paths./v1/images:annotate.parameters[3].$ref: '#/parameters/fields'
+paths./v1/images:annotate.parameters[4].$ref: '#/parameters/callback'
+paths./v1/images:annotate.parameters[5].$ref: '#/parameters/$.xgafv'
+paths./v1/images:annotate.parameters[6].$ref: '#/parameters/alt'
+paths./v1/images:annotate.parameters[7].$ref: '#/parameters/key'
+paths./v1/images:annotate.parameters[8].$ref: '#/parameters/access_token'
+paths./v1/images:annotate.parameters[9].$ref: '#/parameters/quotaUser'
+paths./v1/images:annotate.parameters[10].$ref: '#/parameters/pp'
+paths./v1/images:annotate.parameters[11].$ref: '#/parameters/bearer_token'
+paths./v1/images:annotate.parameters[12].$ref: '#/parameters/oauth_token'
+paths./v1/images:annotate.post.description: Run image detection and annotation for
+  a batch of images.
+paths./v1/images:annotate.post.operationId: vision.images.annotate
+paths./v1/images:annotate.post.parameters.length: 1
+paths./v1/images:annotate.post.parameters[0].in: body
+paths./v1/images:annotate.post.parameters[0].name: body
+paths./v1/images:annotate.post.parameters[0].schema.$ref: '#/definitions/BatchAnnotateImagesRequest'
+paths./v1/images:annotate.post.responses.200.description: Successful response
+paths./v1/images:annotate.post.responses.200.schema.$ref: '#/definitions/BatchAnnotateImagesResponse'
+paths./v1/images:annotate.post.security.length: 2
+paths./v1/images:annotate.post.security[0].Oauth2.length: 1
+paths./v1/images:annotate.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1/images:annotate.post.security[1].Oauth2.length: 1
+paths./v1/images:annotate.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/cloud-vision
+paths./v1/images:annotate.post.tags.length: 1
+paths./v1/images:annotate.post.tags[0]: images
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-vision: Apply
+  machine learning models to understand and label images
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 1
+tags[0].name: images

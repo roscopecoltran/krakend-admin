@@ -1,0 +1,373 @@
+consumes.length: 2
+consumes[0]: application/json
+consumes[1]: text/json
+definitions.ErrorResponse.description: Describes the format of Error response.
+definitions.ErrorResponse.properties.code.description: Error code
+definitions.ErrorResponse.properties.code.type: string
+definitions.ErrorResponse.properties.message.description: Error message indicating
+  why the operation failed.
+definitions.ErrorResponse.properties.message.type: string
+definitions.ErrorResponse.type: object
+definitions.InfoField.description: Key-value pairs of instance details in the legacy
+  format.
+definitions.InfoField.properties.project.description: Identifies the name of the instance
+  provisioned by the user.
+definitions.InfoField.properties.project.type: string
+definitions.MeterInfo.description: Detailed information about the meter.
+definitions.MeterInfo.properties.EffectiveDate.description: Indicates the date from
+  which the meter rate is effective.
+definitions.MeterInfo.properties.EffectiveDate.format: date-time
+definitions.MeterInfo.properties.EffectiveDate.type: string
+definitions.MeterInfo.properties.IncludedQuantity.description: The resource quantity
+  that is included in the offer at no cost. Consumption beyond this quantity will
+  be charged.
+definitions.MeterInfo.properties.IncludedQuantity.format: float
+definitions.MeterInfo.properties.IncludedQuantity.type: number
+definitions.MeterInfo.properties.MeterCategory.description: The category of the meter,
+  e.g., 'Cloud services', 'Networking', etc..
+definitions.MeterInfo.properties.MeterCategory.type: string
+definitions.MeterInfo.properties.MeterId.description: The unique identifier of the
+  resource.
+definitions.MeterInfo.properties.MeterId.format: uuid
+definitions.MeterInfo.properties.MeterId.type: string
+definitions.MeterInfo.properties.MeterName.description: The name of the meter, within
+  the given meter category
+definitions.MeterInfo.properties.MeterName.type: string
+definitions.MeterInfo.properties.MeterRates.additionalProperties.format: float
+definitions.MeterInfo.properties.MeterRates.additionalProperties.type: number
+definitions.MeterInfo.properties.MeterRates.description: The list of key/value pairs
+  for the meter rates, in the format 'key':'value' where key = the meter quantity,
+  and value = the corresponding price
+definitions.MeterInfo.properties.MeterRates.type: object
+definitions.MeterInfo.properties.MeterRegion.description: The region in which the
+  Azure service is available.
+definitions.MeterInfo.properties.MeterRegion.type: string
+definitions.MeterInfo.properties.MeterSubCategory.description: The subcategory of
+  the meter, e.g., 'A6 Cloud services', 'ExpressRoute (IXP)', etc..
+definitions.MeterInfo.properties.MeterSubCategory.type: string
+definitions.MeterInfo.properties.MeterTags.description: Provides additional meter
+  data. 'Third Party' indicates a meter with no discount. Blanks indicate First Party.
+definitions.MeterInfo.properties.MeterTags.items.type: string
+definitions.MeterInfo.properties.MeterTags.type: array
+definitions.MeterInfo.properties.Unit.description: The unit in which the meter consumption
+  is charged, e.g., 'Hours', 'GB', etc.
+definitions.MeterInfo.properties.Unit.type: string
+definitions.MonetaryCommitment.allOf.length: 1
+definitions.MonetaryCommitment.allOf[0].$ref: '#/definitions/OfferTermInfo'
+definitions.MonetaryCommitment.description: Indicates that a monetary commitment is
+  required for this offer
+definitions.MonetaryCommitment.properties.ExcludedMeterIds.description: An array of
+  meter ids that are excluded from the given offer terms.
+definitions.MonetaryCommitment.properties.ExcludedMeterIds.items.format: uuid
+definitions.MonetaryCommitment.properties.ExcludedMeterIds.items.type: string
+definitions.MonetaryCommitment.properties.ExcludedMeterIds.type: array
+definitions.MonetaryCommitment.properties.TieredDiscount.additionalProperties.format: decimal
+definitions.MonetaryCommitment.properties.TieredDiscount.additionalProperties.type: number
+definitions.MonetaryCommitment.properties.TieredDiscount.description: The list of
+  key/value pairs for the tiered meter rates, in the format 'key':'value' where key
+  = price, and value = the corresponding discount percentage. This field is used only
+  by offer terms of type 'Monetary Commitment'.
+definitions.MonetaryCommitment.properties.TieredDiscount.type: object
+definitions.MonetaryCommitment.x-ms-discriminator-value: Monetary Commitment
+definitions.MonetaryCredit.allOf.length: 1
+definitions.MonetaryCredit.allOf[0].$ref: '#/definitions/OfferTermInfo'
+definitions.MonetaryCredit.description: Indicates that this is a monetary credit offer.
+definitions.MonetaryCredit.properties.Credit.description: The amount of credit provided
+  under the terms of the given offer level.
+definitions.MonetaryCredit.properties.Credit.format: decimal
+definitions.MonetaryCredit.properties.Credit.type: number
+definitions.MonetaryCredit.properties.ExcludedMeterIds.description: An array of meter
+  ids that are excluded from the given offer terms.
+definitions.MonetaryCredit.properties.ExcludedMeterIds.items.format: uuid
+definitions.MonetaryCredit.properties.ExcludedMeterIds.items.type: string
+definitions.MonetaryCredit.properties.ExcludedMeterIds.type: array
+definitions.MonetaryCredit.x-ms-discriminator-value: Monetary Credit
+definitions.OfferTermInfo.description: Describes the offer term.
+definitions.OfferTermInfo.discriminator: Name
+definitions.OfferTermInfo.properties.EffectiveDate.description: Indicates the date
+  from which the offer term is effective.
+definitions.OfferTermInfo.properties.EffectiveDate.format: date-time
+definitions.OfferTermInfo.properties.EffectiveDate.type: string
+definitions.OfferTermInfo.properties.Name.description: Name of the offer term
+definitions.OfferTermInfo.properties.Name.enum.length: 3
+definitions.OfferTermInfo.properties.Name.enum[0]: Recurring Charge
+definitions.OfferTermInfo.properties.Name.enum[1]: Monetary Commitment
+definitions.OfferTermInfo.properties.Name.enum[2]: Monetary Credit
+definitions.OfferTermInfo.properties.Name.type: string
+definitions.OfferTermInfo.properties.Name.x-ms-enum.modelAsString: false
+definitions.OfferTermInfo.properties.Name.x-ms-enum.name: OfferTermInfo
+definitions.OfferTermInfo.required.length: 1
+definitions.OfferTermInfo.required[0]: Name
+definitions.RateCardQueryParameters.description: Parameters that are used in the odata
+  $filter query parameter for providing RateCard information.
+definitions.RateCardQueryParameters.properties.Currency.description: The currency
+  in which the rates need to be provided.
+definitions.RateCardQueryParameters.properties.Currency.type: string
+definitions.RateCardQueryParameters.properties.Locale.description: The culture in
+  which the resource metadata needs to be localized.
+definitions.RateCardQueryParameters.properties.Locale.type: string
+definitions.RateCardQueryParameters.properties.OfferDurableId.description: The Offer
+  ID parameter consists of the 'MS-AZR-' prefix, plus the Offer ID number (e.g., MS-AZR-0026P).
+  See https://azure.microsoft.com/en-us/support/legal/offer-details/ for more information
+  on the list of available Offer IDs, country/region availability, and billing currency.
+definitions.RateCardQueryParameters.properties.OfferDurableId.pattern: ^MS-AZR-\d{4}P(-\d{4}P)*$
+definitions.RateCardQueryParameters.properties.OfferDurableId.type: string
+definitions.RateCardQueryParameters.properties.RegionInfo.description: 2 letter ISO
+  code where the offer was purchased.
+definitions.RateCardQueryParameters.properties.RegionInfo.type: string
+definitions.RateCardQueryParameters.required.length: 4
+definitions.RateCardQueryParameters.required[0]: OfferDurableId
+definitions.RateCardQueryParameters.required[1]: Currency
+definitions.RateCardQueryParameters.required[2]: Locale
+definitions.RateCardQueryParameters.required[3]: RegionInfo
+definitions.RecurringCharge.allOf.length: 1
+definitions.RecurringCharge.allOf[0].$ref: '#/definitions/OfferTermInfo'
+definitions.RecurringCharge.description: Indicates a recurring charge is present for
+  this offer.
+definitions.RecurringCharge.properties.RecurringCharge.description: The amount of
+  recurring charge as per the offer term.
+definitions.RecurringCharge.properties.RecurringCharge.type: integer
+definitions.RecurringCharge.x-ms-discriminator-value: Recurring Charge
+definitions.ResourceRateCardInfo.description: Price and Metadata information for resources
+definitions.ResourceRateCardInfo.properties.Currency.description: The currency in
+  which the rates are provided.
+definitions.ResourceRateCardInfo.properties.Currency.type: string
+definitions.ResourceRateCardInfo.properties.IsTaxIncluded.description: All rates are
+  pretax, so this will always be returned as 'false'.
+definitions.ResourceRateCardInfo.properties.IsTaxIncluded.type: boolean
+definitions.ResourceRateCardInfo.properties.Locale.description: The culture in which
+  the resource information is localized.
+definitions.ResourceRateCardInfo.properties.Locale.type: string
+definitions.ResourceRateCardInfo.properties.Meters.description: A list of meters.
+definitions.ResourceRateCardInfo.properties.Meters.items.$ref: '#/definitions/MeterInfo'
+definitions.ResourceRateCardInfo.properties.Meters.type: array
+definitions.ResourceRateCardInfo.properties.OfferTerms.description: A list of offer
+  terms.
+definitions.ResourceRateCardInfo.properties.OfferTerms.items.$ref: '#/definitions/OfferTermInfo'
+definitions.ResourceRateCardInfo.properties.OfferTerms.type: array
+definitions.UsageAggregation.description: Describes the usageAggregation.
+definitions.UsageAggregation.properties.id.description: Unique Id for the usage aggregate.
+definitions.UsageAggregation.properties.id.type: string
+definitions.UsageAggregation.properties.name.description: Name of the usage aggregate.
+definitions.UsageAggregation.properties.name.type: string
+definitions.UsageAggregation.properties.properties.$ref: '#/definitions/UsageSample'
+definitions.UsageAggregation.properties.properties.description: Usage data.
+definitions.UsageAggregation.properties.properties.x-ms-client-flatten: true
+definitions.UsageAggregation.properties.type.description: Type of the resource being
+  returned.
+definitions.UsageAggregation.properties.type.type: string
+definitions.UsageAggregationListResult.description: The Get UsageAggregates operation
+  response.
+definitions.UsageAggregationListResult.properties.nextLink.description: Gets or sets
+  the link to the next set of results.
+definitions.UsageAggregationListResult.properties.nextLink.type: string
+definitions.UsageAggregationListResult.properties.value.description: Gets or sets
+  details for the requested aggregation.
+definitions.UsageAggregationListResult.properties.value.items.$ref: '#/definitions/UsageAggregation'
+definitions.UsageAggregationListResult.properties.value.type: array
+definitions.UsageSample.description: Describes a sample of the usageAggregation.
+definitions.UsageSample.properties.infoFields.$ref: '#/definitions/InfoField'
+definitions.UsageSample.properties.infoFields.description: Key-value pairs of instance
+  details (legacy format).
+definitions.UsageSample.properties.instanceData.description: Key-value pairs of instance
+  details represented as a string.
+definitions.UsageSample.properties.instanceData.type: string
+definitions.UsageSample.properties.meterCategory.description: Category of the consumed
+  resource.
+definitions.UsageSample.properties.meterCategory.type: string
+definitions.UsageSample.properties.meterId.description: Unique ID for the resource
+  that was consumed (aka ResourceID).
+definitions.UsageSample.properties.meterId.type: string
+definitions.UsageSample.properties.meterName.description: Friendly name of the resource
+  being consumed.
+definitions.UsageSample.properties.meterName.type: string
+definitions.UsageSample.properties.meterRegion.description: Region of the meterId
+  used for billing purposes
+definitions.UsageSample.properties.meterRegion.type: string
+definitions.UsageSample.properties.meterSubCategory.description: Sub-category of the
+  consumed resource.
+definitions.UsageSample.properties.meterSubCategory.type: string
+definitions.UsageSample.properties.quantity.description: The amount of the resource
+  consumption that occurred in this time frame.
+definitions.UsageSample.properties.subscriptionId.description: The subscription identifier
+  for the Azure user.
+definitions.UsageSample.properties.subscriptionId.format: uuid
+definitions.UsageSample.properties.subscriptionId.type: string
+definitions.UsageSample.properties.unit.description: The unit in which the usage for
+  this resource is being counted, e.g. Hours, GB.
+definitions.UsageSample.properties.unit.type: string
+definitions.UsageSample.properties.usageEndTime.description: UTC end time for the
+  usage bucket to which this usage aggregate belongs.
+definitions.UsageSample.properties.usageEndTime.format: date-time
+definitions.UsageSample.properties.usageEndTime.type: string
+definitions.UsageSample.properties.usageStartTime.description: UTC start time for
+  the usage bucket to which this usage aggregate belongs.
+definitions.UsageSample.properties.usageStartTime.format: date-time
+definitions.UsageSample.properties.usageStartTime.type: string
+host: management.azure.com
+info.title: UsageManagementClient
+info.version: 2015-06-01-preview
+info.x-apisguru-categories.length: 2
+info.x-apisguru-categories[0]: ecommerce
+info.x-apisguru-categories[1]: cloud
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_assets.onestore.ms_cdnfiles_onestorerolling-1606-01000_shell_v3_images_logo_microsoft.png
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/arm-commerce/2015-06-01-preview/swagger/commerce.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: azure.com
+info.x-serviceName: arm-commerce
+info.x-tags.length: 5
+info.x-tags[0]: Azure
+info.x-tags[1]: Microsoft
+info.x-tags[2]: commerce usage aggregates
+info.x-tags[3]: eCommerce
+info.x-tags[4]: statistics
+parameters.ApiVersionParameter.description: Client Api Version.
+parameters.ApiVersionParameter.in: query
+parameters.ApiVersionParameter.name: api-version
+parameters.ApiVersionParameter.required: true
+parameters.ApiVersionParameter.type: string
+parameters.SubscriptionIdParameter.description: It uniquely identifies Microsoft Azure
+  subscription. The subscription ID forms part of the URI for every service call.
+parameters.SubscriptionIdParameter.in: path
+parameters.SubscriptionIdParameter.name: subscriptionId
+parameters.SubscriptionIdParameter.required: true
+parameters.SubscriptionIdParameter.type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.description: 'Enables
+  you to query for the resource/meter metadata and related prices used in a given
+  subscription by Offer ID, Currency, Locale and Region. The metadata associated with
+  the billing meters, including but not limited to service names, types, resources,
+  units of measure, and regions, is subject to change at any time and without notice.
+  If you intend to use this billing data in an automated fashion, please use the billing
+  meter GUID to uniquely identify each billable item. If the billing meter GUID is
+  scheduled to change due to a new billing model, you will be notified in advance
+  of the change. '
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.externalDocs.url: https://docs.microsoft.com/rest/api/commerce/ratecard
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.operationId: RateCard_Get
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters.length: 3
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[0].description: The
+  filter to apply on the operation. It ONLY supports the 'eq' and 'and' logical operators
+  at this time. All the 4 query parameters 'OfferDurableId',  'Currency', 'Locale',
+  'Region' are required to be a part of the $filter.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[0].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[0].name: $filter
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[0].required: true
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[0].type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[1].$ref: '#/parameters/ApiVersionParameter'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.parameters[2].$ref: '#/parameters/SubscriptionIdParameter'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.responses.200.description: Normal
+  response for a successful query. The response body will contain the data that matches
+  the filters specified in the query parameters.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.responses.200.schema.$ref: '#/definitions/ResourceRateCardInfo'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.responses.default.description: Error
+  response describing why the operation failed.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.responses.default.schema.$ref: '#/definitions/ErrorResponse'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.tags.length: 1
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.tags[0]: RateCard
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.parameters.$filter: OfferDurableId
+  eq 'MS-AZR-0003P' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq
+  'US'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.parameters.api-version: 2015-06-01-preview
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.parameters.subscriptionId
+: 6d61cc05-8f8f-4916-b1b9-f1d9c25aae27
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters.length
+: 1
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].EffectiveDate
+: 2017-09-01T00:00:00Z
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].IncludedQuantity
+: 0
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterCategory
+: Test Category
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterId
+: 1d7518e5-bc2f-4a93-9057-1b3047856645
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterName
+: Test Meter
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterRates.0
+: 1.99
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterRates.100
+: 0.99
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterRegion
+: US West
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterSubCategory
+: Test Subcategory
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterTags.length
+: 1
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].MeterTags[0]
+: Third Party
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.Meters[0].Unit
+: Hours
+? paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.responses.200.body.OfferTerms.length
+: 0
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-examples.GetRateCard.title: Get
+  RateCard
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/RateCard.get.x-ms-odata: '#/definitions/RateCardQueryParameters'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.description: Query
+  aggregated Azure subscription consumption data for a date range.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.externalDocs.url: https://docs.microsoft.com/rest/api/commerce/usageaggregates
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.operationId: UsageAggregates_List
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters.length: 7
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].description: The
+  start of the time range to retrieve data for.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].format: date-time
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].name: reportedStartTime
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].required: true
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[0].type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].description: The
+  end of the time range to retrieve data for.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].format: date-time
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].name: reportedEndTime
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].required: true
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[1].type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[2].description: '`True`
+  returns usage data in instance-level detail, `false` causes server-side aggregation
+  with fewer details. For example, if you have 3 website instances, by default you
+  will get 3 line items for website consumption. If you specify showDetails = false,
+  the data will be aggregated as a single line item for website consumption within
+  the time period (for the given subscriptionId, meterId, usageStartTime and usageEndTime).'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[2].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[2].name: showDetails
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[2].required: false
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[2].type: boolean
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].default: Daily
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].description: '`Daily`
+  (default) returns the data in daily granularity, `Hourly` returns the data in hourly
+  granularity.'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].enum.length: 2
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].enum[0]: Daily
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].enum[1]: Hourly
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].name: aggregationGranularity
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].required: false
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].x-ms-enum.modelAsString: false
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[3].x-ms-enum.name: AggregationGranularity
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[4].description: 'Used
+  when a continuation token string is provided in the response body of the previous
+  call, enabling paging through a large result set. If not present, the data is retrieved
+  from the beginning of the day/hour (based on the granularity) passed in. '
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[4].in: query
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[4].name: continuationToken
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[4].required: false
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[4].type: string
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[5].$ref: '#/parameters/ApiVersionParameter'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.parameters[6].$ref: '#/parameters/SubscriptionIdParameter'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.responses.200.description: Normal
+  response for a successful query. The response body will contain the data that matches
+  the filters specified in the query parameters.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.responses.200.schema.$ref: '#/definitions/UsageAggregationListResult'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.responses.default.description: Error
+  response describing why the operation failed.
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.responses.default.schema.$ref: '#/definitions/ErrorResponse'
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.tags.length: 1
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.tags[0]: UsageAggregates
+paths./subscriptions/{subscriptionId}/providers/Microsoft.Commerce/UsageAggregates.get.x-ms-pageable.nextLinkName: nextLink
+produces.length: 2
+produces[0]: application/json
+produces[1]: text/json
+schemes.length: 1
+schemes[0]: https
+swagger: "2.0"

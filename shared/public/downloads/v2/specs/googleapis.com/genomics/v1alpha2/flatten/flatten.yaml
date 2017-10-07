@@ -1,0 +1,1111 @@
+basePath: /
+definitions.CancelOperationRequest.description: The request message for Operations.CancelOperation.
+definitions.CancelOperationRequest.type: object
+definitions.ComputeEngine.description: |-
+  Describes a Compute Engine resource that is being managed by a running
+  pipeline.
+definitions.ComputeEngine.properties.diskNames.description: The names of the disks
+  that were created for this pipeline.
+definitions.ComputeEngine.properties.diskNames.items.type: string
+definitions.ComputeEngine.properties.diskNames.type: array
+definitions.ComputeEngine.properties.instanceName.description: The instance on which
+  the operation is running.
+definitions.ComputeEngine.properties.instanceName.type: string
+definitions.ComputeEngine.properties.machineType.description: The machine type of
+  the instance.
+definitions.ComputeEngine.properties.machineType.type: string
+definitions.ComputeEngine.properties.zone.description: The availability zone in which
+  the instance resides.
+definitions.ComputeEngine.properties.zone.type: string
+definitions.ComputeEngine.type: object
+definitions.ControllerConfig.description: |-
+  Stores the information that the controller will fetch from the
+  server in order to run. Should only be used by VMs created by the
+  Pipelines Service and not by end users.
+definitions.ControllerConfig.properties.cmd.type: string
+definitions.ControllerConfig.properties.disks.additionalProperties.type: string
+definitions.ControllerConfig.properties.disks.type: object
+definitions.ControllerConfig.properties.gcsLogPath.type: string
+definitions.ControllerConfig.properties.gcsSinks.additionalProperties.$ref: '#/definitions/RepeatedString'
+definitions.ControllerConfig.properties.gcsSinks.type: object
+definitions.ControllerConfig.properties.gcsSources.additionalProperties.$ref: '#/definitions/RepeatedString'
+definitions.ControllerConfig.properties.gcsSources.type: object
+definitions.ControllerConfig.properties.image.type: string
+definitions.ControllerConfig.properties.machineType.type: string
+definitions.ControllerConfig.properties.vars.additionalProperties.type: string
+definitions.ControllerConfig.properties.vars.type: object
+definitions.ControllerConfig.type: object
+definitions.Disk.description: A Google Compute Engine disk resource specification.
+definitions.Disk.properties.autoDelete.description: |-
+  Deprecated. Disks created by the Pipelines API will be deleted at the end
+  of the pipeline run, regardless of what this field is set to.
+definitions.Disk.properties.autoDelete.type: boolean
+definitions.Disk.properties.mountPoint.description: |-
+  Required at create time and cannot be overridden at run time.
+  Specifies the path in the docker container where files on
+  this disk should be located. For example, if `mountPoint`
+  is `/mnt/disk`, and the parameter has `localPath`
+  `inputs/file.txt`, the docker container can access the data at
+  `/mnt/disk/inputs/file.txt`.
+definitions.Disk.properties.mountPoint.type: string
+definitions.Disk.properties.name.description: |-
+  Required. The name of the disk that can be used in the pipeline
+  parameters. Must be 1 - 63 characters.
+  The name "boot" is reserved for system use.
+definitions.Disk.properties.name.type: string
+definitions.Disk.properties.readOnly.description: |-
+  Specifies how a sourced-base persistent disk will be mounted. See
+  https://cloud.google.com/compute/docs/disks/persistent-disks#use_multi_instances
+  for more details.
+  Can only be set at create time.
+definitions.Disk.properties.readOnly.type: boolean
+definitions.Disk.properties.sizeGb.description: |-
+  The size of the disk. Defaults to 500 (GB).
+  This field is not applicable for local SSD.
+definitions.Disk.properties.sizeGb.format: int32
+definitions.Disk.properties.sizeGb.type: integer
+definitions.Disk.properties.source.description: |-
+  The full or partial URL of the persistent disk to attach. See
+  https://cloud.google.com/compute/docs/reference/latest/instances#resource
+  and
+  https://cloud.google.com/compute/docs/disks/persistent-disks#snapshots
+  for more details.
+definitions.Disk.properties.source.type: string
+definitions.Disk.properties.type.description: Required. The type of the disk to create.
+definitions.Disk.properties.type.enum.length: 4
+definitions.Disk.properties.type.enum[0]: TYPE_UNSPECIFIED
+definitions.Disk.properties.type.enum[1]: PERSISTENT_HDD
+definitions.Disk.properties.type.enum[2]: PERSISTENT_SSD
+definitions.Disk.properties.type.enum[3]: LOCAL_SSD
+definitions.Disk.properties.type.type: string
+definitions.Disk.type: object
+definitions.DockerExecutor.description: The Docker execuctor specification.
+definitions.DockerExecutor.properties.cmd.description: |-
+  Required. The command or newline delimited script to run. The command
+  string will be executed within a bash shell.
+
+  If the command exits with a non-zero exit code, output parameter
+  de-localization will be skipped and the pipeline operation's
+  `error` field will be populated.
+
+  Maximum command string length is 16384.
+definitions.DockerExecutor.properties.cmd.type: string
+definitions.DockerExecutor.properties.imageName.description: |-
+  Required. Image name from either Docker Hub or Google Container Registry.
+  Users that run pipelines must have READ access to the image.
+definitions.DockerExecutor.properties.imageName.type: string
+definitions.DockerExecutor.type: object
+definitions.Empty.description: |-
+  A generic empty message that you can re-use to avoid defining duplicated
+  empty messages in your APIs. A typical example is to use it as the request
+  or the response type of an API method. For instance:
+
+      service Foo {
+        rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+      }
+
+  The JSON representation for `Empty` is empty JSON object `{}`.
+definitions.Empty.type: object
+definitions.ImportReadGroupSetsResponse.description: The read group set import response.
+definitions.ImportReadGroupSetsResponse.properties.readGroupSetIds.description: IDs
+  of the read group sets that were created.
+definitions.ImportReadGroupSetsResponse.properties.readGroupSetIds.items.type: string
+definitions.ImportReadGroupSetsResponse.properties.readGroupSetIds.type: array
+definitions.ImportReadGroupSetsResponse.type: object
+definitions.ImportVariantsResponse.description: The variant data import response.
+definitions.ImportVariantsResponse.properties.callSetIds.description: IDs of the call
+  sets created during the import.
+definitions.ImportVariantsResponse.properties.callSetIds.items.type: string
+definitions.ImportVariantsResponse.properties.callSetIds.type: array
+definitions.ImportVariantsResponse.type: object
+definitions.ListOperationsResponse.description: The response message for Operations.ListOperations.
+definitions.ListOperationsResponse.properties.nextPageToken.description: The standard
+  List next-page token.
+definitions.ListOperationsResponse.properties.nextPageToken.type: string
+definitions.ListOperationsResponse.properties.operations.description: A list of operations
+  that matches the specified filter in the request.
+definitions.ListOperationsResponse.properties.operations.items.$ref: '#/definitions/Operation'
+definitions.ListOperationsResponse.properties.operations.type: array
+definitions.ListOperationsResponse.type: object
+definitions.ListPipelinesResponse.description: |-
+  The response of ListPipelines. Contains at most `pageSize`
+  pipelines. If it contains `pageSize` pipelines, and more pipelines
+  exist, then `nextPageToken` will be populated and should be
+  used as the `pageToken` argument to a subsequent ListPipelines
+  request.
+definitions.ListPipelinesResponse.properties.nextPageToken.description: The token
+  to use to get the next page of results.
+definitions.ListPipelinesResponse.properties.nextPageToken.type: string
+definitions.ListPipelinesResponse.properties.pipelines.description: The matched pipelines.
+definitions.ListPipelinesResponse.properties.pipelines.items.$ref: '#/definitions/Pipeline'
+definitions.ListPipelinesResponse.properties.pipelines.type: array
+definitions.ListPipelinesResponse.type: object
+definitions.LocalCopy.description: LocalCopy defines how a remote file should be copied
+  to and from the VM.
+definitions.LocalCopy.properties.disk.description: |-
+  Required. The name of the disk where this parameter is
+  located. Can be the name of one of the disks specified in the
+  Resources field, or "boot", which represents the Docker
+  instance's boot disk and has a mount point of `/`.
+definitions.LocalCopy.properties.disk.type: string
+definitions.LocalCopy.properties.path.description: |-
+  Required. The path within the user's docker container where
+  this input should be localized to and from, relative to the specified
+  disk's mount point. For example: file.txt,
+definitions.LocalCopy.properties.path.type: string
+definitions.LocalCopy.type: object
+definitions.LoggingOptions.description: The logging options for the pipeline run.
+definitions.LoggingOptions.properties.gcsPath.description: |-
+  The location in Google Cloud Storage to which the pipeline logs
+  will be copied. Can be specified as a fully qualified directory
+  path, in which case logs will be output with a unique identifier
+  as the filename in that directory, or as a fully specified path,
+  which must end in `.log`, in which case that path will be
+  used, and the user must ensure that logs are not
+  overwritten. Stdout and stderr logs from the run are also
+  generated and output as `-stdout.log` and `-stderr.log`.
+definitions.LoggingOptions.properties.gcsPath.type: string
+definitions.LoggingOptions.type: object
+definitions.Operation.description: |-
+  This resource represents a long-running operation that is the result of a
+  network API call.
+definitions.Operation.properties.done.description: |-
+  If the value is `false`, it means the operation is still in progress.
+  If `true`, the operation is completed, and either `error` or `response` is
+  available.
+definitions.Operation.properties.done.type: boolean
+definitions.Operation.properties.error.$ref: '#/definitions/Status'
+definitions.Operation.properties.error.description: The error result of the operation
+  in case of failure or cancellation.
+definitions.Operation.properties.metadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Operation.properties.metadata.description: An OperationMetadata object.
+  This will always be returned with the Operation.
+definitions.Operation.properties.metadata.type: object
+definitions.Operation.properties.name.description: The server-assigned name, which
+  is only unique within the same service that originally returns it. For example&#58;
+  `operations/CJHU7Oi_ChDrveSpBRjfuL-qzoWAgEw`
+definitions.Operation.properties.name.type: string
+definitions.Operation.properties.response.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Operation.properties.response.description: If importing ReadGroupSets,
+  an ImportReadGroupSetsResponse is returned. If importing Variants, an ImportVariantsResponse
+  is returned. For pipelines and exports, an Empty response is returned.
+definitions.Operation.properties.response.type: object
+definitions.Operation.type: object
+definitions.OperationEvent.description: An event that occurred during an Operation.
+definitions.OperationEvent.properties.description.description: Required description
+  of event.
+definitions.OperationEvent.properties.description.type: string
+definitions.OperationEvent.properties.endTime.description: |-
+  Optional time of when event finished. An event can have a start time and no
+  finish time. If an event has a finish time, there must be a start time.
+definitions.OperationEvent.properties.endTime.format: google-datetime
+definitions.OperationEvent.properties.endTime.type: string
+definitions.OperationEvent.properties.startTime.description: Optional time of when
+  event started.
+definitions.OperationEvent.properties.startTime.format: google-datetime
+definitions.OperationEvent.properties.startTime.type: string
+definitions.OperationEvent.type: object
+definitions.OperationMetadata.description: Metadata describing an Operation.
+definitions.OperationMetadata.properties.clientId.description: |-
+  This field is deprecated. Use `labels` instead. Optionally provided by the
+  caller when submitting the request that creates the operation.
+definitions.OperationMetadata.properties.clientId.type: string
+definitions.OperationMetadata.properties.createTime.description: The time at which
+  the job was submitted to the Genomics service.
+definitions.OperationMetadata.properties.createTime.format: google-datetime
+definitions.OperationMetadata.properties.createTime.type: string
+definitions.OperationMetadata.properties.endTime.description: The time at which the
+  job stopped running.
+definitions.OperationMetadata.properties.endTime.format: google-datetime
+definitions.OperationMetadata.properties.endTime.type: string
+definitions.OperationMetadata.properties.events.description: |-
+  Optional event messages that were generated during the job's execution.
+  This also contains any warnings that were generated during import
+  or export.
+definitions.OperationMetadata.properties.events.items.$ref: '#/definitions/OperationEvent'
+definitions.OperationMetadata.properties.events.type: array
+definitions.OperationMetadata.properties.labels.additionalProperties.type: string
+definitions.OperationMetadata.properties.labels.description: |-
+  Optionally provided by the caller when submitting the request that creates
+  the operation.
+definitions.OperationMetadata.properties.labels.type: object
+definitions.OperationMetadata.properties.projectId.description: The Google Cloud Project
+  in which the job is scoped.
+definitions.OperationMetadata.properties.projectId.type: string
+definitions.OperationMetadata.properties.request.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.OperationMetadata.properties.request.description: |-
+  The original request that started the operation. Note that this will be in
+  current version of the API. If the operation was started with v1beta2 API
+  and a GetOperation is performed on v1 API, a v1 request will be returned.
+definitions.OperationMetadata.properties.request.type: object
+definitions.OperationMetadata.properties.runtimeMetadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.OperationMetadata.properties.runtimeMetadata.description: Runtime metadata
+  on this Operation.
+definitions.OperationMetadata.properties.runtimeMetadata.type: object
+definitions.OperationMetadata.properties.startTime.description: The time at which
+  the job began to run.
+definitions.OperationMetadata.properties.startTime.format: google-datetime
+definitions.OperationMetadata.properties.startTime.type: string
+definitions.OperationMetadata.type: object
+definitions.Pipeline.description: |-
+  The pipeline object. Represents a transformation from a set of input
+  parameters to a set of output parameters. The transformation is defined
+  as a docker image and command to run within that image. Each pipeline
+  is run on a Google Compute Engine VM. A pipeline can be created with the
+  `create` method and then later run with the `run` method, or a pipeline can
+  be defined and run all at once with the `run` method.
+definitions.Pipeline.properties.description.description: User-specified description.
+definitions.Pipeline.properties.description.type: string
+definitions.Pipeline.properties.docker.$ref: '#/definitions/DockerExecutor'
+definitions.Pipeline.properties.docker.description: Specifies the docker run information.
+definitions.Pipeline.properties.inputParameters.description: Input parameters of the
+  pipeline.
+definitions.Pipeline.properties.inputParameters.items.$ref: '#/definitions/PipelineParameter'
+definitions.Pipeline.properties.inputParameters.type: array
+definitions.Pipeline.properties.name.description: |-
+  Required. A user specified pipeline name that does not have to be unique.
+  This name can be used for filtering Pipelines in ListPipelines.
+definitions.Pipeline.properties.name.type: string
+definitions.Pipeline.properties.outputParameters.description: Output parameters of
+  the pipeline.
+definitions.Pipeline.properties.outputParameters.items.$ref: '#/definitions/PipelineParameter'
+definitions.Pipeline.properties.outputParameters.type: array
+definitions.Pipeline.properties.pipelineId.description: |-
+  Unique pipeline id that is generated by the service when CreatePipeline
+  is called. Cannot be specified in the Pipeline used in the
+  CreatePipelineRequest, and will be populated in the response to
+  CreatePipeline and all subsequent Get and List calls. Indicates that the
+  service has registered this pipeline.
+definitions.Pipeline.properties.pipelineId.type: string
+definitions.Pipeline.properties.projectId.description: |-
+  Required. The project in which to create the pipeline. The caller must have
+  WRITE access.
+definitions.Pipeline.properties.projectId.type: string
+definitions.Pipeline.properties.resources.$ref: '#/definitions/PipelineResources'
+definitions.Pipeline.properties.resources.description: |-
+  Required. Specifies resource requirements for the pipeline run.
+  Required fields:
+
+  *
+  minimumCpuCores
+
+  *
+  minimumRamGb
+definitions.Pipeline.type: object
+definitions.PipelineParameter.description: |-
+  Parameters facilitate setting and delivering data into the
+  pipeline's execution environment. They are defined at create time,
+  with optional defaults, and can be overridden at run time.
+
+  If `localCopy` is unset, then the parameter specifies a string that
+  is passed as-is into the pipeline, as the value of the environment
+  variable with the given name.  A default value can be optionally
+  specified at create time. The default can be overridden at run time
+  using the inputs map. If no default is given, a value must be
+  supplied at runtime.
+
+  If `localCopy` is defined, then the parameter specifies a data
+  source or sink, both in Google Cloud Storage and on the Docker container
+  where the pipeline computation is run. The service account associated with
+  the Pipeline (by
+  default the project's Compute Engine service account) must have access to the
+  Google Cloud Storage paths.
+
+  At run time, the Google Cloud Storage paths can be overridden if a default
+  was provided at create time, or must be set otherwise. The pipeline runner
+  should add a key/value pair to either the inputs or outputs map. The
+  indicated data copies will be carried out before/after pipeline execution,
+  just as if the corresponding arguments were provided to `gsutil cp`.
+
+  For example: Given the following `PipelineParameter`, specified
+  in the `inputParameters` list:
+
+  ```
+  {name: "input_file", localCopy: {path: "file.txt", disk: "pd1"}}
+  ```
+
+  where `disk` is defined in the `PipelineResources` object as:
+
+  ```
+  {name: "pd1", mountPoint: "/mnt/disk/"}
+  ```
+
+  We create a disk named `pd1`, mount it on the host VM, and map
+  `/mnt/pd1` to `/mnt/disk` in the docker container.  At
+  runtime, an entry for `input_file` would be required in the inputs
+  map, such as:
+
+  ```
+    inputs["input_file"] = "gs://my-bucket/bar.txt"
+  ```
+
+  This would generate the following gsutil call:
+
+  ```
+    gsutil cp gs://my-bucket/bar.txt /mnt/pd1/file.txt
+  ```
+
+  The file `/mnt/pd1/file.txt` maps to `/mnt/disk/file.txt` in the
+  Docker container. Acceptable paths are:
+
+  <table>
+    <thead>
+      <tr><th>Google Cloud storage path</th><th>Local path</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>file</td><td>file</td></tr>
+      <tr><td>glob</td><td>directory</td></tr>
+    </tbody>
+  </table>
+
+  For outputs, the direction of the copy is reversed:
+
+  ```
+    gsutil cp /mnt/disk/file.txt gs://my-bucket/bar.txt
+  ```
+
+  Acceptable paths are:
+
+  <table>
+    <thead>
+      <tr><th>Local path</th><th>Google Cloud Storage path</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>file</td><td>file</td></tr>
+      <tr>
+        <td>file</td>
+        <td>directory - directory must already exist</td>
+      </tr>
+      <tr>
+        <td>glob</td>
+        <td>directory - directory will be created if it doesn't exist</td></tr>
+    </tbody>
+  </table>
+
+  One restriction due to docker limitations, is that for outputs that are found
+  on the boot disk, the local path cannot be a glob and must be a file.
+definitions.PipelineParameter.properties.defaultValue.description: |-
+  The default value for this parameter. Can be overridden at runtime.
+  If `localCopy` is present, then this must be a Google Cloud Storage path
+  beginning with `gs://`.
+definitions.PipelineParameter.properties.defaultValue.type: string
+definitions.PipelineParameter.properties.description.description: Human-readable description.
+definitions.PipelineParameter.properties.description.type: string
+definitions.PipelineParameter.properties.localCopy.$ref: '#/definitions/LocalCopy'
+definitions.PipelineParameter.properties.localCopy.description: |-
+  If present, this parameter is marked for copying to and from the VM.
+  `LocalCopy` indicates where on the VM the file should be. The value
+  given to this parameter (either at runtime or using `defaultValue`)
+  must be the remote path where the file should be.
+definitions.PipelineParameter.properties.name.description: |-
+  Required. Name of the parameter - the pipeline runner uses this string
+  as the key to the input and output maps in RunPipeline.
+definitions.PipelineParameter.properties.name.type: string
+definitions.PipelineParameter.type: object
+definitions.PipelineResources.description: The system resources for the pipeline run.
+definitions.PipelineResources.properties.bootDiskSizeGb.description: The size of the
+  boot disk. Defaults to 10 (GB).
+definitions.PipelineResources.properties.bootDiskSizeGb.format: int32
+definitions.PipelineResources.properties.bootDiskSizeGb.type: integer
+definitions.PipelineResources.properties.disks.description: Disks to attach.
+definitions.PipelineResources.properties.disks.items.$ref: '#/definitions/Disk'
+definitions.PipelineResources.properties.disks.type: array
+definitions.PipelineResources.properties.minimumCpuCores.description: The minimum
+  number of cores to use. Defaults to 1.
+definitions.PipelineResources.properties.minimumCpuCores.format: int32
+definitions.PipelineResources.properties.minimumCpuCores.type: integer
+definitions.PipelineResources.properties.minimumRamGb.description: The minimum amount
+  of RAM to use. Defaults to 3.75 (GB)
+definitions.PipelineResources.properties.minimumRamGb.format: double
+definitions.PipelineResources.properties.minimumRamGb.type: number
+definitions.PipelineResources.properties.noAddress.description: |-
+  Whether to assign an external IP to the instance. This is an experimental
+  feature that may go away. Defaults to false.
+  Corresponds to `--no_address` flag for [gcloud compute instances create]
+  (https://cloud.google.com/sdk/gcloud/reference/compute/instances/create).
+  In order to use this, must be true for both create time and run time.
+  Cannot be true at run time if false at create time. If you need to ssh into
+  a private IP VM for debugging, you can ssh to a public VM and then ssh into
+  the private VM's Internal IP.  If noAddress is set, this pipeline run may
+  only load docker images from Google Container Registry and not Docker Hub.
+  Before using this, you must
+  [configure access to Google services from internal IPs](https://cloud.google.com/compute/docs/configure-private-google-access#configuring_access_to_google_services_from_internal_ips).
+definitions.PipelineResources.properties.noAddress.type: boolean
+definitions.PipelineResources.properties.preemptible.description: |-
+  Whether to use preemptible VMs. Defaults to `false`. In order to use this,
+  must be true for both create time and run time. Cannot be true at run time
+  if false at create time.
+definitions.PipelineResources.properties.preemptible.type: boolean
+definitions.PipelineResources.properties.zones.description: |-
+  List of Google Compute Engine availability zones to which resource
+  creation will restricted. If empty, any zone may be chosen.
+definitions.PipelineResources.properties.zones.items.type: string
+definitions.PipelineResources.properties.zones.type: array
+definitions.PipelineResources.type: object
+definitions.RepeatedString.properties.values.items.type: string
+definitions.RepeatedString.properties.values.type: array
+definitions.RepeatedString.type: object
+definitions.RunPipelineArgs.description: The pipeline run arguments.
+definitions.RunPipelineArgs.properties.clientId.description: |-
+  This field is deprecated. Use `labels` instead. Client-specified pipeline
+  operation identifier.
+definitions.RunPipelineArgs.properties.clientId.type: string
+definitions.RunPipelineArgs.properties.inputs.additionalProperties.type: string
+definitions.RunPipelineArgs.properties.inputs.description: |-
+  Pipeline input arguments; keys are defined in the pipeline documentation.
+  All input parameters that do not have default values  must be specified.
+  If parameters with defaults are specified here, the defaults will be
+  overridden.
+definitions.RunPipelineArgs.properties.inputs.type: object
+definitions.RunPipelineArgs.properties.keepVmAliveOnFailureDuration.description: |-
+  How long to keep the VM up after a failure (for example docker command
+  failed, copying input or output files failed, etc). While the VM is up, one
+  can ssh into the VM to debug. Default is 0; maximum allowed value is 1 day.
+definitions.RunPipelineArgs.properties.keepVmAliveOnFailureDuration.format: google-duration
+definitions.RunPipelineArgs.properties.keepVmAliveOnFailureDuration.type: string
+definitions.RunPipelineArgs.properties.labels.additionalProperties.type: string
+definitions.RunPipelineArgs.properties.labels.description: |-
+  Labels to apply to this pipeline run. Labels will also be applied to
+  compute resources (VM, disks) created by this pipeline run. When listing
+  operations, operations can filtered by labels.
+  Label keys may not be empty; label values may be empty. Non-empty labels
+  must be 1-63 characters long, and comply with [RFC1035]
+  (https://www.ietf.org/rfc/rfc1035.txt).
+  Specifically, the name must be 1-63 characters long and match the regular
+  expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first
+  character must be a lowercase letter, and all following characters must be
+  a dash, lowercase letter, or digit, except the last character, which cannot
+  be a dash.
+definitions.RunPipelineArgs.properties.labels.type: object
+definitions.RunPipelineArgs.properties.logging.$ref: '#/definitions/LoggingOptions'
+definitions.RunPipelineArgs.properties.logging.description: |-
+  Required. Logging options. Used by the service to communicate results
+  to the user.
+definitions.RunPipelineArgs.properties.outputs.additionalProperties.type: string
+definitions.RunPipelineArgs.properties.outputs.description: |-
+  Pipeline output arguments; keys are defined in the pipeline
+  documentation.  All output parameters of without default values
+  must be specified.  If parameters with defaults are specified
+  here, the defaults will be overridden.
+definitions.RunPipelineArgs.properties.outputs.type: object
+definitions.RunPipelineArgs.properties.projectId.description: |-
+  Required. The project in which to run the pipeline. The caller must have
+  WRITER access to all Google Cloud services and resources (e.g. Google
+  Compute Engine) will be used.
+definitions.RunPipelineArgs.properties.projectId.type: string
+definitions.RunPipelineArgs.properties.resources.$ref: '#/definitions/PipelineResources'
+definitions.RunPipelineArgs.properties.resources.description: Specifies resource requirements/overrides
+  for the pipeline run.
+definitions.RunPipelineArgs.properties.serviceAccount.$ref: '#/definitions/ServiceAccount'
+definitions.RunPipelineArgs.properties.serviceAccount.description: |-
+  The Google Cloud Service Account that will be used to access data and
+  services. By default, the compute service account associated with
+  `projectId` is used.
+definitions.RunPipelineArgs.type: object
+definitions.RunPipelineRequest.description: |-
+  The request to run a pipeline. If `pipelineId` is specified, it
+  refers to a saved pipeline created with CreatePipeline and set as
+  the `pipelineId` of the returned Pipeline object. If
+  `ephemeralPipeline` is specified, that pipeline is run once
+  with the given args and not saved. It is an error to specify both
+  `pipelineId` and `ephemeralPipeline`. `pipelineArgs`
+  must be specified.
+definitions.RunPipelineRequest.properties.ephemeralPipeline.$ref: '#/definitions/Pipeline'
+definitions.RunPipelineRequest.properties.ephemeralPipeline.description: A new pipeline
+  object to run once and then delete.
+definitions.RunPipelineRequest.properties.pipelineArgs.$ref: '#/definitions/RunPipelineArgs'
+definitions.RunPipelineRequest.properties.pipelineArgs.description: The arguments
+  to use when running this pipeline.
+definitions.RunPipelineRequest.properties.pipelineId.description: The already created
+  pipeline to run.
+definitions.RunPipelineRequest.properties.pipelineId.type: string
+definitions.RunPipelineRequest.type: object
+definitions.RuntimeMetadata.description: |-
+  Runtime metadata that will be populated in the
+  runtimeMetadata
+  field of the Operation associated with a RunPipeline execution.
+definitions.RuntimeMetadata.properties.computeEngine.$ref: '#/definitions/ComputeEngine'
+definitions.RuntimeMetadata.properties.computeEngine.description: Execution information
+  specific to Google Compute Engine.
+definitions.RuntimeMetadata.type: object
+definitions.ServiceAccount.description: A Google Cloud Service Account.
+definitions.ServiceAccount.properties.email.description: |-
+  Email address of the service account. Defaults to `default`,
+  which uses the compute service account associated with the project.
+definitions.ServiceAccount.properties.email.type: string
+definitions.ServiceAccount.properties.scopes.description: |-
+  List of scopes to be enabled for this service account on the VM.
+  The following scopes are automatically included:
+
+  * https://www.googleapis.com/auth/compute
+  * https://www.googleapis.com/auth/devstorage.full_control
+  * https://www.googleapis.com/auth/genomics
+  * https://www.googleapis.com/auth/logging.write
+  * https://www.googleapis.com/auth/monitoring.write
+definitions.ServiceAccount.properties.scopes.items.type: string
+definitions.ServiceAccount.properties.scopes.type: array
+definitions.ServiceAccount.type: object
+definitions.SetOperationStatusRequest.description: |-
+  Request to set operation status. Should only be used by VMs
+  created by the Pipelines Service and not by end users.
+definitions.SetOperationStatusRequest.properties.errorCode.enum.length: 17
+definitions.SetOperationStatusRequest.properties.errorCode.enum[0]: OK
+definitions.SetOperationStatusRequest.properties.errorCode.enum[1]: CANCELLED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[2]: UNKNOWN
+definitions.SetOperationStatusRequest.properties.errorCode.enum[3]: INVALID_ARGUMENT
+definitions.SetOperationStatusRequest.properties.errorCode.enum[4]: DEADLINE_EXCEEDED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[5]: NOT_FOUND
+definitions.SetOperationStatusRequest.properties.errorCode.enum[6]: ALREADY_EXISTS
+definitions.SetOperationStatusRequest.properties.errorCode.enum[7]: PERMISSION_DENIED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[8]: UNAUTHENTICATED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[9]: RESOURCE_EXHAUSTED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[10]: FAILED_PRECONDITION
+definitions.SetOperationStatusRequest.properties.errorCode.enum[11]: ABORTED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[12]: OUT_OF_RANGE
+definitions.SetOperationStatusRequest.properties.errorCode.enum[13]: UNIMPLEMENTED
+definitions.SetOperationStatusRequest.properties.errorCode.enum[14]: INTERNAL
+definitions.SetOperationStatusRequest.properties.errorCode.enum[15]: UNAVAILABLE
+definitions.SetOperationStatusRequest.properties.errorCode.enum[16]: DATA_LOSS
+definitions.SetOperationStatusRequest.properties.errorCode.type: string
+definitions.SetOperationStatusRequest.properties.errorMessage.type: string
+definitions.SetOperationStatusRequest.properties.operationId.type: string
+definitions.SetOperationStatusRequest.properties.timestampEvents.items.$ref: '#/definitions/TimestampEvent'
+definitions.SetOperationStatusRequest.properties.timestampEvents.type: array
+definitions.SetOperationStatusRequest.properties.validationToken.format: uint64
+definitions.SetOperationStatusRequest.properties.validationToken.type: string
+definitions.SetOperationStatusRequest.type: object
+definitions.Status.description: |-
+  The `Status` type defines a logical error model that is suitable for different
+  programming environments, including REST APIs and RPC APIs. It is used by
+  [gRPC](https://github.com/grpc). The error model is designed to be:
+
+  - Simple to use and understand for most users
+  - Flexible enough to meet unexpected needs
+
+  # Overview
+
+  The `Status` message contains three pieces of data: error code, error message,
+  and error details. The error code should be an enum value of
+  google.rpc.Code, but it may accept additional error codes if needed.  The
+  error message should be a developer-facing English message that helps
+  developers *understand* and *resolve* the error. If a localized user-facing
+  error message is needed, put the localized message in the error details or
+  localize it in the client. The optional error details may contain arbitrary
+  information about the error. There is a predefined set of error detail types
+  in the package `google.rpc` that can be used for common error conditions.
+
+  # Language mapping
+
+  The `Status` message is the logical representation of the error model, but it
+  is not necessarily the actual wire format. When the `Status` message is
+  exposed in different client libraries and different wire protocols, it can be
+  mapped differently. For example, it will likely be mapped to some exceptions
+  in Java, but more likely mapped to some error codes in C.
+
+  # Other uses
+
+  The error model and the `Status` message can be used in a variety of
+  environments, either with or without APIs, to provide a
+  consistent developer experience across different environments.
+
+  Example uses of this error model include:
+
+  - Partial errors. If a service needs to return partial errors to the client,
+      it may embed the `Status` in the normal response to indicate the partial
+      errors.
+
+  - Workflow errors. A typical workflow has multiple steps. Each step may
+      have a `Status` message for error reporting.
+
+  - Batch operations. If a client uses batch request and batch response, the
+      `Status` message should be used directly inside batch response, one for
+      each error sub-response.
+
+  - Asynchronous operations. If an API call embeds asynchronous operation
+      results in its response, the status of those operations should be
+      represented directly using the `Status` message.
+
+  - Logging. If some API errors are stored in logs, the message `Status` could
+      be used directly after any stripping needed for security/privacy reasons.
+definitions.Status.properties.code.description: The status code, which should be an
+  enum value of google.rpc.Code.
+definitions.Status.properties.code.format: int32
+definitions.Status.properties.code.type: integer
+definitions.Status.properties.details.description: |-
+  A list of messages that carry the error details.  There is a common set of
+  message types for APIs to use.
+definitions.Status.properties.details.items.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Status.properties.details.items.type: object
+definitions.Status.properties.details.type: array
+definitions.Status.properties.message.description: |-
+  A developer-facing error message, which should be in English. Any
+  user-facing error message should be localized and sent in the
+  google.rpc.Status.details field, or localized by the client.
+definitions.Status.properties.message.type: string
+definitions.Status.type: object
+definitions.TimestampEvent.description: |-
+  Stores the list of events and times they occured for major events in job
+  execution.
+definitions.TimestampEvent.properties.description.description: String indicating the
+  type of event
+definitions.TimestampEvent.properties.description.type: string
+definitions.TimestampEvent.properties.timestamp.description: The time this event occured.
+definitions.TimestampEvent.properties.timestamp.format: google-datetime
+definitions.TimestampEvent.properties.timestamp.type: string
+definitions.TimestampEvent.type: object
+externalDocs.url: https://cloud.google.com/genomics
+host: genomics.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Upload, process, query, and search Genomics data in the cloud.
+info.title: Genomics
+info.version: v1alpha2
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://genomics.googleapis.com/$discovery/rest?version=v1alpha2
+info.x-origin[0].version: v1
+info.x-preferred: false
+info.x-providerName: googleapis.com
+info.x-serviceName: genomics
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v1alpha2/{name}.get.description: Lists operations that match the specified
+  filter in the request.
+paths./v1alpha2/{name}.get.operationId: genomics.operations.list
+paths./v1alpha2/{name}.get.parameters.length: 4
+paths./v1alpha2/{name}.get.parameters[0].description: |-
+  A string for filtering Operations.
+  The following filter fields are supported&#58;
+
+  * projectId&#58; Required. Corresponds to
+    OperationMetadata.projectId.
+  * createTime&#58; The time this job was created, in seconds from the
+    [epoch](http://en.wikipedia.org/wiki/Unix_time). Can use `>=` and/or `<=`
+    operators.
+  * status&#58; Can be `RUNNING`, `SUCCESS`, `FAILURE`, or `CANCELED`. Only
+    one status may be specified.
+  * labels.key where key is a label key.
+
+  Examples&#58;
+
+  * `projectId = my-project AND createTime >= 1432140000`
+  * `projectId = my-project AND createTime >= 1432140000 AND createTime <= 1432150000 AND status = RUNNING`
+  * `projectId = my-project AND labels.color = *`
+  * `projectId = my-project AND labels.color = red`
+paths./v1alpha2/{name}.get.parameters[0].in: query
+paths./v1alpha2/{name}.get.parameters[0].name: filter
+paths./v1alpha2/{name}.get.parameters[0].type: string
+paths./v1alpha2/{name}.get.parameters[1].description: The name of the operation's
+  parent resource.
+paths./v1alpha2/{name}.get.parameters[1].in: path
+paths./v1alpha2/{name}.get.parameters[1].name: name
+paths./v1alpha2/{name}.get.parameters[1].required: true
+paths./v1alpha2/{name}.get.parameters[1].type: string
+paths./v1alpha2/{name}.get.parameters[1].x-reservedExpansion: true
+paths./v1alpha2/{name}.get.parameters[2].description: |-
+  The maximum number of results to return. If unspecified, defaults to
+  256. The maximum value is 2048.
+paths./v1alpha2/{name}.get.parameters[2].in: query
+paths./v1alpha2/{name}.get.parameters[2].name: pageSize
+paths./v1alpha2/{name}.get.parameters[2].type: integer
+paths./v1alpha2/{name}.get.parameters[3].description: The standard list page token.
+paths./v1alpha2/{name}.get.parameters[3].in: query
+paths./v1alpha2/{name}.get.parameters[3].name: pageToken
+paths./v1alpha2/{name}.get.parameters[3].type: string
+paths./v1alpha2/{name}.get.responses.200.description: Successful response
+paths./v1alpha2/{name}.get.responses.200.schema.$ref: '#/definitions/ListOperationsResponse'
+paths./v1alpha2/{name}.get.security.length: 2
+paths./v1alpha2/{name}.get.security[0].Oauth2.length: 1
+paths./v1alpha2/{name}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/{name}.get.security[1].Oauth2.length: 1
+paths./v1alpha2/{name}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/{name}.get.tags.length: 1
+paths./v1alpha2/{name}.get.tags[0]: operations
+paths./v1alpha2/{name}.parameters.length: 13
+paths./v1alpha2/{name}.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/{name}.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/{name}.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/{name}.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/{name}.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/{name}.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/{name}.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/{name}.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/{name}.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/{name}.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/{name}.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/{name}.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/{name}.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/{name}:cancel.parameters.length: 13
+paths./v1alpha2/{name}:cancel.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/{name}:cancel.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/{name}:cancel.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/{name}:cancel.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/{name}:cancel.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/{name}:cancel.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/{name}:cancel.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/{name}:cancel.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/{name}:cancel.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/{name}:cancel.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/{name}:cancel.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/{name}:cancel.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/{name}:cancel.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/{name}:cancel.post.description: Starts asynchronous cancellation on
+  a long-running operation. The server makes a best effort to cancel the operation,
+  but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations
+  to check whether the cancellation succeeded or the operation completed despite cancellation.
+paths./v1alpha2/{name}:cancel.post.operationId: genomics.operations.cancel
+paths./v1alpha2/{name}:cancel.post.parameters.length: 2
+paths./v1alpha2/{name}:cancel.post.parameters[0].description: The name of the operation
+  resource to be cancelled.
+paths./v1alpha2/{name}:cancel.post.parameters[0].in: path
+paths./v1alpha2/{name}:cancel.post.parameters[0].name: name
+paths./v1alpha2/{name}:cancel.post.parameters[0].required: true
+paths./v1alpha2/{name}:cancel.post.parameters[0].type: string
+paths./v1alpha2/{name}:cancel.post.parameters[0].x-reservedExpansion: true
+paths./v1alpha2/{name}:cancel.post.parameters[1].in: body
+paths./v1alpha2/{name}:cancel.post.parameters[1].name: body
+paths./v1alpha2/{name}:cancel.post.parameters[1].schema.$ref: '#/definitions/CancelOperationRequest'
+paths./v1alpha2/{name}:cancel.post.responses.200.description: Successful response
+paths./v1alpha2/{name}:cancel.post.responses.200.schema.$ref: '#/definitions/Empty'
+paths./v1alpha2/{name}:cancel.post.security.length: 2
+paths./v1alpha2/{name}:cancel.post.security[0].Oauth2.length: 1
+paths./v1alpha2/{name}:cancel.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/{name}:cancel.post.security[1].Oauth2.length: 1
+paths./v1alpha2/{name}:cancel.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/{name}:cancel.post.tags.length: 1
+paths./v1alpha2/{name}:cancel.post.tags[0]: operations
+paths./v1alpha2/pipelines.get.description: |-
+  Lists pipelines.
+
+  Caller must have READ permission to the project.
+paths./v1alpha2/pipelines.get.operationId: genomics.pipelines.list
+paths./v1alpha2/pipelines.get.parameters.length: 4
+paths./v1alpha2/pipelines.get.parameters[0].description: |-
+  Token to use to indicate where to start getting results.
+  If unspecified, returns the first page of results.
+paths./v1alpha2/pipelines.get.parameters[0].in: query
+paths./v1alpha2/pipelines.get.parameters[0].name: pageToken
+paths./v1alpha2/pipelines.get.parameters[0].type: string
+paths./v1alpha2/pipelines.get.parameters[1].description: |-
+  Number of pipelines to return at once. Defaults to 256, and max
+  is 2048.
+paths./v1alpha2/pipelines.get.parameters[1].in: query
+paths./v1alpha2/pipelines.get.parameters[1].name: pageSize
+paths./v1alpha2/pipelines.get.parameters[1].type: integer
+paths./v1alpha2/pipelines.get.parameters[2].description: |-
+  Required. The name of the project to search for pipelines. Caller
+  must have READ access to this project.
+paths./v1alpha2/pipelines.get.parameters[2].in: query
+paths./v1alpha2/pipelines.get.parameters[2].name: projectId
+paths./v1alpha2/pipelines.get.parameters[2].type: string
+paths./v1alpha2/pipelines.get.parameters[3].description: |-
+  Pipelines with names that match this prefix should be
+  returned.  If unspecified, all pipelines in the project, up to
+  `pageSize`, will be returned.
+paths./v1alpha2/pipelines.get.parameters[3].in: query
+paths./v1alpha2/pipelines.get.parameters[3].name: namePrefix
+paths./v1alpha2/pipelines.get.parameters[3].type: string
+paths./v1alpha2/pipelines.get.responses.200.description: Successful response
+paths./v1alpha2/pipelines.get.responses.200.schema.$ref: '#/definitions/ListPipelinesResponse'
+paths./v1alpha2/pipelines.get.security.length: 2
+paths./v1alpha2/pipelines.get.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines.get.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines.get.tags.length: 1
+paths./v1alpha2/pipelines.get.tags[0]: pipelines
+paths./v1alpha2/pipelines.parameters.length: 13
+paths./v1alpha2/pipelines.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/pipelines.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/pipelines.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/pipelines.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/pipelines.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/pipelines.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/pipelines.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/pipelines.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/pipelines.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/pipelines.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/pipelines.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/pipelines.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/pipelines.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/pipelines.post.description: |-
+  Creates a pipeline that can be run later. Create takes a Pipeline that
+  has all fields other than `pipelineId` populated, and then returns
+  the same pipeline with `pipelineId` populated. This id can be used
+  to run the pipeline.
+
+  Caller must have WRITE permission to the project.
+paths./v1alpha2/pipelines.post.operationId: genomics.pipelines.create
+paths./v1alpha2/pipelines.post.parameters.length: 1
+paths./v1alpha2/pipelines.post.parameters[0].in: body
+paths./v1alpha2/pipelines.post.parameters[0].name: body
+paths./v1alpha2/pipelines.post.parameters[0].schema.$ref: '#/definitions/Pipeline'
+paths./v1alpha2/pipelines.post.responses.200.description: Successful response
+paths./v1alpha2/pipelines.post.responses.200.schema.$ref: '#/definitions/Pipeline'
+paths./v1alpha2/pipelines.post.security.length: 2
+paths./v1alpha2/pipelines.post.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines.post.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines.post.tags.length: 1
+paths./v1alpha2/pipelines.post.tags[0]: pipelines
+paths./v1alpha2/pipelines/{pipelineId}.delete.description: |-
+  Deletes a pipeline based on ID.
+
+  Caller must have WRITE permission to the project.
+paths./v1alpha2/pipelines/{pipelineId}.delete.operationId: genomics.pipelines.delete
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters[0].description: |-
+  Caller must have WRITE access to the project in which this pipeline
+  is defined.
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters[0].in: path
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters[0].name: pipelineId
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters[0].required: true
+paths./v1alpha2/pipelines/{pipelineId}.delete.parameters[0].type: string
+paths./v1alpha2/pipelines/{pipelineId}.delete.responses.200.description: Successful
+  response
+paths./v1alpha2/pipelines/{pipelineId}.delete.responses.200.schema.$ref: '#/definitions/Empty'
+paths./v1alpha2/pipelines/{pipelineId}.delete.security.length: 2
+paths./v1alpha2/pipelines/{pipelineId}.delete.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines/{pipelineId}.delete.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.delete.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines/{pipelineId}.delete.tags.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.delete.tags[0]: pipelines
+paths./v1alpha2/pipelines/{pipelineId}.get.description: |-
+  Retrieves a pipeline based on ID.
+
+  Caller must have READ permission to the project.
+paths./v1alpha2/pipelines/{pipelineId}.get.operationId: genomics.pipelines.get
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters[0].description: |-
+  Caller must have READ access to the project in which this pipeline
+  is defined.
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters[0].in: path
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters[0].name: pipelineId
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters[0].required: true
+paths./v1alpha2/pipelines/{pipelineId}.get.parameters[0].type: string
+paths./v1alpha2/pipelines/{pipelineId}.get.responses.200.description: Successful response
+paths./v1alpha2/pipelines/{pipelineId}.get.responses.200.schema.$ref: '#/definitions/Pipeline'
+paths./v1alpha2/pipelines/{pipelineId}.get.security.length: 2
+paths./v1alpha2/pipelines/{pipelineId}.get.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines/{pipelineId}.get.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines/{pipelineId}.get.tags.length: 1
+paths./v1alpha2/pipelines/{pipelineId}.get.tags[0]: pipelines
+paths./v1alpha2/pipelines/{pipelineId}.parameters.length: 13
+paths./v1alpha2/pipelines/{pipelineId}.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/pipelines/{pipelineId}.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/pipelines:getControllerConfig.get.description: |-
+  Gets controller configuration information. Should only be called
+  by VMs created by the Pipelines Service and not by end users.
+paths./v1alpha2/pipelines:getControllerConfig.get.operationId: genomics.pipelines.getControllerConfig
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters.length: 2
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[0].description: The operation
+  to retrieve controller configuration for.
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[0].in: query
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[0].name: operationId
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[0].type: string
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[1].in: query
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[1].name: validationToken
+paths./v1alpha2/pipelines:getControllerConfig.get.parameters[1].type: string
+paths./v1alpha2/pipelines:getControllerConfig.get.responses.200.description: Successful
+  response
+paths./v1alpha2/pipelines:getControllerConfig.get.responses.200.schema.$ref: '#/definitions/ControllerConfig'
+paths./v1alpha2/pipelines:getControllerConfig.get.security.length: 2
+paths./v1alpha2/pipelines:getControllerConfig.get.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines:getControllerConfig.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines:getControllerConfig.get.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines:getControllerConfig.get.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines:getControllerConfig.get.tags.length: 1
+paths./v1alpha2/pipelines:getControllerConfig.get.tags[0]: pipelines
+paths./v1alpha2/pipelines:getControllerConfig.parameters.length: 13
+paths./v1alpha2/pipelines:getControllerConfig.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/pipelines:getControllerConfig.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/pipelines:run.parameters.length: 13
+paths./v1alpha2/pipelines:run.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/pipelines:run.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/pipelines:run.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/pipelines:run.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/pipelines:run.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/pipelines:run.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/pipelines:run.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/pipelines:run.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/pipelines:run.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/pipelines:run.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/pipelines:run.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/pipelines:run.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/pipelines:run.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/pipelines:run.post.description: |-
+  Runs a pipeline. If `pipelineId` is specified in the request, then
+  run a saved pipeline. If `ephemeralPipeline` is specified, then run
+  that pipeline once without saving a copy.
+
+  The caller must have READ permission to the project where the pipeline
+  is stored and WRITE permission to the project where the pipeline will be
+  run, as VMs will be created and storage will be used.
+
+  If a pipeline operation is still running after 6 days, it will be canceled.
+paths./v1alpha2/pipelines:run.post.operationId: genomics.pipelines.run
+paths./v1alpha2/pipelines:run.post.parameters.length: 1
+paths./v1alpha2/pipelines:run.post.parameters[0].in: body
+paths./v1alpha2/pipelines:run.post.parameters[0].name: body
+paths./v1alpha2/pipelines:run.post.parameters[0].schema.$ref: '#/definitions/RunPipelineRequest'
+paths./v1alpha2/pipelines:run.post.responses.200.description: Successful response
+paths./v1alpha2/pipelines:run.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./v1alpha2/pipelines:run.post.security.length: 3
+paths./v1alpha2/pipelines:run.post.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines:run.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines:run.post.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines:run.post.security[1].Oauth2[0]: https://www.googleapis.com/auth/compute
+paths./v1alpha2/pipelines:run.post.security[2].Oauth2.length: 1
+paths./v1alpha2/pipelines:run.post.security[2].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines:run.post.tags.length: 1
+paths./v1alpha2/pipelines:run.post.tags[0]: pipelines
+paths./v1alpha2/pipelines:setOperationStatus.parameters.length: 13
+paths./v1alpha2/pipelines:setOperationStatus.parameters[0].$ref: '#/parameters/key'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[1].$ref: '#/parameters/access_token'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[2].$ref: '#/parameters/quotaUser'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[3].$ref: '#/parameters/pp'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[4].$ref: '#/parameters/oauth_token'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[5].$ref: '#/parameters/bearer_token'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[6].$ref: '#/parameters/upload_protocol'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[7].$ref: '#/parameters/prettyPrint'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[8].$ref: '#/parameters/uploadType'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[9].$ref: '#/parameters/fields'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[10].$ref: '#/parameters/$.xgafv'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[11].$ref: '#/parameters/callback'
+paths./v1alpha2/pipelines:setOperationStatus.parameters[12].$ref: '#/parameters/alt'
+paths./v1alpha2/pipelines:setOperationStatus.put.description: |-
+  Sets status of a given operation. Any new timestamps (as determined by
+  description) are appended to TimestampEvents. Should only be called by VMs
+  created by the Pipelines Service and not by end users.
+paths./v1alpha2/pipelines:setOperationStatus.put.operationId: genomics.pipelines.setOperationStatus
+paths./v1alpha2/pipelines:setOperationStatus.put.parameters.length: 1
+paths./v1alpha2/pipelines:setOperationStatus.put.parameters[0].in: body
+paths./v1alpha2/pipelines:setOperationStatus.put.parameters[0].name: body
+paths./v1alpha2/pipelines:setOperationStatus.put.parameters[0].schema.$ref: '#/definitions/SetOperationStatusRequest'
+paths./v1alpha2/pipelines:setOperationStatus.put.responses.200.description: Successful
+  response
+paths./v1alpha2/pipelines:setOperationStatus.put.responses.200.schema.$ref: '#/definitions/Empty'
+paths./v1alpha2/pipelines:setOperationStatus.put.security.length: 2
+paths./v1alpha2/pipelines:setOperationStatus.put.security[0].Oauth2.length: 1
+paths./v1alpha2/pipelines:setOperationStatus.put.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1alpha2/pipelines:setOperationStatus.put.security[1].Oauth2.length: 1
+paths./v1alpha2/pipelines:setOperationStatus.put.security[1].Oauth2[0]: https://www.googleapis.com/auth/genomics
+paths./v1alpha2/pipelines:setOperationStatus.put.tags.length: 1
+paths./v1alpha2/pipelines:setOperationStatus.put.tags[0]: pipelines
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/compute: View and
+  manage your Google Compute Engine resources
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/genomics: View and
+  manage Genomics data
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 2
+tags[0].name: operations
+tags[1].name: pipelines

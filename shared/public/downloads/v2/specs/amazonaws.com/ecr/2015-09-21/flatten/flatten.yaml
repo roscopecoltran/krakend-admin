@@ -1,0 +1,1485 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.Arn.type: string
+definitions.AuthorizationData.description: An object representing authorization data
+  for an Amazon ECR registry.
+definitions.AuthorizationData.properties.authorizationToken.$ref: '#/definitions/Base64'
+definitions.AuthorizationData.properties.authorizationToken.description: A base64-encoded
+  string that contains authorization data for the specified Amazon ECR registry. When
+  the string is decoded, it is presented in the format <code>user:password</code>
+  for private registry authentication using <code>docker login</code>.
+definitions.AuthorizationData.properties.expiresAt.$ref: '#/definitions/ExpirationTimestamp'
+definitions.AuthorizationData.properties.expiresAt.description: The Unix time in seconds
+  and milliseconds when the authorization token expires. Authorization tokens are
+  valid for 12 hours.
+definitions.AuthorizationData.properties.proxyEndpoint.$ref: '#/definitions/ProxyEndpoint'
+definitions.AuthorizationData.properties.proxyEndpoint.description: 'The registry
+  URL to use for this authorization token in a <code>docker login</code> command.
+  The Amazon ECR registry URL format is <code>https://aws_account_id.dkr.ecr.region.amazonaws.com</code>.
+  For example, <code>https://012345678910.dkr.ecr.us-east-1.amazonaws.com</code>.. '
+definitions.AuthorizationData.type: object
+definitions.AuthorizationDataList.items.$ref: '#/definitions/AuthorizationData'
+definitions.AuthorizationDataList.type: array
+definitions.Base64.pattern: ^\S+$
+definitions.Base64.type: string
+definitions.BatchCheckLayerAvailabilityRequest.properties.layerDigests.$ref: '#/definitions/BatchedOperationLayerDigestList'
+definitions.BatchCheckLayerAvailabilityRequest.properties.layerDigests.description: The
+  digests of the image layers to check.
+definitions.BatchCheckLayerAvailabilityRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.BatchCheckLayerAvailabilityRequest.properties.registryId.description: The
+  AWS account ID associated with the registry that contains the image layers to check.
+  If you do not specify a registry, the default registry is assumed.
+definitions.BatchCheckLayerAvailabilityRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.BatchCheckLayerAvailabilityRequest.properties.repositoryName.description: The
+  name of the repository that is associated with the image layers to check.
+definitions.BatchCheckLayerAvailabilityRequest.required.length: 2
+definitions.BatchCheckLayerAvailabilityRequest.required[0]: repositoryName
+definitions.BatchCheckLayerAvailabilityRequest.required[1]: layerDigests
+definitions.BatchCheckLayerAvailabilityRequest.type: object
+definitions.BatchCheckLayerAvailabilityResponse.properties.failures.$ref: '#/definitions/LayerFailureList'
+definitions.BatchCheckLayerAvailabilityResponse.properties.failures.description: Any
+  failures associated with the call.
+definitions.BatchCheckLayerAvailabilityResponse.properties.layers.$ref: '#/definitions/LayerList'
+definitions.BatchCheckLayerAvailabilityResponse.properties.layers.description: A list
+  of image layer objects corresponding to the image layer references in the request.
+definitions.BatchCheckLayerAvailabilityResponse.type: object
+definitions.BatchDeleteImageRequest.description: Deletes specified images within a
+  specified repository. Images are specified with either the <code>imageTag</code>
+  or <code>imageDigest</code>.
+definitions.BatchDeleteImageRequest.example.imageIds.length: 1
+definitions.BatchDeleteImageRequest.example.imageIds[0].imageTag: precise
+definitions.BatchDeleteImageRequest.example.repositoryName: ubuntu
+definitions.BatchDeleteImageRequest.properties.imageIds.$ref: '#/definitions/ImageIdentifierList'
+definitions.BatchDeleteImageRequest.properties.imageIds.description: A list of image
+  ID references that correspond to images to delete. The format of the <code>imageIds</code>
+  reference is <code>imageTag=tag</code> or <code>imageDigest=digest</code>.
+definitions.BatchDeleteImageRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.BatchDeleteImageRequest.properties.registryId.description: The AWS account
+  ID associated with the registry that contains the image to delete. If you do not
+  specify a registry, the default registry is assumed.
+definitions.BatchDeleteImageRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.BatchDeleteImageRequest.properties.repositoryName.description: The repository
+  that contains the image to delete.
+definitions.BatchDeleteImageRequest.required.length: 2
+definitions.BatchDeleteImageRequest.required[0]: repositoryName
+definitions.BatchDeleteImageRequest.required[1]: imageIds
+definitions.BatchDeleteImageRequest.type: object
+definitions.BatchDeleteImageResponse.example.failures.length: 0
+definitions.BatchDeleteImageResponse.example.imageIds.length: 1
+definitions.BatchDeleteImageResponse.example.imageIds[0].imageDigest: sha256:examplee6d1e504117a17000003d3753086354a38375961f2e665416ef4b1b2f
+definitions.BatchDeleteImageResponse.example.imageIds[0].imageTag: precise
+definitions.BatchDeleteImageResponse.properties.failures.$ref: '#/definitions/ImageFailureList'
+definitions.BatchDeleteImageResponse.properties.failures.description: Any failures
+  associated with the call.
+definitions.BatchDeleteImageResponse.properties.imageIds.$ref: '#/definitions/ImageIdentifierList'
+definitions.BatchDeleteImageResponse.properties.imageIds.description: The image IDs
+  of the deleted images.
+definitions.BatchDeleteImageResponse.type: object
+definitions.BatchGetImageRequest.example.imageIds.length: 1
+definitions.BatchGetImageRequest.example.imageIds[0].imageTag: precise
+definitions.BatchGetImageRequest.example.repositoryName: ubuntu
+definitions.BatchGetImageRequest.properties.acceptedMediaTypes.$ref: '#/definitions/MediaTypeList'
+definitions.BatchGetImageRequest.properties.acceptedMediaTypes.description: '<p>The
+  accepted media types for the request.</p> <p>Valid values: <code>application/vnd.docker.distribution.manifest.v1+json</code>
+  | <code>application/vnd.docker.distribution.manifest.v2+json</code> | <code>application/vnd.oci.image.manifest.v1+json</code>
+  </p>'
+definitions.BatchGetImageRequest.properties.imageIds.$ref: '#/definitions/ImageIdentifierList'
+definitions.BatchGetImageRequest.properties.imageIds.description: A list of image
+  ID references that correspond to images to describe. The format of the <code>imageIds</code>
+  reference is <code>imageTag=tag</code> or <code>imageDigest=digest</code>.
+definitions.BatchGetImageRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.BatchGetImageRequest.properties.registryId.description: The AWS account
+  ID associated with the registry that contains the images to describe. If you do
+  not specify a registry, the default registry is assumed.
+definitions.BatchGetImageRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.BatchGetImageRequest.properties.repositoryName.description: The repository
+  that contains the images to describe.
+definitions.BatchGetImageRequest.required.length: 2
+definitions.BatchGetImageRequest.required[0]: repositoryName
+definitions.BatchGetImageRequest.required[1]: imageIds
+definitions.BatchGetImageRequest.type: object
+definitions.BatchGetImageResponse.example.failures.length: 0
+definitions.BatchGetImageResponse.example.images.length: 1
+definitions.BatchGetImageResponse.example.images[0].imageId.imageDigest: sha256:example76bdff6d83a09ba2a818f0d00000063724a9ac3ba5019c56f74ebf42a
+definitions.BatchGetImageResponse.example.images[0].imageId.imageTag: precise
+definitions.BatchGetImageResponse.example.images[0].imageManifest: |-
+  {
+   "schemaVersion": 1,
+   "name": "ubuntu",
+   "tag": "precise",
+  ...
+definitions.BatchGetImageResponse.example.images[0].registryId: "244698725403"
+definitions.BatchGetImageResponse.example.images[0].repositoryName: ubuntu
+definitions.BatchGetImageResponse.properties.failures.$ref: '#/definitions/ImageFailureList'
+definitions.BatchGetImageResponse.properties.failures.description: Any failures associated
+  with the call.
+definitions.BatchGetImageResponse.properties.images.$ref: '#/definitions/ImageList'
+definitions.BatchGetImageResponse.properties.images.description: A list of image objects
+  corresponding to the image references in the request.
+definitions.BatchGetImageResponse.type: object
+definitions.BatchedOperationLayerDigest.maxLength: 1000
+definitions.BatchedOperationLayerDigest.minLength: 0
+definitions.BatchedOperationLayerDigest.type: string
+definitions.BatchedOperationLayerDigestList.items.$ref: '#/definitions/BatchedOperationLayerDigest'
+definitions.BatchedOperationLayerDigestList.maxItems: 100
+definitions.BatchedOperationLayerDigestList.minItems: 1
+definitions.BatchedOperationLayerDigestList.type: array
+definitions.CompleteLayerUploadRequest.properties.layerDigests.$ref: '#/definitions/LayerDigestList'
+definitions.CompleteLayerUploadRequest.properties.layerDigests.description: The <code>sha256</code>
+  digest of the image layer.
+definitions.CompleteLayerUploadRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.CompleteLayerUploadRequest.properties.registryId.description: The AWS
+  account ID associated with the registry to which to upload layers. If you do not
+  specify a registry, the default registry is assumed.
+definitions.CompleteLayerUploadRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.CompleteLayerUploadRequest.properties.repositoryName.description: The
+  name of the repository to associate with the image layer.
+definitions.CompleteLayerUploadRequest.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.CompleteLayerUploadRequest.properties.uploadId.description: The upload
+  ID from a previous <a>InitiateLayerUpload</a> operation to associate with the image
+  layer.
+definitions.CompleteLayerUploadRequest.required.length: 3
+definitions.CompleteLayerUploadRequest.required[0]: repositoryName
+definitions.CompleteLayerUploadRequest.required[1]: uploadId
+definitions.CompleteLayerUploadRequest.required[2]: layerDigests
+definitions.CompleteLayerUploadRequest.type: object
+definitions.CompleteLayerUploadResponse.properties.layerDigest.$ref: '#/definitions/LayerDigest'
+definitions.CompleteLayerUploadResponse.properties.layerDigest.description: The <code>sha256</code>
+  digest of the image layer.
+definitions.CompleteLayerUploadResponse.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.CompleteLayerUploadResponse.properties.registryId.description: The registry
+  ID associated with the request.
+definitions.CompleteLayerUploadResponse.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.CompleteLayerUploadResponse.properties.repositoryName.description: The
+  repository name associated with the request.
+definitions.CompleteLayerUploadResponse.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.CompleteLayerUploadResponse.properties.uploadId.description: The upload
+  ID associated with the layer.
+definitions.CompleteLayerUploadResponse.type: object
+definitions.CreateRepositoryRequest.example.repositoryName: project-a/nginx-web-app
+definitions.CreateRepositoryRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.CreateRepositoryRequest.properties.repositoryName.description: The name
+  to use for the repository. The repository name may be specified on its own (such
+  as <code>nginx-web-app</code>) or it can be prepended with a namespace to group
+  the repository into a category (such as <code>project-a/nginx-web-app</code>).
+definitions.CreateRepositoryRequest.required.length: 1
+definitions.CreateRepositoryRequest.required[0]: repositoryName
+definitions.CreateRepositoryRequest.type: object
+definitions.CreateRepositoryResponse.example.repository.registryId: "012345678901"
+definitions.CreateRepositoryResponse.example.repository.repositoryArn: arn:aws:ecr:us-west-2:012345678901:repository/project-a/nginx-web-app
+definitions.CreateRepositoryResponse.example.repository.repositoryName: project-a/nginx-web-app
+definitions.CreateRepositoryResponse.properties.repository.$ref: '#/definitions/Repository'
+definitions.CreateRepositoryResponse.properties.repository.description: The repository
+  that was created.
+definitions.CreateRepositoryResponse.type: object
+definitions.CreationTimestamp.format: date-time
+definitions.CreationTimestamp.type: string
+definitions.DeleteRepositoryPolicyRequest.example.repositoryName: ubuntu
+definitions.DeleteRepositoryPolicyRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.DeleteRepositoryPolicyRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that contains the repository policy to delete.
+  If you do not specify a registry, the default registry is assumed.
+definitions.DeleteRepositoryPolicyRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.DeleteRepositoryPolicyRequest.properties.repositoryName.description: The
+  name of the repository that is associated with the repository policy to delete.
+definitions.DeleteRepositoryPolicyRequest.required.length: 1
+definitions.DeleteRepositoryPolicyRequest.required[0]: repositoryName
+definitions.DeleteRepositoryPolicyRequest.type: object
+definitions.DeleteRepositoryPolicyResponse.example.policyText: '{ ... }'
+definitions.DeleteRepositoryPolicyResponse.example.registryId: "012345678901"
+definitions.DeleteRepositoryPolicyResponse.example.repositoryName: ubuntu
+definitions.DeleteRepositoryPolicyResponse.properties.policyText.$ref: '#/definitions/RepositoryPolicyText'
+definitions.DeleteRepositoryPolicyResponse.properties.policyText.description: The
+  JSON repository policy that was deleted from the repository.
+definitions.DeleteRepositoryPolicyResponse.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.DeleteRepositoryPolicyResponse.properties.registryId.description: The
+  registry ID associated with the request.
+definitions.DeleteRepositoryPolicyResponse.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.DeleteRepositoryPolicyResponse.properties.repositoryName.description: The
+  repository name associated with the request.
+definitions.DeleteRepositoryPolicyResponse.type: object
+definitions.DeleteRepositoryRequest.example.force: true
+definitions.DeleteRepositoryRequest.example.repositoryName: ubuntu
+definitions.DeleteRepositoryRequest.properties.force.$ref: '#/definitions/ForceFlag'
+definitions.DeleteRepositoryRequest.properties.force.description: Force the deletion
+  of the repository if it contains images.
+definitions.DeleteRepositoryRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.DeleteRepositoryRequest.properties.registryId.description: The AWS account
+  ID associated with the registry that contains the repository to delete. If you do
+  not specify a registry, the default registry is assumed.
+definitions.DeleteRepositoryRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.DeleteRepositoryRequest.properties.repositoryName.description: The name
+  of the repository to delete.
+definitions.DeleteRepositoryRequest.required.length: 1
+definitions.DeleteRepositoryRequest.required[0]: repositoryName
+definitions.DeleteRepositoryRequest.type: object
+definitions.DeleteRepositoryResponse.example.repository.registryId: "012345678901"
+definitions.DeleteRepositoryResponse.example.repository.repositoryArn: arn:aws:ecr:us-west-2:012345678901:repository/ubuntu
+definitions.DeleteRepositoryResponse.example.repository.repositoryName: ubuntu
+definitions.DeleteRepositoryResponse.properties.repository.$ref: '#/definitions/Repository'
+definitions.DeleteRepositoryResponse.properties.repository.description: The repository
+  that was deleted.
+definitions.DeleteRepositoryResponse.type: object
+definitions.DescribeImagesFilter.description: An object representing a filter on a
+  <a>DescribeImages</a> operation.
+definitions.DescribeImagesFilter.properties.tagStatus.$ref: '#/definitions/TagStatus'
+definitions.DescribeImagesFilter.properties.tagStatus.description: The tag status
+  with which to filter your <a>DescribeImages</a> results. You can filter results
+  based on whether they are <code>TAGGED</code> or <code>UNTAGGED</code>.
+definitions.DescribeImagesFilter.type: object
+definitions.DescribeImagesRequest.properties.filter.$ref: '#/definitions/DescribeImagesFilter'
+definitions.DescribeImagesRequest.properties.filter.description: The filter key and
+  value with which to filter your <code>DescribeImages</code> results.
+definitions.DescribeImagesRequest.properties.imageIds.$ref: '#/definitions/ImageIdentifierList'
+definitions.DescribeImagesRequest.properties.imageIds.description: The list of image
+  IDs for the requested repository.
+definitions.DescribeImagesRequest.properties.maxResults.$ref: '#/definitions/MaxResults'
+definitions.DescribeImagesRequest.properties.maxResults.description: The maximum number
+  of repository results returned by <code>DescribeImages</code> in paginated output.
+  When this parameter is used, <code>DescribeImages</code> only returns <code>maxResults</code>
+  results in a single page along with a <code>nextToken</code> response element. The
+  remaining results of the initial request can be seen by sending another <code>DescribeImages</code>
+  request with the returned <code>nextToken</code> value. This value can be between
+  1 and 100. If this parameter is not used, then <code>DescribeImages</code> returns
+  up to 100 results and a <code>nextToken</code> value, if applicable.
+definitions.DescribeImagesRequest.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.DescribeImagesRequest.properties.nextToken.description: The <code>nextToken</code>
+  value returned from a previous paginated <code>DescribeImages</code> request where
+  <code>maxResults</code> was used and the results exceeded the value of that parameter.
+  Pagination continues from the end of the previous results that returned the <code>nextToken</code>
+  value. This value is <code>null</code> when there are no more results to return.
+definitions.DescribeImagesRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.DescribeImagesRequest.properties.registryId.description: The AWS account
+  ID associated with the registry that contains the repository in which to describe
+  images. If you do not specify a registry, the default registry is assumed.
+definitions.DescribeImagesRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.DescribeImagesRequest.properties.repositoryName.description: A list of
+  repositories to describe. If this parameter is omitted, then all repositories in
+  a registry are described.
+definitions.DescribeImagesRequest.required.length: 1
+definitions.DescribeImagesRequest.required[0]: repositoryName
+definitions.DescribeImagesRequest.type: object
+definitions.DescribeImagesResponse.properties.imageDetails.$ref: '#/definitions/ImageDetailList'
+definitions.DescribeImagesResponse.properties.imageDetails.description: A list of
+  <a>ImageDetail</a> objects that contain data about the image.
+definitions.DescribeImagesResponse.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.DescribeImagesResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>DescribeImages</code> request. When the results
+  of a <code>DescribeImages</code> request exceed <code>maxResults</code>, this value
+  can be used to retrieve the next page of results. This value is <code>null</code>
+  when there are no more results to return.
+definitions.DescribeImagesResponse.type: object
+definitions.DescribeRepositoriesRequest.properties.maxResults.$ref: '#/definitions/MaxResults'
+definitions.DescribeRepositoriesRequest.properties.maxResults.description: The maximum
+  number of repository results returned by <code>DescribeRepositories</code> in paginated
+  output. When this parameter is used, <code>DescribeRepositories</code> only returns
+  <code>maxResults</code> results in a single page along with a <code>nextToken</code>
+  response element. The remaining results of the initial request can be seen by sending
+  another <code>DescribeRepositories</code> request with the returned <code>nextToken</code>
+  value. This value can be between 1 and 100. If this parameter is not used, then
+  <code>DescribeRepositories</code> returns up to 100 results and a <code>nextToken</code>
+  value, if applicable.
+definitions.DescribeRepositoriesRequest.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.DescribeRepositoriesRequest.properties.nextToken.description: <p>The <code>nextToken</code>
+  value returned from a previous paginated <code>DescribeRepositories</code> request
+  where <code>maxResults</code> was used and the results exceeded the value of that
+  parameter. Pagination continues from the end of the previous results that returned
+  the <code>nextToken</code> value. This value is <code>null</code> when there are
+  no more results to return.</p> <note> <p>This token should be treated as an opaque
+  identifier that is only used to retrieve the next items in a list and not for other
+  programmatic purposes.</p> </note>
+definitions.DescribeRepositoriesRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.DescribeRepositoriesRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that contains the repositories to be described.
+  If you do not specify a registry, the default registry is assumed.
+definitions.DescribeRepositoriesRequest.properties.repositoryNames.$ref: '#/definitions/RepositoryNameList'
+definitions.DescribeRepositoriesRequest.properties.repositoryNames.description: A
+  list of repositories to describe. If this parameter is omitted, then all repositories
+  in a registry are described.
+definitions.DescribeRepositoriesRequest.type: object
+definitions.DescribeRepositoriesResponse.example.repositories.length: 2
+definitions.DescribeRepositoriesResponse.example.repositories[0].registryId: "012345678910"
+definitions.DescribeRepositoriesResponse.example.repositories[0].repositoryArn: arn:aws:ecr:us-west-2:012345678910:repository/ubuntu
+definitions.DescribeRepositoriesResponse.example.repositories[0].repositoryName: ubuntu
+definitions.DescribeRepositoriesResponse.example.repositories[1].registryId: "012345678910"
+definitions.DescribeRepositoriesResponse.example.repositories[1].repositoryArn: arn:aws:ecr:us-west-2:012345678910:repository/test
+definitions.DescribeRepositoriesResponse.example.repositories[1].repositoryName: test
+definitions.DescribeRepositoriesResponse.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.DescribeRepositoriesResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>DescribeRepositories</code> request. When the
+  results of a <code>DescribeRepositories</code> request exceed <code>maxResults</code>,
+  this value can be used to retrieve the next page of results. This value is <code>null</code>
+  when there are no more results to return.
+definitions.DescribeRepositoriesResponse.properties.repositories.$ref: '#/definitions/RepositoryList'
+definitions.DescribeRepositoriesResponse.properties.repositories.description: A list
+  of repository objects corresponding to valid repositories.
+definitions.DescribeRepositoriesResponse.type: object
+definitions.EmptyUploadException.description: The specified layer upload does not
+  contain any layer parts.
+definitions.EmptyUploadException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.EmptyUploadException.properties.message.description: The error message
+  associated with the exception.
+definitions.EmptyUploadException.type: object
+definitions.ExceptionMessage.type: string
+definitions.ExpirationTimestamp.format: date-time
+definitions.ExpirationTimestamp.type: string
+definitions.ForceFlag.type: boolean
+definitions.GetAuthorizationTokenRegistryIdList.items.$ref: '#/definitions/RegistryId'
+definitions.GetAuthorizationTokenRegistryIdList.maxItems: 10
+definitions.GetAuthorizationTokenRegistryIdList.minItems: 1
+definitions.GetAuthorizationTokenRegistryIdList.type: array
+definitions.GetAuthorizationTokenRequest.properties.registryIds.$ref: '#/definitions/GetAuthorizationTokenRegistryIdList'
+definitions.GetAuthorizationTokenRequest.properties.registryIds.description: A list
+  of AWS account IDs that are associated with the registries for which to get authorization
+  tokens. If you do not specify a registry, the default registry is assumed.
+definitions.GetAuthorizationTokenRequest.type: object
+definitions.GetAuthorizationTokenResponse.example.authorizationData.length: 1
+definitions.GetAuthorizationTokenResponse.example.authorizationData[0].authorizationToken: QVdTOkN...
+definitions.GetAuthorizationTokenResponse.example.authorizationData[0].expiresAt: "1470951892432"
+definitions.GetAuthorizationTokenResponse.example.authorizationData[0].proxyEndpoint: https://012345678901.dkr.ecr.us-west-2.amazonaws.com
+definitions.GetAuthorizationTokenResponse.properties.authorizationData.$ref: '#/definitions/AuthorizationDataList'
+definitions.GetAuthorizationTokenResponse.properties.authorizationData.description: A
+  list of authorization token data objects that correspond to the <code>registryIds</code>
+  values in the request.
+definitions.GetAuthorizationTokenResponse.type: object
+definitions.GetDownloadUrlForLayerRequest.properties.layerDigest.$ref: '#/definitions/LayerDigest'
+definitions.GetDownloadUrlForLayerRequest.properties.layerDigest.description: The
+  digest of the image layer to download.
+definitions.GetDownloadUrlForLayerRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.GetDownloadUrlForLayerRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that contains the image layer to download.
+  If you do not specify a registry, the default registry is assumed.
+definitions.GetDownloadUrlForLayerRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.GetDownloadUrlForLayerRequest.properties.repositoryName.description: The
+  name of the repository that is associated with the image layer to download.
+definitions.GetDownloadUrlForLayerRequest.required.length: 2
+definitions.GetDownloadUrlForLayerRequest.required[0]: repositoryName
+definitions.GetDownloadUrlForLayerRequest.required[1]: layerDigest
+definitions.GetDownloadUrlForLayerRequest.type: object
+definitions.GetDownloadUrlForLayerResponse.properties.downloadUrl.$ref: '#/definitions/Url'
+definitions.GetDownloadUrlForLayerResponse.properties.downloadUrl.description: The
+  pre-signed Amazon S3 download URL for the requested layer.
+definitions.GetDownloadUrlForLayerResponse.properties.layerDigest.$ref: '#/definitions/LayerDigest'
+definitions.GetDownloadUrlForLayerResponse.properties.layerDigest.description: The
+  digest of the image layer to download.
+definitions.GetDownloadUrlForLayerResponse.type: object
+definitions.GetRepositoryPolicyRequest.example.repositoryName: ubuntu
+definitions.GetRepositoryPolicyRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.GetRepositoryPolicyRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that contains the repository. If you do
+  not specify a registry, the default registry is assumed.
+definitions.GetRepositoryPolicyRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.GetRepositoryPolicyRequest.properties.repositoryName.description: The
+  name of the repository whose policy you want to retrieve.
+definitions.GetRepositoryPolicyRequest.required.length: 1
+definitions.GetRepositoryPolicyRequest.required[0]: repositoryName
+definitions.GetRepositoryPolicyRequest.type: object
+definitions.GetRepositoryPolicyResponse.example.policyText: |-
+  {
+    "Version" : "2008-10-17",
+    "Statement" : [ {
+      "Sid" : "new statement",
+      "Effect" : "Allow",
+      "Principal" : {
+       "AWS" : "arn:aws:iam::012345678901:role/CodeDeployDemo"
+      },
+  "Action" : [ "ecr:GetDownloadUrlForLayer", "ecr:BatchGetImage", "ecr:BatchCheckLayerAvailability" ]
+   } ]
+  }
+definitions.GetRepositoryPolicyResponse.example.registryId: "012345678901"
+definitions.GetRepositoryPolicyResponse.example.repositoryName: ubuntu
+definitions.GetRepositoryPolicyResponse.properties.policyText.$ref: '#/definitions/RepositoryPolicyText'
+definitions.GetRepositoryPolicyResponse.properties.policyText.description: The JSON
+  repository policy text associated with the repository.
+definitions.GetRepositoryPolicyResponse.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.GetRepositoryPolicyResponse.properties.registryId.description: The registry
+  ID associated with the request.
+definitions.GetRepositoryPolicyResponse.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.GetRepositoryPolicyResponse.properties.repositoryName.description: The
+  repository name associated with the request.
+definitions.GetRepositoryPolicyResponse.type: object
+definitions.Image.description: An object representing an Amazon ECR image.
+definitions.Image.properties.imageId.$ref: '#/definitions/ImageIdentifier'
+definitions.Image.properties.imageId.description: An object containing the image tag
+  and image digest associated with an image.
+definitions.Image.properties.imageManifest.$ref: '#/definitions/ImageManifest'
+definitions.Image.properties.imageManifest.description: The image manifest associated
+  with the image.
+definitions.Image.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.Image.properties.registryId.description: The AWS account ID associated
+  with the registry containing the image.
+definitions.Image.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.Image.properties.repositoryName.description: The name of the repository
+  associated with the image.
+definitions.Image.type: object
+definitions.ImageAlreadyExistsException.description: The specified image has already
+  been pushed, and there are no changes to the manifest or image tag since the last
+  push.
+definitions.ImageAlreadyExistsException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.ImageAlreadyExistsException.properties.message.description: The error
+  message associated with the exception.
+definitions.ImageAlreadyExistsException.type: object
+definitions.ImageDetail.description: An object that describes an image returned by
+  a <a>DescribeImages</a> operation.
+definitions.ImageDetail.properties.imageDigest.$ref: '#/definitions/ImageDigest'
+definitions.ImageDetail.properties.imageDigest.description: The <code>sha256</code>
+  digest of the image manifest.
+definitions.ImageDetail.properties.imagePushedAt.$ref: '#/definitions/PushTimestamp'
+definitions.ImageDetail.properties.imagePushedAt.description: 'The date and time,
+  expressed in standard JavaScript date format, at which the current image was pushed
+  to the repository. '
+definitions.ImageDetail.properties.imageSizeInBytes.$ref: '#/definitions/ImageSizeInBytes'
+definitions.ImageDetail.properties.imageSizeInBytes.description: <p>The size, in bytes,
+  of the image in the repository.</p> <note> <p>Beginning with Docker version 1.9,
+  the Docker client compresses image layers before pushing them to a V2 Docker registry.
+  The output of the <code>docker images</code> command shows the uncompressed image
+  size, so it may return a larger image size than the image sizes returned by <a>DescribeImages</a>.</p>
+  </note>
+definitions.ImageDetail.properties.imageTags.$ref: '#/definitions/ImageTagList'
+definitions.ImageDetail.properties.imageTags.description: The list of tags associated
+  with this image.
+definitions.ImageDetail.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.ImageDetail.properties.registryId.description: The AWS account ID associated
+  with the registry to which this image belongs.
+definitions.ImageDetail.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.ImageDetail.properties.repositoryName.description: The name of the repository
+  to which this image belongs.
+definitions.ImageDetail.type: object
+definitions.ImageDetailList.items.$ref: '#/definitions/ImageDetail'
+definitions.ImageDetailList.type: array
+definitions.ImageDigest.type: string
+definitions.ImageFailure.description: An object representing an Amazon ECR image failure.
+definitions.ImageFailure.properties.failureCode.$ref: '#/definitions/ImageFailureCode'
+definitions.ImageFailure.properties.failureCode.description: The code associated with
+  the failure.
+definitions.ImageFailure.properties.failureReason.$ref: '#/definitions/ImageFailureReason'
+definitions.ImageFailure.properties.failureReason.description: The reason for the
+  failure.
+definitions.ImageFailure.properties.imageId.$ref: '#/definitions/ImageIdentifier'
+definitions.ImageFailure.properties.imageId.description: The image ID associated with
+  the failure.
+definitions.ImageFailure.type: object
+definitions.ImageFailureCode.enum.length: 5
+definitions.ImageFailureCode.enum[0]: InvalidImageDigest
+definitions.ImageFailureCode.enum[1]: InvalidImageTag
+definitions.ImageFailureCode.enum[2]: ImageTagDoesNotMatchDigest
+definitions.ImageFailureCode.enum[3]: ImageNotFound
+definitions.ImageFailureCode.enum[4]: MissingDigestAndTag
+definitions.ImageFailureCode.type: string
+definitions.ImageFailureList.items.$ref: '#/definitions/ImageFailure'
+definitions.ImageFailureList.type: array
+definitions.ImageFailureReason.type: string
+definitions.ImageIdentifier.description: An object with identifying information for
+  an Amazon ECR image.
+definitions.ImageIdentifier.properties.imageDigest.$ref: '#/definitions/ImageDigest'
+definitions.ImageIdentifier.properties.imageDigest.description: The <code>sha256</code>
+  digest of the image manifest.
+definitions.ImageIdentifier.properties.imageTag.$ref: '#/definitions/ImageTag'
+definitions.ImageIdentifier.properties.imageTag.description: The tag used for the
+  image.
+definitions.ImageIdentifier.type: object
+definitions.ImageIdentifierList.items.$ref: '#/definitions/ImageIdentifier'
+definitions.ImageIdentifierList.maxItems: 100
+definitions.ImageIdentifierList.minItems: 1
+definitions.ImageIdentifierList.type: array
+definitions.ImageList.items.$ref: '#/definitions/Image'
+definitions.ImageList.type: array
+definitions.ImageManifest.type: string
+definitions.ImageNotFoundException.description: The image requested does not exist
+  in the specified repository.
+definitions.ImageNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.ImageNotFoundException.type: object
+definitions.ImageSizeInBytes.type: integer
+definitions.ImageTag.type: string
+definitions.ImageTagList.items.$ref: '#/definitions/ImageTag'
+definitions.ImageTagList.type: array
+definitions.InitiateLayerUploadRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.InitiateLayerUploadRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that you intend to upload layers to. If
+  you do not specify a registry, the default registry is assumed.
+definitions.InitiateLayerUploadRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.InitiateLayerUploadRequest.properties.repositoryName.description: The
+  name of the repository that you intend to upload layers to.
+definitions.InitiateLayerUploadRequest.required.length: 1
+definitions.InitiateLayerUploadRequest.required[0]: repositoryName
+definitions.InitiateLayerUploadRequest.type: object
+definitions.InitiateLayerUploadResponse.properties.partSize.$ref: '#/definitions/PartSize'
+definitions.InitiateLayerUploadResponse.properties.partSize.description: The size,
+  in bytes, that Amazon ECR expects future layer part uploads to be.
+definitions.InitiateLayerUploadResponse.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.InitiateLayerUploadResponse.properties.uploadId.description: The upload
+  ID for the layer upload. This parameter is passed to further <a>UploadLayerPart</a>
+  and <a>CompleteLayerUpload</a> operations.
+definitions.InitiateLayerUploadResponse.type: object
+definitions.InvalidLayerException.description: The layer digest calculation performed
+  by Amazon ECR upon receipt of the image layer does not match the digest specified.
+definitions.InvalidLayerException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidLayerException.properties.message.description: The error message
+  associated with the exception.
+definitions.InvalidLayerException.type: object
+definitions.InvalidLayerPartException.description: The layer part size is not valid,
+  or the first byte specified is not consecutive to the last byte of a previous layer
+  part upload.
+definitions.InvalidLayerPartException.properties.lastValidByteReceived.$ref: '#/definitions/PartSize'
+definitions.InvalidLayerPartException.properties.lastValidByteReceived.description: The
+  last valid byte received from the layer part upload that is associated with the
+  exception.
+definitions.InvalidLayerPartException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidLayerPartException.properties.message.description: The error message
+  associated with the exception.
+definitions.InvalidLayerPartException.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.InvalidLayerPartException.properties.registryId.description: The registry
+  ID associated with the exception.
+definitions.InvalidLayerPartException.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.InvalidLayerPartException.properties.repositoryName.description: The repository
+  name associated with the exception.
+definitions.InvalidLayerPartException.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.InvalidLayerPartException.properties.uploadId.description: The upload
+  ID associated with the exception.
+definitions.InvalidLayerPartException.type: object
+definitions.InvalidParameterException.description: The specified parameter is invalid.
+  Review the available parameters for the API request.
+definitions.InvalidParameterException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.InvalidParameterException.properties.message.description: The error message
+  associated with the exception.
+definitions.InvalidParameterException.type: object
+definitions.Layer.description: An object representing an Amazon ECR image layer.
+definitions.Layer.properties.layerAvailability.$ref: '#/definitions/LayerAvailability'
+definitions.Layer.properties.layerAvailability.description: The availability status
+  of the image layer.
+definitions.Layer.properties.layerDigest.$ref: '#/definitions/LayerDigest'
+definitions.Layer.properties.layerDigest.description: The <code>sha256</code> digest
+  of the image layer.
+definitions.Layer.properties.layerSize.$ref: '#/definitions/LayerSizeInBytes'
+definitions.Layer.properties.layerSize.description: The size, in bytes, of the image
+  layer.
+definitions.Layer.properties.mediaType.$ref: '#/definitions/MediaType'
+definitions.Layer.properties.mediaType.description: The media type of the layer, such
+  as <code>application/vnd.docker.image.rootfs.diff.tar.gzip</code> or <code>application/vnd.oci.image.layer.v1.tar+gzip</code>.
+definitions.Layer.type: object
+definitions.LayerAlreadyExistsException.description: The image layer already exists
+  in the associated repository.
+definitions.LayerAlreadyExistsException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LayerAlreadyExistsException.properties.message.description: The error
+  message associated with the exception.
+definitions.LayerAlreadyExistsException.type: object
+definitions.LayerAvailability.enum.length: 2
+definitions.LayerAvailability.enum[0]: AVAILABLE
+definitions.LayerAvailability.enum[1]: UNAVAILABLE
+definitions.LayerAvailability.type: string
+definitions.LayerDigest.pattern: '[a-zA-Z0-9-_+.]+:[a-fA-F0-9]+'
+definitions.LayerDigest.type: string
+definitions.LayerDigestList.items.$ref: '#/definitions/LayerDigest'
+definitions.LayerDigestList.maxItems: 100
+definitions.LayerDigestList.minItems: 1
+definitions.LayerDigestList.type: array
+definitions.LayerFailure.description: An object representing an Amazon ECR image layer
+  failure.
+definitions.LayerFailure.properties.failureCode.$ref: '#/definitions/LayerFailureCode'
+definitions.LayerFailure.properties.failureCode.description: The failure code associated
+  with the failure.
+definitions.LayerFailure.properties.failureReason.$ref: '#/definitions/LayerFailureReason'
+definitions.LayerFailure.properties.failureReason.description: The reason for the
+  failure.
+definitions.LayerFailure.properties.layerDigest.$ref: '#/definitions/BatchedOperationLayerDigest'
+definitions.LayerFailure.properties.layerDigest.description: The layer digest associated
+  with the failure.
+definitions.LayerFailure.type: object
+definitions.LayerFailureCode.enum.length: 2
+definitions.LayerFailureCode.enum[0]: InvalidLayerDigest
+definitions.LayerFailureCode.enum[1]: MissingLayerDigest
+definitions.LayerFailureCode.type: string
+definitions.LayerFailureList.items.$ref: '#/definitions/LayerFailure'
+definitions.LayerFailureList.type: array
+definitions.LayerFailureReason.type: string
+definitions.LayerInaccessibleException.description: The specified layer is not available
+  because it is not associated with an image. Unassociated image layers may be cleaned
+  up at any time.
+definitions.LayerInaccessibleException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LayerInaccessibleException.properties.message.description: The error message
+  associated with the exception.
+definitions.LayerInaccessibleException.type: object
+definitions.LayerList.items.$ref: '#/definitions/Layer'
+definitions.LayerList.type: array
+definitions.LayerPartBlob.type: string
+definitions.LayerPartTooSmallException.description: Layer parts must be at least 5
+  MiB in size.
+definitions.LayerPartTooSmallException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LayerPartTooSmallException.properties.message.description: The error message
+  associated with the exception.
+definitions.LayerPartTooSmallException.type: object
+definitions.LayerSizeInBytes.type: integer
+definitions.LayersNotFoundException.description: The specified layers could not be
+  found, or the specified layer is not valid for this repository.
+definitions.LayersNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LayersNotFoundException.properties.message.description: The error message
+  associated with the exception.
+definitions.LayersNotFoundException.type: object
+definitions.LimitExceededException.description: The operation did not succeed because
+  it would have exceeded a service limit for your account. For more information, see
+  <a href="http://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon
+  ECR Default Service Limits</a> in the Amazon EC2 Container Registry User Guide.
+definitions.LimitExceededException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.LimitExceededException.properties.message.description: The error message
+  associated with the exception.
+definitions.LimitExceededException.type: object
+definitions.ListImagesFilter.description: An object representing a filter on a <a>ListImages</a>
+  operation.
+definitions.ListImagesFilter.properties.tagStatus.$ref: '#/definitions/TagStatus'
+definitions.ListImagesFilter.properties.tagStatus.description: The tag status with
+  which to filter your <a>ListImages</a> results. You can filter results based on
+  whether they are <code>TAGGED</code> or <code>UNTAGGED</code>.
+definitions.ListImagesFilter.type: object
+definitions.ListImagesRequest.example.repositoryName: ubuntu
+definitions.ListImagesRequest.properties.filter.$ref: '#/definitions/ListImagesFilter'
+definitions.ListImagesRequest.properties.filter.description: The filter key and value
+  with which to filter your <code>ListImages</code> results.
+definitions.ListImagesRequest.properties.maxResults.$ref: '#/definitions/MaxResults'
+definitions.ListImagesRequest.properties.maxResults.description: The maximum number
+  of image results returned by <code>ListImages</code> in paginated output. When this
+  parameter is used, <code>ListImages</code> only returns <code>maxResults</code>
+  results in a single page along with a <code>nextToken</code> response element. The
+  remaining results of the initial request can be seen by sending another <code>ListImages</code>
+  request with the returned <code>nextToken</code> value. This value can be between
+  1 and 100. If this parameter is not used, then <code>ListImages</code> returns up
+  to 100 results and a <code>nextToken</code> value, if applicable.
+definitions.ListImagesRequest.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.ListImagesRequest.properties.nextToken.description: <p>The <code>nextToken</code>
+  value returned from a previous paginated <code>ListImages</code> request where <code>maxResults</code>
+  was used and the results exceeded the value of that parameter. Pagination continues
+  from the end of the previous results that returned the <code>nextToken</code> value.
+  This value is <code>null</code> when there are no more results to return.</p> <note>
+  <p>This token should be treated as an opaque identifier that is only used to retrieve
+  the next items in a list and not for other programmatic purposes.</p> </note>
+definitions.ListImagesRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.ListImagesRequest.properties.registryId.description: The AWS account ID
+  associated with the registry that contains the repository to list images in. If
+  you do not specify a registry, the default registry is assumed.
+definitions.ListImagesRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.ListImagesRequest.properties.repositoryName.description: The repository
+  whose image IDs are to be listed.
+definitions.ListImagesRequest.required.length: 1
+definitions.ListImagesRequest.required[0]: repositoryName
+definitions.ListImagesRequest.type: object
+definitions.ListImagesResponse.example.imageIds.length: 1
+definitions.ListImagesResponse.example.imageIds[0].imageDigest: sha256:764f63476bdff6d83a09ba2a818f0d35757063724a9ac3ba5019c56f74ebf42a
+definitions.ListImagesResponse.example.imageIds[0].imageTag: precise
+definitions.ListImagesResponse.properties.imageIds.$ref: '#/definitions/ImageIdentifierList'
+definitions.ListImagesResponse.properties.imageIds.description: The list of image
+  IDs for the requested repository.
+definitions.ListImagesResponse.properties.nextToken.$ref: '#/definitions/NextToken'
+definitions.ListImagesResponse.properties.nextToken.description: The <code>nextToken</code>
+  value to include in a future <code>ListImages</code> request. When the results of
+  a <code>ListImages</code> request exceed <code>maxResults</code>, this value can
+  be used to retrieve the next page of results. This value is <code>null</code> when
+  there are no more results to return.
+definitions.ListImagesResponse.type: object
+definitions.MaxResults.maximum: 100
+definitions.MaxResults.minimum: 1
+definitions.MaxResults.type: integer
+definitions.MediaType.pattern: \w{1,127}\/[-+.\w]{1,127}
+definitions.MediaType.type: string
+definitions.MediaTypeList.items.$ref: '#/definitions/MediaType'
+definitions.MediaTypeList.maxItems: 100
+definitions.MediaTypeList.minItems: 1
+definitions.MediaTypeList.type: array
+definitions.NextToken.type: string
+definitions.PartSize.minimum: 0
+definitions.PartSize.type: integer
+definitions.ProxyEndpoint.type: string
+definitions.PushTimestamp.format: date-time
+definitions.PushTimestamp.type: string
+definitions.PutImageRequest.properties.imageManifest.$ref: '#/definitions/ImageManifest'
+definitions.PutImageRequest.properties.imageManifest.description: The image manifest
+  corresponding to the image to be uploaded.
+definitions.PutImageRequest.properties.imageTag.$ref: '#/definitions/ImageTag'
+definitions.PutImageRequest.properties.imageTag.description: The tag to associate
+  with the image. This parameter is required for images that use the Docker Image
+  Manifest V2 Schema 2 or OCI formats.
+definitions.PutImageRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.PutImageRequest.properties.registryId.description: The AWS account ID
+  associated with the registry that contains the repository in which to put the image.
+  If you do not specify a registry, the default registry is assumed.
+definitions.PutImageRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.PutImageRequest.properties.repositoryName.description: The name of the
+  repository in which to put the image.
+definitions.PutImageRequest.required.length: 2
+definitions.PutImageRequest.required[0]: repositoryName
+definitions.PutImageRequest.required[1]: imageManifest
+definitions.PutImageRequest.type: object
+definitions.PutImageResponse.properties.image.$ref: '#/definitions/Image'
+definitions.PutImageResponse.properties.image.description: Details of the image uploaded.
+definitions.PutImageResponse.type: object
+definitions.RegistryId.pattern: '[0-9]{12}'
+definitions.RegistryId.type: string
+definitions.Repository.description: An object representing a repository.
+definitions.Repository.properties.createdAt.$ref: '#/definitions/CreationTimestamp'
+definitions.Repository.properties.createdAt.description: The date and time, in JavaScript
+  date/time format, when the repository was created.
+definitions.Repository.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.Repository.properties.registryId.description: The AWS account ID associated
+  with the registry that contains the repository.
+definitions.Repository.properties.repositoryArn.$ref: '#/definitions/Arn'
+definitions.Repository.properties.repositoryArn.description: The Amazon Resource Name
+  (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code>
+  namespace, followed by the region of the repository, the AWS account ID of the repository
+  owner, the repository namespace, and then the repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+definitions.Repository.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.Repository.properties.repositoryName.description: The name of the repository.
+definitions.Repository.properties.repositoryUri.$ref: '#/definitions/Url'
+definitions.Repository.properties.repositoryUri.description: The URI for the repository.
+  You can use this URI for Docker <code>push</code> and <code>pull</code> operations.
+definitions.Repository.type: object
+definitions.RepositoryAlreadyExistsException.description: The specified repository
+  already exists in the specified registry.
+definitions.RepositoryAlreadyExistsException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.RepositoryAlreadyExistsException.properties.message.description: The error
+  message associated with the exception.
+definitions.RepositoryAlreadyExistsException.type: object
+definitions.RepositoryList.items.$ref: '#/definitions/Repository'
+definitions.RepositoryList.type: array
+definitions.RepositoryName.maxLength: 256
+definitions.RepositoryName.minLength: 2
+definitions.RepositoryName.pattern: (?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*
+definitions.RepositoryName.type: string
+definitions.RepositoryNameList.items.$ref: '#/definitions/RepositoryName'
+definitions.RepositoryNameList.maxItems: 100
+definitions.RepositoryNameList.minItems: 1
+definitions.RepositoryNameList.type: array
+definitions.RepositoryNotEmptyException.description: The specified repository contains
+  images. To delete a repository that contains images, you must force the deletion
+  with the <code>force</code> parameter.
+definitions.RepositoryNotEmptyException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.RepositoryNotEmptyException.properties.message.description: The error
+  message associated with the exception.
+definitions.RepositoryNotEmptyException.type: object
+definitions.RepositoryNotFoundException.description: The specified repository could
+  not be found. Check the spelling of the specified repository and ensure that you
+  are performing operations on the correct registry.
+definitions.RepositoryNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.RepositoryNotFoundException.properties.message.description: The error
+  message associated with the exception.
+definitions.RepositoryNotFoundException.type: object
+definitions.RepositoryPolicyNotFoundException.description: The specified repository
+  and registry combination does not have an associated repository policy.
+definitions.RepositoryPolicyNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.RepositoryPolicyNotFoundException.properties.message.description: The
+  error message associated with the exception.
+definitions.RepositoryPolicyNotFoundException.type: object
+definitions.RepositoryPolicyText.maxLength: 10240
+definitions.RepositoryPolicyText.minLength: 0
+definitions.RepositoryPolicyText.type: string
+definitions.ServerException.description: These errors are usually caused by a server-side
+  issue.
+definitions.ServerException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.ServerException.properties.message.description: The error message associated
+  with the exception.
+definitions.ServerException.type: object
+definitions.SetRepositoryPolicyRequest.properties.force.$ref: '#/definitions/ForceFlag'
+definitions.SetRepositoryPolicyRequest.properties.force.description: If the policy
+  you are attempting to set on a repository policy would prevent you from setting
+  another policy in the future, you must force the <a>SetRepositoryPolicy</a> operation.
+  This is intended to prevent accidental repository lock outs.
+definitions.SetRepositoryPolicyRequest.properties.policyText.$ref: '#/definitions/RepositoryPolicyText'
+definitions.SetRepositoryPolicyRequest.properties.policyText.description: The JSON
+  repository policy text to apply to the repository.
+definitions.SetRepositoryPolicyRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.SetRepositoryPolicyRequest.properties.registryId.description: The AWS
+  account ID associated with the registry that contains the repository. If you do
+  not specify a registry, the default registry is assumed.
+definitions.SetRepositoryPolicyRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.SetRepositoryPolicyRequest.properties.repositoryName.description: The
+  name of the repository to receive the policy.
+definitions.SetRepositoryPolicyRequest.required.length: 2
+definitions.SetRepositoryPolicyRequest.required[0]: repositoryName
+definitions.SetRepositoryPolicyRequest.required[1]: policyText
+definitions.SetRepositoryPolicyRequest.type: object
+definitions.SetRepositoryPolicyResponse.properties.policyText.$ref: '#/definitions/RepositoryPolicyText'
+definitions.SetRepositoryPolicyResponse.properties.policyText.description: The JSON
+  repository policy text applied to the repository.
+definitions.SetRepositoryPolicyResponse.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.SetRepositoryPolicyResponse.properties.registryId.description: The registry
+  ID associated with the request.
+definitions.SetRepositoryPolicyResponse.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.SetRepositoryPolicyResponse.properties.repositoryName.description: The
+  repository name associated with the request.
+definitions.SetRepositoryPolicyResponse.type: object
+definitions.TagStatus.enum.length: 2
+definitions.TagStatus.enum[0]: TAGGED
+definitions.TagStatus.enum[1]: UNTAGGED
+definitions.TagStatus.type: string
+definitions.UploadId.pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+definitions.UploadId.type: string
+definitions.UploadLayerPartRequest.properties.layerPartBlob.$ref: '#/definitions/LayerPartBlob'
+definitions.UploadLayerPartRequest.properties.layerPartBlob.description: The base64-encoded
+  layer part payload.
+definitions.UploadLayerPartRequest.properties.partFirstByte.$ref: '#/definitions/PartSize'
+definitions.UploadLayerPartRequest.properties.partFirstByte.description: The integer
+  value of the first byte of the layer part.
+definitions.UploadLayerPartRequest.properties.partLastByte.$ref: '#/definitions/PartSize'
+definitions.UploadLayerPartRequest.properties.partLastByte.description: The integer
+  value of the last byte of the layer part.
+definitions.UploadLayerPartRequest.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.UploadLayerPartRequest.properties.registryId.description: The AWS account
+  ID associated with the registry that you are uploading layer parts to. If you do
+  not specify a registry, the default registry is assumed.
+definitions.UploadLayerPartRequest.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.UploadLayerPartRequest.properties.repositoryName.description: The name
+  of the repository that you are uploading layer parts to.
+definitions.UploadLayerPartRequest.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.UploadLayerPartRequest.properties.uploadId.description: The upload ID
+  from a previous <a>InitiateLayerUpload</a> operation to associate with the layer
+  part upload.
+definitions.UploadLayerPartRequest.required.length: 5
+definitions.UploadLayerPartRequest.required[0]: repositoryName
+definitions.UploadLayerPartRequest.required[1]: uploadId
+definitions.UploadLayerPartRequest.required[2]: partFirstByte
+definitions.UploadLayerPartRequest.required[3]: partLastByte
+definitions.UploadLayerPartRequest.required[4]: layerPartBlob
+definitions.UploadLayerPartRequest.type: object
+definitions.UploadLayerPartResponse.properties.lastByteReceived.$ref: '#/definitions/PartSize'
+definitions.UploadLayerPartResponse.properties.lastByteReceived.description: The integer
+  value of the last byte received in the request.
+definitions.UploadLayerPartResponse.properties.registryId.$ref: '#/definitions/RegistryId'
+definitions.UploadLayerPartResponse.properties.registryId.description: The registry
+  ID associated with the request.
+definitions.UploadLayerPartResponse.properties.repositoryName.$ref: '#/definitions/RepositoryName'
+definitions.UploadLayerPartResponse.properties.repositoryName.description: The repository
+  name associated with the request.
+definitions.UploadLayerPartResponse.properties.uploadId.$ref: '#/definitions/UploadId'
+definitions.UploadLayerPartResponse.properties.uploadId.description: The upload ID
+  associated with the request.
+definitions.UploadLayerPartResponse.type: object
+definitions.UploadNotFoundException.description: The upload could not be found, or
+  the specified upload id is not valid for this repository.
+definitions.UploadNotFoundException.properties.message.$ref: '#/definitions/ExceptionMessage'
+definitions.UploadNotFoundException.properties.message.description: The error message
+  associated with the exception.
+definitions.UploadNotFoundException.type: object
+definitions.Url.type: string
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/ecr/
+host: ecr.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: Amazon EC2 Container Registry (Amazon ECR) is a managed AWS Docker
+  registry service. Customers can use the familiar Docker CLI to push, pull, and manage
+  images. Amazon ECR provides a secure, scalable, and reliable registry. Amazon ECR
+  supports private Docker repositories with resource-based permissions using AWS IAM
+  so that specific users or Amazon EC2 instances can access repositories and images.
+  Developers can use the Docker CLI to author and manage images.
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: Amazon EC2 Container Registry
+info.version: 2015-09-21
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/ecr-2015-09-21.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: ecr
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./#BatchDeleteImage.parameters.length: 9
+paths./#BatchDeleteImage.parameters[0].$ref: '#/parameters/Action'
+paths./#BatchDeleteImage.parameters[1].$ref: '#/parameters/Version'
+paths./#BatchDeleteImage.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#BatchDeleteImage.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#BatchDeleteImage.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#BatchDeleteImage.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#BatchDeleteImage.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#BatchDeleteImage.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#BatchDeleteImage.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#BatchDeleteImage.post.description: <p>Deletes a list of specified images within
+  a specified repository. Images are specified with either <code>imageTag</code> or
+  <code>imageDigest</code>.</p> <p>You can remove a tag from an image by specifying
+  the image's tag in your request. When you remove the last tag from an image, the
+  image is deleted from your repository.</p> <p>You can completely delete an image
+  (and all of its tags) by specifying the image's digest in your request.</p>
+paths./#BatchDeleteImage.post.operationId: BatchDeleteImage
+paths./#BatchDeleteImage.post.parameters.length: 1
+paths./#BatchDeleteImage.post.parameters[0].in: body
+paths./#BatchDeleteImage.post.parameters[0].name: body
+paths./#BatchDeleteImage.post.parameters[0].required: true
+paths./#BatchDeleteImage.post.parameters[0].schema.$ref: '#/definitions/BatchDeleteImageRequest'
+paths./#BatchDeleteImage.post.responses.200.description: Success
+paths./#BatchDeleteImage.post.responses.200.schema.$ref: '#/definitions/BatchDeleteImageResponse'
+paths./#BatchDeleteImage.post.responses.480.description: ServerException
+paths./#BatchDeleteImage.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#BatchDeleteImage.post.responses.481.description: InvalidParameterException
+paths./#BatchDeleteImage.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#BatchDeleteImage.post.responses.482.description: RepositoryNotFoundException
+paths./#BatchDeleteImage.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#BatchGetImage.parameters.length: 9
+paths./#BatchGetImage.parameters[0].$ref: '#/parameters/Action'
+paths./#BatchGetImage.parameters[1].$ref: '#/parameters/Version'
+paths./#BatchGetImage.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#BatchGetImage.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#BatchGetImage.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#BatchGetImage.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#BatchGetImage.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#BatchGetImage.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#BatchGetImage.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#BatchGetImage.post.description: Gets detailed information for specified images
+  within a specified repository. Images are specified with either <code>imageTag</code>
+  or <code>imageDigest</code>.
+paths./#BatchGetImage.post.operationId: BatchGetImage
+paths./#BatchGetImage.post.parameters.length: 1
+paths./#BatchGetImage.post.parameters[0].in: body
+paths./#BatchGetImage.post.parameters[0].name: body
+paths./#BatchGetImage.post.parameters[0].required: true
+paths./#BatchGetImage.post.parameters[0].schema.$ref: '#/definitions/BatchGetImageRequest'
+paths./#BatchGetImage.post.responses.200.description: Success
+paths./#BatchGetImage.post.responses.200.schema.$ref: '#/definitions/BatchGetImageResponse'
+paths./#BatchGetImage.post.responses.480.description: ServerException
+paths./#BatchGetImage.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#BatchGetImage.post.responses.481.description: InvalidParameterException
+paths./#BatchGetImage.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#BatchGetImage.post.responses.482.description: RepositoryNotFoundException
+paths./#BatchGetImage.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#CompleteLayerUpload.parameters.length: 9
+paths./#CompleteLayerUpload.parameters[0].$ref: '#/parameters/Action'
+paths./#CompleteLayerUpload.parameters[1].$ref: '#/parameters/Version'
+paths./#CompleteLayerUpload.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#CompleteLayerUpload.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#CompleteLayerUpload.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#CompleteLayerUpload.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#CompleteLayerUpload.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#CompleteLayerUpload.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#CompleteLayerUpload.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#CompleteLayerUpload.post.description: <p>Inform Amazon ECR that the image
+  layer upload for a specified registry, repository name, and upload ID, has completed.
+  You can optionally provide a <code>sha256</code> digest of the image layer for data
+  validation purposes.</p> <note> <p>This operation is used by the Amazon ECR proxy,
+  and it is not intended for general use by customers for pulling and pushing images.
+  In most cases, you should use the <code>docker</code> CLI to pull, tag, and push
+  images.</p> </note>
+paths./#CompleteLayerUpload.post.operationId: CompleteLayerUpload
+paths./#CompleteLayerUpload.post.parameters.length: 1
+paths./#CompleteLayerUpload.post.parameters[0].in: body
+paths./#CompleteLayerUpload.post.parameters[0].name: body
+paths./#CompleteLayerUpload.post.parameters[0].required: true
+paths./#CompleteLayerUpload.post.parameters[0].schema.$ref: '#/definitions/CompleteLayerUploadRequest'
+paths./#CompleteLayerUpload.post.responses.200.description: Success
+paths./#CompleteLayerUpload.post.responses.200.schema.$ref: '#/definitions/CompleteLayerUploadResponse'
+paths./#CompleteLayerUpload.post.responses.480.description: ServerException
+paths./#CompleteLayerUpload.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#CompleteLayerUpload.post.responses.481.description: InvalidParameterException
+paths./#CompleteLayerUpload.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#CompleteLayerUpload.post.responses.482.description: RepositoryNotFoundException
+paths./#CompleteLayerUpload.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#CompleteLayerUpload.post.responses.483.description: UploadNotFoundException
+paths./#CompleteLayerUpload.post.responses.483.schema.$ref: '#/definitions/UploadNotFoundException'
+paths./#CompleteLayerUpload.post.responses.484.description: InvalidLayerException
+paths./#CompleteLayerUpload.post.responses.484.schema.$ref: '#/definitions/InvalidLayerException'
+paths./#CompleteLayerUpload.post.responses.485.description: LayerPartTooSmallException
+paths./#CompleteLayerUpload.post.responses.485.schema.$ref: '#/definitions/LayerPartTooSmallException'
+paths./#CompleteLayerUpload.post.responses.486.description: LayerAlreadyExistsException
+paths./#CompleteLayerUpload.post.responses.486.schema.$ref: '#/definitions/LayerAlreadyExistsException'
+paths./#CompleteLayerUpload.post.responses.487.description: EmptyUploadException
+paths./#CompleteLayerUpload.post.responses.487.schema.$ref: '#/definitions/EmptyUploadException'
+paths./#CreateRepository.parameters.length: 9
+paths./#CreateRepository.parameters[0].$ref: '#/parameters/Action'
+paths./#CreateRepository.parameters[1].$ref: '#/parameters/Version'
+paths./#CreateRepository.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#CreateRepository.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#CreateRepository.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#CreateRepository.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#CreateRepository.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#CreateRepository.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#CreateRepository.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#CreateRepository.post.description: Creates an image repository.
+paths./#CreateRepository.post.operationId: CreateRepository
+paths./#CreateRepository.post.parameters.length: 1
+paths./#CreateRepository.post.parameters[0].in: body
+paths./#CreateRepository.post.parameters[0].name: body
+paths./#CreateRepository.post.parameters[0].required: true
+paths./#CreateRepository.post.parameters[0].schema.$ref: '#/definitions/CreateRepositoryRequest'
+paths./#CreateRepository.post.responses.200.description: Success
+paths./#CreateRepository.post.responses.200.schema.$ref: '#/definitions/CreateRepositoryResponse'
+paths./#CreateRepository.post.responses.480.description: ServerException
+paths./#CreateRepository.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#CreateRepository.post.responses.481.description: InvalidParameterException
+paths./#CreateRepository.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#CreateRepository.post.responses.482.description: RepositoryAlreadyExistsException
+paths./#CreateRepository.post.responses.482.schema.$ref: '#/definitions/RepositoryAlreadyExistsException'
+paths./#CreateRepository.post.responses.483.description: LimitExceededException
+paths./#CreateRepository.post.responses.483.schema.$ref: '#/definitions/LimitExceededException'
+paths./#DeleteRepository.parameters.length: 9
+paths./#DeleteRepository.parameters[0].$ref: '#/parameters/Action'
+paths./#DeleteRepository.parameters[1].$ref: '#/parameters/Version'
+paths./#DeleteRepository.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DeleteRepository.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DeleteRepository.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DeleteRepository.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DeleteRepository.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DeleteRepository.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DeleteRepository.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DeleteRepository.post.description: Deletes an existing image repository. If
+  a repository contains images, you must use the <code>force</code> option to delete
+  it.
+paths./#DeleteRepository.post.operationId: DeleteRepository
+paths./#DeleteRepository.post.parameters.length: 1
+paths./#DeleteRepository.post.parameters[0].in: body
+paths./#DeleteRepository.post.parameters[0].name: body
+paths./#DeleteRepository.post.parameters[0].required: true
+paths./#DeleteRepository.post.parameters[0].schema.$ref: '#/definitions/DeleteRepositoryRequest'
+paths./#DeleteRepository.post.responses.200.description: Success
+paths./#DeleteRepository.post.responses.200.schema.$ref: '#/definitions/DeleteRepositoryResponse'
+paths./#DeleteRepository.post.responses.480.description: ServerException
+paths./#DeleteRepository.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#DeleteRepository.post.responses.481.description: InvalidParameterException
+paths./#DeleteRepository.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#DeleteRepository.post.responses.482.description: RepositoryNotFoundException
+paths./#DeleteRepository.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#DeleteRepository.post.responses.483.description: RepositoryNotEmptyException
+paths./#DeleteRepository.post.responses.483.schema.$ref: '#/definitions/RepositoryNotEmptyException'
+paths./#DeleteRepositoryPolicy.parameters.length: 9
+paths./#DeleteRepositoryPolicy.parameters[0].$ref: '#/parameters/Action'
+paths./#DeleteRepositoryPolicy.parameters[1].$ref: '#/parameters/Version'
+paths./#DeleteRepositoryPolicy.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DeleteRepositoryPolicy.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DeleteRepositoryPolicy.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DeleteRepositoryPolicy.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DeleteRepositoryPolicy.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DeleteRepositoryPolicy.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DeleteRepositoryPolicy.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DeleteRepositoryPolicy.post.description: Deletes the repository policy from
+  a specified repository.
+paths./#DeleteRepositoryPolicy.post.operationId: DeleteRepositoryPolicy
+paths./#DeleteRepositoryPolicy.post.parameters.length: 1
+paths./#DeleteRepositoryPolicy.post.parameters[0].in: body
+paths./#DeleteRepositoryPolicy.post.parameters[0].name: body
+paths./#DeleteRepositoryPolicy.post.parameters[0].required: true
+paths./#DeleteRepositoryPolicy.post.parameters[0].schema.$ref: '#/definitions/DeleteRepositoryPolicyRequest'
+paths./#DeleteRepositoryPolicy.post.responses.200.description: Success
+paths./#DeleteRepositoryPolicy.post.responses.200.schema.$ref: '#/definitions/DeleteRepositoryPolicyResponse'
+paths./#DeleteRepositoryPolicy.post.responses.480.description: ServerException
+paths./#DeleteRepositoryPolicy.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#DeleteRepositoryPolicy.post.responses.481.description: InvalidParameterException
+paths./#DeleteRepositoryPolicy.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#DeleteRepositoryPolicy.post.responses.482.description: RepositoryNotFoundException
+paths./#DeleteRepositoryPolicy.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#DeleteRepositoryPolicy.post.responses.483.description: RepositoryPolicyNotFoundException
+paths./#DeleteRepositoryPolicy.post.responses.483.schema.$ref: '#/definitions/RepositoryPolicyNotFoundException'
+paths./#DescribeImages.parameters.length: 9
+paths./#DescribeImages.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeImages.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeImages.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeImages.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeImages.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeImages.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeImages.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeImages.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeImages.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeImages.post.description: <p>Returns metadata about the images in a
+  repository, including image size, image tags, and creation date.</p> <note> <p>Beginning
+  with Docker version 1.9, the Docker client compresses image layers before pushing
+  them to a V2 Docker registry. The output of the <code>docker images</code> command
+  shows the uncompressed image size, so it may return a larger image size than the
+  image sizes returned by <a>DescribeImages</a>.</p> </note>
+paths./#DescribeImages.post.operationId: DescribeImages
+paths./#DescribeImages.post.parameters.length: 3
+paths./#DescribeImages.post.parameters[0].in: body
+paths./#DescribeImages.post.parameters[0].name: body
+paths./#DescribeImages.post.parameters[0].required: true
+paths./#DescribeImages.post.parameters[0].schema.$ref: '#/definitions/DescribeImagesRequest'
+paths./#DescribeImages.post.parameters[1].description: Pagination limit
+paths./#DescribeImages.post.parameters[1].in: query
+paths./#DescribeImages.post.parameters[1].name: maxResults
+paths./#DescribeImages.post.parameters[1].required: false
+paths./#DescribeImages.post.parameters[1].type: string
+paths./#DescribeImages.post.parameters[2].description: Pagination token
+paths./#DescribeImages.post.parameters[2].in: query
+paths./#DescribeImages.post.parameters[2].name: nextToken
+paths./#DescribeImages.post.parameters[2].required: false
+paths./#DescribeImages.post.parameters[2].type: string
+paths./#DescribeImages.post.responses.200.description: Success
+paths./#DescribeImages.post.responses.200.schema.$ref: '#/definitions/DescribeImagesResponse'
+paths./#DescribeImages.post.responses.480.description: ServerException
+paths./#DescribeImages.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#DescribeImages.post.responses.481.description: InvalidParameterException
+paths./#DescribeImages.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#DescribeImages.post.responses.482.description: RepositoryNotFoundException
+paths./#DescribeImages.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#DescribeImages.post.responses.483.description: ImageNotFoundException
+paths./#DescribeImages.post.responses.483.schema.$ref: '#/definitions/ImageNotFoundException'
+paths./#DescribeRepositories.parameters.length: 9
+paths./#DescribeRepositories.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeRepositories.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeRepositories.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeRepositories.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeRepositories.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeRepositories.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeRepositories.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeRepositories.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeRepositories.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeRepositories.post.description: Describes image repositories in a registry.
+paths./#DescribeRepositories.post.operationId: DescribeRepositories
+paths./#DescribeRepositories.post.parameters.length: 3
+paths./#DescribeRepositories.post.parameters[0].in: body
+paths./#DescribeRepositories.post.parameters[0].name: body
+paths./#DescribeRepositories.post.parameters[0].required: true
+paths./#DescribeRepositories.post.parameters[0].schema.$ref: '#/definitions/DescribeRepositoriesRequest'
+paths./#DescribeRepositories.post.parameters[1].description: Pagination limit
+paths./#DescribeRepositories.post.parameters[1].in: query
+paths./#DescribeRepositories.post.parameters[1].name: maxResults
+paths./#DescribeRepositories.post.parameters[1].required: false
+paths./#DescribeRepositories.post.parameters[1].type: string
+paths./#DescribeRepositories.post.parameters[2].description: Pagination token
+paths./#DescribeRepositories.post.parameters[2].in: query
+paths./#DescribeRepositories.post.parameters[2].name: nextToken
+paths./#DescribeRepositories.post.parameters[2].required: false
+paths./#DescribeRepositories.post.parameters[2].type: string
+paths./#DescribeRepositories.post.responses.200.description: Success
+paths./#DescribeRepositories.post.responses.200.schema.$ref: '#/definitions/DescribeRepositoriesResponse'
+paths./#DescribeRepositories.post.responses.480.description: ServerException
+paths./#DescribeRepositories.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#DescribeRepositories.post.responses.481.description: InvalidParameterException
+paths./#DescribeRepositories.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#DescribeRepositories.post.responses.482.description: RepositoryNotFoundException
+paths./#DescribeRepositories.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#GetAuthorizationToken.parameters.length: 9
+paths./#GetAuthorizationToken.parameters[0].$ref: '#/parameters/Action'
+paths./#GetAuthorizationToken.parameters[1].$ref: '#/parameters/Version'
+paths./#GetAuthorizationToken.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#GetAuthorizationToken.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#GetAuthorizationToken.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#GetAuthorizationToken.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#GetAuthorizationToken.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#GetAuthorizationToken.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#GetAuthorizationToken.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#GetAuthorizationToken.post.description: <p>Retrieves a token that is valid
+  for a specified registry for 12 hours. This command allows you to use the <code>docker</code>
+  CLI to push and pull images with Amazon ECR. If you do not specify a registry, the
+  default registry is assumed.</p> <p>The <code>authorizationToken</code> returned
+  for each registry specified is a base64 encoded string that can be decoded and used
+  in a <code>docker login</code> command to authenticate to a registry. The AWS CLI
+  offers an <code>aws ecr get-login</code> command that simplifies the login process.</p>
+paths./#GetAuthorizationToken.post.operationId: GetAuthorizationToken
+paths./#GetAuthorizationToken.post.parameters.length: 1
+paths./#GetAuthorizationToken.post.parameters[0].in: body
+paths./#GetAuthorizationToken.post.parameters[0].name: body
+paths./#GetAuthorizationToken.post.parameters[0].required: true
+paths./#GetAuthorizationToken.post.parameters[0].schema.$ref: '#/definitions/GetAuthorizationTokenRequest'
+paths./#GetAuthorizationToken.post.responses.200.description: Success
+paths./#GetAuthorizationToken.post.responses.200.schema.$ref: '#/definitions/GetAuthorizationTokenResponse'
+paths./#GetAuthorizationToken.post.responses.480.description: ServerException
+paths./#GetAuthorizationToken.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#GetAuthorizationToken.post.responses.481.description: InvalidParameterException
+paths./#GetAuthorizationToken.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#GetDownloadUrlForLayer.parameters.length: 9
+paths./#GetDownloadUrlForLayer.parameters[0].$ref: '#/parameters/Action'
+paths./#GetDownloadUrlForLayer.parameters[1].$ref: '#/parameters/Version'
+paths./#GetDownloadUrlForLayer.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#GetDownloadUrlForLayer.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#GetDownloadUrlForLayer.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#GetDownloadUrlForLayer.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#GetDownloadUrlForLayer.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#GetDownloadUrlForLayer.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#GetDownloadUrlForLayer.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#GetDownloadUrlForLayer.post.description: <p>Retrieves the pre-signed Amazon
+  S3 download URL corresponding to an image layer. You can only get URLs for image
+  layers that are referenced in an image.</p> <note> <p>This operation is used by
+  the Amazon ECR proxy, and it is not intended for general use by customers for pulling
+  and pushing images. In most cases, you should use the <code>docker</code> CLI to
+  pull, tag, and push images.</p> </note>
+paths./#GetDownloadUrlForLayer.post.operationId: GetDownloadUrlForLayer
+paths./#GetDownloadUrlForLayer.post.parameters.length: 1
+paths./#GetDownloadUrlForLayer.post.parameters[0].in: body
+paths./#GetDownloadUrlForLayer.post.parameters[0].name: body
+paths./#GetDownloadUrlForLayer.post.parameters[0].required: true
+paths./#GetDownloadUrlForLayer.post.parameters[0].schema.$ref: '#/definitions/GetDownloadUrlForLayerRequest'
+paths./#GetDownloadUrlForLayer.post.responses.200.description: Success
+paths./#GetDownloadUrlForLayer.post.responses.200.schema.$ref: '#/definitions/GetDownloadUrlForLayerResponse'
+paths./#GetDownloadUrlForLayer.post.responses.480.description: ServerException
+paths./#GetDownloadUrlForLayer.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#GetDownloadUrlForLayer.post.responses.481.description: InvalidParameterException
+paths./#GetDownloadUrlForLayer.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#GetDownloadUrlForLayer.post.responses.482.description: LayersNotFoundException
+paths./#GetDownloadUrlForLayer.post.responses.482.schema.$ref: '#/definitions/LayersNotFoundException'
+paths./#GetDownloadUrlForLayer.post.responses.483.description: LayerInaccessibleException
+paths./#GetDownloadUrlForLayer.post.responses.483.schema.$ref: '#/definitions/LayerInaccessibleException'
+paths./#GetDownloadUrlForLayer.post.responses.484.description: RepositoryNotFoundException
+paths./#GetDownloadUrlForLayer.post.responses.484.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#GetRepositoryPolicy.parameters.length: 9
+paths./#GetRepositoryPolicy.parameters[0].$ref: '#/parameters/Action'
+paths./#GetRepositoryPolicy.parameters[1].$ref: '#/parameters/Version'
+paths./#GetRepositoryPolicy.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#GetRepositoryPolicy.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#GetRepositoryPolicy.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#GetRepositoryPolicy.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#GetRepositoryPolicy.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#GetRepositoryPolicy.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#GetRepositoryPolicy.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#GetRepositoryPolicy.post.description: Retrieves the repository policy for
+  a specified repository.
+paths./#GetRepositoryPolicy.post.operationId: GetRepositoryPolicy
+paths./#GetRepositoryPolicy.post.parameters.length: 1
+paths./#GetRepositoryPolicy.post.parameters[0].in: body
+paths./#GetRepositoryPolicy.post.parameters[0].name: body
+paths./#GetRepositoryPolicy.post.parameters[0].required: true
+paths./#GetRepositoryPolicy.post.parameters[0].schema.$ref: '#/definitions/GetRepositoryPolicyRequest'
+paths./#GetRepositoryPolicy.post.responses.200.description: Success
+paths./#GetRepositoryPolicy.post.responses.200.schema.$ref: '#/definitions/GetRepositoryPolicyResponse'
+paths./#GetRepositoryPolicy.post.responses.480.description: ServerException
+paths./#GetRepositoryPolicy.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#GetRepositoryPolicy.post.responses.481.description: InvalidParameterException
+paths./#GetRepositoryPolicy.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#GetRepositoryPolicy.post.responses.482.description: RepositoryNotFoundException
+paths./#GetRepositoryPolicy.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#GetRepositoryPolicy.post.responses.483.description: RepositoryPolicyNotFoundException
+paths./#GetRepositoryPolicy.post.responses.483.schema.$ref: '#/definitions/RepositoryPolicyNotFoundException'
+paths./#InitiateLayerUpload.parameters.length: 9
+paths./#InitiateLayerUpload.parameters[0].$ref: '#/parameters/Action'
+paths./#InitiateLayerUpload.parameters[1].$ref: '#/parameters/Version'
+paths./#InitiateLayerUpload.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#InitiateLayerUpload.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#InitiateLayerUpload.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#InitiateLayerUpload.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#InitiateLayerUpload.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#InitiateLayerUpload.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#InitiateLayerUpload.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#InitiateLayerUpload.post.description: <p>Notify Amazon ECR that you intend
+  to upload an image layer.</p> <note> <p>This operation is used by the Amazon ECR
+  proxy, and it is not intended for general use by customers for pulling and pushing
+  images. In most cases, you should use the <code>docker</code> CLI to pull, tag,
+  and push images.</p> </note>
+paths./#InitiateLayerUpload.post.operationId: InitiateLayerUpload
+paths./#InitiateLayerUpload.post.parameters.length: 1
+paths./#InitiateLayerUpload.post.parameters[0].in: body
+paths./#InitiateLayerUpload.post.parameters[0].name: body
+paths./#InitiateLayerUpload.post.parameters[0].required: true
+paths./#InitiateLayerUpload.post.parameters[0].schema.$ref: '#/definitions/InitiateLayerUploadRequest'
+paths./#InitiateLayerUpload.post.responses.200.description: Success
+paths./#InitiateLayerUpload.post.responses.200.schema.$ref: '#/definitions/InitiateLayerUploadResponse'
+paths./#InitiateLayerUpload.post.responses.480.description: ServerException
+paths./#InitiateLayerUpload.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#InitiateLayerUpload.post.responses.481.description: InvalidParameterException
+paths./#InitiateLayerUpload.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#InitiateLayerUpload.post.responses.482.description: RepositoryNotFoundException
+paths./#InitiateLayerUpload.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#ListImages.parameters.length: 9
+paths./#ListImages.parameters[0].$ref: '#/parameters/Action'
+paths./#ListImages.parameters[1].$ref: '#/parameters/Version'
+paths./#ListImages.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#ListImages.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#ListImages.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#ListImages.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#ListImages.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#ListImages.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#ListImages.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#ListImages.post.description: <p>Lists all the image IDs for a given repository.</p>
+  <p>You can filter images based on whether or not they are tagged by setting the
+  <code>tagStatus</code> parameter to <code>TAGGED</code> or <code>UNTAGGED</code>.
+  For example, you can filter your results to return only <code>UNTAGGED</code> images
+  and then pipe that result to a <a>BatchDeleteImage</a> operation to delete them.
+  Or, you can filter your results to return only <code>TAGGED</code> images to list
+  all of the tags in your repository.</p>
+paths./#ListImages.post.operationId: ListImages
+paths./#ListImages.post.parameters.length: 3
+paths./#ListImages.post.parameters[0].in: body
+paths./#ListImages.post.parameters[0].name: body
+paths./#ListImages.post.parameters[0].required: true
+paths./#ListImages.post.parameters[0].schema.$ref: '#/definitions/ListImagesRequest'
+paths./#ListImages.post.parameters[1].description: Pagination limit
+paths./#ListImages.post.parameters[1].in: query
+paths./#ListImages.post.parameters[1].name: maxResults
+paths./#ListImages.post.parameters[1].required: false
+paths./#ListImages.post.parameters[1].type: string
+paths./#ListImages.post.parameters[2].description: Pagination token
+paths./#ListImages.post.parameters[2].in: query
+paths./#ListImages.post.parameters[2].name: nextToken
+paths./#ListImages.post.parameters[2].required: false
+paths./#ListImages.post.parameters[2].type: string
+paths./#ListImages.post.responses.200.description: Success
+paths./#ListImages.post.responses.200.schema.$ref: '#/definitions/ListImagesResponse'
+paths./#ListImages.post.responses.480.description: ServerException
+paths./#ListImages.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#ListImages.post.responses.481.description: InvalidParameterException
+paths./#ListImages.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#ListImages.post.responses.482.description: RepositoryNotFoundException
+paths./#ListImages.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#PutImage.parameters.length: 9
+paths./#PutImage.parameters[0].$ref: '#/parameters/Action'
+paths./#PutImage.parameters[1].$ref: '#/parameters/Version'
+paths./#PutImage.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#PutImage.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#PutImage.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#PutImage.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#PutImage.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#PutImage.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#PutImage.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#PutImage.post.description: <p>Creates or updates the image manifest and tags
+  associated with an image.</p> <note> <p>This operation is used by the Amazon ECR
+  proxy, and it is not intended for general use by customers for pulling and pushing
+  images. In most cases, you should use the <code>docker</code> CLI to pull, tag,
+  and push images.</p> </note>
+paths./#PutImage.post.operationId: PutImage
+paths./#PutImage.post.parameters.length: 1
+paths./#PutImage.post.parameters[0].in: body
+paths./#PutImage.post.parameters[0].name: body
+paths./#PutImage.post.parameters[0].required: true
+paths./#PutImage.post.parameters[0].schema.$ref: '#/definitions/PutImageRequest'
+paths./#PutImage.post.responses.200.description: Success
+paths./#PutImage.post.responses.200.schema.$ref: '#/definitions/PutImageResponse'
+paths./#PutImage.post.responses.480.description: ServerException
+paths./#PutImage.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#PutImage.post.responses.481.description: InvalidParameterException
+paths./#PutImage.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#PutImage.post.responses.482.description: RepositoryNotFoundException
+paths./#PutImage.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#PutImage.post.responses.483.description: ImageAlreadyExistsException
+paths./#PutImage.post.responses.483.schema.$ref: '#/definitions/ImageAlreadyExistsException'
+paths./#PutImage.post.responses.484.description: LayersNotFoundException
+paths./#PutImage.post.responses.484.schema.$ref: '#/definitions/LayersNotFoundException'
+paths./#PutImage.post.responses.485.description: LimitExceededException
+paths./#PutImage.post.responses.485.schema.$ref: '#/definitions/LimitExceededException'
+paths./#SetRepositoryPolicy.parameters.length: 9
+paths./#SetRepositoryPolicy.parameters[0].$ref: '#/parameters/Action'
+paths./#SetRepositoryPolicy.parameters[1].$ref: '#/parameters/Version'
+paths./#SetRepositoryPolicy.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#SetRepositoryPolicy.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#SetRepositoryPolicy.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#SetRepositoryPolicy.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#SetRepositoryPolicy.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#SetRepositoryPolicy.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#SetRepositoryPolicy.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#SetRepositoryPolicy.post.description: Applies a repository policy on a specified
+  repository to control access permissions.
+paths./#SetRepositoryPolicy.post.operationId: SetRepositoryPolicy
+paths./#SetRepositoryPolicy.post.parameters.length: 1
+paths./#SetRepositoryPolicy.post.parameters[0].in: body
+paths./#SetRepositoryPolicy.post.parameters[0].name: body
+paths./#SetRepositoryPolicy.post.parameters[0].required: true
+paths./#SetRepositoryPolicy.post.parameters[0].schema.$ref: '#/definitions/SetRepositoryPolicyRequest'
+paths./#SetRepositoryPolicy.post.responses.200.description: Success
+paths./#SetRepositoryPolicy.post.responses.200.schema.$ref: '#/definitions/SetRepositoryPolicyResponse'
+paths./#SetRepositoryPolicy.post.responses.480.description: ServerException
+paths./#SetRepositoryPolicy.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#SetRepositoryPolicy.post.responses.481.description: InvalidParameterException
+paths./#SetRepositoryPolicy.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#SetRepositoryPolicy.post.responses.482.description: RepositoryNotFoundException
+paths./#SetRepositoryPolicy.post.responses.482.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#UploadLayerPart.parameters.length: 9
+paths./#UploadLayerPart.parameters[0].$ref: '#/parameters/Action'
+paths./#UploadLayerPart.parameters[1].$ref: '#/parameters/Version'
+paths./#UploadLayerPart.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#UploadLayerPart.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#UploadLayerPart.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#UploadLayerPart.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#UploadLayerPart.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#UploadLayerPart.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#UploadLayerPart.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#UploadLayerPart.post.description: <p>Uploads an image layer part to Amazon
+  ECR.</p> <note> <p>This operation is used by the Amazon ECR proxy, and it is not
+  intended for general use by customers for pulling and pushing images. In most cases,
+  you should use the <code>docker</code> CLI to pull, tag, and push images.</p> </note>
+paths./#UploadLayerPart.post.operationId: UploadLayerPart
+paths./#UploadLayerPart.post.parameters.length: 1
+paths./#UploadLayerPart.post.parameters[0].in: body
+paths./#UploadLayerPart.post.parameters[0].name: body
+paths./#UploadLayerPart.post.parameters[0].required: true
+paths./#UploadLayerPart.post.parameters[0].schema.$ref: '#/definitions/UploadLayerPartRequest'
+paths./#UploadLayerPart.post.responses.200.description: Success
+paths./#UploadLayerPart.post.responses.200.schema.$ref: '#/definitions/UploadLayerPartResponse'
+paths./#UploadLayerPart.post.responses.480.description: ServerException
+paths./#UploadLayerPart.post.responses.480.schema.$ref: '#/definitions/ServerException'
+paths./#UploadLayerPart.post.responses.481.description: InvalidParameterException
+paths./#UploadLayerPart.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./#UploadLayerPart.post.responses.482.description: InvalidLayerPartException
+paths./#UploadLayerPart.post.responses.482.schema.$ref: '#/definitions/InvalidLayerPartException'
+paths./#UploadLayerPart.post.responses.483.description: RepositoryNotFoundException
+paths./#UploadLayerPart.post.responses.483.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./#UploadLayerPart.post.responses.484.description: UploadNotFoundException
+paths./#UploadLayerPart.post.responses.484.schema.$ref: '#/definitions/UploadNotFoundException'
+paths./#UploadLayerPart.post.responses.485.description: LimitExceededException
+paths./#UploadLayerPart.post.responses.485.schema.$ref: '#/definitions/LimitExceededException'
+paths./.parameters.length: 9
+paths./.parameters[0].$ref: '#/parameters/Action'
+paths./.parameters[1].$ref: '#/parameters/Version'
+paths./.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./.post.description: <p>Check the availability of multiple image layers in a
+  specified registry and repository.</p> <note> <p>This operation is used by the Amazon
+  ECR proxy, and it is not intended for general use by customers for pulling and pushing
+  images. In most cases, you should use the <code>docker</code> CLI to pull, tag,
+  and push images.</p> </note>
+paths./.post.operationId: BatchCheckLayerAvailability
+paths./.post.parameters.length: 1
+paths./.post.parameters[0].in: body
+paths./.post.parameters[0].name: body
+paths./.post.parameters[0].required: true
+paths./.post.parameters[0].schema.$ref: '#/definitions/BatchCheckLayerAvailabilityRequest'
+paths./.post.responses.200.description: Success
+paths./.post.responses.200.schema.$ref: '#/definitions/BatchCheckLayerAvailabilityResponse'
+paths./.post.responses.480.description: RepositoryNotFoundException
+paths./.post.responses.480.schema.$ref: '#/definitions/RepositoryNotFoundException'
+paths./.post.responses.481.description: InvalidParameterException
+paths./.post.responses.481.schema.$ref: '#/definitions/InvalidParameterException'
+paths./.post.responses.482.description: ServerException
+paths./.post.responses.482.schema.$ref: '#/definitions/ServerException'
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"
+x-hasEquivalentPaths: true

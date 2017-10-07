@@ -1,0 +1,229 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.Boolean.type: boolean
+definitions.Double.format: double
+definitions.Double.type: number
+definitions.Entitlement.description: An entitlement represents capacity in a product
+  owned by the customer. For example, a customer might own some number of users or
+  seats in an SaaS application or some amount of data capacity in a multi-tenant database.
+definitions.Entitlement.properties.CustomerIdentifier.$ref: '#/definitions/NonEmptyString'
+definitions.Entitlement.properties.CustomerIdentifier.description: The customer identifier
+  is a handle to each unique customer in an application. Customer identifiers are
+  obtained through the ResolveCustomer operation in AWS Marketplace Metering Service.
+definitions.Entitlement.properties.Dimension.$ref: '#/definitions/NonEmptyString'
+definitions.Entitlement.properties.Dimension.description: The dimension for which
+  the given entitlement applies. Dimensions represent categories of capacity in a
+  product and are specified when the product is listed in AWS Marketplace.
+definitions.Entitlement.properties.ExpirationDate.$ref: '#/definitions/Timestamp'
+definitions.Entitlement.properties.ExpirationDate.description: The expiration date
+  represents the minimum date through which this entitlement is expected to remain
+  valid. For contractual products listed on AWS Marketplace, the expiration date is
+  the date at which the customer will renew or cancel their contract. Customers who
+  are opting to renew their contract will still have entitlements with an expiration
+  date.
+definitions.Entitlement.properties.ProductCode.$ref: '#/definitions/ProductCode'
+definitions.Entitlement.properties.ProductCode.description: The product code for which
+  the given entitlement applies. Product codes are provided by AWS Marketplace when
+  the product listing is created.
+definitions.Entitlement.properties.Value.$ref: '#/definitions/EntitlementValue'
+definitions.Entitlement.properties.Value.description: The EntitlementValue represents
+  the amount of capacity that the customer is entitled to for the product.
+definitions.Entitlement.type: object
+definitions.EntitlementList.items.$ref: '#/definitions/Entitlement'
+definitions.EntitlementList.minItems: 0
+definitions.EntitlementList.type: array
+definitions.EntitlementValue.description: The EntitlementValue represents the amount
+  of capacity that the customer is entitled to for the product.
+definitions.EntitlementValue.properties.BooleanValue.$ref: '#/definitions/Boolean'
+definitions.EntitlementValue.properties.BooleanValue.description: The BooleanValue
+  field will be populated with a boolean value when the entitlement is a boolean type.
+  Otherwise, the field will not be set.
+definitions.EntitlementValue.properties.DoubleValue.$ref: '#/definitions/Double'
+definitions.EntitlementValue.properties.DoubleValue.description: The DoubleValue field
+  will be populated with a double value when the entitlement is a double type. Otherwise,
+  the field will not be set.
+definitions.EntitlementValue.properties.IntegerValue.$ref: '#/definitions/Integer'
+definitions.EntitlementValue.properties.IntegerValue.description: The IntegerValue
+  field will be populated with an integer value when the entitlement is an integer
+  type. Otherwise, the field will not be set.
+definitions.EntitlementValue.properties.StringValue.$ref: '#/definitions/String'
+definitions.EntitlementValue.properties.StringValue.description: The StringValue field
+  will be populated with a string value when the entitlement is a string type. Otherwise,
+  the field will not be set.
+definitions.EntitlementValue.type: object
+definitions.ErrorMessage.type: string
+definitions.FilterValue.type: string
+definitions.FilterValueList.items.$ref: '#/definitions/FilterValue'
+definitions.FilterValueList.minItems: 1
+definitions.FilterValueList.type: array
+definitions.GetEntitlementFilterName.enum.length: 2
+definitions.GetEntitlementFilterName.enum[0]: CUSTOMER_IDENTIFIER
+definitions.GetEntitlementFilterName.enum[1]: DIMENSION
+definitions.GetEntitlementFilterName.type: string
+definitions.GetEntitlementFilters.items.properties.key.$ref: '#/definitions/GetEntitlementFilterName'
+definitions.GetEntitlementFilters.items.properties.value.$ref: '#/definitions/FilterValueList'
+definitions.GetEntitlementFilters.items.type: object
+definitions.GetEntitlementFilters.type: array
+definitions.GetEntitlementsRequest.description: The GetEntitlementsRequest contains
+  parameters for the GetEntitlements operation.
+definitions.GetEntitlementsRequest.properties.Filter.$ref: '#/definitions/GetEntitlementFilters'
+definitions.GetEntitlementsRequest.properties.Filter.description: Filter is used to
+  return entitlements for a specific customer or for a specific dimension. Filters
+  are described as keys mapped to a lists of values. Filtered requests are <i>unioned</i>
+  for each value in the value list, and then <i>intersected</i> for each filter key.
+definitions.GetEntitlementsRequest.properties.MaxResults.$ref: '#/definitions/Integer'
+definitions.GetEntitlementsRequest.properties.MaxResults.description: The maximum
+  number of items to retrieve from the GetEntitlements operation. For pagination,
+  use the NextToken field in subsequent calls to GetEntitlements.
+definitions.GetEntitlementsRequest.properties.NextToken.$ref: '#/definitions/NonEmptyString'
+definitions.GetEntitlementsRequest.properties.NextToken.description: For paginated
+  calls to GetEntitlements, pass the NextToken from the previous GetEntitlementsResult.
+definitions.GetEntitlementsRequest.properties.ProductCode.$ref: '#/definitions/ProductCode'
+definitions.GetEntitlementsRequest.properties.ProductCode.description: Product code
+  is used to uniquely identify a product in AWS Marketplace. The product code will
+  be provided by AWS Marketplace when the product listing is created.
+definitions.GetEntitlementsRequest.required.length: 1
+definitions.GetEntitlementsRequest.required[0]: ProductCode
+definitions.GetEntitlementsRequest.type: object
+definitions.GetEntitlementsResult.description: The GetEntitlementsRequest contains
+  results from the GetEntitlements operation.
+definitions.GetEntitlementsResult.properties.Entitlements.$ref: '#/definitions/EntitlementList'
+definitions.GetEntitlementsResult.properties.Entitlements.description: The set of
+  entitlements found through the GetEntitlements operation. If the result contains
+  an empty set of entitlements, NextToken might still be present and should be used.
+definitions.GetEntitlementsResult.properties.NextToken.$ref: '#/definitions/NonEmptyString'
+definitions.GetEntitlementsResult.properties.NextToken.description: For paginated
+  results, use NextToken in subsequent calls to GetEntitlements. If the result contains
+  an empty set of entitlements, NextToken might still be present and should be used.
+definitions.GetEntitlementsResult.type: object
+definitions.Integer.type: integer
+definitions.InternalServiceErrorException.description: An internal error has occurred.
+  Retry your request. If the problem persists, post a message with details on the
+  AWS forums.
+definitions.InternalServiceErrorException.properties.message.$ref: '#/definitions/ErrorMessage'
+definitions.InternalServiceErrorException.type: object
+definitions.InvalidParameterException.description: One or more parameters in your
+  request was invalid.
+definitions.InvalidParameterException.properties.message.$ref: '#/definitions/ErrorMessage'
+definitions.InvalidParameterException.type: object
+definitions.NonEmptyString.pattern: \S+
+definitions.NonEmptyString.type: string
+definitions.ProductCode.maxLength: 255
+definitions.ProductCode.minLength: 1
+definitions.ProductCode.type: string
+definitions.String.type: string
+definitions.ThrottlingException.description: The calls to the GetEntitlements API
+  are throttled.
+definitions.ThrottlingException.properties.message.$ref: '#/definitions/ErrorMessage'
+definitions.ThrottlingException.type: object
+definitions.Timestamp.format: date-time
+definitions.Timestamp.type: string
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/marketplace/
+host: entitlement.marketplace.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: <fullname>AWS Marketplace Entitlement Service</fullname> <p>This
+  reference provides descriptions of the AWS Marketplace Entitlement Service API.</p>
+  <p>AWS Marketplace Entitlement Service is used to determine the entitlement of a
+  customer to a given product. An entitlement represents capacity in a product owned
+  by the customer. For example, a customer might own some number of users or seats
+  in an SaaS application or some amount of data capacity in a multi-tenant database.</p>
+  <p> <b>Getting Entitlement Records</b> </p> <ul> <li> <p> <i>GetEntitlements</i>-
+  Gets the entitlements for a Marketplace product.</p> </li> </ul>
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: AWS Marketplace Entitlement Service
+info.version: 2017-01-11
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/entitlement.marketplace-2017-01-11.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: entitlement.marketplace
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./.parameters.length: 9
+paths./.parameters[0].$ref: '#/parameters/Action'
+paths./.parameters[1].$ref: '#/parameters/Version'
+paths./.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./.post.description: GetEntitlements retrieves entitlement values for a given
+  product. The results can be filtered based on customer identifier or product dimensions.
+paths./.post.operationId: GetEntitlements
+paths./.post.parameters.length: 1
+paths./.post.parameters[0].in: body
+paths./.post.parameters[0].name: body
+paths./.post.parameters[0].required: true
+paths./.post.parameters[0].schema.$ref: '#/definitions/GetEntitlementsRequest'
+paths./.post.responses.200.description: Success
+paths./.post.responses.200.schema.$ref: '#/definitions/GetEntitlementsResult'
+paths./.post.responses.480.description: InvalidParameterException
+paths./.post.responses.480.schema.$ref: '#/definitions/InvalidParameterException'
+paths./.post.responses.481.description: ThrottlingException
+paths./.post.responses.481.schema.$ref: '#/definitions/ThrottlingException'
+paths./.post.responses.482.description: InternalServiceErrorException
+paths./.post.responses.482.schema.$ref: '#/definitions/InternalServiceErrorException'
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"

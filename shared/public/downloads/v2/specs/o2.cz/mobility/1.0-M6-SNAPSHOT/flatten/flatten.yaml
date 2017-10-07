@@ -1,0 +1,135 @@
+basePath: /mobility/sandbox/api
+definitions.CountResult.description: Response with the result
+definitions.CountResult.properties.count.description: Final count as the result of
+  the request
+definitions.CountResult.properties.count.example: "62984"
+definitions.CountResult.properties.count.type: string
+definitions.CountResult.type: object
+definitions.ErrorResult.description: Response with error message
+definitions.ErrorResult.properties.message.description: Error response message content
+definitions.ErrorResult.properties.message.example: Error message example.
+definitions.ErrorResult.properties.message.type: string
+definitions.ErrorResult.type: object
+definitions.InfoResult.description: Response to the info request
+definitions.InfoResult.properties.appName.description: Application name
+definitions.InfoResult.properties.appName.example: Mobility API Frontend
+definitions.InfoResult.properties.appName.type: string
+definitions.InfoResult.properties.appVendor.description: Application vendor
+definitions.InfoResult.properties.appVendor.example: O2 Czech Republic a.s.
+definitions.InfoResult.properties.appVendor.type: string
+definitions.InfoResult.properties.appVersion.description: Application version
+definitions.InfoResult.properties.appVersion.example: 1.0-M6-SNAPSHOT
+definitions.InfoResult.properties.appVersion.type: string
+definitions.InfoResult.properties.backendAppName.description: Backend application
+  name
+definitions.InfoResult.properties.backendAppName.example: Mobility API Backend
+definitions.InfoResult.properties.backendAppName.type: string
+definitions.InfoResult.properties.backendAppVendor.description: Backend application
+  vendor
+definitions.InfoResult.properties.backendAppVendor.example: O2 Czech Republic a.s.
+definitions.InfoResult.properties.backendAppVendor.type: string
+definitions.InfoResult.properties.backendAppVersion.description: Backend application
+  version
+definitions.InfoResult.properties.backendAppVersion.example: 1.0-M6-SNAPSHOT
+definitions.InfoResult.properties.backendAppVersion.type: string
+definitions.InfoResult.properties.backendDataFrom.description: For which day are data
+  valid
+definitions.InfoResult.properties.backendDataFrom.example: 2017-07-31
+definitions.InfoResult.properties.backendDataFrom.type: string
+definitions.InfoResult.type: object
+host: developer.o2.cz
+info.contact.name: libertyapi@o2.cz
+info.description: Transit API can be used to obtain time-aggregated data representing
+  moving the people between various spatial points within the Czech republic. Having
+  A - 'from' and B - 'to' points, the API can return count of people traveling from
+  A to B or people that are from A and traveling to B, etc. The mobility data is based
+  on moving mobile stations in O2 mobile network.
+info.license.name: O2 Czech Republic
+info.license.url: https://developer.o2.cz/portal/vop
+info.title: Mobility
+info.version: 1.0-M6-SNAPSHOT
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: telecom
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_pbs.twimg.com_profile_images_443742048365985792_Zech6Z-m_400x400.png
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://developer.o2.cz/mobility/sandbox/api/swagger.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: o2.cz
+info.x-serviceName: mobility
+paths./info.get.consumes.length: 1
+paths./info.get.consumes[0]: application/json
+paths./info.get.description: ""
+paths./info.get.operationId: getInfo
+paths./info.get.parameters.length: 0
+paths./info.get.responses.200.description: Response with the requested content.
+paths./info.get.responses.200.schema.$ref: '#/definitions/InfoResult'
+paths./info.get.summary: Information about versions of application and data.
+paths./info.get.tags.length: 1
+paths./info.get.tags[0]: info
+paths./transit/{from}/{to}.get.description: Get count of objects that were moving
+  between basic residential units or objects that were visiting these basic residential
+  units. Specific object's occurence type in the base residential unit can be requested.
+  If none occurence type is present in the request or both occurence types are zero,
+  the result will be aggregation of all types of occurence for given base residential
+  units. More about base residential units can be found at https://www.czso.cz/csu/rso/zsj_rso
+  (czech).
+paths./transit/{from}/{to}.get.operationId: transit
+paths./transit/{from}/{to}.get.parameters.length: 5
+paths./transit/{from}/{to}.get.parameters[0].description: source basic residential
+  unit
+paths./transit/{from}/{to}.get.parameters[0].in: path
+paths./transit/{from}/{to}.get.parameters[0].name: from
+paths./transit/{from}/{to}.get.parameters[0].required: true
+paths./transit/{from}/{to}.get.parameters[0].type: string
+paths./transit/{from}/{to}.get.parameters[0].x-example: "127752"
+paths./transit/{from}/{to}.get.parameters[1].description: destination basic residential
+  unit
+paths./transit/{from}/{to}.get.parameters[1].in: path
+paths./transit/{from}/{to}.get.parameters[1].name: to
+paths./transit/{from}/{to}.get.parameters[1].required: true
+paths./transit/{from}/{to}.get.parameters[1].type: string
+paths./transit/{from}/{to}.get.parameters[1].x-example: "127761"
+paths./transit/{from}/{to}.get.parameters[2].description: occurence type in the source
+  basic residential unit (1 - transit, 2 - visit, 0 - both)
+paths./transit/{from}/{to}.get.parameters[2].in: query
+paths./transit/{from}/{to}.get.parameters[2].name: fromType
+paths./transit/{from}/{to}.get.parameters[2].required: false
+paths./transit/{from}/{to}.get.parameters[2].type: string
+paths./transit/{from}/{to}.get.parameters[3].description: occurence type in the destination
+  basic residential unit (1 - transit, 2 - visit, 0 - both)
+paths./transit/{from}/{to}.get.parameters[3].in: query
+paths./transit/{from}/{to}.get.parameters[3].name: toType
+paths./transit/{from}/{to}.get.parameters[3].required: false
+paths./transit/{from}/{to}.get.parameters[3].type: string
+paths./transit/{from}/{to}.get.parameters[4].description: all or only uniques (0 -
+  all, 1 - uniques)
+paths./transit/{from}/{to}.get.parameters[4].in: query
+paths./transit/{from}/{to}.get.parameters[4].name: uniques
+paths./transit/{from}/{to}.get.parameters[4].required: true
+paths./transit/{from}/{to}.get.parameters[4].type: string
+paths./transit/{from}/{to}.get.parameters[4].x-example: "0"
+paths./transit/{from}/{to}.get.responses.200.description: Response with the requested
+  content.
+paths./transit/{from}/{to}.get.responses.200.schema.$ref: '#/definitions/CountResult'
+paths./transit/{from}/{to}.get.responses.204.description: The request is valid, but
+  the platform is not able to serve the data. The reason may be restriction (e.g.
+  differential privacy) or no data were found.
+paths./transit/{from}/{to}.get.responses.400.description: Invalid request provided,
+  missing or invalid parameter.
+paths./transit/{from}/{to}.get.responses.400.schema.$ref: '#/definitions/ErrorResult'
+paths./transit/{from}/{to}.get.responses.500.description: Internal server error.
+paths./transit/{from}/{to}.get.responses.500.schema.$ref: '#/definitions/ErrorResult'
+paths./transit/{from}/{to}.get.summary: Transit between basic residential units
+paths./transit/{from}/{to}.get.tags.length: 1
+paths./transit/{from}/{to}.get.tags[0]: transit
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: https
+swagger: "2.0"
+tags.length: 2
+tags[0].name: info
+tags[1].name: transit

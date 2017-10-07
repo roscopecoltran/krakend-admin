@@ -1,0 +1,786 @@
+basePath: /
+definitions.Checksum.description: The expected state of a client's local database.
+definitions.Checksum.properties.sha256.description: |-
+  The SHA256 hash of the client state; that is, of the sorted list of all
+  hashes present in the database.
+definitions.Checksum.properties.sha256.format: byte
+definitions.Checksum.properties.sha256.type: string
+definitions.Checksum.type: object
+definitions.ClientInfo.description: The client metadata associated with Safe Browsing
+  API requests.
+definitions.ClientInfo.properties.clientId.description: |-
+  A client ID that (hopefully) uniquely identifies the client implementation
+  of the Safe Browsing API.
+definitions.ClientInfo.properties.clientId.type: string
+definitions.ClientInfo.properties.clientVersion.description: The version of the client
+  implementation.
+definitions.ClientInfo.properties.clientVersion.type: string
+definitions.ClientInfo.type: object
+definitions.Constraints.description: The constraints for this update.
+definitions.Constraints.properties.maxDatabaseEntries.description: |-
+  Sets the maximum number of entries that the client is willing to have
+  in the local database. This should be a power of 2 between 2**10 and
+  2**20. If zero, no database size limit is set.
+definitions.Constraints.properties.maxDatabaseEntries.format: int32
+definitions.Constraints.properties.maxDatabaseEntries.type: integer
+definitions.Constraints.properties.maxUpdateEntries.description: |-
+  The maximum size in number of entries. The update will not contain more
+  entries than this value.  This should be a power of 2 between 2**10 and
+  2**20.  If zero, no update size limit is set.
+definitions.Constraints.properties.maxUpdateEntries.format: int32
+definitions.Constraints.properties.maxUpdateEntries.type: integer
+definitions.Constraints.properties.region.description: |-
+  Requests the list for a specific geographic location. If not set the
+  server may pick that value based on the user's IP address. Expects ISO
+  3166-1 alpha-2 format.
+definitions.Constraints.properties.region.type: string
+definitions.Constraints.properties.supportedCompressions.description: The compression
+  types supported by the client.
+definitions.Constraints.properties.supportedCompressions.items.enum.length: 3
+definitions.Constraints.properties.supportedCompressions.items.enum[0]: COMPRESSION_TYPE_UNSPECIFIED
+definitions.Constraints.properties.supportedCompressions.items.enum[1]: RAW
+definitions.Constraints.properties.supportedCompressions.items.enum[2]: RICE
+definitions.Constraints.properties.supportedCompressions.items.type: string
+definitions.Constraints.properties.supportedCompressions.type: array
+definitions.Constraints.type: object
+definitions.FetchThreatListUpdatesRequest.description: |-
+  Describes a Safe Browsing API update request. Clients can request updates for
+  multiple lists in a single request.
+  NOTE: Field index 2 is unused.
+  NEXT: 5
+definitions.FetchThreatListUpdatesRequest.properties.client.$ref: '#/definitions/ClientInfo'
+definitions.FetchThreatListUpdatesRequest.properties.client.description: The client
+  metadata.
+definitions.FetchThreatListUpdatesRequest.properties.listUpdateRequests.description: The
+  requested threat list updates.
+definitions.FetchThreatListUpdatesRequest.properties.listUpdateRequests.items.$ref: '#/definitions/ListUpdateRequest'
+definitions.FetchThreatListUpdatesRequest.properties.listUpdateRequests.type: array
+definitions.FetchThreatListUpdatesRequest.type: object
+definitions.FetchThreatListUpdatesResponse.properties.listUpdateResponses.description: The
+  list updates requested by the clients.
+definitions.FetchThreatListUpdatesResponse.properties.listUpdateResponses.items.$ref: '#/definitions/ListUpdateResponse'
+definitions.FetchThreatListUpdatesResponse.properties.listUpdateResponses.type: array
+definitions.FetchThreatListUpdatesResponse.properties.minimumWaitDuration.description: |-
+  The minimum duration the client must wait before issuing any update
+  request. If this field is not set clients may update as soon as they want.
+definitions.FetchThreatListUpdatesResponse.properties.minimumWaitDuration.format: google-duration
+definitions.FetchThreatListUpdatesResponse.properties.minimumWaitDuration.type: string
+definitions.FetchThreatListUpdatesResponse.type: object
+definitions.FindFullHashesRequest.description: Request to return full hashes matched
+  by the provided hash prefixes.
+definitions.FindFullHashesRequest.properties.apiClient.$ref: '#/definitions/ClientInfo'
+definitions.FindFullHashesRequest.properties.apiClient.description: |-
+  Client metadata associated with callers of higher-level APIs built on top
+  of the client's implementation.
+definitions.FindFullHashesRequest.properties.client.$ref: '#/definitions/ClientInfo'
+definitions.FindFullHashesRequest.properties.client.description: The client metadata.
+definitions.FindFullHashesRequest.properties.clientStates.description: The current
+  client states for each of the client's local threat lists.
+definitions.FindFullHashesRequest.properties.clientStates.items.format: byte
+definitions.FindFullHashesRequest.properties.clientStates.items.type: string
+definitions.FindFullHashesRequest.properties.clientStates.type: array
+definitions.FindFullHashesRequest.properties.threatInfo.$ref: '#/definitions/ThreatInfo'
+definitions.FindFullHashesRequest.properties.threatInfo.description: The lists and
+  hashes to be checked.
+definitions.FindFullHashesRequest.type: object
+definitions.FindFullHashesResponse.properties.matches.description: The full hashes
+  that matched the requested prefixes.
+definitions.FindFullHashesResponse.properties.matches.items.$ref: '#/definitions/ThreatMatch'
+definitions.FindFullHashesResponse.properties.matches.type: array
+definitions.FindFullHashesResponse.properties.minimumWaitDuration.description: |-
+  The minimum duration the client must wait before issuing any find hashes
+  request. If this field is not set, clients can issue a request as soon as
+  they want.
+definitions.FindFullHashesResponse.properties.minimumWaitDuration.format: google-duration
+definitions.FindFullHashesResponse.properties.minimumWaitDuration.type: string
+definitions.FindFullHashesResponse.properties.negativeCacheDuration.description: |-
+  For requested entities that did not match the threat list, how long to
+  cache the response.
+definitions.FindFullHashesResponse.properties.negativeCacheDuration.format: google-duration
+definitions.FindFullHashesResponse.properties.negativeCacheDuration.type: string
+definitions.FindFullHashesResponse.type: object
+definitions.FindThreatMatchesRequest.description: Request to check entries against
+  lists.
+definitions.FindThreatMatchesRequest.properties.client.$ref: '#/definitions/ClientInfo'
+definitions.FindThreatMatchesRequest.properties.client.description: The client metadata.
+definitions.FindThreatMatchesRequest.properties.threatInfo.$ref: '#/definitions/ThreatInfo'
+definitions.FindThreatMatchesRequest.properties.threatInfo.description: The lists
+  and entries to be checked for matches.
+definitions.FindThreatMatchesRequest.type: object
+definitions.FindThreatMatchesResponse.properties.matches.description: The threat list
+  matches.
+definitions.FindThreatMatchesResponse.properties.matches.items.$ref: '#/definitions/ThreatMatch'
+definitions.FindThreatMatchesResponse.properties.matches.type: array
+definitions.FindThreatMatchesResponse.type: object
+definitions.ListThreatListsResponse.properties.threatLists.description: The lists
+  available for download by the client.
+definitions.ListThreatListsResponse.properties.threatLists.items.$ref: '#/definitions/ThreatListDescriptor'
+definitions.ListThreatListsResponse.properties.threatLists.type: array
+definitions.ListThreatListsResponse.type: object
+definitions.ListUpdateRequest.description: A single list update request.
+definitions.ListUpdateRequest.properties.constraints.$ref: '#/definitions/Constraints'
+definitions.ListUpdateRequest.properties.constraints.description: The constraints
+  associated with this request.
+definitions.ListUpdateRequest.properties.platformType.description: The type of platform
+  at risk by entries present in the list.
+definitions.ListUpdateRequest.properties.platformType.enum.length: 9
+definitions.ListUpdateRequest.properties.platformType.enum[0]: PLATFORM_TYPE_UNSPECIFIED
+definitions.ListUpdateRequest.properties.platformType.enum[1]: WINDOWS
+definitions.ListUpdateRequest.properties.platformType.enum[2]: LINUX
+definitions.ListUpdateRequest.properties.platformType.enum[3]: ANDROID
+definitions.ListUpdateRequest.properties.platformType.enum[4]: OSX
+definitions.ListUpdateRequest.properties.platformType.enum[5]: IOS
+definitions.ListUpdateRequest.properties.platformType.enum[6]: ANY_PLATFORM
+definitions.ListUpdateRequest.properties.platformType.enum[7]: ALL_PLATFORMS
+definitions.ListUpdateRequest.properties.platformType.enum[8]: CHROME
+definitions.ListUpdateRequest.properties.platformType.type: string
+definitions.ListUpdateRequest.properties.state.description: |-
+  The current state of the client for the requested list (the encrypted
+  client state that was received from the last successful list update).
+definitions.ListUpdateRequest.properties.state.format: byte
+definitions.ListUpdateRequest.properties.state.type: string
+definitions.ListUpdateRequest.properties.threatEntryType.description: The types of
+  entries present in the list.
+definitions.ListUpdateRequest.properties.threatEntryType.enum.length: 7
+definitions.ListUpdateRequest.properties.threatEntryType.enum[0]: THREAT_ENTRY_TYPE_UNSPECIFIED
+definitions.ListUpdateRequest.properties.threatEntryType.enum[1]: URL
+definitions.ListUpdateRequest.properties.threatEntryType.enum[2]: EXECUTABLE
+definitions.ListUpdateRequest.properties.threatEntryType.enum[3]: IP_RANGE
+definitions.ListUpdateRequest.properties.threatEntryType.enum[4]: CHROME_EXTENSION
+definitions.ListUpdateRequest.properties.threatEntryType.enum[5]: FILENAME
+definitions.ListUpdateRequest.properties.threatEntryType.enum[6]: CERT
+definitions.ListUpdateRequest.properties.threatEntryType.type: string
+definitions.ListUpdateRequest.properties.threatType.description: The type of threat
+  posed by entries present in the list.
+definitions.ListUpdateRequest.properties.threatType.enum.length: 14
+definitions.ListUpdateRequest.properties.threatType.enum[0]: THREAT_TYPE_UNSPECIFIED
+definitions.ListUpdateRequest.properties.threatType.enum[1]: MALWARE
+definitions.ListUpdateRequest.properties.threatType.enum[2]: SOCIAL_ENGINEERING
+definitions.ListUpdateRequest.properties.threatType.enum[3]: UNWANTED_SOFTWARE
+definitions.ListUpdateRequest.properties.threatType.enum[4]: POTENTIALLY_HARMFUL_APPLICATION
+definitions.ListUpdateRequest.properties.threatType.enum[5]: SOCIAL_ENGINEERING_INTERNAL
+definitions.ListUpdateRequest.properties.threatType.enum[6]: API_ABUSE
+definitions.ListUpdateRequest.properties.threatType.enum[7]: MALICIOUS_BINARY
+definitions.ListUpdateRequest.properties.threatType.enum[8]: CSD_WHITELIST
+definitions.ListUpdateRequest.properties.threatType.enum[9]: CSD_DOWNLOAD_WHITELIST
+definitions.ListUpdateRequest.properties.threatType.enum[10]: CLIENT_INCIDENT
+definitions.ListUpdateRequest.properties.threatType.enum[11]: CLIENT_INCIDENT_WHITELIST
+definitions.ListUpdateRequest.properties.threatType.enum[12]: APK_MALWARE_OFFLINE
+definitions.ListUpdateRequest.properties.threatType.enum[13]: SUBRESOURCE_FILTER
+definitions.ListUpdateRequest.properties.threatType.type: string
+definitions.ListUpdateRequest.type: object
+definitions.ListUpdateResponse.description: An update to an individual list.
+definitions.ListUpdateResponse.properties.additions.description: |-
+  A set of entries to add to a local threat type's list. Repeated to allow
+  for a combination of compressed and raw data to be sent in a single
+  response.
+definitions.ListUpdateResponse.properties.additions.items.$ref: '#/definitions/ThreatEntrySet'
+definitions.ListUpdateResponse.properties.additions.type: array
+definitions.ListUpdateResponse.properties.checksum.$ref: '#/definitions/Checksum'
+definitions.ListUpdateResponse.properties.checksum.description: |-
+  The expected SHA256 hash of the client state; that is, of the sorted list
+  of all hashes present in the database after applying the provided update.
+  If the client state doesn't match the expected state, the client must
+  disregard this update and retry later.
+definitions.ListUpdateResponse.properties.newClientState.description: The new client
+  state, in encrypted format. Opaque to clients.
+definitions.ListUpdateResponse.properties.newClientState.format: byte
+definitions.ListUpdateResponse.properties.newClientState.type: string
+definitions.ListUpdateResponse.properties.platformType.description: The platform type
+  for which data is returned.
+definitions.ListUpdateResponse.properties.platformType.enum.length: 9
+definitions.ListUpdateResponse.properties.platformType.enum[0]: PLATFORM_TYPE_UNSPECIFIED
+definitions.ListUpdateResponse.properties.platformType.enum[1]: WINDOWS
+definitions.ListUpdateResponse.properties.platformType.enum[2]: LINUX
+definitions.ListUpdateResponse.properties.platformType.enum[3]: ANDROID
+definitions.ListUpdateResponse.properties.platformType.enum[4]: OSX
+definitions.ListUpdateResponse.properties.platformType.enum[5]: IOS
+definitions.ListUpdateResponse.properties.platformType.enum[6]: ANY_PLATFORM
+definitions.ListUpdateResponse.properties.platformType.enum[7]: ALL_PLATFORMS
+definitions.ListUpdateResponse.properties.platformType.enum[8]: CHROME
+definitions.ListUpdateResponse.properties.platformType.type: string
+definitions.ListUpdateResponse.properties.removals.description: |-
+  A set of entries to remove from a local threat type's list. In practice,
+  this field is empty or contains exactly one ThreatEntrySet.
+definitions.ListUpdateResponse.properties.removals.items.$ref: '#/definitions/ThreatEntrySet'
+definitions.ListUpdateResponse.properties.removals.type: array
+definitions.ListUpdateResponse.properties.responseType.description: |-
+  The type of response. This may indicate that an action is required by the
+  client when the response is received.
+definitions.ListUpdateResponse.properties.responseType.enum.length: 3
+definitions.ListUpdateResponse.properties.responseType.enum[0]: RESPONSE_TYPE_UNSPECIFIED
+definitions.ListUpdateResponse.properties.responseType.enum[1]: PARTIAL_UPDATE
+definitions.ListUpdateResponse.properties.responseType.enum[2]: FULL_UPDATE
+definitions.ListUpdateResponse.properties.responseType.type: string
+definitions.ListUpdateResponse.properties.threatEntryType.description: The format
+  of the threats.
+definitions.ListUpdateResponse.properties.threatEntryType.enum.length: 7
+definitions.ListUpdateResponse.properties.threatEntryType.enum[0]: THREAT_ENTRY_TYPE_UNSPECIFIED
+definitions.ListUpdateResponse.properties.threatEntryType.enum[1]: URL
+definitions.ListUpdateResponse.properties.threatEntryType.enum[2]: EXECUTABLE
+definitions.ListUpdateResponse.properties.threatEntryType.enum[3]: IP_RANGE
+definitions.ListUpdateResponse.properties.threatEntryType.enum[4]: CHROME_EXTENSION
+definitions.ListUpdateResponse.properties.threatEntryType.enum[5]: FILENAME
+definitions.ListUpdateResponse.properties.threatEntryType.enum[6]: CERT
+definitions.ListUpdateResponse.properties.threatEntryType.type: string
+definitions.ListUpdateResponse.properties.threatType.description: The threat type
+  for which data is returned.
+definitions.ListUpdateResponse.properties.threatType.enum.length: 14
+definitions.ListUpdateResponse.properties.threatType.enum[0]: THREAT_TYPE_UNSPECIFIED
+definitions.ListUpdateResponse.properties.threatType.enum[1]: MALWARE
+definitions.ListUpdateResponse.properties.threatType.enum[2]: SOCIAL_ENGINEERING
+definitions.ListUpdateResponse.properties.threatType.enum[3]: UNWANTED_SOFTWARE
+definitions.ListUpdateResponse.properties.threatType.enum[4]: POTENTIALLY_HARMFUL_APPLICATION
+definitions.ListUpdateResponse.properties.threatType.enum[5]: SOCIAL_ENGINEERING_INTERNAL
+definitions.ListUpdateResponse.properties.threatType.enum[6]: API_ABUSE
+definitions.ListUpdateResponse.properties.threatType.enum[7]: MALICIOUS_BINARY
+definitions.ListUpdateResponse.properties.threatType.enum[8]: CSD_WHITELIST
+definitions.ListUpdateResponse.properties.threatType.enum[9]: CSD_DOWNLOAD_WHITELIST
+definitions.ListUpdateResponse.properties.threatType.enum[10]: CLIENT_INCIDENT
+definitions.ListUpdateResponse.properties.threatType.enum[11]: CLIENT_INCIDENT_WHITELIST
+definitions.ListUpdateResponse.properties.threatType.enum[12]: APK_MALWARE_OFFLINE
+definitions.ListUpdateResponse.properties.threatType.enum[13]: SUBRESOURCE_FILTER
+definitions.ListUpdateResponse.properties.threatType.type: string
+definitions.ListUpdateResponse.type: object
+definitions.MetadataEntry.description: A single metadata entry.
+definitions.MetadataEntry.properties.key.description: The metadata entry key. For
+  JSON requests, the key is base64-encoded.
+definitions.MetadataEntry.properties.key.format: byte
+definitions.MetadataEntry.properties.key.type: string
+definitions.MetadataEntry.properties.value.description: The metadata entry value.
+  For JSON requests, the value is base64-encoded.
+definitions.MetadataEntry.properties.value.format: byte
+definitions.MetadataEntry.properties.value.type: string
+definitions.MetadataEntry.type: object
+definitions.RawHashes.description: |-
+  The uncompressed threat entries in hash format of a particular prefix length.
+  Hashes can be anywhere from 4 to 32 bytes in size. A large majority are 4
+  bytes, but some hashes are lengthened if they collide with the hash of a
+  popular URL.
+
+  Used for sending ThreatEntrySet to clients that do not support compression,
+  or when sending non-4-byte hashes to clients that do support compression.
+definitions.RawHashes.properties.prefixSize.description: |-
+  The number of bytes for each prefix encoded below.  This field can be
+  anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
+definitions.RawHashes.properties.prefixSize.format: int32
+definitions.RawHashes.properties.prefixSize.type: integer
+definitions.RawHashes.properties.rawHashes.description: |-
+  The hashes, in binary format, concatenated into one long string. Hashes are
+  sorted in lexicographic order. For JSON API users, hashes are
+  base64-encoded.
+definitions.RawHashes.properties.rawHashes.format: byte
+definitions.RawHashes.properties.rawHashes.type: string
+definitions.RawHashes.type: object
+definitions.RawIndices.description: A set of raw indices to remove from a local list.
+definitions.RawIndices.properties.indices.description: The indices to remove from
+  a lexicographically-sorted local list.
+definitions.RawIndices.properties.indices.items.format: int32
+definitions.RawIndices.properties.indices.items.type: integer
+definitions.RawIndices.properties.indices.type: array
+definitions.RawIndices.type: object
+definitions.RiceDeltaEncoding.description: |-
+  The Rice-Golomb encoded data. Used for sending compressed 4-byte hashes or
+  compressed removal indices.
+definitions.RiceDeltaEncoding.properties.encodedData.description: The encoded deltas
+  that are encoded using the Golomb-Rice coder.
+definitions.RiceDeltaEncoding.properties.encodedData.format: byte
+definitions.RiceDeltaEncoding.properties.encodedData.type: string
+definitions.RiceDeltaEncoding.properties.firstValue.description: |-
+  The offset of the first entry in the encoded data, or, if only a single
+  integer was encoded, that single integer's value.
+definitions.RiceDeltaEncoding.properties.firstValue.format: int64
+definitions.RiceDeltaEncoding.properties.firstValue.type: string
+definitions.RiceDeltaEncoding.properties.numEntries.description: |-
+  The number of entries that are delta encoded in the encoded data. If only a
+  single integer was encoded, this will be zero and the single value will be
+  stored in `first_value`.
+definitions.RiceDeltaEncoding.properties.numEntries.format: int32
+definitions.RiceDeltaEncoding.properties.numEntries.type: integer
+definitions.RiceDeltaEncoding.properties.riceParameter.description: |-
+  The Golomb-Rice parameter, which is a number between 2 and 28. This field
+  is missing (that is, zero) if `num_entries` is zero.
+definitions.RiceDeltaEncoding.properties.riceParameter.format: int32
+definitions.RiceDeltaEncoding.properties.riceParameter.type: integer
+definitions.RiceDeltaEncoding.type: object
+definitions.ThreatEntry.description: |-
+  An individual threat; for example, a malicious URL or its hash
+  representation. Only one of these fields should be set.
+definitions.ThreatEntry.properties.digest.description: |-
+  The digest of an executable in SHA256 format. The API supports both
+  binary and hex digests. For JSON requests, digests are base64-encoded.
+definitions.ThreatEntry.properties.digest.format: byte
+definitions.ThreatEntry.properties.digest.type: string
+definitions.ThreatEntry.properties.hash.description: |-
+  A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
+  hash. This field is in binary format. For JSON requests, hashes are
+  base64-encoded.
+definitions.ThreatEntry.properties.hash.format: byte
+definitions.ThreatEntry.properties.hash.type: string
+definitions.ThreatEntry.properties.url.description: A URL.
+definitions.ThreatEntry.properties.url.type: string
+definitions.ThreatEntry.type: object
+definitions.ThreatEntryMetadata.description: |-
+  The metadata associated with a specific threat entry. The client is expected
+  to know the metadata key/value pairs associated with each threat type.
+definitions.ThreatEntryMetadata.properties.entries.description: The metadata entries.
+definitions.ThreatEntryMetadata.properties.entries.items.$ref: '#/definitions/MetadataEntry'
+definitions.ThreatEntryMetadata.properties.entries.type: array
+definitions.ThreatEntryMetadata.type: object
+definitions.ThreatEntrySet.description: |-
+  A set of threats that should be added or removed from a client's local
+  database.
+definitions.ThreatEntrySet.properties.compressionType.description: The compression
+  type for the entries in this set.
+definitions.ThreatEntrySet.properties.compressionType.enum.length: 3
+definitions.ThreatEntrySet.properties.compressionType.enum[0]: COMPRESSION_TYPE_UNSPECIFIED
+definitions.ThreatEntrySet.properties.compressionType.enum[1]: RAW
+definitions.ThreatEntrySet.properties.compressionType.enum[2]: RICE
+definitions.ThreatEntrySet.properties.compressionType.type: string
+definitions.ThreatEntrySet.properties.rawHashes.$ref: '#/definitions/RawHashes'
+definitions.ThreatEntrySet.properties.rawHashes.description: The raw SHA256-formatted
+  entries.
+definitions.ThreatEntrySet.properties.rawIndices.$ref: '#/definitions/RawIndices'
+definitions.ThreatEntrySet.properties.rawIndices.description: The raw removal indices
+  for a local list.
+definitions.ThreatEntrySet.properties.riceHashes.$ref: '#/definitions/RiceDeltaEncoding'
+definitions.ThreatEntrySet.properties.riceHashes.description: |-
+  The encoded 4-byte prefixes of SHA256-formatted entries, using a
+  Golomb-Rice encoding. The hashes are converted to uint32, sorted in
+  ascending order, then delta encoded and stored as encoded_data.
+definitions.ThreatEntrySet.properties.riceIndices.$ref: '#/definitions/RiceDeltaEncoding'
+definitions.ThreatEntrySet.properties.riceIndices.description: |-
+  The encoded local, lexicographically-sorted list indices, using a
+  Golomb-Rice encoding. Used for sending compressed removal indices. The
+  removal indices (uint32) are sorted in ascending order, then delta encoded
+  and stored as encoded_data.
+definitions.ThreatEntrySet.type: object
+definitions.ThreatInfo.description: |-
+  The information regarding one or more threats that a client submits when
+  checking for matches in threat lists.
+definitions.ThreatInfo.properties.platformTypes.description: The platform types to
+  be checked.
+definitions.ThreatInfo.properties.platformTypes.items.enum.length: 9
+definitions.ThreatInfo.properties.platformTypes.items.enum[0]: PLATFORM_TYPE_UNSPECIFIED
+definitions.ThreatInfo.properties.platformTypes.items.enum[1]: WINDOWS
+definitions.ThreatInfo.properties.platformTypes.items.enum[2]: LINUX
+definitions.ThreatInfo.properties.platformTypes.items.enum[3]: ANDROID
+definitions.ThreatInfo.properties.platformTypes.items.enum[4]: OSX
+definitions.ThreatInfo.properties.platformTypes.items.enum[5]: IOS
+definitions.ThreatInfo.properties.platformTypes.items.enum[6]: ANY_PLATFORM
+definitions.ThreatInfo.properties.platformTypes.items.enum[7]: ALL_PLATFORMS
+definitions.ThreatInfo.properties.platformTypes.items.enum[8]: CHROME
+definitions.ThreatInfo.properties.platformTypes.items.type: string
+definitions.ThreatInfo.properties.platformTypes.type: array
+definitions.ThreatInfo.properties.threatEntries.description: The threat entries to
+  be checked.
+definitions.ThreatInfo.properties.threatEntries.items.$ref: '#/definitions/ThreatEntry'
+definitions.ThreatInfo.properties.threatEntries.type: array
+definitions.ThreatInfo.properties.threatEntryTypes.description: The entry types to
+  be checked.
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum.length: 7
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[0]: THREAT_ENTRY_TYPE_UNSPECIFIED
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[1]: URL
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[2]: EXECUTABLE
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[3]: IP_RANGE
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[4]: CHROME_EXTENSION
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[5]: FILENAME
+definitions.ThreatInfo.properties.threatEntryTypes.items.enum[6]: CERT
+definitions.ThreatInfo.properties.threatEntryTypes.items.type: string
+definitions.ThreatInfo.properties.threatEntryTypes.type: array
+definitions.ThreatInfo.properties.threatTypes.description: The threat types to be
+  checked.
+definitions.ThreatInfo.properties.threatTypes.items.enum.length: 14
+definitions.ThreatInfo.properties.threatTypes.items.enum[0]: THREAT_TYPE_UNSPECIFIED
+definitions.ThreatInfo.properties.threatTypes.items.enum[1]: MALWARE
+definitions.ThreatInfo.properties.threatTypes.items.enum[2]: SOCIAL_ENGINEERING
+definitions.ThreatInfo.properties.threatTypes.items.enum[3]: UNWANTED_SOFTWARE
+definitions.ThreatInfo.properties.threatTypes.items.enum[4]: POTENTIALLY_HARMFUL_APPLICATION
+definitions.ThreatInfo.properties.threatTypes.items.enum[5]: SOCIAL_ENGINEERING_INTERNAL
+definitions.ThreatInfo.properties.threatTypes.items.enum[6]: API_ABUSE
+definitions.ThreatInfo.properties.threatTypes.items.enum[7]: MALICIOUS_BINARY
+definitions.ThreatInfo.properties.threatTypes.items.enum[8]: CSD_WHITELIST
+definitions.ThreatInfo.properties.threatTypes.items.enum[9]: CSD_DOWNLOAD_WHITELIST
+definitions.ThreatInfo.properties.threatTypes.items.enum[10]: CLIENT_INCIDENT
+definitions.ThreatInfo.properties.threatTypes.items.enum[11]: CLIENT_INCIDENT_WHITELIST
+definitions.ThreatInfo.properties.threatTypes.items.enum[12]: APK_MALWARE_OFFLINE
+definitions.ThreatInfo.properties.threatTypes.items.enum[13]: SUBRESOURCE_FILTER
+definitions.ThreatInfo.properties.threatTypes.items.type: string
+definitions.ThreatInfo.properties.threatTypes.type: array
+definitions.ThreatInfo.type: object
+definitions.ThreatListDescriptor.description: |-
+  Describes an individual threat list. A list is defined by three parameters:
+  the type of threat posed, the type of platform targeted by the threat, and
+  the type of entries in the list.
+definitions.ThreatListDescriptor.properties.platformType.description: The platform
+  type targeted by the list's entries.
+definitions.ThreatListDescriptor.properties.platformType.enum.length: 9
+definitions.ThreatListDescriptor.properties.platformType.enum[0]: PLATFORM_TYPE_UNSPECIFIED
+definitions.ThreatListDescriptor.properties.platformType.enum[1]: WINDOWS
+definitions.ThreatListDescriptor.properties.platformType.enum[2]: LINUX
+definitions.ThreatListDescriptor.properties.platformType.enum[3]: ANDROID
+definitions.ThreatListDescriptor.properties.platformType.enum[4]: OSX
+definitions.ThreatListDescriptor.properties.platformType.enum[5]: IOS
+definitions.ThreatListDescriptor.properties.platformType.enum[6]: ANY_PLATFORM
+definitions.ThreatListDescriptor.properties.platformType.enum[7]: ALL_PLATFORMS
+definitions.ThreatListDescriptor.properties.platformType.enum[8]: CHROME
+definitions.ThreatListDescriptor.properties.platformType.type: string
+definitions.ThreatListDescriptor.properties.threatEntryType.description: The entry
+  types contained in the list.
+definitions.ThreatListDescriptor.properties.threatEntryType.enum.length: 7
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[0]: THREAT_ENTRY_TYPE_UNSPECIFIED
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[1]: URL
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[2]: EXECUTABLE
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[3]: IP_RANGE
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[4]: CHROME_EXTENSION
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[5]: FILENAME
+definitions.ThreatListDescriptor.properties.threatEntryType.enum[6]: CERT
+definitions.ThreatListDescriptor.properties.threatEntryType.type: string
+definitions.ThreatListDescriptor.properties.threatType.description: The threat type
+  posed by the list's entries.
+definitions.ThreatListDescriptor.properties.threatType.enum.length: 14
+definitions.ThreatListDescriptor.properties.threatType.enum[0]: THREAT_TYPE_UNSPECIFIED
+definitions.ThreatListDescriptor.properties.threatType.enum[1]: MALWARE
+definitions.ThreatListDescriptor.properties.threatType.enum[2]: SOCIAL_ENGINEERING
+definitions.ThreatListDescriptor.properties.threatType.enum[3]: UNWANTED_SOFTWARE
+definitions.ThreatListDescriptor.properties.threatType.enum[4]: POTENTIALLY_HARMFUL_APPLICATION
+definitions.ThreatListDescriptor.properties.threatType.enum[5]: SOCIAL_ENGINEERING_INTERNAL
+definitions.ThreatListDescriptor.properties.threatType.enum[6]: API_ABUSE
+definitions.ThreatListDescriptor.properties.threatType.enum[7]: MALICIOUS_BINARY
+definitions.ThreatListDescriptor.properties.threatType.enum[8]: CSD_WHITELIST
+definitions.ThreatListDescriptor.properties.threatType.enum[9]: CSD_DOWNLOAD_WHITELIST
+definitions.ThreatListDescriptor.properties.threatType.enum[10]: CLIENT_INCIDENT
+definitions.ThreatListDescriptor.properties.threatType.enum[11]: CLIENT_INCIDENT_WHITELIST
+definitions.ThreatListDescriptor.properties.threatType.enum[12]: APK_MALWARE_OFFLINE
+definitions.ThreatListDescriptor.properties.threatType.enum[13]: SUBRESOURCE_FILTER
+definitions.ThreatListDescriptor.properties.threatType.type: string
+definitions.ThreatListDescriptor.type: object
+definitions.ThreatMatch.description: A match when checking a threat entry in the Safe
+  Browsing threat lists.
+definitions.ThreatMatch.properties.cacheDuration.description: |-
+  The cache lifetime for the returned match. Clients must not cache this
+  response for more than this duration to avoid false positives.
+definitions.ThreatMatch.properties.cacheDuration.format: google-duration
+definitions.ThreatMatch.properties.cacheDuration.type: string
+definitions.ThreatMatch.properties.platformType.description: The platform type matching
+  this threat.
+definitions.ThreatMatch.properties.platformType.enum.length: 9
+definitions.ThreatMatch.properties.platformType.enum[0]: PLATFORM_TYPE_UNSPECIFIED
+definitions.ThreatMatch.properties.platformType.enum[1]: WINDOWS
+definitions.ThreatMatch.properties.platformType.enum[2]: LINUX
+definitions.ThreatMatch.properties.platformType.enum[3]: ANDROID
+definitions.ThreatMatch.properties.platformType.enum[4]: OSX
+definitions.ThreatMatch.properties.platformType.enum[5]: IOS
+definitions.ThreatMatch.properties.platformType.enum[6]: ANY_PLATFORM
+definitions.ThreatMatch.properties.platformType.enum[7]: ALL_PLATFORMS
+definitions.ThreatMatch.properties.platformType.enum[8]: CHROME
+definitions.ThreatMatch.properties.platformType.type: string
+definitions.ThreatMatch.properties.threat.$ref: '#/definitions/ThreatEntry'
+definitions.ThreatMatch.properties.threat.description: The threat matching this threat.
+definitions.ThreatMatch.properties.threatEntryMetadata.$ref: '#/definitions/ThreatEntryMetadata'
+definitions.ThreatMatch.properties.threatEntryMetadata.description: Optional metadata
+  associated with this threat.
+definitions.ThreatMatch.properties.threatEntryType.description: The threat entry type
+  matching this threat.
+definitions.ThreatMatch.properties.threatEntryType.enum.length: 7
+definitions.ThreatMatch.properties.threatEntryType.enum[0]: THREAT_ENTRY_TYPE_UNSPECIFIED
+definitions.ThreatMatch.properties.threatEntryType.enum[1]: URL
+definitions.ThreatMatch.properties.threatEntryType.enum[2]: EXECUTABLE
+definitions.ThreatMatch.properties.threatEntryType.enum[3]: IP_RANGE
+definitions.ThreatMatch.properties.threatEntryType.enum[4]: CHROME_EXTENSION
+definitions.ThreatMatch.properties.threatEntryType.enum[5]: FILENAME
+definitions.ThreatMatch.properties.threatEntryType.enum[6]: CERT
+definitions.ThreatMatch.properties.threatEntryType.type: string
+definitions.ThreatMatch.properties.threatType.description: The threat type matching
+  this threat.
+definitions.ThreatMatch.properties.threatType.enum.length: 14
+definitions.ThreatMatch.properties.threatType.enum[0]: THREAT_TYPE_UNSPECIFIED
+definitions.ThreatMatch.properties.threatType.enum[1]: MALWARE
+definitions.ThreatMatch.properties.threatType.enum[2]: SOCIAL_ENGINEERING
+definitions.ThreatMatch.properties.threatType.enum[3]: UNWANTED_SOFTWARE
+definitions.ThreatMatch.properties.threatType.enum[4]: POTENTIALLY_HARMFUL_APPLICATION
+definitions.ThreatMatch.properties.threatType.enum[5]: SOCIAL_ENGINEERING_INTERNAL
+definitions.ThreatMatch.properties.threatType.enum[6]: API_ABUSE
+definitions.ThreatMatch.properties.threatType.enum[7]: MALICIOUS_BINARY
+definitions.ThreatMatch.properties.threatType.enum[8]: CSD_WHITELIST
+definitions.ThreatMatch.properties.threatType.enum[9]: CSD_DOWNLOAD_WHITELIST
+definitions.ThreatMatch.properties.threatType.enum[10]: CLIENT_INCIDENT
+definitions.ThreatMatch.properties.threatType.enum[11]: CLIENT_INCIDENT_WHITELIST
+definitions.ThreatMatch.properties.threatType.enum[12]: APK_MALWARE_OFFLINE
+definitions.ThreatMatch.properties.threatType.enum[13]: SUBRESOURCE_FILTER
+definitions.ThreatMatch.properties.threatType.type: string
+definitions.ThreatMatch.type: object
+externalDocs.url: https://developers.google.com/safe-browsing/
+host: safebrowsing.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: Enables client applications to check web resources (most commonly
+  URLs) against Google-generated lists of unsafe web resources.
+info.title: Google Safe Browsing
+info.version: v4
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: security
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://safebrowsing.googleapis.com/$discovery/rest?version=v4
+info.x-origin[0].version: v1
+info.x-preferred: true
+info.x-providerName: googleapis.com
+info.x-serviceName: safebrowsing
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v4/encodedFullHashes/{encodedRequest}.get.description: ""
+paths./v4/encodedFullHashes/{encodedRequest}.get.operationId: safebrowsing.encodedFullHashes.get
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters.length: 3
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[0].description: A serialized
+  FindFullHashesRequest proto.
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[0].in: path
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[0].name: encodedRequest
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[0].required: true
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[0].type: string
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[1].description: |-
+  A client ID that (hopefully) uniquely identifies the client implementation
+  of the Safe Browsing API.
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[1].in: query
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[1].name: clientId
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[1].type: string
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[2].description: The version
+  of the client implementation.
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[2].in: query
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[2].name: clientVersion
+paths./v4/encodedFullHashes/{encodedRequest}.get.parameters[2].type: string
+paths./v4/encodedFullHashes/{encodedRequest}.get.responses.200.description: Successful
+  response
+paths./v4/encodedFullHashes/{encodedRequest}.get.responses.200.schema.$ref: '#/definitions/FindFullHashesResponse'
+paths./v4/encodedFullHashes/{encodedRequest}.get.tags.length: 1
+paths./v4/encodedFullHashes/{encodedRequest}.get.tags[0]: encodedFullHashes
+paths./v4/encodedFullHashes/{encodedRequest}.parameters.length: 13
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[0].$ref: '#/parameters/pp'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[5].$ref: '#/parameters/fields'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[8].$ref: '#/parameters/callback'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[9].$ref: '#/parameters/alt'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[11].$ref: '#/parameters/key'
+paths./v4/encodedFullHashes/{encodedRequest}.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/encodedUpdates/{encodedRequest}.get.description: ""
+paths./v4/encodedUpdates/{encodedRequest}.get.operationId: safebrowsing.encodedUpdates.get
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters.length: 3
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[0].description: A serialized
+  FetchThreatListUpdatesRequest proto.
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[0].in: path
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[0].name: encodedRequest
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[0].required: true
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[0].type: string
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[1].description: |-
+  A client ID that uniquely identifies the client implementation of the Safe
+  Browsing API.
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[1].in: query
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[1].name: clientId
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[1].type: string
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[2].description: The version
+  of the client implementation.
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[2].in: query
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[2].name: clientVersion
+paths./v4/encodedUpdates/{encodedRequest}.get.parameters[2].type: string
+paths./v4/encodedUpdates/{encodedRequest}.get.responses.200.description: Successful
+  response
+paths./v4/encodedUpdates/{encodedRequest}.get.responses.200.schema.$ref: '#/definitions/FetchThreatListUpdatesResponse'
+paths./v4/encodedUpdates/{encodedRequest}.get.tags.length: 1
+paths./v4/encodedUpdates/{encodedRequest}.get.tags[0]: encodedUpdates
+paths./v4/encodedUpdates/{encodedRequest}.parameters.length: 13
+paths./v4/encodedUpdates/{encodedRequest}.parameters[0].$ref: '#/parameters/pp'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[5].$ref: '#/parameters/fields'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[8].$ref: '#/parameters/callback'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[9].$ref: '#/parameters/alt'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[11].$ref: '#/parameters/key'
+paths./v4/encodedUpdates/{encodedRequest}.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/fullHashes:find.parameters.length: 13
+paths./v4/fullHashes:find.parameters[0].$ref: '#/parameters/pp'
+paths./v4/fullHashes:find.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/fullHashes:find.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/fullHashes:find.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/fullHashes:find.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/fullHashes:find.parameters[5].$ref: '#/parameters/fields'
+paths./v4/fullHashes:find.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/fullHashes:find.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/fullHashes:find.parameters[8].$ref: '#/parameters/callback'
+paths./v4/fullHashes:find.parameters[9].$ref: '#/parameters/alt'
+paths./v4/fullHashes:find.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/fullHashes:find.parameters[11].$ref: '#/parameters/key'
+paths./v4/fullHashes:find.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/fullHashes:find.post.description: Finds the full hashes that match the requested
+  hash prefixes.
+paths./v4/fullHashes:find.post.operationId: safebrowsing.fullHashes.find
+paths./v4/fullHashes:find.post.parameters.length: 1
+paths./v4/fullHashes:find.post.parameters[0].in: body
+paths./v4/fullHashes:find.post.parameters[0].name: body
+paths./v4/fullHashes:find.post.parameters[0].schema.$ref: '#/definitions/FindFullHashesRequest'
+paths./v4/fullHashes:find.post.responses.200.description: Successful response
+paths./v4/fullHashes:find.post.responses.200.schema.$ref: '#/definitions/FindFullHashesResponse'
+paths./v4/fullHashes:find.post.tags.length: 1
+paths./v4/fullHashes:find.post.tags[0]: fullHashes
+paths./v4/threatListUpdates:fetch.parameters.length: 13
+paths./v4/threatListUpdates:fetch.parameters[0].$ref: '#/parameters/pp'
+paths./v4/threatListUpdates:fetch.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/threatListUpdates:fetch.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/threatListUpdates:fetch.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/threatListUpdates:fetch.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/threatListUpdates:fetch.parameters[5].$ref: '#/parameters/fields'
+paths./v4/threatListUpdates:fetch.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/threatListUpdates:fetch.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/threatListUpdates:fetch.parameters[8].$ref: '#/parameters/callback'
+paths./v4/threatListUpdates:fetch.parameters[9].$ref: '#/parameters/alt'
+paths./v4/threatListUpdates:fetch.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/threatListUpdates:fetch.parameters[11].$ref: '#/parameters/key'
+paths./v4/threatListUpdates:fetch.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/threatListUpdates:fetch.post.description: |-
+  Fetches the most recent threat list updates. A client can request updates
+  for multiple lists at once.
+paths./v4/threatListUpdates:fetch.post.operationId: safebrowsing.threatListUpdates.fetch
+paths./v4/threatListUpdates:fetch.post.parameters.length: 1
+paths./v4/threatListUpdates:fetch.post.parameters[0].in: body
+paths./v4/threatListUpdates:fetch.post.parameters[0].name: body
+paths./v4/threatListUpdates:fetch.post.parameters[0].schema.$ref: '#/definitions/FetchThreatListUpdatesRequest'
+paths./v4/threatListUpdates:fetch.post.responses.200.description: Successful response
+paths./v4/threatListUpdates:fetch.post.responses.200.schema.$ref: '#/definitions/FetchThreatListUpdatesResponse'
+paths./v4/threatListUpdates:fetch.post.tags.length: 1
+paths./v4/threatListUpdates:fetch.post.tags[0]: threatListUpdates
+paths./v4/threatLists.get.description: Lists the Safe Browsing threat lists available
+  for download.
+paths./v4/threatLists.get.operationId: safebrowsing.threatLists.list
+paths./v4/threatLists.get.responses.200.description: Successful response
+paths./v4/threatLists.get.responses.200.schema.$ref: '#/definitions/ListThreatListsResponse'
+paths./v4/threatLists.get.tags.length: 1
+paths./v4/threatLists.get.tags[0]: threatLists
+paths./v4/threatLists.parameters.length: 13
+paths./v4/threatLists.parameters[0].$ref: '#/parameters/pp'
+paths./v4/threatLists.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/threatLists.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/threatLists.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/threatLists.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/threatLists.parameters[5].$ref: '#/parameters/fields'
+paths./v4/threatLists.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/threatLists.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/threatLists.parameters[8].$ref: '#/parameters/callback'
+paths./v4/threatLists.parameters[9].$ref: '#/parameters/alt'
+paths./v4/threatLists.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/threatLists.parameters[11].$ref: '#/parameters/key'
+paths./v4/threatLists.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/threatMatches:find.parameters.length: 13
+paths./v4/threatMatches:find.parameters[0].$ref: '#/parameters/pp'
+paths./v4/threatMatches:find.parameters[1].$ref: '#/parameters/oauth_token'
+paths./v4/threatMatches:find.parameters[2].$ref: '#/parameters/bearer_token'
+paths./v4/threatMatches:find.parameters[3].$ref: '#/parameters/upload_protocol'
+paths./v4/threatMatches:find.parameters[4].$ref: '#/parameters/prettyPrint'
+paths./v4/threatMatches:find.parameters[5].$ref: '#/parameters/fields'
+paths./v4/threatMatches:find.parameters[6].$ref: '#/parameters/uploadType'
+paths./v4/threatMatches:find.parameters[7].$ref: '#/parameters/$.xgafv'
+paths./v4/threatMatches:find.parameters[8].$ref: '#/parameters/callback'
+paths./v4/threatMatches:find.parameters[9].$ref: '#/parameters/alt'
+paths./v4/threatMatches:find.parameters[10].$ref: '#/parameters/access_token'
+paths./v4/threatMatches:find.parameters[11].$ref: '#/parameters/key'
+paths./v4/threatMatches:find.parameters[12].$ref: '#/parameters/quotaUser'
+paths./v4/threatMatches:find.post.description: Finds the threat entries that match
+  the Safe Browsing lists.
+paths./v4/threatMatches:find.post.operationId: safebrowsing.threatMatches.find
+paths./v4/threatMatches:find.post.parameters.length: 1
+paths./v4/threatMatches:find.post.parameters[0].in: body
+paths./v4/threatMatches:find.post.parameters[0].name: body
+paths./v4/threatMatches:find.post.parameters[0].schema.$ref: '#/definitions/FindThreatMatchesRequest'
+paths./v4/threatMatches:find.post.responses.200.description: Successful response
+paths./v4/threatMatches:find.post.responses.200.schema.$ref: '#/definitions/FindThreatMatchesResponse'
+paths./v4/threatMatches:find.post.tags.length: 1
+paths./v4/threatMatches:find.post.tags[0]: threatMatches
+schemes.length: 1
+schemes[0]: https
+swagger: "2.0"
+tags.length: 6
+tags[0].name: encodedFullHashes
+tags[1].name: encodedUpdates
+tags[2].name: fullHashes
+tags[3].name: threatListUpdates
+tags[4].name: threatLists
+tags[5].name: threatMatches

@@ -1,0 +1,1362 @@
+basePath: /v1
+consumes.length: 1
+consumes[0]: application/json
+definitions.ApiError.description: Details about why a request failed, such as missing
+  or invalid parameters
+definitions.ApiError.properties.error.description: A "slug" that serves as the error
+  code (eg. "bad_parameter")
+definitions.ApiError.properties.error.type: string
+definitions.ApiError.properties.error_description.description: A user-friendly description
+  of the error (appropriate to show to an end-user)
+definitions.ApiError.properties.error_description.type: string
+definitions.ApiError.properties.error_detail.items.$ref: '#/definitions/ErrorDetail'
+definitions.ApiError.properties.error_detail.type: array
+definitions.CancellationCost.allOf.length: 2
+definitions.CancellationCost.allOf[0].$ref: '#/definitions/Cost'
+definitions.CancellationCost.allOf[1].properties.token.description: Token used to
+  confirm the fee when cancelling a request
+definitions.CancellationCost.allOf[1].properties.token.type: string
+definitions.CancellationCost.allOf[1].properties.token_duration.description: How long,
+  in seconds, before the token expires
+definitions.CancellationCost.allOf[1].properties.token_duration.format: int32
+definitions.CancellationCost.allOf[1].properties.token_duration.minimum: 0
+definitions.CancellationCost.allOf[1].properties.token_duration.type: integer
+definitions.CancellationCost.allOf[1].type: object
+definitions.CancellationCost.type: object
+definitions.CancellationCostError.allOf.length: 2
+definitions.CancellationCostError.allOf[0].$ref: '#/definitions/CancellationCost'
+definitions.CancellationCostError.allOf[1].$ref: '#/definitions/ApiError'
+definitions.CancellationCostError.example.amount: 500
+definitions.CancellationCostError.example.currency: USD
+definitions.CancellationCostError.example.error: cancel_confirmation_required
+definitions.CancellationCostError.example.error_detail.length: 1
+definitions.CancellationCostError.example.error_detail[0].cancel_confirmation: a valid
+  cancel_confirmation_token is required to cancel a ride
+definitions.CancellationCostError.example.token: 656a91d
+definitions.CancellationCostError.example.token_duration: 60
+definitions.CancellationCostError.type: object
+definitions.CancellationRequest.example.cancel_confirmation_token: 656a91d
+definitions.CancellationRequest.properties.cancel_confirmation_token.description: Token
+  affirming the user accepts the cancellation fee. Required if a cancellation fee
+  is in effect.
+definitions.CancellationRequest.properties.cancel_confirmation_token.type: string
+definitions.Charge.properties.amount.description: The line item amount
+definitions.Charge.properties.amount.format: int32
+definitions.Charge.properties.amount.type: integer
+definitions.Charge.properties.currency.description: The currency for the amount
+definitions.Charge.properties.currency.type: string
+definitions.Charge.properties.payment_method.description: The payment method display
+  name.
+definitions.Charge.properties.payment_method.type: string
+definitions.Charge.required.length: 3
+definitions.Charge.required[0]: amount
+definitions.Charge.required[1]: currency
+definitions.Charge.required[2]: payment_method
+definitions.Cost.example.amount: 500
+definitions.Cost.example.currency: USD
+definitions.Cost.example.description: Total cost
+definitions.Cost.properties.amount.description: Total price of the ride
+definitions.Cost.properties.amount.format: int32
+definitions.Cost.properties.amount.type: integer
+definitions.Cost.properties.currency.description: The ISO 4217 currency code for the
+  amount (e.g. USD)
+definitions.Cost.properties.currency.type: string
+definitions.Cost.properties.description.description: The description for the cost
+definitions.Cost.properties.description.type: string
+definitions.Cost.required.length: 3
+definitions.Cost.required[0]: amount
+definitions.Cost.required[1]: currency
+definitions.Cost.required[2]: description
+definitions.CostEstimate.description: A non-guaranteed estimate of price
+definitions.CostEstimate.example.cost_token: EupdCgIzy17lJoRmiO5
+definitions.CostEstimate.example.display_name: Lyft
+definitions.CostEstimate.example.estimated_cost_cents_max: 1080
+definitions.CostEstimate.example.estimated_cost_cents_min: 1390
+definitions.CostEstimate.example.estimated_distance_miles: 12.4
+definitions.CostEstimate.example.estimated_duration_seconds: 540
+definitions.CostEstimate.example.is_valid_estimate: true
+definitions.CostEstimate.example.primetime_confirmation_token: EupdCgIzy17lJoRmiO5
+definitions.CostEstimate.example.primetime_percentage: 25%
+definitions.CostEstimate.example.ride_type: lyft
+definitions.CostEstimate.properties.cost_token.description: A token that confirms
+  the user has accepted current Prime Time and/or fixed price charges. See 'Request
+  a Lyft' for more details
+definitions.CostEstimate.properties.cost_token.type: string
+definitions.CostEstimate.properties.currency.description: The ISO 4217 currency code
+  for the amount (e.g. 'USD')
+definitions.CostEstimate.properties.currency.type: string
+definitions.CostEstimate.properties.display_name.description: A human readable description
+  of the ride type
+definitions.CostEstimate.properties.display_name.type: string
+definitions.CostEstimate.properties.estimated_cost_cents_max.description: |
+  Estimated upper bound for trip cost, in minor units (cents). Estimates are not guaranteed, and only provide a reasonable range based on current conditions.
+definitions.CostEstimate.properties.estimated_cost_cents_max.format: int32
+definitions.CostEstimate.properties.estimated_cost_cents_max.type: integer
+definitions.CostEstimate.properties.estimated_cost_cents_min.description: |
+  Estimated lower bound for trip cost, in minor units (cents). Estimates are not guaranteed, and only provide a reasonable range based on current conditions.
+definitions.CostEstimate.properties.estimated_cost_cents_min.format: int32
+definitions.CostEstimate.properties.estimated_cost_cents_min.type: integer
+definitions.CostEstimate.properties.estimated_distance_miles.description: |
+  Estimated distance for this trip
+definitions.CostEstimate.properties.estimated_distance_miles.format: double
+definitions.CostEstimate.properties.estimated_distance_miles.type: number
+definitions.CostEstimate.properties.estimated_duration_seconds.description: |
+  Estimated time to get from the start location to the end.
+definitions.CostEstimate.properties.estimated_duration_seconds.format: int32
+definitions.CostEstimate.properties.estimated_duration_seconds.type: integer
+definitions.CostEstimate.properties.is_valid_estimate.description: The validity of
+  the cost estimate returned
+definitions.CostEstimate.properties.is_valid_estimate.type: boolean
+definitions.CostEstimate.properties.primetime_confirmation_token.description: This
+  token is needed when requesting rides. (Deprecated)
+definitions.CostEstimate.properties.primetime_confirmation_token.type: string
+definitions.CostEstimate.properties.primetime_percentage.description: |
+  Current Prime Time Percentage. Prime Time adds a percentage to ride costs, prior to other applicable fees. When ride requests greatly outnumber available drivers, our system will automatically turn on Prime Time.
+  If Prime Time is inactive, the value returned will be '0%'.
+  Note: The returned estimate already has Prime Time factored in. The value is returned here for reference and to allow users to confirm/accept Prime Time prior to initiating a ride.
+definitions.CostEstimate.properties.primetime_percentage.type: string
+definitions.CostEstimate.properties.ride_type.$ref: '#/definitions/RideTypeEnum'
+definitions.CurrentRideLocation.allOf.length: 2
+definitions.CurrentRideLocation.allOf[0].$ref: '#/definitions/LatLng'
+definitions.CurrentRideLocation.allOf[1].properties.bearing.description: Bearing of
+  the driver's car in degrees
+definitions.CurrentRideLocation.allOf[1].properties.bearing.format: double
+definitions.CurrentRideLocation.allOf[1].properties.bearing.type: number
+definitions.CurrentRideLocation.allOf[1].type: object
+definitions.CurrentRideLocation.example.bearing: 134.87895
+definitions.CurrentRideLocation.example.lat: 37.776157
+definitions.CurrentRideLocation.example.lng: -122.393814
+definitions.CurrentRideLocation.type: object
+definitions.DriverDetail.example.first_name: Joe
+definitions.DriverDetail.example.image_url: http://example.com/lyft.png
+definitions.DriverDetail.example.phone_number: "+15554445000"
+definitions.DriverDetail.example.rating: "4.9"
+definitions.DriverDetail.example.user_id: "123456789"
+definitions.DriverDetail.properties.first_name.description: The driver's first name
+definitions.DriverDetail.properties.first_name.type: string
+definitions.DriverDetail.properties.image_url.description: The driver's image url
+definitions.DriverDetail.properties.image_url.type: string
+definitions.DriverDetail.properties.phone_number.description: |
+  The driver's contact phone number. Must be E.164 formatted.
+definitions.DriverDetail.properties.phone_number.format: phone
+definitions.DriverDetail.properties.phone_number.type: string
+definitions.DriverDetail.properties.rating.description: The driver's rating based
+  in 0-5 scale
+definitions.DriverDetail.properties.rating.type: string
+definitions.DriverDetail.properties.user_id.description: The driver's id
+definitions.DriverDetail.properties.user_id.type: string
+definitions.DriverDetail.required.length: 5
+definitions.DriverDetail.required[0]: first_name
+definitions.DriverDetail.required[1]: phone_number
+definitions.DriverDetail.required[2]: rating
+definitions.DriverDetail.required[3]: image_url
+definitions.DriverDetail.required[4]: user_id
+definitions.ErrorDetail.description: |
+  An object with a single key-value pair, where the key is the name of the invalid parameter, and the value is a description of the error.
+definitions.ErrorDetail.example.lat: (latitude) Missing required parameter in the
+  query string
+definitions.ErrorDetail.properties.field_name.description: description of the error
+definitions.ErrorDetail.properties.field_name.type: string
+definitions.Eta.description: Estimated Time of Arrival
+definitions.Eta.example.display_name: Lyft Line
+definitions.Eta.example.eta_seconds: 120
+definitions.Eta.example.is_valid_estimate: true
+definitions.Eta.example.ride_type: lyft_line
+definitions.Eta.properties.display_name.description: A human readable description
+  of the ride type
+definitions.Eta.properties.display_name.type: string
+definitions.Eta.properties.eta_seconds.description: Estimated seconds for a driver
+  to arrive
+definitions.Eta.properties.eta_seconds.format: int32
+definitions.Eta.properties.eta_seconds.type: integer
+definitions.Eta.properties.eta_seconds_max.description: Estimated upper bound of seconds
+  for a driver to arrive
+definitions.Eta.properties.eta_seconds_max.format: int32
+definitions.Eta.properties.eta_seconds_max.type: integer
+definitions.Eta.properties.is_valid_estimate.description: The validity of the ETA
+  estimate returned
+definitions.Eta.properties.is_valid_estimate.type: boolean
+definitions.Eta.properties.ride_type.$ref: '#/definitions/RideTypeEnum'
+definitions.LatLng.example.lat: 36.944218
+definitions.LatLng.example.lng: -123.86791
+definitions.LatLng.properties.lat.description: The latitude component of a location
+definitions.LatLng.properties.lat.format: double
+definitions.LatLng.properties.lat.type: number
+definitions.LatLng.properties.lng.description: The longitude component of a location
+definitions.LatLng.properties.lng.format: double
+definitions.LatLng.properties.lng.type: number
+definitions.LatLng.required.length: 2
+definitions.LatLng.required[0]: lat
+definitions.LatLng.required[1]: lng
+definitions.LineItem.properties.amount.description: The line item amount
+definitions.LineItem.properties.amount.format: int32
+definitions.LineItem.properties.amount.type: integer
+definitions.LineItem.properties.currency.description: The currency for the amount
+definitions.LineItem.properties.currency.type: string
+definitions.LineItem.properties.type.description: The line item display name for a
+  charge item
+definitions.LineItem.properties.type.type: string
+definitions.LineItem.required.length: 3
+definitions.LineItem.required[0]: type
+definitions.LineItem.required[1]: amount
+definitions.LineItem.required[2]: currency
+definitions.Location.allOf.length: 2
+definitions.Location.allOf[0].$ref: '#/definitions/LatLng'
+definitions.Location.allOf[1].properties.address.description: A human readable address
+  at/near the given location
+definitions.Location.allOf[1].properties.address.type: string
+definitions.Location.allOf[1].type: object
+definitions.Location.example.address: 123 Main St, Anytown, CA
+definitions.Location.example.lat: 36.944218
+definitions.Location.example.lng: -123.86791
+definitions.Location.type: object
+definitions.NearbyDriver.properties.locations.description: the lastest recorded driver
+  locations up to 5 sorted in chronological order.
+definitions.NearbyDriver.properties.locations.items.$ref: '#/definitions/LatLng'
+definitions.NearbyDriver.properties.locations.type: array
+definitions.NearbyDriversByRideType.properties.drivers.description: list of nearby
+  drivers group by ride type sorted by eta
+definitions.NearbyDriversByRideType.properties.drivers.items.$ref: '#/definitions/NearbyDriver'
+definitions.NearbyDriversByRideType.properties.drivers.type: array
+definitions.NearbyDriversByRideType.properties.ride_type.description: driver's ride
+  type. if driver is eligable for several ride types, he will be duplicated.
+definitions.NearbyDriversByRideType.properties.ride_type.type: string
+definitions.PassengerDetail.allOf.length: 2
+definitions.PassengerDetail.allOf[0].$ref: '#/definitions/UserDetail'
+definitions.PassengerDetail.allOf[1].properties.last_name.description: The passenger's
+  last name
+definitions.PassengerDetail.allOf[1].properties.last_name.type: string
+definitions.PassengerDetail.allOf[1].properties.user_id.description: The passenger's
+  lyft user id
+definitions.PassengerDetail.allOf[1].properties.user_id.type: string
+definitions.PassengerDetail.allOf[1].type: object
+definitions.PassengerDetail.example.first_name: Jane
+definitions.PassengerDetail.example.image_url: https://public-api.lyft.com/static/images/user.png
+definitions.PassengerDetail.example.last_name: Doe
+definitions.PassengerDetail.example.rating: 4.9
+definitions.PassengerDetail.type: object
+definitions.PickupDropoffLocation.allOf.length: 2
+definitions.PickupDropoffLocation.allOf[0].$ref: '#/definitions/Location'
+definitions.PickupDropoffLocation.allOf[1].properties.time.description: Server time
+  when the location object is created
+definitions.PickupDropoffLocation.allOf[1].properties.time.format: date-time
+definitions.PickupDropoffLocation.allOf[1].properties.time.type: string
+definitions.PickupDropoffLocation.allOf[1].type: object
+definitions.PickupDropoffLocation.example.address: 123 Main St, Anytown, CA
+definitions.PickupDropoffLocation.example.lat: 36.944218
+definitions.PickupDropoffLocation.example.lng: -123.86791
+definitions.PickupDropoffLocation.example.time: 2015-09-24T23:26:25+00:00
+definitions.PickupDropoffLocation.type: object
+definitions.PricingDetails.example.base_charge: 175
+definitions.PricingDetails.example.cancel_penalty_amount: 500
+definitions.PricingDetails.example.cost_minumum: 500
+definitions.PricingDetails.example.cost_per_mile: 116
+definitions.PricingDetails.example.cost_per_minute: 23
+definitions.PricingDetails.example.currency: USD
+definitions.PricingDetails.example.trust_and_service: 155
+definitions.PricingDetails.properties.base_charge.description: The base charge of
+  the trip
+definitions.PricingDetails.properties.base_charge.format: int32
+definitions.PricingDetails.properties.base_charge.type: integer
+definitions.PricingDetails.properties.cancel_penalty_amount.description: The charge
+  amount if cancel penalty is involved
+definitions.PricingDetails.properties.cancel_penalty_amount.format: int32
+definitions.PricingDetails.properties.cancel_penalty_amount.type: integer
+definitions.PricingDetails.properties.cost_minimum.description: The minimum charge
+  for the trip
+definitions.PricingDetails.properties.cost_minimum.format: int32
+definitions.PricingDetails.properties.cost_minimum.type: integer
+definitions.PricingDetails.properties.cost_per_mile.description: The cost per mile
+definitions.PricingDetails.properties.cost_per_mile.format: int32
+definitions.PricingDetails.properties.cost_per_mile.type: integer
+definitions.PricingDetails.properties.cost_per_minute.description: The cost per minute
+definitions.PricingDetails.properties.cost_per_minute.format: int32
+definitions.PricingDetails.properties.cost_per_minute.type: integer
+definitions.PricingDetails.properties.currency.description: The ISO 4217 currency
+  code for the amount (e.g. USD)
+definitions.PricingDetails.properties.currency.type: string
+definitions.PricingDetails.properties.trust_and_service.description: Service fee
+definitions.PricingDetails.properties.trust_and_service.format: int32
+definitions.PricingDetails.properties.trust_and_service.type: integer
+definitions.Profile.description: Represents the general information about a user.
+definitions.Profile.properties.first_name.description: The first name of this user
+definitions.Profile.properties.first_name.type: string
+definitions.Profile.properties.has_taken_a_ride.description: Indicates whether this
+  user has taken at least one Lyft ride
+definitions.Profile.properties.has_taken_a_ride.type: boolean
+definitions.Profile.properties.id.description: The unique ID of this user
+definitions.Profile.properties.id.type: string
+definitions.Profile.properties.last_name.description: The last name of this user
+definitions.Profile.properties.last_name.type: string
+definitions.Profile.required.length: 4
+definitions.Profile.required[0]: id
+definitions.Profile.required[1]: first_name
+definitions.Profile.required[2]: last_name
+definitions.Profile.required[3]: has_taken_a_ride
+definitions.Profile.type: object
+definitions.RatingRequest.description: Rating and optional feedback and tip
+definitions.RatingRequest.example.feedback: Great ride!
+definitions.RatingRequest.example.rating: 5
+definitions.RatingRequest.example.tip.amount: 100
+definitions.RatingRequest.example.tip.currency: USD
+definitions.RatingRequest.properties.feedback.description: The passenger's written
+  feedback about this ride
+definitions.RatingRequest.properties.feedback.type: string
+definitions.RatingRequest.properties.rating.description: The passenger's rating of
+  this ride from 1 to 5
+definitions.RatingRequest.properties.rating.format: int32
+definitions.RatingRequest.properties.rating.maximum: 5
+definitions.RatingRequest.properties.rating.minimum: 1
+definitions.RatingRequest.properties.rating.type: integer
+definitions.RatingRequest.properties.tip.allOf.length: 1
+definitions.RatingRequest.properties.tip.allOf[0].$ref: '#/definitions/TipParams'
+definitions.RatingRequest.properties.tip.description: Tip amount in minor units and
+  tip currency
+definitions.RatingRequest.properties.tip.type: object
+definitions.RatingRequest.required.length: 1
+definitions.RatingRequest.required[0]: rating
+definitions.Ride.description: Represents a requested, ongoing, or finished Lyft ride
+definitions.Ride.properties.cost_token.description: A token that confirms the user
+  has accepted current Prime Time and/or fixed price charges
+definitions.Ride.properties.cost_token.type: string
+definitions.Ride.properties.destination.allOf.length: 1
+definitions.Ride.properties.destination.allOf[0].$ref: '#/definitions/Location'
+definitions.Ride.properties.destination.description: The *requested* location for
+  passenger drop off
+definitions.Ride.properties.destination.type: object
+definitions.Ride.properties.origin.allOf.length: 1
+definitions.Ride.properties.origin.allOf[0].$ref: '#/definitions/Location'
+definitions.Ride.properties.origin.description: The *requested* location for passenger
+  pickup
+definitions.Ride.properties.origin.type: object
+definitions.Ride.properties.primetime_confirmation_token.description: A token that
+  confirms the user has accepted current primetime charges (Deprecated)
+definitions.Ride.properties.primetime_confirmation_token.type: string
+definitions.Ride.properties.ride_type.$ref: '#/definitions/RideTypeEnum'
+definitions.Ride.required.length: 2
+definitions.Ride.required[0]: ride_type
+definitions.Ride.required[1]: origin
+definitions.Ride.type: object
+definitions.RideDetail.description: Detail information about a ride
+definitions.RideDetail.example.beacon_color: '#FFFFFF'
+definitions.RideDetail.example.destination.address: 987 Second St, Anytown, CA
+definitions.RideDetail.example.destination.lat: 36.945347
+definitions.RideDetail.example.destination.lng: -123.86425
+definitions.RideDetail.example.distance_miles: 16.2
+definitions.RideDetail.example.driver.first_name: Joe
+definitions.RideDetail.example.driver.image_url: http://example.com/lyft.png
+definitions.RideDetail.example.driver.phone_number: "+15554445111"
+definitions.RideDetail.example.driver.rating: "4.9"
+definitions.RideDetail.example.dropoff.address: 987 Second St, Anytown, CA
+definitions.RideDetail.example.dropoff.lat: 36.945347
+definitions.RideDetail.example.dropoff.lng: -123.86425
+definitions.RideDetail.example.dropoff.time: 2015-09-24T23:28:25+00:00
+definitions.RideDetail.example.duration_seconds: 1620
+definitions.RideDetail.example.line_items.length: 3
+definitions.RideDetail.example.line_items[0].amount: 500
+definitions.RideDetail.example.line_items[0].currency: USD
+definitions.RideDetail.example.line_items[0].type: Ride
+definitions.RideDetail.example.line_items[1].amount: 250
+definitions.RideDetail.example.line_items[1].currency: USD
+definitions.RideDetail.example.line_items[1].type: Prime Time
+definitions.RideDetail.example.line_items[2].amount: 155
+definitions.RideDetail.example.line_items[2].currency: USD
+definitions.RideDetail.example.line_items[2].type: Service fee
+definitions.RideDetail.example.location.address: 987 Second St, Anytown, CA
+definitions.RideDetail.example.location.lat: 36.945347
+definitions.RideDetail.example.location.lng: -123.86425
+definitions.RideDetail.example.origin.address: 123 Main St, Anytown, CA
+definitions.RideDetail.example.origin.lat: 36.944218
+definitions.RideDetail.example.origin.lng: -123.86791
+definitions.RideDetail.example.passenger.first_name: Jane
+definitions.RideDetail.example.passenger.phone_number: "+15554445000"
+definitions.RideDetail.example.passenger.user_id: "776630198662493392"
+definitions.RideDetail.example.pickup.address: 123 Main St, Anytown, CA
+definitions.RideDetail.example.pickup.lat: 36.944218
+definitions.RideDetail.example.pickup.lng: -123.86791
+definitions.RideDetail.example.pickup.time: 2015-09-24T23:27:25+00:00
+definitions.RideDetail.example.price.amount: 905
+definitions.RideDetail.example.price.currency: USD
+definitions.RideDetail.example.price.description: Total ride price
+definitions.RideDetail.example.primetime_percentage: 50%
+definitions.RideDetail.example.requested_at: 2015-09-24T23:26:25+00:00
+definitions.RideDetail.example.ride_id: 1.2345679e+08
+definitions.RideDetail.example.ride_profile: personal
+definitions.RideDetail.example.ride_type: lyft
+definitions.RideDetail.example.status: droppedOff
+definitions.RideDetail.example.vehicle.color: black
+definitions.RideDetail.example.vehicle.image_url: http://example.com/lyft.png
+definitions.RideDetail.example.vehicle.license_plate: AAAAAAA
+definitions.RideDetail.example.vehicle.make: Audi
+definitions.RideDetail.example.vehicle.model: A4
+definitions.RideDetail.properties.beacon_color.description: Hex color code of the
+  driver AMP device.
+definitions.RideDetail.properties.beacon_color.type: string
+definitions.RideDetail.properties.can_cancel.items.description: The array of actors
+  who may cancel the ride at this point
+definitions.RideDetail.properties.can_cancel.items.enum.length: 3
+definitions.RideDetail.properties.can_cancel.items.enum[0]: driver
+definitions.RideDetail.properties.can_cancel.items.enum[1]: passenger
+definitions.RideDetail.properties.can_cancel.items.enum[2]: dispatcher
+definitions.RideDetail.properties.can_cancel.items.type: string
+definitions.RideDetail.properties.can_cancel.type: array
+definitions.RideDetail.properties.canceled_by.description: The role of user who canceled
+  the ride (if applicable)
+definitions.RideDetail.properties.canceled_by.type: string
+definitions.RideDetail.properties.cancellation_price.allOf.length: 1
+definitions.RideDetail.properties.cancellation_price.allOf[0].$ref: '#/definitions/CancellationCost'
+definitions.RideDetail.properties.cancellation_price.description: The cost of cancellation
+  if there would be a penalty
+definitions.RideDetail.properties.cancellation_price.type: object
+definitions.RideDetail.properties.destination.allOf.length: 1
+definitions.RideDetail.properties.destination.allOf[0].$ref: '#/definitions/RideLocation'
+definitions.RideDetail.properties.destination.description: The *requested* location
+  for passenger drop off
+definitions.RideDetail.properties.destination.type: object
+definitions.RideDetail.properties.distance_miles.description: The distance, in miles,
+  that this ride traveled. This field is only present after drop-off
+definitions.RideDetail.properties.distance_miles.format: float
+definitions.RideDetail.properties.distance_miles.type: number
+definitions.RideDetail.properties.driver.$ref: '#/definitions/DriverDetail'
+definitions.RideDetail.properties.dropoff.allOf.length: 1
+definitions.RideDetail.properties.dropoff.allOf[0].$ref: '#/definitions/PickupDropoffLocation'
+definitions.RideDetail.properties.dropoff.description: The *actual* location of passenger
+  drop off
+definitions.RideDetail.properties.dropoff.type: object
+definitions.RideDetail.properties.duration_seconds.description: Duration of the ride
+  in seconds from pickup to drop-off. This field is only present after drop-off.
+definitions.RideDetail.properties.duration_seconds.format: int32
+definitions.RideDetail.properties.duration_seconds.type: integer
+definitions.RideDetail.properties.feedback.description: The written feedback the user
+  left for this ride
+definitions.RideDetail.properties.feedback.type: string
+definitions.RideDetail.properties.generated_at.description: The request timestamp
+  in date and time
+definitions.RideDetail.properties.generated_at.format: date-time
+definitions.RideDetail.properties.generated_at.type: string
+definitions.RideDetail.properties.line_items.description: The break down of cost
+definitions.RideDetail.properties.line_items.items.$ref: '#/definitions/LineItem'
+definitions.RideDetail.properties.line_items.type: array
+definitions.RideDetail.properties.location.allOf.length: 1
+definitions.RideDetail.properties.location.allOf[0].$ref: '#/definitions/CurrentRideLocation'
+definitions.RideDetail.properties.location.description: The *current* location info
+  of the ride
+definitions.RideDetail.properties.location.type: object
+definitions.RideDetail.properties.origin.allOf.length: 1
+definitions.RideDetail.properties.origin.allOf[0].$ref: '#/definitions/RideLocation'
+definitions.RideDetail.properties.origin.description: The *requested* location for
+  passenger pickup
+definitions.RideDetail.properties.origin.type: object
+definitions.RideDetail.properties.passenger.$ref: '#/definitions/PassengerDetail'
+definitions.RideDetail.properties.pickup.allOf.length: 1
+definitions.RideDetail.properties.pickup.allOf[0].$ref: '#/definitions/PickupDropoffLocation'
+definitions.RideDetail.properties.pickup.description: The *actual* location of passenger
+  pickup
+definitions.RideDetail.properties.pickup.type: object
+definitions.RideDetail.properties.price.allOf.length: 1
+definitions.RideDetail.properties.price.allOf[0].$ref: '#/definitions/Cost'
+definitions.RideDetail.properties.price.description: The total price for the current
+  ride
+definitions.RideDetail.properties.price.type: object
+definitions.RideDetail.properties.pricing_details_url.description: |
+  The web view showing the pricing structure for the geographic area where the ride was taken
+definitions.RideDetail.properties.pricing_details_url.type: string
+definitions.RideDetail.properties.primetime_percentage.description: The Prime Time
+  percentage applied to the base price
+definitions.RideDetail.properties.primetime_percentage.type: string
+definitions.RideDetail.properties.rating.description: The rating the user left for
+  this ride, from 1 to 5
+definitions.RideDetail.properties.rating.format: int32
+definitions.RideDetail.properties.rating.type: integer
+definitions.RideDetail.properties.requested_at.description: The ride requested timestamp
+  in date and time
+definitions.RideDetail.properties.requested_at.format: date-time
+definitions.RideDetail.properties.requested_at.type: string
+definitions.RideDetail.properties.ride_id.description: The unique ID of this ride
+definitions.RideDetail.properties.ride_id.type: string
+definitions.RideDetail.properties.ride_profile.allOf.length: 1
+definitions.RideDetail.properties.ride_profile.allOf[0].$ref: '#/definitions/RideProfileEnum'
+definitions.RideDetail.properties.ride_profile.description: |
+  Indicates whether the ride was requested from the business profile or personal profile of the user.
+definitions.RideDetail.properties.ride_profile.type: object
+definitions.RideDetail.properties.ride_type.$ref: '#/definitions/RideTypeEnumWithOther'
+definitions.RideDetail.properties.route_url.description: |
+  The web view showing the passenger, driver, and route for this ride. This field will only be present for rides created through this API, or that have been shared through the "Share my Route" feature
+definitions.RideDetail.properties.route_url.type: string
+definitions.RideDetail.properties.status.$ref: '#/definitions/RideStatusEnum'
+definitions.RideDetail.properties.vehicle.$ref: '#/definitions/VehicleDetail'
+definitions.RideDetail.type: object
+definitions.RideLocation.allOf.length: 2
+definitions.RideLocation.allOf[0].$ref: '#/definitions/Location'
+definitions.RideLocation.allOf[1].properties.eta_seconds.description: Estimated seconds
+  for a driver to pickup or reach destination based on ride status
+definitions.RideLocation.allOf[1].properties.eta_seconds.format: int32
+definitions.RideLocation.allOf[1].properties.eta_seconds.type: integer
+definitions.RideLocation.allOf[1].type: object
+definitions.RideLocation.example.address: 123 Main St, Anytown, CA
+definitions.RideLocation.example.eta_seconds: 200
+definitions.RideLocation.example.lat: 36.944218
+definitions.RideLocation.example.lng: -123.86791
+definitions.RideLocation.type: object
+definitions.RideProfileEnum.description: The payment profile which the user has picked
+  for the ride
+definitions.RideProfileEnum.enum.length: 2
+definitions.RideProfileEnum.enum[0]: personal
+definitions.RideProfileEnum.enum[1]: business
+definitions.RideProfileEnum.type: string
+definitions.RideReceipt.description: Receipt information of a processed ride.
+definitions.RideReceipt.example.charges.length: 2
+definitions.RideReceipt.example.charges[0].amount: 500
+definitions.RideReceipt.example.charges[0].currency: USD
+definitions.RideReceipt.example.charges[0].payment_method: Card
+definitions.RideReceipt.example.charges[1].amount: 405
+definitions.RideReceipt.example.charges[1].currency: USD
+definitions.RideReceipt.example.charges[1].payment_method: Lyft Credit
+definitions.RideReceipt.example.line_items.length: 3
+definitions.RideReceipt.example.line_items[0].amount: 500
+definitions.RideReceipt.example.line_items[0].currency: USD
+definitions.RideReceipt.example.line_items[0].type: Ride
+definitions.RideReceipt.example.line_items[1].amount: 250
+definitions.RideReceipt.example.line_items[1].currency: USD
+definitions.RideReceipt.example.line_items[1].type: Prime Time
+definitions.RideReceipt.example.line_items[2].amount: 155
+definitions.RideReceipt.example.line_items[2].currency: USD
+definitions.RideReceipt.example.line_items[2].type: Service fee
+definitions.RideReceipt.example.price.amount: 905
+definitions.RideReceipt.example.price.currency: USD
+definitions.RideReceipt.example.price.description: Total ride price
+definitions.RideReceipt.example.requested_at: 2015-09-24T23:26:25+00:00
+definitions.RideReceipt.example.ride_id: 1.2345679e+08
+definitions.RideReceipt.example.ride_profile: personal
+definitions.RideReceipt.properties.charges.description: The break down of charge method
+definitions.RideReceipt.properties.charges.items.$ref: '#/definitions/Charge'
+definitions.RideReceipt.properties.charges.type: array
+definitions.RideReceipt.properties.line_items.description: The break down of line
+  items
+definitions.RideReceipt.properties.line_items.items.$ref: '#/definitions/LineItem'
+definitions.RideReceipt.properties.line_items.type: array
+definitions.RideReceipt.properties.price.allOf.length: 1
+definitions.RideReceipt.properties.price.allOf[0].$ref: '#/definitions/Cost'
+definitions.RideReceipt.properties.price.description: The total price for the current
+  ride
+definitions.RideReceipt.properties.price.type: object
+definitions.RideReceipt.properties.requested_at.description: The ride requested timestamp
+  in date and time
+definitions.RideReceipt.properties.requested_at.format: date-time
+definitions.RideReceipt.properties.requested_at.type: string
+definitions.RideReceipt.properties.ride_id.description: The unique ID of this ride
+definitions.RideReceipt.properties.ride_id.type: string
+definitions.RideReceipt.properties.ride_profile.allOf.length: 1
+definitions.RideReceipt.properties.ride_profile.allOf[0].$ref: '#/definitions/RideProfileEnum'
+definitions.RideReceipt.properties.ride_profile.description: |
+  Indicates whether the ride was requested from the business profile or personal profile of the user.
+definitions.RideReceipt.properties.ride_profile.type: object
+definitions.RideReceipt.type: object
+definitions.RideRequest.description: Minimal set of ride details
+definitions.RideRequest.example.destination.address: 123 Main St, Anytown, CA
+definitions.RideRequest.example.destination.lat: 36.944218
+definitions.RideRequest.example.destination.lng: -123.86791
+definitions.RideRequest.example.origin.address: 123 Main St, Anytown, CA
+definitions.RideRequest.example.origin.lat: 36.944218
+definitions.RideRequest.example.origin.lng: -123.86791
+definitions.RideRequest.example.passenger.first_name: Jane
+definitions.RideRequest.example.passenger.image_url: https://public-api.lyft.com/static/images/user.png
+definitions.RideRequest.example.passenger.rating: 4.9
+definitions.RideRequest.example.passenger.user_id: "776630198662493392"
+definitions.RideRequest.example.ride_id: 1.2345679e+08
+definitions.RideRequest.example.status: pending
+definitions.RideRequest.properties.destination.allOf.length: 1
+definitions.RideRequest.properties.destination.allOf[0].$ref: '#/definitions/Location'
+definitions.RideRequest.properties.destination.description: The *requested* location
+  for passenger drop off
+definitions.RideRequest.properties.destination.type: object
+definitions.RideRequest.properties.origin.allOf.length: 1
+definitions.RideRequest.properties.origin.allOf[0].$ref: '#/definitions/Location'
+definitions.RideRequest.properties.origin.description: The *requested* location for
+  passenger pickup
+definitions.RideRequest.properties.origin.type: object
+definitions.RideRequest.properties.passenger.$ref: '#/definitions/PassengerDetail'
+definitions.RideRequest.properties.ride_id.description: The ID of the requested ride
+definitions.RideRequest.properties.ride_id.type: string
+definitions.RideRequest.properties.status.$ref: '#/definitions/RideStatusEnum'
+definitions.RideRequestError.description: Details about why a request failed, such
+  as missing or invalid parameters
+definitions.RideRequestError.properties.cost_token.description: A token that confirms
+  the user has accepted current Prime Time and/or fixed price charges
+definitions.RideRequestError.properties.cost_token.type: string
+definitions.RideRequestError.properties.error.description: A "slug" that serves as
+  the error code (eg. "bad_parameter")
+definitions.RideRequestError.properties.error.type: string
+definitions.RideRequestError.properties.error_description.description: A user-friendly
+  description of the error (appropriate to show to an end-user)
+definitions.RideRequestError.properties.error_description.type: string
+definitions.RideRequestError.properties.error_detail.items.$ref: '#/definitions/ErrorDetail'
+definitions.RideRequestError.properties.error_detail.type: array
+definitions.RideRequestError.properties.error_uri.description: When a user must go
+  through another flow before requesting a ride, this URI specifies which flow to
+  use (e.g. an account challenge flow in a web view)
+definitions.RideRequestError.properties.error_uri.type: string
+definitions.RideRequestError.properties.primetime_confirmation_token.description: A
+  token that confirms the user has accepted current Prime Time charges (Deprecated)
+definitions.RideRequestError.properties.primetime_confirmation_token.type: string
+definitions.RideRequestError.properties.primetime_multiplier.description: Current
+  Prime Time multiplier (eg. if primetime_percentage is 100%, primetime_multiplier
+  will be 2.0)
+definitions.RideRequestError.properties.primetime_multiplier.format: float
+definitions.RideRequestError.properties.primetime_multiplier.type: number
+definitions.RideRequestError.properties.primetime_percentage.description: Current
+  Prime Time percentage
+definitions.RideRequestError.properties.primetime_percentage.type: string
+definitions.RideRequestError.properties.token_duration.description: Validity of the
+  token in seconds
+definitions.RideRequestError.properties.token_duration.type: string
+definitions.RideRequestError.required.length: 1
+definitions.RideRequestError.required[0]: error
+definitions.RideStatusEnum.description: The status of the ride
+definitions.RideStatusEnum.enum.length: 8
+definitions.RideStatusEnum.enum[0]: pending
+definitions.RideStatusEnum.enum[1]: accepted
+definitions.RideStatusEnum.enum[2]: arrived
+definitions.RideStatusEnum.enum[3]: pickedUp
+definitions.RideStatusEnum.enum[4]: droppedOff
+definitions.RideStatusEnum.enum[5]: canceled
+definitions.RideStatusEnum.enum[6]: scheduled
+definitions.RideStatusEnum.enum[7]: unknown
+definitions.RideStatusEnum.type: string
+definitions.RideType.example.ride_types.length: 3
+definitions.RideType.example.ride_types[0].display_name: Lyft Line
+definitions.RideType.example.ride_types[0].image_url: https://cdn.lyft.com/assets/car_standard.png
+definitions.RideType.example.ride_types[0].pricing_details.base_charge: 200
+definitions.RideType.example.ride_types[0].pricing_details.cancel_penalty_amount: 500
+definitions.RideType.example.ride_types[0].pricing_details.cost_minimum: 475
+definitions.RideType.example.ride_types[0].pricing_details.cost_per_mile: 115
+definitions.RideType.example.ride_types[0].pricing_details.cost_per_minute: 23
+definitions.RideType.example.ride_types[0].pricing_details.currency: USD
+definitions.RideType.example.ride_types[0].pricing_details.trust_and_service: 155
+definitions.RideType.example.ride_types[0].ride_type: lyft_line
+definitions.RideType.example.ride_types[0].seats: 2
+definitions.RideType.example.ride_types[1].display_name: Lyft
+definitions.RideType.example.ride_types[1].image_url: https://cdn.lyft.com/assets/car_standard.png
+definitions.RideType.example.ride_types[1].pricing_details.base_charge: 200
+definitions.RideType.example.ride_types[1].pricing_details.cancel_penalty_amount: 500
+definitions.RideType.example.ride_types[1].pricing_details.cost_minimum: 500
+definitions.RideType.example.ride_types[1].pricing_details.cost_per_mile: 115
+definitions.RideType.example.ride_types[1].pricing_details.cost_per_minute: 23
+definitions.RideType.example.ride_types[1].pricing_details.currency: USD
+definitions.RideType.example.ride_types[1].pricing_details.trust_and_service: 155
+definitions.RideType.example.ride_types[1].ride_type: lyft
+definitions.RideType.example.ride_types[1].seats: 4
+definitions.RideType.example.ride_types[2].display_name: Lyft Plus
+definitions.RideType.example.ride_types[2].image_url: https://cdn.lyft.com/assets/car_plus.png
+definitions.RideType.example.ride_types[2].pricing_details.base_charge: 300
+definitions.RideType.example.ride_types[2].pricing_details.cancel_penalty_amount: 500
+definitions.RideType.example.ride_types[2].pricing_details.cost_minimum: 700
+definitions.RideType.example.ride_types[2].pricing_details.cost_per_mile: 200
+definitions.RideType.example.ride_types[2].pricing_details.cost_per_minute: 30
+definitions.RideType.example.ride_types[2].pricing_details.currency: USD
+definitions.RideType.example.ride_types[2].pricing_details.trust_and_service: 155
+definitions.RideType.example.ride_types[2].ride_type: lyft_plus
+definitions.RideType.example.ride_types[2].seats: 6
+definitions.RideType.properties.display_name.description: A human readable description
+  of the ride type
+definitions.RideType.properties.display_name.type: string
+definitions.RideType.properties.image_url.description: The URL of an image representing
+  this ride type
+definitions.RideType.properties.image_url.type: string
+definitions.RideType.properties.pricing_details.$ref: '#/definitions/PricingDetails'
+definitions.RideType.properties.ride_type.$ref: '#/definitions/RideTypeEnum'
+definitions.RideType.properties.scheduled_pricing_details.$ref: '#/definitions/PricingDetails'
+definitions.RideType.properties.seats.description: The maximum number of seats available
+  for rides requested with this ride type
+definitions.RideType.properties.seats.type: integer
+definitions.RideTypeEnum.description: The ID of the ride type
+definitions.RideTypeEnum.enum.length: 6
+definitions.RideTypeEnum.enum[0]: lyft
+definitions.RideTypeEnum.enum[1]: lyft_line
+definitions.RideTypeEnum.enum[2]: lyft_plus
+definitions.RideTypeEnum.enum[3]: lyft_premier
+definitions.RideTypeEnum.enum[4]: lyft_lux
+definitions.RideTypeEnum.enum[5]: lyft_luxsuv
+definitions.RideTypeEnum.type: string
+definitions.RideTypeEnumWithOther.description: The ID of the ride type
+definitions.RideTypeEnumWithOther.enum.length: 7
+definitions.RideTypeEnumWithOther.enum[0]: lyft
+definitions.RideTypeEnumWithOther.enum[1]: lyft_line
+definitions.RideTypeEnumWithOther.enum[2]: lyft_plus
+definitions.RideTypeEnumWithOther.enum[3]: lyft_premier
+definitions.RideTypeEnumWithOther.enum[4]: lyft_lux
+definitions.RideTypeEnumWithOther.enum[5]: lyft_luxsuv
+definitions.RideTypeEnumWithOther.enum[6]: other
+definitions.RideTypeEnumWithOther.type: string
+definitions.SandboxDriverAvailability.example.driver_availability: true
+definitions.SandboxDriverAvailability.example.lat: 37.7833
+definitions.SandboxDriverAvailability.example.lng: -122.4167
+definitions.SandboxDriverAvailability.properties.driver_availability.description: The
+  availability of driver in a region
+definitions.SandboxDriverAvailability.properties.driver_availability.type: boolean
+definitions.SandboxDriverAvailability.properties.lat.description: The latitude component
+  of a location
+definitions.SandboxDriverAvailability.properties.lat.format: double
+definitions.SandboxDriverAvailability.properties.lat.type: number
+definitions.SandboxDriverAvailability.properties.lng.description: The longitude component
+  of a location
+definitions.SandboxDriverAvailability.properties.lng.format: double
+definitions.SandboxDriverAvailability.properties.lng.type: number
+definitions.SandboxDriverAvailability.required.length: 3
+definitions.SandboxDriverAvailability.required[0]: lat
+definitions.SandboxDriverAvailability.required[1]: lng
+definitions.SandboxDriverAvailability.required[2]: driver_availability
+definitions.SandboxPrimetime.example.lat: 37.7833
+definitions.SandboxPrimetime.example.lng: -122.4167
+definitions.SandboxPrimetime.example.primetime_percentage: 25%
+definitions.SandboxPrimetime.properties.lat.description: The latitude component of
+  a location
+definitions.SandboxPrimetime.properties.lat.format: double
+definitions.SandboxPrimetime.properties.lat.type: number
+definitions.SandboxPrimetime.properties.lng.description: The longitude component of
+  a location
+definitions.SandboxPrimetime.properties.lng.format: double
+definitions.SandboxPrimetime.properties.lng.type: number
+definitions.SandboxPrimetime.properties.primetime_percentage.description: The Prime
+  Time to be applied as a string, e.g., '25%'
+definitions.SandboxPrimetime.properties.primetime_percentage.type: string
+definitions.SandboxPrimetime.required.length: 3
+definitions.SandboxPrimetime.required[0]: lat
+definitions.SandboxPrimetime.required[1]: lng
+definitions.SandboxPrimetime.required[2]: primetime_percentage
+definitions.SandboxRideStatus.example.status: lyft
+definitions.SandboxRideStatus.properties.status.$ref: '#/definitions/RideStatusEnum'
+definitions.SandboxRideStatus.required.length: 1
+definitions.SandboxRideStatus.required[0]: status
+definitions.SandboxRideType.example.lat: 37.7833
+definitions.SandboxRideType.example.lng: -122.4167
+definitions.SandboxRideType.example.ride_types.length: 3
+definitions.SandboxRideType.example.ride_types[0]: lyft
+definitions.SandboxRideType.example.ride_types[1]: lyft_line
+definitions.SandboxRideType.example.ride_types[2]: lyft_plus
+definitions.SandboxRideType.properties.lat.description: The latitude component of
+  a location
+definitions.SandboxRideType.properties.lat.format: double
+definitions.SandboxRideType.properties.lat.type: number
+definitions.SandboxRideType.properties.lng.description: The longitude component of
+  a location
+definitions.SandboxRideType.properties.lng.format: double
+definitions.SandboxRideType.properties.lng.type: number
+definitions.SandboxRideType.properties.ride_types.items.$ref: '#/definitions/RideTypeEnum'
+definitions.SandboxRideType.properties.ride_types.type: array
+definitions.SandboxRideType.required.length: 3
+definitions.SandboxRideType.required[0]: lat
+definitions.SandboxRideType.required[1]: lng
+definitions.SandboxRideType.required[2]: ride_types
+definitions.SandboxRideUpdate.description: Response when a sandbox ride is propagated
+  through ride status
+definitions.SandboxRideUpdate.example.ride_id: 1.2345679e+08
+definitions.SandboxRideUpdate.example.status: accepted
+definitions.SandboxRideUpdate.properties.ride_id.description: The ID of the ride
+definitions.SandboxRideUpdate.properties.ride_id.type: string
+definitions.SandboxRideUpdate.properties.status.$ref: '#/definitions/RideStatusEnum'
+definitions.SandboxRideUpdate.type: object
+definitions.Tip.example.amount: 300
+definitions.Tip.example.currency: USD
+definitions.Tip.properties.amount.description: A tip for the driver in cents. To be
+  charged to the user's default charge account.
+definitions.Tip.properties.amount.format: int32
+definitions.Tip.properties.amount.minimum: 0
+definitions.Tip.properties.amount.type: integer
+definitions.Tip.properties.currency.description: The currency in which you want to
+  tip. e.g. USD
+definitions.Tip.properties.currency.type: string
+definitions.TipParams.allOf.length: 1
+definitions.TipParams.allOf[0].$ref: '#/definitions/Tip'
+definitions.TipParams.type: object
+definitions.UserDetail.example.first_name: Jane
+definitions.UserDetail.example.image_url: https://public-api.lyft.com/static/images/user.png
+definitions.UserDetail.example.rating: 4.9
+definitions.UserDetail.properties.first_name.description: The passenger's first name
+definitions.UserDetail.properties.first_name.type: string
+definitions.UserDetail.properties.image_url.description: The passenger's profile image
+definitions.UserDetail.properties.image_url.type: string
+definitions.UserDetail.properties.rating.description: The passenger's rating
+definitions.UserDetail.properties.rating.type: string
+definitions.UserDetail.required.length: 3
+definitions.UserDetail.required[0]: first_name
+definitions.UserDetail.required[1]: image_url
+definitions.UserDetail.required[2]: rating
+definitions.VehicleDetail.example.color: black
+definitions.VehicleDetail.example.image_url: http://example.com/lyft.png
+definitions.VehicleDetail.example.license_plate: AAAAAAA
+definitions.VehicleDetail.example.license_plate_state: CA
+definitions.VehicleDetail.example.make: Audi
+definitions.VehicleDetail.example.model: A4
+definitions.VehicleDetail.example.year: 2016
+definitions.VehicleDetail.properties.color.description: The vehicle's color
+definitions.VehicleDetail.properties.color.type: string
+definitions.VehicleDetail.properties.image_url.description: The vehicle's image url
+definitions.VehicleDetail.properties.image_url.type: string
+definitions.VehicleDetail.properties.license_plate.description: The vehicle's license
+  plate
+definitions.VehicleDetail.properties.license_plate.type: string
+definitions.VehicleDetail.properties.license_plate_state.description: The vehicle's
+  license plate state
+definitions.VehicleDetail.properties.license_plate_state.type: string
+definitions.VehicleDetail.properties.make.description: The vehicle's maker
+definitions.VehicleDetail.properties.make.type: string
+definitions.VehicleDetail.properties.model.description: The vehicle's model
+definitions.VehicleDetail.properties.model.type: string
+definitions.VehicleDetail.properties.year.description: The vehicle's model year
+definitions.VehicleDetail.properties.year.format: int32
+definitions.VehicleDetail.properties.year.type: integer
+definitions.VehicleDetail.required.length: 7
+definitions.VehicleDetail.required[0]: make
+definitions.VehicleDetail.required[1]: model
+definitions.VehicleDetail.required[2]: year
+definitions.VehicleDetail.required[3]: license_plate
+definitions.VehicleDetail.required[4]: license_plate_state
+definitions.VehicleDetail.required[5]: color
+definitions.VehicleDetail.required[6]: image_url
+host: api.lyft.com
+info.contact.email: api-support@lyft.com
+info.contact.name: Lyft
+info.contact.url: http://developer.lyft.com
+info.description: Drive your app to success with Lyft's API
+info.title: Lyft
+info.version: 1.0.0
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: location
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_pbs.twimg.com_profile_images_903803898376331264_2SWtD5fb_400x400.jpg
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://api.lyft.com/v1/spec
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: lyft.com
+parameters.LatParam.description: Latitude of a location
+parameters.LatParam.format: double
+parameters.LatParam.in: query
+parameters.LatParam.name: lat
+parameters.LatParam.required: true
+parameters.LatParam.type: number
+parameters.LngParam.description: Longitude of a location
+parameters.LngParam.format: double
+parameters.LngParam.in: query
+parameters.LngParam.name: lng
+parameters.LngParam.required: true
+parameters.LngParam.type: number
+parameters.OptionalDestLatParam.description: Latitude of destination location
+parameters.OptionalDestLatParam.format: double
+parameters.OptionalDestLatParam.in: query
+parameters.OptionalDestLatParam.name: destination_lat
+parameters.OptionalDestLatParam.required: false
+parameters.OptionalDestLatParam.type: number
+parameters.OptionalDestLngParam.description: Longitude of destination location
+parameters.OptionalDestLngParam.format: double
+parameters.OptionalDestLngParam.in: query
+parameters.OptionalDestLngParam.name: destination_lng
+parameters.OptionalDestLngParam.required: false
+parameters.OptionalDestLngParam.type: number
+parameters.OptionalEndTime.description: |
+  Restrict to rides starting before this point in time. The earliest supported date is 2015-01-01T00:00:00+00:00
+parameters.OptionalEndTime.format: date-time
+parameters.OptionalEndTime.in: query
+parameters.OptionalEndTime.name: end_time
+parameters.OptionalEndTime.required: false
+parameters.OptionalEndTime.type: string
+parameters.OptionalLimit.default: 10
+parameters.OptionalLimit.description: |
+  The maximum number of rides to return. The default limit is 10 if not specified. The maximum allowed value is 50, an integer greater that 50 will return at most 50 results.
+parameters.OptionalLimit.exclusiveMaximum: false
+parameters.OptionalLimit.exclusiveMinimum: true
+parameters.OptionalLimit.format: int32
+parameters.OptionalLimit.in: query
+parameters.OptionalLimit.maximum: 50
+parameters.OptionalLimit.minimum: 0
+parameters.OptionalLimit.name: limit
+parameters.OptionalLimit.type: integer
+parameters.OptionalRideType.description: ID of a ride type
+parameters.OptionalRideType.enum.length: 6
+parameters.OptionalRideType.enum[0]: lyft
+parameters.OptionalRideType.enum[1]: lyft_line
+parameters.OptionalRideType.enum[2]: lyft_plus
+parameters.OptionalRideType.enum[3]: lyft_premier
+parameters.OptionalRideType.enum[4]: lyft_lux
+parameters.OptionalRideType.enum[5]: lyft_luxsuv
+parameters.OptionalRideType.in: query
+parameters.OptionalRideType.name: ride_type
+parameters.OptionalRideType.required: false
+parameters.OptionalRideType.type: string
+parameters.RideStatusParam.enum.length: 6
+parameters.RideStatusParam.enum[0]: lyft
+parameters.RideStatusParam.enum[1]: lyft_line
+parameters.RideStatusParam.enum[2]: lyft_plus
+parameters.RideStatusParam.enum[3]: lyft_premier
+parameters.RideStatusParam.enum[4]: lyft_lux
+parameters.RideStatusParam.enum[5]: lyft_luxsuv
+parameters.RideStatusParam.in: path
+parameters.RideStatusParam.name: ride_type
+parameters.RideStatusParam.required: true
+parameters.RideStatusParam.type: string
+parameters.StartTime.description: |
+  Restrict to rides starting after this point in time. The earliest supported date is 2015-01-01T00:00:00+00:00
+parameters.StartTime.format: date-time
+parameters.StartTime.in: query
+parameters.StartTime.name: start_time
+parameters.StartTime.required: true
+parameters.StartTime.type: string
+paths./cost.get.description: |
+  Estimate the cost of taking a Lyft between two points.
+paths./cost.get.operationId: GetCost
+paths./cost.get.parameters.length: 5
+paths./cost.get.parameters[0].$ref: '#/parameters/OptionalRideType'
+paths./cost.get.parameters[1].description: Latitude of the starting location
+paths./cost.get.parameters[1].format: double
+paths./cost.get.parameters[1].in: query
+paths./cost.get.parameters[1].name: start_lat
+paths./cost.get.parameters[1].required: true
+paths./cost.get.parameters[1].type: number
+paths./cost.get.parameters[2].description: Longitude of the starting location
+paths./cost.get.parameters[2].format: double
+paths./cost.get.parameters[2].in: query
+paths./cost.get.parameters[2].name: start_lng
+paths./cost.get.parameters[2].required: true
+paths./cost.get.parameters[2].type: number
+paths./cost.get.parameters[3].description: Latitude of the ending location
+paths./cost.get.parameters[3].format: double
+paths./cost.get.parameters[3].in: query
+paths./cost.get.parameters[3].name: end_lat
+paths./cost.get.parameters[3].required: false
+paths./cost.get.parameters[3].type: number
+paths./cost.get.parameters[4].description: Longitude of the ending location
+paths./cost.get.parameters[4].format: double
+paths./cost.get.parameters[4].in: query
+paths./cost.get.parameters[4].name: end_lng
+paths./cost.get.parameters[4].required: false
+paths./cost.get.parameters[4].type: number
+paths./cost.get.responses.200.description: An object with an array of cost estimates
+  by ride type
+paths./cost.get.responses.200.schema.properties.cost_estimates.items.$ref: '#/definitions/CostEstimate'
+paths./cost.get.responses.200.schema.properties.cost_estimates.type: array
+paths./cost.get.responses.200.schema.title: CostEstimateResponse
+paths./cost.get.responses.200.schema.type: object
+paths./cost.get.responses.400.description: |
+  The 'error' field will be one of the following:
+   * `bad_parameter`: A validation error occurred
+   * `no_service_in_area`: start location is not within a Lyft service area
+   * `ridetype_unavailable_in_region`: ridetype not supported at this start location
+paths./cost.get.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./cost.get.summary: Cost estimates
+paths./cost.get.tags.length: 1
+paths./cost.get.tags[0]: Public
+paths./drivers.get.description: |
+  The drivers endpoint returns a list of nearby drivers' lat and lng at a given location.
+paths./drivers.get.operationId: GetDrivers
+paths./drivers.get.parameters.length: 2
+paths./drivers.get.parameters[0].$ref: '#/parameters/LatParam'
+paths./drivers.get.parameters[1].$ref: '#/parameters/LngParam'
+paths./drivers.get.responses.200.description: An object with an array of available
+  drivers sorted by eta for the given location
+paths./drivers.get.responses.200.schema.properties.nearby_drivers.items.$ref: '#/definitions/NearbyDriversByRideType'
+paths./drivers.get.responses.200.schema.properties.nearby_drivers.type: array
+paths./drivers.get.responses.200.schema.title: NearbyDriversResponse
+paths./drivers.get.responses.200.schema.type: object
+paths./drivers.get.responses.400.description: A validation error occurred
+paths./drivers.get.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./drivers.get.summary: Available drivers nearby
+paths./drivers.get.tags.length: 1
+paths./drivers.get.tags[0]: Public
+paths./eta.get.description: |
+  The ETA endpoint lets you know how quickly a Lyft driver can come get you
+paths./eta.get.operationId: GetETA
+paths./eta.get.parameters.length: 5
+paths./eta.get.parameters[0].$ref: '#/parameters/LatParam'
+paths./eta.get.parameters[1].$ref: '#/parameters/LngParam'
+paths./eta.get.parameters[2].$ref: '#/parameters/OptionalDestLatParam'
+paths./eta.get.parameters[3].$ref: '#/parameters/OptionalDestLngParam'
+paths./eta.get.parameters[4].$ref: '#/parameters/OptionalRideType'
+paths./eta.get.responses.200.description: An object with an array of ETAs by ride
+  type for the given location
+paths./eta.get.responses.200.schema.properties.eta_estimates.items.$ref: '#/definitions/Eta'
+paths./eta.get.responses.200.schema.properties.eta_estimates.type: array
+paths./eta.get.responses.200.schema.title: EtaEstimateResponse
+paths./eta.get.responses.200.schema.type: object
+paths./eta.get.responses.400.description: |
+  The 'error' field will be one of the following:
+   * `bad_parameter`: A validation error occurred
+   * `no_service_in_area`: location is not within a Lyft service area
+   * `ridetype_unavailable_in_region`: ridetype not supported at this location
+paths./eta.get.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./eta.get.summary: Pickup ETAs
+paths./eta.get.tags.length: 1
+paths./eta.get.tags[0]: Public
+paths./profile.get.description: |
+  The v1 of this endpoint returns the user's ID, v2 will return more general info about the user. We require authentication for this endpoint, so we extract the user ID from the access token.
+paths./profile.get.operationId: GetProfile
+paths./profile.get.responses.200.description: User ID was found and returned
+paths./profile.get.responses.200.schema.$ref: '#/definitions/Profile'
+paths./profile.get.security.length: 1
+paths./profile.get.security[0].User Authentication.length: 1
+paths./profile.get.security[0].User Authentication[0]: profile
+paths./profile.get.summary: The user's general info
+paths./profile.get.tags.length: 1
+paths./profile.get.tags[0]: User
+paths./rides.get.description: |
+  Get a list of past & current rides for this passenger.
+paths./rides.get.operationId: GetRides
+paths./rides.get.parameters.length: 3
+paths./rides.get.parameters[0].$ref: '#/parameters/StartTime'
+paths./rides.get.parameters[1].$ref: '#/parameters/OptionalEndTime'
+paths./rides.get.parameters[2].$ref: '#/parameters/OptionalLimit'
+paths./rides.get.responses.200.description: |
+  An object with an array of up to `limit` rides taken by the user between `start_time` and `end_time`.
+paths./rides.get.responses.200.schema.properties.ride_history.items.$ref: '#/definitions/RideDetail'
+paths./rides.get.responses.200.schema.properties.ride_history.type: array
+paths./rides.get.responses.200.schema.title: RidesResponse
+paths./rides.get.responses.200.schema.type: object
+paths./rides.get.responses.400.description: A validation error occurred
+paths./rides.get.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./rides.get.security.length: 1
+paths./rides.get.security[0].User Authentication.length: 1
+paths./rides.get.security[0].User Authentication[0]: rides.read
+paths./rides.get.summary: List rides
+paths./rides.get.tags.length: 1
+paths./rides.get.tags[0]: User
+paths./rides.post.description: |
+  Request a Lyft come pick you up at the given location.
+paths./rides.post.operationId: NewRide
+paths./rides.post.parameters.length: 1
+paths./rides.post.parameters[0].description: Ride request information
+paths./rides.post.parameters[0].in: body
+paths./rides.post.parameters[0].name: request
+paths./rides.post.parameters[0].required: true
+paths./rides.post.parameters[0].schema.$ref: '#/definitions/Ride'
+paths./rides.post.responses.201.description: An object with high level ride information.
+  Use `GET /v1/rides/{id}` for more details.
+paths./rides.post.responses.201.schema.$ref: '#/definitions/RideRequest'
+paths./rides.post.responses.400.description: |
+  The 'error' field can be one of the following:
+   * `bad_parameter`: A validation error occurred
+   * `no_service_in_area`: origin is not within a Lyft service area
+   * `ridetype_unavailable_in_region`: ridetype not supported at origin
+   * `primetime_confirmation_required`: user must accept primetime. A primetime confirmation token and
+  details will be included in the response
+   * `invalid_primetime_confirmation`: supplied token is invalid or expired
+   * `destination_prohibited`: Lyft is not allowed to drop off at that destination (e.g. some airports).
+   User-displayable details in the 'error_description' field
+   * `client_error`: an uncategorized error. Details in the 'error_description' field
+paths./rides.post.responses.400.schema.$ref: '#/definitions/RideRequestError'
+paths./rides.post.responses.403.description: |
+  User or client does not have permission to complete this request. Specific errors include:
+   * `user_payment_required`: The user does not have a valid payment method on file.
+   They must use the Lyft app to add or update one.
+   * `account_disabled`: The user's account has been suspended, and they must contact Lyft support.
+   * `user_in_driver_mode`: The user is logged in as a driver and can't request rides until they log out
+   * `verified_phone_required`: The user has not provided or verified their phone number.
+   They can add one in the Lyft app
+paths./rides.post.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./rides.post.responses.409.description: |
+  The 'error' field will be one of the following:
+   * `no_drivers_available`: No drivers are available right now
+   * `user_already_in_ride`: User cannot request a ride while in a ride
+paths./rides.post.responses.409.schema.$ref: '#/definitions/ApiError'
+paths./rides.post.security.length: 1
+paths./rides.post.security[0].User Authentication.length: 1
+paths./rides.post.security[0].User Authentication[0]: rides.request
+paths./rides.post.summary: Request a Lyft
+paths./rides.post.tags.length: 1
+paths./rides.post.tags[0]: User
+paths./rides/{id}.get.description: |
+  Get the status of a ride along with information about the driver, vehicle and price of a given ride ID
+paths./rides/{id}.get.operationId: GetRide
+paths./rides/{id}.get.parameters.length: 1
+paths./rides/{id}.get.parameters[0].description: The ID of the ride
+paths./rides/{id}.get.parameters[0].in: path
+paths./rides/{id}.get.parameters[0].name: id
+paths./rides/{id}.get.parameters[0].required: true
+paths./rides/{id}.get.parameters[0].type: string
+paths./rides/{id}.get.responses.200.description: |
+  Detailed ride information including ride status, driver information, passenger information, vehicle information, location information and price
+paths./rides/{id}.get.responses.200.schema.$ref: '#/definitions/RideDetail'
+paths./rides/{id}.get.responses.403.description: User or client does not have permission
+  to complete this request
+paths./rides/{id}.get.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}.get.responses.404.description: No ride found with provided ride
+  ID
+paths./rides/{id}.get.responses.404.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}.get.security.length: 1
+paths./rides/{id}.get.security[0].User Authentication.length: 1
+paths./rides/{id}.get.security[0].User Authentication[0]: rides.read
+paths./rides/{id}.get.summary: Get the ride detail of a given ride ID
+paths./rides/{id}.get.tags.length: 1
+paths./rides/{id}.get.tags[0]: User
+paths./rides/{id}/cancel.post.description: |
+  Cancel a ongoing ride which was requested earlier by providing the ride id.
+paths./rides/{id}/cancel.post.operationId: CancelRide
+paths./rides/{id}/cancel.post.parameters.length: 2
+paths./rides/{id}/cancel.post.parameters[0].description: The ID of the ride
+paths./rides/{id}/cancel.post.parameters[0].in: path
+paths./rides/{id}/cancel.post.parameters[0].name: id
+paths./rides/{id}/cancel.post.parameters[0].required: true
+paths./rides/{id}/cancel.post.parameters[0].type: string
+paths./rides/{id}/cancel.post.parameters[1].in: body
+paths./rides/{id}/cancel.post.parameters[1].name: request
+paths./rides/{id}/cancel.post.parameters[1].schema.$ref: '#/definitions/CancellationRequest'
+paths./rides/{id}/cancel.post.responses.204.description: Successfully canceled the
+  ride
+paths./rides/{id}/cancel.post.responses.400.description: |
+  Cancellation token required
+   * `cancel_confirmation_required`: a cancelation fee applies which the user must accept
+   * `invalid_cancel_confirmation`: provided token was invalid or expired
+paths./rides/{id}/cancel.post.responses.400.schema.$ref: '#/definitions/CancellationCostError'
+paths./rides/{id}/cancel.post.responses.403.description: User or client does not have
+  permission to complete this request
+paths./rides/{id}/cancel.post.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/cancel.post.responses.404.description: No ride found with provided
+  ride ID
+paths./rides/{id}/cancel.post.responses.404.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/cancel.post.responses.409.description: You cannot cancel this ride
+paths./rides/{id}/cancel.post.responses.409.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/cancel.post.security.length: 1
+paths./rides/{id}/cancel.post.security[0].User Authentication.length: 1
+paths./rides/{id}/cancel.post.security[0].User Authentication[0]: rides.request
+paths./rides/{id}/cancel.post.summary: Cancel a ongoing requested ride
+paths./rides/{id}/cancel.post.tags.length: 1
+paths./rides/{id}/cancel.post.tags[0]: User
+paths./rides/{id}/destination.put.description: |
+  Add or update the ride's destination. Note that the ride must still be active (not droppedOff or canceled), and that destinations on Lyft Line rides can not be changed.
+paths./rides/{id}/destination.put.operationId: SetRideDestination
+paths./rides/{id}/destination.put.parameters.length: 2
+paths./rides/{id}/destination.put.parameters[0].description: The ID of the ride
+paths./rides/{id}/destination.put.parameters[0].in: path
+paths./rides/{id}/destination.put.parameters[0].name: id
+paths./rides/{id}/destination.put.parameters[0].required: true
+paths./rides/{id}/destination.put.parameters[0].type: string
+paths./rides/{id}/destination.put.parameters[1].description: The coordinates and optional
+  address of the destination
+paths./rides/{id}/destination.put.parameters[1].in: body
+paths./rides/{id}/destination.put.parameters[1].name: request
+paths./rides/{id}/destination.put.parameters[1].required: true
+paths./rides/{id}/destination.put.parameters[1].schema.$ref: '#/definitions/Location'
+paths./rides/{id}/destination.put.responses.200.description: Successfully updated
+  the destination. Returns the new destination.
+paths./rides/{id}/destination.put.responses.200.schema.$ref: '#/definitions/Location'
+paths./rides/{id}/destination.put.responses.400.description: |
+  The 'error' field will be one of the following:
+   * `bad_parameter`: A validation error occurred
+   * `invalid_destination`: Destination is generally invalid (eg. not in a Lyft service area)
+   * `destination_prohibited`: Lyft drop-offs are not permitted at this location (eg. some airports).
+   The 'error_description' field will contain an explaination suitable to display to the user.
+   * `ride_is_lyft_line`: Cannot change the destination on Line rides
+   * `ride_is_finished`: Ride has already been completed
+paths./rides/{id}/destination.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/destination.put.responses.403.description: |
+  User or client does not have permission to complete this request (`ride_does_not_belong_to_user`)
+paths./rides/{id}/destination.put.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/destination.put.responses.404.description: No ride found with provided
+  ride ID
+paths./rides/{id}/destination.put.responses.404.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/destination.put.security.length: 1
+paths./rides/{id}/destination.put.security[0].User Authentication.length: 1
+paths./rides/{id}/destination.put.security[0].User Authentication[0]: rides.request
+paths./rides/{id}/destination.put.summary: Update the destination of the ride
+paths./rides/{id}/destination.put.tags.length: 1
+paths./rides/{id}/destination.put.tags[0]: User
+paths./rides/{id}/rating.put.description: |
+  Add the passenger's 1 to 5 star rating of the ride, optional written feedback, and optional tip amount in minor units and currency. The ride must already be dropped off, and ratings must be given within 24 hours of drop off. For purposes of display, 5 is considered the default rating. When this endpoint is successfully called, payment processing will begin.
+paths./rides/{id}/rating.put.operationId: SetRideRating
+paths./rides/{id}/rating.put.parameters.length: 2
+paths./rides/{id}/rating.put.parameters[0].description: The ID of the ride
+paths./rides/{id}/rating.put.parameters[0].in: path
+paths./rides/{id}/rating.put.parameters[0].name: id
+paths./rides/{id}/rating.put.parameters[0].required: true
+paths./rides/{id}/rating.put.parameters[0].type: string
+paths./rides/{id}/rating.put.parameters[1].description: The rating and optional feedback
+paths./rides/{id}/rating.put.parameters[1].in: body
+paths./rides/{id}/rating.put.parameters[1].name: request
+paths./rides/{id}/rating.put.parameters[1].required: true
+paths./rides/{id}/rating.put.parameters[1].schema.$ref: '#/definitions/RatingRequest'
+paths./rides/{id}/rating.put.responses.204.description: Successfully added the rating
+paths./rides/{id}/rating.put.responses.400.description: |
+  The 'error' field will be one of the following:
+   * `bad_parameter`: A validation error occurred
+   * `user_cannot_rate_this_ride`: Rides can only be rated once, within 24 hours of drop-off, and before
+   the user starts another ride
+   * `tip_too_large`: tip amount is too large for this ride
+   * `tip_currency_not_accepted`: That tip currency is not accepted
+paths./rides/{id}/rating.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/rating.put.responses.409.description: |
+  The 'error' field will be:
+   * `ride_not_finished`: Ride is still in progress (not yet in the droppedOff status)
+paths./rides/{id}/rating.put.responses.409.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/rating.put.security.length: 1
+paths./rides/{id}/rating.put.security[0].User Authentication.length: 1
+paths./rides/{id}/rating.put.security[0].User Authentication[0]: rides.request
+paths./rides/{id}/rating.put.summary: Add the passenger's rating, feedback, and tip
+paths./rides/{id}/rating.put.tags.length: 1
+paths./rides/{id}/rating.put.tags[0]: User
+paths./rides/{id}/receipt.get.description: |
+  Get the receipt information of a processed ride by providing the ride id. Receipts will only be available to view once the payment has been processed. In the case of canceled ride, cancellation penalty is included if applicable.
+paths./rides/{id}/receipt.get.operationId: GetRideReceipt
+paths./rides/{id}/receipt.get.parameters.length: 1
+paths./rides/{id}/receipt.get.parameters[0].description: The ID of the ride
+paths./rides/{id}/receipt.get.parameters[0].in: path
+paths./rides/{id}/receipt.get.parameters[0].name: id
+paths./rides/{id}/receipt.get.parameters[0].required: true
+paths./rides/{id}/receipt.get.parameters[0].type: string
+paths./rides/{id}/receipt.get.responses.200.description: Detailed ride receipt information
+  including cancel penalty if applicable.
+paths./rides/{id}/receipt.get.responses.200.schema.$ref: '#/definitions/RideReceipt'
+paths./rides/{id}/receipt.get.responses.403.description: User or client does not have
+  permission to complete this request
+paths./rides/{id}/receipt.get.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/receipt.get.responses.404.description: No ride receipt found with
+  provided ride ID
+paths./rides/{id}/receipt.get.responses.404.schema.$ref: '#/definitions/ApiError'
+paths./rides/{id}/receipt.get.security.length: 1
+paths./rides/{id}/receipt.get.security[0].User Authentication.length: 1
+paths./rides/{id}/receipt.get.security[0].User Authentication[0]: rides.read
+paths./rides/{id}/receipt.get.summary: Get the receipt of the rides.
+paths./rides/{id}/receipt.get.tags.length: 1
+paths./rides/{id}/receipt.get.tags[0]: User
+paths./ridetypes.get.description: |
+  The ride types endpoint returns information about what kinds of Lyft rides you can request at a given location.
+paths./ridetypes.get.operationId: GetRideTypes
+paths./ridetypes.get.parameters.length: 3
+paths./ridetypes.get.parameters[0].$ref: '#/parameters/LatParam'
+paths./ridetypes.get.parameters[1].$ref: '#/parameters/LngParam'
+paths./ridetypes.get.parameters[2].$ref: '#/parameters/OptionalRideType'
+paths./ridetypes.get.responses.200.description: An object with an array of available
+  Ride Types for the given location
+paths./ridetypes.get.responses.200.schema.properties.ride_types.items.$ref: '#/definitions/RideType'
+paths./ridetypes.get.responses.200.schema.properties.ride_types.type: array
+paths./ridetypes.get.responses.200.schema.title: RideTypesResponse
+paths./ridetypes.get.responses.200.schema.type: object
+paths./ridetypes.get.responses.400.description: A validation error occurred
+paths./ridetypes.get.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./ridetypes.get.summary: Types of rides
+paths./ridetypes.get.tags.length: 1
+paths./ridetypes.get.tags[0]: Public
+paths./sandbox/primetime.put.description: |
+  Preset a Prime Time percentage in the region surrounding the specified location. This Prime Time percentage will be applied when requesting cost, or when requesting a ride in sandbox mode.
+paths./sandbox/primetime.put.operationId: SetPrimeTime
+paths./sandbox/primetime.put.parameters.length: 1
+paths./sandbox/primetime.put.parameters[0].description: Prime Time to be preset in
+  the region surrounding the lat, lng
+paths./sandbox/primetime.put.parameters[0].in: body
+paths./sandbox/primetime.put.parameters[0].name: request
+paths./sandbox/primetime.put.parameters[0].required: true
+paths./sandbox/primetime.put.parameters[0].schema.$ref: '#/definitions/SandboxPrimetime'
+paths./sandbox/primetime.put.responses.204.description: Successfully applied Prime
+  Time in sandbox
+paths./sandbox/primetime.put.responses.400.description: Validation error occurred
+paths./sandbox/primetime.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/primetime.put.summary: Preset Prime Time percentage
+paths./sandbox/primetime.put.tags.length: 1
+paths./sandbox/primetime.put.tags[0]: Sandbox
+paths./sandbox/rides/{id}.put.description: |
+  Propagate a sandbox-ride through various ride status
+paths./sandbox/rides/{id}.put.operationId: SetRideStatus
+paths./sandbox/rides/{id}.put.parameters.length: 2
+paths./sandbox/rides/{id}.put.parameters[0].description: The ID of the ride
+paths./sandbox/rides/{id}.put.parameters[0].in: path
+paths./sandbox/rides/{id}.put.parameters[0].name: id
+paths./sandbox/rides/{id}.put.parameters[0].required: true
+paths./sandbox/rides/{id}.put.parameters[0].type: string
+paths./sandbox/rides/{id}.put.parameters[1].description: status to propagate the ride
+  into
+paths./sandbox/rides/{id}.put.parameters[1].in: body
+paths./sandbox/rides/{id}.put.parameters[1].name: request
+paths./sandbox/rides/{id}.put.parameters[1].required: true
+paths./sandbox/rides/{id}.put.parameters[1].schema.$ref: '#/definitions/SandboxRideStatus'
+paths./sandbox/rides/{id}.put.responses.200.description: An object with the Ride ID
+  and the new status
+paths./sandbox/rides/{id}.put.responses.200.schema.$ref: '#/definitions/SandboxRideUpdate'
+paths./sandbox/rides/{id}.put.responses.400.description: Validation error occurred
+paths./sandbox/rides/{id}.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/rides/{id}.put.responses.403.description: User or client does not have
+  permission to complete this request
+paths./sandbox/rides/{id}.put.responses.403.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/rides/{id}.put.security.length: 1
+paths./sandbox/rides/{id}.put.security[0].User Authentication.length: 1
+paths./sandbox/rides/{id}.put.security[0].User Authentication[0]: rides.request
+paths./sandbox/rides/{id}.put.summary: Propagate ride through ride status
+paths./sandbox/rides/{id}.put.tags.length: 1
+paths./sandbox/rides/{id}.put.tags[0]: Sandbox
+paths./sandbox/ridetypes.put.description: |
+  The sandbox-ridetypes endpoint allows you to preset the ridetypes in the region surrounding the specified latitude and longitude to allow testing different scenarios
+paths./sandbox/ridetypes.put.operationId: SetRideTypes
+paths./sandbox/ridetypes.put.parameters.length: 1
+paths./sandbox/ridetypes.put.parameters[0].description: Ridetypes to be preset in
+  the region surrounding the lat, lng
+paths./sandbox/ridetypes.put.parameters[0].in: body
+paths./sandbox/ridetypes.put.parameters[0].name: request
+paths./sandbox/ridetypes.put.parameters[0].required: true
+paths./sandbox/ridetypes.put.parameters[0].schema.$ref: '#/definitions/SandboxRideType'
+paths./sandbox/ridetypes.put.responses.200.description: An object listing the ridetypes
+  at a given location
+paths./sandbox/ridetypes.put.responses.200.schema.$ref: '#/definitions/SandboxRideType'
+paths./sandbox/ridetypes.put.responses.400.description: Validation error occurred
+paths./sandbox/ridetypes.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/ridetypes.put.summary: Preset types of rides for sandbox
+paths./sandbox/ridetypes.put.tags.length: 1
+paths./sandbox/ridetypes.put.tags[0]: Sandbox
+paths./sandbox/ridetypes/{ride_type}.put.description: |
+  Set driver availability for the provided ride_type in the city/region surrounding the specified location
+paths./sandbox/ridetypes/{ride_type}.put.operationId: SetRideTypeAvailability
+paths./sandbox/ridetypes/{ride_type}.put.parameters.length: 2
+paths./sandbox/ridetypes/{ride_type}.put.parameters[0].$ref: '#/parameters/RideStatusParam'
+paths./sandbox/ridetypes/{ride_type}.put.parameters[1].description: Driver availability
+  to be preset in the region surrounding the lat, lng
+paths./sandbox/ridetypes/{ride_type}.put.parameters[1].in: body
+paths./sandbox/ridetypes/{ride_type}.put.parameters[1].name: request
+paths./sandbox/ridetypes/{ride_type}.put.parameters[1].required: true
+paths./sandbox/ridetypes/{ride_type}.put.parameters[1].schema.$ref: '#/definitions/SandboxDriverAvailability'
+paths./sandbox/ridetypes/{ride_type}.put.responses.204.description: Successfully set
+  driver availability in sandbox
+paths./sandbox/ridetypes/{ride_type}.put.responses.400.description: Validation error
+  occurred
+paths./sandbox/ridetypes/{ride_type}.put.responses.400.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/ridetypes/{ride_type}.put.responses.404.description: ride_type provided
+  in the path is not supported in the current area
+paths./sandbox/ridetypes/{ride_type}.put.responses.404.schema.$ref: '#/definitions/ApiError'
+paths./sandbox/ridetypes/{ride_type}.put.summary: Driver availability for processing
+  ride request
+paths./sandbox/ridetypes/{ride_type}.put.tags.length: 1
+paths./sandbox/ridetypes/{ride_type}.put.tags[0]: Sandbox
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: https
+security.length: 2
+security[0].Client Authentication.length: 1
+security[0].Client Authentication[0]: public
+security[1].User Authentication.length: 1
+security[1].User Authentication[0]: public
+securityDefinitions.Client Authentication.description: OAuth 2.0 - Application Only
+  Credentials
+securityDefinitions.Client Authentication.flow: application
+securityDefinitions.Client Authentication.scopes.public: Access public information
+  such as ETAs and cost estimates
+securityDefinitions.Client Authentication.tokenUrl: https://api.lyft.com/oauth/token
+securityDefinitions.Client Authentication.type: oauth2
+securityDefinitions.User Authentication.authorizationUrl: https://api.lyft.com/oauth/authorize
+securityDefinitions.User Authentication.description: OAuth 2.0 - User Credentials
+securityDefinitions.User Authentication.flow: accessCode
+securityDefinitions.User Authentication.scopes.profile: Access profile information
+  about the user
+securityDefinitions.User Authentication.scopes.public: Access public information such
+  as ETAs and cost estimates
+securityDefinitions.User Authentication.scopes.rides.read: Access information about
+  the user's current and past rides
+securityDefinitions.User Authentication.scopes.rides.request: |
+  Request a ride for the user. Cancel an existing request.
+securityDefinitions.User Authentication.tokenUrl: https://api.lyft.com/oauth/token
+securityDefinitions.User Authentication.type: oauth2
+swagger: "2.0"
+tags.length: 4
+tags[0].description: Endpoints that do not require a user
+tags[0].name: Public
+tags[1].description: Endpoints that require a user context
+tags[1].name: User
+tags[2].description: Endpoints that manipulate the Lyft sandbox
+tags[2].name: Sandbox
+tags[3].description: Endpoints that require special permission from Lyft to use
+tags[3].name: Restricted

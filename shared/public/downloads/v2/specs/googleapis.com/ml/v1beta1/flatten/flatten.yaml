@@ -1,0 +1,2323 @@
+basePath: /
+definitions.GoogleApi__HttpBody.description: |-
+  Message that represents an arbitrary HTTP body. It should only be used for
+  payload formats that can't be represented as JSON, such as raw binary or
+  an HTML page.
+
+
+  This message can be used both in streaming and non-streaming API methods in
+  the request as well as the response.
+
+  It can be used as a top-level request field, which is convenient if one
+  wants to extract parameters from either the URL or HTTP template into the
+  request fields and also want access to the raw HTTP body.
+
+  Example:
+
+      message GetResourceRequest {
+        // A unique request id.
+        string request_id = 1;
+
+        // The raw HTTP body is bound to this field.
+        google.api.HttpBody http_body = 2;
+      }
+
+      service ResourceService {
+        rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
+        rpc UpdateResource(google.api.HttpBody) returns (google.protobuf.Empty);
+      }
+
+  Example with streaming methods:
+
+      service CaldavService {
+        rpc GetCalendar(stream google.api.HttpBody)
+          returns (stream google.api.HttpBody);
+        rpc UpdateCalendar(stream google.api.HttpBody)
+          returns (stream google.api.HttpBody);
+      }
+
+  Use of this type only changes how the request and response bodies are
+  handled, all other features will continue to work unchanged.
+definitions.GoogleApi__HttpBody.properties.contentType.description: The HTTP Content-Type
+  string representing the content type of the body.
+definitions.GoogleApi__HttpBody.properties.contentType.type: string
+definitions.GoogleApi__HttpBody.properties.data.description: HTTP body binary data.
+definitions.GoogleApi__HttpBody.properties.data.format: byte
+definitions.GoogleApi__HttpBody.properties.data.type: string
+definitions.GoogleApi__HttpBody.properties.extensions.description: |-
+  Application specific response metadata. Must be set in the first response
+  for streaming APIs.
+definitions.GoogleApi__HttpBody.properties.extensions.items.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.GoogleApi__HttpBody.properties.extensions.items.type: object
+definitions.GoogleApi__HttpBody.properties.extensions.type: array
+definitions.GoogleApi__HttpBody.type: object
+definitions.GoogleCloudMlV1__AutoScaling.description: Options for automatically scaling
+  a model.
+definitions.GoogleCloudMlV1__AutoScaling.properties.minNodes.description: |-
+  Optional. The minimum number of nodes to allocate for this model. These
+  nodes are always up, starting from the time the model is deployed, so the
+  cost of operating this model will be at least
+  `rate` * `min_nodes` * number of hours since last billing cycle,
+  where `rate` is the cost per node-hour as documented in
+  [pricing](https://cloud.google.com/ml-engine/pricing#prediction_pricing),
+  even if no predictions are performed. There is additional cost for each
+  prediction performed.
+
+  Unlike manual scaling, if the load gets too heavy for the nodes
+  that are up, the service will automatically add nodes to handle the
+  increased load as well as scale back as traffic drops, always maintaining
+  at least `min_nodes`. You will be charged for the time in which additional
+  nodes are used.
+
+  If not specified, `min_nodes` defaults to 0, in which case, when traffic
+  to a model stops (and after a cool-down period), nodes will be shut down
+  and no charges will be incurred until traffic to the model resumes.
+definitions.GoogleCloudMlV1__AutoScaling.properties.minNodes.format: int32
+definitions.GoogleCloudMlV1__AutoScaling.properties.minNodes.type: integer
+definitions.GoogleCloudMlV1__AutoScaling.type: object
+definitions.GoogleCloudMlV1__ManualScaling.description: Options for manually scaling
+  a model.
+definitions.GoogleCloudMlV1__ManualScaling.properties.nodes.description: |-
+  The number of nodes to allocate for this model. These nodes are always up,
+  starting from the time the model is deployed, so the cost of operating
+  this model will be proportional to `nodes` * number of hours since
+  last billing cycle plus the cost for each prediction performed.
+definitions.GoogleCloudMlV1__ManualScaling.properties.nodes.format: int32
+definitions.GoogleCloudMlV1__ManualScaling.properties.nodes.type: integer
+definitions.GoogleCloudMlV1__ManualScaling.type: object
+definitions.GoogleCloudMlV1__OperationMetadata.description: |-
+  Represents the metadata of the long-running operation.
+
+  Next ID: 9
+definitions.GoogleCloudMlV1__OperationMetadata.properties.createTime.description: The
+  time the operation was submitted.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.createTime.format: google-datetime
+definitions.GoogleCloudMlV1__OperationMetadata.properties.createTime.type: string
+definitions.GoogleCloudMlV1__OperationMetadata.properties.endTime.description: The
+  time operation processing completed.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.endTime.format: google-datetime
+definitions.GoogleCloudMlV1__OperationMetadata.properties.endTime.type: string
+definitions.GoogleCloudMlV1__OperationMetadata.properties.isCancellationRequested.description: Indicates
+  whether a request to cancel this operation has been made.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.isCancellationRequested.type: boolean
+definitions.GoogleCloudMlV1__OperationMetadata.properties.modelName.description: Contains
+  the name of the model associated with the operation.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.modelName.type: string
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.description: The
+  operation type.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum.length: 6
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[0]: OPERATION_TYPE_UNSPECIFIED
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[1]: CREATE_VERSION
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[2]: DELETE_VERSION
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[3]: DELETE_MODEL
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[4]: UPDATE_MODEL
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.enum[5]: UPDATE_VERSION
+definitions.GoogleCloudMlV1__OperationMetadata.properties.operationType.type: string
+definitions.GoogleCloudMlV1__OperationMetadata.properties.startTime.description: The
+  time operation processing started.
+definitions.GoogleCloudMlV1__OperationMetadata.properties.startTime.format: google-datetime
+definitions.GoogleCloudMlV1__OperationMetadata.properties.startTime.type: string
+definitions.GoogleCloudMlV1__OperationMetadata.properties.version.$ref: '#/definitions/GoogleCloudMlV1__Version'
+definitions.GoogleCloudMlV1__OperationMetadata.properties.version.description: Contains
+  the version associated with the operation.
+definitions.GoogleCloudMlV1__OperationMetadata.type: object
+definitions.GoogleCloudMlV1__Version.description: |-
+  Represents a version of the model.
+
+  Each version is a trained model deployed in the cloud, ready to handle
+  prediction requests. A model can have multiple versions. You can get
+  information about all of the versions of a given model by calling
+  [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list).
+
+  Next ID: 18
+definitions.GoogleCloudMlV1__Version.properties.autoScaling.$ref: '#/definitions/GoogleCloudMlV1__AutoScaling'
+definitions.GoogleCloudMlV1__Version.properties.autoScaling.description: |-
+  Automatically scale the number of nodes used to serve the model in
+  response to increases and decreases in traffic. Care should be
+  taken to ramp up traffic according to the model's ability to scale
+  or you will start seeing increases in latency and 429 response codes.
+definitions.GoogleCloudMlV1__Version.properties.createTime.description: Output only.
+  The time the version was created.
+definitions.GoogleCloudMlV1__Version.properties.createTime.format: google-datetime
+definitions.GoogleCloudMlV1__Version.properties.createTime.type: string
+definitions.GoogleCloudMlV1__Version.properties.deploymentUri.description: |-
+  Required. The Google Cloud Storage location of the trained model used to
+  create the version. See the
+  [overview of model
+  deployment](/ml-engine/docs/concepts/deployment-overview) for more
+  information.
+
+  When passing Version to
+  [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create)
+  the model service uses the specified location as the source of the model.
+  Once deployed, the model version is hosted by the prediction service, so
+  this location is useful only as a historical record.
+  The total number of model files can't exceed 1000.
+definitions.GoogleCloudMlV1__Version.properties.deploymentUri.type: string
+definitions.GoogleCloudMlV1__Version.properties.description.description: Optional.
+  The description specified for the version when it was created.
+definitions.GoogleCloudMlV1__Version.properties.description.type: string
+definitions.GoogleCloudMlV1__Version.properties.errorMessage.description: Output only.
+  The details of a failure or a cancellation.
+definitions.GoogleCloudMlV1__Version.properties.errorMessage.type: string
+definitions.GoogleCloudMlV1__Version.properties.isDefault.description: |-
+  Output only. If true, this version will be used to handle prediction
+  requests that do not specify a version.
+
+  You can change the default version by calling
+  [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
+definitions.GoogleCloudMlV1__Version.properties.isDefault.type: boolean
+definitions.GoogleCloudMlV1__Version.properties.lastUseTime.description: Output only.
+  The time the version was last used for prediction.
+definitions.GoogleCloudMlV1__Version.properties.lastUseTime.format: google-datetime
+definitions.GoogleCloudMlV1__Version.properties.lastUseTime.type: string
+definitions.GoogleCloudMlV1__Version.properties.manualScaling.$ref: '#/definitions/GoogleCloudMlV1__ManualScaling'
+definitions.GoogleCloudMlV1__Version.properties.manualScaling.description: |-
+  Manually select the number of nodes to use for serving the
+  model. You should generally use `auto_scaling` with an appropriate
+  `min_nodes` instead, but this option is available if you want more
+  predictable billing. Beware that latency and error rates will increase
+  if the traffic exceeds that capability of the system to serve it based
+  on the selected number of nodes.
+definitions.GoogleCloudMlV1__Version.properties.name.description: |-
+  Required.The name specified for the version when it was created.
+
+  The version name must be unique within the model it is created in.
+definitions.GoogleCloudMlV1__Version.properties.name.type: string
+definitions.GoogleCloudMlV1__Version.properties.runtimeVersion.description: |-
+  Optional. The Google Cloud ML runtime version to use for this deployment.
+  If not set, Google Cloud ML will choose a version.
+definitions.GoogleCloudMlV1__Version.properties.runtimeVersion.type: string
+definitions.GoogleCloudMlV1__Version.properties.state.description: Output only. The
+  state of a version.
+definitions.GoogleCloudMlV1__Version.properties.state.enum.length: 5
+definitions.GoogleCloudMlV1__Version.properties.state.enum[0]: UNKNOWN
+definitions.GoogleCloudMlV1__Version.properties.state.enum[1]: READY
+definitions.GoogleCloudMlV1__Version.properties.state.enum[2]: CREATING
+definitions.GoogleCloudMlV1__Version.properties.state.enum[3]: FAILED
+definitions.GoogleCloudMlV1__Version.properties.state.enum[4]: DELETING
+definitions.GoogleCloudMlV1__Version.properties.state.type: string
+definitions.GoogleCloudMlV1__Version.type: object
+definitions.GoogleCloudMlV1beta1__AutoScaling.description: Options for automatically
+  scaling a model.
+definitions.GoogleCloudMlV1beta1__AutoScaling.properties.minNodes.description: |-
+  Optional. The minimum number of nodes to allocate for this model. These
+  nodes are always up, starting from the time the model is deployed, so the
+  cost of operating this model will be at least
+  `rate` * `min_nodes` * number of hours since last billing cycle,
+  where `rate` is the cost per node-hour as documented in
+  [pricing](https://cloud.google.com/ml-engine/pricing#prediction_pricing),
+  even if no predictions are performed. There is additional cost for each
+  prediction performed.
+
+  Unlike manual scaling, if the load gets too heavy for the nodes
+  that are up, the service will automatically add nodes to handle the
+  increased load as well as scale back as traffic drops, always maintaining
+  at least `min_nodes`. You will be charged for the time in which additional
+  nodes are used.
+
+  If not specified, `min_nodes` defaults to 0, in which case, when traffic
+  to a model stops (and after a cool-down period), nodes will be shut down
+  and no charges will be incurred until traffic to the model resumes.
+definitions.GoogleCloudMlV1beta1__AutoScaling.properties.minNodes.format: int32
+definitions.GoogleCloudMlV1beta1__AutoScaling.properties.minNodes.type: integer
+definitions.GoogleCloudMlV1beta1__AutoScaling.type: object
+definitions.GoogleCloudMlV1beta1__CancelJobRequest.description: Request message for
+  the CancelJob method.
+definitions.GoogleCloudMlV1beta1__CancelJobRequest.type: object
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.description: Returns service account
+  information associated with a project.
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.properties.serviceAccount.description: The
+  service account Cloud ML uses to access resources in the project.
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.properties.serviceAccount.type: string
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.properties.serviceAccountProject.description: The
+  project number for `service_account`.
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.properties.serviceAccountProject.format: int64
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.properties.serviceAccountProject.type: string
+definitions.GoogleCloudMlV1beta1__GetConfigResponse.type: object
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.description: |-
+  Represents the result of a single hyperparameter tuning trial from a
+  training job. The TrainingOutput object that is returned on successful
+  completion of a training job with hyperparameter tuning includes a list
+  of HyperparameterOutput objects, one for each successful trial.
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.allMetrics.description: All
+  recorded object metrics for this trial.
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.allMetrics.items.$ref: '#/definitions/GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric'
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.allMetrics.type: array
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.finalMetric.$ref: '#/definitions/GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric'
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.finalMetric.description: The
+  final objective metric seen for this trial.
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.hyperparameters.additionalProperties.type: string
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.hyperparameters.description: The
+  hyperparameters given to this trial.
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.hyperparameters.type: object
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.trialId.description: The
+  trial id for these results.
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.properties.trialId.type: string
+definitions.GoogleCloudMlV1beta1__HyperparameterOutput.type: object
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.description: Represents a set
+  of hyperparameters to optimize.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.description: |-
+  Required. The type of goal to use for tuning. Available types are
+  `MAXIMIZE` and `MINIMIZE`.
+
+  Defaults to `MAXIMIZE`.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.enum.length: 3
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.enum[0]: GOAL_TYPE_UNSPECIFIED
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.enum[1]: MAXIMIZE
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.enum[2]: MINIMIZE
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.goal.type: string
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.hyperparameterMetricTag.description: |-
+  Optional. The Tensorflow summary tag name to use for optimizing trials. For
+  current versions of Tensorflow, this tag name should exactly match what is
+  shown in Tensorboard, including all scopes.  For versions of Tensorflow
+  prior to 0.12, this should be only the tag passed to tf.Summary.
+  By default, "training/hptuning/metric" will be used.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.hyperparameterMetricTag.type: string
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxParallelTrials.description: |-
+  Optional. The number of training trials to run concurrently.
+  You can reduce the time it takes to perform hyperparameter tuning by adding
+  trials in parallel. However, each trail only benefits from the information
+  gained in completed trials. That means that a trial does not get access to
+  the results of trials running at the same time, which could reduce the
+  quality of the overall optimization.
+
+  Each trial will use the same scale tier and machine types.
+
+  Defaults to one.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxParallelTrials.format: int32
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxParallelTrials.type: integer
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxTrials.description: |-
+  Optional. How many training trials should be attempted to optimize
+  the specified hyperparameters.
+
+  Defaults to one.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxTrials.format: int32
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.maxTrials.type: integer
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.params.description: Required.
+  The set of parameters to tune.
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.params.items.$ref: '#/definitions/GoogleCloudMlV1beta1__ParameterSpec'
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.properties.params.type: array
+definitions.GoogleCloudMlV1beta1__HyperparameterSpec.type: object
+definitions.GoogleCloudMlV1beta1__Job.description: |-
+  Represents a training or prediction job.
+
+  Next ID: 16
+definitions.GoogleCloudMlV1beta1__Job.properties.createTime.description: Output only.
+  When the job was created.
+definitions.GoogleCloudMlV1beta1__Job.properties.createTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__Job.properties.createTime.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.endTime.description: Output only.
+  When the job processing was completed.
+definitions.GoogleCloudMlV1beta1__Job.properties.endTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__Job.properties.endTime.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.errorMessage.description: Output
+  only. The details of a failure or a cancellation.
+definitions.GoogleCloudMlV1beta1__Job.properties.errorMessage.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.jobId.description: Required. The
+  user-specified id of the job.
+definitions.GoogleCloudMlV1beta1__Job.properties.jobId.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.predictionInput.$ref: '#/definitions/GoogleCloudMlV1beta1__PredictionInput'
+definitions.GoogleCloudMlV1beta1__Job.properties.predictionInput.description: Input
+  parameters to create a prediction job.
+definitions.GoogleCloudMlV1beta1__Job.properties.predictionOutput.$ref: '#/definitions/GoogleCloudMlV1beta1__PredictionOutput'
+definitions.GoogleCloudMlV1beta1__Job.properties.predictionOutput.description: The
+  current prediction job result.
+definitions.GoogleCloudMlV1beta1__Job.properties.startTime.description: Output only.
+  When the job processing was started.
+definitions.GoogleCloudMlV1beta1__Job.properties.startTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__Job.properties.startTime.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.state.description: Output only. The
+  detailed state of a job.
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum.length: 8
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[0]: STATE_UNSPECIFIED
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[1]: QUEUED
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[2]: PREPARING
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[3]: RUNNING
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[4]: SUCCEEDED
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[5]: FAILED
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[6]: CANCELLING
+definitions.GoogleCloudMlV1beta1__Job.properties.state.enum[7]: CANCELLED
+definitions.GoogleCloudMlV1beta1__Job.properties.state.type: string
+definitions.GoogleCloudMlV1beta1__Job.properties.trainingInput.$ref: '#/definitions/GoogleCloudMlV1beta1__TrainingInput'
+definitions.GoogleCloudMlV1beta1__Job.properties.trainingInput.description: Input
+  parameters to create a training job.
+definitions.GoogleCloudMlV1beta1__Job.properties.trainingOutput.$ref: '#/definitions/GoogleCloudMlV1beta1__TrainingOutput'
+definitions.GoogleCloudMlV1beta1__Job.properties.trainingOutput.description: The current
+  training job result.
+definitions.GoogleCloudMlV1beta1__Job.type: object
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.description: Response message for
+  the ListJobs method.
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.properties.jobs.description: The
+  list of jobs.
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.properties.jobs.items.$ref: '#/definitions/GoogleCloudMlV1beta1__Job'
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.properties.jobs.type: array
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.properties.nextPageToken.description: |-
+  Optional. Pass this token as the `page_token` field of the request for a
+  subsequent call.
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.properties.nextPageToken.type: string
+definitions.GoogleCloudMlV1beta1__ListJobsResponse.type: object
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.description: Response message
+  for the ListModels method.
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.properties.models.description: The
+  list of models.
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.properties.models.items.$ref: '#/definitions/GoogleCloudMlV1beta1__Model'
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.properties.models.type: array
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.properties.nextPageToken.description: |-
+  Optional. Pass this token as the `page_token` field of the request for a
+  subsequent call.
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.properties.nextPageToken.type: string
+definitions.GoogleCloudMlV1beta1__ListModelsResponse.type: object
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.description: Response message
+  for the ListVersions method.
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.properties.nextPageToken.description: |-
+  Optional. Pass this token as the `page_token` field of the request for a
+  subsequent call.
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.properties.nextPageToken.type: string
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.properties.versions.description: The
+  list of versions.
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.properties.versions.items.$ref: '#/definitions/GoogleCloudMlV1beta1__Version'
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.properties.versions.type: array
+definitions.GoogleCloudMlV1beta1__ListVersionsResponse.type: object
+definitions.GoogleCloudMlV1beta1__ManualScaling.description: Options for manually
+  scaling a model.
+definitions.GoogleCloudMlV1beta1__ManualScaling.properties.nodes.description: |-
+  The number of nodes to allocate for this model. These nodes are always up,
+  starting from the time the model is deployed, so the cost of operating
+  this model will be proportional to `nodes` * number of hours since
+  last billing cycle plus the cost for each prediction performed.
+definitions.GoogleCloudMlV1beta1__ManualScaling.properties.nodes.format: int32
+definitions.GoogleCloudMlV1beta1__ManualScaling.properties.nodes.type: integer
+definitions.GoogleCloudMlV1beta1__ManualScaling.type: object
+definitions.GoogleCloudMlV1beta1__Model.description: |-
+  Represents a machine learning solution.
+
+  A model can have multiple versions, each of which is a deployed, trained
+  model ready to receive prediction requests. The model itself is just a
+  container.
+
+  Next ID: 8
+definitions.GoogleCloudMlV1beta1__Model.properties.defaultVersion.$ref: '#/definitions/GoogleCloudMlV1beta1__Version'
+definitions.GoogleCloudMlV1beta1__Model.properties.defaultVersion.description: |-
+  Output only. The default version of the model. This version will be used to
+  handle prediction requests that do not specify a version.
+
+  You can change the default version by calling
+  [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1beta1/projects.models.versions/setDefault).
+definitions.GoogleCloudMlV1beta1__Model.properties.description.description: Optional.
+  The description specified for the model when it was created.
+definitions.GoogleCloudMlV1beta1__Model.properties.description.type: string
+definitions.GoogleCloudMlV1beta1__Model.properties.name.description: |-
+  Required. The name specified for the model when it was created.
+
+  The model name must be unique within the project it is created in.
+definitions.GoogleCloudMlV1beta1__Model.properties.name.type: string
+definitions.GoogleCloudMlV1beta1__Model.properties.onlinePredictionLogging.description: |-
+  Optional. If true, enables StackDriver Logging for online prediction.
+  Default is false.
+definitions.GoogleCloudMlV1beta1__Model.properties.onlinePredictionLogging.type: boolean
+definitions.GoogleCloudMlV1beta1__Model.properties.regions.description: |-
+  Optional. The list of regions where the model is going to be deployed.
+  Currently only one region per model is supported.
+  Defaults to 'us-central1' if nothing is set.
+  Note:
+  *   No matter where a model is deployed, it can always be accessed by
+      users from anywhere, both for online and batch prediction.
+  *   The region for a batch prediction job is set by the region field when
+      submitting the batch prediction job and does not take its value from
+      this field.
+definitions.GoogleCloudMlV1beta1__Model.properties.regions.items.type: string
+definitions.GoogleCloudMlV1beta1__Model.properties.regions.type: array
+definitions.GoogleCloudMlV1beta1__Model.type: object
+definitions.GoogleCloudMlV1beta1__OperationMetadata.description: |-
+  Represents the metadata of the long-running operation.
+
+  Next ID: 9
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.createTime.description: The
+  time the operation was submitted.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.createTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.createTime.type: string
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.endTime.description: The
+  time operation processing completed.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.endTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.endTime.type: string
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.isCancellationRequested.description: Indicates
+  whether a request to cancel this operation has been made.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.isCancellationRequested.type: boolean
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.modelName.description: Contains
+  the name of the model associated with the operation.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.modelName.type: string
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.description: The
+  operation type.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum.length: 6
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[0]: OPERATION_TYPE_UNSPECIFIED
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[1]: CREATE_VERSION
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[2]: DELETE_VERSION
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[3]: DELETE_MODEL
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[4]: UPDATE_MODEL
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.enum[5]: UPDATE_VERSION
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.operationType.type: string
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.startTime.description: The
+  time operation processing started.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.startTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.startTime.type: string
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.version.$ref: '#/definitions/GoogleCloudMlV1beta1__Version'
+definitions.GoogleCloudMlV1beta1__OperationMetadata.properties.version.description: Contains
+  the version associated with the operation.
+definitions.GoogleCloudMlV1beta1__OperationMetadata.type: object
+definitions.GoogleCloudMlV1beta1__ParameterSpec.description: Represents a single hyperparameter
+  to optimize.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.categoricalValues.description: Required
+  if type is `CATEGORICAL`. The list of possible categories.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.categoricalValues.items.type: string
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.categoricalValues.type: array
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.discreteValues.description: |-
+  Required if type is `DISCRETE`.
+  A list of feasible points.
+  The list should be in strictly increasing order. For instance, this
+  parameter might have possible settings of 1.5, 2.5, and 4.0. This list
+  should not contain more than 1,000 values.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.discreteValues.items.format: double
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.discreteValues.items.type: number
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.discreteValues.type: array
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.maxValue.description: |-
+  Required if typeis `DOUBLE` or `INTEGER`. This field
+  should be unset if type is `CATEGORICAL`. This value should be integers if
+  type is `INTEGER`.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.maxValue.format: double
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.maxValue.type: number
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.minValue.description: |-
+  Required if type is `DOUBLE` or `INTEGER`. This field
+  should be unset if type is `CATEGORICAL`. This value should be integers if
+  type is INTEGER.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.minValue.format: double
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.minValue.type: number
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.parameterName.description: |-
+  Required. The parameter name must be unique amongst all ParameterConfigs in
+  a HyperparameterSpec message. E.g., "learning_rate".
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.parameterName.type: string
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.description: |-
+  Optional. How the parameter should be scaled to the hypercube.
+  Leave unset for categorical parameters.
+  Some kind of scaling is strongly recommended for real or integral
+  parameters (e.g., `UNIT_LINEAR_SCALE`).
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.enum.length: 4
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.enum[0]: NONE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.enum[1]: UNIT_LINEAR_SCALE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.enum[2]: UNIT_LOG_SCALE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.enum[3]: UNIT_REVERSE_LOG_SCALE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.scaleType.type: string
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.description: Required.
+  The type of the parameter.
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum.length: 5
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum[0]: PARAMETER_TYPE_UNSPECIFIED
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum[1]: DOUBLE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum[2]: INTEGER
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum[3]: CATEGORICAL
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.enum[4]: DISCRETE
+definitions.GoogleCloudMlV1beta1__ParameterSpec.properties.type.type: string
+definitions.GoogleCloudMlV1beta1__ParameterSpec.type: object
+definitions.GoogleCloudMlV1beta1__PredictRequest.description: |-
+  Request for predictions to be issued against a trained model.
+
+  The body of the request is a single JSON object with a single top-level
+  field:
+
+  <dl>
+    <dt>instances</dt>
+    <dd>A JSON array containing values representing the instances to use for
+        prediction.</dd>
+  </dl>
+
+  The structure of each element of the instances list is determined by your
+  model's input definition. Instances can include named inputs or can contain
+  only unlabeled values.
+
+  Not all data includes named inputs. Some instances will be simple
+  JSON values (boolean, number, or string). However, instances are often lists
+  of simple values, or complex nested lists. Here are some examples of request
+  bodies:
+
+  CSV data with each row encoded as a string value:
+  <pre>
+  {"instances": ["1.0,true,\\"x\\"", "-2.0,false,\\"y\\""]}
+  </pre>
+  Plain text:
+  <pre>
+  {"instances": ["the quick brown fox", "la bruja le dio"]}
+  </pre>
+  Sentences encoded as lists of words (vectors of strings):
+  <pre>
+  {
+    "instances": [
+      ["the","quick","brown"],
+      ["la","bruja","le"],
+      ...
+    ]
+  }
+  </pre>
+  Floating point scalar values:
+  <pre>
+  {"instances": [0.0, 1.1, 2.2]}
+  </pre>
+  Vectors of integers:
+  <pre>
+  {
+    "instances": [
+      [0, 1, 2],
+      [3, 4, 5],
+      ...
+    ]
+  }
+  </pre>
+  Tensors (in this case, two-dimensional tensors):
+  <pre>
+  {
+    "instances": [
+      [
+        [0, 1, 2],
+        [3, 4, 5]
+      ],
+      ...
+    ]
+  }
+  </pre>
+  Images can be represented different ways. In this encoding scheme the first
+  two dimensions represent the rows and columns of the image, and the third
+  contains lists (vectors) of the R, G, and B values for each pixel.
+  <pre>
+  {
+    "instances": [
+      [
+        [
+          [138, 30, 66],
+          [130, 20, 56],
+          ...
+        ],
+        [
+          [126, 38, 61],
+          [122, 24, 57],
+          ...
+        ],
+        ...
+      ],
+      ...
+    ]
+  }
+  </pre>
+  JSON strings must be encoded as UTF-8. To send binary data, you must
+  base64-encode the data and mark it as binary. To mark a JSON string
+  as binary, replace it with a JSON object with a single attribute named `b64`:
+  <pre>{"b64": "..."} </pre>
+  For example:
+
+  Two Serialized tf.Examples (fake data, for illustrative purposes only):
+  <pre>
+  {"instances": [{"b64": "X5ad6u"}, {"b64": "IA9j4nx"}]}
+  </pre>
+  Two JPEG image byte strings (fake data, for illustrative purposes only):
+  <pre>
+  {"instances": [{"b64": "ASa8asdf"}, {"b64": "JLK7ljk3"}]}
+  </pre>
+  If your data includes named references, format each instance as a JSON object
+  with the named references as the keys:
+
+  JSON input data to be preprocessed:
+  <pre>
+  {
+    "instances": [
+      {
+        "a": 1.0,
+        "b": true,
+        "c": "x"
+      },
+      {
+        "a": -2.0,
+        "b": false,
+        "c": "y"
+      }
+    ]
+  }
+  </pre>
+  Some models have an underlying TensorFlow graph that accepts multiple input
+  tensors. In this case, you should use the names of JSON name/value pairs to
+  identify the input tensors, as shown in the following exmaples:
+
+  For a graph with input tensor aliases "tag" (string) and "image"
+  (base64-encoded string):
+  <pre>
+  {
+    "instances": [
+      {
+        "tag": "beach",
+        "image": {"b64": "ASa8asdf"}
+      },
+      {
+        "tag": "car",
+        "image": {"b64": "JLK7ljk3"}
+      }
+    ]
+  }
+  </pre>
+  For a graph with input tensor aliases "tag" (string) and "image"
+  (3-dimensional array of 8-bit ints):
+  <pre>
+  {
+    "instances": [
+      {
+        "tag": "beach",
+        "image": [
+          [
+            [138, 30, 66],
+            [130, 20, 56],
+            ...
+          ],
+          [
+            [126, 38, 61],
+            [122, 24, 57],
+            ...
+          ],
+          ...
+        ]
+      },
+      {
+        "tag": "car",
+        "image": [
+          [
+            [255, 0, 102],
+            [255, 0, 97],
+            ...
+          ],
+          [
+            [254, 1, 101],
+            [254, 2, 93],
+            ...
+          ],
+          ...
+        ]
+      },
+      ...
+    ]
+  }
+  </pre>
+  If the call is successful, the response body will contain one prediction
+  entry per instance in the request body. If prediction fails for any
+  instance, the response body will contain no predictions and will contian
+  a single error entry instead.
+definitions.GoogleCloudMlV1beta1__PredictRequest.properties.httpBody.$ref: '#/definitions/GoogleApi__HttpBody'
+definitions.GoogleCloudMlV1beta1__PredictRequest.properties.httpBody.description: |2-
+
+  Required. The prediction request body.
+definitions.GoogleCloudMlV1beta1__PredictRequest.type: object
+definitions.GoogleCloudMlV1beta1__PredictionInput.description: Represents input parameters
+  for a prediction job.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.batchSize.description: |-
+  Optional. Number of records per batch, defaults to 64.
+  The service will buffer batch_size number of records in memory before
+  invoking one Tensorflow prediction call internally. So take the record
+  size and memory available into consideration when setting this parameter.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.batchSize.format: int64
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.batchSize.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.description: Required.
+  The format of the input data files.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.enum.length: 4
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.enum[0]: DATA_FORMAT_UNSPECIFIED
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.enum[1]: TEXT
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.enum[2]: TF_RECORD
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.enum[3]: TF_RECORD_GZIP
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.dataFormat.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.inputPaths.description: |-
+  Required. The Google Cloud Storage location of the input data files.
+  May contain wildcards.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.inputPaths.items.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.inputPaths.type: array
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.maxWorkerCount.description: |-
+  Optional. The maximum number of workers to be used for parallel processing.
+  Defaults to 10 if not specified.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.maxWorkerCount.format: int64
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.maxWorkerCount.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.modelName.description: |-
+  Use this field if you want to use the default version for the specified
+  model. The string must use the following format:
+
+  `"projects/<var>[YOUR_PROJECT]</var>/models/<var>[YOUR_MODEL]</var>"`
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.modelName.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.outputPath.description: Required.
+  The output Google Cloud Storage location.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.outputPath.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.region.description: Required.
+  The Google Compute Engine region to run the prediction job in.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.region.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.runtimeVersion.description: |-
+  Optional. The Google Cloud ML runtime version to use for this batch
+  prediction. If not set, Google Cloud ML will pick the runtime version used
+  during the CreateVersion request for this model version, or choose the
+  latest stable version when model version information is not available
+  such as when the model is specified by uri.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.runtimeVersion.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.uri.description: |-
+  Use this field if you want to specify a Google Cloud Storage path for
+  the model to use.
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.uri.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.versionName.description: |-
+  Use this field if you want to specify a version of the model to use. The
+  string is formatted the same way as `model_version`, with the addition
+  of the version information:
+
+  `"projects/<var>[YOUR_PROJECT]</var>/models/<var>YOUR_MODEL/versions/<var>[YOUR_VERSION]</var>"`
+definitions.GoogleCloudMlV1beta1__PredictionInput.properties.versionName.type: string
+definitions.GoogleCloudMlV1beta1__PredictionInput.type: object
+definitions.GoogleCloudMlV1beta1__PredictionOutput.description: Represents results
+  of a prediction job.
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.errorCount.description: The
+  number of data instances which resulted in errors.
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.errorCount.format: int64
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.errorCount.type: string
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.nodeHours.description: Node
+  hours used by the batch prediction job.
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.nodeHours.format: double
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.nodeHours.type: number
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.outputPath.description: The
+  output Google Cloud Storage location provided at the job creation time.
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.outputPath.type: string
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.predictionCount.description: The
+  number of generated predictions.
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.predictionCount.format: int64
+definitions.GoogleCloudMlV1beta1__PredictionOutput.properties.predictionCount.type: string
+definitions.GoogleCloudMlV1beta1__PredictionOutput.type: object
+definitions.GoogleCloudMlV1beta1__SetDefaultVersionRequest.description: Request message
+  for the SetDefaultVersion request.
+definitions.GoogleCloudMlV1beta1__SetDefaultVersionRequest.type: object
+definitions.GoogleCloudMlV1beta1__TrainingInput.description: Represents input parameters
+  for a training job.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.args.description: Optional.
+  Command line arguments to pass to the program.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.args.items.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.args.type: array
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.hyperparameters.$ref: '#/definitions/GoogleCloudMlV1beta1__HyperparameterSpec'
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.hyperparameters.description: Optional.
+  The set of Hyperparameters to tune.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.jobDir.description: |-
+  Optional. A Google Cloud Storage path in which to store training outputs
+  and other data needed for training. This path is passed to your TensorFlow
+  program as the 'job_dir' command-line argument. The benefit of specifying
+  this field is that Cloud ML validates the path for use in training.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.jobDir.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.masterType.description: |-
+  Optional. Specifies the type of virtual machine to use for your training
+  job's master worker.
+
+  The following types are supported:
+
+  <dl>
+    <dt>standard</dt>
+    <dd>
+    A basic machine configuration suitable for training simple models with
+    small to moderate datasets.
+    </dd>
+    <dt>large_model</dt>
+    <dd>
+    A machine with a lot of memory, specially suited for parameter servers
+    when your model is large (having many hidden layers or layers with very
+    large numbers of nodes).
+    </dd>
+    <dt>complex_model_s</dt>
+    <dd>
+    A machine suitable for the master and workers of the cluster when your
+    model requires more computation than the standard machine can handle
+    satisfactorily.
+    </dd>
+    <dt>complex_model_m</dt>
+    <dd>
+    A machine with roughly twice the number of cores and roughly double the
+    memory of <code suppresswarning="true">complex_model_s</code>.
+    </dd>
+    <dt>complex_model_l</dt>
+    <dd>
+    A machine with roughly twice the number of cores and roughly double the
+    memory of <code suppresswarning="true">complex_model_m</code>.
+    </dd>
+    <dt>standard_gpu</dt>
+    <dd>
+    A machine equivalent to <code suppresswarning="true">standard</code> that
+    also includes a
+    <a href="/ml-engine/docs/how-tos/using-gpus">
+    GPU that you can use in your trainer</a>.
+    </dd>
+    <dt>complex_model_m_gpu</dt>
+    <dd>
+    A machine equivalent to
+    <code suppresswarning="true">complex_model_m</code> that also includes
+    four GPUs.
+    </dd>
+  </dl>
+
+  You must set this value when `scaleTier` is set to `CUSTOM`.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.masterType.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.packageUris.description: |-
+  Required. The Google Cloud Storage location of the packages with
+  the training program and any additional dependencies.
+  The maximum number of package URIs is 100.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.packageUris.items.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.packageUris.type: array
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.parameterServerCount.description: |-
+  Optional. The number of parameter server replicas to use for the training
+  job. Each replica in the cluster will be of the type specified in
+  `parameter_server_type`.
+
+  This value can only be used when `scale_tier` is set to `CUSTOM`.If you
+  set this value, you must also set `parameter_server_type`.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.parameterServerCount.format: int64
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.parameterServerCount.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.parameterServerType.description: |-
+  Optional. Specifies the type of virtual machine to use for your training
+  job's parameter server.
+
+  The supported values are the same as those described in the entry for
+  `master_type`.
+
+  This value must be present when `scaleTier` is set to `CUSTOM` and
+  `parameter_server_count` is greater than zero.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.parameterServerType.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.pythonModule.description: Required.
+  The Python module name to run after installing the packages.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.pythonModule.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.region.description: Required.
+  The Google Compute Engine region to run the training job in.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.region.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.runtimeVersion.description: |-
+  Optional. The Google Cloud ML runtime version to use for training.  If not
+  set, Google Cloud ML will choose the latest stable version.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.runtimeVersion.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.description: |-
+  Required. Specifies the machine types, the number of replicas for workers
+  and parameter servers.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum.length: 5
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum[0]: BASIC
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum[1]: STANDARD_1
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum[2]: PREMIUM_1
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum[3]: BASIC_GPU
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.enum[4]: CUSTOM
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.scaleTier.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.workerCount.description: |-
+  Optional. The number of worker replicas to use for the training job. Each
+  replica in the cluster will be of the type specified in `worker_type`.
+
+  This value can only be used when `scale_tier` is set to `CUSTOM`. If you
+  set this value, you must also set `worker_type`.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.workerCount.format: int64
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.workerCount.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.workerType.description: |-
+  Optional. Specifies the type of virtual machine to use for your training
+  job's worker nodes.
+
+  The supported values are the same as those described in the entry for
+  `masterType`.
+
+  This value must be present when `scaleTier` is set to `CUSTOM` and
+  `workerCount` is greater than zero.
+definitions.GoogleCloudMlV1beta1__TrainingInput.properties.workerType.type: string
+definitions.GoogleCloudMlV1beta1__TrainingInput.type: object
+definitions.GoogleCloudMlV1beta1__TrainingOutput.description: Represents results of
+  a training job. Output only.
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.completedTrialCount.description: |-
+  The number of hyperparameter tuning trials that completed successfully.
+  Only set for hyperparameter tuning jobs.
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.completedTrialCount.format: int64
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.completedTrialCount.type: string
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.consumedMLUnits.description: The
+  amount of ML units consumed by the job.
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.consumedMLUnits.format: double
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.consumedMLUnits.type: number
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.isHyperparameterTuningJob.description: Whether
+  this job is a hyperparameter tuning job.
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.isHyperparameterTuningJob.type: boolean
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.trials.description: |-
+  Results for individual Hyperparameter trials.
+  Only set for hyperparameter tuning jobs.
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.trials.items.$ref: '#/definitions/GoogleCloudMlV1beta1__HyperparameterOutput'
+definitions.GoogleCloudMlV1beta1__TrainingOutput.properties.trials.type: array
+definitions.GoogleCloudMlV1beta1__TrainingOutput.type: object
+definitions.GoogleCloudMlV1beta1__Version.description: |-
+  Represents a version of the model.
+
+  Each version is a trained model deployed in the cloud, ready to handle
+  prediction requests. A model can have multiple versions. You can get
+  information about all of the versions of a given model by calling
+  [projects.models.versions.list](/ml-engine/reference/rest/v1beta1/projects.models.versions/list).
+
+  Next ID: 18
+definitions.GoogleCloudMlV1beta1__Version.properties.autoScaling.$ref: '#/definitions/GoogleCloudMlV1beta1__AutoScaling'
+definitions.GoogleCloudMlV1beta1__Version.properties.autoScaling.description: |-
+  Automatically scale the number of nodes used to serve the model in
+  response to increases and decreases in traffic. Care should be
+  taken to ramp up traffic according to the model's ability to scale
+  or you will start seeing increases in latency and 429 response codes.
+definitions.GoogleCloudMlV1beta1__Version.properties.createTime.description: Output
+  only. The time the version was created.
+definitions.GoogleCloudMlV1beta1__Version.properties.createTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__Version.properties.createTime.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.deploymentUri.description: |-
+  Required. The Google Cloud Storage location of the trained model used to
+  create the version. See the
+  [overview of model
+  deployment](/ml-engine/docs/concepts/deployment-overview) for more
+  information.
+
+  When passing Version to
+  [projects.models.versions.create](/ml-engine/reference/rest/v1beta1/projects.models.versions/create)
+  the model service uses the specified location as the source of the model.
+  Once deployed, the model version is hosted by the prediction service, so
+  this location is useful only as a historical record.
+  The total number of model files can't exceed 1000.
+definitions.GoogleCloudMlV1beta1__Version.properties.deploymentUri.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.description.description: Optional.
+  The description specified for the version when it was created.
+definitions.GoogleCloudMlV1beta1__Version.properties.description.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.errorMessage.description: Output
+  only. The details of a failure or a cancellation.
+definitions.GoogleCloudMlV1beta1__Version.properties.errorMessage.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.isDefault.description: |-
+  Output only. If true, this version will be used to handle prediction
+  requests that do not specify a version.
+
+  You can change the default version by calling
+  [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1beta1/projects.models.versions/setDefault).
+definitions.GoogleCloudMlV1beta1__Version.properties.isDefault.type: boolean
+definitions.GoogleCloudMlV1beta1__Version.properties.lastUseTime.description: Output
+  only. The time the version was last used for prediction.
+definitions.GoogleCloudMlV1beta1__Version.properties.lastUseTime.format: google-datetime
+definitions.GoogleCloudMlV1beta1__Version.properties.lastUseTime.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.manualScaling.$ref: '#/definitions/GoogleCloudMlV1beta1__ManualScaling'
+definitions.GoogleCloudMlV1beta1__Version.properties.manualScaling.description: |-
+  Manually select the number of nodes to use for serving the
+  model. You should generally use `auto_scaling` with an appropriate
+  `min_nodes` instead, but this option is available if you want more
+  predictable billing. Beware that latency and error rates will increase
+  if the traffic exceeds that capability of the system to serve it based
+  on the selected number of nodes.
+definitions.GoogleCloudMlV1beta1__Version.properties.name.description: |-
+  Required.The name specified for the version when it was created.
+
+  The version name must be unique within the model it is created in.
+definitions.GoogleCloudMlV1beta1__Version.properties.name.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.runtimeVersion.description: |-
+  Optional. The Google Cloud ML runtime version to use for this deployment.
+  If not set, Google Cloud ML will choose a version.
+definitions.GoogleCloudMlV1beta1__Version.properties.runtimeVersion.type: string
+definitions.GoogleCloudMlV1beta1__Version.properties.state.description: Output only.
+  The state of a version.
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum.length: 5
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum[0]: UNKNOWN
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum[1]: READY
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum[2]: CREATING
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum[3]: FAILED
+definitions.GoogleCloudMlV1beta1__Version.properties.state.enum[4]: DELETING
+definitions.GoogleCloudMlV1beta1__Version.properties.state.type: string
+definitions.GoogleCloudMlV1beta1__Version.type: object
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.description: An
+  observed value of a metric.
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.objectiveValue.description: The
+  objective value at this training step.
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.objectiveValue.format: double
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.objectiveValue.type: number
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.trainingStep.description: The
+  global training step for this metric.
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.trainingStep.format: int64
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.properties.trainingStep.type: string
+definitions.GoogleCloudMlV1beta1_HyperparameterOutput_HyperparameterMetric.type: object
+definitions.GoogleIamV1__AuditConfig.description: |-
+  Specifies the audit configuration for a service.
+  The configuration determines which permission types are logged, and what
+  identities, if any, are exempted from logging.
+  An AuditConfig must have one or more AuditLogConfigs.
+
+  If there are AuditConfigs for both `allServices` and a specific service,
+  the union of the two AuditConfigs is used for that service: the log_types
+  specified in each AuditConfig are enabled, and the exempted_members in each
+  AuditConfig are exempted.
+
+  Example Policy with multiple AuditConfigs:
+
+      {
+        "audit_configs": [
+          {
+            "service": "allServices"
+            "audit_log_configs": [
+              {
+                "log_type": "DATA_READ",
+                "exempted_members": [
+                  "user:foo@gmail.com"
+                ]
+              },
+              {
+                "log_type": "DATA_WRITE",
+              },
+              {
+                "log_type": "ADMIN_READ",
+              }
+            ]
+          },
+          {
+            "service": "fooservice.googleapis.com"
+            "audit_log_configs": [
+              {
+                "log_type": "DATA_READ",
+              },
+              {
+                "log_type": "DATA_WRITE",
+                "exempted_members": [
+                  "user:bar@gmail.com"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+
+  For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+  logging. It also exempts foo@gmail.com from DATA_READ logging, and
+  bar@gmail.com from DATA_WRITE logging.
+definitions.GoogleIamV1__AuditConfig.properties.auditLogConfigs.description: |-
+  The configuration for logging of each type of permission.
+  Next ID: 4
+definitions.GoogleIamV1__AuditConfig.properties.auditLogConfigs.items.$ref: '#/definitions/GoogleIamV1__AuditLogConfig'
+definitions.GoogleIamV1__AuditConfig.properties.auditLogConfigs.type: array
+definitions.GoogleIamV1__AuditConfig.properties.exemptedMembers.items.type: string
+definitions.GoogleIamV1__AuditConfig.properties.exemptedMembers.type: array
+definitions.GoogleIamV1__AuditConfig.properties.service.description: |-
+  Specifies a service that will be enabled for audit logging.
+  For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
+  `allServices` is a special value that covers all services.
+definitions.GoogleIamV1__AuditConfig.properties.service.type: string
+definitions.GoogleIamV1__AuditConfig.type: object
+definitions.GoogleIamV1__AuditLogConfig.description: |-
+  Provides the configuration for logging a type of permissions.
+  Example:
+
+      {
+        "audit_log_configs": [
+          {
+            "log_type": "DATA_READ",
+            "exempted_members": [
+              "user:foo@gmail.com"
+            ]
+          },
+          {
+            "log_type": "DATA_WRITE",
+          }
+        ]
+      }
+
+  This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
+  foo@gmail.com from DATA_READ logging.
+definitions.GoogleIamV1__AuditLogConfig.properties.exemptedMembers.description: |-
+  Specifies the identities that do not cause logging for this type of
+  permission.
+  Follows the same format of Binding.members.
+definitions.GoogleIamV1__AuditLogConfig.properties.exemptedMembers.items.type: string
+definitions.GoogleIamV1__AuditLogConfig.properties.exemptedMembers.type: array
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.description: The log type
+  that this config enables.
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.enum.length: 4
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.enum[0]: LOG_TYPE_UNSPECIFIED
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.enum[1]: ADMIN_READ
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.enum[2]: DATA_WRITE
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.enum[3]: DATA_READ
+definitions.GoogleIamV1__AuditLogConfig.properties.logType.type: string
+definitions.GoogleIamV1__AuditLogConfig.type: object
+definitions.GoogleIamV1__Binding.description: Associates `members` with a `role`.
+definitions.GoogleIamV1__Binding.properties.condition.$ref: '#/definitions/GoogleType__Expr'
+definitions.GoogleIamV1__Binding.properties.condition.description: |-
+  The condition that is associated with this binding.
+  NOTE: an unsatisfied condition will not allow user access via current
+  binding. Different bindings, including their conditions, are examined
+  independently.
+  This field is GOOGLE_INTERNAL.
+definitions.GoogleIamV1__Binding.properties.members.description: |+
+  Specifies the identities requesting access for a Cloud Platform resource.
+  `members` can have the following values:
+
+  * `allUsers`: A special identifier that represents anyone who is
+     on the internet; with or without a Google account.
+
+  * `allAuthenticatedUsers`: A special identifier that represents anyone
+     who is authenticated with a Google account or a service account.
+
+  * `user:{emailid}`: An email address that represents a specific Google
+     account. For example, `alice@gmail.com` or `joe@example.com`.
+
+
+  * `serviceAccount:{emailid}`: An email address that represents a service
+     account. For example, `my-other-app@appspot.gserviceaccount.com`.
+
+  * `group:{emailid}`: An email address that represents a Google group.
+     For example, `admins@example.com`.
+
+
+  * `domain:{domain}`: A Google Apps domain name that represents all the
+     users of that domain. For example, `google.com` or `example.com`.
+
+definitions.GoogleIamV1__Binding.properties.members.items.type: string
+definitions.GoogleIamV1__Binding.properties.members.type: array
+definitions.GoogleIamV1__Binding.properties.role.description: |-
+  Role that is assigned to `members`.
+  For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
+  Required
+definitions.GoogleIamV1__Binding.properties.role.type: string
+definitions.GoogleIamV1__Binding.type: object
+definitions.GoogleIamV1__Condition.description: A condition to be met.
+definitions.GoogleIamV1__Condition.properties.iam.description: Trusted attributes
+  supplied by the IAM system.
+definitions.GoogleIamV1__Condition.properties.iam.enum.length: 5
+definitions.GoogleIamV1__Condition.properties.iam.enum[0]: NO_ATTR
+definitions.GoogleIamV1__Condition.properties.iam.enum[1]: AUTHORITY
+definitions.GoogleIamV1__Condition.properties.iam.enum[2]: ATTRIBUTION
+definitions.GoogleIamV1__Condition.properties.iam.enum[3]: APPROVER
+definitions.GoogleIamV1__Condition.properties.iam.enum[4]: JUSTIFICATION_TYPE
+definitions.GoogleIamV1__Condition.properties.iam.type: string
+definitions.GoogleIamV1__Condition.properties.op.description: An operator to apply
+  the subject with.
+definitions.GoogleIamV1__Condition.properties.op.enum.length: 6
+definitions.GoogleIamV1__Condition.properties.op.enum[0]: NO_OP
+definitions.GoogleIamV1__Condition.properties.op.enum[1]: EQUALS
+definitions.GoogleIamV1__Condition.properties.op.enum[2]: NOT_EQUALS
+definitions.GoogleIamV1__Condition.properties.op.enum[3]: IN
+definitions.GoogleIamV1__Condition.properties.op.enum[4]: NOT_IN
+definitions.GoogleIamV1__Condition.properties.op.enum[5]: DISCHARGED
+definitions.GoogleIamV1__Condition.properties.op.type: string
+definitions.GoogleIamV1__Condition.properties.svc.description: Trusted attributes
+  discharged by the service.
+definitions.GoogleIamV1__Condition.properties.svc.type: string
+definitions.GoogleIamV1__Condition.properties.sys.description: |-
+  Trusted attributes supplied by any service that owns resources and uses
+  the IAM system for access control.
+definitions.GoogleIamV1__Condition.properties.sys.enum.length: 5
+definitions.GoogleIamV1__Condition.properties.sys.enum[0]: NO_ATTR
+definitions.GoogleIamV1__Condition.properties.sys.enum[1]: REGION
+definitions.GoogleIamV1__Condition.properties.sys.enum[2]: SERVICE
+definitions.GoogleIamV1__Condition.properties.sys.enum[3]: NAME
+definitions.GoogleIamV1__Condition.properties.sys.enum[4]: IP
+definitions.GoogleIamV1__Condition.properties.sys.type: string
+definitions.GoogleIamV1__Condition.properties.value.description: DEPRECATED. Use 'values'
+  instead.
+definitions.GoogleIamV1__Condition.properties.value.type: string
+definitions.GoogleIamV1__Condition.properties.values.description: The objects of the
+  condition. This is mutually exclusive with 'value'.
+definitions.GoogleIamV1__Condition.properties.values.items.type: string
+definitions.GoogleIamV1__Condition.properties.values.type: array
+definitions.GoogleIamV1__Condition.type: object
+definitions.GoogleIamV1__LogConfig.description: Specifies what kind of log the caller
+  must write
+definitions.GoogleIamV1__LogConfig.properties.cloudAudit.$ref: '#/definitions/GoogleIamV1_LogConfig_CloudAuditOptions'
+definitions.GoogleIamV1__LogConfig.properties.cloudAudit.description: Cloud audit
+  options.
+definitions.GoogleIamV1__LogConfig.properties.counter.$ref: '#/definitions/GoogleIamV1_LogConfig_CounterOptions'
+definitions.GoogleIamV1__LogConfig.properties.counter.description: Counter options.
+definitions.GoogleIamV1__LogConfig.properties.dataAccess.$ref: '#/definitions/GoogleIamV1_LogConfig_DataAccessOptions'
+definitions.GoogleIamV1__LogConfig.properties.dataAccess.description: Data access
+  options.
+definitions.GoogleIamV1__LogConfig.type: object
+definitions.GoogleIamV1__Policy.description: |-
+  Defines an Identity and Access Management (IAM) policy. It is used to
+  specify access control policies for Cloud Platform resources.
+
+
+  A `Policy` consists of a list of `bindings`. A `Binding` binds a list of
+  `members` to a `role`, where the members can be user accounts, Google groups,
+  Google domains, and service accounts. A `role` is a named list of permissions
+  defined by IAM.
+
+  **Example**
+
+      {
+        "bindings": [
+          {
+            "role": "roles/owner",
+            "members": [
+              "user:mike@example.com",
+              "group:admins@example.com",
+              "domain:google.com",
+              "serviceAccount:my-other-app@appspot.gserviceaccount.com",
+            ]
+          },
+          {
+            "role": "roles/viewer",
+            "members": ["user:sean@example.com"]
+          }
+        ]
+      }
+
+  For a description of IAM and its features, see the
+  [IAM developer's guide](https://cloud.google.com/iam).
+definitions.GoogleIamV1__Policy.properties.auditConfigs.description: Specifies cloud
+  audit logging configuration for this policy.
+definitions.GoogleIamV1__Policy.properties.auditConfigs.items.$ref: '#/definitions/GoogleIamV1__AuditConfig'
+definitions.GoogleIamV1__Policy.properties.auditConfigs.type: array
+definitions.GoogleIamV1__Policy.properties.bindings.description: |-
+  Associates a list of `members` to a `role`.
+  `bindings` with no members will result in an error.
+definitions.GoogleIamV1__Policy.properties.bindings.items.$ref: '#/definitions/GoogleIamV1__Binding'
+definitions.GoogleIamV1__Policy.properties.bindings.type: array
+definitions.GoogleIamV1__Policy.properties.etag.description: |-
+  `etag` is used for optimistic concurrency control as a way to help
+  prevent simultaneous updates of a policy from overwriting each other.
+  It is strongly suggested that systems make use of the `etag` in the
+  read-modify-write cycle to perform policy updates in order to avoid race
+  conditions: An `etag` is returned in the response to `getIamPolicy`, and
+  systems are expected to put that etag in the request to `setIamPolicy` to
+  ensure that their change will be applied to the same version of the policy.
+
+  If no `etag` is provided in the call to `setIamPolicy`, then the existing
+  policy is overwritten blindly.
+definitions.GoogleIamV1__Policy.properties.etag.format: byte
+definitions.GoogleIamV1__Policy.properties.etag.type: string
+definitions.GoogleIamV1__Policy.properties.iamOwned.type: boolean
+definitions.GoogleIamV1__Policy.properties.rules.description: |-
+  If more than one rule is specified, the rules are applied in the following
+  manner:
+  - All matching LOG rules are always applied.
+  - If any DENY/DENY_WITH_LOG rule matches, permission is denied.
+    Logging will be applied if one or more matching rule requires logging.
+  - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is
+    granted.
+    Logging will be applied if one or more matching rule requires logging.
+  - Otherwise, if no rule applies, permission is denied.
+definitions.GoogleIamV1__Policy.properties.rules.items.$ref: '#/definitions/GoogleIamV1__Rule'
+definitions.GoogleIamV1__Policy.properties.rules.type: array
+definitions.GoogleIamV1__Policy.properties.version.description: Version of the `Policy`.
+  The default version is 0.
+definitions.GoogleIamV1__Policy.properties.version.format: int32
+definitions.GoogleIamV1__Policy.properties.version.type: integer
+definitions.GoogleIamV1__Policy.type: object
+definitions.GoogleIamV1__Rule.description: A rule to be applied in a Policy.
+definitions.GoogleIamV1__Rule.properties.action.description: Required
+definitions.GoogleIamV1__Rule.properties.action.enum.length: 6
+definitions.GoogleIamV1__Rule.properties.action.enum[0]: NO_ACTION
+definitions.GoogleIamV1__Rule.properties.action.enum[1]: ALLOW
+definitions.GoogleIamV1__Rule.properties.action.enum[2]: ALLOW_WITH_LOG
+definitions.GoogleIamV1__Rule.properties.action.enum[3]: DENY
+definitions.GoogleIamV1__Rule.properties.action.enum[4]: DENY_WITH_LOG
+definitions.GoogleIamV1__Rule.properties.action.enum[5]: LOG
+definitions.GoogleIamV1__Rule.properties.action.type: string
+definitions.GoogleIamV1__Rule.properties.conditions.description: Additional restrictions
+  that must be met
+definitions.GoogleIamV1__Rule.properties.conditions.items.$ref: '#/definitions/GoogleIamV1__Condition'
+definitions.GoogleIamV1__Rule.properties.conditions.type: array
+definitions.GoogleIamV1__Rule.properties.description.description: Human-readable description
+  of the rule.
+definitions.GoogleIamV1__Rule.properties.description.type: string
+definitions.GoogleIamV1__Rule.properties.in.description: |-
+  If one or more 'in' clauses are specified, the rule matches if
+  the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries.
+definitions.GoogleIamV1__Rule.properties.in.items.type: string
+definitions.GoogleIamV1__Rule.properties.in.type: array
+definitions.GoogleIamV1__Rule.properties.logConfig.description: |-
+  The config returned to callers of tech.iam.IAM.CheckPolicy for any entries
+  that match the LOG action.
+definitions.GoogleIamV1__Rule.properties.logConfig.items.$ref: '#/definitions/GoogleIamV1__LogConfig'
+definitions.GoogleIamV1__Rule.properties.logConfig.type: array
+definitions.GoogleIamV1__Rule.properties.notIn.description: |-
+  If one or more 'not_in' clauses are specified, the rule matches
+  if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries.
+  The format for in and not_in entries is the same as for members in a
+  Binding (see google/iam/v1/policy.proto).
+definitions.GoogleIamV1__Rule.properties.notIn.items.type: string
+definitions.GoogleIamV1__Rule.properties.notIn.type: array
+definitions.GoogleIamV1__Rule.properties.permissions.description: |-
+  A permission is a string of form '<service>.<resource type>.<verb>'
+  (e.g., 'storage.buckets.list'). A value of '*' matches all permissions,
+  and a verb part of '*' (e.g., 'storage.buckets.*') matches all verbs.
+definitions.GoogleIamV1__Rule.properties.permissions.items.type: string
+definitions.GoogleIamV1__Rule.properties.permissions.type: array
+definitions.GoogleIamV1__Rule.type: object
+definitions.GoogleIamV1__SetIamPolicyRequest.description: Request message for `SetIamPolicy`
+  method.
+definitions.GoogleIamV1__SetIamPolicyRequest.properties.policy.$ref: '#/definitions/GoogleIamV1__Policy'
+definitions.GoogleIamV1__SetIamPolicyRequest.properties.policy.description: |-
+  REQUIRED: The complete policy to be applied to the `resource`. The size of
+  the policy is limited to a few 10s of KB. An empty policy is a
+  valid policy but certain Cloud Platform services (such as Projects)
+  might reject them.
+definitions.GoogleIamV1__SetIamPolicyRequest.properties.updateMask.description: |-
+  OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
+  the fields in the mask will be modified. If no mask is provided, the
+  following default mask is used:
+  paths: "bindings, etag"
+  This field is only used by Cloud IAM.
+definitions.GoogleIamV1__SetIamPolicyRequest.properties.updateMask.format: google-fieldmask
+definitions.GoogleIamV1__SetIamPolicyRequest.properties.updateMask.type: string
+definitions.GoogleIamV1__SetIamPolicyRequest.type: object
+definitions.GoogleIamV1__TestIamPermissionsRequest.description: Request message for
+  `TestIamPermissions` method.
+definitions.GoogleIamV1__TestIamPermissionsRequest.properties.permissions.description: |-
+  The set of permissions to check for the `resource`. Permissions with
+  wildcards (such as '*' or 'storage.*') are not allowed. For more
+  information see
+  [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+definitions.GoogleIamV1__TestIamPermissionsRequest.properties.permissions.items.type: string
+definitions.GoogleIamV1__TestIamPermissionsRequest.properties.permissions.type: array
+definitions.GoogleIamV1__TestIamPermissionsRequest.type: object
+definitions.GoogleIamV1__TestIamPermissionsResponse.description: Response message
+  for `TestIamPermissions` method.
+definitions.GoogleIamV1__TestIamPermissionsResponse.properties.permissions.description: |-
+  A subset of `TestPermissionsRequest.permissions` that the caller is
+  allowed.
+definitions.GoogleIamV1__TestIamPermissionsResponse.properties.permissions.items.type: string
+definitions.GoogleIamV1__TestIamPermissionsResponse.properties.permissions.type: array
+definitions.GoogleIamV1__TestIamPermissionsResponse.type: object
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.description: Write a Cloud Audit
+  log
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.description: The
+  log_name to populate in the Cloud Audit Record.
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.enum.length: 3
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.enum[0]: UNSPECIFIED_LOG_NAME
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.enum[1]: ADMIN_ACTIVITY
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.enum[2]: DATA_ACCESS
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.properties.logName.type: string
+definitions.GoogleIamV1_LogConfig_CloudAuditOptions.type: object
+definitions.GoogleIamV1_LogConfig_CounterOptions.description: |-
+  Increment a streamz counter with the specified metric and field names.
+
+  Metric names should start with a '/', generally be lowercase-only,
+  and end in "_count". Field names should not contain an initial slash.
+  The actual exported metric names will have "/iam/policy" prepended.
+
+  Field names correspond to IAM request parameters and field values are
+  their respective values.
+
+  At present the only supported field names are
+     - "iam_principal", corresponding to IAMContext.principal;
+     - "" (empty string), resulting in one aggretated counter with no field.
+
+  Examples:
+    counter { metric: "/debug_access_count"  field: "iam_principal" }
+    ==> increment counter /iam/policy/backend_debug_access_count
+                          {iam_principal=[value of IAMContext.principal]}
+
+  At this time we do not support:
+  * multiple field names (though this may be supported in the future)
+  * decrementing the counter
+  * incrementing it by anything other than 1
+definitions.GoogleIamV1_LogConfig_CounterOptions.properties.field.description: The
+  field value to attribute.
+definitions.GoogleIamV1_LogConfig_CounterOptions.properties.field.type: string
+definitions.GoogleIamV1_LogConfig_CounterOptions.properties.metric.description: The
+  metric to update.
+definitions.GoogleIamV1_LogConfig_CounterOptions.properties.metric.type: string
+definitions.GoogleIamV1_LogConfig_CounterOptions.type: object
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.description: Write a Data Access
+  (Gin) log
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.properties.logMode.description: |-
+  Whether Gin logging should happen in a fail-closed manner at the caller.
+  This is relevant only in the LocalIAM implementation, for now.
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.properties.logMode.enum.length: 2
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.properties.logMode.enum[0]: LOG_MODE_UNSPECIFIED
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.properties.logMode.enum[1]: LOG_FAIL_CLOSED
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.properties.logMode.type: string
+definitions.GoogleIamV1_LogConfig_DataAccessOptions.type: object
+definitions.GoogleLongrunning__ListOperationsResponse.description: The response message
+  for Operations.ListOperations.
+definitions.GoogleLongrunning__ListOperationsResponse.properties.nextPageToken.description: The
+  standard List next-page token.
+definitions.GoogleLongrunning__ListOperationsResponse.properties.nextPageToken.type: string
+definitions.GoogleLongrunning__ListOperationsResponse.properties.operations.description: A
+  list of operations that matches the specified filter in the request.
+definitions.GoogleLongrunning__ListOperationsResponse.properties.operations.items.$ref: '#/definitions/GoogleLongrunning__Operation'
+definitions.GoogleLongrunning__ListOperationsResponse.properties.operations.type: array
+definitions.GoogleLongrunning__ListOperationsResponse.type: object
+definitions.GoogleLongrunning__Operation.description: |-
+  This resource represents a long-running operation that is the result of a
+  network API call.
+definitions.GoogleLongrunning__Operation.properties.done.description: |-
+  If the value is `false`, it means the operation is still in progress.
+  If true, the operation is completed, and either `error` or `response` is
+  available.
+definitions.GoogleLongrunning__Operation.properties.done.type: boolean
+definitions.GoogleLongrunning__Operation.properties.error.$ref: '#/definitions/GoogleRpc__Status'
+definitions.GoogleLongrunning__Operation.properties.error.description: The error result
+  of the operation in case of failure or cancellation.
+definitions.GoogleLongrunning__Operation.properties.metadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.GoogleLongrunning__Operation.properties.metadata.description: |-
+  Service-specific metadata associated with the operation.  It typically
+  contains progress information and common metadata such as create time.
+  Some services might not provide such metadata.  Any method that returns a
+  long-running operation should document the metadata type, if any.
+definitions.GoogleLongrunning__Operation.properties.metadata.type: object
+definitions.GoogleLongrunning__Operation.properties.name.description: |-
+  The server-assigned name, which is only unique within the same service that
+  originally returns it. If you use the default HTTP mapping, the
+  `name` should have the format of `operations/some/unique/name`.
+definitions.GoogleLongrunning__Operation.properties.name.type: string
+definitions.GoogleLongrunning__Operation.properties.response.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.GoogleLongrunning__Operation.properties.response.description: |-
+  The normal response of the operation in case of success.  If the original
+  method returns no data on success, such as `Delete`, the response is
+  `google.protobuf.Empty`.  If the original method is standard
+  `Get`/`Create`/`Update`, the response should be the resource.  For other
+  methods, the response should have the type `XxxResponse`, where `Xxx`
+  is the original method name.  For example, if the original method name
+  is `TakeSnapshot()`, the inferred response type is
+  `TakeSnapshotResponse`.
+definitions.GoogleLongrunning__Operation.properties.response.type: object
+definitions.GoogleLongrunning__Operation.type: object
+definitions.GoogleProtobuf__Empty.description: |-
+  A generic empty message that you can re-use to avoid defining duplicated
+  empty messages in your APIs. A typical example is to use it as the request
+  or the response type of an API method. For instance:
+
+      service Foo {
+        rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+      }
+
+  The JSON representation for `Empty` is empty JSON object `{}`.
+definitions.GoogleProtobuf__Empty.type: object
+definitions.GoogleRpc__Status.description: |-
+  The `Status` type defines a logical error model that is suitable for different
+  programming environments, including REST APIs and RPC APIs. It is used by
+  [gRPC](https://github.com/grpc). The error model is designed to be:
+
+  - Simple to use and understand for most users
+  - Flexible enough to meet unexpected needs
+
+  # Overview
+
+  The `Status` message contains three pieces of data: error code, error message,
+  and error details. The error code should be an enum value of
+  google.rpc.Code, but it may accept additional error codes if needed.  The
+  error message should be a developer-facing English message that helps
+  developers *understand* and *resolve* the error. If a localized user-facing
+  error message is needed, put the localized message in the error details or
+  localize it in the client. The optional error details may contain arbitrary
+  information about the error. There is a predefined set of error detail types
+  in the package `google.rpc` that can be used for common error conditions.
+
+  # Language mapping
+
+  The `Status` message is the logical representation of the error model, but it
+  is not necessarily the actual wire format. When the `Status` message is
+  exposed in different client libraries and different wire protocols, it can be
+  mapped differently. For example, it will likely be mapped to some exceptions
+  in Java, but more likely mapped to some error codes in C.
+
+  # Other uses
+
+  The error model and the `Status` message can be used in a variety of
+  environments, either with or without APIs, to provide a
+  consistent developer experience across different environments.
+
+  Example uses of this error model include:
+
+  - Partial errors. If a service needs to return partial errors to the client,
+      it may embed the `Status` in the normal response to indicate the partial
+      errors.
+
+  - Workflow errors. A typical workflow has multiple steps. Each step may
+      have a `Status` message for error reporting.
+
+  - Batch operations. If a client uses batch request and batch response, the
+      `Status` message should be used directly inside batch response, one for
+      each error sub-response.
+
+  - Asynchronous operations. If an API call embeds asynchronous operation
+      results in its response, the status of those operations should be
+      represented directly using the `Status` message.
+
+  - Logging. If some API errors are stored in logs, the message `Status` could
+      be used directly after any stripping needed for security/privacy reasons.
+definitions.GoogleRpc__Status.properties.code.description: The status code, which
+  should be an enum value of google.rpc.Code.
+definitions.GoogleRpc__Status.properties.code.format: int32
+definitions.GoogleRpc__Status.properties.code.type: integer
+definitions.GoogleRpc__Status.properties.details.description: |-
+  A list of messages that carry the error details.  There is a common set of
+  message types for APIs to use.
+definitions.GoogleRpc__Status.properties.details.items.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.GoogleRpc__Status.properties.details.items.type: object
+definitions.GoogleRpc__Status.properties.details.type: array
+definitions.GoogleRpc__Status.properties.message.description: |-
+  A developer-facing error message, which should be in English. Any
+  user-facing error message should be localized and sent in the
+  google.rpc.Status.details field, or localized by the client.
+definitions.GoogleRpc__Status.properties.message.type: string
+definitions.GoogleRpc__Status.type: object
+definitions.GoogleType__Expr.description: |-
+  Represents an expression text. Example:
+
+      title: "User account presence"
+      description: "Determines whether the request has a user account"
+      expression: "size(request.user) > 0"
+definitions.GoogleType__Expr.properties.description.description: |-
+  An optional description of the expression. This is a longer text which
+  describes the expression, e.g. when hovered over it in a UI.
+definitions.GoogleType__Expr.properties.description.type: string
+definitions.GoogleType__Expr.properties.expression.description: |-
+  Textual representation of an expression in
+  Common Expression Language syntax.
+
+  The application context of the containing message determines which
+  well-known feature set of CEL is supported.
+definitions.GoogleType__Expr.properties.expression.type: string
+definitions.GoogleType__Expr.properties.location.description: |-
+  An optional string indicating the location of the expression for error
+  reporting, e.g. a file name and a position in the file.
+definitions.GoogleType__Expr.properties.location.type: string
+definitions.GoogleType__Expr.properties.title.description: |-
+  An optional title for the expression, i.e. a short string describing
+  its purpose. This can be used e.g. in UIs which allow to enter the
+  expression.
+definitions.GoogleType__Expr.properties.title.type: string
+definitions.GoogleType__Expr.type: object
+externalDocs.url: https://cloud.google.com/ml/
+host: ml.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: An API to enable creating and using machine learning models.
+info.license.name: Creative Commons Attribution 3.0
+info.license.url: http://creativecommons.org/licenses/by/3.0/
+info.termsOfService: https://developers.google.com/terms/
+info.title: Google Cloud Machine Learning Engine
+info.version: v1beta1
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: machine_learning
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.0.1
+info.x-origin[0].format: google
+info.x-origin[0].url: https://ml.googleapis.com/$discovery/rest?version=v1beta1
+info.x-origin[0].version: v1
+info.x-preferred: false
+info.x-providerName: googleapis.com
+info.x-serviceName: ml
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v1beta1/{name}.delete.description: |-
+  Deletes a long-running operation. This method indicates that the client is
+  no longer interested in the operation result. It does not cancel the
+  operation. If the server doesn't support this method, it returns
+  `google.rpc.Code.UNIMPLEMENTED`.
+paths./v1beta1/{name}.delete.operationId: ml.projects.operations.delete
+paths./v1beta1/{name}.delete.parameters.length: 1
+paths./v1beta1/{name}.delete.parameters[0].description: The name of the operation
+  resource to be deleted.
+paths./v1beta1/{name}.delete.parameters[0].in: path
+paths./v1beta1/{name}.delete.parameters[0].name: name
+paths./v1beta1/{name}.delete.parameters[0].required: true
+paths./v1beta1/{name}.delete.parameters[0].type: string
+paths./v1beta1/{name}.delete.parameters[0].x-reservedExpansion: true
+paths./v1beta1/{name}.delete.responses.200.description: Successful response
+paths./v1beta1/{name}.delete.responses.200.schema.$ref: '#/definitions/GoogleProtobuf__Empty'
+paths./v1beta1/{name}.delete.security.length: 1
+paths./v1beta1/{name}.delete.security[0].Oauth2.length: 1
+paths./v1beta1/{name}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}.delete.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}.delete.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}.delete.tags.length: 1
+paths./v1beta1/{name}.delete.tags[0]: projects
+paths./v1beta1/{name}.get.description: Describes a job.
+paths./v1beta1/{name}.get.operationId: ml.projects.jobs.get
+paths./v1beta1/{name}.get.parameters.length: 1
+paths./v1beta1/{name}.get.parameters[0].description: Required. The name of the job
+  to get the description of.
+paths./v1beta1/{name}.get.parameters[0].in: path
+paths./v1beta1/{name}.get.parameters[0].name: name
+paths./v1beta1/{name}.get.parameters[0].required: true
+paths./v1beta1/{name}.get.parameters[0].type: string
+paths./v1beta1/{name}.get.parameters[0].x-reservedExpansion: true
+paths./v1beta1/{name}.get.responses.200.description: Successful response
+paths./v1beta1/{name}.get.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Job'
+paths./v1beta1/{name}.get.security.length: 1
+paths./v1beta1/{name}.get.security[0].Oauth2.length: 1
+paths./v1beta1/{name}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}.get.tags.length: 1
+paths./v1beta1/{name}.get.tags[0]: projects
+paths./v1beta1/{name}.parameters.length: 13
+paths./v1beta1/{name}.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}/operations.get.description: |-
+  Lists operations that match the specified filter in the request. If the
+  server doesn't support this method, it returns `UNIMPLEMENTED`.
+
+  NOTE: the `name` binding allows API services to override the binding
+  to use different resource name schemes, such as `users/*/operations`. To
+  override the binding, API services can add a binding such as
+  `"/v1/{name=users/*}/operations"` to their service configuration.
+  For backwards compatibility, the default name includes the operations
+  collection id, however overriding users must ensure the name binding
+  is the parent resource, without the operations collection id.
+paths./v1beta1/{name}/operations.get.operationId: ml.projects.operations.list
+paths./v1beta1/{name}/operations.get.parameters.length: 4
+paths./v1beta1/{name}/operations.get.parameters[0].description: The standard list
+  filter.
+paths./v1beta1/{name}/operations.get.parameters[0].in: query
+paths./v1beta1/{name}/operations.get.parameters[0].name: filter
+paths./v1beta1/{name}/operations.get.parameters[0].type: string
+paths./v1beta1/{name}/operations.get.parameters[1].description: The name of the operation's
+  parent resource.
+paths./v1beta1/{name}/operations.get.parameters[1].in: path
+paths./v1beta1/{name}/operations.get.parameters[1].name: name
+paths./v1beta1/{name}/operations.get.parameters[1].required: true
+paths./v1beta1/{name}/operations.get.parameters[1].type: string
+paths./v1beta1/{name}/operations.get.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{name}/operations.get.parameters[2].description: The standard list
+  page size.
+paths./v1beta1/{name}/operations.get.parameters[2].in: query
+paths./v1beta1/{name}/operations.get.parameters[2].name: pageSize
+paths./v1beta1/{name}/operations.get.parameters[2].type: integer
+paths./v1beta1/{name}/operations.get.parameters[3].description: The standard list
+  page token.
+paths./v1beta1/{name}/operations.get.parameters[3].in: query
+paths./v1beta1/{name}/operations.get.parameters[3].name: pageToken
+paths./v1beta1/{name}/operations.get.parameters[3].type: string
+paths./v1beta1/{name}/operations.get.responses.200.description: Successful response
+paths./v1beta1/{name}/operations.get.responses.200.schema.$ref: '#/definitions/GoogleLongrunning__ListOperationsResponse'
+paths./v1beta1/{name}/operations.get.security.length: 1
+paths./v1beta1/{name}/operations.get.security[0].Oauth2.length: 1
+paths./v1beta1/{name}/operations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}/operations.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}/operations.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}/operations.get.tags.length: 1
+paths./v1beta1/{name}/operations.get.tags[0]: projects
+paths./v1beta1/{name}/operations.parameters.length: 13
+paths./v1beta1/{name}/operations.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}/operations.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}/operations.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}/operations.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}/operations.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}/operations.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}/operations.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}/operations.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}/operations.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}/operations.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}/operations.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}/operations.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}/operations.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}:cancel.parameters.length: 13
+paths./v1beta1/{name}:cancel.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}:cancel.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}:cancel.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}:cancel.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}:cancel.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}:cancel.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}:cancel.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}:cancel.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}:cancel.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}:cancel.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}:cancel.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}:cancel.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}:cancel.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}:cancel.post.description: Cancels a running job.
+paths./v1beta1/{name}:cancel.post.operationId: ml.projects.jobs.cancel
+paths./v1beta1/{name}:cancel.post.parameters.length: 2
+paths./v1beta1/{name}:cancel.post.parameters[0].in: body
+paths./v1beta1/{name}:cancel.post.parameters[0].name: body
+paths./v1beta1/{name}:cancel.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__CancelJobRequest'
+paths./v1beta1/{name}:cancel.post.parameters[1].description: Required. The name of
+  the job to cancel.
+paths./v1beta1/{name}:cancel.post.parameters[1].in: path
+paths./v1beta1/{name}:cancel.post.parameters[1].name: name
+paths./v1beta1/{name}:cancel.post.parameters[1].required: true
+paths./v1beta1/{name}:cancel.post.parameters[1].type: string
+paths./v1beta1/{name}:cancel.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{name}:cancel.post.responses.200.description: Successful response
+paths./v1beta1/{name}:cancel.post.responses.200.schema.$ref: '#/definitions/GoogleProtobuf__Empty'
+paths./v1beta1/{name}:cancel.post.security.length: 1
+paths./v1beta1/{name}:cancel.post.security[0].Oauth2.length: 1
+paths./v1beta1/{name}:cancel.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:cancel.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}:cancel.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:cancel.post.tags.length: 1
+paths./v1beta1/{name}:cancel.post.tags[0]: projects
+paths./v1beta1/{name}:getConfig.get.description: |-
+  Get the service account information associated with your project. You need
+  this information in order to grant the service account persmissions for
+  the Google Cloud Storage location where you put your model training code
+  for training the model with Google Cloud Machine Learning.
+paths./v1beta1/{name}:getConfig.get.operationId: ml.projects.getConfig
+paths./v1beta1/{name}:getConfig.get.parameters.length: 1
+paths./v1beta1/{name}:getConfig.get.parameters[0].description: Required. The project
+  name.
+paths./v1beta1/{name}:getConfig.get.parameters[0].in: path
+paths./v1beta1/{name}:getConfig.get.parameters[0].name: name
+paths./v1beta1/{name}:getConfig.get.parameters[0].required: true
+paths./v1beta1/{name}:getConfig.get.parameters[0].type: string
+paths./v1beta1/{name}:getConfig.get.parameters[0].x-reservedExpansion: true
+paths./v1beta1/{name}:getConfig.get.responses.200.description: Successful response
+paths./v1beta1/{name}:getConfig.get.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__GetConfigResponse'
+paths./v1beta1/{name}:getConfig.get.security.length: 1
+paths./v1beta1/{name}:getConfig.get.security[0].Oauth2.length: 1
+paths./v1beta1/{name}:getConfig.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:getConfig.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}:getConfig.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:getConfig.get.tags.length: 1
+paths./v1beta1/{name}:getConfig.get.tags[0]: projects
+paths./v1beta1/{name}:getConfig.parameters.length: 13
+paths./v1beta1/{name}:getConfig.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}:getConfig.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}:getConfig.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}:getConfig.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}:getConfig.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}:getConfig.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}:getConfig.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}:getConfig.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}:getConfig.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}:getConfig.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}:getConfig.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}:getConfig.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}:getConfig.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}:predict.parameters.length: 13
+paths./v1beta1/{name}:predict.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}:predict.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}:predict.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}:predict.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}:predict.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}:predict.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}:predict.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}:predict.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}:predict.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}:predict.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}:predict.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}:predict.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}:predict.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}:predict.post.description: |-
+  Performs prediction on the data in the request.
+
+  **** REMOVE FROM GENERATED DOCUMENTATION
+paths./v1beta1/{name}:predict.post.operationId: ml.projects.predict
+paths./v1beta1/{name}:predict.post.parameters.length: 2
+paths./v1beta1/{name}:predict.post.parameters[0].in: body
+paths./v1beta1/{name}:predict.post.parameters[0].name: body
+paths./v1beta1/{name}:predict.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__PredictRequest'
+paths./v1beta1/{name}:predict.post.parameters[1].description: |-
+  Required. The resource name of a model or a version.
+
+  Authorization: requires the `predict` permission on the specified resource.
+paths./v1beta1/{name}:predict.post.parameters[1].in: path
+paths./v1beta1/{name}:predict.post.parameters[1].name: name
+paths./v1beta1/{name}:predict.post.parameters[1].required: true
+paths./v1beta1/{name}:predict.post.parameters[1].type: string
+paths./v1beta1/{name}:predict.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{name}:predict.post.responses.200.description: Successful response
+paths./v1beta1/{name}:predict.post.responses.200.schema.$ref: '#/definitions/GoogleApi__HttpBody'
+paths./v1beta1/{name}:predict.post.security.length: 1
+paths./v1beta1/{name}:predict.post.security[0].Oauth2.length: 1
+paths./v1beta1/{name}:predict.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:predict.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}:predict.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:predict.post.tags.length: 1
+paths./v1beta1/{name}:predict.post.tags[0]: projects
+paths./v1beta1/{name}:setDefault.parameters.length: 13
+paths./v1beta1/{name}:setDefault.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{name}:setDefault.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{name}:setDefault.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{name}:setDefault.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{name}:setDefault.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{name}:setDefault.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{name}:setDefault.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{name}:setDefault.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{name}:setDefault.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{name}:setDefault.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{name}:setDefault.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{name}:setDefault.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{name}:setDefault.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{name}:setDefault.post.description: |-
+  Designates a version to be the default for the model.
+
+  The default version is used for prediction requests made against the model
+  that don't specify a version.
+
+  The first version to be created for a model is automatically set as the
+  default. You must make any subsequent changes to the default version
+  setting manually using this method.
+paths./v1beta1/{name}:setDefault.post.operationId: ml.projects.models.versions.setDefault
+paths./v1beta1/{name}:setDefault.post.parameters.length: 2
+paths./v1beta1/{name}:setDefault.post.parameters[0].in: body
+paths./v1beta1/{name}:setDefault.post.parameters[0].name: body
+paths./v1beta1/{name}:setDefault.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__SetDefaultVersionRequest'
+paths./v1beta1/{name}:setDefault.post.parameters[1].description: |-
+  Required. The name of the version to make the default for the model. You
+  can get the names of all the versions of a model by calling
+  [projects.models.versions.list](/ml-engine/reference/rest/v1beta1/projects.models.versions/list).
+paths./v1beta1/{name}:setDefault.post.parameters[1].in: path
+paths./v1beta1/{name}:setDefault.post.parameters[1].name: name
+paths./v1beta1/{name}:setDefault.post.parameters[1].required: true
+paths./v1beta1/{name}:setDefault.post.parameters[1].type: string
+paths./v1beta1/{name}:setDefault.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{name}:setDefault.post.responses.200.description: Successful response
+paths./v1beta1/{name}:setDefault.post.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Version'
+paths./v1beta1/{name}:setDefault.post.security.length: 1
+paths./v1beta1/{name}:setDefault.post.security[0].Oauth2.length: 1
+paths./v1beta1/{name}:setDefault.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:setDefault.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{name}:setDefault.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{name}:setDefault.post.tags.length: 1
+paths./v1beta1/{name}:setDefault.post.tags[0]: projects
+paths./v1beta1/{parent}/jobs.get.description: Lists the jobs in the project.
+paths./v1beta1/{parent}/jobs.get.operationId: ml.projects.jobs.list
+paths./v1beta1/{parent}/jobs.get.parameters.length: 4
+paths./v1beta1/{parent}/jobs.get.parameters[0].description: Optional. Specifies the
+  subset of jobs to retrieve.
+paths./v1beta1/{parent}/jobs.get.parameters[0].in: query
+paths./v1beta1/{parent}/jobs.get.parameters[0].name: filter
+paths./v1beta1/{parent}/jobs.get.parameters[0].type: string
+paths./v1beta1/{parent}/jobs.get.parameters[1].description: |-
+  Optional. The number of jobs to retrieve per "page" of results. If there
+  are more remaining results than this number, the response message will
+  contain a valid value in the `next_page_token` field.
+
+  The default value is 20, and the maximum page size is 100.
+paths./v1beta1/{parent}/jobs.get.parameters[1].in: query
+paths./v1beta1/{parent}/jobs.get.parameters[1].name: pageSize
+paths./v1beta1/{parent}/jobs.get.parameters[1].type: integer
+paths./v1beta1/{parent}/jobs.get.parameters[2].description: |-
+  Optional. A page token to request the next page of results.
+
+  You get the token from the `next_page_token` field of the response from
+  the previous call.
+paths./v1beta1/{parent}/jobs.get.parameters[2].in: query
+paths./v1beta1/{parent}/jobs.get.parameters[2].name: pageToken
+paths./v1beta1/{parent}/jobs.get.parameters[2].type: string
+paths./v1beta1/{parent}/jobs.get.parameters[3].description: Required. The name of
+  the project for which to list jobs.
+paths./v1beta1/{parent}/jobs.get.parameters[3].in: path
+paths./v1beta1/{parent}/jobs.get.parameters[3].name: parent
+paths./v1beta1/{parent}/jobs.get.parameters[3].required: true
+paths./v1beta1/{parent}/jobs.get.parameters[3].type: string
+paths./v1beta1/{parent}/jobs.get.parameters[3].x-reservedExpansion: true
+paths./v1beta1/{parent}/jobs.get.responses.200.description: Successful response
+paths./v1beta1/{parent}/jobs.get.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__ListJobsResponse'
+paths./v1beta1/{parent}/jobs.get.security.length: 1
+paths./v1beta1/{parent}/jobs.get.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/jobs.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/jobs.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/jobs.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/jobs.get.tags.length: 1
+paths./v1beta1/{parent}/jobs.get.tags[0]: projects
+paths./v1beta1/{parent}/jobs.parameters.length: 13
+paths./v1beta1/{parent}/jobs.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{parent}/jobs.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{parent}/jobs.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{parent}/jobs.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{parent}/jobs.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{parent}/jobs.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{parent}/jobs.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{parent}/jobs.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{parent}/jobs.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{parent}/jobs.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{parent}/jobs.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{parent}/jobs.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{parent}/jobs.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{parent}/jobs.post.description: Creates a training or a batch prediction
+  job.
+paths./v1beta1/{parent}/jobs.post.operationId: ml.projects.jobs.create
+paths./v1beta1/{parent}/jobs.post.parameters.length: 2
+paths./v1beta1/{parent}/jobs.post.parameters[0].in: body
+paths./v1beta1/{parent}/jobs.post.parameters[0].name: body
+paths./v1beta1/{parent}/jobs.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Job'
+paths./v1beta1/{parent}/jobs.post.parameters[1].description: Required. The project
+  name.
+paths./v1beta1/{parent}/jobs.post.parameters[1].in: path
+paths./v1beta1/{parent}/jobs.post.parameters[1].name: parent
+paths./v1beta1/{parent}/jobs.post.parameters[1].required: true
+paths./v1beta1/{parent}/jobs.post.parameters[1].type: string
+paths./v1beta1/{parent}/jobs.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{parent}/jobs.post.responses.200.description: Successful response
+paths./v1beta1/{parent}/jobs.post.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Job'
+paths./v1beta1/{parent}/jobs.post.security.length: 1
+paths./v1beta1/{parent}/jobs.post.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/jobs.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/jobs.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/jobs.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/jobs.post.tags.length: 1
+paths./v1beta1/{parent}/jobs.post.tags[0]: projects
+paths./v1beta1/{parent}/models.get.description: |-
+  Lists the models in a project.
+
+  Each project can contain multiple models, and each model can have multiple
+  versions.
+paths./v1beta1/{parent}/models.get.operationId: ml.projects.models.list
+paths./v1beta1/{parent}/models.get.parameters.length: 3
+paths./v1beta1/{parent}/models.get.parameters[0].description: |-
+  Optional. The number of models to retrieve per "page" of results. If there
+  are more remaining results than this number, the response message will
+  contain a valid value in the `next_page_token` field.
+
+  The default value is 20, and the maximum page size is 100.
+paths./v1beta1/{parent}/models.get.parameters[0].in: query
+paths./v1beta1/{parent}/models.get.parameters[0].name: pageSize
+paths./v1beta1/{parent}/models.get.parameters[0].type: integer
+paths./v1beta1/{parent}/models.get.parameters[1].description: |-
+  Optional. A page token to request the next page of results.
+
+  You get the token from the `next_page_token` field of the response from
+  the previous call.
+paths./v1beta1/{parent}/models.get.parameters[1].in: query
+paths./v1beta1/{parent}/models.get.parameters[1].name: pageToken
+paths./v1beta1/{parent}/models.get.parameters[1].type: string
+paths./v1beta1/{parent}/models.get.parameters[2].description: Required. The name of
+  the project whose models are to be listed.
+paths./v1beta1/{parent}/models.get.parameters[2].in: path
+paths./v1beta1/{parent}/models.get.parameters[2].name: parent
+paths./v1beta1/{parent}/models.get.parameters[2].required: true
+paths./v1beta1/{parent}/models.get.parameters[2].type: string
+paths./v1beta1/{parent}/models.get.parameters[2].x-reservedExpansion: true
+paths./v1beta1/{parent}/models.get.responses.200.description: Successful response
+paths./v1beta1/{parent}/models.get.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__ListModelsResponse'
+paths./v1beta1/{parent}/models.get.security.length: 1
+paths./v1beta1/{parent}/models.get.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/models.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/models.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/models.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/models.get.tags.length: 1
+paths./v1beta1/{parent}/models.get.tags[0]: projects
+paths./v1beta1/{parent}/models.parameters.length: 13
+paths./v1beta1/{parent}/models.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{parent}/models.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{parent}/models.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{parent}/models.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{parent}/models.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{parent}/models.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{parent}/models.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{parent}/models.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{parent}/models.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{parent}/models.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{parent}/models.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{parent}/models.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{parent}/models.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{parent}/models.post.description: |-
+  Creates a model which will later contain one or more versions.
+
+  You must add at least one version before you can request predictions from
+  the model. Add versions by calling
+  [projects.models.versions.create](/ml-engine/reference/rest/v1beta1/projects.models.versions/create).
+paths./v1beta1/{parent}/models.post.operationId: ml.projects.models.create
+paths./v1beta1/{parent}/models.post.parameters.length: 2
+paths./v1beta1/{parent}/models.post.parameters[0].in: body
+paths./v1beta1/{parent}/models.post.parameters[0].name: body
+paths./v1beta1/{parent}/models.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Model'
+paths./v1beta1/{parent}/models.post.parameters[1].description: Required. The project
+  name.
+paths./v1beta1/{parent}/models.post.parameters[1].in: path
+paths./v1beta1/{parent}/models.post.parameters[1].name: parent
+paths./v1beta1/{parent}/models.post.parameters[1].required: true
+paths./v1beta1/{parent}/models.post.parameters[1].type: string
+paths./v1beta1/{parent}/models.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{parent}/models.post.responses.200.description: Successful response
+paths./v1beta1/{parent}/models.post.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Model'
+paths./v1beta1/{parent}/models.post.security.length: 1
+paths./v1beta1/{parent}/models.post.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/models.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/models.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/models.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/models.post.tags.length: 1
+paths./v1beta1/{parent}/models.post.tags[0]: projects
+paths./v1beta1/{parent}/versions.get.description: |-
+  Gets basic information about all the versions of a model.
+
+  If you expect that a model has a lot of versions, or if you need to handle
+  only a limited number of results at a time, you can request that the list
+  be retrieved in batches (called pages):
+paths./v1beta1/{parent}/versions.get.operationId: ml.projects.models.versions.list
+paths./v1beta1/{parent}/versions.get.parameters.length: 3
+paths./v1beta1/{parent}/versions.get.parameters[0].description: |-
+  Optional. The number of versions to retrieve per "page" of results. If
+  there are more remaining results than this number, the response message
+  will contain a valid value in the `next_page_token` field.
+
+  The default value is 20, and the maximum page size is 100.
+paths./v1beta1/{parent}/versions.get.parameters[0].in: query
+paths./v1beta1/{parent}/versions.get.parameters[0].name: pageSize
+paths./v1beta1/{parent}/versions.get.parameters[0].type: integer
+paths./v1beta1/{parent}/versions.get.parameters[1].description: |-
+  Optional. A page token to request the next page of results.
+
+  You get the token from the `next_page_token` field of the response from
+  the previous call.
+paths./v1beta1/{parent}/versions.get.parameters[1].in: query
+paths./v1beta1/{parent}/versions.get.parameters[1].name: pageToken
+paths./v1beta1/{parent}/versions.get.parameters[1].type: string
+paths./v1beta1/{parent}/versions.get.parameters[2].description: Required. The name
+  of the model for which to list the version.
+paths./v1beta1/{parent}/versions.get.parameters[2].in: path
+paths./v1beta1/{parent}/versions.get.parameters[2].name: parent
+paths./v1beta1/{parent}/versions.get.parameters[2].required: true
+paths./v1beta1/{parent}/versions.get.parameters[2].type: string
+paths./v1beta1/{parent}/versions.get.parameters[2].x-reservedExpansion: true
+paths./v1beta1/{parent}/versions.get.responses.200.description: Successful response
+paths./v1beta1/{parent}/versions.get.responses.200.schema.$ref: '#/definitions/GoogleCloudMlV1beta1__ListVersionsResponse'
+paths./v1beta1/{parent}/versions.get.security.length: 1
+paths./v1beta1/{parent}/versions.get.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/versions.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/versions.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/versions.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/versions.get.tags.length: 1
+paths./v1beta1/{parent}/versions.get.tags[0]: projects
+paths./v1beta1/{parent}/versions.parameters.length: 13
+paths./v1beta1/{parent}/versions.parameters[0].$ref: '#/parameters/uploadType'
+paths./v1beta1/{parent}/versions.parameters[1].$ref: '#/parameters/fields'
+paths./v1beta1/{parent}/versions.parameters[2].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{parent}/versions.parameters[3].$ref: '#/parameters/callback'
+paths./v1beta1/{parent}/versions.parameters[4].$ref: '#/parameters/alt'
+paths./v1beta1/{parent}/versions.parameters[5].$ref: '#/parameters/access_token'
+paths./v1beta1/{parent}/versions.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{parent}/versions.parameters[7].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{parent}/versions.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{parent}/versions.parameters[9].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{parent}/versions.parameters[10].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{parent}/versions.parameters[11].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{parent}/versions.parameters[12].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{parent}/versions.post.description: |-
+  Creates a new version of a model from a trained TensorFlow model.
+
+  If the version created in the cloud by this call is the first deployed
+  version of the specified model, it will be made the default version of the
+  model. When you add a version to a model that already has one or more
+  versions, the default version does not automatically change. If you want a
+  new version to be the default, you must call
+  [projects.models.versions.setDefault](/ml-engine/reference/rest/v1beta1/projects.models.versions/setDefault).
+paths./v1beta1/{parent}/versions.post.operationId: ml.projects.models.versions.create
+paths./v1beta1/{parent}/versions.post.parameters.length: 2
+paths./v1beta1/{parent}/versions.post.parameters[0].in: body
+paths./v1beta1/{parent}/versions.post.parameters[0].name: body
+paths./v1beta1/{parent}/versions.post.parameters[0].schema.$ref: '#/definitions/GoogleCloudMlV1beta1__Version'
+paths./v1beta1/{parent}/versions.post.parameters[1].description: Required. The name
+  of the model.
+paths./v1beta1/{parent}/versions.post.parameters[1].in: path
+paths./v1beta1/{parent}/versions.post.parameters[1].name: parent
+paths./v1beta1/{parent}/versions.post.parameters[1].required: true
+paths./v1beta1/{parent}/versions.post.parameters[1].type: string
+paths./v1beta1/{parent}/versions.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{parent}/versions.post.responses.200.description: Successful response
+paths./v1beta1/{parent}/versions.post.responses.200.schema.$ref: '#/definitions/GoogleLongrunning__Operation'
+paths./v1beta1/{parent}/versions.post.security.length: 1
+paths./v1beta1/{parent}/versions.post.security[0].Oauth2.length: 1
+paths./v1beta1/{parent}/versions.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/versions.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{parent}/versions.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{parent}/versions.post.tags.length: 1
+paths./v1beta1/{parent}/versions.post.tags[0]: projects
+paths./v1beta1/{resource}:getIamPolicy.get.description: |-
+  Gets the access control policy for a resource.
+  Returns an empty policy if the resource exists and does not have a policy
+  set.
+paths./v1beta1/{resource}:getIamPolicy.get.operationId: ml.projects.jobs.getIamPolicy
+paths./v1beta1/{resource}:getIamPolicy.get.parameters.length: 1
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].description: |-
+  REQUIRED: The resource for which the policy is being requested.
+  See the operation documentation for the appropriate value for this field.
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].in: path
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].name: resource
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].required: true
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].type: string
+paths./v1beta1/{resource}:getIamPolicy.get.parameters[0].x-reservedExpansion: true
+paths./v1beta1/{resource}:getIamPolicy.get.responses.200.description: Successful response
+paths./v1beta1/{resource}:getIamPolicy.get.responses.200.schema.$ref: '#/definitions/GoogleIamV1__Policy'
+paths./v1beta1/{resource}:getIamPolicy.get.security.length: 1
+paths./v1beta1/{resource}:getIamPolicy.get.security[0].Oauth2.length: 1
+paths./v1beta1/{resource}:getIamPolicy.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:getIamPolicy.get.security[0].Oauth2c.length: 1
+paths./v1beta1/{resource}:getIamPolicy.get.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:getIamPolicy.get.tags.length: 1
+paths./v1beta1/{resource}:getIamPolicy.get.tags[0]: projects
+paths./v1beta1/{resource}:getIamPolicy.parameters.length: 13
+paths./v1beta1/{resource}:getIamPolicy.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{resource}:getIamPolicy.parameters[1].$ref: '#/parameters/access_token'
+paths./v1beta1/{resource}:getIamPolicy.parameters[2].$ref: '#/parameters/alt'
+paths./v1beta1/{resource}:getIamPolicy.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{resource}:getIamPolicy.parameters[4].$ref: '#/parameters/callback'
+paths./v1beta1/{resource}:getIamPolicy.parameters[5].$ref: '#/parameters/fields'
+paths./v1beta1/{resource}:getIamPolicy.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{resource}:getIamPolicy.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{resource}:getIamPolicy.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{resource}:getIamPolicy.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{resource}:getIamPolicy.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{resource}:getIamPolicy.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1beta1/{resource}:getIamPolicy.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{resource}:setIamPolicy.parameters.length: 13
+paths./v1beta1/{resource}:setIamPolicy.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{resource}:setIamPolicy.parameters[1].$ref: '#/parameters/access_token'
+paths./v1beta1/{resource}:setIamPolicy.parameters[2].$ref: '#/parameters/alt'
+paths./v1beta1/{resource}:setIamPolicy.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{resource}:setIamPolicy.parameters[4].$ref: '#/parameters/callback'
+paths./v1beta1/{resource}:setIamPolicy.parameters[5].$ref: '#/parameters/fields'
+paths./v1beta1/{resource}:setIamPolicy.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{resource}:setIamPolicy.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{resource}:setIamPolicy.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{resource}:setIamPolicy.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{resource}:setIamPolicy.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{resource}:setIamPolicy.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1beta1/{resource}:setIamPolicy.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{resource}:setIamPolicy.post.description: |-
+  Sets the access control policy on the specified resource. Replaces any
+  existing policy.
+paths./v1beta1/{resource}:setIamPolicy.post.operationId: ml.projects.jobs.setIamPolicy
+paths./v1beta1/{resource}:setIamPolicy.post.parameters.length: 2
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[0].in: body
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[0].name: body
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[0].schema.$ref: '#/definitions/GoogleIamV1__SetIamPolicyRequest'
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].description: |-
+  REQUIRED: The resource for which the policy is being specified.
+  See the operation documentation for the appropriate value for this field.
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].in: path
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].name: resource
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].required: true
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].type: string
+paths./v1beta1/{resource}:setIamPolicy.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{resource}:setIamPolicy.post.responses.200.description: Successful
+  response
+paths./v1beta1/{resource}:setIamPolicy.post.responses.200.schema.$ref: '#/definitions/GoogleIamV1__Policy'
+paths./v1beta1/{resource}:setIamPolicy.post.security.length: 1
+paths./v1beta1/{resource}:setIamPolicy.post.security[0].Oauth2.length: 1
+paths./v1beta1/{resource}:setIamPolicy.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:setIamPolicy.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{resource}:setIamPolicy.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:setIamPolicy.post.tags.length: 1
+paths./v1beta1/{resource}:setIamPolicy.post.tags[0]: projects
+paths./v1beta1/{resource}:testIamPermissions.parameters.length: 13
+paths./v1beta1/{resource}:testIamPermissions.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1beta1/{resource}:testIamPermissions.parameters[1].$ref: '#/parameters/access_token'
+paths./v1beta1/{resource}:testIamPermissions.parameters[2].$ref: '#/parameters/alt'
+paths./v1beta1/{resource}:testIamPermissions.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1beta1/{resource}:testIamPermissions.parameters[4].$ref: '#/parameters/callback'
+paths./v1beta1/{resource}:testIamPermissions.parameters[5].$ref: '#/parameters/fields'
+paths./v1beta1/{resource}:testIamPermissions.parameters[6].$ref: '#/parameters/key'
+paths./v1beta1/{resource}:testIamPermissions.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1beta1/{resource}:testIamPermissions.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta1/{resource}:testIamPermissions.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1beta1/{resource}:testIamPermissions.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1beta1/{resource}:testIamPermissions.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1beta1/{resource}:testIamPermissions.parameters[12].$ref: '#/parameters/upload_protocol'
+paths./v1beta1/{resource}:testIamPermissions.post.description: |-
+  Returns permissions that a caller has on the specified resource.
+  If the resource does not exist, this will return an empty set of
+  permissions, not a NOT_FOUND error.
+
+  Note: This operation is designed to be used for building permission-aware
+  UIs and command-line tools, not for authorization checking. This operation
+  may "fail open" without warning.
+paths./v1beta1/{resource}:testIamPermissions.post.operationId: ml.projects.jobs.testIamPermissions
+paths./v1beta1/{resource}:testIamPermissions.post.parameters.length: 2
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[0].in: body
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[0].name: body
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[0].schema.$ref: '#/definitions/GoogleIamV1__TestIamPermissionsRequest'
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].description: |-
+  REQUIRED: The resource for which the policy detail is being requested.
+  See the operation documentation for the appropriate value for this field.
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].in: path
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].name: resource
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].required: true
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].type: string
+paths./v1beta1/{resource}:testIamPermissions.post.parameters[1].x-reservedExpansion: true
+paths./v1beta1/{resource}:testIamPermissions.post.responses.200.description: Successful
+  response
+paths./v1beta1/{resource}:testIamPermissions.post.responses.200.schema.$ref: '#/definitions/GoogleIamV1__TestIamPermissionsResponse'
+paths./v1beta1/{resource}:testIamPermissions.post.security.length: 1
+paths./v1beta1/{resource}:testIamPermissions.post.security[0].Oauth2.length: 1
+paths./v1beta1/{resource}:testIamPermissions.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:testIamPermissions.post.security[0].Oauth2c.length: 1
+paths./v1beta1/{resource}:testIamPermissions.post.security[0].Oauth2c[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta1/{resource}:testIamPermissions.post.tags.length: 1
+paths./v1beta1/{resource}:testIamPermissions.post.tags[0]: projects
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 implicit authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.type: oauth2
+securityDefinitions.Oauth2c.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2c.description: Oauth 2.0 accessCode authentication
+securityDefinitions.Oauth2c.flow: accessCode
+securityDefinitions.Oauth2c.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2c.tokenUrl: https://accounts.google.com/o/oauth2/token
+securityDefinitions.Oauth2c.type: oauth2
+swagger: "2.0"
+tags.length: 1
+tags[0].name: projects

@@ -1,0 +1,612 @@
+basePath: /api/
+consumes.length: 1
+consumes[0]: application/json
+definitions.ActivityMessage.properties.createdTimestamp.description: Epoch time in
+  milliseconds when the message was created
+definitions.ActivityMessage.properties.createdTimestamp.format: int64
+definitions.ActivityMessage.properties.createdTimestamp.type: integer
+definitions.ActivityMessage.properties.message.description: The details of the message
+  when type is 'log'
+definitions.ActivityMessage.properties.message.type: string
+definitions.ActivityMessage.properties.messageObject.$ref: '#/definitions/RuntimeTransaction'
+definitions.ActivityMessage.properties.messageObject.description: The details of the
+  message when type is 'request'
+definitions.ActivityMessage.properties.messageType.enum.length: 2
+definitions.ActivityMessage.properties.messageType.enum[0]: request
+definitions.ActivityMessage.properties.messageType.enum[1]: log
+definitions.ActivityMessage.properties.messageType.type: string
+definitions.ActivityMessage.properties.sandboxId.description: The ID of the sandbox
+  that generated this message
+definitions.ActivityMessage.properties.sandboxId.type: string
+definitions.ActivityMessage.type: object
+definitions.ConfiguredRouteDetails.properties.activeErrorOverride.default: false
+definitions.ConfiguredRouteDetails.properties.activeErrorOverride.description: Whether
+  error overrides are enabled or not.
+definitions.ConfiguredRouteDetails.properties.activeErrorOverride.type: boolean
+definitions.ConfiguredRouteDetails.properties.activeLatency.default: false
+definitions.ConfiguredRouteDetails.properties.activeLatency.description: Whether latency
+  delays are enabled or not.
+definitions.ConfiguredRouteDetails.properties.activeLatency.type: boolean
+definitions.ConfiguredRouteDetails.properties.defaultLatency.description: A delay
+  in milliseconds applied to requests at a 'normal' level.
+definitions.ConfiguredRouteDetails.properties.defaultLatency.format: int32
+definitions.ConfiguredRouteDetails.properties.defaultLatency.maximum: 30000
+definitions.ConfiguredRouteDetails.properties.defaultLatency.minimum: 0
+definitions.ConfiguredRouteDetails.properties.defaultLatency.type: integer
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.description: The type
+  of error override applied to this route.
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.enum.length: 3
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.enum[0]: NONE
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.enum[1]: TIMEOUT
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.enum[2]: SERVICE_DOWN
+definitions.ConfiguredRouteDetails.properties.errorOverrideType.type: string
+definitions.ConfiguredRouteDetails.properties.loadLatency.description: A delay in
+  milliseconds applied to requests at a 'high' level.
+definitions.ConfiguredRouteDetails.properties.loadLatency.format: int32
+definitions.ConfiguredRouteDetails.properties.loadLatency.maximum: 30000
+definitions.ConfiguredRouteDetails.properties.loadLatency.minimum: 0
+definitions.ConfiguredRouteDetails.properties.loadLatency.type: integer
+definitions.ConfiguredRouteDetails.properties.loadThreshold.description: The threshold
+  in transactions/second to signify 'high' load
+definitions.ConfiguredRouteDetails.properties.loadThreshold.format: int32
+definitions.ConfiguredRouteDetails.properties.loadThreshold.maximum: 100
+definitions.ConfiguredRouteDetails.properties.loadThreshold.minimum: 0
+definitions.ConfiguredRouteDetails.properties.loadThreshold.type: integer
+definitions.ConfiguredRouteDetails.properties.method.type: string
+definitions.ConfiguredRouteDetails.properties.path.type: string
+definitions.ConfiguredRouteDetails.properties.properties.additionalProperties.type: string
+definitions.ConfiguredRouteDetails.properties.properties.type: object
+definitions.ConfiguredRouteDetails.properties.routeConfig.$ref: '#/definitions/RouteConfig'
+definitions.ConfiguredRouteDetails.properties.transport.type: string
+definitions.ConfiguredRouteDetails.required.length: 1
+definitions.ConfiguredRouteDetails.required[0]: errorOverrideType
+definitions.ConfiguredRouteDetails.type: object
+definitions.CreateSandbox.properties.commitBaseTemplate.default: false
+definitions.CreateSandbox.properties.commitBaseTemplate.description: Whether to commit
+  the example Sandbox definition upon creation.
+definitions.CreateSandbox.properties.commitBaseTemplate.type: boolean
+definitions.CreateSandbox.properties.description.description: Text describing this
+  Sandbox.
+definitions.CreateSandbox.properties.description.maxLength: 255
+definitions.CreateSandbox.properties.description.minLength: 0
+definitions.CreateSandbox.properties.description.pattern: ^[A-Za-z-_ 0-9]*$
+definitions.CreateSandbox.properties.description.type: string
+definitions.CreateSandbox.properties.name.description: Optional name to give the Sandbox,
+  will be generated if omitted.
+definitions.CreateSandbox.properties.name.pattern: ^[A-Za-z-_ 0-9]*$
+definitions.CreateSandbox.properties.name.type: string
+definitions.CreateSandbox.properties.ownerOrganisationName.description: Name of the
+  team this Sandbox should be created under.
+definitions.CreateSandbox.properties.ownerOrganisationName.maxLength: 36
+definitions.CreateSandbox.properties.ownerOrganisationName.minLength: 2
+definitions.CreateSandbox.properties.ownerOrganisationName.pattern: ^[a-zA-Z-_0-9]*$
+definitions.CreateSandbox.properties.ownerOrganisationName.type: string
+definitions.CreateSandbox.properties.parentSandboxName.description: Name of the Sandbox
+  this should be created under, if exists will be a 'clone'.
+definitions.CreateSandbox.properties.parentSandboxName.pattern: ^[A-Za-z-_ 0-9]*$
+definitions.CreateSandbox.properties.parentSandboxName.type: string
+definitions.CreateSandbox.properties.transportType.enum.length: 2
+definitions.CreateSandbox.properties.transportType.enum[0]: HTTP
+definitions.CreateSandbox.properties.transportType.enum[1]: JMS
+definitions.CreateSandbox.properties.transportType.type: string
+definitions.CreateSandbox.type: object
+definitions.Error.properties.code.type: string
+definitions.Error.properties.detailedMessage.description: Longer message describing
+  the error.
+definitions.Error.properties.detailedMessage.type: string
+definitions.Error.properties.field.description: Message describing which field the
+  error relates to.
+definitions.Error.properties.field.type: string
+definitions.Error.properties.message.description: Short message describing the error.
+definitions.Error.properties.message.type: string
+definitions.Error.type: object
+definitions.RouteConfig.properties.errorStrategy.enum.length: 3
+definitions.RouteConfig.properties.errorStrategy.enum[0]: NONE
+definitions.RouteConfig.properties.errorStrategy.enum[1]: TIMEOUT
+definitions.RouteConfig.properties.errorStrategy.enum[2]: SERVICE_DOWN
+definitions.RouteConfig.properties.errorStrategy.type: string
+definitions.RouteConfig.properties.latencyMs.format: int32
+definitions.RouteConfig.properties.latencyMs.type: integer
+definitions.RouteConfig.properties.latencyMultiplier.format: int32
+definitions.RouteConfig.properties.latencyMultiplier.type: integer
+definitions.RouteConfig.properties.latencyType.enum.length: 3
+definitions.RouteConfig.properties.latencyType.enum[0]: NONE
+definitions.RouteConfig.properties.latencyType.enum[1]: CONSTANT
+definitions.RouteConfig.properties.latencyType.enum[2]: LINEAR
+definitions.RouteConfig.properties.latencyType.type: string
+definitions.RouteConfig.properties.method.type: string
+definitions.RouteConfig.properties.path.type: string
+definitions.RouteConfig.type: object
+definitions.RuntimeRequest.properties.body.description: The body of the given request.
+definitions.RuntimeRequest.properties.body.type: string
+definitions.RuntimeRequest.properties.contentType.description: The content type of
+  the body, for example 'application/json'.
+definitions.RuntimeRequest.properties.contentType.type: string
+definitions.RuntimeRequest.properties.fullSandboxId.description: The parent ID of
+  the Sandbox that received the request.
+definitions.RuntimeRequest.properties.fullSandboxId.type: string
+definitions.RuntimeRequest.properties.fullSandboxName.description: The parent name
+  of the Sandbox that received the request.
+definitions.RuntimeRequest.properties.fullSandboxName.type: string
+definitions.RuntimeRequest.properties.headers.additionalProperties.type: string
+definitions.RuntimeRequest.properties.headers.description: Transport headers for the
+  given request.
+definitions.RuntimeRequest.properties.headers.type: object
+definitions.RuntimeRequest.properties.ip.description: The requestor IP address.
+definitions.RuntimeRequest.properties.ip.type: string
+definitions.RuntimeRequest.properties.properties.additionalProperties.type: string
+definitions.RuntimeRequest.properties.properties.type: object
+definitions.RuntimeRequest.properties.receivedTimestamp.description: The epoch time
+  in milliseconds when the request was received.
+definitions.RuntimeRequest.properties.receivedTimestamp.format: int64
+definitions.RuntimeRequest.properties.receivedTimestamp.type: integer
+definitions.RuntimeRequest.properties.sandboxId.description: The ID of the Sandbox
+  that received the request.
+definitions.RuntimeRequest.properties.sandboxId.type: string
+definitions.RuntimeRequest.properties.sandboxName.description: The name of the Sandbox
+  that received the request.
+definitions.RuntimeRequest.properties.sandboxName.type: string
+definitions.RuntimeRequest.properties.transport.description: Which transport the request
+  was for, 'HTTP' or 'JMS'.
+definitions.RuntimeRequest.properties.transport.type: string
+definitions.RuntimeRequest.type: object
+definitions.RuntimeResponse.properties.body.description: The body of the given response.
+definitions.RuntimeResponse.properties.body.type: string
+definitions.RuntimeResponse.properties.durationMillis.description: Duration in milliseconds
+  of the processing time in Sandbox.
+definitions.RuntimeResponse.properties.durationMillis.format: int64
+definitions.RuntimeResponse.properties.durationMillis.type: integer
+definitions.RuntimeResponse.properties.error.$ref: '#/definitions/Error'
+definitions.RuntimeResponse.properties.error.description: Error if there is a problem
+  during Sandbox execution.
+definitions.RuntimeResponse.properties.headers.additionalProperties.type: string
+definitions.RuntimeResponse.properties.headers.description: Transport headers for
+  the given response.
+definitions.RuntimeResponse.properties.headers.type: object
+definitions.RuntimeResponse.properties.respondedTimestamp.description: The epoch time
+  in milliseconds when the response was sent.
+definitions.RuntimeResponse.properties.respondedTimestamp.format: int64
+definitions.RuntimeResponse.properties.respondedTimestamp.type: integer
+definitions.RuntimeResponse.properties.transport.description: Which transport the
+  request was for, 'HTTP' or 'JMS'.
+definitions.RuntimeResponse.properties.transport.type: string
+definitions.RuntimeResponse.type: object
+definitions.RuntimeTransaction.properties.request.$ref: '#/definitions/RuntimeRequest'
+definitions.RuntimeTransaction.properties.responses.items.$ref: '#/definitions/RuntimeResponse'
+definitions.RuntimeTransaction.properties.responses.type: array
+definitions.RuntimeTransaction.properties.sandboxName.description: The source sandbox
+  name.
+definitions.RuntimeTransaction.properties.sandboxName.type: string
+definitions.RuntimeTransaction.type: object
+definitions.Sandbox.properties.apiDefinition.description: The import source of this
+  Sandbox.
+definitions.Sandbox.properties.apiDefinition.enum.length: 5
+definitions.Sandbox.properties.apiDefinition.enum[0]: None
+definitions.Sandbox.properties.apiDefinition.enum[1]: Apiary
+definitions.Sandbox.properties.apiDefinition.enum[2]: Swagger_V2_Json
+definitions.Sandbox.properties.apiDefinition.enum[3]: RAML_V08
+definitions.Sandbox.properties.apiDefinition.enum[4]: WSDL
+definitions.Sandbox.properties.apiDefinition.type: string
+definitions.Sandbox.properties.childSandboxes.description: Clones of this Sandbox.
+definitions.Sandbox.properties.childSandboxes.items.$ref: '#/definitions/Sandbox'
+definitions.Sandbox.properties.childSandboxes.type: array
+definitions.Sandbox.properties.childSandboxes.uniqueItems: true
+definitions.Sandbox.properties.configuredRoutes.description: Extra configuration applied
+  to some routes, delays, overrides etc.
+definitions.Sandbox.properties.configuredRoutes.items.$ref: '#/definitions/ConfiguredRouteDetails'
+definitions.Sandbox.properties.configuredRoutes.type: array
+definitions.Sandbox.properties.configuredRoutes.uniqueItems: true
+definitions.Sandbox.properties.description.maxLength: 255
+definitions.Sandbox.properties.description.minLength: 0
+definitions.Sandbox.properties.description.pattern: ^[A-Za-z0-9 _\-]*$
+definitions.Sandbox.properties.description.type: string
+definitions.Sandbox.properties.gitAccessToken.type: string
+definitions.Sandbox.properties.gitUrl.description: The git clone URL.
+definitions.Sandbox.properties.gitUrl.type: string
+definitions.Sandbox.properties.hasRepository.default: false
+definitions.Sandbox.properties.hasRepository.description: Whether this Sandbox has
+  a git repository or not.
+definitions.Sandbox.properties.hasRepository.type: boolean
+definitions.Sandbox.properties.id.description: The ID of the Sandbox.
+definitions.Sandbox.properties.id.type: string
+definitions.Sandbox.properties.ipWhitelist.description: The list of IPs allowed to
+  make requests, all allowed if omitted.
+definitions.Sandbox.properties.ipWhitelist.items.type: string
+definitions.Sandbox.properties.ipWhitelist.type: array
+definitions.Sandbox.properties.ipWhitelist.uniqueItems: true
+definitions.Sandbox.properties.name.pattern: ^[a-z0-9\-]*$
+definitions.Sandbox.properties.name.type: string
+definitions.Sandbox.properties.parentSandbox.$ref: '#/definitions/Sandbox'
+definitions.Sandbox.properties.parentSandbox.description: If the Sandbox is a clone,
+  which is it a clone of.
+definitions.Sandbox.properties.properties.additionalProperties.type: object
+definitions.Sandbox.properties.properties.type: object
+definitions.Sandbox.properties.proxyStatus.description: The listener status.
+definitions.Sandbox.properties.proxyStatus.enum.length: 2
+definitions.Sandbox.properties.proxyStatus.enum[0]: STARTED
+definitions.Sandbox.properties.proxyStatus.enum[1]: STOPPED
+definitions.Sandbox.properties.proxyStatus.type: string
+definitions.Sandbox.properties.runtimeVersion.description: The library version of
+  this Sandbox.
+definitions.Sandbox.properties.runtimeVersion.enum.length: 2
+definitions.Sandbox.properties.runtimeVersion.enum[0]: VERSION_1
+definitions.Sandbox.properties.runtimeVersion.enum[1]: VERSION_2
+definitions.Sandbox.properties.runtimeVersion.type: string
+definitions.Sandbox.properties.sandboxUrl.description: The request URL for this Sandbox.
+definitions.Sandbox.properties.sandboxUrl.type: string
+definitions.Sandbox.properties.stackType.enum.length: 1
+definitions.Sandbox.properties.stackType.enum[0]: JavaScript
+definitions.Sandbox.properties.stackType.type: string
+definitions.Sandbox.properties.transportType.description: The listener transport.
+definitions.Sandbox.properties.transportType.enum.length: 2
+definitions.Sandbox.properties.transportType.enum[0]: HTTP
+definitions.Sandbox.properties.transportType.enum[1]: JMS
+definitions.Sandbox.properties.transportType.type: string
+definitions.Sandbox.required.length: 1
+definitions.Sandbox.required[0]: name
+definitions.Sandbox.type: object
+externalDocs.url: https://getsandbox.com/docs/api/overview
+host: getsandbox.com
+info.contact.email: hello@getsandbox.com
+info.contact.name: Sandbox Support
+info.contact.url: https://getsandbox.com
+info.description: Sandbox API
+info.termsOfService: https://getsandbox.com/policy/customer-agreement
+info.title: Sandbox
+info.version: v1
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: developer_tools
+info.x-logo.backgroundColor: '#161924'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_getsandbox.com_lib_img_logo-white-72dpi.png
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://getsandbox.com/lib/js/vendor/swagger/swagger.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: getsandbox.com
+info.x-tags.length: 6
+info.x-tags[0]: sandbox
+info.x-tags[1]: API
+info.x-tags[2]: REST
+info.x-tags[3]: SOAP
+info.x-tags[4]: Swagger
+info.x-tags[5]: OpenAPI
+paths./1/activity/search.get.description: ""
+paths./1/activity/search.get.operationId: getSandboxesActivity
+paths./1/activity/search.get.parameters.length: 5
+paths./1/activity/search.get.parameters[0].description: Timestamp to start search
+  from, epoch time in milliseconds.
+paths./1/activity/search.get.parameters[0].format: int64
+paths./1/activity/search.get.parameters[0].in: query
+paths./1/activity/search.get.parameters[0].name: fromTimestamp
+paths./1/activity/search.get.parameters[0].required: false
+paths./1/activity/search.get.parameters[0].type: integer
+paths./1/activity/search.get.parameters[1].description: Comma-separated list of Sandbox
+  names to search.
+paths./1/activity/search.get.parameters[1].in: query
+paths./1/activity/search.get.parameters[1].name: sourceSandboxes
+paths./1/activity/search.get.parameters[1].required: false
+paths./1/activity/search.get.parameters[1].type: string
+paths./1/activity/search.get.parameters[2].description: A keyword to search activities
+  by, will match any part of the ActivityMessage.
+paths./1/activity/search.get.parameters[2].in: query
+paths./1/activity/search.get.parameters[2].name: keyword
+paths./1/activity/search.get.parameters[2].required: false
+paths./1/activity/search.get.parameters[2].type: string
+paths./1/activity/search.get.parameters[3].description: Flag to return all types of
+  activity, defaults to just Requests
+paths./1/activity/search.get.parameters[3].in: query
+paths./1/activity/search.get.parameters[3].name: allTypes
+paths./1/activity/search.get.parameters[3].required: false
+paths./1/activity/search.get.parameters[3].type: boolean
+paths./1/activity/search.get.parameters[4].description: Maximum number of results
+  to return
+paths./1/activity/search.get.parameters[4].format: int32
+paths./1/activity/search.get.parameters[4].in: query
+paths./1/activity/search.get.parameters[4].name: maxResults
+paths./1/activity/search.get.parameters[4].required: false
+paths./1/activity/search.get.parameters[4].type: integer
+paths./1/activity/search.get.responses.200.description: successful operation
+paths./1/activity/search.get.responses.200.examples.application/json: |-
+  [
+    {
+      "createdTimestamp": 1464829513623,
+      "messageType": "request",
+      "sandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+      "messageObject": {
+        "request": {
+          "transport": "HTTP",
+          "sandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+          "sandboxName": "testbox",
+          "fullSandboxName": "testbox",
+          "fullSandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+          "headers": {
+            "Accept": "*/*",
+            "Host": "testbox.getsandbox.com",
+            "User-Agent": "curl/7.43.0",
+            "X-Forwarded-For": "10.0.2.2"
+          },
+          "properties": {},
+          "body": "",
+          "ip": "10.0.2.2",
+          "cookies": {},
+          "query": {},
+          "accepted": ["*/*"],
+          "url": "/hello",
+          "params": {},
+          "method": "GET",
+          "path": "/hello",
+          "rawUrl": "/hello",
+          "received_timestamp": 1464829513575
+        },
+        "responses": [
+          {
+            "transport": "HTTP",
+            "body": "[\n  \"hello\"\n]",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "cookies": [],
+            "responded_timestamp": 1464829513609,
+            "duration_ms": 34,
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "createdTimestamp": 1464829507925,
+      "messageType": "request",
+      "sandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+      "messageObject": {
+        "request": {
+          "transport": "HTTP",
+          "sandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+          "sandboxName": "testbox",
+          "fullSandboxName": "testbox",
+          "fullSandboxId": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+          "headers": {
+            "Accept": "*/*",
+            "Host": "testbox.getsandbox.com",
+            "User-Agent": "curl/7.43.0",
+            "X-Forwarded-For": "10.0.2.2"
+          },
+          "properties": {},
+          "body": "",
+          "ip": "10.0.2.2",
+          "cookies": {},
+          "query": {},
+          "accepted": ["*/*"],
+          "url": "/hello",
+          "params": {},
+          "method": "GET",
+          "path": "/hello",
+          "rawUrl": "/hello",
+          "received_timestamp": 1464829507856
+        },
+        "responses": [
+          {
+            "transport": "HTTP",
+            "body": "[\n  \"hello\",\n  \"hello\",\n  \"hello\",\n  \"hello\",\n  \"hello\",\n  \"hello\"\n]",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "cookies": [],
+            "responded_timestamp": 1464829507885,
+            "duration_ms": 29,
+            "status": 200
+          }
+        ]
+      }
+    }
+  ]
+paths./1/activity/search.get.responses.200.schema.items.$ref: '#/definitions/ActivityMessage'
+paths./1/activity/search.get.responses.200.schema.type: array
+paths./1/activity/search.get.summary: searchActivity
+paths./1/activity/search.get.tags.length: 1
+paths./1/activity/search.get.tags[0]: Activity
+paths./1/sandboxes.get.description: ""
+paths./1/sandboxes.get.operationId: getSandboxes
+paths./1/sandboxes.get.parameters.length: 1
+paths./1/sandboxes.get.parameters[0].in: query
+paths./1/sandboxes.get.parameters[0].name: filterType
+paths./1/sandboxes.get.parameters[0].required: false
+paths./1/sandboxes.get.parameters[0].type: string
+paths./1/sandboxes.get.responses.200.description: successful operation
+paths./1/sandboxes.get.responses.200.examples.application/json: |-
+  [
+    {
+      "id": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+      "name": "testbox",
+      "description": "",
+      "configuredRoutes": [],
+      "hasRepository": true,
+      "apiDefinition": "None",
+      "stackType": "JavaScript",
+      "runtimeVersion": "VERSION_2",
+      "proxyStatus": "STARTED",
+      "transportType": "HTTP",
+      "properties": {},
+      "gitUrl": "http://git.getsandbox.com/testbox.git",
+      "sandboxUrl": "http://testbox.getsandbox.com"
+    }
+  ]
+paths./1/sandboxes.get.responses.200.schema.items.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes.get.responses.200.schema.type: array
+paths./1/sandboxes.get.summary: getSandboxes
+paths./1/sandboxes.get.tags.length: 1
+paths./1/sandboxes.get.tags[0]: Sandbox
+paths./1/sandboxes.post.description: ""
+paths./1/sandboxes.post.operationId: createSandbox
+paths./1/sandboxes.post.parameters.length: 1
+paths./1/sandboxes.post.parameters[0].description: Sandbox to be created
+paths./1/sandboxes.post.parameters[0].in: body
+paths./1/sandboxes.post.parameters[0].name: body
+paths./1/sandboxes.post.parameters[0].required: true
+paths./1/sandboxes.post.parameters[0].schema.$ref: '#/definitions/CreateSandbox'
+paths./1/sandboxes.post.responses.200.description: successful operation
+paths./1/sandboxes.post.responses.200.examples.application/json: |-
+  {
+    "id": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+    "name": "testbox",
+    "description": "",
+    "configuredRoutes": [],
+    "hasRepository": true,
+    "apiDefinition": "None",
+    "stackType": "JavaScript",
+    "runtimeVersion": "VERSION_2",
+    "proxyStatus": "STARTED",
+    "transportType": "HTTP",
+    "properties": {},
+    "gitUrl": "http://git.getsandbox.com/testbox.git",
+    "sandboxUrl": "http://testbox.getsandbox.com"
+  }
+paths./1/sandboxes.post.responses.200.schema.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes.post.summary: createSandbox
+paths./1/sandboxes.post.tags.length: 1
+paths./1/sandboxes.post.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}.delete.description: ""
+paths./1/sandboxes/{sandboxName}.delete.operationId: deleteSandbox
+paths./1/sandboxes/{sandboxName}.delete.parameters.length: 1
+paths./1/sandboxes/{sandboxName}.delete.parameters[0].description: Name of the Sandbox
+paths./1/sandboxes/{sandboxName}.delete.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}.delete.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}.delete.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}.delete.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}.delete.responses.default.description: successful
+  operation
+paths./1/sandboxes/{sandboxName}.delete.summary: deleteSandbox
+paths./1/sandboxes/{sandboxName}.delete.tags.length: 1
+paths./1/sandboxes/{sandboxName}.delete.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}.get.description: ""
+paths./1/sandboxes/{sandboxName}.get.operationId: getSandbox
+paths./1/sandboxes/{sandboxName}.get.parameters.length: 1
+paths./1/sandboxes/{sandboxName}.get.parameters[0].description: Name of the Sandbox
+paths./1/sandboxes/{sandboxName}.get.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}.get.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}.get.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}.get.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}.get.responses.200.description: successful operation
+paths./1/sandboxes/{sandboxName}.get.responses.200.examples.application/json: |-
+  {
+    "id": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+    "name": "testbox",
+    "description": "",
+    "configuredRoutes": [],
+    "hasRepository": true,
+    "apiDefinition": "None",
+    "stackType": "JavaScript",
+    "runtimeVersion": "VERSION_2",
+    "proxyStatus": "STARTED",
+    "transportType": "HTTP",
+    "properties": {},
+    "gitUrl": "http://git.getsandbox.com/testbox.git",
+    "sandboxUrl": "http://testbox.getsandbox.com"
+  }
+paths./1/sandboxes/{sandboxName}.get.responses.200.schema.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes/{sandboxName}.get.summary: getSandbox
+paths./1/sandboxes/{sandboxName}.get.tags.length: 1
+paths./1/sandboxes/{sandboxName}.get.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}.put.description: ""
+paths./1/sandboxes/{sandboxName}.put.operationId: updateSandbox
+paths./1/sandboxes/{sandboxName}.put.parameters.length: 2
+paths./1/sandboxes/{sandboxName}.put.parameters[0].description: Name of the Sandbox
+paths./1/sandboxes/{sandboxName}.put.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}.put.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}.put.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}.put.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}.put.parameters[1].description: Fields to updated
+  on given Sandbox
+paths./1/sandboxes/{sandboxName}.put.parameters[1].in: body
+paths./1/sandboxes/{sandboxName}.put.parameters[1].name: body
+paths./1/sandboxes/{sandboxName}.put.parameters[1].required: true
+paths./1/sandboxes/{sandboxName}.put.parameters[1].schema.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes/{sandboxName}.put.responses.200.description: successful operation
+paths./1/sandboxes/{sandboxName}.put.responses.200.examples.application/json: |-
+  {
+    "id": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+    "name": "testbox",
+    "description": "",
+    "configuredRoutes": [],
+    "hasRepository": true,
+    "apiDefinition": "None",
+    "stackType": "JavaScript",
+    "runtimeVersion": "VERSION_2",
+    "proxyStatus": "STARTED",
+    "transportType": "HTTP",
+    "properties": {},
+    "gitUrl": "http://git.getsandbox.com/testbox.git",
+    "sandboxUrl": "http://testbox.getsandbox.com"
+  }
+paths./1/sandboxes/{sandboxName}.put.responses.200.schema.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes/{sandboxName}.put.summary: updateSandbox
+paths./1/sandboxes/{sandboxName}.put.tags.length: 1
+paths./1/sandboxes/{sandboxName}.put.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}/fork.get.description: ""
+paths./1/sandboxes/{sandboxName}/fork.get.operationId: forkSandbox
+paths./1/sandboxes/{sandboxName}/fork.get.parameters.length: 1
+paths./1/sandboxes/{sandboxName}/fork.get.parameters[0].description: Name of the Sandbox
+paths./1/sandboxes/{sandboxName}/fork.get.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}/fork.get.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}/fork.get.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}/fork.get.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}/fork.get.responses.200.description: successful operation
+paths./1/sandboxes/{sandboxName}/fork.get.responses.200.examples.application/json: |-
+  {
+    "id": "s-328f0d3a-7cf8-400c-a5e8-dc0e84b737b3",
+    "name": "testbox",
+    "description": "",
+    "configuredRoutes": [],
+    "hasRepository": true,
+    "apiDefinition": "None",
+    "stackType": "JavaScript",
+    "runtimeVersion": "VERSION_2",
+    "proxyStatus": "STARTED",
+    "transportType": "HTTP",
+    "properties": {},
+    "gitUrl": "http://git.getsandbox.com/testbox.git",
+    "sandboxUrl": "http://testbox.getsandbox.com"
+  }
+paths./1/sandboxes/{sandboxName}/fork.get.responses.200.schema.$ref: '#/definitions/Sandbox'
+paths./1/sandboxes/{sandboxName}/fork.get.summary: forkSandbox
+paths./1/sandboxes/{sandboxName}/fork.get.tags.length: 1
+paths./1/sandboxes/{sandboxName}/fork.get.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}/state.delete.description: ""
+paths./1/sandboxes/{sandboxName}/state.delete.operationId: deleteSandboxState
+paths./1/sandboxes/{sandboxName}/state.delete.parameters.length: 1
+paths./1/sandboxes/{sandboxName}/state.delete.parameters[0].description: Name of the
+  Sandbox
+paths./1/sandboxes/{sandboxName}/state.delete.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}/state.delete.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}/state.delete.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}/state.delete.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}/state.delete.responses.default.description: successful
+  operation
+paths./1/sandboxes/{sandboxName}/state.delete.summary: deleteSandboxState
+paths./1/sandboxes/{sandboxName}/state.delete.tags.length: 1
+paths./1/sandboxes/{sandboxName}/state.delete.tags[0]: Sandbox
+paths./1/sandboxes/{sandboxName}/state.get.description: ""
+paths./1/sandboxes/{sandboxName}/state.get.operationId: getSandboxState
+paths./1/sandboxes/{sandboxName}/state.get.parameters.length: 1
+paths./1/sandboxes/{sandboxName}/state.get.parameters[0].description: Name of the
+  Sandbox
+paths./1/sandboxes/{sandboxName}/state.get.parameters[0].in: path
+paths./1/sandboxes/{sandboxName}/state.get.parameters[0].name: sandboxName
+paths./1/sandboxes/{sandboxName}/state.get.parameters[0].required: true
+paths./1/sandboxes/{sandboxName}/state.get.parameters[0].type: string
+paths./1/sandboxes/{sandboxName}/state.get.responses.default.description: successful
+  operation
+paths./1/sandboxes/{sandboxName}/state.get.summary: getSandboxState
+paths./1/sandboxes/{sandboxName}/state.get.tags.length: 1
+paths./1/sandboxes/{sandboxName}/state.get.tags[0]: Sandbox
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.api_key.in: header
+securityDefinitions.api_key.name: API_Key
+securityDefinitions.api_key.type: apiKey
+swagger: "2.0"
+tags.length: 2
+tags[0].name: Activity
+tags[1].name: Sandbox

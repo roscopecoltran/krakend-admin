@@ -1,0 +1,1855 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.AccountLimit.description: Provides limits of code size and concurrency
+  associated with the current account and region.
+definitions.AccountLimit.properties.CodeSizeUnzipped.$ref: '#/definitions/Long'
+definitions.AccountLimit.properties.CodeSizeUnzipped.description: Size, in bytes,
+  of code/dependencies that you can zip into a deployment package (uncompressed zip/jar
+  size) for uploading. The default limit is 250 MB.
+definitions.AccountLimit.properties.CodeSizeZipped.$ref: '#/definitions/Long'
+definitions.AccountLimit.properties.CodeSizeZipped.description: Size, in bytes, of
+  a single zipped code/dependencies package you can upload for your Lambda function(.zip/.jar
+  file). Try using Amazon S3 for uploading larger files. Default limit is 50 MB.
+definitions.AccountLimit.properties.ConcurrentExecutions.$ref: '#/definitions/Integer'
+definitions.AccountLimit.properties.ConcurrentExecutions.description: Number of simultaneous
+  executions of your function per region. For more information or to request a limit
+  increase for concurrent executions, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Lambda
+  Function Concurrent Executions</a>. The default limit is 100.
+definitions.AccountLimit.properties.TotalCodeSize.$ref: '#/definitions/Long'
+definitions.AccountLimit.properties.TotalCodeSize.description: 'Maximum size, in bytes,
+  of a code package you can upload per region. The default size is 75 GB. '
+definitions.AccountLimit.type: object
+definitions.AccountUsage.description: Provides code size usage and function count
+  associated with the current account and region.
+definitions.AccountUsage.properties.FunctionCount.$ref: '#/definitions/Long'
+definitions.AccountUsage.properties.FunctionCount.description: The number of your
+  account's existing functions per region.
+definitions.AccountUsage.properties.TotalCodeSize.$ref: '#/definitions/Long'
+definitions.AccountUsage.properties.TotalCodeSize.description: Total size, in bytes,
+  of the account's deployment packages per region.
+definitions.AccountUsage.type: object
+definitions.Action.pattern: (lambda:[*]|lambda:[a-zA-Z]+|[*])
+definitions.Action.type: string
+definitions.AddPermissionRequest.description: <p/>
+definitions.AddPermissionRequest.example.Action: lambda:InvokeFunction
+definitions.AddPermissionRequest.example.FunctionName: MyFunction
+definitions.AddPermissionRequest.example.Principal: s3.amazonaws.com
+definitions.AddPermissionRequest.example.SourceAccount: "123456789012"
+definitions.AddPermissionRequest.example.SourceArn: arn:aws:s3:::examplebucket/*
+definitions.AddPermissionRequest.example.StatementId: ID-1
+definitions.AddPermissionRequest.properties.Action.$ref: '#/definitions/Action'
+definitions.AddPermissionRequest.properties.Action.description: 'The AWS Lambda action
+  you want to allow in this statement. Each Lambda action is a string starting with
+  <code>lambda:</code> followed by the API name . For example, <code>lambda:CreateFunction</code>.
+  You can use wildcard (<code>lambda:*</code>) to grant permission for all AWS Lambda
+  actions. '
+definitions.AddPermissionRequest.properties.EventSourceToken.$ref: '#/definitions/EventSourceToken'
+definitions.AddPermissionRequest.properties.EventSourceToken.description: A unique
+  token that must be supplied by the principal invoking the function. This is currently
+  only used for Alexa Smart Home functions.
+definitions.AddPermissionRequest.properties.Principal.$ref: '#/definitions/Principal'
+definitions.AddPermissionRequest.properties.Principal.description: 'The principal
+  who is getting this permission. It can be Amazon S3 service Principal (<code>s3.amazonaws.com</code>)
+  if you want Amazon S3 to invoke the function, an AWS account ID if you are granting
+  cross-account permission, or any valid AWS service principal such as <code>sns.amazonaws.com</code>.
+  For example, you might want to allow a custom application in another AWS account
+  to push events to AWS Lambda by invoking your function. '
+definitions.AddPermissionRequest.properties.SourceAccount.$ref: '#/definitions/SourceOwner'
+definitions.AddPermissionRequest.properties.SourceAccount.description: 'This parameter
+  is used for S3 and SES. The AWS account ID (without a hyphen) of the source owner.
+  For example, if the <code>SourceArn</code> identifies a bucket, then this is the
+  bucket owner''s account ID. You can use this additional condition to ensure the
+  bucket you specify is owned by a specific account (it is possible the bucket owner
+  deleted the bucket and some other AWS account created the bucket). You can also
+  use this condition to specify all sources (that is, you don''t specify the <code>SourceArn</code>)
+  owned by a specific account. '
+definitions.AddPermissionRequest.properties.SourceArn.$ref: '#/definitions/Arn'
+definitions.AddPermissionRequest.properties.SourceArn.description: <p>This is optional;
+  however, when granting permission to invoke your function, you should specify this
+  field with the Amazon Resource Name (ARN) as its value. This ensures that only events
+  generated from the specified source can invoke the function.</p> <important> <p>If
+  you add a permission without providing the source ARN, any AWS account that creates
+  a mapping to your function ARN can send events to invoke your Lambda function.</p>
+  </important>
+definitions.AddPermissionRequest.properties.StatementId.$ref: '#/definitions/StatementId'
+definitions.AddPermissionRequest.properties.StatementId.description: A unique statement
+  identifier.
+definitions.AddPermissionRequest.required.length: 3
+definitions.AddPermissionRequest.required[0]: StatementId
+definitions.AddPermissionRequest.required[1]: Action
+definitions.AddPermissionRequest.required[2]: Principal
+definitions.AddPermissionRequest.type: object
+definitions.AddPermissionResponse.description: <p/>
+definitions.AddPermissionResponse.example.Statement: ID-1
+definitions.AddPermissionResponse.properties.Statement.$ref: '#/definitions/String'
+definitions.AddPermissionResponse.properties.Statement.description: The permission
+  statement you specified in the request. The response returns the same as a string
+  using a backslash ("\") as an escape character in the JSON.
+definitions.AddPermissionResponse.type: object
+definitions.Alias.maxLength: 128
+definitions.Alias.minLength: 1
+definitions.Alias.pattern: (?!^[0-9]+$)([a-zA-Z0-9-_]+)
+definitions.Alias.type: string
+definitions.AliasConfiguration.description: Provides configuration information about
+  a Lambda function version alias.
+definitions.AliasConfiguration.example.AliasArn: arn:aws:lambda:us-west-2:123456789012:function:functionAlias
+definitions.AliasConfiguration.example.Description: ""
+definitions.AliasConfiguration.example.FunctionVersion: "1"
+definitions.AliasConfiguration.example.Name: functionAlias
+definitions.AliasConfiguration.properties.AliasArn.$ref: '#/definitions/FunctionArn'
+definitions.AliasConfiguration.properties.AliasArn.description: Lambda function ARN
+  that is qualified using the alias name as the suffix. For example, if you create
+  an alias called <code>BETA</code> that points to a helloworld function version,
+  the ARN is <code>arn:aws:lambda:aws-regions:acct-id:function:helloworld:BETA</code>.
+definitions.AliasConfiguration.properties.Description.$ref: '#/definitions/Description'
+definitions.AliasConfiguration.properties.Description.description: Alias description.
+definitions.AliasConfiguration.properties.FunctionVersion.$ref: '#/definitions/Version'
+definitions.AliasConfiguration.properties.FunctionVersion.description: Function version
+  to which the alias points.
+definitions.AliasConfiguration.properties.Name.$ref: '#/definitions/Alias'
+definitions.AliasConfiguration.properties.Name.description: Alias name.
+definitions.AliasConfiguration.type: object
+definitions.AliasList.items.$ref: '#/definitions/AliasConfiguration'
+definitions.AliasList.type: array
+definitions.Arn.pattern: arn:aws:([a-zA-Z0-9\-])+:([a-z]{2}-[a-z]+-\d{1})?:(\d{12})?:(.*)
+definitions.Arn.type: string
+definitions.BatchSize.maximum: 10000
+definitions.BatchSize.minimum: 1
+definitions.BatchSize.type: integer
+definitions.Blob.format: password
+definitions.Blob.type: string
+definitions.BlobStream.type: string
+definitions.Boolean.type: boolean
+definitions.CodeStorageExceededException.description: 'You have exceeded your maximum
+  total code size per account. <a href="http://docs.aws.amazon.com/lambda/latest/dg/limits.html">Limits</a> '
+definitions.CodeStorageExceededException.properties.Type.$ref: '#/definitions/String'
+definitions.CodeStorageExceededException.properties.Type.description: <p/>
+definitions.CodeStorageExceededException.properties.message.$ref: '#/definitions/String'
+definitions.CodeStorageExceededException.type: object
+definitions.CreateAliasRequest.properties.Description.$ref: '#/definitions/Description'
+definitions.CreateAliasRequest.properties.Description.description: Description of
+  the alias.
+definitions.CreateAliasRequest.properties.FunctionVersion.$ref: '#/definitions/Version'
+definitions.CreateAliasRequest.properties.FunctionVersion.description: Lambda function
+  version for which you are creating the alias.
+definitions.CreateAliasRequest.properties.Name.$ref: '#/definitions/Alias'
+definitions.CreateAliasRequest.properties.Name.description: Name for the alias you
+  are creating.
+definitions.CreateAliasRequest.required.length: 2
+definitions.CreateAliasRequest.required[0]: Name
+definitions.CreateAliasRequest.required[1]: FunctionVersion
+definitions.CreateAliasRequest.type: object
+definitions.CreateEventSourceMappingRequest.description: <p/>
+definitions.CreateEventSourceMappingRequest.properties.BatchSize.$ref: '#/definitions/BatchSize'
+definitions.CreateEventSourceMappingRequest.properties.BatchSize.description: The
+  largest number of records that AWS Lambda will retrieve from your event source at
+  the time of invoking your function. Your function receives an event with all the
+  retrieved records. The default is 100 records.
+definitions.CreateEventSourceMappingRequest.properties.Enabled.$ref: '#/definitions/Enabled'
+definitions.CreateEventSourceMappingRequest.properties.Enabled.description: 'Indicates
+  whether AWS Lambda should begin polling the event source. By default, <code>Enabled</code>
+  is true. '
+definitions.CreateEventSourceMappingRequest.properties.EventSourceArn.$ref: '#/definitions/Arn'
+definitions.CreateEventSourceMappingRequest.properties.EventSourceArn.description: The
+  Amazon Resource Name (ARN) of the Amazon Kinesis or the Amazon DynamoDB stream that
+  is the event source. Any record added to this stream could cause AWS Lambda to invoke
+  your Lambda function, it depends on the <code>BatchSize</code>. AWS Lambda POSTs
+  the Amazon Kinesis event, containing records, to your Lambda function as JSON.
+definitions.CreateEventSourceMappingRequest.properties.FunctionName.$ref: '#/definitions/FunctionName'
+definitions.CreateEventSourceMappingRequest.properties.FunctionName.description: <p>The
+  Lambda function to invoke when AWS Lambda detects an event on the stream.</p> <p>
+  You can specify the function name (for example, <code>Thumbnail</code>) or you can
+  specify Amazon Resource Name (ARN) of the function (for example, <code>arn:aws:lambda:us-west-2:account-id:function:ThumbNail</code>).
+  </p> <p> If you are using versioning, you can also provide a qualified function
+  ARN (ARN that is qualified with function version or alias name as suffix). For more
+  information about versioning, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a> </p> <p>AWS Lambda also allows you to
+  specify only the function name with the account ID qualifier (for example, <code>account-id:Thumbnail</code>).
+  </p> <p>Note that the length constraint applies only to the ARN. If you specify
+  only the function name, it is limited to 64 characters in length.</p>
+definitions.CreateEventSourceMappingRequest.properties.StartingPosition.$ref: '#/definitions/EventSourcePosition'
+definitions.CreateEventSourceMappingRequest.properties.StartingPosition.description: 'The
+  position in the stream where AWS Lambda should start reading. Valid only for Kinesis
+  streams. For more information, see <a href="http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType">ShardIteratorType</a>
+  in the <i>Amazon Kinesis API Reference</i>. '
+definitions.CreateEventSourceMappingRequest.properties.StartingPositionTimestamp.$ref: '#/definitions/Date'
+definitions.CreateEventSourceMappingRequest.properties.StartingPositionTimestamp.description: 'The
+  timestamp of the data record from which to start reading. Used with <a href="http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType">shard
+  iterator type</a> AT_TIMESTAMP. If a record with this exact timestamp does not exist,
+  the iterator returned is for the next (later) record. If the timestamp is older
+  than the current trim horizon, the iterator returned is for the oldest untrimmed
+  data record (TRIM_HORIZON). Valid only for Kinesis streams. '
+definitions.CreateEventSourceMappingRequest.required.length: 3
+definitions.CreateEventSourceMappingRequest.required[0]: EventSourceArn
+definitions.CreateEventSourceMappingRequest.required[1]: FunctionName
+definitions.CreateEventSourceMappingRequest.required[2]: StartingPosition
+definitions.CreateEventSourceMappingRequest.type: object
+definitions.CreateFunctionRequest.description: <p/>
+definitions.CreateFunctionRequest.example.Description: ""
+definitions.CreateFunctionRequest.example.FunctionName: MyFunction
+definitions.CreateFunctionRequest.example.Handler: souce_file.handler_name
+definitions.CreateFunctionRequest.example.MemorySize: 128
+definitions.CreateFunctionRequest.example.Publish: true
+definitions.CreateFunctionRequest.example.Role: arn:aws:iam::123456789012:role/service-role/role-name
+definitions.CreateFunctionRequest.example.Runtime: nodejs4.3
+definitions.CreateFunctionRequest.example.Timeout: 15
+definitions.CreateFunctionRequest.properties.Code.$ref: '#/definitions/FunctionCode'
+definitions.CreateFunctionRequest.properties.Code.description: The code for the Lambda
+  function.
+definitions.CreateFunctionRequest.properties.DeadLetterConfig.$ref: '#/definitions/DeadLetterConfig'
+definitions.CreateFunctionRequest.properties.DeadLetterConfig.description: 'The parent
+  object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue
+  or Amazon SNS topic. '
+definitions.CreateFunctionRequest.properties.Description.$ref: '#/definitions/Description'
+definitions.CreateFunctionRequest.properties.Description.description: A short, user-defined
+  function description. Lambda does not use this value. Assign a meaningful description
+  as you see fit.
+definitions.CreateFunctionRequest.properties.Environment.$ref: '#/definitions/Environment'
+definitions.CreateFunctionRequest.properties.FunctionName.$ref: '#/definitions/FunctionName'
+definitions.CreateFunctionRequest.properties.FunctionName.description: 'The name you
+  want to assign to the function you are uploading. The function names appear in the
+  console and are returned in the <a>ListFunctions</a> API. Function names are used
+  to specify functions to other AWS Lambda API operations, such as <a>Invoke</a>.
+  Note that the length constraint applies only to the ARN. If you specify only the
+  function name, it is limited to 64 characters in length. '
+definitions.CreateFunctionRequest.properties.Handler.$ref: '#/definitions/Handler'
+definitions.CreateFunctionRequest.properties.Handler.description: 'The function within
+  your code that Lambda calls to begin execution. For Node.js, it is the <i>module-name</i>.<i>export</i>
+  value in your function. For Java, it can be <code>package.class-name::handler</code>
+  or <code>package.class-name</code>. For more information, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/java-programming-model-handler-types.html">Lambda
+  Function Handler (Java)</a>. '
+definitions.CreateFunctionRequest.properties.KMSKeyArn.$ref: '#/definitions/KMSKeyArn'
+definitions.CreateFunctionRequest.properties.KMSKeyArn.description: The Amazon Resource
+  Name (ARN) of the KMS key used to encrypt your function's environment variables.
+  If not provided, AWS Lambda will use a default service key.
+definitions.CreateFunctionRequest.properties.MemorySize.$ref: '#/definitions/MemorySize'
+definitions.CreateFunctionRequest.properties.MemorySize.description: The amount of
+  memory, in MB, your Lambda function is given. Lambda uses this memory size to infer
+  the amount of CPU and memory allocated to your function. Your function use-case
+  determines your CPU and memory requirements. For example, a database operation might
+  need less memory compared to an image processing function. The default value is
+  128 MB. The value must be a multiple of 64 MB.
+definitions.CreateFunctionRequest.properties.Publish.$ref: '#/definitions/Boolean'
+definitions.CreateFunctionRequest.properties.Publish.description: This boolean parameter
+  can be used to request AWS Lambda to create the Lambda function and publish a version
+  as an atomic operation.
+definitions.CreateFunctionRequest.properties.Role.$ref: '#/definitions/RoleArn'
+definitions.CreateFunctionRequest.properties.Role.description: 'The Amazon Resource
+  Name (ARN) of the IAM role that Lambda assumes when it executes your function to
+  access any other Amazon Web Services (AWS) resources. For more information, see
+  <a href="http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html">AWS
+  Lambda: How it Works</a>. '
+definitions.CreateFunctionRequest.properties.Runtime.$ref: '#/definitions/Runtime'
+definitions.CreateFunctionRequest.properties.Runtime.description: <p>The runtime environment
+  for the Lambda function you are uploading.</p> <p>To use the Python runtime v3.6,
+  set the value to "python3.6". To use the Python runtime v2.7, set the value to "python2.7".
+  To use the Node.js runtime v6.10, set the value to "nodejs6.10". To use the Node.js
+  runtime v4.3, set the value to "nodejs4.3".</p> <note> <p>Node v0.10.42 is currently
+  marked as deprecated. You must migrate existing functions to the newer Node.js runtime
+  versions available on AWS Lambda (nodejs4.3 or nodejs6.10) as soon as possible.
+  You can request a one-time extension until June 30, 2017 by going to the Lambda
+  console and following the instructions provided. Failure to do so will result in
+  an invalid parmaeter error being returned. Note that you will have to follow this
+  procedure for each region that contains functions written in the Node v0.10.42 runtime.</p>
+  </note>
+definitions.CreateFunctionRequest.properties.Tags.$ref: '#/definitions/Tags'
+definitions.CreateFunctionRequest.properties.Tags.description: The list of tags (key-value
+  pairs) assigned to the new function.
+definitions.CreateFunctionRequest.properties.Timeout.$ref: '#/definitions/Timeout'
+definitions.CreateFunctionRequest.properties.Timeout.description: The function execution
+  time at which Lambda should terminate the function. Because the execution time has
+  cost implications, we recommend you set this value based on your expected execution
+  time. The default is 3 seconds.
+definitions.CreateFunctionRequest.properties.TracingConfig.$ref: '#/definitions/TracingConfig'
+definitions.CreateFunctionRequest.properties.TracingConfig.description: The parent
+  object that contains your function's tracing settings.
+definitions.CreateFunctionRequest.properties.VpcConfig.$ref: '#/definitions/VpcConfig'
+definitions.CreateFunctionRequest.properties.VpcConfig.description: If your Lambda
+  function accesses resources in a VPC, you provide this parameter identifying the
+  list of security group IDs and subnet IDs. These must belong to the same VPC. You
+  must provide at least one security group and one subnet ID.
+definitions.CreateFunctionRequest.required.length: 5
+definitions.CreateFunctionRequest.required[0]: FunctionName
+definitions.CreateFunctionRequest.required[1]: Runtime
+definitions.CreateFunctionRequest.required[2]: Role
+definitions.CreateFunctionRequest.required[3]: Handler
+definitions.CreateFunctionRequest.required[4]: Code
+definitions.CreateFunctionRequest.type: object
+definitions.Date.format: date-time
+definitions.Date.type: string
+definitions.DeadLetterConfig.description: The parent object that contains the target
+  ARN (Amazon Resource Name) of an Amazon SQS queue or Amazon SNS topic.
+definitions.DeadLetterConfig.properties.TargetArn.$ref: '#/definitions/ResourceArn'
+definitions.DeadLetterConfig.properties.TargetArn.description: The Amazon Resource
+  Name (ARN) of an Amazon SQS queue or Amazon SNS topic you specify as your Dead Letter
+  Queue (DLQ).
+definitions.DeadLetterConfig.type: object
+definitions.DeleteAliasRequest.example.FunctionName: myFunction
+definitions.DeleteAliasRequest.example.Name: alias
+definitions.DeleteAliasRequest.type: object
+definitions.DeleteEventSourceMappingRequest.description: <p/>
+definitions.DeleteEventSourceMappingRequest.example.UUID: 12345kxodurf3443
+definitions.DeleteEventSourceMappingRequest.type: object
+definitions.DeleteFunctionRequest.example.FunctionName: myFunction
+definitions.DeleteFunctionRequest.example.Qualifier: "1"
+definitions.DeleteFunctionRequest.type: object
+definitions.Description.maxLength: 256
+definitions.Description.minLength: 0
+definitions.Description.type: string
+definitions.EC2AccessDeniedException.description: <p/>
+definitions.EC2AccessDeniedException.properties.Message.$ref: '#/definitions/String'
+definitions.EC2AccessDeniedException.properties.Type.$ref: '#/definitions/String'
+definitions.EC2AccessDeniedException.type: object
+definitions.EC2ThrottledException.description: AWS Lambda was throttled by Amazon
+  EC2 during Lambda function initialization using the execution role provided for
+  the Lambda function.
+definitions.EC2ThrottledException.properties.Message.$ref: '#/definitions/String'
+definitions.EC2ThrottledException.properties.Type.$ref: '#/definitions/String'
+definitions.EC2ThrottledException.type: object
+definitions.EC2UnexpectedException.description: AWS Lambda received an unexpected
+  EC2 client exception while setting up for the Lambda function.
+definitions.EC2UnexpectedException.properties.EC2ErrorCode.$ref: '#/definitions/String'
+definitions.EC2UnexpectedException.properties.Message.$ref: '#/definitions/String'
+definitions.EC2UnexpectedException.properties.Type.$ref: '#/definitions/String'
+definitions.EC2UnexpectedException.type: object
+definitions.ENILimitReachedException.description: AWS Lambda was not able to create
+  an Elastic Network Interface (ENI) in the VPC, specified as part of Lambda function
+  configuration, because the limit for network interfaces has been reached.
+definitions.ENILimitReachedException.properties.Message.$ref: '#/definitions/String'
+definitions.ENILimitReachedException.properties.Type.$ref: '#/definitions/String'
+definitions.ENILimitReachedException.type: object
+definitions.Enabled.type: boolean
+definitions.Environment.description: The parent object that contains your environment's
+  configuration settings.
+definitions.Environment.properties.Variables.$ref: '#/definitions/EnvironmentVariables'
+definitions.Environment.properties.Variables.description: The key-value pairs that
+  represent your environment's configuration settings.
+definitions.Environment.type: object
+definitions.EnvironmentError.description: The parent object that contains error information
+  associated with your configuration settings.
+definitions.EnvironmentError.properties.ErrorCode.$ref: '#/definitions/String'
+definitions.EnvironmentError.properties.ErrorCode.description: The error code returned
+  by the environment error object.
+definitions.EnvironmentError.properties.Message.$ref: '#/definitions/SensitiveString'
+definitions.EnvironmentError.properties.Message.description: The message returned
+  by the environment error object.
+definitions.EnvironmentError.type: object
+definitions.EnvironmentResponse.description: The parent object returned that contains
+  your environment's configuration settings or any error information associated with
+  your configuration settings.
+definitions.EnvironmentResponse.properties.Error.$ref: '#/definitions/EnvironmentError'
+definitions.EnvironmentResponse.properties.Variables.$ref: '#/definitions/EnvironmentVariables'
+definitions.EnvironmentResponse.properties.Variables.description: The key-value pairs
+  returned that represent your environment's configuration settings or error information.
+definitions.EnvironmentResponse.type: object
+definitions.EnvironmentVariableName.format: password
+definitions.EnvironmentVariableName.pattern: '[a-zA-Z]([a-zA-Z0-9_])+'
+definitions.EnvironmentVariableName.type: string
+definitions.EnvironmentVariableValue.format: password
+definitions.EnvironmentVariableValue.type: string
+definitions.EnvironmentVariables.items.properties.key.$ref: '#/definitions/EnvironmentVariableName'
+definitions.EnvironmentVariables.items.properties.value.$ref: '#/definitions/EnvironmentVariableValue'
+definitions.EnvironmentVariables.items.type: object
+definitions.EnvironmentVariables.type: array
+definitions.EventSourceMappingConfiguration.description: Describes mapping between
+  an Amazon Kinesis stream and a Lambda function.
+definitions.EventSourceMappingConfiguration.example.BatchSize: 123
+definitions.EventSourceMappingConfiguration.example.EventSourceArn: arn:aws:s3:::examplebucket/*
+definitions.EventSourceMappingConfiguration.example.FunctionArn: arn:aws:lambda:us-west-2:123456789012:function:myFunction
+definitions.EventSourceMappingConfiguration.example.LastModified: 2016-11-21T19:49:20.006+0000
+definitions.EventSourceMappingConfiguration.example.LastProcessingResult: ""
+definitions.EventSourceMappingConfiguration.example.State: ""
+definitions.EventSourceMappingConfiguration.example.StateTransitionReason: ""
+definitions.EventSourceMappingConfiguration.example.UUID: 1234xCy789012
+definitions.EventSourceMappingConfiguration.properties.BatchSize.$ref: '#/definitions/BatchSize'
+definitions.EventSourceMappingConfiguration.properties.BatchSize.description: The
+  largest number of records that AWS Lambda will retrieve from your event source at
+  the time of invoking your function. Your function receives an event with all the
+  retrieved records.
+definitions.EventSourceMappingConfiguration.properties.EventSourceArn.$ref: '#/definitions/Arn'
+definitions.EventSourceMappingConfiguration.properties.EventSourceArn.description: The
+  Amazon Resource Name (ARN) of the Amazon Kinesis stream that is the source of events.
+definitions.EventSourceMappingConfiguration.properties.FunctionArn.$ref: '#/definitions/FunctionArn'
+definitions.EventSourceMappingConfiguration.properties.FunctionArn.description: The
+  Lambda function to invoke when AWS Lambda detects an event on the stream.
+definitions.EventSourceMappingConfiguration.properties.LastModified.$ref: '#/definitions/Date'
+definitions.EventSourceMappingConfiguration.properties.LastModified.description: The
+  UTC time string indicating the last time the event mapping was updated.
+definitions.EventSourceMappingConfiguration.properties.LastProcessingResult.$ref: '#/definitions/String'
+definitions.EventSourceMappingConfiguration.properties.LastProcessingResult.description: The
+  result of the last AWS Lambda invocation of your Lambda function.
+definitions.EventSourceMappingConfiguration.properties.State.$ref: '#/definitions/String'
+definitions.EventSourceMappingConfiguration.properties.State.description: The state
+  of the event source mapping. It can be <code>Creating</code>, <code>Enabled</code>,
+  <code>Disabled</code>, <code>Enabling</code>, <code>Disabling</code>, <code>Updating</code>,
+  or <code>Deleting</code>.
+definitions.EventSourceMappingConfiguration.properties.StateTransitionReason.$ref: '#/definitions/String'
+definitions.EventSourceMappingConfiguration.properties.StateTransitionReason.description: The
+  reason the event source mapping is in its current state. It is either user-requested
+  or an AWS Lambda-initiated state transition.
+definitions.EventSourceMappingConfiguration.properties.UUID.$ref: '#/definitions/String'
+definitions.EventSourceMappingConfiguration.properties.UUID.description: The AWS Lambda
+  assigned opaque identifier for the mapping.
+definitions.EventSourceMappingConfiguration.type: object
+definitions.EventSourceMappingsList.items.$ref: '#/definitions/EventSourceMappingConfiguration'
+definitions.EventSourceMappingsList.type: array
+definitions.EventSourcePosition.enum.length: 3
+definitions.EventSourcePosition.enum[0]: TRIM_HORIZON
+definitions.EventSourcePosition.enum[1]: LATEST
+definitions.EventSourcePosition.enum[2]: AT_TIMESTAMP
+definitions.EventSourcePosition.type: string
+definitions.EventSourceToken.maxLength: 256
+definitions.EventSourceToken.minLength: 0
+definitions.EventSourceToken.pattern: '[a-zA-Z0-9._\-]+'
+definitions.EventSourceToken.type: string
+definitions.FunctionArn.pattern: arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?
+definitions.FunctionArn.type: string
+definitions.FunctionCode.description: The code for the Lambda function.
+definitions.FunctionCode.properties.S3Bucket.$ref: '#/definitions/S3Bucket'
+definitions.FunctionCode.properties.S3Bucket.description: Amazon S3 bucket name where
+  the .zip file containing your deployment package is stored. This bucket must reside
+  in the same AWS region where you are creating the Lambda function.
+definitions.FunctionCode.properties.S3Key.$ref: '#/definitions/S3Key'
+definitions.FunctionCode.properties.S3Key.description: The Amazon S3 object (the deployment
+  package) key name you want to upload.
+definitions.FunctionCode.properties.S3ObjectVersion.$ref: '#/definitions/S3ObjectVersion'
+definitions.FunctionCode.properties.S3ObjectVersion.description: The Amazon S3 object
+  (the deployment package) version you want to upload.
+definitions.FunctionCode.properties.ZipFile.$ref: '#/definitions/Blob'
+definitions.FunctionCode.properties.ZipFile.description: 'The contents of your zip
+  file containing your deployment package. If you are using the web API directly,
+  the contents of the zip file must be base64-encoded. If you are using the AWS SDKs
+  or the AWS CLI, the SDKs or CLI will do the encoding for you. For more information
+  about creating a .zip file, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html">Execution
+  Permissions</a> in the <i>AWS Lambda Developer Guide</i>. '
+definitions.FunctionCode.type: object
+definitions.FunctionCodeLocation.description: The object for the Lambda function location.
+definitions.FunctionCodeLocation.properties.Location.$ref: '#/definitions/String'
+definitions.FunctionCodeLocation.properties.Location.description: The presigned URL
+  you can use to download the function's .zip file that you previously uploaded. The
+  URL is valid for up to 10 minutes.
+definitions.FunctionCodeLocation.properties.RepositoryType.$ref: '#/definitions/String'
+definitions.FunctionCodeLocation.properties.RepositoryType.description: The repository
+  from which you can download the function.
+definitions.FunctionCodeLocation.type: object
+definitions.FunctionConfiguration.description: A complex type that describes function
+  metadata.
+definitions.FunctionConfiguration.example.CodeSha256: LQT+0DHxxxxcfwLyQjzoEFKZtdqQjHXanlSdfXBlEW0VA=
+definitions.FunctionConfiguration.example.CodeSize: 123
+definitions.FunctionConfiguration.example.Description: ""
+definitions.FunctionConfiguration.example.FunctionArn: arn:aws:lambda:us-west-2:123456789012:function:myFunction
+definitions.FunctionConfiguration.example.FunctionName: myFunction
+definitions.FunctionConfiguration.example.Handler: index.handler
+definitions.FunctionConfiguration.example.LastModified: 2016-11-21T19:49:20.006+0000
+definitions.FunctionConfiguration.example.MemorySize: 128
+definitions.FunctionConfiguration.example.Role: arn:aws:iam::123456789012:role/lambda_basic_execution
+definitions.FunctionConfiguration.example.Runtime: python2.7
+definitions.FunctionConfiguration.example.Timeout: 123
+definitions.FunctionConfiguration.example.Version: "1"
+definitions.FunctionConfiguration.properties.CodeSha256.$ref: '#/definitions/String'
+definitions.FunctionConfiguration.properties.CodeSha256.description: It is the SHA256
+  hash of your function deployment package.
+definitions.FunctionConfiguration.properties.CodeSize.$ref: '#/definitions/Long'
+definitions.FunctionConfiguration.properties.CodeSize.description: The size, in bytes,
+  of the function .zip file you uploaded.
+definitions.FunctionConfiguration.properties.DeadLetterConfig.$ref: '#/definitions/DeadLetterConfig'
+definitions.FunctionConfiguration.properties.DeadLetterConfig.description: The parent
+  object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue
+  or Amazon SNS topic.
+definitions.FunctionConfiguration.properties.Description.$ref: '#/definitions/Description'
+definitions.FunctionConfiguration.properties.Description.description: The user-provided
+  description.
+definitions.FunctionConfiguration.properties.Environment.$ref: '#/definitions/EnvironmentResponse'
+definitions.FunctionConfiguration.properties.Environment.description: The parent object
+  that contains your environment's configuration settings.
+definitions.FunctionConfiguration.properties.FunctionArn.$ref: '#/definitions/NameSpacedFunctionArn'
+definitions.FunctionConfiguration.properties.FunctionArn.description: The Amazon Resource
+  Name (ARN) assigned to the function.
+definitions.FunctionConfiguration.properties.FunctionName.$ref: '#/definitions/NamespacedFunctionName'
+definitions.FunctionConfiguration.properties.FunctionName.description: The name of
+  the function. Note that the length constraint applies only to the ARN. If you specify
+  only the function name, it is limited to 64 characters in length.
+definitions.FunctionConfiguration.properties.Handler.$ref: '#/definitions/Handler'
+definitions.FunctionConfiguration.properties.Handler.description: The function Lambda
+  calls to begin executing your function.
+definitions.FunctionConfiguration.properties.KMSKeyArn.$ref: '#/definitions/KMSKeyArn'
+definitions.FunctionConfiguration.properties.KMSKeyArn.description: The Amazon Resource
+  Name (ARN) of the KMS key used to encrypt your function's environment variables.
+  If empty, it means you are using the AWS Lambda default service key.
+definitions.FunctionConfiguration.properties.LastModified.$ref: '#/definitions/Timestamp'
+definitions.FunctionConfiguration.properties.LastModified.description: The time stamp
+  of the last time you updated the function. The time stamp is conveyed as a string
+  complying with ISO-8601 in this way YYYY-MM-DDThh:mm:ssTZD (e.g., 1997-07-16T19:20:30+01:00).
+  For more information, see <a href="https://www.w3.org/TR/NOTE-datetime">Date and
+  Time Formats</a>.
+definitions.FunctionConfiguration.properties.MasterArn.$ref: '#/definitions/FunctionArn'
+definitions.FunctionConfiguration.properties.MasterArn.description: Returns the ARN
+  (Amazon Resource Name) of the master function.
+definitions.FunctionConfiguration.properties.MemorySize.$ref: '#/definitions/MemorySize'
+definitions.FunctionConfiguration.properties.MemorySize.description: The memory size,
+  in MB, you configured for the function. Must be a multiple of 64 MB.
+definitions.FunctionConfiguration.properties.Role.$ref: '#/definitions/RoleArn'
+definitions.FunctionConfiguration.properties.Role.description: The Amazon Resource
+  Name (ARN) of the IAM role that Lambda assumes when it executes your function to
+  access any other Amazon Web Services (AWS) resources.
+definitions.FunctionConfiguration.properties.Runtime.$ref: '#/definitions/Runtime'
+definitions.FunctionConfiguration.properties.Runtime.description: The runtime environment
+  for the Lambda function.
+definitions.FunctionConfiguration.properties.Timeout.$ref: '#/definitions/Timeout'
+definitions.FunctionConfiguration.properties.Timeout.description: The function execution
+  time at which Lambda should terminate the function. Because the execution time has
+  cost implications, we recommend you set this value based on your expected execution
+  time. The default is 3 seconds.
+definitions.FunctionConfiguration.properties.TracingConfig.$ref: '#/definitions/TracingConfigResponse'
+definitions.FunctionConfiguration.properties.TracingConfig.description: The parent
+  object that contains your function's tracing settings.
+definitions.FunctionConfiguration.properties.Version.$ref: '#/definitions/Version'
+definitions.FunctionConfiguration.properties.Version.description: The version of the
+  Lambda function.
+definitions.FunctionConfiguration.properties.VpcConfig.$ref: '#/definitions/VpcConfigResponse'
+definitions.FunctionConfiguration.properties.VpcConfig.description: VPC configuration
+  associated with your Lambda function.
+definitions.FunctionConfiguration.type: object
+definitions.FunctionList.items.$ref: '#/definitions/FunctionConfiguration'
+definitions.FunctionList.type: array
+definitions.FunctionName.maxLength: 140
+definitions.FunctionName.minLength: 1
+definitions.FunctionName.pattern: (arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?
+definitions.FunctionName.type: string
+definitions.FunctionVersion.enum.length: 1
+definitions.FunctionVersion.enum[0]: ALL
+definitions.FunctionVersion.type: string
+definitions.GetAccountSettingsRequest.type: object
+definitions.GetAccountSettingsResponse.properties.AccountLimit.$ref: '#/definitions/AccountLimit'
+definitions.GetAccountSettingsResponse.properties.AccountUsage.$ref: '#/definitions/AccountUsage'
+definitions.GetAccountSettingsResponse.type: object
+definitions.GetAliasRequest.example.FunctionName: myFunction
+definitions.GetAliasRequest.example.Name: myFunctionAlias
+definitions.GetAliasRequest.type: object
+definitions.GetEventSourceMappingRequest.description: <p/>
+definitions.GetEventSourceMappingRequest.example.UUID: 123489-xxxxx-kdla8d89d7
+definitions.GetEventSourceMappingRequest.type: object
+definitions.GetFunctionConfigurationRequest.description: <p/>
+definitions.GetFunctionConfigurationRequest.example.FunctionName: myFunction
+definitions.GetFunctionConfigurationRequest.example.Qualifier: "1"
+definitions.GetFunctionConfigurationRequest.type: object
+definitions.GetFunctionRequest.description: <p/>
+definitions.GetFunctionRequest.example.FunctionName: myFunction
+definitions.GetFunctionRequest.example.Qualifier: "1"
+definitions.GetFunctionRequest.type: object
+definitions.GetFunctionResponse.description: This response contains the object for
+  the Lambda function location (see <a>FunctionCodeLocation</a>.
+definitions.GetFunctionResponse.example.Code.Location: somelocation
+definitions.GetFunctionResponse.example.Code.RepositoryType: S3
+definitions.GetFunctionResponse.example.Configuration.CodeSha256: LQT+0DHxxxxcfwLyQjzoEFKZtdqQjHXanlSdfXBlEW0VA=
+definitions.GetFunctionResponse.example.Configuration.CodeSize: 262
+definitions.GetFunctionResponse.example.Configuration.Description: A starter AWS Lambda
+  function.
+definitions.GetFunctionResponse.example.Configuration.Environment.Variables.S3_BUCKET: test
+definitions.GetFunctionResponse.example.Configuration.FunctionArn: arn:aws:lambda:us-west-2:123456789012:function:myFunction
+definitions.GetFunctionResponse.example.Configuration.FunctionName: myFunction
+definitions.GetFunctionResponse.example.Configuration.Handler: index.handler
+definitions.GetFunctionResponse.example.Configuration.LastModified: 2016-11-21T19:49:20.006+0000
+definitions.GetFunctionResponse.example.Configuration.MemorySize: 128
+definitions.GetFunctionResponse.example.Configuration.Role: arn:aws:iam::123456789012:role/lambda_basic_execution
+definitions.GetFunctionResponse.example.Configuration.Runtime: nodejs4.3
+definitions.GetFunctionResponse.example.Configuration.Timeout: 3
+definitions.GetFunctionResponse.example.Configuration.Version: $LATEST
+definitions.GetFunctionResponse.example.Configuration.VpcConfig.SecurityGroupIds.length: 0
+definitions.GetFunctionResponse.example.Configuration.VpcConfig.SubnetIds.length: 0
+definitions.GetFunctionResponse.properties.Code.$ref: '#/definitions/FunctionCodeLocation'
+definitions.GetFunctionResponse.properties.Configuration.$ref: '#/definitions/FunctionConfiguration'
+definitions.GetFunctionResponse.properties.Tags.$ref: '#/definitions/Tags'
+definitions.GetFunctionResponse.properties.Tags.description: Returns the list of tags
+  associated with the function.
+definitions.GetFunctionResponse.type: object
+definitions.GetPolicyRequest.description: <p/>
+definitions.GetPolicyRequest.example.FunctionName: myFunction
+definitions.GetPolicyRequest.example.Qualifier: "1"
+definitions.GetPolicyRequest.type: object
+definitions.GetPolicyResponse.description: <p/>
+definitions.GetPolicyResponse.example.Policy: ""
+definitions.GetPolicyResponse.properties.Policy.$ref: '#/definitions/String'
+definitions.GetPolicyResponse.properties.Policy.description: The resource policy associated
+  with the specified function. The response returns the same as a string using a backslash
+  ("\") as an escape character in the JSON.
+definitions.GetPolicyResponse.type: object
+definitions.Handler.maxLength: 128
+definitions.Handler.pattern: '[^\s]+'
+definitions.Handler.type: string
+definitions.HttpStatus.type: integer
+definitions.Integer.type: integer
+definitions.InvalidParameterValueException.description: 'One of the parameters in
+  the request is invalid. For example, if you provided an IAM role for AWS Lambda
+  to assume in the <code>CreateFunction</code> or the <code>UpdateFunctionConfiguration</code>
+  API, that AWS Lambda is unable to assume you will get this exception. You will also
+  get this exception if you have selected a deprecated runtime, such as Node v0.10.42. '
+definitions.InvalidParameterValueException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidParameterValueException.properties.Type.description: <p/>
+definitions.InvalidParameterValueException.properties.message.$ref: '#/definitions/String'
+definitions.InvalidParameterValueException.properties.message.description: <p/>
+definitions.InvalidParameterValueException.type: object
+definitions.InvalidRequestContentException.description: The request body could not
+  be parsed as JSON.
+definitions.InvalidRequestContentException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidRequestContentException.properties.Type.description: <p/>
+definitions.InvalidRequestContentException.properties.message.$ref: '#/definitions/String'
+definitions.InvalidRequestContentException.properties.message.description: <p/>
+definitions.InvalidRequestContentException.type: object
+definitions.InvalidRuntimeException.description: The runtime or runtime version specified
+  is not supported.
+definitions.InvalidRuntimeException.properties.Message.$ref: '#/definitions/String'
+definitions.InvalidRuntimeException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidRuntimeException.type: object
+definitions.InvalidSecurityGroupIDException.description: The Security Group ID provided
+  in the Lambda function VPC configuration is invalid.
+definitions.InvalidSecurityGroupIDException.properties.Message.$ref: '#/definitions/String'
+definitions.InvalidSecurityGroupIDException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidSecurityGroupIDException.type: object
+definitions.InvalidSubnetIDException.description: The Subnet ID provided in the Lambda
+  function VPC configuration is invalid.
+definitions.InvalidSubnetIDException.properties.Message.$ref: '#/definitions/String'
+definitions.InvalidSubnetIDException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidSubnetIDException.type: object
+definitions.InvalidZipFileException.description: AWS Lambda could not unzip the function
+  zip file.
+definitions.InvalidZipFileException.properties.Message.$ref: '#/definitions/String'
+definitions.InvalidZipFileException.properties.Type.$ref: '#/definitions/String'
+definitions.InvalidZipFileException.type: object
+definitions.InvocationRequest.description: <p/>
+definitions.InvocationRequest.example.ClientContext: MyApp
+definitions.InvocationRequest.example.FunctionName: MyFunction
+definitions.InvocationRequest.example.InvocationType: Event
+definitions.InvocationRequest.example.LogType: Tail
+definitions.InvocationRequest.example.Payload: fileb://file-path/input.json
+definitions.InvocationRequest.example.Qualifier: "1"
+definitions.InvocationRequest.properties.Payload.$ref: '#/definitions/Blob'
+definitions.InvocationRequest.properties.Payload.description: JSON that you want to
+  provide to your Lambda function as input.
+definitions.InvocationRequest.type: object
+definitions.InvocationResponse.description: Upon success, returns an empty response.
+  Otherwise, throws an exception.
+definitions.InvocationResponse.example.FunctionError: ""
+definitions.InvocationResponse.example.LogResult: ""
+definitions.InvocationResponse.example.Payload: '?'
+definitions.InvocationResponse.example.StatusCode: 123
+definitions.InvocationResponse.properties.Payload.$ref: '#/definitions/Blob'
+definitions.InvocationResponse.properties.Payload.description: <p> It is the JSON
+  representation of the object returned by the Lambda function. This is present only
+  if the invocation type is <code>RequestResponse</code>. </p> <p>In the event of
+  a function error this field contains a message describing the error. For the <code>Handled</code>
+  errors the Lambda function will report this message. For <code>Unhandled</code>
+  errors AWS Lambda reports the message. </p>
+definitions.InvocationResponse.type: object
+definitions.InvocationType.enum.length: 3
+definitions.InvocationType.enum[0]: Event
+definitions.InvocationType.enum[1]: RequestResponse
+definitions.InvocationType.enum[2]: DryRun
+definitions.InvocationType.type: string
+definitions.InvokeAsyncRequest.description: <p/>
+definitions.InvokeAsyncRequest.example.FunctionName: myFunction
+definitions.InvokeAsyncRequest.example.InvokeArgs: fileb://file-path/input.json
+definitions.InvokeAsyncRequest.properties.InvokeArgs.$ref: '#/definitions/BlobStream'
+definitions.InvokeAsyncRequest.properties.InvokeArgs.description: JSON that you want
+  to provide to your Lambda function as input.
+definitions.InvokeAsyncRequest.required.length: 1
+definitions.InvokeAsyncRequest.required[0]: InvokeArgs
+definitions.InvokeAsyncRequest.type: object
+definitions.InvokeAsyncResponse.description: Upon success, it returns empty response.
+  Otherwise, throws an exception.
+definitions.InvokeAsyncResponse.example.Status: 123
+definitions.InvokeAsyncResponse.type: object
+definitions.KMSAccessDeniedException.description: Lambda was unable to decrypt the
+  environment variables because KMS access was denied. Check the Lambda function's
+  KMS permissions.
+definitions.KMSAccessDeniedException.properties.Message.$ref: '#/definitions/String'
+definitions.KMSAccessDeniedException.properties.Type.$ref: '#/definitions/String'
+definitions.KMSAccessDeniedException.type: object
+definitions.KMSDisabledException.description: Lambda was unable to decrypt the environment
+  variables because the KMS key used is disabled. Check the Lambda function's KMS
+  key settings.
+definitions.KMSDisabledException.properties.Message.$ref: '#/definitions/String'
+definitions.KMSDisabledException.properties.Type.$ref: '#/definitions/String'
+definitions.KMSDisabledException.type: object
+definitions.KMSInvalidStateException.description: Lambda was unable to decrypt the
+  environment variables because the KMS key used is in an invalid state for Decrypt.
+  Check the function's KMS key settings.
+definitions.KMSInvalidStateException.properties.Message.$ref: '#/definitions/String'
+definitions.KMSInvalidStateException.properties.Type.$ref: '#/definitions/String'
+definitions.KMSInvalidStateException.type: object
+definitions.KMSKeyArn.pattern: (arn:aws:[a-z0-9-.]+:.*)|()
+definitions.KMSKeyArn.type: string
+definitions.KMSNotFoundException.description: 'Lambda was unable to decrypt the environment
+  variables because the KMS key was not found. Check the function''s KMS key settings. '
+definitions.KMSNotFoundException.properties.Message.$ref: '#/definitions/String'
+definitions.KMSNotFoundException.properties.Type.$ref: '#/definitions/String'
+definitions.KMSNotFoundException.type: object
+definitions.ListAliasesRequest.example.FunctionName: myFunction
+definitions.ListAliasesRequest.example.FunctionVersion: "1"
+definitions.ListAliasesRequest.example.Marker: ""
+definitions.ListAliasesRequest.example.MaxItems: 123
+definitions.ListAliasesRequest.type: object
+definitions.ListAliasesResponse.example.Aliases.length: 0
+definitions.ListAliasesResponse.example.NextMarker: ""
+definitions.ListAliasesResponse.properties.Aliases.$ref: '#/definitions/AliasList'
+definitions.ListAliasesResponse.properties.Aliases.description: A list of aliases.
+definitions.ListAliasesResponse.properties.NextMarker.$ref: '#/definitions/String'
+definitions.ListAliasesResponse.properties.NextMarker.description: A string, present
+  if there are more aliases.
+definitions.ListAliasesResponse.type: object
+definitions.ListEventSourceMappingsRequest.description: <p/>
+definitions.ListEventSourceMappingsRequest.type: object
+definitions.ListEventSourceMappingsResponse.description: Contains a list of event
+  sources (see <a>EventSourceMappingConfiguration</a>)
+definitions.ListEventSourceMappingsResponse.properties.EventSourceMappings.$ref: '#/definitions/EventSourceMappingsList'
+definitions.ListEventSourceMappingsResponse.properties.EventSourceMappings.description: An
+  array of <code>EventSourceMappingConfiguration</code> objects.
+definitions.ListEventSourceMappingsResponse.properties.NextMarker.$ref: '#/definitions/String'
+definitions.ListEventSourceMappingsResponse.properties.NextMarker.description: A string,
+  present if there are more event source mappings.
+definitions.ListEventSourceMappingsResponse.type: object
+definitions.ListFunctionsRequest.description: <p/>
+definitions.ListFunctionsRequest.example.Marker: ""
+definitions.ListFunctionsRequest.example.MaxItems: 123
+definitions.ListFunctionsRequest.type: object
+definitions.ListFunctionsResponse.description: Contains a list of AWS Lambda function
+  configurations (see <a>FunctionConfiguration</a>.
+definitions.ListFunctionsResponse.example.Functions.length: 0
+definitions.ListFunctionsResponse.example.NextMarker: ""
+definitions.ListFunctionsResponse.properties.Functions.$ref: '#/definitions/FunctionList'
+definitions.ListFunctionsResponse.properties.Functions.description: A list of Lambda
+  functions.
+definitions.ListFunctionsResponse.properties.NextMarker.$ref: '#/definitions/String'
+definitions.ListFunctionsResponse.properties.NextMarker.description: A string, present
+  if there are more functions.
+definitions.ListFunctionsResponse.type: object
+definitions.ListTagsRequest.type: object
+definitions.ListTagsResponse.properties.Tags.$ref: '#/definitions/Tags'
+definitions.ListTagsResponse.properties.Tags.description: The list of tags assigned
+  to the function.
+definitions.ListTagsResponse.type: object
+definitions.ListVersionsByFunctionRequest.description: <p/>
+definitions.ListVersionsByFunctionRequest.example.FunctionName: myFunction
+definitions.ListVersionsByFunctionRequest.example.Marker: ""
+definitions.ListVersionsByFunctionRequest.example.MaxItems: 123
+definitions.ListVersionsByFunctionRequest.type: object
+definitions.ListVersionsByFunctionResponse.description: <p/>
+definitions.ListVersionsByFunctionResponse.example.NextMarker: ""
+definitions.ListVersionsByFunctionResponse.example.Versions.length: 0
+definitions.ListVersionsByFunctionResponse.properties.NextMarker.$ref: '#/definitions/String'
+definitions.ListVersionsByFunctionResponse.properties.NextMarker.description: A string,
+  present if there are more function versions.
+definitions.ListVersionsByFunctionResponse.properties.Versions.$ref: '#/definitions/FunctionList'
+definitions.ListVersionsByFunctionResponse.properties.Versions.description: A list
+  of Lambda function versions.
+definitions.ListVersionsByFunctionResponse.type: object
+definitions.LogType.enum.length: 2
+definitions.LogType.enum[0]: None
+definitions.LogType.enum[1]: Tail
+definitions.LogType.type: string
+definitions.Long.type: integer
+definitions.MasterRegion.pattern: ALL|[a-z]{2}(-gov)?-[a-z]+-\d{1}
+definitions.MasterRegion.type: string
+definitions.MaxListItems.maximum: 10000
+definitions.MaxListItems.minimum: 1
+definitions.MaxListItems.type: integer
+definitions.MemorySize.maximum: 1536
+definitions.MemorySize.minimum: 128
+definitions.MemorySize.type: integer
+definitions.NameSpacedFunctionArn.pattern: arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST|[a-zA-Z0-9-_]+))?
+definitions.NameSpacedFunctionArn.type: string
+definitions.NamespacedFunctionName.maxLength: 170
+definitions.NamespacedFunctionName.minLength: 1
+definitions.NamespacedFunctionName.pattern: (arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_\.]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?
+definitions.NamespacedFunctionName.type: string
+definitions.NamespacedStatementId.maxLength: 100
+definitions.NamespacedStatementId.minLength: 1
+definitions.NamespacedStatementId.pattern: ([a-zA-Z0-9-_.]+)
+definitions.NamespacedStatementId.type: string
+definitions.PolicyLengthExceededException.description: Lambda function access policy
+  is limited to 20 KB.
+definitions.PolicyLengthExceededException.properties.Type.$ref: '#/definitions/String'
+definitions.PolicyLengthExceededException.properties.message.$ref: '#/definitions/String'
+definitions.PolicyLengthExceededException.type: object
+definitions.Principal.pattern: .*
+definitions.Principal.type: string
+definitions.PublishVersionRequest.description: <p/>
+definitions.PublishVersionRequest.example.CodeSha256: ""
+definitions.PublishVersionRequest.example.Description: ""
+definitions.PublishVersionRequest.example.FunctionName: myFunction
+definitions.PublishVersionRequest.properties.CodeSha256.$ref: '#/definitions/String'
+definitions.PublishVersionRequest.properties.CodeSha256.description: The SHA256 hash
+  of the deployment package you want to publish. This provides validation on the code
+  you are publishing. If you provide this parameter value must match the SHA256 of
+  the $LATEST version for the publication to succeed.
+definitions.PublishVersionRequest.properties.Description.$ref: '#/definitions/Description'
+definitions.PublishVersionRequest.properties.Description.description: The description
+  for the version you are publishing. If not provided, AWS Lambda copies the description
+  from the $LATEST version.
+definitions.PublishVersionRequest.type: object
+definitions.Qualifier.maxLength: 128
+definitions.Qualifier.minLength: 1
+definitions.Qualifier.pattern: (|[a-zA-Z0-9$_-]+)
+definitions.Qualifier.type: string
+definitions.RemovePermissionRequest.description: <p/>
+definitions.RemovePermissionRequest.example.FunctionName: myFunction
+definitions.RemovePermissionRequest.example.Qualifier: "1"
+definitions.RemovePermissionRequest.example.StatementId: role-statement-id
+definitions.RemovePermissionRequest.type: object
+definitions.RequestTooLargeException.description: 'The request payload exceeded the
+  <code>Invoke</code> request body JSON input limit. For more information, see <a
+  href="http://docs.aws.amazon.com/lambda/latest/dg/limits.html">Limits</a>. '
+definitions.RequestTooLargeException.properties.Type.$ref: '#/definitions/String'
+definitions.RequestTooLargeException.properties.message.$ref: '#/definitions/String'
+definitions.RequestTooLargeException.type: object
+definitions.ResourceArn.pattern: (arn:aws:[a-z0-9-.]+:.*)|()
+definitions.ResourceArn.type: string
+definitions.ResourceConflictException.description: The resource already exists.
+definitions.ResourceConflictException.properties.Type.$ref: '#/definitions/String'
+definitions.ResourceConflictException.properties.Type.description: <p/>
+definitions.ResourceConflictException.properties.message.$ref: '#/definitions/String'
+definitions.ResourceConflictException.properties.message.description: <p/>
+definitions.ResourceConflictException.type: object
+definitions.ResourceNotFoundException.description: The resource (for example, a Lambda
+  function or access policy statement) specified in the request does not exist.
+definitions.ResourceNotFoundException.properties.Message.$ref: '#/definitions/String'
+definitions.ResourceNotFoundException.properties.Type.$ref: '#/definitions/String'
+definitions.ResourceNotFoundException.type: object
+definitions.RoleArn.pattern: arn:aws:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+
+definitions.RoleArn.type: string
+definitions.Runtime.enum.length: 8
+definitions.Runtime.enum[0]: nodejs
+definitions.Runtime.enum[1]: nodejs4.3
+definitions.Runtime.enum[2]: nodejs6.10
+definitions.Runtime.enum[3]: java8
+definitions.Runtime.enum[4]: python2.7
+definitions.Runtime.enum[5]: python3.6
+definitions.Runtime.enum[6]: dotnetcore1.0
+definitions.Runtime.enum[7]: nodejs4.3-edge
+definitions.Runtime.type: string
+definitions.S3Bucket.maxLength: 63
+definitions.S3Bucket.minLength: 3
+definitions.S3Bucket.pattern: ^[0-9A-Za-z\.\-_]*\(\?<!\.\)$
+definitions.S3Bucket.type: string
+definitions.S3Key.maxLength: 1024
+definitions.S3Key.minLength: 1
+definitions.S3Key.type: string
+definitions.S3ObjectVersion.maxLength: 1024
+definitions.S3ObjectVersion.minLength: 1
+definitions.S3ObjectVersion.type: string
+definitions.SecurityGroupId.type: string
+definitions.SecurityGroupIds.items.$ref: '#/definitions/SecurityGroupId'
+definitions.SecurityGroupIds.maxItems: 5
+definitions.SecurityGroupIds.type: array
+definitions.SensitiveString.format: password
+definitions.SensitiveString.type: string
+definitions.ServiceException.description: The AWS Lambda service encountered an internal
+  error.
+definitions.ServiceException.properties.Message.$ref: '#/definitions/String'
+definitions.ServiceException.properties.Type.$ref: '#/definitions/String'
+definitions.ServiceException.type: object
+definitions.SourceOwner.pattern: \d{12}
+definitions.SourceOwner.type: string
+definitions.StatementId.maxLength: 100
+definitions.StatementId.minLength: 1
+definitions.StatementId.pattern: ([a-zA-Z0-9-_]+)
+definitions.StatementId.type: string
+definitions.String.type: string
+definitions.SubnetIPAddressLimitReachedException.description: AWS Lambda was not able
+  to set up VPC access for the Lambda function because one or more configured subnets
+  has no available IP addresses.
+definitions.SubnetIPAddressLimitReachedException.properties.Message.$ref: '#/definitions/String'
+definitions.SubnetIPAddressLimitReachedException.properties.Type.$ref: '#/definitions/String'
+definitions.SubnetIPAddressLimitReachedException.type: object
+definitions.SubnetId.type: string
+definitions.SubnetIds.items.$ref: '#/definitions/SubnetId'
+definitions.SubnetIds.maxItems: 16
+definitions.SubnetIds.type: array
+definitions.TagKey.type: string
+definitions.TagKeyList.items.$ref: '#/definitions/TagKey'
+definitions.TagKeyList.type: array
+definitions.TagResourceRequest.properties.Tags.$ref: '#/definitions/Tags'
+definitions.TagResourceRequest.properties.Tags.description: The list of tags (key-value
+  pairs) you are assigning to the Lambda function.
+definitions.TagResourceRequest.required.length: 1
+definitions.TagResourceRequest.required[0]: Tags
+definitions.TagResourceRequest.type: object
+definitions.TagValue.type: string
+definitions.Tags.items.properties.key.$ref: '#/definitions/TagKey'
+definitions.Tags.items.properties.value.$ref: '#/definitions/TagValue'
+definitions.Tags.items.type: object
+definitions.Tags.type: array
+definitions.ThrottleReason.enum.length: 3
+definitions.ThrottleReason.enum[0]: ConcurrentInvocationLimitExceeded
+definitions.ThrottleReason.enum[1]: FunctionInvocationRateLimitExceeded
+definitions.ThrottleReason.enum[2]: CallerRateLimitExceeded
+definitions.ThrottleReason.type: string
+definitions.Timeout.minimum: 1
+definitions.Timeout.type: integer
+definitions.Timestamp.type: string
+definitions.TooManyRequestsException.description: <p/>
+definitions.TooManyRequestsException.properties.Reason.$ref: '#/definitions/ThrottleReason'
+definitions.TooManyRequestsException.properties.Type.$ref: '#/definitions/String'
+definitions.TooManyRequestsException.properties.message.$ref: '#/definitions/String'
+definitions.TooManyRequestsException.type: object
+definitions.TracingConfig.description: The parent object that contains your function's
+  tracing settings.
+definitions.TracingConfig.properties.Mode.$ref: '#/definitions/TracingMode'
+definitions.TracingConfig.properties.Mode.description: Can be either PassThrough or
+  Active. If PassThrough, Lambda will only trace the request from an upstream service
+  if it contains a tracing header with "sampled=1". If Active, Lambda will respect
+  any tracing header it receives from an upstream service. If no tracing header is
+  received, Lambda will call X-Ray for a tracing decision.
+definitions.TracingConfig.type: object
+definitions.TracingConfigResponse.description: Parent object of the tracing information
+  associated with your Lambda function.
+definitions.TracingConfigResponse.properties.Mode.$ref: '#/definitions/TracingMode'
+definitions.TracingConfigResponse.properties.Mode.description: The tracing mode associated
+  with your Lambda function.
+definitions.TracingConfigResponse.type: object
+definitions.TracingMode.enum.length: 2
+definitions.TracingMode.enum[0]: Active
+definitions.TracingMode.enum[1]: PassThrough
+definitions.TracingMode.type: string
+definitions.UnsupportedMediaTypeException.description: The content type of the <code>Invoke</code>
+  request body is not JSON.
+definitions.UnsupportedMediaTypeException.properties.Type.$ref: '#/definitions/String'
+definitions.UnsupportedMediaTypeException.properties.message.$ref: '#/definitions/String'
+definitions.UnsupportedMediaTypeException.type: object
+definitions.UntagResourceRequest.type: object
+definitions.UpdateAliasRequest.example.Description: ""
+definitions.UpdateAliasRequest.example.FunctionName: myFunction
+definitions.UpdateAliasRequest.example.FunctionVersion: "1"
+definitions.UpdateAliasRequest.example.Name: functionAlias
+definitions.UpdateAliasRequest.properties.Description.$ref: '#/definitions/Description'
+definitions.UpdateAliasRequest.properties.Description.description: You can change
+  the description of the alias using this parameter.
+definitions.UpdateAliasRequest.properties.FunctionVersion.$ref: '#/definitions/Version'
+definitions.UpdateAliasRequest.properties.FunctionVersion.description: Using this
+  parameter you can change the Lambda function version to which the alias points.
+definitions.UpdateAliasRequest.type: object
+definitions.UpdateEventSourceMappingRequest.description: <p/>
+definitions.UpdateEventSourceMappingRequest.example.BatchSize: 123
+definitions.UpdateEventSourceMappingRequest.example.Enabled: true
+definitions.UpdateEventSourceMappingRequest.example.FunctionName: myFunction
+definitions.UpdateEventSourceMappingRequest.example.UUID: 1234xCy789012
+definitions.UpdateEventSourceMappingRequest.properties.BatchSize.$ref: '#/definitions/BatchSize'
+definitions.UpdateEventSourceMappingRequest.properties.BatchSize.description: The
+  maximum number of stream records that can be sent to your Lambda function for a
+  single invocation.
+definitions.UpdateEventSourceMappingRequest.properties.Enabled.$ref: '#/definitions/Enabled'
+definitions.UpdateEventSourceMappingRequest.properties.Enabled.description: Specifies
+  whether AWS Lambda should actively poll the stream or not. If disabled, AWS Lambda
+  will not poll the stream.
+definitions.UpdateEventSourceMappingRequest.properties.FunctionName.$ref: '#/definitions/FunctionName'
+definitions.UpdateEventSourceMappingRequest.properties.FunctionName.description: <p>The
+  Lambda function to which you want the stream records sent.</p> <p> You can specify
+  a function name (for example, <code>Thumbnail</code>) or you can specify Amazon
+  Resource Name (ARN) of the function (for example, <code>arn:aws:lambda:us-west-2:account-id:function:ThumbNail</code>).
+  AWS Lambda also allows you to specify a partial ARN (for example, <code>account-id:Thumbnail</code>).
+  Note that the length constraint applies only to the ARN. If you specify only the
+  function name, it is limited to 64 characters in length. </p> <p>If you are using
+  versioning, you can also provide a qualified function ARN (ARN that is qualified
+  with function version or alias name as suffix). For more information about versioning,
+  see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a> </p> <p>Note that the length constraint
+  applies only to the ARN. If you specify only the function name, it is limited to
+  64 character in length.</p>
+definitions.UpdateEventSourceMappingRequest.type: object
+definitions.UpdateFunctionCodeRequest.description: <p/>
+definitions.UpdateFunctionCodeRequest.example.FunctionName: myFunction
+definitions.UpdateFunctionCodeRequest.example.Publish: true
+definitions.UpdateFunctionCodeRequest.example.S3Bucket: myBucket
+definitions.UpdateFunctionCodeRequest.example.S3Key: myKey
+definitions.UpdateFunctionCodeRequest.example.S3ObjectVersion: "1"
+definitions.UpdateFunctionCodeRequest.example.ZipFile: fileb://file-path/file.zip
+definitions.UpdateFunctionCodeRequest.properties.DryRun.$ref: '#/definitions/Boolean'
+definitions.UpdateFunctionCodeRequest.properties.DryRun.description: This boolean
+  parameter can be used to test your request to AWS Lambda to update the Lambda function
+  and publish a version as an atomic operation. It will do all necessary computation
+  and validation of your code but will not upload it or a publish a version. Each
+  time this operation is invoked, the <code>CodeSha256</code> hash value the provided
+  code will also be computed and returned in the response.
+definitions.UpdateFunctionCodeRequest.properties.Publish.$ref: '#/definitions/Boolean'
+definitions.UpdateFunctionCodeRequest.properties.Publish.description: This boolean
+  parameter can be used to request AWS Lambda to update the Lambda function and publish
+  a version as an atomic operation.
+definitions.UpdateFunctionCodeRequest.properties.S3Bucket.$ref: '#/definitions/S3Bucket'
+definitions.UpdateFunctionCodeRequest.properties.S3Bucket.description: Amazon S3 bucket
+  name where the .zip file containing your deployment package is stored. This bucket
+  must reside in the same AWS Region where you are creating the Lambda function.
+definitions.UpdateFunctionCodeRequest.properties.S3Key.$ref: '#/definitions/S3Key'
+definitions.UpdateFunctionCodeRequest.properties.S3Key.description: The Amazon S3
+  object (the deployment package) key name you want to upload.
+definitions.UpdateFunctionCodeRequest.properties.S3ObjectVersion.$ref: '#/definitions/S3ObjectVersion'
+definitions.UpdateFunctionCodeRequest.properties.S3ObjectVersion.description: The
+  Amazon S3 object (the deployment package) version you want to upload.
+definitions.UpdateFunctionCodeRequest.properties.ZipFile.$ref: '#/definitions/Blob'
+definitions.UpdateFunctionCodeRequest.properties.ZipFile.description: 'The contents
+  of your zip file containing your deployment package. If you are using the web API
+  directly, the contents of the zip file must be base64-encoded. If you are using
+  the AWS SDKs or the AWS CLI, the SDKs or CLI will do the encoding for you. For more
+  information about creating a .zip file, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html">Execution
+  Permissions</a> in the <i>AWS Lambda Developer Guide</i>. '
+definitions.UpdateFunctionCodeRequest.type: object
+definitions.UpdateFunctionConfigurationRequest.description: <p/>
+definitions.UpdateFunctionConfigurationRequest.example.Description: ""
+definitions.UpdateFunctionConfigurationRequest.example.FunctionName: myFunction
+definitions.UpdateFunctionConfigurationRequest.example.Handler: index.handler
+definitions.UpdateFunctionConfigurationRequest.example.MemorySize: 128
+definitions.UpdateFunctionConfigurationRequest.example.Role: arn:aws:iam::123456789012:role/lambda_basic_execution
+definitions.UpdateFunctionConfigurationRequest.example.Runtime: python2.7
+definitions.UpdateFunctionConfigurationRequest.example.Timeout: 123
+definitions.UpdateFunctionConfigurationRequest.properties.DeadLetterConfig.$ref: '#/definitions/DeadLetterConfig'
+definitions.UpdateFunctionConfigurationRequest.properties.DeadLetterConfig.description: The
+  parent object that contains the target ARN (Amazon Resource Name) of an Amazon SQS
+  queue or Amazon SNS topic.
+definitions.UpdateFunctionConfigurationRequest.properties.Description.$ref: '#/definitions/Description'
+definitions.UpdateFunctionConfigurationRequest.properties.Description.description: A
+  short user-defined function description. AWS Lambda does not use this value. Assign
+  a meaningful description as you see fit.
+definitions.UpdateFunctionConfigurationRequest.properties.Environment.$ref: '#/definitions/Environment'
+definitions.UpdateFunctionConfigurationRequest.properties.Environment.description: The
+  parent object that contains your environment's configuration settings.
+definitions.UpdateFunctionConfigurationRequest.properties.Handler.$ref: '#/definitions/Handler'
+definitions.UpdateFunctionConfigurationRequest.properties.Handler.description: 'The
+  function that Lambda calls to begin executing your function. For Node.js, it is
+  the <code>module-name.export</code> value in your function. '
+definitions.UpdateFunctionConfigurationRequest.properties.KMSKeyArn.$ref: '#/definitions/KMSKeyArn'
+definitions.UpdateFunctionConfigurationRequest.properties.KMSKeyArn.description: The
+  Amazon Resource Name (ARN) of the KMS key used to encrypt your function's environment
+  variables. If you elect to use the AWS Lambda default service key, pass in an empty
+  string ("") for this parameter.
+definitions.UpdateFunctionConfigurationRequest.properties.MemorySize.$ref: '#/definitions/MemorySize'
+definitions.UpdateFunctionConfigurationRequest.properties.MemorySize.description: The
+  amount of memory, in MB, your Lambda function is given. AWS Lambda uses this memory
+  size to infer the amount of CPU allocated to your function. Your function use-case
+  determines your CPU and memory requirements. For example, a database operation might
+  need less memory compared to an image processing function. The default value is
+  128 MB. The value must be a multiple of 64 MB.
+definitions.UpdateFunctionConfigurationRequest.properties.Role.$ref: '#/definitions/RoleArn'
+definitions.UpdateFunctionConfigurationRequest.properties.Role.description: The Amazon
+  Resource Name (ARN) of the IAM role that Lambda will assume when it executes your
+  function.
+definitions.UpdateFunctionConfigurationRequest.properties.Runtime.$ref: '#/definitions/Runtime'
+definitions.UpdateFunctionConfigurationRequest.properties.Runtime.description: <p>The
+  runtime environment for the Lambda function.</p> <p>To use the Python runtime v3.6,
+  set the value to "python3.6". To use the Python runtime v2.7, set the value to "python2.7".
+  To use the Node.js runtime v6.10, set the value to "nodejs6.10". To use the Node.js
+  runtime v4.3, set the value to "nodejs4.3". To use the Python runtime v3.6, set
+  the value to "python3.6".</p> <note> <p>Node v0.10.42 is currently marked as deprecated.
+  You must migrate existing functions to the newer Node.js runtime versions available
+  on AWS Lambda (nodejs4.3 or nodejs6.10) as soon as possible. You can request a one-time
+  extension until June 30, 2017 by going to the Lambda console and following the instructions
+  provided. Failure to do so will result in an invalid parameter error being returned.
+  Note that you will have to follow this procedure for each region that contains functions
+  written in the Node v0.10.42 runtime.</p> </note>
+definitions.UpdateFunctionConfigurationRequest.properties.Timeout.$ref: '#/definitions/Timeout'
+definitions.UpdateFunctionConfigurationRequest.properties.Timeout.description: The
+  function execution time at which AWS Lambda should terminate the function. Because
+  the execution time has cost implications, we recommend you set this value based
+  on your expected execution time. The default is 3 seconds.
+definitions.UpdateFunctionConfigurationRequest.properties.TracingConfig.$ref: '#/definitions/TracingConfig'
+definitions.UpdateFunctionConfigurationRequest.properties.TracingConfig.description: The
+  parent object that contains your function's tracing settings.
+definitions.UpdateFunctionConfigurationRequest.properties.VpcConfig.$ref: '#/definitions/VpcConfig'
+definitions.UpdateFunctionConfigurationRequest.type: object
+definitions.Version.maxLength: 1024
+definitions.Version.minLength: 1
+definitions.Version.pattern: (\$LATEST|[0-9]+)
+definitions.Version.type: string
+definitions.VpcConfig.description: If your Lambda function accesses resources in a
+  VPC, you provide this parameter identifying the list of security group IDs and subnet
+  IDs. These must belong to the same VPC. You must provide at least one security group
+  and one subnet ID.
+definitions.VpcConfig.properties.SecurityGroupIds.$ref: '#/definitions/SecurityGroupIds'
+definitions.VpcConfig.properties.SecurityGroupIds.description: A list of one or more
+  security groups IDs in your VPC.
+definitions.VpcConfig.properties.SubnetIds.$ref: '#/definitions/SubnetIds'
+definitions.VpcConfig.properties.SubnetIds.description: A list of one or more subnet
+  IDs in your VPC.
+definitions.VpcConfig.type: object
+definitions.VpcConfigResponse.description: VPC configuration associated with your
+  Lambda function.
+definitions.VpcConfigResponse.properties.SecurityGroupIds.$ref: '#/definitions/SecurityGroupIds'
+definitions.VpcConfigResponse.properties.SecurityGroupIds.description: A list of security
+  group IDs associated with the Lambda function.
+definitions.VpcConfigResponse.properties.SubnetIds.$ref: '#/definitions/SubnetIds'
+definitions.VpcConfigResponse.properties.SubnetIds.description: A list of subnet IDs
+  associated with the Lambda function.
+definitions.VpcConfigResponse.properties.VpcId.$ref: '#/definitions/VpcId'
+definitions.VpcConfigResponse.properties.VpcId.description: The VPC ID associated
+  with you Lambda function.
+definitions.VpcConfigResponse.type: object
+definitions.VpcId.type: string
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/lambda/
+host: lambda.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: '<fullname>AWS Lambda</fullname> <p> <b>Overview</b> </p> <p>This
+  is the <i>AWS Lambda API Reference</i>. The AWS Lambda Developer Guide provides
+  additional information. For the service overview, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html">What
+  is AWS Lambda</a>, and for information about how the service works, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html">AWS
+  Lambda: How it Works</a> in the <i>AWS Lambda Developer Guide</i>.</p>'
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: AWS Lambda
+info.version: 2015-03-31
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/lambda-2015-03-31.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: lambda
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters.length: 9
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[0].$ref: '#/parameters/Action'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[1].$ref: '#/parameters/Version'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.description: <important>
+  <p>This API is deprecated. We recommend you use <code>Invoke</code> API (see <a>Invoke</a>).</p>
+  </important> <p>Submits an invocation request to AWS Lambda. Upon receiving the
+  request, Lambda executes the specified function asynchronously. To see the logs
+  generated by the Lambda function execution, see the CloudWatch Logs console.</p>
+  <p>This operation requires permission for the <code>lambda:InvokeFunction</code>
+  action.</p>
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.operationId: InvokeAsync
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters.length: 3
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[0].in: body
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[0].name: body
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[0].required: true
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[0].schema.$ref: '#/definitions/InvokeAsyncRequest'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[1].in: path
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[1].name: FunctionName
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[1].required: true
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[1].type: string
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[2].in: query
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[2].name: FunctionName
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.parameters[2].type: string
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.202.description: Success
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.202.schema.$ref: '#/definitions/InvokeAsyncResponse'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.480.description: ServiceException
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.481.description: ResourceNotFoundException
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.482.description: InvalidRequestContentException
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.482.schema.$ref: '#/definitions/InvalidRequestContentException'
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.483.description: InvalidRuntimeException
+paths./2014-11-13/functions/{FunctionName}/invoke-async/.post.responses.483.schema.$ref: '#/definitions/InvalidRuntimeException'
+paths./2015-03-31/event-source-mappings/.get.description: <p>Returns a list of event
+  source mappings you created using the <code>CreateEventSourceMapping</code> (see
+  <a>CreateEventSourceMapping</a>). </p> <p>For each mapping, the API returns configuration
+  information. You can optionally specify filters to retrieve specific event source
+  mappings.</p> <p>If you are using the versioning feature, you can get list of event
+  source mappings for a specific Lambda function version or an alias as described
+  in the <code>FunctionName</code> parameter. For information about the versioning
+  feature, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission
+  for the <code>lambda:ListEventSourceMappings</code> action.</p>
+paths./2015-03-31/event-source-mappings/.get.operationId: ListEventSourceMappings
+paths./2015-03-31/event-source-mappings/.get.parameters.length: 3
+paths./2015-03-31/event-source-mappings/.get.parameters[0].in: body
+paths./2015-03-31/event-source-mappings/.get.parameters[0].name: body
+paths./2015-03-31/event-source-mappings/.get.parameters[0].required: true
+paths./2015-03-31/event-source-mappings/.get.parameters[0].schema.$ref: '#/definitions/ListEventSourceMappingsRequest'
+paths./2015-03-31/event-source-mappings/.get.parameters[1].description: Pagination
+  limit
+paths./2015-03-31/event-source-mappings/.get.parameters[1].in: query
+paths./2015-03-31/event-source-mappings/.get.parameters[1].name: MaxItems
+paths./2015-03-31/event-source-mappings/.get.parameters[1].required: false
+paths./2015-03-31/event-source-mappings/.get.parameters[1].type: string
+paths./2015-03-31/event-source-mappings/.get.parameters[2].description: Pagination
+  token
+paths./2015-03-31/event-source-mappings/.get.parameters[2].in: query
+paths./2015-03-31/event-source-mappings/.get.parameters[2].name: Marker
+paths./2015-03-31/event-source-mappings/.get.parameters[2].required: false
+paths./2015-03-31/event-source-mappings/.get.parameters[2].type: string
+paths./2015-03-31/event-source-mappings/.get.responses.200.description: Success
+paths./2015-03-31/event-source-mappings/.get.responses.200.schema.$ref: '#/definitions/ListEventSourceMappingsResponse'
+paths./2015-03-31/event-source-mappings/.get.responses.480.description: ServiceException
+paths./2015-03-31/event-source-mappings/.get.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/event-source-mappings/.get.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/event-source-mappings/.get.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/event-source-mappings/.get.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/event-source-mappings/.get.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/event-source-mappings/.get.responses.483.description: TooManyRequestsException
+paths./2015-03-31/event-source-mappings/.get.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/event-source-mappings/.parameters.length: 9
+paths./2015-03-31/event-source-mappings/.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/event-source-mappings/.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/event-source-mappings/.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/event-source-mappings/.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/event-source-mappings/.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/event-source-mappings/.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/event-source-mappings/.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/event-source-mappings/.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/event-source-mappings/.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters.length: 9
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/event-source-mappings/{UUID}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/event-source-mappings/{UUID}.put.description: <p>You can update
+  an event source mapping. This is useful if you want to change the parameters of
+  the existing mapping without losing your position in the stream. You can change
+  which function will receive the stream records, but to change the stream itself,
+  you must create a new mapping.</p> <p>If you are using the versioning feature, you
+  can update the event source mapping to map to a specific Lambda function version
+  or alias as described in the <code>FunctionName</code> parameter. For information
+  about the versioning feature, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>If you disable the event source
+  mapping, AWS Lambda stops polling. If you enable again, it will resume polling from
+  the time it had stopped polling, so you don't lose processing of any records. However,
+  if you delete event source mapping and create it again, it will reset.</p> <p>This
+  operation requires permission for the <code>lambda:UpdateEventSourceMapping</code>
+  action.</p>
+paths./2015-03-31/event-source-mappings/{UUID}.put.operationId: UpdateEventSourceMapping
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters.length: 2
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[0].in: body
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[0].name: body
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[0].required: true
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[0].schema.$ref: '#/definitions/UpdateEventSourceMappingRequest'
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[1].in: path
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[1].name: UUID
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[1].required: true
+paths./2015-03-31/event-source-mappings/{UUID}.put.parameters[1].type: string
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.202.description: Success
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.202.schema.$ref: '#/definitions/EventSourceMappingConfiguration'
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.480.description: ServiceException
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.483.description: TooManyRequestsException
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.484.description: ResourceConflictException
+paths./2015-03-31/event-source-mappings/{UUID}.put.responses.484.schema.$ref: '#/definitions/ResourceConflictException'
+paths./2015-03-31/functions.parameters.length: 9
+paths./2015-03-31/functions.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions.post.description: <p>Creates a new Lambda function. The
+  function metadata is created from the request parameters, and the code for the function
+  is provided by a .zip file in the request body. If the function name already exists,
+  the operation will fail. Note that the function name is case-sensitive.</p> <p>
+  If you are using versioning, you can also publish a version of the Lambda function
+  you are creating using the <code>Publish</code> parameter. For more information
+  about versioning, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission
+  for the <code>lambda:CreateFunction</code> action.</p>
+paths./2015-03-31/functions.post.operationId: CreateFunction
+paths./2015-03-31/functions.post.parameters.length: 1
+paths./2015-03-31/functions.post.parameters[0].in: body
+paths./2015-03-31/functions.post.parameters[0].name: body
+paths./2015-03-31/functions.post.parameters[0].required: true
+paths./2015-03-31/functions.post.parameters[0].schema.$ref: '#/definitions/CreateFunctionRequest'
+paths./2015-03-31/functions.post.responses.201.description: Success
+paths./2015-03-31/functions.post.responses.201.schema.$ref: '#/definitions/FunctionConfiguration'
+paths./2015-03-31/functions.post.responses.480.description: ServiceException
+paths./2015-03-31/functions.post.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions.post.responses.481.description: InvalidParameterValueException
+paths./2015-03-31/functions.post.responses.481.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions.post.responses.482.description: ResourceNotFoundException
+paths./2015-03-31/functions.post.responses.482.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions.post.responses.483.description: ResourceConflictException
+paths./2015-03-31/functions.post.responses.483.schema.$ref: '#/definitions/ResourceConflictException'
+paths./2015-03-31/functions.post.responses.484.description: TooManyRequestsException
+paths./2015-03-31/functions.post.responses.484.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions.post.responses.485.description: CodeStorageExceededException
+paths./2015-03-31/functions.post.responses.485.schema.$ref: '#/definitions/CodeStorageExceededException'
+paths./2015-03-31/functions/.get.description: <p>Returns a list of your Lambda functions.
+  For each function, the response includes the function configuration information.
+  You must use <a>GetFunction</a> to retrieve the code for your function.</p> <p>This
+  operation requires permission for the <code>lambda:ListFunctions</code> action.</p>
+  <p>If you are using the versioning feature, you can list all of your functions or
+  only <code>$LATEST</code> versions. For information about the versioning feature,
+  see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p>
+paths./2015-03-31/functions/.get.operationId: ListFunctions
+paths./2015-03-31/functions/.get.parameters.length: 3
+paths./2015-03-31/functions/.get.parameters[0].in: body
+paths./2015-03-31/functions/.get.parameters[0].name: body
+paths./2015-03-31/functions/.get.parameters[0].required: true
+paths./2015-03-31/functions/.get.parameters[0].schema.$ref: '#/definitions/ListFunctionsRequest'
+paths./2015-03-31/functions/.get.parameters[1].description: Pagination limit
+paths./2015-03-31/functions/.get.parameters[1].in: query
+paths./2015-03-31/functions/.get.parameters[1].name: MaxItems
+paths./2015-03-31/functions/.get.parameters[1].required: false
+paths./2015-03-31/functions/.get.parameters[1].type: string
+paths./2015-03-31/functions/.get.parameters[2].description: Pagination token
+paths./2015-03-31/functions/.get.parameters[2].in: query
+paths./2015-03-31/functions/.get.parameters[2].name: Marker
+paths./2015-03-31/functions/.get.parameters[2].required: false
+paths./2015-03-31/functions/.get.parameters[2].type: string
+paths./2015-03-31/functions/.get.responses.200.description: Success
+paths./2015-03-31/functions/.get.responses.200.schema.$ref: '#/definitions/ListFunctionsResponse'
+paths./2015-03-31/functions/.get.responses.480.description: ServiceException
+paths./2015-03-31/functions/.get.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/.get.responses.481.description: TooManyRequestsException
+paths./2015-03-31/functions/.get.responses.481.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/.get.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/.get.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/.parameters.length: 9
+paths./2015-03-31/functions/.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}.get.description: <p>Returns the configuration
+  information of the Lambda function and a presigned URL link to the .zip file you
+  uploaded with <a>CreateFunction</a> so you can download the .zip file. Note that
+  the URL is valid for up to 10 minutes. The configuration information is the same
+  information you provided as parameters when uploading the function.</p> <p>Using
+  the optional <code>Qualifier</code> parameter, you can specify a specific function
+  version for which you want this information. If you don't specify this parameter,
+  the API uses unqualified function ARN which return information about the <code>$LATEST</code>
+  version of the Lambda function. For more information, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>.</p> <p>This operation requires permission
+  for the <code>lambda:GetFunction</code> action.</p>
+paths./2015-03-31/functions/{FunctionName}.get.operationId: GetFunction
+paths./2015-03-31/functions/{FunctionName}.get.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}.get.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}.get.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}.get.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}.get.parameters[0].schema.$ref: '#/definitions/GetFunctionRequest'
+paths./2015-03-31/functions/{FunctionName}.get.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}.get.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}.get.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}.get.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}.get.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}.get.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}.get.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}.get.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}.get.responses.200.schema.$ref: '#/definitions/GetFunctionResponse'
+paths./2015-03-31/functions/{FunctionName}.get.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}.get.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}.get.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}.get.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}.get.responses.482.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}.get.responses.482.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}.get.responses.483.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}.get.responses.483.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.description: <p>Returns list
+  of aliases created for a Lambda function. For each alias, the response includes
+  information such as the alias ARN, description, alias name, and the function version
+  to which it points. For more information, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html">Introduction
+  to AWS Lambda Aliases</a>.</p> <p>This requires permission for the lambda:ListAliases
+  action.</p>
+paths./2015-03-31/functions/{FunctionName}/aliases.get.operationId: ListAliases
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[0].schema.$ref: '#/definitions/ListAliasesRequest'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/aliases.get.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.200.schema.$ref: '#/definitions/ListAliasesResponse'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/aliases.get.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/aliases.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.description: <p>Using
+  this API you can update the function version to which the alias points and the alias
+  description. For more information, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html">Introduction
+  to AWS Lambda Aliases</a>.</p> <p>This requires permission for the lambda:UpdateAlias
+  action.</p>
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.operationId: UpdateAlias
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters.length: 4
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[0].schema.$ref: '#/definitions/UpdateAliasRequest'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[2].in: path
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[2].name: Name
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[2].required: true
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[3].in: query
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[3].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.parameters[3].type: string
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.200.schema.$ref: '#/definitions/AliasConfiguration'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/aliases/{Name}.put.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/code.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/code.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/code.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/code.put.description: <p>Updates the code
+  for the specified Lambda function. This operation must only be used on an existing
+  Lambda function and cannot be used to update the function configuration.</p> <p>If
+  you are using the versioning feature, note this API will always update the $LATEST
+  version of your Lambda function. For information about the versioning feature, see
+  <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission
+  for the <code>lambda:UpdateFunctionCode</code> action.</p>
+paths./2015-03-31/functions/{FunctionName}/code.put.operationId: UpdateFunctionCode
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[0].schema.$ref: '#/definitions/UpdateFunctionCodeRequest'
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/code.put.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.200.schema.$ref: '#/definitions/FunctionConfiguration'
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.484.description: CodeStorageExceededException
+paths./2015-03-31/functions/{FunctionName}/code.put.responses.484.schema.$ref: '#/definitions/CodeStorageExceededException'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/configuration.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.description: <p>Updates
+  the configuration parameters for the specified Lambda function by using the values
+  provided in the request. You provide only the parameters you want to change. This
+  operation must only be used on an existing Lambda function and cannot be used to
+  update the function's code.</p> <p>If you are using the versioning feature, note
+  this API will always update the $LATEST version of your Lambda function. For information
+  about the versioning feature, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission
+  for the <code>lambda:UpdateFunctionConfiguration</code> action.</p>
+paths./2015-03-31/functions/{FunctionName}/configuration.put.operationId: UpdateFunctionConfiguration
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[0].schema.$ref: '#/definitions/UpdateFunctionConfigurationRequest'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/configuration.put.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.200.schema.$ref: '#/definitions/FunctionConfiguration'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.484.description: ResourceConflictException
+paths./2015-03-31/functions/{FunctionName}/configuration.put.responses.484.schema.$ref: '#/definitions/ResourceConflictException'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/invocations.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.description: <p>Invokes
+  a specific Lambda function. For an example, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/with-dynamodb-create-function.html#with-dbb-invoke-manually">Create
+  the Lambda Function and Test It Manually</a>. </p> <p>If you are using the versioning
+  feature, you can invoke the specific function version by providing function version
+  or alias name that is pointing to the function version using the <code>Qualifier</code>
+  parameter in the request. If you don't provide the <code>Qualifier</code> parameter,
+  the <code>$LATEST</code> version of the Lambda function is invoked. Invocations
+  occur at least once in response to an event and functions must be idempotent to
+  handle this. For information about the versioning feature, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission
+  for the <code>lambda:InvokeFunction</code> action.</p>
+paths./2015-03-31/functions/{FunctionName}/invocations.post.operationId: Invoke
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[0].schema.$ref: '#/definitions/InvocationRequest'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/invocations.post.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.200.schema.$ref: '#/definitions/InvocationResponse'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.482.description: InvalidRequestContentException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.482.schema.$ref: '#/definitions/InvalidRequestContentException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.483.description: RequestTooLargeException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.483.schema.$ref: '#/definitions/RequestTooLargeException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.484.description: UnsupportedMediaTypeException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.484.schema.$ref: '#/definitions/UnsupportedMediaTypeException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.485.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.485.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.486.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.486.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.487.description: EC2UnexpectedException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.487.schema.$ref: '#/definitions/EC2UnexpectedException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.488.description: SubnetIPAddressLimitReachedException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.488.schema.$ref: '#/definitions/SubnetIPAddressLimitReachedException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.489.description: ENILimitReachedException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.489.schema.$ref: '#/definitions/ENILimitReachedException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.490.description: EC2ThrottledException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.490.schema.$ref: '#/definitions/EC2ThrottledException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.491.description: EC2AccessDeniedException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.491.schema.$ref: '#/definitions/EC2AccessDeniedException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.492.description: InvalidSubnetIDException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.492.schema.$ref: '#/definitions/InvalidSubnetIDException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.493.description: InvalidSecurityGroupIDException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.493.schema.$ref: '#/definitions/InvalidSecurityGroupIDException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.494.description: InvalidZipFileException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.494.schema.$ref: '#/definitions/InvalidZipFileException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.495.description: KMSDisabledException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.495.schema.$ref: '#/definitions/KMSDisabledException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.496.description: KMSInvalidStateException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.496.schema.$ref: '#/definitions/KMSInvalidStateException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.497.description: KMSAccessDeniedException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.497.schema.$ref: '#/definitions/KMSAccessDeniedException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.498.description: KMSNotFoundException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.498.schema.$ref: '#/definitions/KMSNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.499.description: InvalidRuntimeException
+paths./2015-03-31/functions/{FunctionName}/invocations.post.responses.499.schema.$ref: '#/definitions/InvalidRuntimeException'
+paths./2015-03-31/functions/{FunctionName}/policy.get.description: <p>Returns the
+  resource policy associated with the specified Lambda function.</p> <p> If you are
+  using the versioning feature, you can get the resource policy associated with the
+  specific Lambda function version or alias by specifying the version or alias name
+  using the <code>Qualifier</code> parameter. For more information about versioning,
+  see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>You need permission for the
+  <code>lambda:GetPolicy action.</code> </p>
+paths./2015-03-31/functions/{FunctionName}/policy.get.operationId: GetPolicy
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[0].schema.$ref: '#/definitions/GetPolicyRequest'
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/policy.get.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.200.description: Success
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.200.schema.$ref: '#/definitions/GetPolicyResponse'
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.482.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.482.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.483.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/policy.get.responses.483.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/policy.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.description: <p>You
+  can remove individual permissions from an resource policy associated with a Lambda
+  function by providing a statement ID that you provided when you added the permission.</p>
+  <p>If you are using versioning, the permissions you remove are specific to the Lambda
+  function version or alias you specify in the <code>AddPermission</code> request
+  via the <code>Qualifier</code> parameter. For more information about versioning,
+  see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. </p> <p>Note that removal of a permission
+  will cause an active event source to lose permission to the function.</p> <p>You
+  need permission for the <code>lambda:RemovePermission</code> action.</p>
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.operationId: RemovePermission
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters.length: 4
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[0].schema.$ref: '#/definitions/RemovePermissionRequest'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[3].in: path
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[3].name: StatementId
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[3].required: true
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.parameters[3].type: string
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.204.description: Success
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.delete.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/policy/{StatementId}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters.length: 9
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[0].$ref: '#/parameters/Action'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[1].$ref: '#/parameters/Version'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2015-03-31/functions/{FunctionName}/versions.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2015-03-31/functions/{FunctionName}/versions.post.description: 'Publishes a
+  version of your function from the current snapshot of $LATEST. That is, AWS Lambda
+  takes a snapshot of the function code and configuration information from $LATEST
+  and publishes a new version. The code and configuration cannot be modified after
+  publication. For information about the versioning feature, see <a href="http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">AWS
+  Lambda Function Versioning and Aliases</a>. '
+paths./2015-03-31/functions/{FunctionName}/versions.post.operationId: PublishVersion
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters.length: 3
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[0].in: body
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[0].name: body
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[0].required: true
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[0].schema.$ref: '#/definitions/PublishVersionRequest'
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[1].in: path
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[1].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[1].required: true
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[1].type: string
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[2].in: query
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[2].name: FunctionName
+paths./2015-03-31/functions/{FunctionName}/versions.post.parameters[2].type: string
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.201.description: Success
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.201.schema.$ref: '#/definitions/FunctionConfiguration'
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.480.description: ServiceException
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.481.description: ResourceNotFoundException
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.482.description: InvalidParameterValueException
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.483.description: TooManyRequestsException
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.484.description: CodeStorageExceededException
+paths./2015-03-31/functions/{FunctionName}/versions.post.responses.484.schema.$ref: '#/definitions/CodeStorageExceededException'
+paths./2016-08-19/account-settings/.get.description: <p>Returns a customer's account
+  settings.</p> <p>You can use this operation to retrieve Lambda limits information,
+  such as code size and concurrency limits. For more information about limits, see
+  <a href="http://docs.aws.amazon.com/lambda/latest/dg/limits.html">AWS Lambda Limits</a>.
+  You can also retrieve resource usage statistics, such as code storage usage and
+  function count.</p>
+paths./2016-08-19/account-settings/.get.operationId: GetAccountSettings
+paths./2016-08-19/account-settings/.get.parameters.length: 1
+paths./2016-08-19/account-settings/.get.parameters[0].in: body
+paths./2016-08-19/account-settings/.get.parameters[0].name: body
+paths./2016-08-19/account-settings/.get.parameters[0].required: true
+paths./2016-08-19/account-settings/.get.parameters[0].schema.$ref: '#/definitions/GetAccountSettingsRequest'
+paths./2016-08-19/account-settings/.get.responses.200.description: Success
+paths./2016-08-19/account-settings/.get.responses.200.schema.$ref: '#/definitions/GetAccountSettingsResponse'
+paths./2016-08-19/account-settings/.get.responses.480.description: TooManyRequestsException
+paths./2016-08-19/account-settings/.get.responses.480.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2016-08-19/account-settings/.get.responses.481.description: ServiceException
+paths./2016-08-19/account-settings/.get.responses.481.schema.$ref: '#/definitions/ServiceException'
+paths./2016-08-19/account-settings/.parameters.length: 9
+paths./2016-08-19/account-settings/.parameters[0].$ref: '#/parameters/Action'
+paths./2016-08-19/account-settings/.parameters[1].$ref: '#/parameters/Version'
+paths./2016-08-19/account-settings/.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2016-08-19/account-settings/.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2016-08-19/account-settings/.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2016-08-19/account-settings/.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2016-08-19/account-settings/.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2016-08-19/account-settings/.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2016-08-19/account-settings/.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./2017-03-31/tags/{ARN}.delete.description: 'Removes tags from a Lambda function.
+  Requires the function ARN (Amazon Resource Name). '
+paths./2017-03-31/tags/{ARN}.delete.operationId: UntagResource
+paths./2017-03-31/tags/{ARN}.delete.parameters.length: 2
+paths./2017-03-31/tags/{ARN}.delete.parameters[0].in: body
+paths./2017-03-31/tags/{ARN}.delete.parameters[0].name: body
+paths./2017-03-31/tags/{ARN}.delete.parameters[0].required: true
+paths./2017-03-31/tags/{ARN}.delete.parameters[0].schema.$ref: '#/definitions/UntagResourceRequest'
+paths./2017-03-31/tags/{ARN}.delete.parameters[1].in: path
+paths./2017-03-31/tags/{ARN}.delete.parameters[1].name: ARN
+paths./2017-03-31/tags/{ARN}.delete.parameters[1].required: true
+paths./2017-03-31/tags/{ARN}.delete.parameters[1].type: string
+paths./2017-03-31/tags/{ARN}.delete.responses.204.description: Success
+paths./2017-03-31/tags/{ARN}.delete.responses.480.description: ServiceException
+paths./2017-03-31/tags/{ARN}.delete.responses.480.schema.$ref: '#/definitions/ServiceException'
+paths./2017-03-31/tags/{ARN}.delete.responses.481.description: ResourceNotFoundException
+paths./2017-03-31/tags/{ARN}.delete.responses.481.schema.$ref: '#/definitions/ResourceNotFoundException'
+paths./2017-03-31/tags/{ARN}.delete.responses.482.description: InvalidParameterValueException
+paths./2017-03-31/tags/{ARN}.delete.responses.482.schema.$ref: '#/definitions/InvalidParameterValueException'
+paths./2017-03-31/tags/{ARN}.delete.responses.483.description: TooManyRequestsException
+paths./2017-03-31/tags/{ARN}.delete.responses.483.schema.$ref: '#/definitions/TooManyRequestsException'
+paths./2017-03-31/tags/{ARN}.parameters.length: 9
+paths./2017-03-31/tags/{ARN}.parameters[0].$ref: '#/parameters/Action'
+paths./2017-03-31/tags/{ARN}.parameters[1].$ref: '#/parameters/Version'
+paths./2017-03-31/tags/{ARN}.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./2017-03-31/tags/{ARN}.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./2017-03-31/tags/{ARN}.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./2017-03-31/tags/{ARN}.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./2017-03-31/tags/{ARN}.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./2017-03-31/tags/{ARN}.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./2017-03-31/tags/{ARN}.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"
+x-hasEquivalentPaths: true

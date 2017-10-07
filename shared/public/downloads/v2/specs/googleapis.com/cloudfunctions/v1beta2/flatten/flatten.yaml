@@ -1,0 +1,748 @@
+basePath: /
+definitions.CallFunctionRequest.description: Request for the `CallFunction` method.
+definitions.CallFunctionRequest.properties.data.description: Input to be passed to
+  the function.
+definitions.CallFunctionRequest.properties.data.type: string
+definitions.CallFunctionRequest.type: object
+definitions.CallFunctionResponse.description: Response of `CallFunction` method.
+definitions.CallFunctionResponse.properties.error.description: |-
+  Either system or user-function generated error. Set if execution
+  was not successful.
+definitions.CallFunctionResponse.properties.error.type: string
+definitions.CallFunctionResponse.properties.executionId.description: Execution id
+  of function invocation.
+definitions.CallFunctionResponse.properties.executionId.type: string
+definitions.CallFunctionResponse.properties.result.description: |-
+  Result populated for successful execution of synchronous function. Will
+  not be populated if function does not return a result through context.
+definitions.CallFunctionResponse.properties.result.type: string
+definitions.CallFunctionResponse.type: object
+definitions.CloudFunction.description: |-
+  Describes a Cloud Function that contains user computation executed in
+  response to an event. It encapsulate function and triggers configurations.
+definitions.CloudFunction.properties.availableMemoryMb.description: |-
+  The amount of memory in MB available for a function.
+  Defaults to 256MB.
+definitions.CloudFunction.properties.availableMemoryMb.format: int32
+definitions.CloudFunction.properties.availableMemoryMb.type: integer
+definitions.CloudFunction.properties.entryPoint.description: |-
+  The name of the function (as defined in source code) that will be
+  executed. Defaults to the resource name suffix, if not specified. For
+  backward compatibility, if function with given name is not found, then the
+  system will try to use function named "function".
+  For Node.js this is name of a function exported by the module specified
+  in `source_location`.
+definitions.CloudFunction.properties.entryPoint.type: string
+definitions.CloudFunction.properties.eventTrigger.$ref: '#/definitions/EventTrigger'
+definitions.CloudFunction.properties.eventTrigger.description: A source that fires
+  events in response to a condition in another service.
+definitions.CloudFunction.properties.httpsTrigger.$ref: '#/definitions/HTTPSTrigger'
+definitions.CloudFunction.properties.httpsTrigger.description: An HTTPS endpoint type
+  of source that can be triggered via URL.
+definitions.CloudFunction.properties.labels.additionalProperties.type: string
+definitions.CloudFunction.properties.labels.description: Labels associated with this
+  Cloud Function.
+definitions.CloudFunction.properties.labels.type: object
+definitions.CloudFunction.properties.latestOperation.description: |-
+  Output only. Name of the most recent operation modifying the function. If
+  the function status is `DEPLOYING` or `DELETING`, then it points to the
+  active operation.
+definitions.CloudFunction.properties.latestOperation.type: string
+definitions.CloudFunction.properties.name.description: |-
+  A user-defined name of the function. Function names must be unique
+  globally and match pattern `projects/*/locations/*/functions/*`
+definitions.CloudFunction.properties.name.type: string
+definitions.CloudFunction.properties.serviceAccount.description: Output only. The
+  service account of the function.
+definitions.CloudFunction.properties.serviceAccount.type: string
+definitions.CloudFunction.properties.sourceArchiveUrl.description: |-
+  The Google Cloud Storage URL, starting with gs://, pointing to the zip
+  archive which contains the function.
+definitions.CloudFunction.properties.sourceArchiveUrl.type: string
+definitions.CloudFunction.properties.sourceRepository.$ref: '#/definitions/SourceRepository'
+definitions.CloudFunction.properties.sourceRepository.description: The hosted repository
+  where the function is defined.
+definitions.CloudFunction.properties.sourceRepositoryUrl.description: |-
+  The URL pointing to the hosted repository where the function is defined.
+  There are supported Cloud Source Repository URLs in the following
+  formats:
+
+  To refer to a specific commit:
+  `https://source.developers.google.com/projects/*/repos/*/revisions/*/paths/*`
+  To refer to a moveable alias (branch):
+  `https://source.developers.google.com/projects/*/repos/*/moveable-aliases/*/paths/*`
+  In particular, to refer to HEAD use `master` moveable alias.
+  To refer to a specific fixed alias (tag):
+  `https://source.developers.google.com/projects/*/repos/*/fixed-aliases/*/paths/*`
+
+  You may omit `paths/*` if you want to use the main directory.
+definitions.CloudFunction.properties.sourceRepositoryUrl.type: string
+definitions.CloudFunction.properties.status.description: Output only. Status of the
+  function deployment.
+definitions.CloudFunction.properties.status.enum.length: 5
+definitions.CloudFunction.properties.status.enum[0]: STATUS_UNSPECIFIED
+definitions.CloudFunction.properties.status.enum[1]: READY
+definitions.CloudFunction.properties.status.enum[2]: FAILED
+definitions.CloudFunction.properties.status.enum[3]: DEPLOYING
+definitions.CloudFunction.properties.status.enum[4]: DELETING
+definitions.CloudFunction.properties.status.type: string
+definitions.CloudFunction.properties.timeout.description: |-
+  The function execution timeout. Execution is considered failed and
+  can be terminated if the function is not completed at the end of the
+  timeout period. Defaults to 60 seconds.
+definitions.CloudFunction.properties.timeout.format: google-duration
+definitions.CloudFunction.properties.timeout.type: string
+definitions.CloudFunction.properties.updateTime.description: Output only. The last
+  update timestamp of a Cloud Function.
+definitions.CloudFunction.properties.updateTime.format: google-datetime
+definitions.CloudFunction.properties.updateTime.type: string
+definitions.CloudFunction.properties.versionId.description: |-
+  Output only.
+  The version identifier of the Cloud Function. Each deployment attempt
+  results in a new version of a function being created.
+definitions.CloudFunction.properties.versionId.format: int64
+definitions.CloudFunction.properties.versionId.type: string
+definitions.CloudFunction.type: object
+definitions.EventTrigger.description: |-
+  Describes EventTrigger, used to request events be sent from another
+  service.
+definitions.EventTrigger.properties.eventType.description: |-
+  `event_type` names contain the service that is sending an event and the
+  kind of event that was fired. Must be of the form
+  `providers/*/eventTypes/*` e.g. Directly handle a Message published to
+  Google Cloud Pub/Sub `providers/cloud.pubsub/eventTypes/topic.publish`
+
+       Handle an object changing in Google Cloud Storage
+       `providers/cloud.storage/eventTypes/object.change`
+
+       Handle a write to the Firebase Realtime Database
+       `providers/google.firebase.database/eventTypes/ref.write`
+definitions.EventTrigger.properties.eventType.type: string
+definitions.EventTrigger.properties.failurePolicy.$ref: '#/definitions/FailurePolicy'
+definitions.EventTrigger.properties.failurePolicy.description: Specifies policy for
+  failed executions.
+definitions.EventTrigger.properties.resource.description: |-
+  Which instance of the source's service should send events. E.g. for Pub/Sub
+  this would be a Pub/Sub topic at `projects/*/topics/*`. For Google Cloud
+  Storage this would be a bucket at `projects/*/buckets/*`. For any source
+  that only supports one instance per-project, this should be the name of the
+  project (`projects/*`)
+definitions.EventTrigger.properties.resource.type: string
+definitions.EventTrigger.properties.service.description: |-
+  The hostname of the service that should be observed.
+
+  If no string is provided, the default service implementing the API will
+  be used. For example, `storage.googleapis.com` is the default for all
+  event types in the 'google.storage` namespace.
+definitions.EventTrigger.properties.service.type: string
+definitions.EventTrigger.type: object
+definitions.FailurePolicy.description: |-
+  Describes the policy in case of function's execution failure.
+  If empty, then defaults to ignoring failures (i.e. not retrying them).
+definitions.FailurePolicy.properties.retry.$ref: '#/definitions/Retry'
+definitions.FailurePolicy.properties.retry.description: If specified, then the function
+  will be retried in case of a failure.
+definitions.FailurePolicy.type: object
+definitions.HTTPSTrigger.description: Describes HTTPSTrigger, could be used to connect
+  web hooks to function.
+definitions.HTTPSTrigger.properties.url.description: Output only. The deployed url
+  for the function.
+definitions.HTTPSTrigger.properties.url.type: string
+definitions.HTTPSTrigger.type: object
+definitions.ListFunctionsResponse.description: Response for the `ListFunctions` method.
+definitions.ListFunctionsResponse.properties.functions.description: The functions
+  that match the request.
+definitions.ListFunctionsResponse.properties.functions.items.$ref: '#/definitions/CloudFunction'
+definitions.ListFunctionsResponse.properties.functions.type: array
+definitions.ListFunctionsResponse.properties.nextPageToken.description: |-
+  If not empty, indicates that there may be more functions that match
+  the request; this value should be passed in a new
+  google.cloud.functions.v1beta2.ListFunctionsRequest
+  to get more functions.
+definitions.ListFunctionsResponse.properties.nextPageToken.type: string
+definitions.ListFunctionsResponse.type: object
+definitions.ListLocationsResponse.description: The response message for Locations.ListLocations.
+definitions.ListLocationsResponse.properties.locations.description: A list of locations
+  that matches the specified filter in the request.
+definitions.ListLocationsResponse.properties.locations.items.$ref: '#/definitions/Location'
+definitions.ListLocationsResponse.properties.locations.type: array
+definitions.ListLocationsResponse.properties.nextPageToken.description: The standard
+  List next-page token.
+definitions.ListLocationsResponse.properties.nextPageToken.type: string
+definitions.ListLocationsResponse.type: object
+definitions.ListOperationsResponse.description: The response message for Operations.ListOperations.
+definitions.ListOperationsResponse.properties.nextPageToken.description: The standard
+  List next-page token.
+definitions.ListOperationsResponse.properties.nextPageToken.type: string
+definitions.ListOperationsResponse.properties.operations.description: A list of operations
+  that matches the specified filter in the request.
+definitions.ListOperationsResponse.properties.operations.items.$ref: '#/definitions/Operation'
+definitions.ListOperationsResponse.properties.operations.type: array
+definitions.ListOperationsResponse.type: object
+definitions.Location.description: A resource that represents Google Cloud Platform
+  location.
+definitions.Location.properties.labels.additionalProperties.type: string
+definitions.Location.properties.labels.description: |-
+  Cross-service attributes for the location. For example
+
+      {"cloud.googleapis.com/region": "us-east1"}
+definitions.Location.properties.labels.type: object
+definitions.Location.properties.locationId.description: 'The canonical id for this
+  location. For example: `"us-east1"`.'
+definitions.Location.properties.locationId.type: string
+definitions.Location.properties.metadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Location.properties.metadata.description: |-
+  Service-specific metadata. For example the available capacity at the given
+  location.
+definitions.Location.properties.metadata.type: object
+definitions.Location.properties.name.description: |-
+  Resource name for the location, which may vary between implementations.
+  For example: `"projects/example-project/locations/us-east1"`
+definitions.Location.properties.name.type: string
+definitions.Location.type: object
+definitions.Operation.description: |-
+  This resource represents a long-running operation that is the result of a
+  network API call.
+definitions.Operation.properties.done.description: |-
+  If the value is `false`, it means the operation is still in progress.
+  If `true`, the operation is completed, and either `error` or `response` is
+  available.
+definitions.Operation.properties.done.type: boolean
+definitions.Operation.properties.error.$ref: '#/definitions/Status'
+definitions.Operation.properties.error.description: The error result of the operation
+  in case of failure or cancellation.
+definitions.Operation.properties.metadata.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Operation.properties.metadata.description: |-
+  Service-specific metadata associated with the operation.  It typically
+  contains progress information and common metadata such as create time.
+  Some services might not provide such metadata.  Any method that returns a
+  long-running operation should document the metadata type, if any.
+definitions.Operation.properties.metadata.type: object
+definitions.Operation.properties.name.description: |-
+  The server-assigned name, which is only unique within the same service that
+  originally returns it. If you use the default HTTP mapping, the
+  `name` should have the format of `operations/some/unique/name`.
+definitions.Operation.properties.name.type: string
+definitions.Operation.properties.response.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Operation.properties.response.description: |-
+  The normal response of the operation in case of success.  If the original
+  method returns no data on success, such as `Delete`, the response is
+  `google.protobuf.Empty`.  If the original method is standard
+  `Get`/`Create`/`Update`, the response should be the resource.  For other
+  methods, the response should have the type `XxxResponse`, where `Xxx`
+  is the original method name.  For example, if the original method name
+  is `TakeSnapshot()`, the inferred response type is
+  `TakeSnapshotResponse`.
+definitions.Operation.properties.response.type: object
+definitions.Operation.type: object
+definitions.OperationMetadataV1Beta2.description: Metadata describing an Operation
+definitions.OperationMetadataV1Beta2.properties.request.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.OperationMetadataV1Beta2.properties.request.description: The original
+  request that started the operation.
+definitions.OperationMetadataV1Beta2.properties.request.type: object
+definitions.OperationMetadataV1Beta2.properties.target.description: |-
+  Target of the operation - for example
+  projects/project-1/locations/region-1/functions/function-1
+definitions.OperationMetadataV1Beta2.properties.target.type: string
+definitions.OperationMetadataV1Beta2.properties.type.description: Type of operation.
+definitions.OperationMetadataV1Beta2.properties.type.enum.length: 4
+definitions.OperationMetadataV1Beta2.properties.type.enum[0]: OPERATION_UNSPECIFIED
+definitions.OperationMetadataV1Beta2.properties.type.enum[1]: CREATE_FUNCTION
+definitions.OperationMetadataV1Beta2.properties.type.enum[2]: UPDATE_FUNCTION
+definitions.OperationMetadataV1Beta2.properties.type.enum[3]: DELETE_FUNCTION
+definitions.OperationMetadataV1Beta2.properties.type.type: string
+definitions.OperationMetadataV1Beta2.properties.versionId.description: |-
+  Version id of the function created or updated by an API call.
+  This field is only pupulated for Create and Update operations.
+definitions.OperationMetadataV1Beta2.properties.versionId.format: int64
+definitions.OperationMetadataV1Beta2.properties.versionId.type: string
+definitions.OperationMetadataV1Beta2.type: object
+definitions.Retry.description: |-
+  Describes the retry policy in case of function's execution failure.
+  A function execution will be retried on any failure.
+  A failed execution will be retried up to 7 days with an exponential backoff
+  (capped at 10 seconds).
+  Retried execution is charged as any other execution.
+definitions.Retry.type: object
+definitions.SourceRepository.description: Describes the location of the function source
+  in a remote repository.
+definitions.SourceRepository.properties.branch.description: The name of the branch
+  from which the function should be fetched.
+definitions.SourceRepository.properties.branch.type: string
+definitions.SourceRepository.properties.deployedRevision.description: |-
+  Output only. The id of the revision that was resolved at the moment of
+  function creation or update. For example when a user deployed from a
+  branch, it will be the revision id of the latest change on this branch at
+  that time. If user deployed from revision then this value will be always
+  equal to the revision specified by the user.
+definitions.SourceRepository.properties.deployedRevision.type: string
+definitions.SourceRepository.properties.repositoryUrl.description: |-
+  URL to the hosted repository where the function is defined. Only paths in
+  https://source.developers.google.com domain are supported. The path should
+  contain the name of the repository.
+definitions.SourceRepository.properties.repositoryUrl.type: string
+definitions.SourceRepository.properties.revision.description: |-
+  The id of the revision that captures the state of the repository from
+  which the function should be fetched.
+definitions.SourceRepository.properties.revision.type: string
+definitions.SourceRepository.properties.sourcePath.description: |-
+  The path within the repository where the function is defined. The path
+  should point to the directory where Cloud Functions files are located. Use
+  "/" if the function is defined directly in the root directory of a
+  repository.
+definitions.SourceRepository.properties.sourcePath.type: string
+definitions.SourceRepository.properties.tag.description: |-
+  The name of the tag that captures the state of the repository from
+  which the function should be fetched.
+definitions.SourceRepository.properties.tag.type: string
+definitions.SourceRepository.type: object
+definitions.Status.description: |-
+  The `Status` type defines a logical error model that is suitable for different
+  programming environments, including REST APIs and RPC APIs. It is used by
+  [gRPC](https://github.com/grpc). The error model is designed to be:
+
+  - Simple to use and understand for most users
+  - Flexible enough to meet unexpected needs
+
+  # Overview
+
+  The `Status` message contains three pieces of data: error code, error message,
+  and error details. The error code should be an enum value of
+  google.rpc.Code, but it may accept additional error codes if needed.  The
+  error message should be a developer-facing English message that helps
+  developers *understand* and *resolve* the error. If a localized user-facing
+  error message is needed, put the localized message in the error details or
+  localize it in the client. The optional error details may contain arbitrary
+  information about the error. There is a predefined set of error detail types
+  in the package `google.rpc` that can be used for common error conditions.
+
+  # Language mapping
+
+  The `Status` message is the logical representation of the error model, but it
+  is not necessarily the actual wire format. When the `Status` message is
+  exposed in different client libraries and different wire protocols, it can be
+  mapped differently. For example, it will likely be mapped to some exceptions
+  in Java, but more likely mapped to some error codes in C.
+
+  # Other uses
+
+  The error model and the `Status` message can be used in a variety of
+  environments, either with or without APIs, to provide a
+  consistent developer experience across different environments.
+
+  Example uses of this error model include:
+
+  - Partial errors. If a service needs to return partial errors to the client,
+      it may embed the `Status` in the normal response to indicate the partial
+      errors.
+
+  - Workflow errors. A typical workflow has multiple steps. Each step may
+      have a `Status` message for error reporting.
+
+  - Batch operations. If a client uses batch request and batch response, the
+      `Status` message should be used directly inside batch response, one for
+      each error sub-response.
+
+  - Asynchronous operations. If an API call embeds asynchronous operation
+      results in its response, the status of those operations should be
+      represented directly using the `Status` message.
+
+  - Logging. If some API errors are stored in logs, the message `Status` could
+      be used directly after any stripping needed for security/privacy reasons.
+definitions.Status.properties.code.description: The status code, which should be an
+  enum value of google.rpc.Code.
+definitions.Status.properties.code.format: int32
+definitions.Status.properties.code.type: integer
+definitions.Status.properties.details.description: |-
+  A list of messages that carry the error details.  There is a common set of
+  message types for APIs to use.
+definitions.Status.properties.details.items.additionalProperties.description: Properties
+  of the object. Contains field @type with type URL.
+definitions.Status.properties.details.items.type: object
+definitions.Status.properties.details.type: array
+definitions.Status.properties.message.description: |-
+  A developer-facing error message, which should be in English. Any
+  user-facing error message should be localized and sent in the
+  google.rpc.Status.details field, or localized by the client.
+definitions.Status.properties.message.type: string
+definitions.Status.type: object
+externalDocs.url: https://cloud.google.com/functions
+host: cloudfunctions.googleapis.com
+info.contact.name: Google
+info.contact.url: https://google.com
+info.description: API for managing lightweight user-provided functions executed in
+  response to events.
+info.title: Google Cloud Functions
+info.version: v1beta2
+info.x-apiClientRegistration.url: https://console.developers.google.com
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_www.google.com_images_branding_googlelogo_2x_googlelogo_color_272x92dp.png
+info.x-origin.length: 1
+info.x-origin[0].converter.url: https://github.com/lucybot/api-spec-converter
+info.x-origin[0].converter.version: 2.6.0
+info.x-origin[0].format: google
+info.x-origin[0].url: https://cloudfunctions.googleapis.com/$discovery/rest?version=v1beta2
+info.x-origin[0].version: v1
+info.x-preferred: false
+info.x-providerName: googleapis.com
+info.x-serviceName: cloudfunctions
+parameters.$.xgafv.description: V1 error format.
+parameters.$.xgafv.enum.length: 2
+parameters.$.xgafv.enum[0]: "1"
+parameters.$.xgafv.enum[1]: "2"
+parameters.$.xgafv.in: query
+parameters.$.xgafv.name: $.xgafv
+parameters.$.xgafv.type: string
+parameters.access_token.description: OAuth access token.
+parameters.access_token.in: query
+parameters.access_token.name: access_token
+parameters.access_token.type: string
+parameters.alt.default: json
+parameters.alt.description: Data format for response.
+parameters.alt.enum.length: 3
+parameters.alt.enum[0]: json
+parameters.alt.enum[1]: media
+parameters.alt.enum[2]: proto
+parameters.alt.in: query
+parameters.alt.name: alt
+parameters.alt.type: string
+parameters.bearer_token.description: OAuth bearer token.
+parameters.bearer_token.in: query
+parameters.bearer_token.name: bearer_token
+parameters.bearer_token.type: string
+parameters.callback.description: JSONP
+parameters.callback.in: query
+parameters.callback.name: callback
+parameters.callback.type: string
+parameters.fields.description: Selector specifying which fields to include in a partial
+  response.
+parameters.fields.in: query
+parameters.fields.name: fields
+parameters.fields.type: string
+parameters.key.description: API key. Your API key identifies your project and provides
+  you with API access, quota, and reports. Required unless you provide an OAuth 2.0
+  token.
+parameters.key.in: query
+parameters.key.name: key
+parameters.key.type: string
+parameters.oauth_token.description: OAuth 2.0 token for the current user.
+parameters.oauth_token.in: query
+parameters.oauth_token.name: oauth_token
+parameters.oauth_token.type: string
+parameters.pp.default: true
+parameters.pp.description: Pretty-print response.
+parameters.pp.in: query
+parameters.pp.name: pp
+parameters.pp.type: boolean
+parameters.prettyPrint.default: true
+parameters.prettyPrint.description: Returns response with indentations and line breaks.
+parameters.prettyPrint.in: query
+parameters.prettyPrint.name: prettyPrint
+parameters.prettyPrint.type: boolean
+parameters.quotaUser.description: Available to use for quota purposes for server-side
+  applications. Can be any arbitrary string assigned to a user, but should not exceed
+  40 characters.
+parameters.quotaUser.in: query
+parameters.quotaUser.name: quotaUser
+parameters.quotaUser.type: string
+parameters.upload_protocol.description: Upload protocol for media (e.g. "raw", "multipart").
+parameters.upload_protocol.in: query
+parameters.upload_protocol.name: upload_protocol
+parameters.upload_protocol.type: string
+parameters.uploadType.description: Legacy upload protocol for media (e.g. "media",
+  "multipart").
+parameters.uploadType.in: query
+parameters.uploadType.name: uploadType
+parameters.uploadType.type: string
+paths./v1beta2/{location}/functions.get.description: Returns a list of functions that
+  belong to the requested project.
+paths./v1beta2/{location}/functions.get.operationId: cloudfunctions.projects.locations.functions.list
+paths./v1beta2/{location}/functions.get.parameters.length: 3
+paths./v1beta2/{location}/functions.get.parameters[0].description: |-
+  The project and location from which the function should be listed,
+  specified in the format `projects/*/locations/*`
+  If you want to list functions in all locations, use "-" in place of a
+  location.
+paths./v1beta2/{location}/functions.get.parameters[0].in: path
+paths./v1beta2/{location}/functions.get.parameters[0].name: location
+paths./v1beta2/{location}/functions.get.parameters[0].required: true
+paths./v1beta2/{location}/functions.get.parameters[0].type: string
+paths./v1beta2/{location}/functions.get.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{location}/functions.get.parameters[1].description: |-
+  The value returned by the last
+  `ListFunctionsResponse`; indicates that
+  this is a continuation of a prior `ListFunctions` call, and that the
+  system should return the next page of data.
+paths./v1beta2/{location}/functions.get.parameters[1].in: query
+paths./v1beta2/{location}/functions.get.parameters[1].name: pageToken
+paths./v1beta2/{location}/functions.get.parameters[1].type: string
+paths./v1beta2/{location}/functions.get.parameters[2].description: Maximum number
+  of functions to return per call.
+paths./v1beta2/{location}/functions.get.parameters[2].in: query
+paths./v1beta2/{location}/functions.get.parameters[2].name: pageSize
+paths./v1beta2/{location}/functions.get.parameters[2].type: integer
+paths./v1beta2/{location}/functions.get.responses.200.description: Successful response
+paths./v1beta2/{location}/functions.get.responses.200.schema.$ref: '#/definitions/ListFunctionsResponse'
+paths./v1beta2/{location}/functions.get.security.length: 1
+paths./v1beta2/{location}/functions.get.security[0].Oauth2.length: 1
+paths./v1beta2/{location}/functions.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{location}/functions.get.tags.length: 1
+paths./v1beta2/{location}/functions.get.tags[0]: projects
+paths./v1beta2/{location}/functions.parameters.length: 13
+paths./v1beta2/{location}/functions.parameters[0].$ref: '#/parameters/upload_protocol'
+paths./v1beta2/{location}/functions.parameters[1].$ref: '#/parameters/prettyPrint'
+paths./v1beta2/{location}/functions.parameters[2].$ref: '#/parameters/uploadType'
+paths./v1beta2/{location}/functions.parameters[3].$ref: '#/parameters/fields'
+paths./v1beta2/{location}/functions.parameters[4].$ref: '#/parameters/$.xgafv'
+paths./v1beta2/{location}/functions.parameters[5].$ref: '#/parameters/callback'
+paths./v1beta2/{location}/functions.parameters[6].$ref: '#/parameters/alt'
+paths./v1beta2/{location}/functions.parameters[7].$ref: '#/parameters/key'
+paths./v1beta2/{location}/functions.parameters[8].$ref: '#/parameters/access_token'
+paths./v1beta2/{location}/functions.parameters[9].$ref: '#/parameters/quotaUser'
+paths./v1beta2/{location}/functions.parameters[10].$ref: '#/parameters/pp'
+paths./v1beta2/{location}/functions.parameters[11].$ref: '#/parameters/oauth_token'
+paths./v1beta2/{location}/functions.parameters[12].$ref: '#/parameters/bearer_token'
+paths./v1beta2/{location}/functions.post.description: |-
+  Creates a new function. If a function with the given name already exists in
+  the specified project, the long running operation will return
+  `ALREADY_EXISTS` error.
+paths./v1beta2/{location}/functions.post.operationId: cloudfunctions.projects.locations.functions.create
+paths./v1beta2/{location}/functions.post.parameters.length: 2
+paths./v1beta2/{location}/functions.post.parameters[0].description: |-
+  The project and location in which the function should be created, specified
+  in the format `projects/*/locations/*`
+paths./v1beta2/{location}/functions.post.parameters[0].in: path
+paths./v1beta2/{location}/functions.post.parameters[0].name: location
+paths./v1beta2/{location}/functions.post.parameters[0].required: true
+paths./v1beta2/{location}/functions.post.parameters[0].type: string
+paths./v1beta2/{location}/functions.post.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{location}/functions.post.parameters[1].in: body
+paths./v1beta2/{location}/functions.post.parameters[1].name: body
+paths./v1beta2/{location}/functions.post.parameters[1].schema.$ref: '#/definitions/CloudFunction'
+paths./v1beta2/{location}/functions.post.responses.200.description: Successful response
+paths./v1beta2/{location}/functions.post.responses.200.schema.$ref: '#/definitions/Operation'
+paths./v1beta2/{location}/functions.post.security.length: 1
+paths./v1beta2/{location}/functions.post.security[0].Oauth2.length: 1
+paths./v1beta2/{location}/functions.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{location}/functions.post.tags.length: 1
+paths./v1beta2/{location}/functions.post.tags[0]: projects
+paths./v1beta2/{name}.delete.description: |-
+  Deletes a function with the given name from the specified project. If the
+  given function is used by some trigger, the trigger will be updated to
+  remove this function.
+paths./v1beta2/{name}.delete.operationId: cloudfunctions.projects.locations.functions.delete
+paths./v1beta2/{name}.delete.parameters.length: 1
+paths./v1beta2/{name}.delete.parameters[0].description: The name of the function which
+  should be deleted.
+paths./v1beta2/{name}.delete.parameters[0].in: path
+paths./v1beta2/{name}.delete.parameters[0].name: name
+paths./v1beta2/{name}.delete.parameters[0].required: true
+paths./v1beta2/{name}.delete.parameters[0].type: string
+paths./v1beta2/{name}.delete.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{name}.delete.responses.200.description: Successful response
+paths./v1beta2/{name}.delete.responses.200.schema.$ref: '#/definitions/Operation'
+paths./v1beta2/{name}.delete.security.length: 1
+paths./v1beta2/{name}.delete.security[0].Oauth2.length: 1
+paths./v1beta2/{name}.delete.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{name}.delete.tags.length: 1
+paths./v1beta2/{name}.delete.tags[0]: projects
+paths./v1beta2/{name}.get.description: Returns a function with the given name from
+  the requested project.
+paths./v1beta2/{name}.get.operationId: cloudfunctions.projects.locations.functions.get
+paths./v1beta2/{name}.get.parameters.length: 1
+paths./v1beta2/{name}.get.parameters[0].description: The name of the function which
+  details should be obtained.
+paths./v1beta2/{name}.get.parameters[0].in: path
+paths./v1beta2/{name}.get.parameters[0].name: name
+paths./v1beta2/{name}.get.parameters[0].required: true
+paths./v1beta2/{name}.get.parameters[0].type: string
+paths./v1beta2/{name}.get.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{name}.get.responses.200.description: Successful response
+paths./v1beta2/{name}.get.responses.200.schema.$ref: '#/definitions/CloudFunction'
+paths./v1beta2/{name}.get.security.length: 1
+paths./v1beta2/{name}.get.security[0].Oauth2.length: 1
+paths./v1beta2/{name}.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{name}.get.tags.length: 1
+paths./v1beta2/{name}.get.tags[0]: projects
+paths./v1beta2/{name}.parameters.length: 13
+paths./v1beta2/{name}.parameters[0].$ref: '#/parameters/upload_protocol'
+paths./v1beta2/{name}.parameters[1].$ref: '#/parameters/prettyPrint'
+paths./v1beta2/{name}.parameters[2].$ref: '#/parameters/uploadType'
+paths./v1beta2/{name}.parameters[3].$ref: '#/parameters/fields'
+paths./v1beta2/{name}.parameters[4].$ref: '#/parameters/$.xgafv'
+paths./v1beta2/{name}.parameters[5].$ref: '#/parameters/callback'
+paths./v1beta2/{name}.parameters[6].$ref: '#/parameters/alt'
+paths./v1beta2/{name}.parameters[7].$ref: '#/parameters/key'
+paths./v1beta2/{name}.parameters[8].$ref: '#/parameters/access_token'
+paths./v1beta2/{name}.parameters[9].$ref: '#/parameters/quotaUser'
+paths./v1beta2/{name}.parameters[10].$ref: '#/parameters/pp'
+paths./v1beta2/{name}.parameters[11].$ref: '#/parameters/oauth_token'
+paths./v1beta2/{name}.parameters[12].$ref: '#/parameters/bearer_token'
+paths./v1beta2/{name}.put.description: Updates existing function.
+paths./v1beta2/{name}.put.operationId: cloudfunctions.projects.locations.functions.update
+paths./v1beta2/{name}.put.parameters.length: 2
+paths./v1beta2/{name}.put.parameters[0].description: The name of the function to be
+  updated.
+paths./v1beta2/{name}.put.parameters[0].in: path
+paths./v1beta2/{name}.put.parameters[0].name: name
+paths./v1beta2/{name}.put.parameters[0].required: true
+paths./v1beta2/{name}.put.parameters[0].type: string
+paths./v1beta2/{name}.put.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{name}.put.parameters[1].in: body
+paths./v1beta2/{name}.put.parameters[1].name: body
+paths./v1beta2/{name}.put.parameters[1].schema.$ref: '#/definitions/CloudFunction'
+paths./v1beta2/{name}.put.responses.200.description: Successful response
+paths./v1beta2/{name}.put.responses.200.schema.$ref: '#/definitions/Operation'
+paths./v1beta2/{name}.put.security.length: 1
+paths./v1beta2/{name}.put.security[0].Oauth2.length: 1
+paths./v1beta2/{name}.put.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{name}.put.tags.length: 1
+paths./v1beta2/{name}.put.tags[0]: projects
+paths./v1beta2/{name}/locations.get.description: Lists information about the supported
+  locations for this service.
+paths./v1beta2/{name}/locations.get.operationId: cloudfunctions.projects.locations.list
+paths./v1beta2/{name}/locations.get.parameters.length: 4
+paths./v1beta2/{name}/locations.get.parameters[0].description: The resource that owns
+  the locations collection, if applicable.
+paths./v1beta2/{name}/locations.get.parameters[0].in: path
+paths./v1beta2/{name}/locations.get.parameters[0].name: name
+paths./v1beta2/{name}/locations.get.parameters[0].required: true
+paths./v1beta2/{name}/locations.get.parameters[0].type: string
+paths./v1beta2/{name}/locations.get.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{name}/locations.get.parameters[1].description: The standard list page
+  token.
+paths./v1beta2/{name}/locations.get.parameters[1].in: query
+paths./v1beta2/{name}/locations.get.parameters[1].name: pageToken
+paths./v1beta2/{name}/locations.get.parameters[1].type: string
+paths./v1beta2/{name}/locations.get.parameters[2].description: The standard list page
+  size.
+paths./v1beta2/{name}/locations.get.parameters[2].in: query
+paths./v1beta2/{name}/locations.get.parameters[2].name: pageSize
+paths./v1beta2/{name}/locations.get.parameters[2].type: integer
+paths./v1beta2/{name}/locations.get.parameters[3].description: The standard list filter.
+paths./v1beta2/{name}/locations.get.parameters[3].in: query
+paths./v1beta2/{name}/locations.get.parameters[3].name: filter
+paths./v1beta2/{name}/locations.get.parameters[3].type: string
+paths./v1beta2/{name}/locations.get.responses.200.description: Successful response
+paths./v1beta2/{name}/locations.get.responses.200.schema.$ref: '#/definitions/ListLocationsResponse'
+paths./v1beta2/{name}/locations.get.security.length: 1
+paths./v1beta2/{name}/locations.get.security[0].Oauth2.length: 1
+paths./v1beta2/{name}/locations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{name}/locations.get.tags.length: 1
+paths./v1beta2/{name}/locations.get.tags[0]: projects
+paths./v1beta2/{name}/locations.parameters.length: 13
+paths./v1beta2/{name}/locations.parameters[0].$ref: '#/parameters/upload_protocol'
+paths./v1beta2/{name}/locations.parameters[1].$ref: '#/parameters/prettyPrint'
+paths./v1beta2/{name}/locations.parameters[2].$ref: '#/parameters/uploadType'
+paths./v1beta2/{name}/locations.parameters[3].$ref: '#/parameters/fields'
+paths./v1beta2/{name}/locations.parameters[4].$ref: '#/parameters/$.xgafv'
+paths./v1beta2/{name}/locations.parameters[5].$ref: '#/parameters/callback'
+paths./v1beta2/{name}/locations.parameters[6].$ref: '#/parameters/alt'
+paths./v1beta2/{name}/locations.parameters[7].$ref: '#/parameters/key'
+paths./v1beta2/{name}/locations.parameters[8].$ref: '#/parameters/access_token'
+paths./v1beta2/{name}/locations.parameters[9].$ref: '#/parameters/quotaUser'
+paths./v1beta2/{name}/locations.parameters[10].$ref: '#/parameters/pp'
+paths./v1beta2/{name}/locations.parameters[11].$ref: '#/parameters/oauth_token'
+paths./v1beta2/{name}/locations.parameters[12].$ref: '#/parameters/bearer_token'
+paths./v1beta2/{name}:call.parameters.length: 13
+paths./v1beta2/{name}:call.parameters[0].$ref: '#/parameters/upload_protocol'
+paths./v1beta2/{name}:call.parameters[1].$ref: '#/parameters/prettyPrint'
+paths./v1beta2/{name}:call.parameters[2].$ref: '#/parameters/uploadType'
+paths./v1beta2/{name}:call.parameters[3].$ref: '#/parameters/fields'
+paths./v1beta2/{name}:call.parameters[4].$ref: '#/parameters/$.xgafv'
+paths./v1beta2/{name}:call.parameters[5].$ref: '#/parameters/callback'
+paths./v1beta2/{name}:call.parameters[6].$ref: '#/parameters/alt'
+paths./v1beta2/{name}:call.parameters[7].$ref: '#/parameters/key'
+paths./v1beta2/{name}:call.parameters[8].$ref: '#/parameters/access_token'
+paths./v1beta2/{name}:call.parameters[9].$ref: '#/parameters/quotaUser'
+paths./v1beta2/{name}:call.parameters[10].$ref: '#/parameters/pp'
+paths./v1beta2/{name}:call.parameters[11].$ref: '#/parameters/oauth_token'
+paths./v1beta2/{name}:call.parameters[12].$ref: '#/parameters/bearer_token'
+paths./v1beta2/{name}:call.post.description: |-
+  Invokes synchronously deployed function. To be used for testing, very
+  limited traffic allowed.
+paths./v1beta2/{name}:call.post.operationId: cloudfunctions.projects.locations.functions.call
+paths./v1beta2/{name}:call.post.parameters.length: 2
+paths./v1beta2/{name}:call.post.parameters[0].description: The name of the function
+  to be called.
+paths./v1beta2/{name}:call.post.parameters[0].in: path
+paths./v1beta2/{name}:call.post.parameters[0].name: name
+paths./v1beta2/{name}:call.post.parameters[0].required: true
+paths./v1beta2/{name}:call.post.parameters[0].type: string
+paths./v1beta2/{name}:call.post.parameters[0].x-reservedExpansion: true
+paths./v1beta2/{name}:call.post.parameters[1].in: body
+paths./v1beta2/{name}:call.post.parameters[1].name: body
+paths./v1beta2/{name}:call.post.parameters[1].schema.$ref: '#/definitions/CallFunctionRequest'
+paths./v1beta2/{name}:call.post.responses.200.description: Successful response
+paths./v1beta2/{name}:call.post.responses.200.schema.$ref: '#/definitions/CallFunctionResponse'
+paths./v1beta2/{name}:call.post.security.length: 1
+paths./v1beta2/{name}:call.post.security[0].Oauth2.length: 1
+paths./v1beta2/{name}:call.post.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/{name}:call.post.tags.length: 1
+paths./v1beta2/{name}:call.post.tags[0]: projects
+paths./v1beta2/operations.get.description: |-
+  Lists operations that match the specified filter in the request. If the
+  server doesn't support this method, it returns `UNIMPLEMENTED`.
+
+  NOTE: the `name` binding allows API services to override the binding
+  to use different resource name schemes, such as `users/*/operations`. To
+  override the binding, API services can add a binding such as
+  `"/v1/{name=users/*}/operations"` to their service configuration.
+  For backwards compatibility, the default name includes the operations
+  collection id, however overriding users must ensure the name binding
+  is the parent resource, without the operations collection id.
+paths./v1beta2/operations.get.operationId: cloudfunctions.operations.list
+paths./v1beta2/operations.get.parameters.length: 4
+paths./v1beta2/operations.get.parameters[0].description: The standard list filter.
+paths./v1beta2/operations.get.parameters[0].in: query
+paths./v1beta2/operations.get.parameters[0].name: filter
+paths./v1beta2/operations.get.parameters[0].type: string
+paths./v1beta2/operations.get.parameters[1].description: The name of the operation's
+  parent resource.
+paths./v1beta2/operations.get.parameters[1].in: query
+paths./v1beta2/operations.get.parameters[1].name: name
+paths./v1beta2/operations.get.parameters[1].type: string
+paths./v1beta2/operations.get.parameters[2].description: The standard list page size.
+paths./v1beta2/operations.get.parameters[2].in: query
+paths./v1beta2/operations.get.parameters[2].name: pageSize
+paths./v1beta2/operations.get.parameters[2].type: integer
+paths./v1beta2/operations.get.parameters[3].description: The standard list page token.
+paths./v1beta2/operations.get.parameters[3].in: query
+paths./v1beta2/operations.get.parameters[3].name: pageToken
+paths./v1beta2/operations.get.parameters[3].type: string
+paths./v1beta2/operations.get.responses.200.description: Successful response
+paths./v1beta2/operations.get.responses.200.schema.$ref: '#/definitions/ListOperationsResponse'
+paths./v1beta2/operations.get.security.length: 1
+paths./v1beta2/operations.get.security[0].Oauth2.length: 1
+paths./v1beta2/operations.get.security[0].Oauth2[0]: https://www.googleapis.com/auth/cloud-platform
+paths./v1beta2/operations.get.tags.length: 1
+paths./v1beta2/operations.get.tags[0]: operations
+paths./v1beta2/operations.parameters.length: 13
+paths./v1beta2/operations.parameters[0].$ref: '#/parameters/$.xgafv'
+paths./v1beta2/operations.parameters[1].$ref: '#/parameters/access_token'
+paths./v1beta2/operations.parameters[2].$ref: '#/parameters/alt'
+paths./v1beta2/operations.parameters[3].$ref: '#/parameters/bearer_token'
+paths./v1beta2/operations.parameters[4].$ref: '#/parameters/callback'
+paths./v1beta2/operations.parameters[5].$ref: '#/parameters/fields'
+paths./v1beta2/operations.parameters[6].$ref: '#/parameters/key'
+paths./v1beta2/operations.parameters[7].$ref: '#/parameters/oauth_token'
+paths./v1beta2/operations.parameters[8].$ref: '#/parameters/pp'
+paths./v1beta2/operations.parameters[9].$ref: '#/parameters/prettyPrint'
+paths./v1beta2/operations.parameters[10].$ref: '#/parameters/quotaUser'
+paths./v1beta2/operations.parameters[11].$ref: '#/parameters/uploadType'
+paths./v1beta2/operations.parameters[12].$ref: '#/parameters/upload_protocol'
+schemes.length: 1
+schemes[0]: https
+securityDefinitions.Oauth2.authorizationUrl: https://accounts.google.com/o/oauth2/auth
+securityDefinitions.Oauth2.description: Oauth 2.0 authentication
+securityDefinitions.Oauth2.flow: implicit
+securityDefinitions.Oauth2.scopes.https://www.googleapis.com/auth/cloud-platform: View
+  and manage your data across Google Cloud Platform services
+securityDefinitions.Oauth2.type: oauth2
+swagger: "2.0"
+tags.length: 2
+tags[0].name: operations
+tags[1].name: projects

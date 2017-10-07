@@ -1,0 +1,119 @@
+basePath: /pub/api
+definitions.Step.properties.address.description: address of the stop
+definitions.Step.properties.address.type: string
+definitions.Step.properties.arrival.description: arrival at the stop in its local
+  timezone as YYYY-MM-DDThh:mm
+definitions.Step.properties.arrival.format: date-time
+definitions.Step.properties.arrival.type: string
+definitions.Step.properties.coordinates.description: geographical coordinates of the
+  stop
+definitions.Step.properties.coordinates.properties.lat.description: latitude
+definitions.Step.properties.coordinates.properties.lat.format: float
+definitions.Step.properties.coordinates.properties.lat.type: number
+definitions.Step.properties.coordinates.properties.lon.description: longitude
+definitions.Step.properties.coordinates.properties.lon.format: float
+definitions.Step.properties.coordinates.properties.lon.type: number
+definitions.Step.properties.coordinates.type: object
+definitions.Step.properties.departure.description: departure from the stop in its
+  local timezone as YYYY-MM-DDThh:mm
+definitions.Step.properties.departure.format: date-time
+definitions.Step.properties.departure.type: string
+definitions.Step.properties.name.description: name of the stop
+definitions.Step.properties.name.type: string
+definitions.Step.properties.nights.description: number of nights
+definitions.Step.properties.nights.format: int64
+definitions.Step.properties.nights.type: integer
+definitions.Step.properties.route.description: route leading to the stop
+definitions.Step.properties.route.properties.distance.description: route distance
+  in meters
+definitions.Step.properties.route.properties.distance.format: int64
+definitions.Step.properties.route.properties.distance.type: integer
+definitions.Step.properties.route.properties.duration.description: route duration
+  in seconds
+definitions.Step.properties.route.properties.duration.format: int64
+definitions.Step.properties.route.properties.duration.type: integer
+definitions.Step.properties.route.properties.mode.description: travel mode
+definitions.Step.properties.route.properties.mode.enum.length: 5
+definitions.Step.properties.route.properties.mode.enum[0]: car
+definitions.Step.properties.route.properties.mode.enum[1]: motorcycle
+definitions.Step.properties.route.properties.mode.enum[2]: bicycle
+definitions.Step.properties.route.properties.mode.enum[3]: walk
+definitions.Step.properties.route.properties.mode.enum[4]: other
+definitions.Step.properties.route.properties.mode.type: string
+definitions.Step.properties.route.properties.polyline.description: route path compatible
+  with Google polyline encoding algorithm
+definitions.Step.properties.route.properties.polyline.type: string
+definitions.Step.properties.route.type: object
+definitions.Step.properties.url.description: url of the page with more information
+  about the stop
+definitions.Step.properties.url.type: string
+definitions.Step.type: object
+definitions.Trip.properties.begin.description: begin of the trip in its local timezone
+  as YYYY-MM-DDThh:mm
+definitions.Trip.properties.begin.format: date-time
+definitions.Trip.properties.begin.type: string
+definitions.Trip.properties.description.description: description of the trip (truncated
+  to 200 characters)
+definitions.Trip.properties.description.type: string
+definitions.Trip.properties.end.description: end of the trip in its local timezone
+  as YYYY-MM-DDThh:mm
+definitions.Trip.properties.end.format: date-time
+definitions.Trip.properties.end.type: string
+definitions.Trip.properties.id.description: Unique ID of the trip
+definitions.Trip.properties.id.type: string
+definitions.Trip.properties.name.description: name of the trip
+definitions.Trip.properties.name.type: string
+definitions.Trip.type: object
+externalDocs.description: Furkot API description
+externalDocs.url: https://help.furkot.com/widgets/furkot-api.html
+host: trips.furkot.com
+info.contact.email: trips@furkot.com
+info.description: |
+  Furkot provides Rest API to access user trip data.
+  Using Furkot API an application can list user trips and display stops for a specific trip.
+  Furkot API uses OAuth2 protocol to authorize applications to access data on behalf of users.
+info.title: Furkot Trips
+info.version: 1.0.0
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: location
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_cdn.furkot.com_img_furkot-banner-black-4x1.svg
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://help.furkot.com/widgets/furkot-api.yaml
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: furkot.com
+paths./trip.get.description: list user's trips
+paths./trip.get.responses.200.description: Successful response
+paths./trip.get.responses.200.schema.items.$ref: '#/definitions/Trip'
+paths./trip.get.responses.200.schema.type: array
+paths./trip/{trip_id}/stop.get.description: list stops for a trip identified by {trip_id}
+paths./trip/{trip_id}/stop.get.parameters.length: 1
+paths./trip/{trip_id}/stop.get.parameters[0].description: id of the trip
+paths./trip/{trip_id}/stop.get.parameters[0].in: path
+paths./trip/{trip_id}/stop.get.parameters[0].name: trip_id
+paths./trip/{trip_id}/stop.get.parameters[0].required: true
+paths./trip/{trip_id}/stop.get.parameters[0].type: string
+paths./trip/{trip_id}/stop.get.responses.200.description: Successful response
+paths./trip/{trip_id}/stop.get.responses.200.schema.items.$ref: '#/definitions/Step'
+paths./trip/{trip_id}/stop.get.responses.200.schema.type: array
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: https
+security.length: 2
+security[0].furkot_auth_access_code.length: 1
+security[0].furkot_auth_access_code[0]: read:trips
+security[1].furkot_auth_implicit.length: 1
+security[1].furkot_auth_implicit[0]: read:trips
+securityDefinitions.furkot_auth_access_code.authorizationUrl: https://trips.furkot.com/oauth/authorize
+securityDefinitions.furkot_auth_access_code.flow: accessCode
+securityDefinitions.furkot_auth_access_code.scopes.read:trips: list trips and stops
+  info
+securityDefinitions.furkot_auth_access_code.tokenUrl: https://trips.furkot.com/pub/api/access_token
+securityDefinitions.furkot_auth_access_code.type: oauth2
+securityDefinitions.furkot_auth_implicit.authorizationUrl: https://trips.furkot.com/oauth/authorize
+securityDefinitions.furkot_auth_implicit.flow: implicit
+securityDefinitions.furkot_auth_implicit.scopes.read:trips: list users trips info
+securityDefinitions.furkot_auth_implicit.type: oauth2
+swagger: "2.0"

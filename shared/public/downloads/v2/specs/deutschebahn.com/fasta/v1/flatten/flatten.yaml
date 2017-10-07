@@ -1,0 +1,349 @@
+basePath: /fasta/v1
+consumes.length: 1
+consumes[0]: application/json
+definitions.disruption.description: A disruption contains information associated with
+  a facility that is temporarily not available.
+definitions.disruption.properties.description.description: The local conditions of
+  the related facility.
+definitions.disruption.properties.description.type: string
+definitions.disruption.properties.disruptionnumber.description: Unique identifier.
+definitions.disruption.properties.disruptionnumber.format: int64
+definitions.disruption.properties.disruptionnumber.type: integer
+definitions.disruption.properties.equipmentnumber.description: Identifier of the related
+  facility.
+definitions.disruption.properties.equipmentnumber.format: int64
+definitions.disruption.properties.equipmentnumber.type: integer
+definitions.disruption.properties.furtherDescription.description: Further information
+  of the cause if available.
+definitions.disruption.properties.furtherDescription.type: string
+definitions.disruption.properties.geographicCoordinates.$ref: '#/definitions/point'
+definitions.disruption.properties.lastUpdate.description: Last time this disruption
+  has been updated (formatted in ISO-1806).
+definitions.disruption.properties.lastUpdate.format: date-time
+definitions.disruption.properties.lastUpdate.type: string
+definitions.disruption.properties.outOfServiceOn.description: Time specification when
+  the facility will not be available for planned maintenance work (formatted in ISO-1806).
+definitions.disruption.properties.outOfServiceOn.format: date-time
+definitions.disruption.properties.outOfServiceOn.type: string
+definitions.disruption.properties.outOfServiceReason.description: Cause of the disruption.
+definitions.disruption.properties.outOfServiceReason.type: string
+definitions.disruption.properties.outOfServiceTo.description: Time specification when
+  the facility will be available again after planned maintenance work (formatted in
+  ISO-1806).
+definitions.disruption.properties.outOfServiceTo.format: date-time
+definitions.disruption.properties.outOfServiceTo.type: string
+definitions.disruption.properties.plannedCompletion.description: Time specification
+  when the repair is planned to be finished (formatted in ISO-1806).
+definitions.disruption.properties.plannedCompletion.format: date-time
+definitions.disruption.properties.plannedCompletion.type: string
+definitions.disruption.properties.state.description: Actual operational status.
+definitions.disruption.properties.state.enum.length: 1
+definitions.disruption.properties.state.enum[0]: INACTIVE
+definitions.disruption.properties.state.type: string
+definitions.disruption.properties.stationnumber.description: Station number of the
+  related facility.
+definitions.disruption.properties.stationnumber.format: int64
+definitions.disruption.properties.stationnumber.type: integer
+definitions.disruption.properties.type.description: The type of the related facility
+  e.g. escalator or elevator.
+definitions.disruption.properties.type.enum.length: 2
+definitions.disruption.properties.type.enum[0]: ESCALATOR
+definitions.disruption.properties.type.enum[1]: ELEVATOR
+definitions.disruption.properties.type.type: string
+definitions.disruption.required.length: 4
+definitions.disruption.required[0]: disruptionnumber
+definitions.disruption.required[1]: equipmentnumber
+definitions.disruption.required[2]: type
+definitions.disruption.required[3]: stationnumber
+definitions.disruption.type: object
+definitions.facility.description: Currently a facility provided by this API is either
+  a public elevator or escalator in a german railway station operated by Station&Service
+  AG.
+definitions.facility.properties.description.description: The local conditions of the
+  facility.
+definitions.facility.properties.description.type: string
+definitions.facility.properties.equipmentnumber.description: Unique identifier of
+  the facility.
+definitions.facility.properties.equipmentnumber.format: int64
+definitions.facility.properties.equipmentnumber.type: integer
+definitions.facility.properties.geocoordX.description: longitude component of geocoordinate
+  in WGS84 format
+definitions.facility.properties.geocoordX.format: double
+definitions.facility.properties.geocoordX.type: number
+definitions.facility.properties.geocoordY.description: latitude component of geocoordinate
+  in WGS84 format
+definitions.facility.properties.geocoordY.format: double
+definitions.facility.properties.geocoordY.type: number
+definitions.facility.properties.state.description: Actual operational status.
+definitions.facility.properties.state.enum.length: 2
+definitions.facility.properties.state.enum[0]: ACTIVE
+definitions.facility.properties.state.enum[1]: INACTIVE
+definitions.facility.properties.state.type: string
+definitions.facility.properties.stationnumber.description: Number of the station where
+  the facility is located.
+definitions.facility.properties.stationnumber.format: int64
+definitions.facility.properties.stationnumber.type: integer
+definitions.facility.properties.type.description: Facility type. Currently elevator
+  or escalator.
+definitions.facility.properties.type.enum.length: 2
+definitions.facility.properties.type.enum[0]: ESCALATOR
+definitions.facility.properties.type.enum[1]: ELEVATOR
+definitions.facility.properties.type.type: string
+definitions.facility.required.length: 4
+definitions.facility.required[0]: equipmentnumber
+definitions.facility.required[1]: type
+definitions.facility.required[2]: state
+definitions.facility.required[3]: stationnumber
+definitions.facility.type: object
+definitions.point.description: Representation of a geographical point in GeoJSON format
+definitions.point.properties.coordinates.description: An array of numbers. First value
+  is longitude, second latitude.
+definitions.point.properties.coordinates.items.format: double
+definitions.point.properties.coordinates.items.type: number
+definitions.point.properties.coordinates.maxItems: 2
+definitions.point.properties.coordinates.minItems: 2
+definitions.point.properties.coordinates.type: array
+definitions.point.properties.type.default: Point
+definitions.point.properties.type.type: string
+definitions.point.required.length: 2
+definitions.point.required[0]: type
+definitions.point.required[1]: coordinates
+definitions.point.type: object
+definitions.station.properties.facilities.items.$ref: '#/definitions/facility'
+definitions.station.properties.facilities.type: array
+definitions.station.properties.name.description: Name of the station.
+definitions.station.properties.name.type: string
+definitions.station.properties.stationnumber.description: Unique identifier of the
+  railway station.
+definitions.station.properties.stationnumber.format: int64
+definitions.station.properties.stationnumber.type: integer
+definitions.station.required.length: 2
+definitions.station.required[0]: stationnumber
+definitions.station.required[1]: name
+definitions.station.type: object
+host: api.deutschebahn.com
+info.contact.email: michael.binzen@deutschebahn.com
+info.contact.name: Michael Binzen
+info.description: "A RESTful webservice to retrieve data about the operational state
+  of public elevators and escalators in german railway stations operated by DB Station&Service
+  AG. \nNote: Production and sandbox environments use the same production backend
+  server. "
+info.license.name: CC-BY 4.0
+info.license.url: https://creativecommons.org/licenses/by/4.0/
+info.termsOfService: http://data.deutschebahn.com/nutzungsbedingungen.html
+info.title: FaSta-Station_Facilities_Status
+info.version: v1
+info.x-apisguru-categories.length: 2
+info.x-apisguru-categories[0]: transport
+info.x-apisguru-categories[1]: open_data
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_pbs.twimg.com_profile_images_591140150413025280_Cjcqjl2J.png
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://developer.deutschebahn.com/store/api-docs/DBOpenData/FaSta-Station_Facilities_Status/v1
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: deutschebahn.com
+info.x-serviceName: fasta
+paths./disruptions.get.description: Returns information about disruptions of facilities
+  filtered by parameters.
+paths./disruptions.get.operationId: findDisruptions
+paths./disruptions.get.parameters.length: 3
+paths./disruptions.get.parameters[0].collectionFormat: csv
+paths./disruptions.get.parameters[0].default.length: 2
+paths./disruptions.get.parameters[0].default[0]: ESCALATOR
+paths./disruptions.get.parameters[0].default[1]: ELEVATOR
+paths./disruptions.get.parameters[0].description: type of the facility to filter by
+paths./disruptions.get.parameters[0].in: query
+paths./disruptions.get.parameters[0].items.enum.length: 2
+paths./disruptions.get.parameters[0].items.enum[0]: ESCALATOR
+paths./disruptions.get.parameters[0].items.enum[1]: ELEVATOR
+paths./disruptions.get.parameters[0].items.type: string
+paths./disruptions.get.parameters[0].name: type
+paths./disruptions.get.parameters[0].required: false
+paths./disruptions.get.parameters[0].type: array
+paths./disruptions.get.parameters[0].uniqueItems: true
+paths./disruptions.get.parameters[1].description: equipmentnumber of the facility
+  to fetch
+paths./disruptions.get.parameters[1].format: int64
+paths./disruptions.get.parameters[1].in: query
+paths./disruptions.get.parameters[1].minimum: 1
+paths./disruptions.get.parameters[1].name: equipmentnumber
+paths./disruptions.get.parameters[1].required: false
+paths./disruptions.get.parameters[1].type: integer
+paths./disruptions.get.parameters[2].description: stationnumber of the station to
+  fetch
+paths./disruptions.get.parameters[2].format: int64
+paths./disruptions.get.parameters[2].in: query
+paths./disruptions.get.parameters[2].minimum: 1
+paths./disruptions.get.parameters[2].name: stationnumber
+paths./disruptions.get.parameters[2].required: false
+paths./disruptions.get.parameters[2].type: integer
+paths./disruptions.get.responses.200.description: disruption data
+paths./disruptions.get.responses.200.schema.items.$ref: '#/definitions/disruption'
+paths./disruptions.get.responses.200.schema.type: array
+paths./disruptions.get.responses.400.description: The given filters contained invalid
+  values.
+paths./disruptions.get.responses.406.description: The requested representation format
+  is not available.
+paths./disruptions.get.responses.500.description: A processing error has occurred.
+paths./disruptions.get.responses.503.description: The service has been disabled temporarily.
+paths./disruptions.get.x-auth-type: Application & Application User
+paths./disruptions.get.x-throttling-tier: Unlimited
+paths./disruptions/{disruptionnumber}.get.description: Returns information about a
+  specific disruption of a facility
+paths./disruptions/{disruptionnumber}.get.operationId: findDisruptionByDisruptionNumber
+paths./disruptions/{disruptionnumber}.get.parameters.length: 1
+paths./disruptions/{disruptionnumber}.get.parameters[0].description: disruptionnumber
+  of the disruption to fetch
+paths./disruptions/{disruptionnumber}.get.parameters[0].format: int64
+paths./disruptions/{disruptionnumber}.get.parameters[0].in: path
+paths./disruptions/{disruptionnumber}.get.parameters[0].minimum: 1
+paths./disruptions/{disruptionnumber}.get.parameters[0].name: disruptionnumber
+paths./disruptions/{disruptionnumber}.get.parameters[0].required: true
+paths./disruptions/{disruptionnumber}.get.parameters[0].type: integer
+paths./disruptions/{disruptionnumber}.get.responses.200.description: disruption data
+paths./disruptions/{disruptionnumber}.get.responses.200.schema.$ref: '#/definitions/disruption'
+paths./disruptions/{disruptionnumber}.get.responses.404.description: The requested
+  disruption could not be found.
+paths./disruptions/{disruptionnumber}.get.responses.406.description: Requested representation
+  format is not available.
+paths./disruptions/{disruptionnumber}.get.responses.500.description: A processing
+  error has occurred.
+paths./disruptions/{disruptionnumber}.get.responses.503.description: The service has
+  been disabled temporarily.
+paths./disruptions/{disruptionnumber}.get.x-auth-type: Application & Application User
+paths./disruptions/{disruptionnumber}.get.x-throttling-tier: Unlimited
+paths./facilities.get.description: Access to public facilities (escalators and elevators)
+  in railway stations
+paths./facilities.get.operationId: findFacilities
+paths./facilities.get.parameters.length: 5
+paths./facilities.get.parameters[0].collectionFormat: csv
+paths./facilities.get.parameters[0].default.length: 2
+paths./facilities.get.parameters[0].default[0]: ESCALATOR
+paths./facilities.get.parameters[0].default[1]: ELEVATOR
+paths./facilities.get.parameters[0].description: type of the facility to filter by
+paths./facilities.get.parameters[0].in: query
+paths./facilities.get.parameters[0].items.enum.length: 2
+paths./facilities.get.parameters[0].items.enum[0]: ESCALATOR
+paths./facilities.get.parameters[0].items.enum[1]: ELEVATOR
+paths./facilities.get.parameters[0].items.type: string
+paths./facilities.get.parameters[0].name: type
+paths./facilities.get.parameters[0].required: false
+paths./facilities.get.parameters[0].type: array
+paths./facilities.get.parameters[0].uniqueItems: true
+paths./facilities.get.parameters[1].collectionFormat: csv
+paths./facilities.get.parameters[1].default.length: 2
+paths./facilities.get.parameters[1].default[0]: ACTIVE
+paths./facilities.get.parameters[1].default[1]: INACTIVE
+paths./facilities.get.parameters[1].description: the state of the facility to filter
+  by
+paths./facilities.get.parameters[1].in: query
+paths./facilities.get.parameters[1].items.enum.length: 2
+paths./facilities.get.parameters[1].items.enum[0]: ACTIVE
+paths./facilities.get.parameters[1].items.enum[1]: INACTIVE
+paths./facilities.get.parameters[1].items.type: string
+paths./facilities.get.parameters[1].name: state
+paths./facilities.get.parameters[1].required: false
+paths./facilities.get.parameters[1].type: array
+paths./facilities.get.parameters[1].uniqueItems: true
+paths./facilities.get.parameters[2].collectionFormat: csv
+paths./facilities.get.parameters[2].description: equipmentnumbers of the facility
+  to filter by
+paths./facilities.get.parameters[2].in: query
+paths./facilities.get.parameters[2].items.format: int64
+paths./facilities.get.parameters[2].items.maxItems: 100
+paths./facilities.get.parameters[2].items.type: integer
+paths./facilities.get.parameters[2].name: equipmentnumbers
+paths./facilities.get.parameters[2].required: false
+paths./facilities.get.parameters[2].type: array
+paths./facilities.get.parameters[2].uniqueItems: true
+paths./facilities.get.parameters[3].description: station number to filter by
+paths./facilities.get.parameters[3].format: int64
+paths./facilities.get.parameters[3].in: query
+paths./facilities.get.parameters[3].minimum: 1
+paths./facilities.get.parameters[3].name: stationnumber
+paths./facilities.get.parameters[3].required: false
+paths./facilities.get.parameters[3].type: integer
+paths./facilities.get.parameters[4].collectionFormat: csv
+paths./facilities.get.parameters[4].description: 'Geo coordinate rectangle in WGS84-format
+  to filter by. Parameters must be 4 numbers exactly as follows: longitudeWest, latitudeSouth,
+  longitudeEast, latitudeNorth.'
+paths./facilities.get.parameters[4].in: query
+paths./facilities.get.parameters[4].items.type: string
+paths./facilities.get.parameters[4].maxItems: 4
+paths./facilities.get.parameters[4].minItems: 4
+paths./facilities.get.parameters[4].name: area
+paths./facilities.get.parameters[4].required: false
+paths./facilities.get.parameters[4].type: array
+paths./facilities.get.parameters[4].uniqueItems: false
+paths./facilities.get.responses.200.description: facility data
+paths./facilities.get.responses.200.schema.items.$ref: '#/definitions/facility'
+paths./facilities.get.responses.200.schema.type: array
+paths./facilities.get.responses.400.description: The given filters contained invalid
+  values.
+paths./facilities.get.responses.406.description: The requested representation format
+  is not available.
+paths./facilities.get.responses.500.description: A processing error has occurred.
+paths./facilities.get.responses.503.description: The service has been disabled temporarily.
+paths./facilities.get.x-auth-type: Application & Application User
+paths./facilities.get.x-throttling-tier: Unlimited
+paths./facilities/{equipmentnumber}.get.description: Returns the facility identified
+  by its equipmentnumber
+paths./facilities/{equipmentnumber}.get.operationId: getFacilityByEquipmentNumber
+paths./facilities/{equipmentnumber}.get.parameters.length: 1
+paths./facilities/{equipmentnumber}.get.parameters[0].description: equipmentnumber
+  of the facility to fetch
+paths./facilities/{equipmentnumber}.get.parameters[0].format: int64
+paths./facilities/{equipmentnumber}.get.parameters[0].in: path
+paths./facilities/{equipmentnumber}.get.parameters[0].minimum: 1
+paths./facilities/{equipmentnumber}.get.parameters[0].name: equipmentnumber
+paths./facilities/{equipmentnumber}.get.parameters[0].required: true
+paths./facilities/{equipmentnumber}.get.parameters[0].type: integer
+paths./facilities/{equipmentnumber}.get.responses.200.description: Facility data
+paths./facilities/{equipmentnumber}.get.responses.200.schema.$ref: '#/definitions/facility'
+paths./facilities/{equipmentnumber}.get.responses.404.description: The requested facility
+  could not be found.
+paths./facilities/{equipmentnumber}.get.responses.406.description: The requested representation
+  format is not available.
+paths./facilities/{equipmentnumber}.get.responses.500.description: A processing error
+  has occurred.
+paths./facilities/{equipmentnumber}.get.responses.503.description: The service has
+  been disabled temporarily.
+paths./facilities/{equipmentnumber}.get.x-auth-type: Application & Application User
+paths./facilities/{equipmentnumber}.get.x-throttling-tier: Unlimited
+paths./stations/{stationnumber}.get.description: Returns information about the station
+  and its facilities identified by a stationnumber.
+paths./stations/{stationnumber}.get.operationId: findStationByStationNumber
+paths./stations/{stationnumber}.get.parameters.length: 1
+paths./stations/{stationnumber}.get.parameters[0].description: stationnumber of the
+  station to fetch
+paths./stations/{stationnumber}.get.parameters[0].format: int64
+paths./stations/{stationnumber}.get.parameters[0].in: path
+paths./stations/{stationnumber}.get.parameters[0].minimum: 1
+paths./stations/{stationnumber}.get.parameters[0].name: stationnumber
+paths./stations/{stationnumber}.get.parameters[0].required: true
+paths./stations/{stationnumber}.get.parameters[0].type: integer
+paths./stations/{stationnumber}.get.responses.200.description: station data
+paths./stations/{stationnumber}.get.responses.200.schema.$ref: '#/definitions/station'
+paths./stations/{stationnumber}.get.responses.404.description: The requested station
+  could not be found.
+paths./stations/{stationnumber}.get.responses.406.description: Requested representation
+  format is not available.
+paths./stations/{stationnumber}.get.responses.500.description: A processing error
+  has occurred.
+paths./stations/{stationnumber}.get.responses.503.description: The service has been
+  disabled temporarily.
+paths./stations/{stationnumber}.get.x-auth-type: Application & Application User
+paths./stations/{stationnumber}.get.x-throttling-tier: Unlimited
+produces.length: 1
+produces[0]: application/json
+schemes.length: 2
+schemes[0]: https
+schemes[1]: http
+security.length: 1
+security[0].UserSecurity.length: 0
+securityDefinitions.UserSecurity.in: header
+securityDefinitions.UserSecurity.name: Authorization
+securityDefinitions.UserSecurity.type: apiKey
+swagger: "2.0"

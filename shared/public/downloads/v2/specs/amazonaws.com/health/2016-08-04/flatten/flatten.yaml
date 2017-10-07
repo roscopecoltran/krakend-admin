@@ -1,0 +1,811 @@
+basePath: /
+consumes.length: 1
+consumes[0]: application/json
+definitions.AffectedEntity.description: Information about an entity that is affected
+  by a Health event.
+definitions.AffectedEntity.properties.awsAccountId.$ref: '#/definitions/accountId'
+definitions.AffectedEntity.properties.awsAccountId.description: The 12-digit AWS account
+  number that contains the affected entity.
+definitions.AffectedEntity.properties.entityArn.$ref: '#/definitions/entityArn'
+definitions.AffectedEntity.properties.entityArn.description: 'The unique identifier
+  for the entity. Format: <code>arn:aws:health:<i>entity-region</i>:<i>aws-account</i>:entity/<i>entity-id</i>
+  </code>. Example: <code>arn:aws:health:us-east-1:111222333444:entity/AVh5GGT7ul1arKr1sE1K</code> '
+definitions.AffectedEntity.properties.entityValue.$ref: '#/definitions/entityValue'
+definitions.AffectedEntity.properties.entityValue.description: The ID of the affected
+  entity.
+definitions.AffectedEntity.properties.eventArn.$ref: '#/definitions/eventArn'
+definitions.AffectedEntity.properties.eventArn.description: 'The unique identifier
+  for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
+  </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> '
+definitions.AffectedEntity.properties.lastUpdatedTime.$ref: '#/definitions/timestamp'
+definitions.AffectedEntity.properties.lastUpdatedTime.description: The most recent
+  time that the entity was updated.
+definitions.AffectedEntity.properties.statusCode.$ref: '#/definitions/entityStatusCode'
+definitions.AffectedEntity.properties.statusCode.description: The most recent status
+  of the entity affected by the event. The possible values are <code>IMPAIRED</code>,
+  <code>UNIMPAIRED</code>, and <code>UNKNOWN</code>.
+definitions.AffectedEntity.properties.tags.$ref: '#/definitions/tagSet'
+definitions.AffectedEntity.properties.tags.description: A map of entity tags attached
+  to the affected entity.
+definitions.AffectedEntity.type: object
+definitions.DateTimeRange.description: 'A range of dates and times that is used by
+  the <a>EventFilter</a> and <a>EntityFilter</a> objects. If <code>from</code> is
+  set and <code>to</code> is set: match items where the timestamp (<code>startTime</code>,
+  <code>endTime</code>, or <code>lastUpdatedTime</code>) is between <code>from</code>
+  and <code>to</code> inclusive. If <code>from</code> is set and <code>to</code> is
+  not set: match items where the timestamp value is equal to or after <code>from</code>.
+  If <code>from</code> is not set and <code>to</code> is set: match items where the
+  timestamp value is equal to or before <code>to</code>.'
+definitions.DateTimeRange.properties.from.$ref: '#/definitions/timestamp'
+definitions.DateTimeRange.properties.from.description: The starting date and time
+  of a time range.
+definitions.DateTimeRange.properties.to.$ref: '#/definitions/timestamp'
+definitions.DateTimeRange.properties.to.description: The ending date and time of a
+  time range.
+definitions.DateTimeRange.type: object
+definitions.DescribeAffectedEntitiesRequest.properties.filter.$ref: '#/definitions/EntityFilter'
+definitions.DescribeAffectedEntitiesRequest.properties.filter.description: 'Values
+  to narrow the results returned. At least one event ARN is required. '
+definitions.DescribeAffectedEntitiesRequest.properties.locale.$ref: '#/definitions/locale'
+definitions.DescribeAffectedEntitiesRequest.properties.locale.description: The locale
+  (language) to return information in. English (en) is the default and the only supported
+  value at this time.
+definitions.DescribeAffectedEntitiesRequest.properties.maxResults.$ref: '#/definitions/maxResults'
+definitions.DescribeAffectedEntitiesRequest.properties.maxResults.description: The
+  maximum number of items to return in one batch, between 10 and 100, inclusive.
+definitions.DescribeAffectedEntitiesRequest.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeAffectedEntitiesRequest.properties.nextToken.description: If the
+  results of a search are large, only a portion of the results are returned, and a
+  <code>nextToken</code> pagination token is returned in the response. To retrieve
+  the next batch of results, reissue the search request and include the returned token.
+  When all results have been returned, the response does not contain a pagination
+  token value.
+definitions.DescribeAffectedEntitiesRequest.required.length: 1
+definitions.DescribeAffectedEntitiesRequest.required[0]: filter
+definitions.DescribeAffectedEntitiesRequest.type: object
+definitions.DescribeAffectedEntitiesResponse.properties.entities.$ref: '#/definitions/EntityList'
+definitions.DescribeAffectedEntitiesResponse.properties.entities.description: The
+  entities that match the filter criteria.
+definitions.DescribeAffectedEntitiesResponse.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeAffectedEntitiesResponse.properties.nextToken.description: If
+  the results of a search are large, only a portion of the results are returned, and
+  a <code>nextToken</code> pagination token is returned in the response. To retrieve
+  the next batch of results, reissue the search request and include the returned token.
+  When all results have been returned, the response does not contain a pagination
+  token value.
+definitions.DescribeAffectedEntitiesResponse.type: object
+definitions.DescribeEntityAggregatesRequest.properties.eventArns.$ref: '#/definitions/EventArnsList'
+definitions.DescribeEntityAggregatesRequest.properties.eventArns.description: 'A list
+  of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
+  "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> '
+definitions.DescribeEntityAggregatesRequest.type: object
+definitions.DescribeEntityAggregatesResponse.properties.entityAggregates.$ref: '#/definitions/EntityAggregateList'
+definitions.DescribeEntityAggregatesResponse.properties.entityAggregates.description: The
+  number of entities that are affected by each of the specified events.
+definitions.DescribeEntityAggregatesResponse.type: object
+definitions.DescribeEventAggregatesRequest.properties.aggregateField.$ref: '#/definitions/eventAggregateField'
+definitions.DescribeEventAggregatesRequest.properties.aggregateField.description: The
+  only currently supported value is <code>eventTypeCategory</code>.
+definitions.DescribeEventAggregatesRequest.properties.filter.$ref: '#/definitions/EventFilter'
+definitions.DescribeEventAggregatesRequest.properties.filter.description: Values to
+  narrow the results returned.
+definitions.DescribeEventAggregatesRequest.properties.maxResults.$ref: '#/definitions/maxResults'
+definitions.DescribeEventAggregatesRequest.properties.maxResults.description: The
+  maximum number of items to return in one batch, between 10 and 100, inclusive.
+definitions.DescribeEventAggregatesRequest.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventAggregatesRequest.properties.nextToken.description: If the
+  results of a search are large, only a portion of the results are returned, and a
+  <code>nextToken</code> pagination token is returned in the response. To retrieve
+  the next batch of results, reissue the search request and include the returned token.
+  When all results have been returned, the response does not contain a pagination
+  token value.
+definitions.DescribeEventAggregatesRequest.required.length: 1
+definitions.DescribeEventAggregatesRequest.required[0]: aggregateField
+definitions.DescribeEventAggregatesRequest.type: object
+definitions.DescribeEventAggregatesResponse.properties.eventAggregates.$ref: '#/definitions/EventAggregateList'
+definitions.DescribeEventAggregatesResponse.properties.eventAggregates.description: The
+  number of events in each category that meet the optional filter criteria.
+definitions.DescribeEventAggregatesResponse.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventAggregatesResponse.properties.nextToken.description: If the
+  results of a search are large, only a portion of the results are returned, and a
+  <code>nextToken</code> pagination token is returned in the response. To retrieve
+  the next batch of results, reissue the search request and include the returned token.
+  When all results have been returned, the response does not contain a pagination
+  token value.
+definitions.DescribeEventAggregatesResponse.type: object
+definitions.DescribeEventDetailsFailedSet.items.$ref: '#/definitions/EventDetailsErrorItem'
+definitions.DescribeEventDetailsFailedSet.type: array
+definitions.DescribeEventDetailsRequest.properties.eventArns.$ref: '#/definitions/eventArnList'
+definitions.DescribeEventDetailsRequest.properties.eventArns.description: 'A list
+  of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
+  "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> '
+definitions.DescribeEventDetailsRequest.properties.locale.$ref: '#/definitions/locale'
+definitions.DescribeEventDetailsRequest.properties.locale.description: The locale
+  (language) to return information in. English (en) is the default and the only supported
+  value at this time.
+definitions.DescribeEventDetailsRequest.required.length: 1
+definitions.DescribeEventDetailsRequest.required[0]: eventArns
+definitions.DescribeEventDetailsRequest.type: object
+definitions.DescribeEventDetailsResponse.properties.failedSet.$ref: '#/definitions/DescribeEventDetailsFailedSet'
+definitions.DescribeEventDetailsResponse.properties.failedSet.description: Error messages
+  for any events that could not be retrieved.
+definitions.DescribeEventDetailsResponse.properties.successfulSet.$ref: '#/definitions/DescribeEventDetailsSuccessfulSet'
+definitions.DescribeEventDetailsResponse.properties.successfulSet.description: Information
+  about the events that could be retrieved.
+definitions.DescribeEventDetailsResponse.type: object
+definitions.DescribeEventDetailsSuccessfulSet.items.$ref: '#/definitions/EventDetails'
+definitions.DescribeEventDetailsSuccessfulSet.type: array
+definitions.DescribeEventTypesRequest.properties.filter.$ref: '#/definitions/EventTypeFilter'
+definitions.DescribeEventTypesRequest.properties.filter.description: Values to narrow
+  the results returned.
+definitions.DescribeEventTypesRequest.properties.locale.$ref: '#/definitions/locale'
+definitions.DescribeEventTypesRequest.properties.locale.description: The locale (language)
+  to return information in. English (en) is the default and the only supported value
+  at this time.
+definitions.DescribeEventTypesRequest.properties.maxResults.$ref: '#/definitions/maxResults'
+definitions.DescribeEventTypesRequest.properties.maxResults.description: The maximum
+  number of items to return in one batch, between 10 and 100, inclusive.
+definitions.DescribeEventTypesRequest.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventTypesRequest.properties.nextToken.description: If the results
+  of a search are large, only a portion of the results are returned, and a <code>nextToken</code>
+  pagination token is returned in the response. To retrieve the next batch of results,
+  reissue the search request and include the returned token. When all results have
+  been returned, the response does not contain a pagination token value.
+definitions.DescribeEventTypesRequest.type: object
+definitions.DescribeEventTypesResponse.properties.eventTypes.$ref: '#/definitions/EventTypeList'
+definitions.DescribeEventTypesResponse.properties.eventTypes.description: A list of
+  event types that match the filter criteria. Event types have a category (<code>issue</code>,
+  <code>accountNotification</code>, or <code>scheduledChange</code>), a service (for
+  example, <code>EC2</code>, <code>RDS</code>, <code>DATAPIPELINE</code>, <code>BILLING</code>),
+  and a code (in the format <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for
+  example, <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>).
+definitions.DescribeEventTypesResponse.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventTypesResponse.properties.nextToken.description: If the results
+  of a search are large, only a portion of the results are returned, and a <code>nextToken</code>
+  pagination token is returned in the response. To retrieve the next batch of results,
+  reissue the search request and include the returned token. When all results have
+  been returned, the response does not contain a pagination token value.
+definitions.DescribeEventTypesResponse.type: object
+definitions.DescribeEventsRequest.properties.filter.$ref: '#/definitions/EventFilter'
+definitions.DescribeEventsRequest.properties.filter.description: Values to narrow
+  the results returned.
+definitions.DescribeEventsRequest.properties.locale.$ref: '#/definitions/locale'
+definitions.DescribeEventsRequest.properties.locale.description: The locale (language)
+  to return information in. English (en) is the default and the only supported value
+  at this time.
+definitions.DescribeEventsRequest.properties.maxResults.$ref: '#/definitions/maxResults'
+definitions.DescribeEventsRequest.properties.maxResults.description: The maximum number
+  of items to return in one batch, between 10 and 100, inclusive.
+definitions.DescribeEventsRequest.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventsRequest.properties.nextToken.description: If the results
+  of a search are large, only a portion of the results are returned, and a <code>nextToken</code>
+  pagination token is returned in the response. To retrieve the next batch of results,
+  reissue the search request and include the returned token. When all results have
+  been returned, the response does not contain a pagination token value.
+definitions.DescribeEventsRequest.type: object
+definitions.DescribeEventsResponse.properties.events.$ref: '#/definitions/EventList'
+definitions.DescribeEventsResponse.properties.events.description: The events that
+  match the specified filter criteria.
+definitions.DescribeEventsResponse.properties.nextToken.$ref: '#/definitions/nextToken'
+definitions.DescribeEventsResponse.properties.nextToken.description: If the results
+  of a search are large, only a portion of the results are returned, and a <code>nextToken</code>
+  pagination token is returned in the response. To retrieve the next batch of results,
+  reissue the search request and include the returned token. When all results have
+  been returned, the response does not contain a pagination token value.
+definitions.DescribeEventsResponse.type: object
+definitions.EntityAggregate.description: The number of entities that are affected
+  by one or more events. Returned by the <a>DescribeEntityAggregates</a> operation.
+definitions.EntityAggregate.properties.count.$ref: '#/definitions/count'
+definitions.EntityAggregate.properties.count.description: The number entities that
+  match the criteria for the specified events.
+definitions.EntityAggregate.properties.eventArn.$ref: '#/definitions/eventArn'
+definitions.EntityAggregate.properties.eventArn.description: 'The unique identifier
+  for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
+  </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> '
+definitions.EntityAggregate.type: object
+definitions.EntityAggregateList.items.$ref: '#/definitions/EntityAggregate'
+definitions.EntityAggregateList.type: array
+definitions.EntityFilter.description: The values to use to filter results from the
+  <a>DescribeAffectedEntities</a> operation.
+definitions.EntityFilter.properties.entityArns.$ref: '#/definitions/entityArnList'
+definitions.EntityFilter.properties.entityArns.description: A list of entity ARNs
+  (unique identifiers).
+definitions.EntityFilter.properties.entityValues.$ref: '#/definitions/entityValueList'
+definitions.EntityFilter.properties.entityValues.description: A list of IDs for affected
+  entities.
+definitions.EntityFilter.properties.eventArns.$ref: '#/definitions/eventArnList'
+definitions.EntityFilter.properties.eventArns.description: 'A list of event ARNs (unique
+  identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
+  "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> '
+definitions.EntityFilter.properties.lastUpdatedTimes.$ref: '#/definitions/dateTimeRangeList'
+definitions.EntityFilter.properties.lastUpdatedTimes.description: A list of the most
+  recent dates and times that the entity was updated.
+definitions.EntityFilter.properties.statusCodes.$ref: '#/definitions/entityStatusCodeList'
+definitions.EntityFilter.properties.statusCodes.description: A list of entity status
+  codes (<code>IMPAIRED</code>, <code>UNIMPAIRED</code>, or <code>UNKNOWN</code>).
+definitions.EntityFilter.properties.tags.$ref: '#/definitions/tagFilter'
+definitions.EntityFilter.properties.tags.description: A map of entity tags attached
+  to the affected entity.
+definitions.EntityFilter.required.length: 1
+definitions.EntityFilter.required[0]: eventArns
+definitions.EntityFilter.type: object
+definitions.EntityList.items.$ref: '#/definitions/AffectedEntity'
+definitions.EntityList.type: array
+definitions.Event.description: Summary information about an event, returned by the
+  <a>DescribeEvents</a> operation. The <a>DescribeEventDetails</a> operation also
+  returns this information, as well as the <a>EventDescription</a> and additional
+  event metadata.
+definitions.Event.properties.arn.$ref: '#/definitions/eventArn'
+definitions.Event.properties.arn.description: 'The unique identifier for the event.
+  Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
+  </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> '
+definitions.Event.properties.availabilityZone.$ref: '#/definitions/availabilityZone'
+definitions.Event.properties.availabilityZone.description: The AWS Availability Zone
+  of the event. For example, us-east-1a.
+definitions.Event.properties.endTime.$ref: '#/definitions/timestamp'
+definitions.Event.properties.endTime.description: The date and time that the event
+  ended.
+definitions.Event.properties.eventTypeCategory.$ref: '#/definitions/eventTypeCategory'
+definitions.Event.properties.eventTypeCategory.description: 'The '
+definitions.Event.properties.eventTypeCode.$ref: '#/definitions/eventTypeCode'
+definitions.Event.properties.eventTypeCode.description: The unique identifier for
+  the event type. The format is <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>;
+  for example, <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.
+definitions.Event.properties.lastUpdatedTime.$ref: '#/definitions/timestamp'
+definitions.Event.properties.lastUpdatedTime.description: The most recent date and
+  time that the event was updated.
+definitions.Event.properties.region.$ref: '#/definitions/region'
+definitions.Event.properties.region.description: The AWS region name of the event.
+definitions.Event.properties.service.$ref: '#/definitions/service'
+definitions.Event.properties.service.description: The AWS service that is affected
+  by the event. For example, <code>EC2</code>, <code>RDS</code>.
+definitions.Event.properties.startTime.$ref: '#/definitions/timestamp'
+definitions.Event.properties.startTime.description: The date and time that the event
+  began.
+definitions.Event.properties.statusCode.$ref: '#/definitions/eventStatusCode'
+definitions.Event.properties.statusCode.description: The most recent status of the
+  event. Possible values are <code>open</code>, <code>closed</code>, and <code>upcoming</code>.
+definitions.Event.type: object
+definitions.EventAggregate.description: The number of events of each issue type. Returned
+  by the <a>DescribeEventAggregates</a> operation.
+definitions.EventAggregate.properties.aggregateValue.$ref: '#/definitions/aggregateValue'
+definitions.EventAggregate.properties.aggregateValue.description: The issue type for
+  the associated count.
+definitions.EventAggregate.properties.count.$ref: '#/definitions/count'
+definitions.EventAggregate.properties.count.description: The number of events of the
+  associated issue type.
+definitions.EventAggregate.type: object
+definitions.EventAggregateList.items.$ref: '#/definitions/EventAggregate'
+definitions.EventAggregateList.type: array
+definitions.EventArnsList.items.$ref: '#/definitions/eventArn'
+definitions.EventArnsList.maxItems: 50
+definitions.EventArnsList.minItems: 1
+definitions.EventArnsList.type: array
+definitions.EventDescription.description: The detailed description of the event. Included
+  in the information returned by the <a>DescribeEventDetails</a> operation.
+definitions.EventDescription.properties.latestDescription.$ref: '#/definitions/eventDescription'
+definitions.EventDescription.properties.latestDescription.description: The most recent
+  description of the event.
+definitions.EventDescription.type: object
+definitions.EventDetails.description: Detailed information about an event. A combination
+  of an <a>Event</a> object, an <a>EventDescription</a> object, and additional metadata
+  about the event. Returned by the <a>DescribeEventDetails</a> operation.
+definitions.EventDetails.properties.event.$ref: '#/definitions/Event'
+definitions.EventDetails.properties.event.description: Summary information about the
+  event.
+definitions.EventDetails.properties.eventDescription.$ref: '#/definitions/EventDescription'
+definitions.EventDetails.properties.eventDescription.description: The most recent
+  description of the event.
+definitions.EventDetails.properties.eventMetadata.$ref: '#/definitions/eventMetadata'
+definitions.EventDetails.properties.eventMetadata.description: Additional metadata
+  about the event.
+definitions.EventDetails.type: object
+definitions.EventDetailsErrorItem.description: Error information returned when a <a>DescribeEventDetails</a>
+  operation cannot find a specified event.
+definitions.EventDetailsErrorItem.properties.errorMessage.$ref: '#/definitions/string'
+definitions.EventDetailsErrorItem.properties.errorMessage.description: A message that
+  describes the error.
+definitions.EventDetailsErrorItem.properties.errorName.$ref: '#/definitions/string'
+definitions.EventDetailsErrorItem.properties.errorName.description: The name of the
+  error.
+definitions.EventDetailsErrorItem.properties.eventArn.$ref: '#/definitions/eventArn'
+definitions.EventDetailsErrorItem.properties.eventArn.description: 'The unique identifier
+  for the event. Format: <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
+  </code>. Example: <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> '
+definitions.EventDetailsErrorItem.type: object
+definitions.EventFilter.description: The values to use to filter results from the
+  <a>DescribeEvents</a> and <a>DescribeEventAggregates</a> operations.
+definitions.EventFilter.properties.availabilityZones.$ref: '#/definitions/availabilityZones'
+definitions.EventFilter.properties.availabilityZones.description: A list of AWS availability
+  zones.
+definitions.EventFilter.properties.endTimes.$ref: '#/definitions/dateTimeRangeList'
+definitions.EventFilter.properties.endTimes.description: A list of dates and times
+  that the event ended.
+definitions.EventFilter.properties.entityArns.$ref: '#/definitions/entityArnList'
+definitions.EventFilter.properties.entityArns.description: A list of entity ARNs (unique
+  identifiers).
+definitions.EventFilter.properties.entityValues.$ref: '#/definitions/entityValueList'
+definitions.EventFilter.properties.entityValues.description: A list of entity identifiers,
+  such as EC2 instance IDs (<code>i-34ab692e</code>) or EBS volumes (<code>vol-426ab23e</code>).
+definitions.EventFilter.properties.eventArns.$ref: '#/definitions/eventArnList'
+definitions.EventFilter.properties.eventArns.description: 'A list of event ARNs (unique
+  identifiers). For example: <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
+  "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> '
+definitions.EventFilter.properties.eventStatusCodes.$ref: '#/definitions/eventStatusCodeList'
+definitions.EventFilter.properties.eventStatusCodes.description: A list of event status
+  codes.
+definitions.EventFilter.properties.eventTypeCategories.$ref: '#/definitions/eventTypeCategoryList'
+definitions.EventFilter.properties.eventTypeCategories.description: A list of event
+  type category codes (<code>issue</code>, <code>scheduledChange</code>, or <code>accountNotification</code>).
+definitions.EventFilter.properties.eventTypeCodes.$ref: '#/definitions/eventTypeList'
+definitions.EventFilter.properties.eventTypeCodes.description: 'A list of unique identifiers
+  for event types. For example, <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code> '
+definitions.EventFilter.properties.lastUpdatedTimes.$ref: '#/definitions/dateTimeRangeList'
+definitions.EventFilter.properties.lastUpdatedTimes.description: A list of dates and
+  times that the event was last updated.
+definitions.EventFilter.properties.regions.$ref: '#/definitions/regionList'
+definitions.EventFilter.properties.regions.description: A list of AWS regions.
+definitions.EventFilter.properties.services.$ref: '#/definitions/serviceList'
+definitions.EventFilter.properties.services.description: The AWS services associated
+  with the event. For example, <code>EC2</code>, <code>RDS</code>.
+definitions.EventFilter.properties.startTimes.$ref: '#/definitions/dateTimeRangeList'
+definitions.EventFilter.properties.startTimes.description: A list of dates and times
+  that the event began.
+definitions.EventFilter.properties.tags.$ref: '#/definitions/tagFilter'
+definitions.EventFilter.properties.tags.description: A map of entity tags attached
+  to the affected entity.
+definitions.EventFilter.type: object
+definitions.EventList.items.$ref: '#/definitions/Event'
+definitions.EventList.type: array
+definitions.EventType.description: Metadata about a type of event that is reported
+  by AWS Health. Data consists of the category (for example, <code>issue</code>),
+  the service (for example, <code>EC2</code>), and the event type code (for example,
+  <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>).
+definitions.EventType.properties.category.$ref: '#/definitions/eventTypeCategory'
+definitions.EventType.properties.category.description: A list of event type category
+  codes (<code>issue</code>, <code>scheduledChange</code>, or <code>accountNotification</code>).
+definitions.EventType.properties.code.$ref: '#/definitions/eventTypeCode'
+definitions.EventType.properties.code.description: The unique identifier for the event
+  type. The format is <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example,
+  <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.
+definitions.EventType.properties.service.$ref: '#/definitions/service'
+definitions.EventType.properties.service.description: The AWS service that is affected
+  by the event. For example, <code>EC2</code>, <code>RDS</code>.
+definitions.EventType.type: object
+definitions.EventTypeCategoryList.items.$ref: '#/definitions/eventTypeCategory'
+definitions.EventTypeCategoryList.maxItems: 10
+definitions.EventTypeCategoryList.minItems: 1
+definitions.EventTypeCategoryList.type: array
+definitions.EventTypeCodeList.items.$ref: '#/definitions/eventTypeCode'
+definitions.EventTypeCodeList.maxItems: 10
+definitions.EventTypeCodeList.minItems: 1
+definitions.EventTypeCodeList.type: array
+definitions.EventTypeFilter.description: The values to use to filter results from
+  the <a>DescribeEventTypes</a> operation.
+definitions.EventTypeFilter.properties.eventTypeCategories.$ref: '#/definitions/EventTypeCategoryList'
+definitions.EventTypeFilter.properties.eventTypeCategories.description: A list of
+  event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
+  <code>accountNotification</code>).
+definitions.EventTypeFilter.properties.eventTypeCodes.$ref: '#/definitions/EventTypeCodeList'
+definitions.EventTypeFilter.properties.eventTypeCodes.description: A list of event
+  type codes.
+definitions.EventTypeFilter.properties.services.$ref: '#/definitions/serviceList'
+definitions.EventTypeFilter.properties.services.description: The AWS services associated
+  with the event. For example, <code>EC2</code>, <code>RDS</code>.
+definitions.EventTypeFilter.type: object
+definitions.EventTypeList.items.$ref: '#/definitions/EventType'
+definitions.EventTypeList.type: array
+definitions.InvalidPaginationToken.description: The specified pagination token (<code>nextToken</code>)
+  is not valid.
+definitions.InvalidPaginationToken.properties.message.$ref: '#/definitions/string'
+definitions.InvalidPaginationToken.type: object
+definitions.UnsupportedLocale.description: The specified locale is not supported.
+definitions.UnsupportedLocale.properties.message.$ref: '#/definitions/string'
+definitions.UnsupportedLocale.type: object
+definitions.accountId.pattern: '[0-9]{12}'
+definitions.accountId.type: string
+definitions.aggregateValue.type: string
+definitions.availabilityZone.pattern: '[a-z]{2}\-[0-9a-z\-]{4,16}'
+definitions.availabilityZone.type: string
+definitions.availabilityZones.items.$ref: '#/definitions/availabilityZone'
+definitions.availabilityZones.type: array
+definitions.count.type: integer
+definitions.dateTimeRangeList.items.$ref: '#/definitions/DateTimeRange'
+definitions.dateTimeRangeList.maxItems: 10
+definitions.dateTimeRangeList.minItems: 1
+definitions.dateTimeRangeList.type: array
+definitions.entityArn.maxLength: 1600
+definitions.entityArn.type: string
+definitions.entityArnList.items.$ref: '#/definitions/entityArn'
+definitions.entityArnList.maxItems: 100
+definitions.entityArnList.minItems: 1
+definitions.entityArnList.type: array
+definitions.entityStatusCode.enum.length: 3
+definitions.entityStatusCode.enum[0]: IMPAIRED
+definitions.entityStatusCode.enum[1]: UNIMPAIRED
+definitions.entityStatusCode.enum[2]: UNKNOWN
+definitions.entityStatusCode.type: string
+definitions.entityStatusCodeList.items.$ref: '#/definitions/entityStatusCode'
+definitions.entityStatusCodeList.maxItems: 3
+definitions.entityStatusCodeList.minItems: 1
+definitions.entityStatusCodeList.type: array
+definitions.entityValue.maxLength: 256
+definitions.entityValue.type: string
+definitions.entityValueList.items.$ref: '#/definitions/entityValue'
+definitions.entityValueList.maxItems: 100
+definitions.entityValueList.minItems: 1
+definitions.entityValueList.type: array
+definitions.eventAggregateField.enum.length: 1
+definitions.eventAggregateField.enum[0]: eventTypeCategory
+definitions.eventAggregateField.type: string
+definitions.eventArn.maxLength: 1600
+definitions.eventArn.pattern: arn:aws:health:[^:]*:[^:]*:event/[\w-]+
+definitions.eventArn.type: string
+definitions.eventArnList.items.$ref: '#/definitions/eventArn'
+definitions.eventArnList.maxItems: 10
+definitions.eventArnList.minItems: 1
+definitions.eventArnList.type: array
+definitions.eventDescription.type: string
+definitions.eventMetadata.items.properties.key.$ref: '#/definitions/metadataKey'
+definitions.eventMetadata.items.properties.value.$ref: '#/definitions/metadataValue'
+definitions.eventMetadata.items.type: object
+definitions.eventMetadata.type: array
+definitions.eventStatusCode.enum.length: 3
+definitions.eventStatusCode.enum[0]: open
+definitions.eventStatusCode.enum[1]: closed
+definitions.eventStatusCode.enum[2]: upcoming
+definitions.eventStatusCode.type: string
+definitions.eventStatusCodeList.items.$ref: '#/definitions/eventStatusCode'
+definitions.eventStatusCodeList.maxItems: 6
+definitions.eventStatusCodeList.minItems: 1
+definitions.eventStatusCodeList.type: array
+definitions.eventType.maxLength: 100
+definitions.eventType.minLength: 3
+definitions.eventType.type: string
+definitions.eventTypeCategory.enum.length: 3
+definitions.eventTypeCategory.enum[0]: issue
+definitions.eventTypeCategory.enum[1]: accountNotification
+definitions.eventTypeCategory.enum[2]: scheduledChange
+definitions.eventTypeCategory.maxLength: 255
+definitions.eventTypeCategory.minLength: 3
+definitions.eventTypeCategory.type: string
+definitions.eventTypeCategoryList.items.$ref: '#/definitions/eventTypeCategory'
+definitions.eventTypeCategoryList.maxItems: 10
+definitions.eventTypeCategoryList.minItems: 1
+definitions.eventTypeCategoryList.type: array
+definitions.eventTypeCode.maxLength: 100
+definitions.eventTypeCode.minLength: 3
+definitions.eventTypeCode.type: string
+definitions.eventTypeList.items.$ref: '#/definitions/eventType'
+definitions.eventTypeList.maxItems: 10
+definitions.eventTypeList.minItems: 1
+definitions.eventTypeList.type: array
+definitions.locale.maxLength: 256
+definitions.locale.minLength: 2
+definitions.locale.type: string
+definitions.maxResults.maximum: 100
+definitions.maxResults.minimum: 10
+definitions.maxResults.type: integer
+definitions.metadataKey.type: string
+definitions.metadataValue.maxLength: 10240
+definitions.metadataValue.type: string
+definitions.nextToken.pattern: '[a-zA-Z0-9=/+_.-]{4,512}'
+definitions.nextToken.type: string
+definitions.region.pattern: '[^:/]{2,25}'
+definitions.region.type: string
+definitions.regionList.items.$ref: '#/definitions/region'
+definitions.regionList.maxItems: 10
+definitions.regionList.minItems: 1
+definitions.regionList.type: array
+definitions.service.maxLength: 30
+definitions.service.minLength: 2
+definitions.service.type: string
+definitions.serviceList.items.$ref: '#/definitions/service'
+definitions.serviceList.maxItems: 10
+definitions.serviceList.minItems: 1
+definitions.serviceList.type: array
+definitions.string.type: string
+definitions.tagFilter.items.$ref: '#/definitions/tagSet'
+definitions.tagFilter.maxItems: 50
+definitions.tagFilter.type: array
+definitions.tagKey.maxLength: 127
+definitions.tagKey.type: string
+definitions.tagSet.items.properties.key.$ref: '#/definitions/tagKey'
+definitions.tagSet.items.properties.value.$ref: '#/definitions/tagValue'
+definitions.tagSet.items.type: object
+definitions.tagSet.maxItems: 50
+definitions.tagSet.type: array
+definitions.tagValue.maxLength: 255
+definitions.tagValue.type: string
+definitions.timestamp.format: date-time
+definitions.timestamp.type: string
+externalDocs.description: Amazon Web Services documentation
+externalDocs.url: https://aws.amazon.com/health/
+host: health.amazonaws.com
+info.contact.email: mike.ralphson@gmail.com
+info.contact.name: Mike Ralphson
+info.contact.url: https://github.com/mermade/aws2openapi
+info.description: '<fullname>AWS Health</fullname> <p>The AWS Health API provides
+  programmatic access to the AWS Health information that is presented in the <a href="https://phd.aws.amazon.com/phd/home#/">AWS
+  Personal Health Dashboard</a>. You can get information about events that affect
+  your AWS resources:</p> <ul> <li> <p> <a>DescribeEvents</a>: Summary information
+  about events.</p> </li> <li> <p> <a>DescribeEventDetails</a>: Detailed information
+  about one or more events.</p> </li> <li> <p> <a>DescribeAffectedEntities</a>: Information
+  about AWS resources that are affected by one or more events.</p> </li> </ul> <p>In
+  addition, these operations provide information about event types and summary counts
+  of events or affected entities:</p> <ul> <li> <p> <a>DescribeEventTypes</a>: Information
+  about the kinds of events that AWS Health tracks.</p> </li> <li> <p> <a>DescribeEventAggregates</a>:
+  A count of the number of events that meet specified criteria.</p> </li> <li> <p>
+  <a>DescribeEntityAggregates</a>: A count of the number of affected entities that
+  meet specified criteria.</p> </li> </ul> <p>The Health API requires a Business or
+  Enterprise support plan from <a href="http://aws.amazon.com/premiumsupport/">AWS
+  Support</a>. Calling the Health API from an account that does not have a Business
+  or Enterprise support plan causes a <code>SubscriptionRequiredException</code>.
+  </p> <p>For authentication of requests, AWS Health uses the <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature
+  Version 4 Signing Process</a>.</p> <p>See the <a href="http://docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html">AWS
+  Health User Guide</a> for information about how to use the API.</p> <p> <b>Service
+  Endpoint</b> </p> <p>The HTTP endpoint for the AWS Health API is:</p> <ul> <li>
+  <p>https://health.us-east-1.amazonaws.com </p> </li> </ul>'
+info.license.name: Apache 2.0 License
+info.license.url: http://www.apache.org/licenses/
+info.termsOfService: https://aws.amazon.com/service-terms/
+info.title: AWS Health APIs and Notifications
+info.version: 2016-08-04
+info.x-apiClientRegistration.url: https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: cloud
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/https_media.amazonwebservices.com_blog_2007_big_pbaws_logo_300px.jpg
+info.x-origin.length: 1
+info.x-origin[0].contentType: application/json
+info.x-origin[0].converter.url: https://github.com/mermade/aws2openapi
+info.x-origin[0].converter.version: 1.0.0
+info.x-origin[0].url: https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/health-2016-08-04.normal.json
+info.x-origin[0].x-apisguru-direct: true
+info.x-preferred: true
+info.x-providerName: amazonaws.com
+info.x-release: v4
+info.x-serviceName: health
+parameters.Action.in: header
+parameters.Action.name: Action
+parameters.Action.required: true
+parameters.Action.type: string
+parameters.Version.in: header
+parameters.Version.name: Version
+parameters.Version.required: true
+parameters.Version.type: string
+parameters.X-Amz-Algorithm.in: header
+parameters.X-Amz-Algorithm.name: X-Amz-Algorithm
+parameters.X-Amz-Algorithm.required: false
+parameters.X-Amz-Algorithm.type: string
+parameters.X-Amz-Content-Sha256.in: header
+parameters.X-Amz-Content-Sha256.name: X-Amz-Content-Sha256
+parameters.X-Amz-Content-Sha256.required: false
+parameters.X-Amz-Content-Sha256.type: string
+parameters.X-Amz-Credential.in: header
+parameters.X-Amz-Credential.name: X-Amz-Credential
+parameters.X-Amz-Credential.required: false
+parameters.X-Amz-Credential.type: string
+parameters.X-Amz-Date.in: header
+parameters.X-Amz-Date.name: X-Amz-Date
+parameters.X-Amz-Date.required: false
+parameters.X-Amz-Date.type: string
+parameters.X-Amz-Security-Token.in: header
+parameters.X-Amz-Security-Token.name: X-Amz-Security-Token
+parameters.X-Amz-Security-Token.required: false
+parameters.X-Amz-Security-Token.type: string
+parameters.X-Amz-Signature.in: header
+parameters.X-Amz-Signature.name: X-Amz-Signature
+parameters.X-Amz-Signature.required: false
+parameters.X-Amz-Signature.type: string
+parameters.X-Amz-SignedHeaders.in: header
+parameters.X-Amz-SignedHeaders.name: X-Amz-SignedHeaders
+parameters.X-Amz-SignedHeaders.required: false
+parameters.X-Amz-SignedHeaders.type: string
+paths./#DescribeEntityAggregates.parameters.length: 9
+paths./#DescribeEntityAggregates.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeEntityAggregates.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeEntityAggregates.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeEntityAggregates.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeEntityAggregates.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeEntityAggregates.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeEntityAggregates.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeEntityAggregates.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeEntityAggregates.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeEntityAggregates.post.description: Returns the number of entities
+  that are affected by each of the specified events. If no events are specified, the
+  counts of all affected entities are returned.
+paths./#DescribeEntityAggregates.post.operationId: DescribeEntityAggregates
+paths./#DescribeEntityAggregates.post.parameters.length: 1
+paths./#DescribeEntityAggregates.post.parameters[0].in: body
+paths./#DescribeEntityAggregates.post.parameters[0].name: body
+paths./#DescribeEntityAggregates.post.parameters[0].required: true
+paths./#DescribeEntityAggregates.post.parameters[0].schema.$ref: '#/definitions/DescribeEntityAggregatesRequest'
+paths./#DescribeEntityAggregates.post.responses.200.description: Success
+paths./#DescribeEntityAggregates.post.responses.200.schema.$ref: '#/definitions/DescribeEntityAggregatesResponse'
+paths./#DescribeEventAggregates.parameters.length: 9
+paths./#DescribeEventAggregates.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeEventAggregates.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeEventAggregates.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeEventAggregates.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeEventAggregates.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeEventAggregates.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeEventAggregates.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeEventAggregates.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeEventAggregates.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeEventAggregates.post.description: Returns the number of events of
+  each event type (issue, scheduled change, and account notification). If no filter
+  is specified, the counts of all events in each category are returned.
+paths./#DescribeEventAggregates.post.operationId: DescribeEventAggregates
+paths./#DescribeEventAggregates.post.parameters.length: 3
+paths./#DescribeEventAggregates.post.parameters[0].in: body
+paths./#DescribeEventAggregates.post.parameters[0].name: body
+paths./#DescribeEventAggregates.post.parameters[0].required: true
+paths./#DescribeEventAggregates.post.parameters[0].schema.$ref: '#/definitions/DescribeEventAggregatesRequest'
+paths./#DescribeEventAggregates.post.parameters[1].description: Pagination limit
+paths./#DescribeEventAggregates.post.parameters[1].in: query
+paths./#DescribeEventAggregates.post.parameters[1].name: maxResults
+paths./#DescribeEventAggregates.post.parameters[1].required: false
+paths./#DescribeEventAggregates.post.parameters[1].type: string
+paths./#DescribeEventAggregates.post.parameters[2].description: Pagination token
+paths./#DescribeEventAggregates.post.parameters[2].in: query
+paths./#DescribeEventAggregates.post.parameters[2].name: nextToken
+paths./#DescribeEventAggregates.post.parameters[2].required: false
+paths./#DescribeEventAggregates.post.parameters[2].type: string
+paths./#DescribeEventAggregates.post.responses.200.description: Success
+paths./#DescribeEventAggregates.post.responses.200.schema.$ref: '#/definitions/DescribeEventAggregatesResponse'
+paths./#DescribeEventAggregates.post.responses.480.description: InvalidPaginationToken
+paths./#DescribeEventAggregates.post.responses.480.schema.$ref: '#/definitions/InvalidPaginationToken'
+paths./#DescribeEventDetails.parameters.length: 9
+paths./#DescribeEventDetails.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeEventDetails.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeEventDetails.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeEventDetails.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeEventDetails.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeEventDetails.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeEventDetails.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeEventDetails.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeEventDetails.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeEventDetails.post.description: <p>Returns detailed information about
+  one or more specified events. Information includes standard event data (region,
+  service, etc., as returned by <a>DescribeEvents</a>), a detailed event description,
+  and possible additional metadata that depends upon the nature of the event. Affected
+  entities are not included; to retrieve those, use the <a>DescribeAffectedEntities</a>
+  operation.</p> <p>If a specified event cannot be retrieved, an error message is
+  returned for that event.</p>
+paths./#DescribeEventDetails.post.operationId: DescribeEventDetails
+paths./#DescribeEventDetails.post.parameters.length: 1
+paths./#DescribeEventDetails.post.parameters[0].in: body
+paths./#DescribeEventDetails.post.parameters[0].name: body
+paths./#DescribeEventDetails.post.parameters[0].required: true
+paths./#DescribeEventDetails.post.parameters[0].schema.$ref: '#/definitions/DescribeEventDetailsRequest'
+paths./#DescribeEventDetails.post.responses.200.description: Success
+paths./#DescribeEventDetails.post.responses.200.schema.$ref: '#/definitions/DescribeEventDetailsResponse'
+paths./#DescribeEventDetails.post.responses.480.description: UnsupportedLocale
+paths./#DescribeEventDetails.post.responses.480.schema.$ref: '#/definitions/UnsupportedLocale'
+paths./#DescribeEventTypes.parameters.length: 9
+paths./#DescribeEventTypes.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeEventTypes.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeEventTypes.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeEventTypes.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeEventTypes.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeEventTypes.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeEventTypes.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeEventTypes.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeEventTypes.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeEventTypes.post.description: Returns the event types that meet the
+  specified filter criteria. If no filter criteria are specified, all event types
+  are returned, in no particular order.
+paths./#DescribeEventTypes.post.operationId: DescribeEventTypes
+paths./#DescribeEventTypes.post.parameters.length: 3
+paths./#DescribeEventTypes.post.parameters[0].in: body
+paths./#DescribeEventTypes.post.parameters[0].name: body
+paths./#DescribeEventTypes.post.parameters[0].required: true
+paths./#DescribeEventTypes.post.parameters[0].schema.$ref: '#/definitions/DescribeEventTypesRequest'
+paths./#DescribeEventTypes.post.parameters[1].description: Pagination limit
+paths./#DescribeEventTypes.post.parameters[1].in: query
+paths./#DescribeEventTypes.post.parameters[1].name: maxResults
+paths./#DescribeEventTypes.post.parameters[1].required: false
+paths./#DescribeEventTypes.post.parameters[1].type: string
+paths./#DescribeEventTypes.post.parameters[2].description: Pagination token
+paths./#DescribeEventTypes.post.parameters[2].in: query
+paths./#DescribeEventTypes.post.parameters[2].name: nextToken
+paths./#DescribeEventTypes.post.parameters[2].required: false
+paths./#DescribeEventTypes.post.parameters[2].type: string
+paths./#DescribeEventTypes.post.responses.200.description: Success
+paths./#DescribeEventTypes.post.responses.200.schema.$ref: '#/definitions/DescribeEventTypesResponse'
+paths./#DescribeEventTypes.post.responses.480.description: InvalidPaginationToken
+paths./#DescribeEventTypes.post.responses.480.schema.$ref: '#/definitions/InvalidPaginationToken'
+paths./#DescribeEventTypes.post.responses.481.description: UnsupportedLocale
+paths./#DescribeEventTypes.post.responses.481.schema.$ref: '#/definitions/UnsupportedLocale'
+paths./#DescribeEvents.parameters.length: 9
+paths./#DescribeEvents.parameters[0].$ref: '#/parameters/Action'
+paths./#DescribeEvents.parameters[1].$ref: '#/parameters/Version'
+paths./#DescribeEvents.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./#DescribeEvents.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./#DescribeEvents.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./#DescribeEvents.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./#DescribeEvents.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./#DescribeEvents.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./#DescribeEvents.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./#DescribeEvents.post.description: <p>Returns information about events that
+  meet the specified filter criteria. Events are returned in a summary form and do
+  not include the detailed description, any additional metadata that depends on the
+  event type, or any affected resources. To retrieve that information, use the <a>DescribeEventDetails</a>
+  and <a>DescribeAffectedEntities</a> operations.</p> <p>If no filter criteria are
+  specified, all events are returned. Results are sorted by <code>lastModifiedTime</code>,
+  starting with the most recent.</p>
+paths./#DescribeEvents.post.operationId: DescribeEvents
+paths./#DescribeEvents.post.parameters.length: 3
+paths./#DescribeEvents.post.parameters[0].in: body
+paths./#DescribeEvents.post.parameters[0].name: body
+paths./#DescribeEvents.post.parameters[0].required: true
+paths./#DescribeEvents.post.parameters[0].schema.$ref: '#/definitions/DescribeEventsRequest'
+paths./#DescribeEvents.post.parameters[1].description: Pagination limit
+paths./#DescribeEvents.post.parameters[1].in: query
+paths./#DescribeEvents.post.parameters[1].name: maxResults
+paths./#DescribeEvents.post.parameters[1].required: false
+paths./#DescribeEvents.post.parameters[1].type: string
+paths./#DescribeEvents.post.parameters[2].description: Pagination token
+paths./#DescribeEvents.post.parameters[2].in: query
+paths./#DescribeEvents.post.parameters[2].name: nextToken
+paths./#DescribeEvents.post.parameters[2].required: false
+paths./#DescribeEvents.post.parameters[2].type: string
+paths./#DescribeEvents.post.responses.200.description: Success
+paths./#DescribeEvents.post.responses.200.schema.$ref: '#/definitions/DescribeEventsResponse'
+paths./#DescribeEvents.post.responses.480.description: InvalidPaginationToken
+paths./#DescribeEvents.post.responses.480.schema.$ref: '#/definitions/InvalidPaginationToken'
+paths./#DescribeEvents.post.responses.481.description: UnsupportedLocale
+paths./#DescribeEvents.post.responses.481.schema.$ref: '#/definitions/UnsupportedLocale'
+paths./.parameters.length: 9
+paths./.parameters[0].$ref: '#/parameters/Action'
+paths./.parameters[1].$ref: '#/parameters/Version'
+paths./.parameters[2].$ref: '#/parameters/X-Amz-Content-Sha256'
+paths./.parameters[3].$ref: '#/parameters/X-Amz-Date'
+paths./.parameters[4].$ref: '#/parameters/X-Amz-Algorithm'
+paths./.parameters[5].$ref: '#/parameters/X-Amz-Credential'
+paths./.parameters[6].$ref: '#/parameters/X-Amz-Security-Token'
+paths./.parameters[7].$ref: '#/parameters/X-Amz-Signature'
+paths./.parameters[8].$ref: '#/parameters/X-Amz-SignedHeaders'
+paths./.post.description: <p>Returns a list of entities that have been affected by
+  the specified events, based on the specified filter criteria. Entities can refer
+  to individual customer resources, groups of customer resources, or any other construct,
+  depending on the AWS service. Events that have impact beyond that of the affected
+  entities, or where the extent of impact is unknown, include at least one entity
+  indicating this.</p> <p>At least one event ARN is required. Results are sorted by
+  the <code>lastUpdatedTime</code> of the entity, starting with the most recent.</p>
+paths./.post.operationId: DescribeAffectedEntities
+paths./.post.parameters.length: 3
+paths./.post.parameters[0].in: body
+paths./.post.parameters[0].name: body
+paths./.post.parameters[0].required: true
+paths./.post.parameters[0].schema.$ref: '#/definitions/DescribeAffectedEntitiesRequest'
+paths./.post.parameters[1].description: Pagination limit
+paths./.post.parameters[1].in: query
+paths./.post.parameters[1].name: maxResults
+paths./.post.parameters[1].required: false
+paths./.post.parameters[1].type: string
+paths./.post.parameters[2].description: Pagination token
+paths./.post.parameters[2].in: query
+paths./.post.parameters[2].name: nextToken
+paths./.post.parameters[2].required: false
+paths./.post.parameters[2].type: string
+paths./.post.responses.200.description: Success
+paths./.post.responses.200.schema.$ref: '#/definitions/DescribeAffectedEntitiesResponse'
+paths./.post.responses.480.description: InvalidPaginationToken
+paths./.post.responses.480.schema.$ref: '#/definitions/InvalidPaginationToken'
+paths./.post.responses.481.description: UnsupportedLocale
+paths./.post.responses.481.schema.$ref: '#/definitions/UnsupportedLocale'
+produces.length: 1
+produces[0]: application/json
+schemes.length: 1
+schemes[0]: http
+security.length: 1
+security[0].hmac.length: 0
+securityDefinitions.hmac.description: Amazon Signature authorization v4
+securityDefinitions.hmac.in: header
+securityDefinitions.hmac.name: Authorization
+securityDefinitions.hmac.type: apiKey
+securityDefinitions.hmac.x-amazon-apigateway-authtype: awsSigv4
+swagger: "2.0"
+x-hasEquivalentPaths: true

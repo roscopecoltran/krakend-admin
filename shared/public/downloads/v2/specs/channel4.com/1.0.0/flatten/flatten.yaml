@@ -1,0 +1,2093 @@
+basePath: /pmlsd
+consumes.length: 1
+consumes[0]: application/xml
+definitions.ContentTypeType.additionalProperties: false
+definitions.ContentTypeType.type: object
+definitions.ContentTypeType.x-oneOf.length: 2
+definitions.ContentTypeType.x-oneOf[0].$ref: '#/definitions/textTypeType'
+definitions.ContentTypeType.x-oneOf[1].$ref: '#/definitions/MimeType'
+definitions.KnownRelCodeType.description: 'alternate: The value "alternate" signifies
+  that the IRI in the value of the href attribute identifies an alternate version
+  of the resource described by the containing element.related: The value "related"
+  signifies that the IRI in the value of the href attribute identifies a resource
+  related to the resource described by the containing element. For example, the feed
+  for a site that discusses the performance of the search engine at "http://search.example.com"
+  might contain, as a child of atom:feed. An identical link might appear as a child
+  of any atom:entry whose content contains a discussion of that same search engine.self:
+  The value "self" signifies that the IRI in the value of the href attribute identifies
+  a resource equivalent to the containing element.enclosure: The value "enclosure"
+  signifies that the IRI in the value of the href attribute identifies a related resource
+  that is potentially large in size and might require special handling. For atom:link
+  elements with rel="enclosure", the length attribute SHOULD be provided.via: The
+  value "via" signifies that the IRI in the value of the href attribute identifies
+  a resource that is the source of the information provided in the containing element.'
+definitions.KnownRelCodeType.enum.length: 5
+definitions.KnownRelCodeType.enum[0]: alternate
+definitions.KnownRelCodeType.enum[1]: related
+definitions.KnownRelCodeType.enum[2]: self
+definitions.KnownRelCodeType.enum[3]: enclosure
+definitions.KnownRelCodeType.enum[4]: via
+definitions.MimeType.description: XML encoded identifier of a standard MIME type,
+  possibly a parameterized MIME type. Copied from ows 2.0.1
+definitions.MimeType.pattern: (application|audio|image|text|video|message|multipart|model)/.+(;\s*.+=.+)*
+definitions.MimeType.type: string
+definitions.RelCodeType.additionalProperties: false
+definitions.RelCodeType.type: object
+definitions.RelCodeType.x-oneOf.length: 2
+definitions.RelCodeType.x-oneOf[0].$ref: '#/definitions/KnownRelCodeType'
+definitions.RelCodeType.x-oneOf[1].type: string
+definitions.atom.additionalProperties: false
+definitions.atom.description: |-
+  This version of the Atom schema is based on version 1.0 of the format specifications, found here http://www.atomenabled.org/developers/syndication/atom-format-spec.php. The original namespace was http://www.w3.org/2005/Atom but we changed it to http://www.opengis.net/atom/2005 to avoid conflicting definitions of the same namespace in the future. NOT DONE YET. There is no XSD official schema for atom but this one seems to be the most known: http://www.kbcafe.com/rss/atom.xsd.xml (The Atom Publishing Protocol was issued as a Proposed Standard in IETF RFC 5023 in October 2007 http://tools.ietf.org/html/rfc5023)
+  An Atom document may have two root elements, feed and entry, as defined in section 2.
+definitions.atom.properties.feed.$ref: '#/definitions/feedType'
+definitions.atom.required.length: 1
+definitions.atom.required[0]: feed
+definitions.atom.title: converted/atomSchema.xsd
+definitions.atom.type: object
+definitions.categoryType.additionalProperties: false
+definitions.categoryType.description: The Atom category construct is defined in section
+  4.2.2 of the format spec.
+definitions.categoryType.type: object
+definitions.categoryType.x-anyOf.length: 2
+definitions.categoryType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.categoryType.x-anyOf[0].required.length: 1
+definitions.categoryType.x-anyOf[0].required[0]: term
+definitions.categoryType.x-anyOf[1].properties.label.type: string
+definitions.categoryType.x-anyOf[1].properties.scheme.format: uri
+definitions.categoryType.x-anyOf[1].properties.scheme.type: string
+definitions.categoryType.x-anyOf[1].properties.term.type: string
+definitions.commonAttributes.additionalProperties: true
+definitions.commonAttributes.properties.xml:base.type: string
+definitions.commonAttributes.properties.xml:lang.type: string
+definitions.commonAttributes.type: object
+definitions.contentType.additionalProperties: true
+definitions.contentType.description: The Atom content construct is defined in section
+  4.1.3 of the format spec.
+definitions.contentType.type: object
+definitions.contentType.x-anyOf.length: 2
+definitions.contentType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.contentType.x-anyOf[1].properties.src.format: uri
+definitions.contentType.x-anyOf[1].properties.src.type: string
+definitions.contentType.x-anyOf[1].properties.type.$ref: '#/definitions/ContentTypeType'
+definitions.dateTimeType.additionalProperties: false
+definitions.dateTimeType.type: object
+definitions.dateTimeType.x-anyOf.length: 2
+definitions.dateTimeType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.dateTimeType.x-anyOf[1].properties.#text.format: date-time
+definitions.dateTimeType.x-anyOf[1].properties.#text.type: string
+definitions.emailType.description: Schema definition for an email address.
+definitions.emailType.pattern: \w+@(\w+\.)+\w+
+definitions.emailType.type: string
+definitions.entry.$ref: '#/definitions/entryType'
+definitions.entryType.additionalProperties: true
+definitions.entryType.description: The Atom entry construct is defined in section
+  4.1.2 of the format spec.
+definitions.entryType.type: object
+definitions.entryType.x-anyOf.length: 2
+definitions.entryType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.entryType.x-anyOf[1].properties.author.items.$ref: '#/definitions/personType'
+definitions.entryType.x-anyOf[1].properties.author.type: array
+definitions.entryType.x-anyOf[1].properties.category.items.$ref: '#/definitions/categoryType'
+definitions.entryType.x-anyOf[1].properties.category.type: array
+definitions.entryType.x-anyOf[1].properties.content.$ref: '#/definitions/contentType'
+definitions.entryType.x-anyOf[1].properties.contributor.items.$ref: '#/definitions/personType'
+definitions.entryType.x-anyOf[1].properties.contributor.type: array
+definitions.entryType.x-anyOf[1].properties.dc.properties.relation.properties.sortLetter.description: Starting
+  letter for this programme
+definitions.entryType.x-anyOf[1].properties.dc.properties.relation.properties.sortLetter.type: integer
+definitions.entryType.x-anyOf[1].properties.dc.properties.relation.type: object
+definitions.entryType.x-anyOf[1].properties.dc.type: object
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Last.description: Timestamp
+  of the previous TX from this brand (if applicable)
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Last.format: date-time
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Last.type: string
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Next.description: Timestamp
+  of the next TX from this brand (if applicable)
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Next.format: date-time
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.Next.type: string
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.TXDate.description: If
+  this programme is available on 4oD then this element indicates the broadcast date/time
+  of the episode selected for 4oD. If the programme is not on 4oD then this element
+  is omitted.(Indicates whether pre- or post-watershed)
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.TXDate.format: date-time
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.TXDate.type: string
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.firstTXDate.description: First
+  TX date information for this episode
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.firstTXDate.format: date-time
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.firstTXDate.type: string
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.slotTXDate.description: Current
+  TX date information for this slot's episode
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.slotTXDate.format: date-time
+definitions.entryType.x-anyOf[1].properties.dc:date.properties.slotTXDate.type: string
+definitions.entryType.x-anyOf[1].properties.dc:date.type: object
+definitions.entryType.x-anyOf[1].properties.dc:relataion.properties.BrandTitle.description: Title
+  for the brand that the clip is associated with (directly or indirectly)
+definitions.entryType.x-anyOf[1].properties.dc:relataion.properties.BrandTitle.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relataion.properties.BrandWebSafeTitle.description: Web-safe
+  title for the brand that the clip is associated with (directly or indirectly)
+definitions.entryType.x-anyOf[1].properties.dc:relataion.properties.BrandWebSafeTitle.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relataion.type: object
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.4oDProgrammeCount.description: The
+  number of 4oD available programmes in the collection, including all Brand/Series/Episodes.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.4oDProgrammeCount.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AgeRating.description: Channel
+  4-specific recommended lower age-limit for viewers (0, 16 or 18)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AgeRating.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AllProgrammeCount.description: Number
+  of available brands in this category (all programmes)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AllProgrammeCount.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AudioDescription.description: Boolean
+  indicating if an audio description is available for this episode
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.AudioDescription.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandTitle.description: Title
+  of brand
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandTitle.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandWebSafeTitle.description: Programme's
+  Brand name in Web safe format
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandWebSafeTitle.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandWebsafeTitle.description: The
+  associated brand web-safe title
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.BrandWebsafeTitle.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.CategoryOrder.description: Enumerated
+  order of category within its type (e.g., 'Channel' might have Food=1, More4=2, etc.)
+  (Appears in feed only if CategoryType<>'None'.)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.CategoryOrder.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.CategoryType.description: Type
+  to which the category belongs (if applicable). (Valid values are 'Channel', 'Display'
+  or 'None'.)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.CategoryType.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Duration.description: Length
+  in minutes and seconds - does not include ad breaks
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Duration.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.EpisodeNumber.description: The
+  episode number within the series.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.EpisodeNumber.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ExternalVideoId.description: This
+  is the clip asset id (from column CLIP_ASSET.ASSET_ID. For the current implementation
+  this is the Brightcove Id.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ExternalVideoId.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Guidance.description: Channel
+  4-specific warning text about specific disturbing content, adult humour, nudity,
+  etc., if applicable
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Guidance.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.LastChannel.description: The
+  channel on which the previous TX from this brand(if applicable)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.LastChannel.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.LoginRequired.description: Boolean
+  indicating if the requestType is ARCHIVE and the user needs to be logged in to watch.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.LoginRequired.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Movie.description: Boolean
+  indicating if the SLOT is a Movie or not.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Movie.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.NextChannel.description: The
+  channel on which the next TX from this brand (if applicable)
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.NextChannel.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ParentCollectionId.description: The
+  ID of the Parent Collection where the resource is assigned to.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ParentCollectionId.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Platform.description: The
+  platform code that this episode is available on
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Platform.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ProgrammeType.description: Displays
+  metadata code (as detailed in the following table) in a meaningful way on the application
+  according to the specified programme type.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.ProgrammeType.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.RelatedEntryId.description: The
+  episode guide entry related to this episode
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.RelatedEntryId.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Repeat.description: Boolean
+  indicating if the Slot includes an indicator marked as repeat.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Repeat.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.SeriesNumber.description: The
+  series to which this episode belongs.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.SeriesNumber.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Signing.description: Boolean
+  value is true if signing slot_indicator exists for this slot, otherwise false.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Signing.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.SimulcastRights.description: Boolean
+  indicating if the episode has rights to be streamed on the live simulcast service.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.SimulcastRights.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Subtitles.description: Boolean
+  indicating if subtitles are available for this episode
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Subtitles.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Synopsys.description: The
+  synopsis of this brand
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.Synopsys.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.TXChannel.description: If
+  this programme is available on 4oD then this element indicates the broadcast channel
+  that the episode selected for 4oD. If the programme is not on 4oD then this element
+  is omitted.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.TXChannel.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.TXStartTime.description: Start
+  date and time of the broadcast
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.TXStartTime.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.WideScreen.description: Boolean
+  value is true if widescreen slot_indicator exists for this slot, otherwise false
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.WideScreen.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.comingSoonTo4oD.description: If
+  the brand is coming to be available on 4oD soon this empty element should be included.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.comingSoonTo4oD.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.firstTXChannel.description: First
+  TX channel information for this episode
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.firstTXChannel.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.hd.description: Boolean
+  indicating if the SLOT is HD on linear
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.hd.type: boolean
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.platformClientVersion.description: Identifies
+  the version of the client application compatible with this feed.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.platformClientVersion.type: number
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.programmeId.description: The
+  episode identifier.
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.programmeId.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.requestType.description: Indicates
+  catchup or archive content
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.requestType.enum.length: 2
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.requestType.enum[0]: ARCHIVE
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.requestType.enum[1]: CATCHUP
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.requestType.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.resourceType.description: The
+  type of the entry
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.resourceType.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.slotTXChannel.description: Current
+  TX channel information for this slot's episode
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.slotTXChannel.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.sortLetter.description: Starting
+  letter for this programme
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.sortLetter.type: string
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.sortOrder.description: Starting
+  letter for this programme
+definitions.entryType.x-anyOf[1].properties.dc:relation.properties.sortOrder.type: integer
+definitions.entryType.x-anyOf[1].properties.dc:relation.type: object
+definitions.entryType.x-anyOf[1].properties.dcterms:available.description: Start date,
+  end date and date / time format for the period of time when episode is available
+  on 4oD. This element is not returned if the programme is not currently available
+  on 4oD.
+definitions.entryType.x-anyOf[1].properties.dcterms:available.type: string
+definitions.entryType.x-anyOf[1].properties.generator.description: Identifies the
+  agent used to generate the feed
+definitions.entryType.x-anyOf[1].properties.generator.properties.version.description: Identifies
+  the version of the agent used to generate the feed
+definitions.entryType.x-anyOf[1].properties.generator.properties.version.type: number
+definitions.entryType.x-anyOf[1].properties.generator.type: object
+definitions.entryType.x-anyOf[1].properties.id.$ref: '#/definitions/idType'
+definitions.entryType.x-anyOf[1].properties.link.items.$ref: '#/definitions/linkType'
+definitions.entryType.x-anyOf[1].properties.link.type: array
+definitions.entryType.x-anyOf[1].properties.media:content.properties.media:credit.description: List
+  of credits/cast for the episode
+definitions.entryType.x-anyOf[1].properties.media:content.properties.media:credit.type: string
+definitions.entryType.x-anyOf[1].properties.media:content.properties.media:thumbnail.description: URL
+  to medium-sized image of this brand
+definitions.entryType.x-anyOf[1].properties.media:content.properties.media:thumbnail.type: string
+definitions.entryType.x-anyOf[1].properties.media:content.type: object
+definitions.entryType.x-anyOf[1].properties.media:context.properties.media:thumbnail.description: URL
+  to medium-sized image of this brand
+definitions.entryType.x-anyOf[1].properties.media:context.properties.media:thumbnail.type: string
+definitions.entryType.x-anyOf[1].properties.media:context.type: object
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:category.description: Defines
+  the type of short-form item.
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:category.type: string
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AgeRating.description
+: Channel 4-specific recommended lower age-limit for viewers (0, 16 or 18)
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AgeRating.type
+: integer
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AudioDescription.description
+: Boolean indicating if an audio description is available for this episode
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AudioDescription.type
+: boolean
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Duration.description
+: Length in minutes and seconds - does not include ad breaks
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Duration.type: string
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Guidance.description
+: Channel 4-specific warning text about specific disturbing content, adult humour,
+  nudity, etc., if applicable
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Guidance.type: string
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Subtitles.description
+: Boolean indicating if subtitles are available for this episode
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Subtitles.type
+: boolean
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.description
+: Indicates STREAMING or FOR DOWNLOAD content
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum.length
+: 2
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum[0]
+: STREAM
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum[1]
+: DOWNLOAD
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.type
+: string
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.description
+: Indicates catchup or archive content
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum.length
+: 2
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum[0]
+: ARCHIVE
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum[1]
+: CATCHUP
+? definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.type
+: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.type: object
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dcterms:available.description: Start
+  date, end date and date/time format for the period of time when episode is available. 
+  (This feed would not be available if the current date is outside the start and end
+  dates.)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.dcterms:available.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:copyright.description: Link
+  to copyright / T&C information
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:copyright.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.description: URL
+  to media-player version of episode
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.format: uri
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rating.description: Flag
+  to show whether episode is suitable for adults only ("adult") or for all viewers
+  ("nonadult")
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rating.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:restriction.description: Restriction
+  flag ("allow") and list of country or state codes where episode is accessible to
+  website users
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:restriction.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rights.description: Status
+  of media rights under which Channel 4 provides episode content
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rights.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:thumbnail.description: URL
+  to medium-sized image of this episode
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:thumbnail.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:content.type: object
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:copyright.description: Link
+  to 4oD  copyright / T&C information (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:copyright.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:player.description: URL
+  to 4oD media-player version of episode (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:player.format: uri
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:player.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:rating.description: Flag
+  to show whether the 4oD version of the episode is suitable for adults only ("adult")
+  or for all viewers ("nonadult") (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:rating.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:restriction.description: Restriction
+  flag ("allow") and list of country or state codes where 4oD episode is accessible
+  to website users (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:restriction.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:rights.description: Status
+  of 4oD media rights under which Channel 4 provides episode content (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:rights.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:thumbnail.description: URL
+  to 4oD medium-sized image of this episode (if available)
+definitions.entryType.x-anyOf[1].properties.media:group.properties.media:thumbnail.type: string
+definitions.entryType.x-anyOf[1].properties.media:group.type: object
+definitions.entryType.x-anyOf[1].properties.media:thumbnail.description: URL to medium
+  sized image of this series
+definitions.entryType.x-anyOf[1].properties.media:thumbnail.type: string
+definitions.entryType.x-anyOf[1].properties.published.$ref: '#/definitions/dateTimeType'
+definitions.entryType.x-anyOf[1].properties.rights.$ref: '#/definitions/textType'
+definitions.entryType.x-anyOf[1].properties.source.$ref: '#/definitions/textType'
+definitions.entryType.x-anyOf[1].properties.subtitle.description: The synopsis of
+  the series.
+definitions.entryType.x-anyOf[1].properties.subtitle.type: string
+definitions.entryType.x-anyOf[1].properties.summary.$ref: '#/definitions/textType'
+definitions.entryType.x-anyOf[1].properties.title.$ref: '#/definitions/textType'
+definitions.entryType.x-anyOf[1].properties.updated.$ref: '#/definitions/dateTimeType'
+definitions.feedType.additionalProperties: true
+definitions.feedType.description: The Atom feed construct is defined in section 4.1.1
+  of the format spec.
+definitions.feedType.type: object
+definitions.feedType.x-anyOf.length: 2
+definitions.feedType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.feedType.x-anyOf[1].properties.author.properties.name.description: Name
+  of author / owner
+definitions.feedType.x-anyOf[1].properties.author.properties.name.type: string
+definitions.feedType.x-anyOf[1].properties.author.type: object
+definitions.feedType.x-anyOf[1].properties.category (primary).description: Primary
+  category (brand must have ONE)
+definitions.feedType.x-anyOf[1].properties.category (primary).type: string
+definitions.feedType.x-anyOf[1].properties.category (secondary).description: Secondary
+  category (brand may have any number)
+definitions.feedType.x-anyOf[1].properties.category (secondary).type: string
+definitions.feedType.x-anyOf[1].properties.category.items.$ref: '#/definitions/categoryType'
+definitions.feedType.x-anyOf[1].properties.category.type: array
+definitions.feedType.x-anyOf[1].properties.contributor.items.$ref: '#/definitions/personType'
+definitions.feedType.x-anyOf[1].properties.contributor.type: array
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.TXDate.description: First
+  TX date information for this episode
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.TXDate.format: date-time
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.TXDate.type: string
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.firstTXDate.description: First
+  TX date information for this episode
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.firstTXDate.format: date-time
+definitions.feedType.x-anyOf[1].properties.dc:date.properties.firstTXDate.type: string
+definitions.feedType.x-anyOf[1].properties.dc:date.type: object
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.4oDProgrammeCount.description: Number
+  of available brands in this category beginning with this letter (4oD only)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.4oDProgrammeCount.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.4oDSeriesCount.description: Number
+  of available 4oD series for this Brand
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.4oDSeriesCount.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AgeRating.description: Channel
+  4-specific recommended lower age-limit for viewers (0, 16 or 18)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AgeRating.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AllProgrammeCount.description: Number
+  of available brands in this category beginning with this letter (all programmes)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AllProgrammeCount.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AudioDescription.description: Boolean
+  indicating if an audio description is available for this episode
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.AudioDescription.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandFlattened.description: Boolean
+  indicating whether there is no Series -> Episode structure in this brand ("false"
+  indicating that there is such a structure)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandFlattened.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandTitle.description: Title
+  of brand
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandTitle.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandWebSafeTitle.description: Title
+  of the brand safe for web linking (no whitespaces, no special chars...)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.BrandWebSafeTitle.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.CategoryOrder.description: Enumerated
+  order of category within its type(e.g., 'Channel' might have Food=1, More4=2, etc.)(Appears
+  in feed only if CategoryType<>'None'.)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.CategoryOrder.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.CategoryType.description: Type
+  to which the category belongs (if applicable).(Valid values are 'Channel', 'Display'
+  or 'None'.)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.CategoryType.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Duration.description: Length
+  in minutes and seconds - does not include ad breaks
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Duration.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.EpisodeNumber.description: The
+  episode number within the series
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.EpisodeNumber.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ExternalVideoId.description: Clip
+  Asset_id value from the Clip table (a.k.a. Brightcode id).
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ExternalVideoId.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Guidance.description: Channel
+  4-specific warning text about specific disturbing content, adult humour, nudity,
+  etc., if applicable
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Guidance.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.LoginRequired.description: Boolean
+  indicating if the user has to be logged-in in order to play this episode.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.LoginRequired.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.New4oDSeriesAvailable.description: Flags
+  that notifies clients when a Brand contains NEW series.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.New4oDSeriesAvailable.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ParentCollectionId.description: The
+  ID of the Parent Collection where the resource is assigned to.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ParentCollectionId.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ProgrammeType.description: Displays
+  metadata code (as detailed in the following table) in a meaningful way on the application
+  according to the specified programme type.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.ProgrammeType.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.RelatedEntryId.description: The
+  episode guide entry related to this episode
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.RelatedEntryId.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.SeriesNumber.description: The
+  series to which this episode belongs
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.SeriesNumber.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Sharable.description: Boolean
+  value indicating if clips for this brand are sharable
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Sharable.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.StartOffset.description: ""
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.StartOffset.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Subtitles.description: Boolean
+  indicating if subtitles are available for this episode
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Subtitles.type: boolean
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Synopsis.description: Summary
+  of this feed
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.Synopsis.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.TXChannel.description: First
+  TX channel information for this episode
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.TXChannel.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.TotalResults.description: Number
+  of entries what match the search-term
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.TotalResults.type: integer
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.comingSoonTo4oD.description: If
+  the brand is coming to be available on 4oD soon this empty element should be included.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.comingSoonTo4oD.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.firstTXChannel.description: First
+  TX channel information for this episode
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.firstTXChannel.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.firstTXDate.description: Date
+  of first broadcast (optional). This is based on EPG or, when EPG data is not available
+  for the episode, it can be set editorially (significant date)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.firstTXDate.format: date-time
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.firstTXDate.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.lastTXChannel.description: Channel
+  of last broadcast (optional). This is based on EPG ignoring repeats and giving preference
+  to the channel that the brand is primarily targeted at (preferred channel)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.lastTXChannel.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.lastTXDate.description: Date
+  of last broadcast (optional). This is based on EPG ignoring repeats and giving preference
+  to the channel that the brand is primarily targeted at (preferred channel)
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.lastTXDate.format: date-time
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.lastTXDate.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.platformClientVersion.description: Identifies
+  the version of the specified platform client application compatible with this feed.
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.platformClientVersion.type: number
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.presentationBrand.description: The
+  presentation brand
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.presentationBrand.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.programmeId.description: Indicates
+  the contract and programme numbers
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.programmeId.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.resourceType.description: The
+  type of the entry
+definitions.feedType.x-anyOf[1].properties.dc:relation.properties.resourceType.type: string
+definitions.feedType.x-anyOf[1].properties.dc:relation.type: object
+definitions.feedType.x-anyOf[1].properties.dcterms:available.description: Start date,
+  end date and date/time format for the period of time when episode is available. 
+  (This feed would not be available if the current date is outside the start and end
+  dates.)
+definitions.feedType.x-anyOf[1].properties.dcterms:available.type: string
+definitions.feedType.x-anyOf[1].properties.entry.items.$ref: '#/definitions/entryType'
+definitions.feedType.x-anyOf[1].properties.entry.type: array
+definitions.feedType.x-anyOf[1].properties.fh:complete.description: Presence of this
+  element indicates no pagination
+definitions.feedType.x-anyOf[1].properties.fh:complete.type: string
+definitions.feedType.x-anyOf[1].properties.generator.description: Identifies the agent
+  used to generate the feed
+definitions.feedType.x-anyOf[1].properties.generator.properties.version.description: Identifies
+  the version of the agent used to generate the feed
+definitions.feedType.x-anyOf[1].properties.generator.properties.version.type: number
+definitions.feedType.x-anyOf[1].properties.generator.type: object
+definitions.feedType.x-anyOf[1].properties.icon.$ref: '#/definitions/iconType'
+definitions.feedType.x-anyOf[1].properties.id.$ref: '#/definitions/idType'
+definitions.feedType.x-anyOf[1].properties.link.items.$ref: '#/definitions/linkType'
+definitions.feedType.x-anyOf[1].properties.link.type: array
+definitions.feedType.x-anyOf[1].properties.logo.$ref: '#/definitions/logoType'
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:category.description: 'Defines
+  the type of short-form item. Its value can be one of the next: EXTRACT, PREVIEW,
+  EXTRA, TRAILER'
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:category.type: string
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AgeRating.description
+: Channel 4-specific recommended lower age-limit for viewers (0, 16 or 18)
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AgeRating.type: integer
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AudioDescription.description
+: Boolean indicating if an audio description is available for this episode
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.AudioDescription.type
+: boolean
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Duration.description
+: Length in minutes and seconds - does not include ad breaks
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Duration.type: string
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Guidance.description
+: Channel 4-specific warning text about specific disturbing content, adult humour,
+  nudity, etc., if applicable
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Guidance.type: string
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Subtitles.description
+: Boolean indicating if subtitles are available for this episode
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.Subtitles.type: boolean
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.description
+: Indicates STREAMING or FOR DOWNLOAD content
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum.length
+: 2
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum[0]
+: STREAM
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.enum[1]
+: DOWNLOAD
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.deliveryType.type
+: string
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.description
+: Indicates catchup or archive content
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum.length
+: 2
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum[0]
+: ARCHIVE
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.enum[1]
+: CATCHUP
+? definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.properties.requestType.type
+: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dc:relation.type: object
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dcterms:available.description: Start
+  date, end date and date/time format for the period of time when episode is available. 
+  (This feed would not be available if the current date is outside the start and end
+  dates.)
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.dcterms:available.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:copyright.description: Link
+  to copyright / T&C information
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:copyright.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.description: URL
+  to media-player version of episode
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.format: uri
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:player.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rating.description: Flag
+  to show whether episode is suitable for adults only ("adult") or for all viewers
+  ("nonadult")
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rating.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:restriction.description: Restriction
+  flag ("allow") and list of country or state codes where episode is accessible to
+  website users
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:restriction.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rights.description: Status
+  of media rights under which Channel 4 provides episode content
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:rights.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:thumbnail.description: URL
+  to medium-sized image of this episode
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.properties.media:thumbnail.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:content.type: object
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:copyright.description: Link
+  to copyright / T&C information
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:copyright.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:player.description: URL
+  to media-player version of episode
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:player.format: uri
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:player.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:rating.description: Flag
+  to show whether episode is suitable for adults only ("adult") or for all viewers
+  ("nonadult")
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:rating.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:restriction.description: Restriction
+  flag ("allow") and list of country or state codes where episode is accessible to
+  website users
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:restriction.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:rights.description: Status
+  of media rights under which Channel 4 provides episode content
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:rights.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:thumbnail.description: URL
+  to medium-sized image of this episode
+definitions.feedType.x-anyOf[1].properties.media:group.properties.media:thumbnail.type: string
+definitions.feedType.x-anyOf[1].properties.media:group.type: object
+definitions.feedType.x-anyOf[1].properties.media:thumbnail.description: URL to medium
+  sized image of this series
+definitions.feedType.x-anyOf[1].properties.media:thumbnail.properties.media:thumbnail.description: URL
+  to medium-sized image of this episode
+definitions.feedType.x-anyOf[1].properties.media:thumbnail.properties.media:thumbnail.type: string
+definitions.feedType.x-anyOf[1].properties.media:thumbnail.type: object
+definitions.feedType.x-anyOf[1].properties.rights.$ref: '#/definitions/textType'
+definitions.feedType.x-anyOf[1].properties.subtitle.$ref: '#/definitions/textType'
+definitions.feedType.x-anyOf[1].properties.summary.description: Synopsis of episode
+definitions.feedType.x-anyOf[1].properties.summary.type: string
+definitions.feedType.x-anyOf[1].properties.title.$ref: '#/definitions/textType'
+definitions.feedType.x-anyOf[1].properties.updated.$ref: '#/definitions/dateTimeType'
+definitions.generatorType.additionalProperties: false
+definitions.generatorType.description: The Atom generator element is defined in section
+  4.2.4 of the format spec.
+definitions.generatorType.type: object
+definitions.generatorType.x-anyOf.length: 2
+definitions.generatorType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.generatorType.x-anyOf[1].properties.#text.type: string
+definitions.generatorType.x-anyOf[1].properties.uri.format: uri
+definitions.generatorType.x-anyOf[1].properties.uri.type: string
+definitions.generatorType.x-anyOf[1].properties.version.type: string
+definitions.iconType.additionalProperties: false
+definitions.iconType.description: The Atom icon construct is defined in section 4.2.5
+  of the format spec.
+definitions.iconType.type: object
+definitions.iconType.x-anyOf.length: 2
+definitions.iconType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.iconType.x-anyOf[1].properties.#text.format: uri
+definitions.iconType.x-anyOf[1].properties.#text.type: string
+definitions.idType.additionalProperties: false
+definitions.idType.description: The Atom id construct is defined in section 4.2.6
+  of the format spec.
+definitions.idType.type: object
+definitions.idType.x-anyOf.length: 2
+definitions.idType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.idType.x-anyOf[1].properties.#text.format: uri
+definitions.idType.x-anyOf[1].properties.#text.type: string
+definitions.linkType.additionalProperties: false
+definitions.linkType.description: The Atom link construct is defined in section 3.4
+  of the format spec.
+definitions.linkType.type: object
+definitions.linkType.x-anyOf.length: 2
+definitions.linkType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.linkType.x-anyOf[0].required.length: 1
+definitions.linkType.x-anyOf[0].required[0]: href
+definitions.linkType.x-anyOf[1].properties.href.format: uri
+definitions.linkType.x-anyOf[1].properties.href.type: string
+definitions.linkType.x-anyOf[1].properties.hreflang.type: string
+definitions.linkType.x-anyOf[1].properties.length.minimum: 1
+definitions.linkType.x-anyOf[1].properties.length.type: integer
+definitions.linkType.x-anyOf[1].properties.rel.$ref: '#/definitions/RelCodeType'
+definitions.linkType.x-anyOf[1].properties.title.type: string
+definitions.linkType.x-anyOf[1].properties.type.type: string
+definitions.logoType.additionalProperties: false
+definitions.logoType.description: The Atom logo construct is defined in section 4.2.8
+  of the format spec.
+definitions.logoType.type: object
+definitions.logoType.x-anyOf.length: 2
+definitions.logoType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.logoType.x-anyOf[1].properties.#text.format: uri
+definitions.logoType.x-anyOf[1].properties.#text.type: string
+definitions.personType.additionalProperties: true
+definitions.personType.description: The Atom person construct is defined in section
+  3.2 of the format spec.
+definitions.personType.type: object
+definitions.personType.x-anyOf.length: 2
+definitions.personType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.personType.x-anyOf[1].properties.email.$ref: '#/definitions/emailType'
+definitions.personType.x-anyOf[1].properties.name.type: string
+definitions.personType.x-anyOf[1].properties.uri.$ref: '#/definitions/uriType'
+definitions.sourceType.additionalProperties: true
+definitions.sourceType.description: The Atom source construct is defined in section
+  4.2.11 of the format spec.
+definitions.sourceType.type: object
+definitions.sourceType.x-anyOf.length: 2
+definitions.sourceType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.sourceType.x-anyOf[1].properties.author.items.$ref: '#/definitions/personType'
+definitions.sourceType.x-anyOf[1].properties.author.type: array
+definitions.sourceType.x-anyOf[1].properties.category.items.$ref: '#/definitions/categoryType'
+definitions.sourceType.x-anyOf[1].properties.category.type: array
+definitions.sourceType.x-anyOf[1].properties.contributor.items.$ref: '#/definitions/personType'
+definitions.sourceType.x-anyOf[1].properties.contributor.type: array
+definitions.sourceType.x-anyOf[1].properties.generator.$ref: '#/definitions/generatorType'
+definitions.sourceType.x-anyOf[1].properties.icon.$ref: '#/definitions/iconType'
+definitions.sourceType.x-anyOf[1].properties.id.$ref: '#/definitions/idType'
+definitions.sourceType.x-anyOf[1].properties.link.items.$ref: '#/definitions/linkType'
+definitions.sourceType.x-anyOf[1].properties.link.type: array
+definitions.sourceType.x-anyOf[1].properties.logo.$ref: '#/definitions/logoType'
+definitions.sourceType.x-anyOf[1].properties.rights.$ref: '#/definitions/textType'
+definitions.sourceType.x-anyOf[1].properties.subtitle.$ref: '#/definitions/textType'
+definitions.sourceType.x-anyOf[1].properties.title.$ref: '#/definitions/textType'
+definitions.sourceType.x-anyOf[1].properties.updated.$ref: '#/definitions/dateTimeType'
+definitions.textType.additionalProperties: true
+definitions.textType.description: The Atom text construct is defined in section 3.1
+  of the format spec.
+definitions.textType.type: object
+definitions.textType.x-anyOf.length: 2
+definitions.textType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.textType.x-anyOf[1].properties.type.$ref: '#/definitions/textTypeType'
+definitions.textTypeType.enum.length: 3
+definitions.textTypeType.enum[0]: text
+definitions.textTypeType.enum[1]: html
+definitions.textTypeType.enum[2]: xhtml
+definitions.uriType.additionalProperties: false
+definitions.uriType.type: object
+definitions.uriType.x-anyOf.length: 2
+definitions.uriType.x-anyOf[0].$ref: '#/definitions/commonAttributes'
+definitions.uriType.x-anyOf[1].properties.#text.format: uri
+definitions.uriType.x-anyOf[1].properties.#text.type: string
+externalDocs.description: Programmes API Guide
+externalDocs.url: http://developer.channel4.com/docs/read/ProgrammesAPIGuide
+host: channel4.com
+info.contact.email: developer@channel4.co.uk
+info.contact.name: Open C4 Project
+info.contact.url: http://developer.channel4.com/
+info.description: This is the place to come for all the technical details you need
+  to power your applications with Channel 4's deep programmes data.
+info.license.name: Channel 4 API license
+info.license.url: http://developer.channel4.com/page/read/API_Terms_of_Use
+info.termsOfService: http://developer.channel4.com/page/read/API_Terms_of_Use
+info.title: Channel 4
+info.version: 1.0.0
+info.x-apiClientRegistration.url: http://developer.channel4.com/apps/register
+info.x-apisguru-categories.length: 1
+info.x-apisguru-categories[0]: media
+info.x-logo.backgroundColor: '#FFFFFF'
+info.x-logo.url: https://api.apis.guru/v2/cache/logo/http_www.channel4.com_static_programmes_images_c4-atom-logo.gif
+info.x-origin.length: 1
+info.x-origin[0].format: swagger
+info.x-origin[0].url: https://raw.githubusercontent.com/Mermade/openC4/master/c4Api/swagger.json
+info.x-origin[0].version: "2.0"
+info.x-preferred: true
+info.x-providerName: channel4.com
+parameters.brand-web-safe-title.description: Title of brand to which clips belong
+parameters.brand-web-safe-title.in: path
+parameters.brand-web-safe-title.name: brand-web-safe-title
+parameters.brand-web-safe-title.required: true
+parameters.brand-web-safe-title.type: string
+parameters.category.description: The name of the category for which you seek associated
+  Channel 4 programmes. (For a full list of categories, please see http://api.channel4.com/pmlsd/categories.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx)
+parameters.category.in: path
+parameters.category.name: category
+parameters.category.required: true
+parameters.category.type: string
+parameters.channel.description: The name of the channel for which you seek associated
+  Channel 4oD programmes
+parameters.channel.enum.length: 6
+parameters.channel.enum[0]: c4
+parameters.channel.enum[1]: f4
+parameters.channel.enum[2]: e4
+parameters.channel.enum[3]: m4
+parameters.channel.enum[4]: 4m
+parameters.channel.enum[5]: 4s
+parameters.channel.in: path
+parameters.channel.name: channel
+parameters.channel.required: true
+parameters.channel.type: string
+parameters.collection_name.description: Web safe title for the collection.
+parameters.collection_name.in: path
+parameters.collection_name.name: collection_name
+parameters.collection_name.required: true
+parameters.collection_name.type: string
+parameters.dd.description: The date for which you wish to see programming information.
+  Note the schedule days start from 6am and run until 6am on the next calendar day.
+parameters.dd.in: path
+parameters.dd.name: dd
+parameters.dd.required: true
+parameters.dd.type: string
+parameters.mm.description: The date for which you wish to see programming information.
+  Note the schedule days start from 6am and run until 6am on the next calendar day.
+parameters.mm.in: path
+parameters.mm.name: mm
+parameters.mm.required: true
+parameters.mm.type: string
+parameters.pageno.description: Page number of results to return
+parameters.pageno.in: path
+parameters.pageno.name: pageno
+parameters.pageno.required: true
+parameters.pageno.type: integer
+parameters.platform.description: The platform to use for the query. Alias 'client'.
+parameters.platform.enum.length: 10
+parameters.platform.enum[0]: c4
+parameters.platform.enum[1]: ps3
+parameters.platform.enum[2]: yv
+parameters.platform.enum[3]: ios
+parameters.platform.enum[4]: fm
+parameters.platform.enum[5]: p06
+parameters.platform.enum[6]: ctv
+parameters.platform.enum[7]: freesat
+parameters.platform.enum[8]: android
+parameters.platform.enum[9]: samsung
+parameters.platform.in: query
+parameters.platform.name: platform
+parameters.platform.required: false
+parameters.platform.type: string
+parameters.q.description: 'The programme name to look for, minimum length: 2 chars.Looking
+  for programme names with special chars might be URL encoded.'
+parameters.q.in: query
+parameters.q.name: q
+parameters.q.required: true
+parameters.q.type: string
+parameters.q1.description: 'The programme name to look for, minimum length: 2 chars.Looking
+  for programme names with special chars might be URL encoded.'
+parameters.q1.in: path
+parameters.q1.name: q
+parameters.q1.required: true
+parameters.q1.type: string
+parameters.series_number.description: Unique identifier of series to which clips belong
+parameters.series_number.in: path
+parameters.series_number.name: series_number
+parameters.series_number.required: true
+parameters.series_number.type: string
+parameters.start_letter.description: The letter of the alphabet for which you seek
+  associated Channel 4 programmes
+parameters.start_letter.in: path
+parameters.start_letter.name: start_letter
+parameters.start_letter.required: true
+parameters.start_letter.type: string
+parameters.yyyy.description: The date for which you wish to see programming information.
+  Note the schedule days start from 6am and run until 6am on the next calendar day.
+parameters.yyyy.in: path
+parameters.yyyy.name: yyyy
+parameters.yyyy.required: true
+parameters.yyyy.type: string
+paths./{brand-web-safe-title}.atom.get.description: |-
+  The basis for all brand information
+
+    http://api.channel4.com/pmlsd/brand-web-safe-title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+
+    http://api.channel4.com/pmlsd/the-it-crowd.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+paths./{brand-web-safe-title}.atom.get.operationId: Hub_Feed
+paths./{brand-web-safe-title}.atom.get.parameters.length: 2
+paths./{brand-web-safe-title}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}.atom.get.parameters[1].description: The title of the
+  programme for which you seek associated data
+paths./{brand-web-safe-title}.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}.atom.get.responses.200.description: Default response
+paths./{brand-web-safe-title}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}.atom.get.summary: Hub Feed
+paths./{brand-web-safe-title}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Hub_Feed
+paths./{brand-web-safe-title}/4od.atom.get.description: "A feed containing all available
+  on-demand long-form content for a specified \n  brand. The entries for the 4oD feed
+  contain references to each long-form \n  asset for a brand, ordered by series number
+  and episode number.\n\n  http://api.channel4.com/pmlsd/[brand-web-safe-title]/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/the-it-crowd/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/4od.atom.get.operationId: 4oD_Feed
+paths./{brand-web-safe-title}/4od.atom.get.parameters.length: 2
+paths./{brand-web-safe-title}/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/4od.atom.get.parameters[1].description: The title of
+  the programme for which you seek on-demand content
+paths./{brand-web-safe-title}/4od.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/4od.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/4od.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/4od.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/4od.atom.get.responses.200.description: Default response
+paths./{brand-web-safe-title}/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/4od.atom.get.summary: 4oD Feed
+paths./{brand-web-safe-title}/4od.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/4od.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/4oD_Feed
+paths./{brand-web-safe-title}/epg.atom.get.description: "This feed contains metadata
+  about upcoming electronic programme guide (EPG) \n  information for a brand. The
+  entry details upcoming transmission slots for \n  this brand.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/epg.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/the-simpsons/epg.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/epg.atom.get.operationId: Brand_EPG_Atom_Feed
+paths./{brand-web-safe-title}/epg.atom.get.parameters.length: 2
+paths./{brand-web-safe-title}/epg.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/epg.atom.get.parameters[1].description: Title of the
+  programme for which you seek EPG information
+paths./{brand-web-safe-title}/epg.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/epg.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/epg.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/epg.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/epg.atom.get.responses.200.description: Default response
+paths./{brand-web-safe-title}/epg.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/epg.atom.get.summary: Brand EPG Atom Feed
+paths./{brand-web-safe-title}/epg.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/epg.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/epg.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Brand_EPG_Atom_Feed
+paths./{brand-web-safe-title}/episode-guide.atom.get.description: "A feed containing
+  metadata about all series for a specified brand. The \n  entries in this feed contain
+  references to each of the series (where \n  metadata has been published), with some
+  convenient links.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/episode-guide.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/father-ted/episode-guide.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/episode-guide.atom.get.operationId: Episode_Guide_Feed_Series_Landing
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters.length: 2
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[1].description: The
+  title of the programme for which you seek episode-guide information
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/episode-guide.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/episode-guide.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/episode-guide.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/episode-guide.atom.get.summary: Episode Guide Feed Series
+  Landing
+paths./{brand-web-safe-title}/episode-guide.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/episode-guide.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/episode-guide.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Episode_Guide_Feed_Series_Landing
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.description: "A
+  feed containing metadata about all the episodes for a specific series. The \n  entries
+  in this feed contain references to each of the episodes (where \n  metadata has
+  been published), with some convenient links.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/episode-guide/series-series_number.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/chelmsford-123/episode-guide/series-1.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.operationId: Episode_Guide_Feed_Series_Detail
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters.length: 3
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[1].description: The
+  title of the programme for which you seek series-related information
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[2].description: Unique
+  enumerated identifier of the series within its brand
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[2].in: path
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[2].name: series_number
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[2].required: true
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.parameters[2].type: string
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.summary: Episode
+  Guide Feed Series Detail
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Episode_Guide_Feed_Series_Detail
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.description: "A
+  feed containing metadata about a specified episode. (This feed does not \n  contain
+  any entries and only contains a feed element regarding this \n  episode.)\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/episode-guide/series-series_number/episode-episode_number.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/the-it-crowd/episode-guide/series-1/episode-1.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.operationId: Episode_Guide_Feed_Episode_Detail
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters.length: 4
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].description: Title
+  of the brand to which the episode belongs
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].description: Unique
+  enumerated identifier of the series within its brand to which the episode belongs
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].in: path
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].name: series_number
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].required: true
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].type: string
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].description: Unique
+  enumerated identifier of the episode within its series
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].in: path
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].name: episode_number
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].required: true
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].type: string
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.summary: Episode
+  Guide Feed Episode Detail
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/episode-guide/series-{series_number}/episode-{episode_number}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Episode_Guide_Feed_Episode_Detail
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.description: |-
+  A feed containing metadata about a single short-form video (clip).
+
+    http://api.channel4.com/pmlsd/brand-web-safe-title/videos/clip-asset-id.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+
+    http://api.channel4.com/pmlsd/the-it-crowd/videos/TCGS_CLIP_0000001015.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.operationId: Clip_Detail_Atom_Feed
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters.length: 3
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[1].description: Title
+  of the brand for which you seek a clip
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[1].in: path
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[1].name: brand-web-safe-title
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[1].required: true
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[1].type: string
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[2].description: Asset
+  id for this clip
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[2].in: path
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[2].name: clip-asset-id
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[2].required: true
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.parameters[2].type: string
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.summary: Clip Detail
+  Atom Feed
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/videos/{clip-asset-id}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Clip_Detail_Atom_Feed
+paths./{brand-web-safe-title}/videos/all.atom.get.description: "A feed containing
+  metadata about all the short-form (clip) videos. The clips \n  feed can be accessed
+  at different levels: the content is then filtered \n  depending on the level, but
+  the structure is identical.When accessed: from \n  the top, the feed contains all
+  the clips for the brand;  at series level, \n  the feed contains only clips from
+  the series; and  at episode level, the \n  feed contains only clips for the episode
+  (and is very unlikely to require \n  pagination). The entries for the Clips Landing
+  Feed contain references to \n  each short-form asset.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/videos/all.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/peep-show/videos.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/videos/all.atom.get.operationId: Clips_Landing_Feed_Brand_Series_and_Episode_Levels
+paths./{brand-web-safe-title}/videos/all.atom.get.parameters.length: 2
+paths./{brand-web-safe-title}/videos/all.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/videos/all.atom.get.parameters[1].$ref: '#/parameters/brand-web-safe-title'
+paths./{brand-web-safe-title}/videos/all.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/videos/all.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/videos/all.atom.get.summary: Clips Landing Feed Brand
+  Series and Episode Levels
+paths./{brand-web-safe-title}/videos/all.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/videos/all.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/videos/all.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Clips_Landing_Feed_Brand_Series_and_Episode_Levels
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.description: "A
+  feed containing metadata about all the short-form (clip) videos. The clips \n  feed
+  can be accessed at different levels: the content is then filtered \n  depending
+  on the level, but the structure is identical.When accessed: from \n  the top, the
+  feed contains all the clips for the brand;  at series level, \n  the feed contains
+  only clips from the series; and  at episode level, the \n  feed contains only clips
+  for the episode (and is very unlikely to require \n  pagination). The entries for
+  the Clips Landing Feed contain references to \n  each short-form asset.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/videos/series-series_number.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/peep-show/videos.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.operationId: Clips_Landing_Feed_Brand_Series_and_Episode_Levels(2)
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.parameters.length: 3
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.parameters[1].$ref: '#/parameters/brand-web-safe-title'
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.parameters[2].$ref: '#/parameters/series_number'
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.summary: Clips
+  Landing Feed Brand Series and Episode Levels(2)
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/videos/series-{series_number}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Clips_Landing_Feed_Brand_Series_and_Episode_Levels
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.description: "A
+  feed containing metadata about all the short-form (clip) videos. The clips \n  feed
+  can be accessed at different levels: the content is then filtered \n  depending
+  on the level, but the structure is identical.When accessed: from \n  the top, the
+  feed contains all the clips for the brand;  at series level, \n  the feed contains
+  only clips from the series; and  at episode level, the \n  feed contains only clips
+  for the episode (and is very unlikely to require \n  pagination). The entries for
+  the Clips Landing Feed contain references to \n  each short-form asset.\n\n  http://api.channel4.com/pmlsd/brand-web-safe-title/videos/series-series_number/episode-episode_number.atom?apikey=xxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/peep-show/videos.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.operationId: Clips_Landing_Feed_Brand_Series_and_Episode_Levels(3)
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters.length: 4
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[1].$ref: '#/parameters/brand-web-safe-title'
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[2].$ref: '#/parameters/series_number'
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].description: Unique
+  identifier of episode to which clips belong
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].in: path
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].name: episode_number
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].required: true
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.parameters[3].type: string
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.responses.200.description: Default
+  response
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.summary: Clips
+  Landing Feed Brand Series and Episode Levels(3)
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.tags.length: 1
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.tags[0]: metadataresources
+paths./{brand-web-safe-title}/videos/series-{series_number}/episode-{episode_number}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Clips_Landing_Feed_Brand_Series_and_Episode_Levels
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.description: "Information of
+  daily broadcast content available on 4oD, according to \n  broadcast date\n\n  http://api.channel4.com/pmlsd/4od/episode-list/date/[yyyy]/[mm]/[dd].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/4od/episode-list/date/2010/11/28.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.operationId: 4oD_Browse_by_Date_Feed
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters.length: 4
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[1].description: The
+  date for which you wish to see programming information
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[1].in: path
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[1].name: yyyy
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[1].required: true
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[1].type: string
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[2].description: The
+  date for which you wish to see programming information
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[2].in: path
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[2].name: mm
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[2].required: true
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[2].type: string
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[3].description: The
+  date for which you wish to see programming information
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[3].in: path
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[3].name: dd
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[3].required: true
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.parameters[3].type: string
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.responses.200.description: Default
+  response
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.summary: 4oD Browse by Date
+  Feed
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.tags.length: 1
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.tags[0]: discoveryresources
+paths./4od/episode-list/date/{yyyy}/{mm}/{dd}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Browse_by_Date_Feed
+paths./4od/episode-list/popular.atom.get.description: "Information of the most popular
+  content available on 4oD, according to user \n  data driven.\n\n  http://api.channel4.com/pmlsd/4od/episode-list/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/4od/episode-list/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./4od/episode-list/popular.atom.get.operationId: 4oD_Most_Popular_Episodes_Feed
+paths./4od/episode-list/popular.atom.get.parameters.length: 1
+paths./4od/episode-list/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./4od/episode-list/popular.atom.get.responses.200.description: Default response
+paths./4od/episode-list/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./4od/episode-list/popular.atom.get.summary: 4oD Most Popular Episodes Feed
+paths./4od/episode-list/popular.atom.get.tags.length: 1
+paths./4od/episode-list/popular.atom.get.tags[0]: discoveryresources
+paths./4od/episode-list/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Most_Popular_Episodes_Feed
+paths./4od/recently-added/videos.atom.get.description: "A feed containing metadata
+  about short-form content relating to 4oD Episodes \n  recently added to 4oD based
+  on linear transmission. The entries for the \n  Clips Landing Feed contain references
+  to each short-form asset. It will \n  return up to 20 entries.\n\n  http://api.channel4.com/pmlsd/4od/recently-added/videos.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/4od/episode-list/videos.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./4od/recently-added/videos.atom.get.operationId: 4oD_Clips_Catch_Up_Feed
+paths./4od/recently-added/videos.atom.get.parameters.length: 1
+paths./4od/recently-added/videos.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./4od/recently-added/videos.atom.get.responses.200.description: Default response
+paths./4od/recently-added/videos.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./4od/recently-added/videos.atom.get.summary: 4oD Clips Catch Up Feed
+paths./4od/recently-added/videos.atom.get.tags.length: 1
+paths./4od/recently-added/videos.atom.get.tags[0]: discoveryresources
+paths./4od/recently-added/videos.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Clips_Catch_Up_Feed
+paths./atoz.atom.get.description: "Lists Channel 4 programmes alphabetically from
+  A to Z, providing the same \n  functionality and information as is available in
+  the A to Z section of the \n  Channel 4 Programmes page, http://www.channel4.com/programmes.\n\n
+  \ http://api.channel4.com/pmlsd/atoz.atom\n\n  http://api.channel4.com/pmlsd/atoz.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./atoz.atom.get.operationId: A_to_Z_Landing_Feed
+paths./atoz.atom.get.parameters.length: 1
+paths./atoz.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./atoz.atom.get.responses.200.description: Default response
+paths./atoz.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./atoz.atom.get.summary: A to Z Landing Feed
+paths./atoz.atom.get.tags.length: 1
+paths./atoz.atom.get.tags[0]: discoveryresources
+paths./atoz.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/DiscoveryResources/A_to_Z_Landing_Feed
+paths./atoz/{start_letter}.atom.get.description: |-
+  Lists Channel 4 programmes whose names begin with the associated letter.
+
+    http://api.channel4.com/pmlsd/atoz/start_letter.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+
+    http://api.channel4.com/pmlsd/atoz/a.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+paths./atoz/{start_letter}.atom.get.operationId: A_to_Z_Letter_Feed
+paths./atoz/{start_letter}.atom.get.parameters.length: 2
+paths./atoz/{start_letter}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./atoz/{start_letter}.atom.get.parameters[1].$ref: '#/parameters/start_letter'
+paths./atoz/{start_letter}.atom.get.responses.200.description: Default response
+paths./atoz/{start_letter}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./atoz/{start_letter}.atom.get.summary: A to Z Letter Feed
+paths./atoz/{start_letter}.atom.get.tags.length: 1
+paths./atoz/{start_letter}.atom.get.tags[0]: discoveryresources
+paths./atoz/{start_letter}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/DiscoveryResources/A_to_Z_Letter_Feed
+paths./atoz/{start_letter}/page-{pageno}.atom.get.description: |-
+  Lists Channel 4 programmes whose names begin with the associated letter.
+
+    http://api.channel4.com/pmlsd/atoz/start_letter/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+
+    http://api.channel4.com/pmlsd/atoz/a.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+paths./atoz/{start_letter}/page-{pageno}.atom.get.operationId: A_to_Z_Letter_Feed(2)
+paths./atoz/{start_letter}/page-{pageno}.atom.get.parameters.length: 3
+paths./atoz/{start_letter}/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./atoz/{start_letter}/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/start_letter'
+paths./atoz/{start_letter}/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./atoz/{start_letter}/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./atoz/{start_letter}/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./atoz/{start_letter}/page-{pageno}.atom.get.summary: A to Z Letter Feed(2)
+paths./atoz/{start_letter}/page-{pageno}.atom.get.tags.length: 1
+paths./atoz/{start_letter}/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./atoz/{start_letter}/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/DiscoveryResources/A_to_Z_Letter_Feed
+paths./brands/4od.atom.get.description: "Lists all Channel 4 programmes available
+  on 4oD.  By default, the programmes \n  are listed by title in alphabetical order
+  (case unsensitive).\n\n  http://api.channel4.com/pmlsd/brands/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/4od.atom.get.operationId: 4oD_Title_All_Brands_Feed
+paths./brands/4od.atom.get.parameters.length: 1
+paths./brands/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/4od.atom.get.responses.200.description: Default response
+paths./brands/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/4od.atom.get.summary: 4oD Title All Brands Feed
+paths./brands/4od.atom.get.tags.length: 1
+paths./brands/4od.atom.get.tags[0]: discoveryresources
+paths./brands/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Title_All_Brands_Feed
+paths./brands/4od/page-{pageno}.atom.get.description: "Lists all Channel 4 programmes
+  available on 4oD.  By default, the programmes \n  are listed by title in alphabetical
+  order (case unsensitive).\n\n  http://api.channel4.com/pmlsd/brands/4od/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/4od/page-{pageno}.atom.get.operationId: 4oD_Title_All_Brands_Feed(2)
+paths./brands/4od/page-{pageno}.atom.get.parameters.length: 2
+paths./brands/4od/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/4od/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/pageno'
+paths./brands/4od/page-{pageno}.atom.get.responses.200.description: Default response
+paths./brands/4od/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/4od/page-{pageno}.atom.get.summary: 4oD Title All Brands Feed(2)
+paths./brands/4od/page-{pageno}.atom.get.tags.length: 1
+paths./brands/4od/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./brands/4od/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Title_All_Brands_Feed
+paths./brands/4od/popular.atom.get.description: "Lists all Channel 4 programmes available
+  on 4oD by popularity considering \n  the data gathered within the last 7 days.\n\n
+  \ http://api.channel4.com/pmlsd/brands/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/4od/popular.atom.get.operationId: 4oD_Popular_All_Brands_Feed
+paths./brands/4od/popular.atom.get.parameters.length: 1
+paths./brands/4od/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/4od/popular.atom.get.responses.200.description: Default response
+paths./brands/4od/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/4od/popular.atom.get.summary: 4oD Popular All Brands Feed
+paths./brands/4od/popular.atom.get.tags.length: 1
+paths./brands/4od/popular.atom.get.tags[0]: discoveryresources
+paths./brands/4od/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Popular_All_Brands_Feed
+paths./brands/4od/popular/page-{pageno}.atom.get.description: "Lists all Channel 4
+  programmes available on 4oD by popularity considering \n  the data gathered within
+  the last 7 days.\n\n  http://api.channel4.com/pmlsd/brands/4od/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/4od/popular/page-{pageno}.atom.get.operationId: 4oD_Popular_All_Brands_Feed(2)
+paths./brands/4od/popular/page-{pageno}.atom.get.parameters.length: 2
+paths./brands/4od/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/4od/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/pageno'
+paths./brands/4od/popular/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./brands/4od/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/4od/popular/page-{pageno}.atom.get.summary: 4oD Popular All Brands Feed(2)
+paths./brands/4od/popular/page-{pageno}.atom.get.tags.length: 1
+paths./brands/4od/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./brands/4od/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Popular_All_Brands_Feed
+paths./brands/popular.atom.get.description: "Lists all Channel 4 programmes by popularity
+  considering the data gathered \n  within the last 7 days.\n\n  http://api.channel4.com/pmlsd/brands/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/popular.atom.get.operationId: Popular_Brands_Feed
+paths./brands/popular.atom.get.parameters.length: 1
+paths./brands/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/popular.atom.get.responses.200.description: Default response
+paths./brands/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/popular.atom.get.summary: Popular Brands Feed
+paths./brands/popular.atom.get.tags.length: 1
+paths./brands/popular.atom.get.tags[0]: discoveryresources
+paths./brands/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Popular_Brands_Feed
+paths./brands/popular/page-{pageno}.atom.get.description: "Lists all Channel 4 programmes
+  by popularity considering the data gathered \n  within the last 7 days.\n\n  http://api.channel4.com/pmlsd/brands/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/brands/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./brands/popular/page-{pageno}.atom.get.operationId: Popular_Brands_Feed(2)
+paths./brands/popular/page-{pageno}.atom.get.parameters.length: 2
+paths./brands/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./brands/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/pageno'
+paths./brands/popular/page-{pageno}.atom.get.responses.200.description: Default response
+paths./brands/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./brands/popular/page-{pageno}.atom.get.summary: Popular Brands Feed(2)
+paths./brands/popular/page-{pageno}.atom.get.tags.length: 1
+paths./brands/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./brands/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Popular_Brands_Feed
+paths./categories.atom.get.description: |-
+  Lists Channel 4 programmes by category (/ tag).
+
+    http://api.channel4.com/pmlsd/categories.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+
+    http://api.channel4.com/pmlsd/categories.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx
+paths./categories.atom.get.operationId: Categories_Landing_Feed
+paths./categories.atom.get.parameters.length: 1
+paths./categories.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories.atom.get.responses.200.description: Default response
+paths./categories.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories.atom.get.summary: Categories Landing Feed
+paths./categories.atom.get.tags.length: 1
+paths./categories.atom.get.tags[0]: discoveryresources
+paths./categories.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Categories_Landing_Feed
+paths./categories/{category}.atom.get.description: "Lists all Channel 4 programmes
+  associated with the specified category (tag).  \n  By default, the programmes are
+  listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}.atom.get.operationId: All_Programmes_by_TX_Date
+paths./categories/{category}.atom.get.parameters.length: 2
+paths./categories/{category}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}.atom.get.responses.200.description: Default response
+paths./categories/{category}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}.atom.get.summary: All Programmes by TX Date
+paths./categories/{category}.atom.get.tags.length: 1
+paths./categories/{category}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/4od.atom.get.description: "Lists all Channel 4oD programmes
+  associated with the specified category \n  (tag).By default, the programmes are
+  listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od.atom.get.operationId: 4oD_Programmes_by_TX_Date
+paths./categories/{category}/4od.atom.get.parameters.length: 2
+paths./categories/{category}/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od.atom.get.responses.200.description: Default response
+paths./categories/{category}/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od.atom.get.summary: 4oD Programmes by TX Date
+paths./categories/{category}/4od.atom.get.tags.length: 1
+paths./categories/{category}/4od.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/4od/page-{pageno}.atom.get.description: "Lists all Channel
+  4oD programmes associated with the specified category \n  (tag).By default, the programmes
+  are listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/4od/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_TX_Date(4)
+paths./categories/{category}/4od/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/4od/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/4od/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/4od/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od/page-{pageno}.atom.get.summary: 4oD Programmes by
+  TX Date(4)
+paths./categories/{category}/4od/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/4od/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/4od/popular.atom.get.description: "Lists all Channel
+  4oD most popular brands for the given category within the \n  last 7 days, in order
+  of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od/popular.atom.get.operationId: Most_Popular_Brands_Feed
+paths./categories/{category}/4od/popular.atom.get.parameters.length: 2
+paths./categories/{category}/4od/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od/popular.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od/popular.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/4od/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od/popular.atom.get.summary: Most Popular Brands Feed
+paths./categories/{category}/4od/popular.atom.get.tags.length: 1
+paths./categories/{category}/4od/popular.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD most popular brands for the given category within the \n  last 7
+  days, in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/4od/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.operationId: Most_Popular_Brands_Feed(5)
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.summary: Most Popular
+  Brands Feed(5)
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/4od/title.atom.get.description: "Lists all Channel 4oD
+  programmes associated with the specified category \n  (tag), alphanumerically in
+  order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/4od/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od/title.atom.get.operationId: 4oD_Programmes_by_Title
+paths./categories/{category}/4od/title.atom.get.parameters.length: 2
+paths./categories/{category}/4od/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od/title.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/4od/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od/title.atom.get.summary: 4oD Programmes by Title
+paths./categories/{category}/4od/title.atom.get.tags.length: 1
+paths./categories/{category}/4od/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag), alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/4od/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_Title(4)
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.summary: 4oD Programmes
+  by Title(4)
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/4od/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/channel/{channel}.atom.get.description: "Lists all Channel
+  4 programmes associated with the specified category (tag).  \n  By default, the
+  programmes are listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}.atom.get.operationId: All_Programmes_by_TX_Date(2)
+paths./categories/{category}/channel/{channel}.atom.get.parameters.length: 3
+paths./categories/{category}/channel/{channel}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}.atom.get.summary: All Programmes by
+  TX Date(2)
+paths./categories/{category}/channel/{channel}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/channel/{channel}/4od.atom.get.description: "Lists all
+  Channel 4oD programmes associated with the specified category \n  (tag).By default,
+  the programmes are listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od.atom.get.operationId: 4oD_Programmes_by_TX_Date(2)
+paths./categories/{category}/channel/{channel}/4od.atom.get.parameters.length: 3
+paths./categories/{category}/channel/{channel}/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od.atom.get.summary: 4oD Programmes
+  by TX Date(2)
+paths./categories/{category}/channel/{channel}/4od.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag).By default,
+  the programmes are listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_TX_Date(5)
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.parameters.length: 4
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.parameters[3].$ref: '#/parameters/pageno'
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.summary: 4oD
+  Programmes by TX Date(5)
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.description: "Lists
+  all Channel 4oD most popular brands for the given category within the \n  last 7
+  days, in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.operationId: Most_Popular_Brands_Feed(3)
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.parameters.length: 3
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.summary: Most
+  Popular Brands Feed(3)
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD most popular brands for the given category within the \n  last 7
+  days, in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.operationId: Most_Popular_Brands_Feed(7)
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.parameters.length: 4
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.parameters[3].$ref: '#/parameters/pageno'
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.summary: Most
+  Popular Brands Feed(7)
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag), alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.operationId: 4oD_Programmes_by_Title(2)
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.parameters.length: 3
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.summary: 4oD Programmes
+  by Title(2)
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag), alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/4od/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_Title(5)
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.parameters.length: 4
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.parameters[3].$ref: '#/parameters/pageno'
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.summary: 4oD
+  Programmes by Title(5)
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/4od/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.description: "Lists
+  all Channel 4 programmes associated with the specified category (tag).  \n  By default,
+  the programmes are listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.operationId: All_Programmes_by_TX_Date(5)
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.parameters.length: 4
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.parameters[3].$ref: '#/parameters/pageno'
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.summary: All
+  Programmes by TX Date(5)
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/channel/{channel}/title.atom.get.description: "Lists
+  all Channel 4 programmes associated with the specified category (tag), \n  alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/title.atom.get.operationId: All_Programmes_by_Title(2)
+paths./categories/{category}/channel/{channel}/title.atom.get.parameters.length: 3
+paths./categories/{category}/channel/{channel}/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/title.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/title.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/title.atom.get.summary: All Programmes
+  by Title(2)
+paths./categories/{category}/channel/{channel}/title.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.description: "Lists
+  all Channel 4 programmes associated with the specified category (tag), \n  alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/channel/[channel]/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.operationId: All_Programmes_by_Title(5)
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.parameters.length: 4
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/channel'
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.parameters[3].$ref: '#/parameters/pageno'
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.summary: All
+  Programmes by Title(5)
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/channel/{channel}/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./categories/{category}/derived/ad.atom.get.description: "Lists all Channel 4
+  programmes associated with the specified category (tag).  \n  By default, the programmes
+  are listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad.atom.get.operationId: All_Programmes_by_TX_Date(3)
+paths./categories/{category}/derived/ad.atom.get.parameters.length: 2
+paths./categories/{category}/derived/ad.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad.atom.get.summary: All Programmes by TX Date(3)
+paths./categories/{category}/derived/ad.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/derived/ad/4od.atom.get.description: "Lists all Channel
+  4oD programmes associated with the specified category \n  (tag).By default, the programmes
+  are listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od.atom.get.operationId: 4oD_Programmes_by_TX_Date(3)
+paths./categories/{category}/derived/ad/4od.atom.get.parameters.length: 2
+paths./categories/{category}/derived/ad/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od.atom.get.summary: 4oD Programmes by TX
+  Date(3)
+paths./categories/{category}/derived/ad/4od.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag).By default,
+  the programmes are listed in order of Transmission (TX) \n  Date, with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals/4oD.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_TX_Date(6)
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.summary: 4oD Programmes
+  by TX Date(6)
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_TX_Date
+paths./categories/{category}/derived/ad/4od/popular.atom.get.description: "Lists all
+  Channel 4oD most popular brands for the given category within the \n  last 7 days,
+  in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od/popular.atom.get.operationId: Most_Popular_Brands_Feed(4)
+paths./categories/{category}/derived/ad/4od/popular.atom.get.parameters.length: 2
+paths./categories/{category}/derived/ad/4od/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od/popular.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od/popular.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od/popular.atom.get.summary: Most Popular
+  Brands Feed(4)
+paths./categories/{category}/derived/ad/4od/popular.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od/popular.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD most popular brands for the given category within the \n  last 7
+  days, in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.operationId: Most_Popular_Brands_Feed(8)
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.summary: Most
+  Popular Brands Feed(8)
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/derived/ad/4od/title.atom.get.description: "Lists all
+  Channel 4oD programmes associated with the specified category \n  (tag), alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od/title.atom.get.operationId: 4oD_Programmes_by_Title(3)
+paths./categories/{category}/derived/ad/4od/title.atom.get.parameters.length: 2
+paths./categories/{category}/derived/ad/4od/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od/title.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od/title.atom.get.summary: 4oD Programmes
+  by Title(3)
+paths./categories/{category}/derived/ad/4od/title.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.description: "Lists
+  all Channel 4oD programmes associated with the specified category \n  (tag), alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/4od/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/religion-and-belief/4oD/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.operationId: 4oD_Programmes_by_Title(6)
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.summary: 4oD
+  Programmes by Title(6)
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/4od/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/4oD_Programmes_by_Title
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.description: "Lists
+  all Channel 4 programmes associated with the specified category (tag).  \n  By default,
+  the programmes are listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.operationId: All_Programmes_by_TX_Date(6)
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.summary: All Programmes
+  by TX Date(6)
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/derived/ad/title.atom.get.description: "Lists all Channel
+  4 programmes associated with the specified category (tag), \n  alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/title.atom.get.operationId: All_Programmes_by_Title(3)
+paths./categories/{category}/derived/ad/title.atom.get.parameters.length: 2
+paths./categories/{category}/derived/ad/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/title.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/title.atom.get.summary: All Programmes by
+  Title(3)
+paths./categories/{category}/derived/ad/title.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.description: "Lists
+  all Channel 4 programmes associated with the specified category (tag), \n  alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/derived/ad/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.operationId: All_Programmes_by_Title(6)
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.summary: All
+  Programmes by Title(6)
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/derived/ad/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./categories/{category}/page-{pageno}.atom.get.description: "Lists all Channel
+  4 programmes associated with the specified category (tag).  \n  By default, the
+  programmes are listed in order of Transmission (TX) Date, \n  with the most-recently-transmitted
+  programmes listed first.\n\n  http://api.channel4.com/pmlsd/categories/category/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/animals.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/page-{pageno}.atom.get.operationId: All_Programmes_by_TX_Date(4)
+paths./categories/{category}/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/page-{pageno}.atom.get.summary: All Programmes by TX
+  Date(4)
+paths./categories/{category}/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_TX_Date
+paths./categories/{category}/popular.atom.get.description: "Lists all Channel 4oD
+  most popular brands for the given category within the \n  last 7 days, in order
+  of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/popular.atom.get.operationId: Most_Popular_Brands_Feed(2)
+paths./categories/{category}/popular.atom.get.parameters.length: 2
+paths./categories/{category}/popular.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/popular.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/popular.atom.get.responses.200.description: Default response
+paths./categories/{category}/popular.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/popular.atom.get.summary: Most Popular Brands Feed(2)
+paths./categories/{category}/popular.atom.get.tags.length: 1
+paths./categories/{category}/popular.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/popular.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/popular/page-{pageno}.atom.get.description: "Lists all
+  Channel 4oD most popular brands for the given category within the \n  last 7 days,
+  in order of popularity.\n\n  http://api.channel4.com/pmlsd/categories/category/popular/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/comedy/4od/popular.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/popular/page-{pageno}.atom.get.operationId: Most_Popular_Brands_Feed(6)
+paths./categories/{category}/popular/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/popular/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/popular/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/popular/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/popular/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/popular/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/popular/page-{pageno}.atom.get.summary: Most Popular
+  Brands Feed(6)
+paths./categories/{category}/popular/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/popular/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/popular/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Most_Popular_Brands_Feed
+paths./categories/{category}/title.atom.get.description: "Lists all Channel 4 programmes
+  associated with the specified category (tag), \n  alphanumerically in order of Title.\n\n
+  \ http://api.channel4.com/pmlsd/categories/category/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/title.atom.get.operationId: All_Programmes_by_Title
+paths./categories/{category}/title.atom.get.parameters.length: 2
+paths./categories/{category}/title.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/title.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/title.atom.get.responses.200.description: Default response
+paths./categories/{category}/title.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/title.atom.get.summary: All Programmes by Title
+paths./categories/{category}/title.atom.get.tags.length: 1
+paths./categories/{category}/title.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/title.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./categories/{category}/title/page-{pageno}.atom.get.description: "Lists all
+  Channel 4 programmes associated with the specified category (tag), \n  alphanumerically
+  in order of Title.\n\n  http://api.channel4.com/pmlsd/categories/category/title/page-{pageno}.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/categories/history/title.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./categories/{category}/title/page-{pageno}.atom.get.operationId: All_Programmes_by_Title(4)
+paths./categories/{category}/title/page-{pageno}.atom.get.parameters.length: 3
+paths./categories/{category}/title/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./categories/{category}/title/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/category'
+paths./categories/{category}/title/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./categories/{category}/title/page-{pageno}.atom.get.responses.200.description: Default
+  response
+paths./categories/{category}/title/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./categories/{category}/title/page-{pageno}.atom.get.summary: All Programmes
+  by Title(4)
+paths./categories/{category}/title/page-{pageno}.atom.get.tags.length: 1
+paths./categories/{category}/title/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./categories/{category}/title/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/All_Programmes_by_Title
+paths./collections/{collection_name}.atom.get.description: "Collections are editorially
+  controlled groups of brands, series, episodes or \n  other collections used for
+  promotion and discovery of content. A SIMPLE \n  collection can contain an assortment
+  of Brands, Series, Episodes or Freeform \n  items. A GROUP collection contains other
+  collections.\n\n  http://api.channel4.com/pmlsd/collections/collection_name.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/collections/4od-home-promo/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./collections/{collection_name}.atom.get.operationId: Collections_Feed(2)
+paths./collections/{collection_name}.atom.get.parameters.length: 2
+paths./collections/{collection_name}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./collections/{collection_name}.atom.get.parameters[1].$ref: '#/parameters/collection_name'
+paths./collections/{collection_name}.atom.get.responses.200.description: Default response
+paths./collections/{collection_name}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./collections/{collection_name}.atom.get.summary: Collections Feed(2)
+paths./collections/{collection_name}.atom.get.tags.length: 1
+paths./collections/{collection_name}.atom.get.tags[0]: discoveryresources
+paths./collections/{collection_name}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Collections_Feed
+paths./collections/{collection_name}/4od.atom.get.description: "Collections are editorially
+  controlled groups of brands, series, episodes or \n  other collections used for
+  promotion and discovery of content. A SIMPLE \n  collection can contain an assortment
+  of Brands, Series, Episodes or Freeform \n  items. A GROUP collection contains other
+  collections.\n\n  http://api.channel4.com/pmlsd/collections/collection_name/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/collections/4od-home-promo/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./collections/{collection_name}/4od.atom.get.operationId: Collections_Feed
+paths./collections/{collection_name}/4od.atom.get.parameters.length: 2
+paths./collections/{collection_name}/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./collections/{collection_name}/4od.atom.get.parameters[1].$ref: '#/parameters/collection_name'
+paths./collections/{collection_name}/4od.atom.get.responses.200.description: Default
+  response
+paths./collections/{collection_name}/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./collections/{collection_name}/4od.atom.get.summary: Collections Feed
+paths./collections/{collection_name}/4od.atom.get.tags.length: 1
+paths./collections/{collection_name}/4od.atom.get.tags[0]: discoveryresources
+paths./collections/{collection_name}/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Collections_Feed
+paths./collections/{collection_name}/flattened.atom.get.description: "The Flattened
+  Collections Feed is only applicable for GROUP collections and \n  its purpose is
+  mainly return 3 items (BRAND, SERIES or EPSIODE) of each of \n  the simple collections
+  assigned to the GROUP.\n\n  http://api.channel4.com/pmlsd/collections/collection_name/flattened.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/collections/4od-home-promo/flattened/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./collections/{collection_name}/flattened.atom.get.operationId: Flattened_Collection_Feed(2)
+paths./collections/{collection_name}/flattened.atom.get.parameters.length: 2
+paths./collections/{collection_name}/flattened.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./collections/{collection_name}/flattened.atom.get.parameters[1].$ref: '#/parameters/collection_name'
+paths./collections/{collection_name}/flattened.atom.get.responses.200.description: Default
+  response
+paths./collections/{collection_name}/flattened.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./collections/{collection_name}/flattened.atom.get.summary: Flattened Collection
+  Feed(2)
+paths./collections/{collection_name}/flattened.atom.get.tags.length: 1
+paths./collections/{collection_name}/flattened.atom.get.tags[0]: discoveryresources
+paths./collections/{collection_name}/flattened.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Flattened_Collection_Feed
+paths./collections/{collection_name}/flattened/4od.atom.get.description: "The Flattened
+  Collections Feed is only applicable for GROUP collections and \n  its purpose is
+  mainly return 3 items (BRAND, SERIES or EPSIODE) of each of \n  the simple collections
+  assigned to the GROUP.\n\n  http://api.channel4.com/pmlsd/collections/collection_name/flattened/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/collections/4od-home-promo/flattened/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./collections/{collection_name}/flattened/4od.atom.get.operationId: Flattened_Collection_Feed
+paths./collections/{collection_name}/flattened/4od.atom.get.parameters.length: 2
+paths./collections/{collection_name}/flattened/4od.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./collections/{collection_name}/flattened/4od.atom.get.parameters[1].$ref: '#/parameters/collection_name'
+paths./collections/{collection_name}/flattened/4od.atom.get.responses.200.description: Default
+  response
+paths./collections/{collection_name}/flattened/4od.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./collections/{collection_name}/flattened/4od.atom.get.summary: Flattened Collection
+  Feed
+paths./collections/{collection_name}/flattened/4od.atom.get.tags.length: 1
+paths./collections/{collection_name}/flattened/4od.atom.get.tags[0]: discoveryresources
+paths./collections/{collection_name}/flattened/4od.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Flattened_Collection_Feed
+paths./coming-soon.atom.get.description: "Coming Soon feed display a list of episodes
+  coming soon to linear TV so that \n  I can promote new Channel 4 content.\n\n  http://api.channel4.com/pmlsd/coming-soon.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/coming-soon.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./coming-soon.atom.get.operationId: Coming_Soon_feed
+paths./coming-soon.atom.get.parameters.length: 1
+paths./coming-soon.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./coming-soon.atom.get.responses.200.description: Default response
+paths./coming-soon.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./coming-soon.atom.get.summary: Coming Soon feed
+paths./coming-soon.atom.get.tags.length: 1
+paths./coming-soon.atom.get.tags[0]: metadataresources
+paths./coming-soon.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Coming_Soon_feed
+paths./coming-soon/{category}.atom.get.description: "Coming Soon feed display a list
+  of episodes coming soon to linear TV so that \n  I can promote new Channel 4 content.\n\n
+  \ http://api.channel4.com/pmlsd/coming-soon/[category].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/coming-soon.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./coming-soon/{category}.atom.get.operationId: Coming_Soon_feed(2)
+paths./coming-soon/{category}.atom.get.parameters.length: 2
+paths./coming-soon/{category}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./coming-soon/{category}.atom.get.parameters[1].description: The category websafe_title
+  to filter the coming soon programmes on TV.
+paths./coming-soon/{category}.atom.get.parameters[1].in: path
+paths./coming-soon/{category}.atom.get.parameters[1].name: category
+paths./coming-soon/{category}.atom.get.parameters[1].required: true
+paths./coming-soon/{category}.atom.get.parameters[1].type: string
+paths./coming-soon/{category}.atom.get.responses.200.description: Default response
+paths./coming-soon/{category}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./coming-soon/{category}.atom.get.summary: Coming Soon feed(2)
+paths./coming-soon/{category}.atom.get.tags.length: 1
+paths./coming-soon/{category}.atom.get.tags[0]: metadataresources
+paths./coming-soon/{category}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Coming_Soon_feed
+paths./programme/{programme-id}.atom.get.description: "A feed containing all long-form
+  content currently or previously available \n  for a specified Programme Id. The
+  entries for the Programme feed contain \n  references to long-form assets for each
+  platform.\n\n  http://api.channel4.com/pmlsd/programme/[programme-id].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/programme/33881-001/4od.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./programme/{programme-id}.atom.get.operationId: Programme_Feed
+paths./programme/{programme-id}.atom.get.parameters.length: 2
+paths./programme/{programme-id}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./programme/{programme-id}.atom.get.parameters[1].description: The websafe programme
+  identifier for the episode for which you seek on-demand content
+paths./programme/{programme-id}.atom.get.parameters[1].in: path
+paths./programme/{programme-id}.atom.get.parameters[1].name: programme-id
+paths./programme/{programme-id}.atom.get.parameters[1].required: true
+paths./programme/{programme-id}.atom.get.parameters[1].type: string
+paths./programme/{programme-id}.atom.get.responses.200.description: Default response
+paths./programme/{programme-id}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./programme/{programme-id}.atom.get.summary: Programme Feed
+paths./programme/{programme-id}.atom.get.tags.length: 1
+paths./programme/{programme-id}.atom.get.tags[0]: metadataresources
+paths./programme/{programme-id}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/metadataresources/Programme_Feed
+paths./search.atom.get.description: "Lists all Channel 4 programmes where title (brand
+  name) matching the search \n  term. Matches are made from the beginning of individual
+  words in the title.\n\n  http://api.channel4.com/pmlsd/search.atom?q=search-term&apikey=xxx\n\n
+  \ http://api.channel4.com/pmlsd/search.atom?q=the+it+crowd&apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./search.atom.get.operationId: Search_Feed
+paths./search.atom.get.parameters.length: 2
+paths./search.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./search.atom.get.parameters[1].$ref: '#/parameters/q'
+paths./search.atom.get.responses.200.description: Default response
+paths./search.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./search.atom.get.summary: Search Feed
+paths./search.atom.get.tags.length: 1
+paths./search.atom.get.tags[0]: discoveryresources
+paths./search.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Search_Feed
+paths./search/{q}.atom.get.description: "Lists all Channel 4 programmes where title
+  (brand name) matching the search \n  term. Matches are made from the beginning of
+  individual words in the title.\n\n  http://api.channel4.com/pmlsd/search/search-term.atom?apikey=xxx\n\n
+  \ http://api.channel4.com/pmlsd/search.atom?q=the+it+crowd&apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./search/{q}.atom.get.operationId: Search_Feed(2)
+paths./search/{q}.atom.get.parameters.length: 2
+paths./search/{q}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./search/{q}.atom.get.parameters[1].$ref: '#/parameters/q1'
+paths./search/{q}.atom.get.responses.200.description: Default response
+paths./search/{q}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./search/{q}.atom.get.summary: Search Feed(2)
+paths./search/{q}.atom.get.tags.length: 1
+paths./search/{q}.atom.get.tags[0]: discoveryresources
+paths./search/{q}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Search_Feed
+paths./search/{q}/page-{pageno}.atom.get.description: "Lists all Channel 4 programmes
+  where title (brand name) matching the search \n  term. Matches are made from the
+  beginning of individual words in the title.\n\n  http://api.channel4.com/pmlsd/search/search-term/page-{pageno}.atom?apikey=xxx\n\n
+  \ http://api.channel4.com/pmlsd/search.atom?q=the+it+crowd&apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./search/{q}/page-{pageno}.atom.get.operationId: Search_Feed(4)
+paths./search/{q}/page-{pageno}.atom.get.parameters.length: 3
+paths./search/{q}/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./search/{q}/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/q1'
+paths./search/{q}/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./search/{q}/page-{pageno}.atom.get.responses.200.description: Default response
+paths./search/{q}/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./search/{q}/page-{pageno}.atom.get.summary: Search Feed(4)
+paths./search/{q}/page-{pageno}.atom.get.tags.length: 1
+paths./search/{q}/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./search/{q}/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Search_Feed
+paths./search/page-{pageno}.atom.get.description: "Lists all Channel 4 programmes
+  where title (brand name) matching the search \n  term. Matches are made from the
+  beginning of individual words in the title.\n\n  http://api.channel4.com/pmlsd/search/page-{pageno}.atom?q=search-term&apikey=xxx\n\n
+  \ http://api.channel4.com/pmlsd/search.atom?q=the+it+crowd&apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./search/page-{pageno}.atom.get.operationId: Search_Feed(3)
+paths./search/page-{pageno}.atom.get.parameters.length: 3
+paths./search/page-{pageno}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./search/page-{pageno}.atom.get.parameters[1].$ref: '#/parameters/q'
+paths./search/page-{pageno}.atom.get.parameters[2].$ref: '#/parameters/pageno'
+paths./search/page-{pageno}.atom.get.responses.200.description: Default response
+paths./search/page-{pageno}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./search/page-{pageno}.atom.get.summary: Search Feed(3)
+paths./search/page-{pageno}.atom.get.tags.length: 1
+paths./search/page-{pageno}.atom.get.tags[0]: discoveryresources
+paths./search/page-{pageno}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/Search_Feed
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.description: "EPG Information of
+  daily broadcast content aired per channels, according to \n  broadcast date\n\n
+  \ http://api.channel4.com/pmlsd/tv-listings/daily/[yyyy]/[mm]/[dd].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/tv-listings/daily/2010/11/28.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.operationId: TV_Listings_Feed
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.parameters.length: 4
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.parameters[1].$ref: '#/parameters/yyyy'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.parameters[2].$ref: '#/parameters/mm'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.parameters[3].$ref: '#/parameters/dd'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.responses.200.description: Default
+  response
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.summary: TV Listings Feed
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.tags.length: 1
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.tags[0]: discoveryresources
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/TV_Listings_Feed
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.description: "EPG Information
+  of daily broadcast content aired per channels, according to \n  broadcast date\n\n
+  \ http://api.channel4.com/pmlsd/tv-listings/daily/[yyyy]/[mm]/[dd]/[channel].atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx\n\n
+  \ http://api.channel4.com/pmlsd/tv-listings/daily/2010/11/28.atom?apikey=xxxxxxxxxxxxxxxxxxxxxxxx"
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.operationId: TV_Listings_Feed(2)
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters.length: 5
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[0].$ref: '#/parameters/platform'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[1].$ref: '#/parameters/yyyy'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[2].$ref: '#/parameters/mm'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[3].$ref: '#/parameters/dd'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].description: The
+  EPG for a specific channel (c4, e4, m4, 4m, f4, 4s)
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum.length: 6
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[0]: c4
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[1]: f4
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[2]: e4
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[3]: m4
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[4]: 4m
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].enum[5]: 4s
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].in: path
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].name: channel
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].required: true
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.parameters[4].type: string
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.responses.200.description: Default
+  response
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.responses.200.schema.$ref: '#/definitions/atom'
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.summary: TV Listings
+  Feed(2)
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.tags.length: 1
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.tags[0]: discoveryresources
+paths./tv-listings/daily/{yyyy}/{mm}/{dd}/{channel}.atom.get.x-documentation: http://developer.channel4.com/docs/read/programmesapiguide/discoveryresources/TV_Listings_Feed
+produces.length: 1
+produces[0]: application/xml
+schemes.length: 2
+schemes[0]: http
+schemes[1]: https
+security.length: 1
+security[0].apikey.length: 0
+securityDefinitions.apikey.in: query
+securityDefinitions.apikey.name: apikey
+securityDefinitions.apikey.type: apiKey
+swagger: "2.0"
+tags.length: 2
+tags[0].description: Channel 4 data feeds
+tags[0].name: discoveryresources
+tags[1].description: Channel 4 metadata
+tags[1].name: metadataresources
