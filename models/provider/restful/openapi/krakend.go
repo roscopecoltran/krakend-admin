@@ -17,6 +17,19 @@ import (
 
 	"github.com/Machiel/slugify"
 	"github.com/dimiro1/flatmap"
+	// "github.com/generaltso/linguist/tokenizer"
+	// "github.com/emirpasic/gods/utils"
+	// "github.com/SamuelKupferschmid/nbc"
+	// "github.com/AlasdairF/Classifier"
+	// "github.com/lytics/multibayes"
+	// "github.com/mgudipati/urlclassify"
+
+	// "github.com/sjwhitworth/golearn/base"
+	// "github.com/sjwhitworth/golearn/evaluation"
+	// "github.com/sjwhitworth/golearn/knn"
+
+	// "github.com/russellsimpkins/ensemble"
+
 	"github.com/gebv/typed"
 	"github.com/k0kubun/pp"
 	"github.com/paulvollmer/yaml2json/src"
@@ -56,18 +69,22 @@ type SwaggerExport struct {
 	ConcurrentCalls   int               `default:"1" json:"concurrent_calls" yaml:"concurrent_calls" toml:"concurrent_calls"`
 	Mapping           map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty" toml:"mapping,omitempty"`
 	Extra             struct {
-		Slug      string   `json:"slug,omitempty" yaml:"slug,omitempty" toml:"slug,omitempty"`
-		Bodies    []string `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
-		Encodings []string `json:"-" yaml:"-" toml:"-"`
-		FormDatas []string `json:"form_data,omitempty" yaml:"form_data,omitempty" toml:"form_data,omitempty"`
-		Produce   string   `json:"-" yaml:"-" toml:"-"`
-		Consumes  []string `json:"consumes,omitempty" yaml:"consumes,omitempty" toml:"consumes,omitempty"`
-		Produces  []string `json:"produces,omitempty" yaml:"produces,omitempty" toml:"produces,omitempty"`
-		Consume   string   `json:"-" yaml:"-" toml:"-"`
-		Hosts     []string `json:"hosts,omitempty" yaml:"hosts,omitempty" toml:"hosts,omitempty"`
-		Topics    []string `json:"topics,omitempty" yaml:"topics,omitempty" toml:"topics,omitempty"`
-		Schemes   []string `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
-		LocalFile string   `json:"-" yaml:"-" toml:"-"`
+		Provider    string            `json:"provider,omitempty" yaml:"provider,omitempty" toml:"provider,omitempty"` // x-providerName
+		Description string            `json:"description,omitempty" yaml:"description,omitempty" toml:"description,omitempty"`
+		Version     string            `json:"version,omitempty" yaml:"version,omitempty" toml:"version,omitempty"`
+		Slug        string            `json:"slug,omitempty" yaml:"slug,omitempty" toml:"slug,omitempty"`
+		Bodies      []string          `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
+		Encodings   []string          `json:"-" yaml:"-" toml:"-"`
+		FormDatas   []string          `json:"form_data,omitempty" yaml:"form_data,omitempty" toml:"form_data,omitempty"`
+		Produce     string            `json:"-" yaml:"-" toml:"-"`
+		Consumes    []string          `json:"consumes,omitempty" yaml:"consumes,omitempty" toml:"consumes,omitempty"`
+		Produces    []string          `json:"produces,omitempty" yaml:"produces,omitempty" toml:"produces,omitempty"`
+		Consume     string            `json:"-" yaml:"-" toml:"-"`
+		Mapping     map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty" toml:"mapping,omitempty"`
+		Hosts       []string          `json:"hosts,omitempty" yaml:"hosts,omitempty" toml:"hosts,omitempty"`
+		Topics      []string          `json:"topics,omitempty" yaml:"topics,omitempty" toml:"topics,omitempty"`
+		Schemes     []string          `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
+		LocalFile   string            `json:"-" yaml:"-" toml:"-"`
 	} `json:"extra_config" yaml:"extra_config" toml:"extra_config"`
 }
 
@@ -153,6 +170,8 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 		fmt.Println("error: ", err)
 		return
 	}
+
+	// fmt.Printf("%#v\n", tokenizer.Tokenize(indexData))
 
 	dotSlugifier := slugify.New(slugify.Configuration{ReplaceCharacter: '-'})
 	var jsonRaw json.RawMessage
@@ -251,6 +270,15 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				backend.Extra.Schemes = schemes
 
 				var tags []string
+
+				providerName := findKeyValue("info.x-providerName", fm)
+				backend.Extra.Provider = providerName
+
+				apiDescription := findKeyValue("info.description", fm)
+				backend.Extra.Description = apiDescription
+
+				apiVersion := findKeyValue("info.version", fm) // strconv.ParseFloat(findKeyValue("info.version", fm), 64)
+				backend.Extra.Version = apiVersion
 
 				categoriesKeyLength = findKeyValue("info.x-apisguru-categories.length", fm)
 				categoriesKeyLengthInt, _ = strconv.Atoi(categoriesKeyLength)
@@ -388,7 +416,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				}
 				if len(fieldList) > 0 {
 					backend.Whitelist = removeDuplicates(fieldList)
-					backend.Mapping = sliceToStrMap(removeDuplicates(fieldList))
+					backend.Extra.Mapping = sliceToStrMap(removeDuplicates(fieldList))
 					if debug {
 						pp.Print(backend.Whitelist)
 					}
@@ -450,6 +478,8 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				swaggerExports.Backends[k].QueryStringParams = removeDuplicates(queryStrList)
 			}
 
+			// utils.Sort(swaggerExports.Backends[k].Extra, utils.StringComparator)
+
 		}
 		if len(swaggerExports.Backends) > 0 && debug {
 			fmt.Println("SwaggerExports: ")
@@ -458,6 +488,11 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 		if debug {
 			fmt.Println("Paths for swagger file: ", swaggerFile)
 		}
+
+		if err := configor.Dump(fm, "flatten", "json,yaml,toml", fmt.Sprintf("%s/flatten", prefixPath)); err != nil {
+			log.Fatal("ERROR while dumping the config struct:", err.Error())
+		}
+
 		if err := configor.Dump(swaggerExports, "backends", "json,yaml,toml", fmt.Sprintf("%s/krakend", prefixPath)); err != nil {
 			log.Fatal("ERROR while dumping the config struct:", err.Error())
 		}

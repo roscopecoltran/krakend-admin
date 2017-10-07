@@ -49,6 +49,12 @@ var defaultConfigFiles = []string{
 }
 
 var defaultModels = []interface{}{
+	&i18n_database.Translation{},
+	&classify.Category{}, &classify.Tag{}, &classify.Topic{},
+	&gateway.Backend{}, &gateway.Endpoint{}, &gateway.Service{},
+}
+
+var defaultModelsFull = []interface{}{
 
 	&i18n_database.Translation{},
 	&help.QorHelpEntry{},
