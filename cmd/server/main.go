@@ -30,6 +30,10 @@ var (
 	swaggerFile = flag.String("swagger", "./shared/testdata/specs/swagger/2.0/github-api-v3.yaml", "location of the swagger spec file")
 	annotate    = flag.Bool("options", true, "include (google.api.http) options for grpc-gateway")
 
+	launchAdminUI    = flag.Bool("admin-ui", false, "start the web-ui administration server.")
+	convertOpenAPI   = flag.Bool("convert-openapi", false, "convert openapi files (source apis-guru) to krakend backends definitions.")
+	keepDownloadList = flag.Bool("keep-dl-list", false, "reset the previously generated download list.")
+
 	definitionsDir = flag.String("d", "./shared/specs/definitions", "filepath to the definitions yaml files")
 	pathsDir       = flag.String("p", "./shared/specs/paths", "filepath to the paths yaml files")
 	responsesDir   = flag.String("r", "./shared/specs/responses", "filepath to the responses yaml files")
@@ -40,6 +44,7 @@ func init() {
 	strSlugifier = slugify.New(slugify.Configuration{ReplaceCharacter: '-'})
 }
 
+// nb. all need to be re-organized per command with cobra !
 func main() {
 
 	if err := configor.Load(&Cfg, defaultConfigFiles...); err != nil {
@@ -48,17 +53,19 @@ func main() {
 
 	flag.Parse()
 
-	f, err := os.OpenFile(fmt.Sprintf("%s", *downloadCsv), os.O_RDWR, 0666)
-	if err != nil {
-		log.Fatal(err)
-	}
-	f.Truncate(0)
-	f.Seek(0, 0)
-	if err := f.Close(); err != nil {
-		log.Fatal(err)
+	if *keepDownloadList == false {
+		f, err := os.OpenFile(fmt.Sprintf("%s", *downloadCsv), os.O_RDWR, 0666)
+		if err != nil {
+			log.Fatal(err)
+		}
+		f.Truncate(0)
+		f.Seek(0, 0)
+		if err := f.Close(); err != nil {
+			log.Fatal(err)
+		}
 	}
 
-	db.Store.Admin.Disabled = false
+	db.Store.Admin.Disabled = *launchAdminUI
 	db.Store.Gorm.IsTruncate = true
 	db.Store.Gorm.IsAutoMigrate = true
 
@@ -86,51 +93,56 @@ func main() {
 		}
 	}
 
-	// Create a wait group to report to and a work channel that takes URLs
-	wg := new(sync.WaitGroup)
-	work := make(chan string)
+	if *convertOpenAPI {
 
-	// Create workers and start goroutines listening to work channel
-	numWorkers := 25
-	wg.Add(numWorkers)
-	for i := 1; i <= numWorkers; i++ {
-		go download.Worker(work, wg)
-	}
+		// Create a wait group to report to and a work channel that takes URLs
+		wg := new(sync.WaitGroup)
+		work := make(chan string)
 
-	if len(Cfg.Specs.Registry) > 0 {
-		if err := createNewApiGuruProfile(Cfg.Specs.Registry); err != nil {
-			fmt.Println("error occured while importing apis-guru profile.")
+		// Create workers and start goroutines listening to work channel
+		numWorkers := 25
+		wg.Add(numWorkers)
+		for i := 1; i <= numWorkers; i++ {
+			go download.Worker(work, wg)
 		}
-	}
 
-	// Add URLs to work channel from CSV
-	download.AddWorkFromCsv(work, fmt.Sprintf("%v", *downloadCsv))
-
-	if ok := db.Store.Gorm.DB.NewRecord(Cfg.Krakend); ok {
-		db.Store.Gorm.DB.Create(&Cfg.Krakend)
-	}
-
-	for _, e := range Cfg.Krakend.Endpoints {
-		if ok := db.Store.Gorm.DB.NewRecord(e); ok {
-			db.Store.Gorm.DB.Create(&e)
-		}
-		for _, b := range e.Backend {
-			if ok := db.Store.Gorm.DB.NewRecord(b); ok {
-				db.Store.Gorm.DB.Create(&b)
+		if len(Cfg.Specs.Registry) > 0 {
+			if err := createNewApiGuruProfile(Cfg.Specs.Registry); err != nil {
+				fmt.Println("error occured while importing apis-guru profile.")
 			}
 		}
-	}
 
-	// Wait for workers to finish
-	close(work)
-	wg.Wait()
+		// Add URLs to work channel from CSV
+		download.AddWorkFromCsv(work, fmt.Sprintf("%v", *downloadCsv))
 
-	if len(Cfg.Specs.Registry) > 0 {
-		restful.ParseSpecs(Cfg.Specs.Registry, Cfg.Patterns.Ignore)
+		if ok := db.Store.Gorm.DB.NewRecord(Cfg.Krakend); ok {
+			db.Store.Gorm.DB.Create(&Cfg.Krakend)
+		}
+
+		for _, e := range Cfg.Krakend.Endpoints {
+			if ok := db.Store.Gorm.DB.NewRecord(e); ok {
+				db.Store.Gorm.DB.Create(&e)
+			}
+			for _, b := range e.Backend {
+				if ok := db.Store.Gorm.DB.NewRecord(b); ok {
+					db.Store.Gorm.DB.Create(&b)
+				}
+			}
+		}
+
+		// Wait for workers to finish
+		close(work)
+		wg.Wait()
+
+		if len(Cfg.Specs.Registry) > 0 {
+			restful.ParseSpecs(Cfg.Specs.Registry, Cfg.Patterns.Ignore)
+		}
 	}
 
 	fmt.Println("Done.")
 
-	startAdminUI()
+	if *launchAdminUI {
+		startAdminUI()
+	}
 
 }
