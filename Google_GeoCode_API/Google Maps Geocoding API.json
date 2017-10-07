@@ -1,0 +1,106 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The Google Maps Geocoding API is a service that provides geocoding and reverse geocoding of addresses. Convert addresses into geographic coordinates (geocoding), which you can use to place markers or position the map. This API also allows you to convert geographic coordinates into an address (reverse geocoding).\n\nGeocoding is the process of converting addresses (like a street address) into geographic coordinates (like latitude and longitude), which you can use to place markers on a map, or position the map.\nReverse geocoding is the process of converting geographic coordinates into a human-readable address. The Google Maps Geocoding API's reverse geocoding service also lets you find the address for a given place ID.\n\nDetailed documentation for the Google Maps Geocoding API is available at:\nhttps://developers.google.com/maps/documentation/geocoding/start",
+    "version" : "1.0",
+    "title" : "Google Maps Geocoding API"
+  },
+  "host" : "maps.googleapis.com",
+  "basePath" : "/maps/api",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/geocode/{outputFormat}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "This key is required to track the quota usage.",
+          "required" : true,
+          "type" : "string",
+          "default" : "AIzaSyDsP0UNTyLWDHTjjSGHq5cRYAEmdlxvoEg"
+        }, {
+          "name" : "location_type",
+          "in" : "query",
+          "description" : "For Reverse Geocoding: \nOne or more location types, separated by a pipe (|). Specifying a type will restrict the results to this type. If multiple types are specified, the API will return all addresses that match any of the types. \nThe following values are supported:\n\"ROOFTOP\" restricts the results to addresses for which we have location information accurate down to street address precision.\n\"RANGE_INTERPOLATED\" restricts the results to those that reflect an approximation (usually on a road) interpolated between two precise points (such as intersections). An interpolated range generally indicates that rooftop geocodes are unavailable for a street address.\n\"GEOMETRIC_CENTER\" restricts the results to geometric centers of a location such as a polyline (for example, a street) or polygon (region).\n\"APPROXIMATE\" restricts the results to those that are characterized as approximate.\nIf both result_type and location_type restrictions are present then the API will return only those results that matches both the result_type and the location_type restrictions.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "result_type",
+          "in" : "query",
+          "description" : "For Reverse Geocoding: \nOne or more address types, separated by a pipe (|). Examples of address types: country, street_address, postal_code. For a full list of allowable values, see https://developers.google.com/maps/documentation/geocoding/intro#Types.\nSpecifying a type will restrict the results to this type. If multiple types are specified, the API will return all addresses that match any of the types. Note: This parameter is available only for requests that include an API key or a client ID.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "place_id",
+          "in" : "query",
+          "description" : "For Reverse Geocoding:\nThe place ID of the place for which you wish to obtain the human-readable address. The place ID is a unique identifier that can be used with other Google APIs. For example, you can use the placeID returned by the Google Maps Roads API to get the address for a snapped point. For more information about place IDs, see https://developers.google.com/places/place-id.\nEither latlng or place_id must be provided",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "latlng",
+          "in" : "query",
+          "description" : "For Reverse Geocoding:\nThe latitude and longitude values specifying the location for which you wish to obtain the closest, human-readable address.\nEither latlng or place_id must be provided",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "For Geocoding:\nThe region code, specified as a ccTLD (\"top-level domain\") two-character value. This parameter will only influence, not fully restrict, results from the geocoder. For more information, see https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "The language in which to return results.\nSee https://developers.google.com/maps/faq#languagesupport.\nGoogle often updates the supported languages, so this list may not be exhaustive.\nIf language is not supplied, the geocoder attempts to use the preferred language as specified in the Accept-Language header, or the native language of the domain from which the request is sent.\nThe geocoder does its best to provide a street address that is readable for both the user and locals. To achieve that goal, it returns street addresses in the local language, transliterated to a script readable by the user if necessary, observing the preferred language. All other addresses are returned in the preferred language. Address components are all returned in the same language, which is chosen from the first component.\nIf a name is not available in the preferred language, the geocoder uses the closest match.\nThe preferred language has a small influence on the set of results that the API chooses to return, and the order in which they are returned. The geocoder interprets abbreviations differently depending on language, such as the abbreviations for street types, or synonyms that may be valid in one language but not in another. For example, utca and tér are synonyms for street in Hungarian.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "bounds",
+          "in" : "query",
+          "description" : "For Geocoding:\nThe bounding box of the viewport within which to bias geocode results more prominently. This parameter will only influence, not fully restrict, results from the geocoder. For more information, see https://developers.google.com/maps/documentation/geocoding/intro#Viewports",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "components",
+          "in" : "query",
+          "description" : "For Geocoding:\nA component filter for which you wish to obtain a geocode. See Component Filtering for more information. The components filter will also be accepted as an optional parameter if an address is provided. Either address or component must be provided",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "address",
+          "in" : "query",
+          "description" : "For Geocoding:\nThe street address that you want to geocode, in the format used by the national postal service of the country concerned. Additional address elements such as business names and unit, suite or floor numbers should be avoided. Please refer to https://developers.google.com/maps/faq#geocoder_queryformat for additional guidance. Either address or component must be provided.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The \"status\" field within the Geocoding response object contains the status of the request, and may contain debugging information to help you track down why geocoding is not working. The \"status\" field may contain the following values:\n\n\"OK\" indicates that no errors occurred; the address was successfully parsed and at least one geocode was returned.\n\"ZERO_RESULTS\" indicates that the geocode was successful but returned no results. This may occur if the geocoder was passed a non-existent address.\n\"OVER_QUERY_LIMIT\" indicates that you are over your quota.\n\"REQUEST_DENIED\" indicates that your request was denied.\n\"INVALID_REQUEST\" generally indicates that the query (address, components or latlng) is missing.\n\"UNKNOWN_ERROR\" indicates that the request could not be processed due to a server error. The request may succeed if you try again.\n\nWhen the geocoder returns a status code other than OK, there may be an additional error_message field within the Geocoding response object. This field contains more detailed information about the reasons behind the given status code.",
+            "examples" : {
+              "application/json" : "{\n   \"results\" : [\n      {\n         \"address_components\" : [\n            {\n               \"long_name\" : \"1600\",\n               \"short_name\" : \"1600\",\n               \"types\" : [ \"street_number\" ]\n            },\n            {\n               \"long_name\" : \"Amphitheatre Pkwy\",\n               \"short_name\" : \"Amphitheatre Pkwy\",\n               \"types\" : [ \"route\" ]\n            },\n            {\n               \"long_name\" : \"Mountain View\",\n               \"short_name\" : \"Mountain View\",\n               \"types\" : [ \"locality\", \"political\" ]\n            },\n            {\n               \"long_name\" : \"Santa Clara County\",\n               \"short_name\" : \"Santa Clara County\",\n               \"types\" : [ \"administrative_area_level_2\", \"political\" ]\n            },\n            {\n               \"long_name\" : \"California\",\n               \"short_name\" : \"CA\",\n               \"types\" : [ \"administrative_area_level_1\", \"political\" ]\n            },\n            {\n               \"long_name\" : \"United States\",\n               \"short_name\" : \"US\",\n               \"types\" : [ \"country\", \"political\" ]\n            },\n            {\n               \"long_name\" : \"94043\",\n               \"short_name\" : \"94043\",\n               \"types\" : [ \"postal_code\" ]\n            }\n         ],\n         \"formatted_address\" : \"1600 Amphitheatre Parkway, Mountain View, CA 94043, USA\",\n         \"geometry\" : {\n            \"location\" : {\n               \"lat\" : 37.4224764,\n               \"lng\" : -122.0842499\n            },\n            \"location_type\" : \"ROOFTOP\",\n            \"viewport\" : {\n               \"northeast\" : {\n                  \"lat\" : 37.4238253802915,\n                  \"lng\" : -122.0829009197085\n               },\n               \"southwest\" : {\n                  \"lat\" : 37.4211274197085,\n                  \"lng\" : -122.0855988802915\n               }\n            }\n         },\n         \"place_id\" : \"ChIJ2eUgeAK6j4ARbn5u_wAGqWA\",\n         \"types\" : [ \"street_address\" ]\n      }\n   ],\n   \"status\" : \"OK\"\n}",
+              "application/xml" : "<GeocodeResponse>\n <status>OK</status>\n <result>\n  <type>street_address</type>\n  <formatted_address>1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA</formatted_address>\n  <address_component>\n   <long_name>1600</long_name>\n   <short_name>1600</short_name>\n   <type>street_number</type>\n  </address_component>\n  <address_component>\n   <long_name>Amphitheatre Pkwy</long_name>\n   <short_name>Amphitheatre Pkwy</short_name>\n   <type>route</type>\n  </address_component>\n  <address_component>\n   <long_name>Mountain View</long_name>\n   <short_name>Mountain View</short_name>\n   <type>locality</type>\n   <type>political</type>\n  </address_component>\n  <address_component>\n   <long_name>San Jose</long_name>\n   <short_name>San Jose</short_name>\n   <type>administrative_area_level_3</type>\n   <type>political</type>\n  </address_component>\n  <address_component>\n   <long_name>Santa Clara</long_name>\n   <short_name>Santa Clara</short_name>\n   <type>administrative_area_level_2</type>\n   <type>political</type>\n  </address_component>\n  <address_component>\n   <long_name>California</long_name>\n   <short_name>CA</short_name>\n   <type>administrative_area_level_1</type>\n   <type>political</type>\n  </address_component>\n  <address_component>\n   <long_name>United States</long_name>\n   <short_name>US</short_name>\n   <type>country</type>\n   <type>political</type>\n  </address_component>\n  <address_component>\n   <long_name>94043</long_name>\n   <short_name>94043</short_name>\n   <type>postal_code</type>\n  </address_component>\n  <geometry>\n   <location>\n    <lat>37.4217550</lat>\n    <lng>-122.0846330</lng>\n   </location>\n   <location_type>ROOFTOP</location_type>\n   <viewport>\n    <southwest>\n     <lat>37.4188514</lat>\n     <lng>-122.0874526</lng>\n    </southwest>\n    <northeast>\n     <lat>37.4251466</lat>\n     <lng>-122.0811574</lng>\n    </northeast>\n   </viewport>\n  </geometry>\n  <place_id>ChIJ2eUgeAK6j4ARbn5u_wAGqWA</place_id>\n </result>\n</GeocodeResponse>"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "outputFormat",
+        "in" : "path",
+        "description" : "outputFormat may be either of the following values:\n\njson (recommended) indicates output in JavaScript Object Notation (JSON); or\nxml indicates output in XML",
+        "required" : true,
+        "type" : "string",
+        "default" : ""
+      } ]
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]

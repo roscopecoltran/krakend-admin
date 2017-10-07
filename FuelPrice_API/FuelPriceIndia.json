@@ -1,0 +1,67 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Fetch latest fuel prices for major Indian cities",
+    "version" : "1.0",
+    "title" : "FuelPriceIndia"
+  },
+  "host" : "fuelpriceindia.herokuapp.com",
+  "basePath" : "",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/main/city_list" : {
+      "get" : {
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "StringSchemaProperty"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"cities\": [\n    \"Bengaluru\",\n    \"Pune\",\n    \"Delhi\",\n    \"Mumbai\",\n    \"Chennai\",\n    \"Hyderabad\",\n    \"Chandigarh\",\n    \"Kolkata\",\n    \"Ahmedabad\",\n    \"Coimbatore\",\n    \"Indore\",\n    \"Jaipur\",\n    \"Ludhiana\",\n    \"Mangaluru\",\n    \"Mysore\",\n    \"Vizag\",\n    \"Goa\",\n    \"Nagpur\",\n    \"Trivandrum\",\n    \"Udaipur\",\n    \"Guntur\",\n    \"Surat\",\n    \"Bhopal\",\n    \"Lucknow\",\n    \"Guwahati\"\n  ]\n}"
+            }
+          }
+        }
+      }
+    },
+    "/main/{city}/{fuel_type}/price" : {
+      "get" : {
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "StringSchemaProperty"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"city\": \"Chennai\",\n  \"price\": 69.84\n}"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "city",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "fuel_type",
+        "in" : "path",
+        "description" : "petrol or diesel",
+        "required" : true,
+        "type" : "string",
+        "default" : ""
+      } ]
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

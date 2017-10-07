@@ -1,0 +1,103 @@
+#%RAML 0.8
+title: Chennai
+version: v1
+baseUri: "http://52.36.211.72:5555/gateway/Chennai/v1"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/bus/routenumbers: 
+    displayName: busRouteNumber
+    description: Returns the bus number for given source and destination specified in the method parameter
+    get: 
+        description: Retrieve a single data of bus details with respect to the method parameter
+        queryParameters: 
+            destination: 
+                description: ":destination is a place // required parameter"
+                type: string
+                required: true
+                repeat: false
+            source: 
+                description: ":source is a place of start // required parameter"
+                type: string
+                required: true
+                repeat: false
+        protocols: [HTTP]
+/bus/routes: 
+    displayName: busRoute
+    description: Returns a list of bus route data in resource
+    uriParameters: 
+        id: 
+            description: ":id is route identifier"
+            type: string
+            required: false
+            repeat: false
+    get: 
+        description: Retrieve a single data with respect to the routeid // no required parameter
+        protocols: [HTTP]
+/cities: 
+    displayName: city
+    description: Returns available cities with respect to the resource parameter given
+    uriParameters: 
+        image: 
+            description: ":image is a image identifier "
+            type: string
+            required: false
+            repeat: false
+        city: 
+            description: ":city is a city identifier"
+            type: string
+            required: false
+            repeat: false
+    get: 
+        description: Retrieves a list of city name and images with respect to resource parameter // anyone required parameter
+        protocols: [HTTP]
+/train/routes: 
+    displayName: trainroutes
+    description: Returns a list of train routes in resource
+    get: 
+        description: Retrieves a single data with respect to the train id and list of train routes// no required parameter
+        protocols: [HTTP]
+/train/time: 
+    displayName: traintiming
+    description: Returns the train with respect to time  for given source and destination specified in the method parameter
+    get: 
+        description: Retrieve a single data of train details with respect to the method parameter
+        queryParameters: 
+            destination: 
+                description: ":destination is a place // required parameter"
+                type: string
+                required: true
+                repeat: false
+            source: 
+                description: ":source is a place of start // required parameter"
+                type: string
+                required: true
+                repeat: false
+        protocols: [HTTP]
+/bus/busdetails: 
+    displayName: busdetails
+    description: Resource end point for the specific bus route
+    uriParameters: 
+        id: 
+            description: ":id is a bus identifier"
+            type: string
+            required: false
+            repeat: false
+    get: 
+        description: Retrieve a single event of bus data by given id
+        protocols: [HTTP]
+documentation: 
+    - 
+        title: API Description
+        content: API provides the interesting location images, bus routes, train routes.

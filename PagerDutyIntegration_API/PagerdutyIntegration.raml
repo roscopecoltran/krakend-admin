@@ -1,0 +1,176 @@
+#%RAML 0.8
+title: PagerdutyIntegration
+version: "1.0"
+baseUri: "https://events.pagerduty.com/v2"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/enqueue: 
+    displayName: Event
+    description: |
+        To use the Events API v2, you need to set up an appropriate integration endpoint in PagerDuty. If you do not already have an integration, you can create one from any PagerDuty service. When creating the integration, select “Events API v2” for “Integration Type.”
+        
+        You will need to include the integration key for your new integration, as a routing_key in the event payload.
+        
+        Further Reading @ https://v2.developer.pagerduty.com/docs/events-api-v2
+    post: 
+        body: 
+            application/json: 
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "definitions": {},
+                        "id": "http://example.com/example.json",
+                        "properties": {
+                            "client": {
+                                "id": "/properties/client",
+                                "type": "string"
+                            },
+                            "client_url": {
+                                "id": "/properties/client_url",
+                                "type": "string"
+                            },
+                            "dedup_key": {
+                                "id": "/properties/dedup_key",
+                                "type": "string"
+                            },
+                            "event_action": {
+                                "id": "/properties/event_action",
+                                "type": "string"
+                            },
+                            "images": {
+                                "id": "/properties/images",
+                                "items": {
+                                    "id": "/properties/images/items",
+                                    "properties": {
+                                        "alt": {
+                                            "id": "/properties/images/items/properties/alt",
+                                            "type": "string"
+                                        },
+                                        "href": {
+                                            "id": "/properties/images/items/properties/href",
+                                            "type": "string"
+                                        },
+                                        "src": {
+                                            "id": "/properties/images/items/properties/src",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "payload": {
+                                "id": "/properties/payload",
+                                "properties": {
+                                    "class": {
+                                        "id": "/properties/payload/properties/class",
+                                        "type": "string"
+                                    },
+                                    "component": {
+                                        "id": "/properties/payload/properties/component",
+                                        "type": "string"
+                                    },
+                                    "custom_details": {
+                                        "id": "/properties/payload/properties/custom_details",
+                                        "properties": {
+                                            "load avg": {
+                                                "id": "/properties/payload/properties/custom_details/properties/load avg",
+                                                "type": "number"
+                                            },
+                                            "ping time": {
+                                                "id": "/properties/payload/properties/custom_details/properties/ping time",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "group": {
+                                        "id": "/properties/payload/properties/group",
+                                        "type": "string"
+                                    },
+                                    "severity": {
+                                        "id": "/properties/payload/properties/severity",
+                                        "type": "string"
+                                    },
+                                    "source": {
+                                        "id": "/properties/payload/properties/source",
+                                        "type": "string"
+                                    },
+                                    "summary": {
+                                        "id": "/properties/payload/properties/summary",
+                                        "type": "string"
+                                    },
+                                    "timestamp": {
+                                        "id": "/properties/payload/properties/timestamp",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "routing_key": {
+                                "id": "/properties/routing_key",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                example: |
+                    {
+                      "payload": {
+                        "summary": "Example alert on host1.example.com",
+                        "timestamp": "2015-07-17T08:42:58.315+0000",
+                        "source": "minotoriringtool:cloudvendor:central-region-dc-01:852559987:cluster/api-stats-prod-003",
+                        "severity": "info",
+                        "component": "postgres",
+                        "group": "prod-datapipe",
+                        "class": "deploy",
+                        "custom_details": {
+                          "ping time": "1500ms",
+                          "load avg": 0.75
+                        }
+                      },
+                      "routing_key": "samplekeyhere",
+                      "dedup_key": "samplekeyhere",
+                      "images": [
+                        {
+                          "src": "https://www.pagerduty.com/wp-content/uploads/2016/05/pagerduty-logo-green.png",
+                          "href": "https://example.com/",
+                          "alt": "Example text"
+                        }
+                      ],
+                      "event_action": "trigger",
+                      "client": "Sample Monitoring Service",
+                      "client_url": "https://monitoring.example.com"
+                    }
+        responses: 
+            "202": 
+                description: Success response
+                body: 
+                    application/json: 
+                        example: |
+                            {
+                              "status": "success",
+                              "message": "Event processed",
+                              "dedup_key": "181bbbec26cc4467b351047de36eb128"
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: |
+            The Events API v2 is designed to allow you to easily integrate a monitoring system with PagerDuty. Monitoring systems generally send out events when problems are detected and when these problems have been resolved (fixed). Certain systems also understand the concept of acknowledgements: problems can be acknowledged by a person to signal that they are working on fixing the issue.
+            
+            The Events API v2 is a highly reliable, highly available asynchronous API that ingests events from monitoring tools. Events sent via this API are routed to a PagerDuty service and processed. They may result in a new alert and/or incident being created, or an existing one being updated or resolved.
+            
+            For further reading please visit https://v2.developer.pagerduty.com/docs/events

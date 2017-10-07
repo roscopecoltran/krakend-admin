@@ -1,0 +1,120 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Japanese sentiment analyzer.<BR />[Endpoint] https://api.apitore.com/api/11",
+    "version" : "1.0.5",
+    "title" : "Sentiment APIs"
+  },
+  "host" : "api.apitore.com",
+  "basePath" : "/api/11",
+  "tags" : [ {
+    "name" : "sentiment-controller",
+    "description" : "Sentiment Controller"
+  } ],
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/sentiment/predict" : {
+      "get" : {
+        "tags" : [ "sentiment-controller" ],
+        "summary" : "Sentiment predict",
+        "description" : "Sentiment Analysis, last update at 2016-10-16.<BR />Response<BR />&nbsp; Github: <a href=\"https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response\">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.sentiment.SentimentResponseEntity<BR />",
+        "operationId" : "predictUsingGET",
+        "parameters" : [ {
+          "name" : "access_token",
+          "in" : "query",
+          "description" : "Access Token",
+          "required" : true,
+          "type" : "string",
+          "default" : "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+        }, {
+          "name" : "text",
+          "in" : "query",
+          "description" : "text",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "SentimentResponseEntity" : {
+      "type" : "object",
+      "required" : [ "endTime", "log", "predict", "processTime", "sentiments", "startTime", "text" ],
+      "properties" : {
+        "endTime" : {
+          "type" : "string",
+          "description" : "End date"
+        },
+        "log" : {
+          "type" : "string",
+          "description" : "Log message"
+        },
+        "predict" : {
+          "description" : "Output: prediction",
+          "$ref" : "#/definitions/SentimentEntity"
+        },
+        "processTime" : {
+          "type" : "string",
+          "description" : "Process time [millisecond]"
+        },
+        "sentiments" : {
+          "type" : "array",
+          "description" : "Output: sentiments",
+          "items" : {
+            "$ref" : "#/definitions/SentimentEntity"
+          }
+        },
+        "startTime" : {
+          "type" : "string",
+          "description" : "Start date"
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "Input: text"
+        }
+      }
+    },
+    "SentimentEntity" : {
+      "type" : "object",
+      "required" : [ "score", "sentiment" ],
+      "properties" : {
+        "score" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "cosine distance"
+        },
+        "sentiment" : {
+          "type" : "string",
+          "description" : "sentiment"
+        }
+      }
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

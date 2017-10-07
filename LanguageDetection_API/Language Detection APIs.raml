@@ -1,0 +1,84 @@
+#%RAML 0.8
+title: Language Detection APIs
+version: "0.0.1"
+baseUri: "https://api.apitore.com/api/22"
+protocols: [HTTP]
+mediaType: application/json
+schemas: 
+    - 
+        LanguageEntity: '{"simple":false,"required":["lang","prob"],"type":"object","properties":{"lang":{"description":"language","required":false,"type":"string"},"prob":{"description":"probability","format":"double","required":false,"type":"number"}}}'
+        LanguageResponseEntity: |-
+                {"simple":false,"required":["endTime","language","log","probabilities","processTime","startTime","text"],"type":"object","properties":{"endTime":{"description":"End date","required":false,"type":"string"},"language":{"description":"Output: prediction","required":false,"type":"string"},"log":{"description":"Log message","required":false,"type":"string"},"probabilities":{"description":"Output: probabilities","required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"LanguageEntity","refFormat":"INTERNAL","$ref":"#\/definitions\/LanguageEntity"}},"processTime":{"description":"Process time [millisecond]","required":false,"type":"string"},"startTime":{"description":"Start date","required":false,"type":"string"},"text":{"description":"Input: text","required":false,"type":"string"}}}
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/langdetect/get: 
+    displayName: /langdetect/get
+    get: 
+        description: 'Language Detection.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />'
+        queryParameters: 
+            access_token: 
+                description: Access Token
+                type: string
+                required: true
+                repeat: false
+                enum: ["187b20cb-e0fb-4a60-90dd-66e91a86b76a"]
+                default: "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+            text: 
+                description: Text [10-20 words over is recommended]
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: OK
+                body: 
+                    application/json: 
+                        schema: ""
+            "401": 
+                description: Unauthorized
+            "403": 
+                description: Forbidden
+            "404": 
+                description: Not Found
+/langdetect/short/get: 
+    displayName: /langdetect/short/get
+    get: 
+        description: 'Language Detection.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />'
+        queryParameters: 
+            access_token: 
+                description: Access Token
+                type: string
+                required: true
+                repeat: false
+                enum: ["187b20cb-e0fb-4a60-90dd-66e91a86b76a"]
+                default: "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+            text: 
+                description: Text [Short message like tweet is supported]
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: OK
+            "401": 
+                description: Unauthorized
+            "403": 
+                description: Forbidden
+            "404": 
+                description: Not Found
+documentation: 
+    - 
+        title: API Description
+        content: "Language detection.<BR />[Endpoint] https://api.apitore.com/api/22"
+#Vendor extensions not implemented

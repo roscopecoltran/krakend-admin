@@ -1,0 +1,129 @@
+#%RAML 0.8
+title: XKCD
+version: "1"
+baseUri: "http://xkcd.com"
+protocols: [HTTP]
+schemas: 
+    - 
+        comic: |
+                {
+                  "required" : true ,
+                  "$schema" : "http://json-schema.org/draft-03/schema" ,
+                  "type" : "object" ,
+                  "properties" : {
+                    "month" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "num" : {
+                      "type" : "number" ,
+                      "required" : false
+                    } ,
+                    "link" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "year" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "news" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "safe_title" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "transcript" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "alt" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "img" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "title" : {
+                      "type" : "string" ,
+                      "required" : false
+                    } ,
+                    "day" : {
+                      "type" : "string" ,
+                      "required" : false
+                    }
+                  }
+                }
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/info.0.json: 
+    get: 
+        description: |
+            Fetch current comic and metadata.
+        responses: 
+            "200": 
+                body: 
+                    application/json: 
+                        schema: comic
+                        example: |
+                            {
+                              "month" : "4" ,
+                              "num" : 1362 ,
+                              "link" : "" ,
+                              "year" : "2014" ,
+                              "news" : "" ,
+                              "safe_title" : "Morse Code" ,
+                              "transcript" : "" ,
+                              "alt" : "Oh, because Facebook has worked out SO WELL for everyone." ,
+                              "img" : "http://imgs.xkcd.com/comics/morse_code.png" ,
+                              "title" : "Morse Code" ,
+                              "day" : "30"
+                            }
+        protocols: [HTTP]
+/{comicId}/info.0.json: 
+    uriParameters: 
+        comicId: 
+            type: number
+            required: false
+            repeat: false
+    get: 
+        description: |
+            Fetch comics and metadata  by comic id.
+        responses: 
+            "200": 
+                body: 
+                    application/json: 
+                        schema: comic
+                        example: |
+                            {
+                              "month" : "4" ,
+                              "num" : 1362 ,
+                              "link" : "" ,
+                              "year" : "2014" ,
+                              "news" : "" ,
+                              "safe_title" : "Morse Code" ,
+                              "transcript" : "" ,
+                              "alt" : "Oh, because Facebook has worked out SO WELL for everyone." ,
+                              "img" : "http://imgs.xkcd.com/comics/morse_code.png" ,
+                              "title" : "Morse Code" ,
+                              "day" : "30"
+                            }
+        protocols: [HTTP]
+documentation: 
+    - 
+        title: Headline
+        content: A webcomic of romance, sarcasm, math, and language.

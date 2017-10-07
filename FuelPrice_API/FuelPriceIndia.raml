@@ -1,0 +1,118 @@
+#%RAML 0.8
+title: FuelPriceIndia
+version: "1.0"
+baseUri: "http://fuelpriceindia.herokuapp.com/"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/main/{city}/{fuel_type}/price: 
+    displayName: /main/{city}/{fuel_type}/price
+    description: fetches the fuel price of the queried city
+    uriParameters: 
+        city: 
+            type: string
+            required: true
+            repeat: false
+        fuel_type: 
+            description: petrol or diesel
+            type: string
+            required: true
+            repeat: false
+            default: ""
+    get: 
+        responses: 
+            "200": 
+                body: 
+                    application/json: 
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-04/schema#",
+                                "definitions": {},
+                                "id": "http://example.com/example.json",
+                                "properties": {
+                                    "city": {
+                                        "id": "/properties/city",
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "id": "/properties/price",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        example: |
+                            {
+                              "city": "Chennai",
+                              "price": 69.84
+                            }
+/main/city_list: 
+    displayName: /main/city_list
+    description: Fetches the main cities available for this service
+    get: 
+        responses: 
+            "200": 
+                body: 
+                    application/json: 
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-04/schema#",
+                                "definitions": {},
+                                "id": "http://example.com/example.json",
+                                "properties": {
+                                    "cities": {
+                                        "id": "/properties/cities",
+                                        "items": {
+                                            "id": "/properties/cities/items",
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        example: |
+                            {
+                              "cities": [
+                                "Bengaluru",
+                                "Pune",
+                                "Delhi",
+                                "Mumbai",
+                                "Chennai",
+                                "Hyderabad",
+                                "Chandigarh",
+                                "Kolkata",
+                                "Ahmedabad",
+                                "Coimbatore",
+                                "Indore",
+                                "Jaipur",
+                                "Ludhiana",
+                                "Mangaluru",
+                                "Mysore",
+                                "Vizag",
+                                "Goa",
+                                "Nagpur",
+                                "Trivandrum",
+                                "Udaipur",
+                                "Guntur",
+                                "Surat",
+                                "Bhopal",
+                                "Lucknow",
+                                "Guwahati"
+                              ]
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: Fetch latest fuel prices for major Indian cities

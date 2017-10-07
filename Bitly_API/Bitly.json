@@ -1,0 +1,3350 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v3",
+    "title" : "Bitly"
+  },
+  "host" : "api-ssl.bitly.com",
+  "basePath" : "/v3",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/bitly_pro_domain" : {
+      "get" : {
+        "description" : "Query whether a given domain is a valid bitly pro domain. Keep in mind tha\nbitly custom short domains are restricted to less than 15 characters in\nlength.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "A short domain. ie: nyti.ms.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bitly_pro_domain"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bitly_pro_domain\": true,\n    \"domain\": \"1.usa.gov\"\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/archive" : {
+      "get" : {
+        "description" : "Archive a bundle for the authenticated user. Only a bundle's owner is\nallowed to archive a bundle.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle to be archived.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": \"OK\",\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/bundles_by_user" : {
+      "get" : {
+        "description" : "Returns a list of public bundles created by a user.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "user",
+          "in" : "query",
+          "description" : "The user to get a list of bundles for.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "Include extra user info in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-bundles_by_user"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundles\": [\n      {\n        \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n        \"bundle_owner\": \"bitlyapioauthdemo\",\n        \"created_ts\": 1332175561,\n        \"description\": \"Kittehs FTW\",\n        \"last_modified_ts\": 1332185530,\n        \"private\": false,\n        \"title\": \"\"\n      },\n      {\n        \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/2\",\n        \"bundle_owner\": \"bitlyapioauthdemo\",\n        \"created_ts\": 1332185626,\n        \"description\": \"\",\n        \"last_modified_ts\": 1332185626,\n        \"private\": false,\n        \"title\": \"\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/clone" : {
+      "get" : {
+        "description" : "Clone a bundle for the authenticated user.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL of the bundle to clone.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/3\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332185633,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332185633,\n      \"links\": [],\n      \"private\": false,\n      \"title\": \"\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/collaborator_add" : {
+      "get" : {
+        "description" : "Add a collaborator to a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL of the bundle to add.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "collaborator",
+          "in" : "query",
+          "description" : "Bitly login or email address of the collaborator to add.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/collaborator_remove" : {
+      "get" : {
+        "description" : "Remove a collaborator from a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL of the bundle to remove.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "collaborator",
+          "in" : "query",
+          "description" : "Bitly login of the collaborator to remove.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/contents" : {
+      "get" : {
+        "description" : "Returns information about a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle to be returned.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "True or false - include extra user info in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332177579,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"Here is a Bundle of Links!\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/create" : {
+      "get" : {
+        "description" : "Create a new bundle for the authenticated user.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "private",
+          "in" : "query",
+          "description" : "A value true or false designating the privacy setting of the bundle to be created.\n",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "The title of the bundle to be created.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "description",
+          "in" : "query",
+          "description" : "A description of the bundle to be created.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/3\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332185633,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332185633,\n      \"links\": [],\n      \"private\": false,\n      \"title\": \"\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/edit" : {
+      "get" : {
+        "description" : "Edit a bundle for the authenticated user.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle to be modified.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "edit",
+          "in" : "query",
+          "description" : "A field designating which properties (e.g., 'title', 'description') are\nto be edited, allowing for these fields to be updated with empty values.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "A title for the specified bundle.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "description",
+          "in" : "query",
+          "description" : "A description for the specified bundle.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "private",
+          "in" : "query",
+          "description" : "A true or false value representing whether or not the specified bundle\nshould set to private.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "preview",
+          "in" : "query",
+          "description" : "A true or false value representing whether or not content previews should\nbe shown for the specified bundle's links.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "og_image",
+          "in" : "query",
+          "description" : "The URL to the bundle's cover image.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"Kittehs FTW\",\n      \"last_modified_ts\": 1332185530,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_add" : {
+      "get" : {
+        "description" : "Adds a link to a bitly bundle. Links are automatically added to the top (position 0) of a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle to which the link will be added.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "the URL to be added to the specified bundle. (This can be a bitly shor\nURL or a long URL. If it is a long URL, it will be automatically saved\nto the authenticated user's account.)\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "The title to use for this link in this bundle.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": null,\n  \"status_code\": 500,\n  \"status_txt\": \"LINK_ALREADY_IN_BUNDLE\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_comment_add" : {
+      "get" : {
+        "description" : "Add a comment to bundle item.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle to which the link will be added.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "the URL to be added to the specified bundle. (This can be a bitly shor\nURL or a long URL. If it is a long URL, it will be automatically saved\nto the authenticated user's account.)\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "comment",
+          "in" : "query",
+          "description" : "The comment to add.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_comment_edit" : {
+      "get" : {
+        "description" : "Edit a comment.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle in which the link will be edited.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link on which the comment exists.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "comment_id",
+          "in" : "query",
+          "description" : "The id of the comment to edit.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "comment",
+          "in" : "query",
+          "description" : "The edited comment.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_comment_remove" : {
+      "get" : {
+        "description" : "Remove a comment from a bundle item. Only the original commenter and the\nbundles owner may perform this action.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle in which the link will be edited.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to be edited.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "comment_id",
+          "in" : "query",
+          "description" : "The ID of the comment to be removed.",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_edit" : {
+      "get" : {
+        "description" : "Edit the title for a link.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle in which the link will be edited.\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to be edited.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "edit",
+          "in" : "query",
+          "description" : "A field designating which properties (title, preview) are to be edited,\nallowing for these fields to be updated with empty values.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "A title for the specified link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "preview",
+          "in" : "query",
+          "description" : "A true or false value representing whether a content preview should be\ndisplayed for this item (overrides the per-bundle flag of the same name).\n",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332184258,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/gHwqEE\",\n          \"description\": \"\",\n          \"display_order\": 2,\n          \"link\": \"http://bit.ly/wc5dQK\",\n          \"long_url\": \"http://icanhascheezburger.com/lolrus/\",\n          \"title\": \"I AM TEH LOLRUS\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"Here is a Bundle of Links!\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_remove" : {
+      "get" : {
+        "description" : "Remove a link from a bitly bundle",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle from which the link will be removed.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to be removed from this bundle.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332184840,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"Here is a Bundle of Links!\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/link_reorder" : {
+      "get" : {
+        "description" : "Change the position of a link in a bitly bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle in which the link will be reordered.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to be reordered in this bundle.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "display_order",
+          "in" : "query",
+          "description" : "The new display_order value to be assigned to the the specified link. (A\nvalue of -1 moves to end, 0 to the front, any other number moves it to\nthat spot, bumping everythign else down.)\n",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332183044,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/gHwqEE\",\n          \"description\": \"\",\n          \"display_order\": 2,\n          \"link\": \"http://bit.ly/wc5dQK\",\n          \"long_url\": \"http://icanhascheezburger.com/lolrus/\",\n          \"title\": \"The Story Of The Lolrus - Lolcats 'n' Funny Pictures of Cats - I Can Has Cheezburger?\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"Here is a Bundle of Links!\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/pending_collaborator_remove" : {
+      "get" : {
+        "description" : "Removes a pending/invited collaborator from a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL of the bundle.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "collaborator",
+          "in" : "query",
+          "description" : "Bitly login or email address of the collaborator to remove.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/reorder" : {
+      "get" : {
+        "description" : "Re-order the links in a bundle.\nThe link parameter should be repeated for each link to be reordered, and each link should be given in the order in which it should appear in the bundle.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL corresponding to the bundle in which the link will be reordered.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "link",
+          "in" : "query",
+          "description" : "One ore more bitly links to be reordered.\nThe link parameter should be repeated for each link to be reordered,\nand each link should be given in the order in which it should appear in the bundle.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-clone-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundle\": {\n      \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n      \"bundle_owner\": \"bitlyapioauthdemo\",\n      \"created_ts\": 1332175561,\n      \"description\": \"\",\n      \"last_modified_ts\": 1332183044,\n      \"links\": [\n        {\n          \"aggregate_link\": \"http://bit.ly/xx2UTg\",\n          \"description\": \"Animated GIFs 4 Lyfe!\",\n          \"display_order\": 0,\n          \"link\": \"http://bit.ly/FWfWFP\",\n          \"long_url\": \"http://bukk.it/asdf.gif\",\n          \"title\": \"AAAAHHHH\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/K49Ze\",\n          \"description\": \"O LOOK IT'S KEYBOARD CAT\",\n          \"display_order\": 1,\n          \"link\": \"http://bit.ly/w8gWsd\",\n          \"long_url\": \"http://www.youtube.com/watch?v=J---aiyznGQ\",\n          \"title\": \"Keyboard Cat!\"\n        },\n        {\n          \"aggregate_link\": \"http://bit.ly/gHwqEE\",\n          \"description\": \"\",\n          \"display_order\": 2,\n          \"link\": \"http://bit.ly/wc5dQK\",\n          \"long_url\": \"http://icanhascheezburger.com/lolrus/\",\n          \"title\": \"The Story Of The Lolrus - Lolcats 'n' Funny Pictures of Cats - I Can Has Cheezburger?\"\n        }\n      ],\n      \"private\": false,\n      \"title\": \"Here is a Bundle of Links!\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/bundle/view_count" : {
+      "get" : {
+        "description" : "Get the number of views for a bundle.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "bundle_link",
+          "in" : "query",
+          "description" : "The URL of the bundle.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/bundle-view_count"
+            },
+            "examples" : {
+              "application/json" : null
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/expand" : {
+      "get" : {
+        "description" : "Given a bitly URL or hash (or multiple), returns the target (long) URL.\nNote: either shortUrl or hash must be given as a parameter.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "shortUrl",
+          "in" : "query",
+          "description" : "Refers to one or more bitly links. e.g.: http://bit.ly/1RmnUT or\nhttp://j.mp/1RmnUT.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "hash",
+          "in" : "query",
+          "description" : "Refers to one or more bitly hashes. e.g.: 2bYgqR or a-custom-name.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/expand"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"expand\": [\n      {\n        \"global_hash\": \"900913\",\n        \"long_url\": \"http://google.com/\",\n        \"short_url\": \"http://bit.ly/ze6poY\",\n        \"user_hash\": \"ze6poY\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/highvalue" : {
+      "get" : {
+        "description" : "Returns a specified number of \"high-value\" bitly links that are popular\nacross bitly at this particular moment.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "The maximum number of high-value links to return.",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"params\": {\n      \"lang\": \"en\",\n      \"limit\": 2\n    },\n    \"values\": [\n      \"http://bit.ly/Shd5nT\",\n      \"http://bit.ly/VJqu9q\"\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/info" : {
+      "get" : {
+        "description" : "This is used to return the page title for a given bitly link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "hash",
+          "in" : "query",
+          "description" : "Refers to one or more bitly hashes. e.g.: 2bYgqR or a-custom-name.\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "shortUrl",
+          "in" : "query",
+          "description" : "Refers to one or more bitly links. e.g.: http://bit.ly/1RmnUT or\nhttp://j.mp/1RmnUT.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "Include extra user info in response.",
+          "required" : true,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/info"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"info\": [\n      {\n        \"created_at\": 1212926400,\n        \"created_by\": null,\n        \"global_hash\": \"1RmnUT\",\n        \"short_url\": \"http://bit.ly/1RmnUT\",\n        \"title\": \"Google\",\n        \"user_hash\": \"1RmnUT\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/category" : {
+      "get" : {
+        "description" : "Returns the detected categories for a document, in descending order of\nconfidence.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"categories\": [\n      \"Social Media\",\n      \"Advertising\",\n      \"Software and Internet\",\n      \"Technology\",\n      \"Business\"\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/clicks" : {
+      "get" : {
+        "description" : "Returns the number of clicks on a single bitly link.\nNote: historical data is stored hourly beyond the most recent 60 minutes.\nIf a unit_reference_ts is specified, unit cannot be minute.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-clicks"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_clicks\": [\n      {\n        \"clicks\": 1,\n        \"dt\": 1360299600\n      },\n      {\n        \"clicks\": 2,\n        \"dt\": 1360213200\n      },\n      {\n        \"clicks\": 2,\n        \"dt\": 1360126800\n      },\n      {\n        \"clicks\": 3,\n        \"dt\": 1360040400\n      },\n      {\n        \"clicks\": 10,\n        \"dt\": 1359954000\n      }\n    ],\n    \"tz_offset\": -5,\n    \"unit\": \"day\",\n    \"unit_reference_ts\": 1360351157,\n    \"units\": 5\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/content" : {
+      "get" : {
+        "description" : "Returns the \"main article\" from the linked page, as determined by the conten\nextractor, in either HTML or plain text format.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "content_type",
+          "in" : "query",
+          "description" : "Specifies whether to return the content as html or plain text.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "html"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"content\": \"<div class=\\\"regular\\\">\\r\\n  <h2>\\r\\n<a href=\\\"http://blog.bitly.com/post/26449494972/ ....\",\n    \"content_type\": \"html\"\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/countries" : {
+      "get" : {
+        "description" : "Returns metrics about the countries referring click traffic to a single bitly link.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-countries"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"countries\": [\n      {\n        \"clicks\": 517,\n        \"country\": \"US\"\n      },\n      {\n        \"clicks\": 165,\n        \"country\": \"None\"\n      },\n      {\n        \"clicks\": 141,\n        \"country\": \"JP\"\n      },\n      {\n        \"clicks\": 84,\n        \"country\": \"DE\"\n      },\n      {\n        \"clicks\": 84,\n        \"country\": \"GB\"\n      }\n    ],\n    \"tz_offset\": -5,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/encoders" : {
+      "get" : {
+        "description" : "Returns users who have encoded this link (optionally only those in the\nrequesting user's social graph).\nNote: Some users may not be returned from this call depending on link\nprivacy settings.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "my_network",
+          "in" : "query",
+          "description" : "True or false - restrict to my network.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Integer in the range of 1 to 25 that specifies the number of records\nto return.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10
+        }, {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "True or false - include display names of encoders.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-encoders"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"aggregate_link\": \"http://bit.ly/900913\",\n    \"entries\": [\n      {\n        \"link\": \"http://bit.ly/a5YvlH\",\n        \"ts\": 1265002617,\n        \"user\": \"mang0\"\n      },\n      {\n        \"link\": \"http://bit.ly/97CuIj\",\n        \"ts\": 1265018066,\n        \"user\": \"ogakiyaku\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/encoders_count" : {
+      "get" : {
+        "description" : "Returns the number of users who have shortened (encoded) a single bitly link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-encoders_count"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"aggregate_link\": \"http://bitly.com/900913\",\n    \"count\": 3490\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/info" : {
+      "get" : {
+        "description" : "Returns metadata about a single bitly link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"canonical_url\": \"http://blog.bitly.com/post/26449494972/happy-independence-day-america\",\n    \"category\": \"text\",\n    \"content_length\": 19582,\n    \"content_type\": \"text/html; charset=UTF-8\",\n    \"domain\": \"blog.bitly.com\",\n    \"favicon_url\": \"http://bitly.com/s/beta/graphics/vis/bitly-favicon-trans.png\",\n    \"global_hash\": \"LNY08h\",\n    \"html_title\": \"bitly blog - Happy Independence Day, America!\",\n    \"http_code\": 200,\n    \"indexed\": 1341355564,\n    \"linktags_other\": [\n      [\n        \"icon\",\n        \"http://bitly.com/s/beta/graphics/vis/bitly-favicon-trans.png\"\n      ],\n      [\n        \"alternate\",\n        \"http://blog.bitly.com/rss\"\n      ]\n    ],\n    \"metatags_name\": [\n      [\n        \"color:background\",\n        \"#666\"\n      ],\n      [\n        \"color:content background\",\n        \"#fff\"\n      ],\n      [\n        \"color:header background\",\n        \"#fff\"\n      ],\n      [\n        \"color:title\",\n        \"#555555\"\n      ],\n      [\n        \"color:description\",\n        \"#fff\"\n      ],\n      [\n        \"color:date\",\n        \"#666\"\n      ],\n      [\n        \"color:permalinks\",\n        \"#4AADF0\"\n      ],\n      [\n        \"color:post title\",\n        \"#222\"\n      ],\n      [\n        \"color:text\",\n        \"#222\"\n      ],\n      [\n        \"color:inline link\",\n        \"#ff9900\"\n      ],\n      [\n        \"color:quote\",\n        \"#333\"\n      ],\n      [\n        \"color:quote source\",\n        \"#666\"\n      ],\n      [\n        \"color:link post\",\n        \"#ff9900\"\n      ],\n      [\n        \"color:conversation background 1\",\n        \"#f4f4f4\"\n      ],\n      [\n        \"color:conversation background 2\",\n        \"#e8e8e8\"\n      ],\n      [\n        \"color:conversation border\",\n        \"#ccc\"\n      ],\n      [\n        \"color:conversation text\",\n        \"#000\"\n      ],\n      [\n        \"color:photo background\",\n        \"#ccc\"\n      ],\n      [\n        \"color:video background\",\n        \"#eee\"\n      ],\n      [\n        \"viewport\",\n        \"width=675\"\n      ]\n    ],\n    \"original_url\": \"http://blog.bitly.com/post/26449494972/happy-independence-day-america\",\n    \"robots_allowed\": true,\n    \"source_domain\": \"blog.bitly.com\",\n    \"url\": \"http://blog.bitly.com/post/26449494972/happy-independence-day-america\",\n    \"url_fetched\": \"http://blog.bitly.com/post/26449494972/happy-independence-day-america\"\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/language" : {
+      "get" : {
+        "description" : "Returns the significant languages for the bitly link. Note that languages\nare highly dependent upon activity (clicks) occurring on the bitly link.\nIf there have not been clicks on a bitly link within the last 24 hours, i\nis possible that language data for that link does not exist.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"languages\": {\n      \"http://bit.ly/MwSGaQ\": \"en\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/location" : {
+      "get" : {
+        "description" : "Returns the significant locations for the bitly link or None if locations\ndo not exist. Note that locations are highly dependent upon activity\n(clicks) occurring on the bitly link. If there have not been clicks on a\nbitly link within the last 24 hours, it is possible that location data for\nthat link does not exist.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"locations\": [\n      \"us-ny-new york\",\n      \"us-ny-brooklyn\"\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/lookup" : {
+      "get" : {
+        "description" : "This is used to query for a bitly link based on a long URL.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "url",
+          "in" : "query",
+          "description" : "One or more long URLs to lookup.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-lookup"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_lookup\": [\n      {\n        \"aggregate_link\": \"http://bit.ly/2V6CFi\",\n        \"url\": \"http://www.google.com/\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/referrers" : {
+      "get" : {
+        "description" : "Returns metrics about the pages referring click traffic to a single bitly link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-referrers-schema"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"referrers\": [\n      {\n        \"clicks\": 1129,\n        \"referrer\": \"direct\"\n      },\n      {\n        \"clicks\": 55,\n        \"referrer\": \"http://news.ycombinator.com/item\"\n      },\n      {\n        \"clicks\": 41,\n        \"referrer\": \"http://twitter.com/\"\n      },\n      {\n        \"clicks\": 25,\n        \"referrer\": \"yxG0tQXMY40=\"\n      },\n      {\n        \"clicks\": 24,\n        \"referrer\": \"http://localhost/www/2ii.jp/ii.php\"\n      }\n    ],\n    \"tz_offset\": -5,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/referrers_by_domain" : {
+      "get" : {
+        "description" : "Returns metrics about the pages referring click traffic to a single bitly\nlink, grouped by referring domain.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-referrers"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"referrers\": {\n      \"Twitter\": [\n        {\n          \"clicks\": 41,\n          \"referrer\": \"http://twitter.com/\"\n        },\n        {\n          \"clicks\": 4,\n          \"referrer\": \"http://t.co/123\"\n        }\n      ],\n      \"direct\": [\n        {\n          \"clicks\": 1129,\n          \"referrer\": \"direct\"\n        }\n      ],\n      \"localhost\": [\n        {\n          \"clicks\": 24,\n          \"referrer\": \"http://localhost/www/2ii.jp/ii.php\"\n        }\n      ],\n      \"news.ycombinator.com\": [\n        {\n          \"clicks\": 55,\n          \"referrer\": \"http://news.ycombinator.com/item\"\n        }\n      ],\n      \"yxG0tQXMY40=\": [\n        {\n          \"clicks\": 25,\n          \"referrer\": \"yxG0tQXMY40=\"\n        }\n      ]\n    },\n    \"tz_offset\": -5,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/referring_domains" : {
+      "get" : {
+        "description" : "Returns metrics about the domains referring click traffic to a single bitly link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-referring_domains"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"referring_domains\": [\n      {\n        \"clicks\": 1129,\n        \"domain\": \"direct\"\n      },\n      {\n        \"clicks\": 72,\n        \"domain\": \"twitter.com\",\n        \"url\": \"http://twitter.com/\"\n      },\n      {\n        \"clicks\": 56,\n        \"domain\": \"news.ycombinator.com\",\n        \"url\": \"http://news.ycombinator.com/\"\n      },\n      {\n        \"clicks\": 26,\n        \"domain\": \"www.facebook.com\",\n        \"url\": \"http://www.facebook.com/\"\n      }\n    ],\n    \"tz_offset\": -5,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/shares" : {
+      "get" : {
+        "description" : "Returns metrics about a shares of a single link.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/link-shares"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"shares\": [\n      {\n        \"share_type\": \"tw\",\n        \"shares\": 1\n      }\n    ],\n    \"total_shares\": 1,\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"unit_reference_ts\": null,\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/link/social" : {
+      "get" : {
+        "description" : "Returns the \"social score\" for a specified bitly link. Note that the social\nscore are highly dependent upon activity (clicks) occurring on the bitly\nlink. If there have not been clicks on a bitly link within the last 24\nhours, it is possible a social score for that link does not exist.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "A bitly link.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"social_scores\": {\n      \"http://bit.ly/MwSGaQ\": \"76\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/realtime/bursting_phrases" : {
+      "get" : {
+        "description" : "Returns phrases that are receiving an uncharacteristically high volume of\nclick traffic, and the individual links (hashes) driving traffic to pages\ncontaining these phrases.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"current_lag\": 4,\n    \"phrases\": [\n      {\n        \"N\": 644933,\n        \"ghashes\": [\n          {\n            \"ghash\": \"1534dqE\",\n            \"visitors\": 214\n          },\n          {\n            \"ghash\": \"123Tzxi\",\n            \"visitors\": 77\n          },\n          {\n            \"ghash\": \"YwtqHA\",\n            \"visitors\": 53\n          },\n          {\n            \"ghash\": \"171mi59\",\n            \"visitors\": 52\n          },\n          {\n            \"ghash\": \"10VIMDX\",\n            \"visitors\": 45\n          }\n        ],\n        \"mean\": 0.17000000000000001,\n        \"phrase\": \"north korea\",\n        \"rate\": 0.29999999999999999,\n        \"std\": 0.041785272667362532,\n        \"urls\": [\n          {\n            \"aggregate_url\": \"http://bit.ly/1534dqE\",\n            \"visitors\": 214\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/123Tzxi\",\n            \"visitors\": 77\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/YwtqHA\",\n            \"visitors\": 53\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/171mi59\",\n            \"visitors\": 52\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/10VIMDX\",\n            \"visitors\": 45\n          }\n        ]\n      },\n      {\n        \"N\": 4026,\n        \"ghashes\": [\n          {\n            \"ghash\": \"123InRj\",\n            \"visitors\": 266\n          },\n          {\n            \"ghash\": \"12VnuGK\",\n            \"visitors\": 180\n          },\n          {\n            \"ghash\": \"10QUZsc\",\n            \"visitors\": 38\n          },\n          {\n            \"ghash\": \"171cUOS\",\n            \"visitors\": 10\n          },\n          {\n            \"ghash\": \"17vqEEC\",\n            \"visitors\": 8\n          }\n        ],\n        \"mean\": 0.01,\n        \"phrase\": \"jackie robinson\",\n        \"rate\": 0.16,\n        \"std\": 0.0042133518459201253,\n        \"urls\": [\n          {\n            \"aggregate_url\": \"http://bit.ly/123InRj\",\n            \"visitors\": 266\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/12VnuGK\",\n            \"visitors\": 180\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/10QUZsc\",\n            \"visitors\": 38\n          },\n          {\n            \"aggregate_url\": \"http://bit.ly/171cUOS\",\n            \"visitors\": 10\n          }\n        ]\n      }\n    ],\n    \"selectivity\": 3,\n    \"time\": 1365800585\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/realtime/clickrate" : {
+      "get" : {
+        "description" : "Returns the click rate for content containing a specified phrase.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "phrase",
+          "in" : "query",
+          "description" : "The phrase for which you'd like to get the click rate.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"ghash\": null,\n    \"lag\": 4,\n    \"phrase\": \"obama\",\n    \"rate\": 1.123823,\n    \"time\": 1342623038\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/realtime/hot_phrases" : {
+      "get" : {
+        "description" : "Returns phrases that are receiving a consistently high volume of click\ntraffic, and the individual links (hashes) driving traffic to pages\ncontaining these phrases.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"current_lag\": 4,\n    \"phrases\": [\n      {\n        \"ghashes\": [\n          {\n            \"ghash\": \"QSQsPh\",\n            \"visitors\": 998\n          },\n          {\n            \"ghash\": \"ScRWYS\",\n            \"visitors\": 266\n          },\n          {\n            \"ghash\": \"ScHTDa\",\n            \"visitors\": 194\n          },\n          {\n            \"ghash\": \"QSxSab\",\n            \"visitors\": 131\n          },\n          {\n            \"ghash\": \"NW3HC7\",\n            \"visitors\": 101\n          },\n          {\n            \"ghash\": \"P9c0rD\",\n            \"visitors\": 47\n          },\n          {\n            \"ghash\": \"SbjnSG\",\n            \"visitors\": 26\n          },\n          {\n            \"ghash\": \"QghCiw\",\n            \"visitors\": 23\n          },\n          {\n            \"ghash\": \"Rvip6f\",\n            \"visitors\": 22\n          },\n          {\n            \"ghash\": \"Sb02kE\",\n            \"visitors\": 21\n          },\n          {\n            \"ghash\": \"NWxRS6\",\n            \"visitors\": 18\n          },\n          {\n            \"ghash\": \"NbDukJ\",\n            \"visitors\": 17\n          },\n          {\n            \"ghash\": \"OGqPAx\",\n            \"visitors\": 17\n          }\n        ],\n        \"phrase\": \"top gun\",\n        \"rate\": 1.0414969999999999\n      },\n      {\n        \"ghashes\": [\n          {\n            \"ghash\": \"PyyGlF\",\n            \"visitors\": 914\n          },\n          {\n            \"ghash\": \"SIDJ3h\",\n            \"visitors\": 209\n          },\n          {\n            \"ghash\": \"OQQbkR\",\n            \"visitors\": 35\n          },\n          {\n            \"ghash\": \"NBn40C\",\n            \"visitors\": 29\n          },\n          {\n            \"ghash\": \"SIv7K3\",\n            \"visitors\": 29\n          },\n          {\n            \"ghash\": \"QhQMGI\",\n            \"visitors\": 21\n          }\n        ],\n        \"phrase\": \"iphone 5\",\n        \"rate\": 0.76665669999999997\n      }\n    ],\n    \"time\": 1345477932.46945\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/search" : {
+      "get" : {
+        "description" : "Search links receiving clicks across bitly by content, language, location,\nand more.\n\nDeprecated endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "The maximum number of high-value links to return.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Which result to start with",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "String to query for.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "lang",
+          "in" : "query",
+          "description" : "Favor results in this language (two letter ISO code).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "cities",
+          "in" : "query",
+          "description" : "Show links active in this city (ordered like country-state-city, e.g.\nus-il-chicago).\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Restrict results to this web domain.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "description" : "Which fields to return in the response (comma-separated).\nBy default, all will be returned.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"results\": [\n      {\n        \"aggregate_link\": \"http://bit.ly/T21fuJ\",\n        \"title\": \"Debt Reckoning: The Fiscal Deadline in Washington - NYTimes.com\",\n        \"url\": \"http://www.nytimes.com/interactive/us/politics/debt-reckoning.html\"\n      },\n      {\n        \"aggregate_link\": \"http://bit.ly/WhGQTe\",\n        \"title\": \"Sunday Coverage of School Shooting Aftermath - NYTimes.com\",\n        \"url\": \"http://thelede.blogs.nytimes.com/2012/12/16/sunday-coverage-of-newtown-school-shooting/\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/shorten" : {
+      "get" : {
+        "description" : "Given a long URL, returns a bitly short URL.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "longUrl",
+          "in" : "query",
+          "description" : "A long URL to be shortened (example: http://betaworks.com/).\nLong URLs should be URL-encoded. You can not include a longUrl in the\nrequest that has &, ?, or other reserved parameters without firs\nencoding it.\nLong URLs should not contain spaces: any longUrl with spaces will be\nrejected. All spaces should be either percent encoded %20 or plus\nencoded +. Note that tabs, newlines and trailing spaces are all\nindications of errors. Please remember to strip leading and trailing\nwhitespace from any user input before shortening.\nLong URLs must have a slash between the domain and the path component.\nFor example, http://example.com?query=parameter is invalid, and instead\nshould be formatted as http://example.com/?query=parameter.\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Refers to a preferred domain; either bit.ly, j.mp, or bitly.com, for\nusers who do NOT have a custom short domain set up with bitly. This\naffects the output value of url. The default for this parameter is the\nshort domain selected by each user in his/her bitly account settings.\nPassing a specific domain via this parameter will override the defaul\nsettings for users who do NOT have a custom short domain set up with\nbitly. For users who have implemented a custom short domain, bitly\nwill always return short links according to the user's account-level\npreference.\nThe default value for the domain parameter is selected by each user from\nwithin his/her bitly account settings at http://bitly.com/a/account.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/shorten"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"global_hash\": \"900913\",\n    \"hash\": \"ze6poY\",\n    \"long_url\": \"http://google.com/\",\n    \"new_hash\": 0,\n    \"url\": \"http://bit.ly/ze6poY\"\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/bundle_history" : {
+      "get" : {
+        "description" : "Returns all bundles this user has access to (public + private + collaborator).",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "True or false - include extra user info in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"bundles\": [\n      {\n        \"aggregate_link\": \"http://bit.ly/ziAHJz\",\n        \"bundle_link\": \"http://bitly.com/bundles/bitlyapioauthdemo/1\",\n        \"bundle_owner\": \"bitlyapioauthdemo\",\n        \"created_ts\": 1332175561,\n        \"description\": \"\",\n        \"last_modified_ts\": 1332177579,\n        \"private\": false,\n        \"title\": \"Here is a Bundle of Links!\",\n        \"user_link\": \"http://bit.ly/xhGb5J\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/clicks" : {
+      "get" : {
+        "description" : "Returns the aggregate number of clicks on all of the authenticated user's\nbitly links.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-clicks"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"clicks\": [\n      {\n        \"clicks\": 3,\n        \"day_start\": 1331784000\n      },\n      {\n        \"clicks\": 129,\n        \"day_start\": 1331697600\n      },\n      {\n        \"clicks\": 53,\n        \"day_start\": 1331611200\n      },\n      {\n        \"clicks\": 151,\n        \"day_start\": 1331524800\n      },\n      {\n        \"clicks\": 2,\n        \"day_start\": 1331438400\n      },\n      {\n        \"clicks\": 5,\n        \"day_start\": 1331352000\n      },\n      {\n        \"clicks\": 45,\n        \"day_start\": 1331265600\n      }\n    ],\n    \"days\": 7,\n    \"total_clicks\": 388\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/countries" : {
+      "get" : {
+        "description" : "Returns aggregate metrics about the countries referring click traffic to all of the authenticated user's bitly links.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-countries"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"countries\": [\n      [\n        {\n          \"clicks\": 3,\n          \"country\": \"US\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 96,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 19,\n          \"country\": \"None\"\n        },\n        {\n          \"clicks\": 4,\n          \"country\": \"CA\"\n        },\n        {\n          \"clicks\": 3,\n          \"country\": \"GB\"\n        },\n        {\n          \"clicks\": 2,\n          \"country\": \"NZ\"\n        },\n        {\n          \"clicks\": 2,\n          \"country\": \"IE\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"DE\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"HK\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"AU\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 41,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 8,\n          \"country\": \"None\"\n        },\n        {\n          \"clicks\": 3,\n          \"country\": \"PL\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"GB\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 113,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 21,\n          \"country\": \"None\"\n        },\n        {\n          \"clicks\": 4,\n          \"country\": \"CA\"\n        },\n        {\n          \"clicks\": 4,\n          \"country\": \"GB\"\n        },\n        {\n          \"clicks\": 3,\n          \"country\": \"NO\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"CL\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"AR\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"SE\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"IN\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"IE\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"PL\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 1,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"TH\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 4,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"None\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 40,\n          \"country\": \"US\"\n        },\n        {\n          \"clicks\": 2,\n          \"country\": \"None\"\n        },\n        {\n          \"clicks\": 2,\n          \"country\": \"CA\"\n        },\n        {\n          \"clicks\": 1,\n          \"country\": \"PL\"\n        }\n      ]\n    ],\n    \"days\": 7\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/info" : {
+      "get" : {
+        "description" : "Return or update information about a user.",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "login",
+          "in" : "query",
+          "description" : "The bitly login of the user whose info to look up. If not given, the\nauthenticated user will be used.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "full_name",
+          "in" : "query",
+          "description" : "Set the users full name value. (only available for the authenticated user.)\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-info-enterprise_user"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"apiKey\": \"R_f6397a37e765574f2e198dba5bb59522\",\n    \"custom_short_domain\": null,\n    \"display_name\": null,\n    \"full_name\": \"Bitly API Oauth Demo Account\",\n    \"is_enterprise\": false,\n    \"login\": \"bitlyapioauthdemo\",\n    \"member_since\": 1331567982,\n    \"profile_image\": \"http://bitly.com/u/bitlyapioauthdemo.png\",\n    \"profile_url\": \"http://bitly.com/u/bitlyapioauthdemo\",\n    \"share_accounts\": [],\n    \"tracking_domains\": []\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/link_edit" : {
+      "get" : {
+        "description" : "Changes link metadata in a user's history.\nBecause link metadata is modified asynchronously, it may take a few moments\nfor changes made via this API method to update.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to be edited.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "edit",
+          "in" : "query",
+          "description" : "A comma separated string of fields to be edited. ie: to edit the note\nfield you also need to pass edit=note.\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "The title of this bitmark.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "note",
+          "in" : "query",
+          "description" : "A description of, or note about, this bitmark.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "private",
+          "in" : "query",
+          "description" : "Boolean true or false indicating privacy setting (defaults to user-level\nsetting).\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "user_ts",
+          "in" : "query",
+          "description" : "Timestamp as an integer epoch.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "archived",
+          "in" : "query",
+          "description" : "Boolean true or false indicating whether or not link is to be archived.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-link_edit"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_edit\": {\n      \"link\": \"http://bit.ly/JGVkUk\"\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/link_history" : {
+      "get" : {
+        "description" : "Returns entries from a user's link history in reverse chronological order.\nNote: Entries will be sorted by the user_ts field found in the response data.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "link",
+          "in" : "query",
+          "description" : "The bitly link to return metadata for (when specified, overrides all\nother options).\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Integer in the range 1 to 100 default: 50, specifying the max number of\nresults to return.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Integer specifying the numbered result at which to start (for pagination).\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "created_before",
+          "in" : "query",
+          "description" : "Timestamp as an integer unix epoch.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "created_after",
+          "in" : "query",
+          "description" : "Timestamp as an integer unix epoch.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "modified_after",
+          "in" : "query",
+          "description" : "Timestamp as an integer unix epoch.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "expand_client_id",
+          "in" : "query",
+          "description" : "true or false whether to provide additional information about encoding\napplication. default: false.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "archived",
+          "in" : "query",
+          "description" : "On, off or both whether to include or exclude archived history entries.\n(on = return only archived history entries)\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "off"
+        }, {
+          "name" : "private",
+          "in" : "query",
+          "description" : "on, off and both whether to include or exclude private history entries.\n(on = return only private history entries) default: both.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "user",
+          "in" : "query",
+          "description" : "The user for whom to retrieve history entries (if different from\nauthenticated user).\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-link_history"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_history\": [\n      {\n        \"aggregate_link\": \"http://4sq.com/bGUucR\",\n        \"archived\": false,\n        \"client_id\": \"a5a2e024b030d6a594be866c7be57b5e2dff9972\",\n        \"created_at\": 1331669360,\n        \"link\": \"http://4sq.com/xnRb5V\",\n        \"long_url\": \"http://foursquare.com/\",\n        \"modified_at\": 1331669360,\n        \"private\": false,\n        \"title\": null,\n        \"user_ts\": 1331669360\n      },\n      {\n        \"aggregate_link\": \"http://nyti.ms/16tOHV\",\n        \"archived\": false,\n        \"client_id\": \"a5a2e024b030d6a594be866c7be57b5e2dff9972\",\n        \"created_at\": 1331669349,\n        \"link\": \"http://nyti.ms/xr5jgq\",\n        \"long_url\": \"http://nytimes.com/\",\n        \"modified_at\": 1331669350,\n        \"private\": false,\n        \"title\": \"The New York Times - Breaking News, World News & Multimedia\",\n        \"user_ts\": 1331669349\n      },\n      {\n        \"aggregate_link\": \"http://bit.ly/2V6CFi\",\n        \"archived\": false,\n        \"client_id\": \"a5a2e024b030d6a594be866c7be57b5e2dff9972\",\n        \"created_at\": 1331663117,\n        \"link\": \"http://bit.ly/zhheQ9\",\n        \"long_url\": \"http://www.google.com/\",\n        \"modified_at\": 1331663117,\n        \"private\": false,\n        \"title\": \"Google\",\n        \"user_ts\": 1331663117\n      }\n    ],\n    \"result_count\": 3\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/link_lookup" : {
+      "get" : {
+        "description" : "This is used to query for a bitly link shortened by the authenticated user\nbased on a long URL.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "url",
+          "in" : "query",
+          "description" : "One or more long URLs to lookup.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-link_lookup"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_lookup\": [\n      {\n        \"aggregate_link\": \"http://bit.ly/2V6CFi\",\n        \"link\": \"http://bit.ly/zhheQ9\",\n        \"url\": \"http://www.google.com/\"\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/link_save" : {
+      "get" : {
+        "description" : "Saves a link as a bitmark in a user's history, with optional pre-set metadata.\n(Also returns a short URL for that link.)\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "longUrl",
+          "in" : "query",
+          "description" : "The URL to be saved as a bitmark.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "The title of this bitmark.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "note",
+          "in" : "query",
+          "description" : "A description of, or note about, this bitmark.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-link_save"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"link_save\": {\n      \"aggregate_link\": \"http://bit.ly/JGVkUl\",\n      \"link\": \"http://bit.ly/JGVkUk\",\n      \"long_url\": \"http://mergerecords.com/news\",\n      \"new_link\": 1\n    }\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/network_history" : {
+      "get" : {
+        "description" : "Returns entries from a user's network history in reverse chronogical order.\n(A user's network history includes publicly saved links from Twitter and\nFacebook connections.)\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Integer that specifies the first record to return.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "expand_client_id",
+          "in" : "query",
+          "description" : "True or false whether to provide additional information about encoding\napplication.\n",
+          "required" : true,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Integer in the range of 1 to 100 that specifies the number of records\nto return (default: 20).\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : 20
+        }, {
+          "name" : "expand_user",
+          "in" : "query",
+          "description" : "True or false - include extra user info in response (login, avatar_url,\ndisplay_name, profile_url, full_name\n",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-network_history"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"entries\": [\n      {\n        \"global_hash\": \"789\",\n        \"saves\": [\n          {\n            \"aggregate_link\": \"http://bit.ly/789\",\n            \"archived\": false,\n            \"client_id\": \"a5a2e024b030d6a594be866c7be57b5e2dff9972\",\n            \"created_at\": 1337892044,\n            \"global_hash\": \"789\",\n            \"link\": \"http://bit.ly/123\",\n            \"long_url\": \"http://fakewebsite.com/something\",\n            \"modified_at\": 1337892044,\n            \"private\": false,\n            \"title\": \"This is a page about exciting things!\",\n            \"user\": \"somebitlyuser\",\n            \"user_ts\": 1337892044\n          }\n        ]\n      },\n      {\n        \"global_hash\": \"234\",\n        \"saves\": [\n          {\n            \"aggregate_link\": \"http://bit.ly/234\",\n            \"archived\": false,\n            \"client_id\": \"a5a2e024b030d6a594be866c7be57b5e2dff9972\",\n            \"created_at\": 1337892044,\n            \"global_hash\": \"234\",\n            \"link\": \"http://bit.ly/567\",\n            \"long_url\": \"http://something.com/blahblahblah\",\n            \"modified_at\": 1337892044,\n            \"private\": false,\n            \"title\": \"This is an article about something!\",\n            \"user\": \"anotherbitlyuser\",\n            \"user_ts\": 1337892044\n          }\n        ]\n      }\n    ],\n    \"limit\": 20,\n    \"offset\": 0,\n    \"total\": 2\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/popular_links" : {
+      "get" : {
+        "description" : "Returns the authenticated user's most-clicked bitly links (ordered by number\nof clicks) in a given time period.\nNote: This replaces the realtime_links endpoint.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-popular_links"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"popular_links\": [\n      {\n        \"clicks\": 6150,\n        \"link\": \"http://bit.ly/123456\"\n      },\n      {\n        \"clicks\": 3647,\n        \"link\": \"http://bit.ly/234567\"\n      },\n      {\n        \"clicks\": 1814,\n        \"link\": \"http://bit.ly/abc123\"\n      },\n      {\n        \"clicks\": 1813,\n        \"link\": \"http://bit.ly/bcd234\"\n      }\n    ],\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/referrers" : {
+      "get" : {
+        "description" : "Returns aggregate metrics about the pages referring click traffic to all\nof the authenticated user's bitly links.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-referrers"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"days\": 7,\n    \"referrers\": [\n      [\n        {\n          \"clicks\": 5,\n          \"referrer\": \"direct\"\n        },\n        {\n          \"clicks\": 3,\n          \"referrer\": \"https://twitter.com/\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 24,\n          \"referrer\": \"direct\"\n        },\n        {\n          \"clicks\": 7,\n          \"referrer\": \"https://twitter.com/\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"http://www.linkedin.com/home\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"http://mobile.twitter.com/\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 11,\n          \"referrer\": \"direct\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"https://twitter.com/\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"http://www.linkedin.com/home\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 27,\n          \"referrer\": \"direct\"\n        },\n        {\n          \"clicks\": 13,\n          \"referrer\": \"https://twitter.com/\"\n        },\n        {\n          \"clicks\": 2,\n          \"referrer\": \"http://hootsuite.com/dashboard\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 1,\n          \"referrer\": \"http://blog.bitlyenterprise.com/\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 2,\n          \"referrer\": \"https://twitter.com/\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"direct\"\n        }\n      ],\n      [\n        {\n          \"clicks\": 6,\n          \"referrer\": \"direct\"\n        },\n        {\n          \"clicks\": 2,\n          \"referrer\": \"https://twitter.com/\"\n        },\n        {\n          \"clicks\": 1,\n          \"referrer\": \"http://www.facebook.com/home.php\"\n        }\n      ]\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/referring_domains" : {
+      "get" : {
+        "description" : "Returns aggregate metrics about the domains referring click traffic to all of the authenticated user's bitly links.\nIf the user is a master account, or is a subaccount with full_reports permission,\nthe user may choose to view the metrics of any account belonging to the master account.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-referring_domains"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"days\": 7,\n    \"referring_domains\": [\n      {\n        \"dt\": 1333339200,\n        \"values\": [\n          {\n            \"clicks\": 1,\n            \"domain\": \"direct\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1333252800,\n        \"values\": [\n          {\n            \"clicks\": 3,\n            \"domain\": \"direct\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1333166400,\n        \"values\": [\n          {\n            \"clicks\": 7,\n            \"domain\": \"t.co\",\n            \"url\": \"http://t.co/\"\n          },\n          {\n            \"clicks\": 4,\n            \"domain\": \"direct\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1333080000,\n        \"values\": [\n          {\n            \"clicks\": 36,\n            \"domain\": \"t.co\",\n            \"url\": \"http://t.co/\"\n          },\n          {\n            \"clicks\": 6,\n            \"domain\": \"direct\"\n          },\n          {\n            \"clicks\": 5,\n            \"domain\": \"twitter.com\",\n            \"url\": \"http://twitter.com/\"\n          },\n          {\n            \"clicks\": 1,\n            \"domain\": \"hootsuite.com\",\n            \"url\": \"http://hootsuite.com/\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1332993600,\n        \"values\": [\n          {\n            \"clicks\": 96,\n            \"domain\": \"t.co\",\n            \"url\": \"http://t.co/\"\n          },\n          {\n            \"clicks\": 21,\n            \"domain\": \"direct\"\n          },\n          {\n            \"clicks\": 15,\n            \"domain\": \"twitter.com\",\n            \"url\": \"http://twitter.com/\"\n          },\n          {\n            \"clicks\": 3,\n            \"domain\": \"hootsuite.com\",\n            \"url\": \"http://hootsuite.com/\"\n          },\n          {\n            \"clicks\": 1,\n            \"domain\": \"www.linkedin.com\",\n            \"url\": \"http://www.linkedin.com/\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1332907200,\n        \"values\": [\n          {\n            \"clicks\": 49,\n            \"domain\": \"t.co\",\n            \"url\": \"http://t.co/\"\n          },\n          {\n            \"clicks\": 33,\n            \"domain\": \"direct\"\n          },\n          {\n            \"clicks\": 4,\n            \"domain\": \"twitter.com\",\n            \"url\": \"http://twitter.com/\"\n          },\n          {\n            \"clicks\": 2,\n            \"domain\": \"mail.verizon.com\",\n            \"url\": \"http://mail.verizon.com/\"\n          },\n          {\n            \"clicks\": 2,\n            \"domain\": \"hootsuite.com\",\n            \"url\": \"http://hootsuite.com/\"\n          }\n        ]\n      },\n      {\n        \"dt\": 1332820800,\n        \"values\": [\n          {\n            \"clicks\": 16,\n            \"domain\": \"t.co\",\n            \"url\": \"http://t.co/\"\n          },\n          {\n            \"clicks\": 16,\n            \"domain\": \"direct\"\n          },\n          {\n            \"clicks\": 1,\n            \"domain\": \"twitter.com\",\n            \"url\": \"http://twitter.com/\"\n          },\n          {\n            \"clicks\": 1,\n            \"domain\": \"www.google.com\",\n            \"url\": \"http://www.google.com/\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/share_counts" : {
+      "get" : {
+        "description" : "Returns the number of shares by the authenticated user in a given time period.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-share_counts"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"share_metrics\": 17,\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/shorten_counts" : {
+      "get" : {
+        "description" : "Returns the number of links shortened (encoded) in a given time period by\nthe authenticated user.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-shorten_counts"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"units\": -1,\n    \"user_shorten_counts\": 1254\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/tracking_domain_clicks" : {
+      "get" : {
+        "description" : "Returns the number of clicks on bitly links pointing to the specified\ntracking domain that have occured in a given time period.\nUsers can register a tracking domain from their bitly settings page.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "A tracking domain as returned from /v3/user/tracking_domain_list.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-tracking_domain_clicks"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"tracking_domain_clicks\": 206,\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/tracking_domain_list" : {
+      "get" : {
+        "description" : "Returns a list of tracking domains a user has configured.",
+        "schemes" : [ "http" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-tracking_domain_list"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"tracking_domains\": [\n      \"usa.gov\"\n    ]\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/tracking_domain_shorten_counts" : {
+      "get" : {
+        "description" : "Returns the number of links, pointing to a specified tracking domain, shortened\n(encoded) in a given time period by all bitly users.\nUsers can register a tracking domain from their bitly settings page.\n",
+        "schemes" : [ "http" ],
+        "parameters" : [ {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "A tracking domain as returned from /v3/user/tracking_domain_list.\n",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "unit",
+          "in" : "query",
+          "description" : "minute, hour, day, week or month, default: day\nNote: when unit is minute the maximum value for units is 60.\n",
+          "required" : false,
+          "type" : "string",
+          "default" : "day"
+        }, {
+          "name" : "units",
+          "in" : "query",
+          "description" : "An integer representing the time units to query data for. Pass -1 to\nreturn all units of time.\n",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "timezone",
+          "in" : "query",
+          "description" : "An integer hour offset from UTC (-14 to 14), or a timezone string\ndefault: America/New_York.\n",
+          "required" : false,
+          "type" : "integer",
+          "default" : -4
+        }, {
+          "name" : "rollup",
+          "in" : "query",
+          "description" : "Return data for multiple units rolled up to a single result instead of\na separate value for each period of time.\n",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "1 to 1000",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100
+        }, {
+          "name" : "unit_reference_ts",
+          "in" : "query",
+          "description" : "An epoch timestamp, indicating the most recent time for which to pull\nmetrics, default: now.\nThe value of unit_reference_ts rounds to the nearest unit.\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful request.",
+            "schema" : {
+              "$ref" : "#/definitions/user-tracking_domain_shorten_counts"
+            },
+            "examples" : {
+              "application/json" : "{\n  \"data\": {\n    \"tracking_domain_shorten_counts\": 88,\n    \"tz_offset\": -4,\n    \"unit\": \"day\",\n    \"units\": -1\n  },\n  \"status_code\": 200,\n  \"status_txt\": \"OK\"\n}"
+            }
+          },
+          "500" : {
+            "description" : "Any other error."
+          },
+          "403" : {
+            "description" : "Rate limit exceeded."
+          },
+          "404" : {
+            "description" : "Not Found. The server has not found anything matching the Request-URI.\n"
+          },
+          "503" : {
+            "description" : "Unknown error."
+          },
+          "429" : {
+            "description" : "Your application is sending too many simultaneous requests."
+          }
+        },
+        "security" : [ ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "user-referrers" : {
+      "type" : "object"
+    },
+    "user-shorten_counts" : {
+      "type" : "object"
+    },
+    "bundle-clone" : {
+      "type" : "object"
+    },
+    "bitly_pro_domain" : {
+      "type" : "object"
+    },
+    "shorten" : {
+      "type" : "object"
+    },
+    "user-link_edit" : {
+      "type" : "object"
+    },
+    "link-encoders_count" : {
+      "type" : "object"
+    },
+    "link-referring_domains" : {
+      "type" : "object"
+    },
+    "bundle-view_count" : {
+      "type" : "object"
+    },
+    "link-lookup" : {
+      "type" : "object"
+    },
+    "link-shares" : {
+      "type" : "object"
+    },
+    "user-network_history" : {
+      "type" : "object"
+    },
+    "user-countries" : {
+      "type" : "object"
+    },
+    "user-link_save" : {
+      "type" : "object"
+    },
+    "user-referring_domains" : {
+      "type" : "object"
+    },
+    "bundle-bundles_by_user" : {
+      "type" : "object"
+    },
+    "info" : {
+      "type" : "object"
+    },
+    "link-countries" : {
+      "type" : "object"
+    },
+    "user-tracking_domain_shorten_counts" : {
+      "type" : "object"
+    },
+    "link-referrers" : {
+      "type" : "object"
+    },
+    "user-link_lookup" : {
+      "type" : "object"
+    },
+    "bundle-clone-schema" : {
+      "type" : "object"
+    },
+    "link-encoders" : {
+      "type" : "object"
+    },
+    "user-link_history" : {
+      "type" : "object"
+    },
+    "user-info-enterprise_user" : {
+      "type" : "object"
+    },
+    "expand" : {
+      "type" : "object"
+    },
+    "user-share_counts" : {
+      "type" : "object"
+    },
+    "link-clicks" : {
+      "type" : "object"
+    },
+    "user-tracking_domain_clicks" : {
+      "type" : "object"
+    },
+    "user-popular_links" : {
+      "type" : "object"
+    },
+    "user-clicks" : {
+      "type" : "object"
+    },
+    "user-tracking_domain_list" : {
+      "type" : "object"
+    },
+    "link-referrers-schema" : {
+      "type" : "object"
+    }
+  },
+  "externalDocs" : {
+    "description" : "Headline",
+    "url" : "Bitly provides a URL shortening service in addition to a set of tools to view statistics related to users that clicked on the generated links."
+  },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

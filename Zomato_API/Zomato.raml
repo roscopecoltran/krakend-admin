@@ -1,0 +1,300 @@
+#%RAML 0.8
+title: Zomato
+version: "1.0"
+baseUri: "https://developers.zomato.com/api/v2.1"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/geocode: 
+    displayName: /geocode
+    get: 
+        description: Retrieves a Foodie and Nightlife Index, list of popular cuisines and nearby restaurants
+        queryParameters: 
+            lon: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: true
+                repeat: false
+            lat: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: true
+                repeat: false
+/dailymenu: 
+    displayName: /dailymenu
+    get: 
+        description: Retrieves a daily menu using Zomato restaurant ID
+        queryParameters: 
+            res_id: 
+                description: id of restaurant whose details are requested
+                type: string
+                required: true
+                repeat: false
+/search: 
+    displayName: /search
+    get: 
+        description: Retrieves a location input can be specified using Zomato location ID or coordinates. Cuisine / Establishment / Collection IDs can be obtained from respective api calls. Get up to 100 restaurants by changing the 'start' and 'count' parameters with the maximum value of count being 20
+        queryParameters: 
+            establishment_type: 
+                description: estblishment id obtained from establishments call
+                type: string
+                required: false
+                repeat: false
+            count: 
+                description: max number of results to display
+                type: string
+                required: false
+                repeat: false
+            start: 
+                description: fetch results after offset
+                type: string
+                required: false
+                repeat: false
+            lon: 
+                description: longitude
+                type: string
+                required: false
+                repeat: false
+            sort: 
+                description: sort restaurants by
+                type: string
+                required: false
+                repeat: false
+            entity_id: 
+                description: location id
+                type: string
+                required: false
+                repeat: false
+            cuisines: 
+                description: list of cuisine id's separated by comma
+                type: string
+                required: false
+                repeat: false
+            collection_id: 
+                description: collection id obtained from collections call
+                type: string
+                required: false
+                repeat: false
+            q: 
+                description: search keyword
+                type: string
+                required: false
+                repeat: false
+            entity_type: 
+                description: location type
+                type: string
+                required: false
+                repeat: false
+            category: 
+                description: category ids obtained from categories call
+                type: string
+                required: false
+                repeat: false
+            radius: 
+                description: radius around (lat,lon); to define search area, defined in meters(M)
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: latitude
+                type: string
+                required: false
+                repeat: false
+            order: 
+                description: used with 'sort' parameter to define ascending / descending
+                type: string
+                required: false
+                repeat: false
+/cities: 
+    displayName: /cities
+    get: 
+        description: Retrieves a the Zomato ID and other details for a city
+        queryParameters: 
+            q: 
+                description: query by city name
+                type: string
+                required: false
+                repeat: false
+            count: 
+                description: number of max results to display
+                type: string
+                required: false
+                repeat: false
+            lon: 
+                description: longitude
+                type: string
+                required: false
+                repeat: false
+            city_ids: 
+                description: comma separated city_id values
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: latitude
+                type: string
+                required: false
+                repeat: false
+/collections: 
+    displayName: /collections
+    get: 
+        description: Retrieves a Zomato Restaurant Collections in a City
+        queryParameters: 
+            count: 
+                description: max number of results needed
+                type: string
+                required: false
+                repeat: false
+            lon: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            city_id: 
+                description: id of the city for which collections are needed
+                type: string
+                required: false
+                repeat: false
+/restaurant: 
+    displayName: /restaurant
+    get: 
+        description: Retrieves a detailed restaurant information using Zomato restaurant ID. Partner Access is required to access photos and reviews
+        queryParameters: 
+            res_id: 
+                description: |
+                     	
+                    
+                    id of restaurant whose details are requested
+                type: string
+                required: true
+                repeat: false
+/reviews: 
+    displayName: /reviews
+    get: 
+        description: Retrieves a restaurant reviews using the Zomato restaurant ID
+        queryParameters: 
+            res_id: 
+                description: id of restaurant whose details are requested
+                type: string
+                required: true
+                repeat: false
+            count: 
+                description: max number of results to retrieve
+                type: string
+                required: false
+                repeat: false
+            start: 
+                description: fetch results after this offset
+                type: string
+                required: false
+                repeat: false
+/establishments: 
+    displayName: /establishments
+    get: 
+        description: Retrieves a list of restaurant types in a city.
+        queryParameters: 
+            lon: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            city_id: 
+                description: id of the city
+                type: string
+                required: false
+                repeat: false
+/location_details: 
+    displayName: /location_details
+    get: 
+        description: Retrieves a Foodie Index, Nightlife Index, Top Cuisines and Best rated restaurants
+        queryParameters: 
+            entity_type: 
+                description: location type obtained from locations api
+                type: string
+                required: true
+                repeat: false
+            entity_id: 
+                description: location id obtained from locations api
+                type: string
+                required: true
+                repeat: false
+/cuisines: 
+    displayName: /cuisines
+    get: 
+        description: Retrieves a  list of all cuisines of restaurants listed in a city. The location/city
+        queryParameters: 
+            lon: 
+                description: |
+                     	
+                    
+                    latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: |
+                     	
+                    
+                    latitude / longitude of any point within a city
+                type: string
+                required: false
+                repeat: false
+            city_id: 
+                description: id of the city for which cuisines are needed
+                type: string
+                required: false
+                repeat: false
+/categories: 
+    displayName: /categories
+    get: 
+        description: Retrieves a list of categories of restaurants.
+/locations: 
+    displayName: /locations
+    get: 
+        description: Retrieves a Zomato locations by keyword. Provide coordinates to get better search results
+        queryParameters: 
+            query: 
+                description: suggestion for location name
+                type: string
+                required: true
+                repeat: false
+            count: 
+                description: max number of results to fetch
+                type: string
+                required: false
+                repeat: false
+            lon: 
+                description: longitude
+                type: string
+                required: false
+                repeat: false
+            lat: 
+                description: latitude
+                type: string
+                required: false
+                repeat: false
+documentation: 
+    - 
+        title: API Description
+        content: Zomato APIs give you access to the freshest and most exhaustive information for over 1.5 million restaurants across 10,000 cities globally.
