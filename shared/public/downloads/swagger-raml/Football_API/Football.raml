@@ -1,0 +1,145 @@
+#%RAML 0.8
+title: Football
+version: "1.0"
+baseUri: "http://football-data.org/v1"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/teams/{id}: 
+    displayName: team
+    description: Show one team.
+    uriParameters: 
+        id: 
+            type: string
+            required: false
+            repeat: false
+    get: 
+    /players: 
+        displayName: Player
+        description: Show all players for a certain team.
+        uriParameters: 
+            id: 
+                type: string
+                required: false
+                repeat: false
+        get: 
+    /fixtures: 
+        displayName: fixtures
+        uriParameters: 
+            venue: 
+                description: venue=/home|away/
+                type: string
+                required: false
+                repeat: false
+            season: 
+                description: |
+                    season=/\d\d\d\d/
+                type: string
+                required: false
+                repeat: false
+            id: 
+                type: string
+                required: false
+                repeat: false
+            timeFrame: 
+                description: |
+                    timeFrame=/p|n[1-9]{1,2}/
+                type: string
+                required: false
+                repeat: false
+        get: 
+fixtures/{id}: 
+    displayName: Show one fixture.
+    description: Show one fixture.
+    uriParameters: 
+        id: 
+            type: string
+            required: false
+            repeat: false
+    get: 
+/competitions: 
+    displayName: Competition
+    get: 
+        description: List all available competitions.
+        queryParameters: 
+            season: 
+                description: |-
+                    season=/\d\d\d\d/
+                type: string
+                required: false
+                repeat: false
+    /{id}/teams: 
+        displayName: Team
+        uriParameters: 
+            id: 
+                type: string
+                required: false
+                repeat: false
+        get: 
+    /{id}/fixtures: 
+        displayName: Fixture
+        description: List all fixtures for a certain competition.
+        uriParameters: 
+            matchday: 
+                description: |-
+                    matchday=/\d+/
+                type: string
+                required: false
+                repeat: false
+            id: 
+                type: string
+                required: false
+                repeat: false
+            timeFrame: 
+                description: |
+                    timeFrame=/p|n[1-9]{1,2}/
+                type: string
+                required: false
+                repeat: false
+        get: 
+    /{id}/leagueTable: 
+        displayName: LeagueTable
+        uriParameters: 
+            matchday: 
+                description: |-
+                    matchday=/\d+/
+                type: string
+                required: false
+                repeat: false
+            id: 
+                type: string
+                required: false
+                repeat: false
+        get: 
+/fixtures: 
+    displayName: fixtures
+    description: List fixtures across a set of competitions.
+    get: 
+        description: List fixtures across a set of competitions.
+        queryParameters: 
+            league: 
+                description: league=leagueCode
+                type: string
+                required: false
+                repeat: false
+            timeFrame: 
+                description: |
+                    timeFrame=/p|n[1-9]{1,2}/
+                type: string
+                required: false
+                repeat: false
+documentation: 
+    - 
+        title: API Description
+        content: The goal of the football-data API is to provide football data of all major european leagues in a machine-readable way.

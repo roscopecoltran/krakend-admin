@@ -1,0 +1,53 @@
+#%RAML 0.8
+title: Library API
+version: "1.0"
+baseUri: "http://openlibrary.org/"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/search.json: 
+    displayName: Search
+    description: /search?q=the+lord+of+the+rings
+    uriParameters: 
+        author: 
+            type: string
+            required: false
+            repeat: false
+        page: 
+            description: ""
+            type: string
+            required: false
+            repeat: false
+        title: 
+            description: ""
+            type: string
+            required: false
+            repeat: false
+    get: 
+        responses: 
+            "200": 
+                description: |
+                    {
+                        "numFound": 629,
+                        "docs": [
+                            {...},
+                            {...},
+                            {...},
+                            ...
+                            {...}]
+                    }
+documentation: 
+    - 
+        title: API Description
+        content: This API is provided by Open Library and allows you to search library data. Open Library has developed a suite of APIs to help developers get up and running with the provided reference data. They lend ebooks worldwide, and have over two million free ebooks available and 250,000 more in the lending library, where there is a web page for every book.

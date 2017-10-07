@@ -1,0 +1,167 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The goal of the football-data API is to provide football data of all major european leagues in a machine-readable way.",
+    "version" : "1.0",
+    "title" : "Football"
+  },
+  "host" : "football-data.org",
+  "basePath" : "/v1",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/competitions" : {
+      "get" : {
+        "description" : "List all available competitions.",
+        "parameters" : [ {
+          "name" : "season",
+          "in" : "query",
+          "description" : "season=/\\d\\d\\d\\d/",
+          "required" : false,
+          "type" : "string"
+        } ]
+      }
+    },
+    "/competitions/{id}/fixtures" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "matchday",
+        "in" : "query",
+        "description" : "matchday=/\\d+/",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "timeFrame",
+        "in" : "query",
+        "description" : "timeFrame=/p|n[1-9]{1,2}/\n",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "/competitions/{id}/leagueTable" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "matchday",
+        "in" : "query",
+        "description" : "matchday=/\\d+/",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "/competitions/{id}/teams" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "/fixtures" : {
+      "get" : {
+        "description" : "List fixtures across a set of competitions.",
+        "parameters" : [ {
+          "name" : "league",
+          "in" : "query",
+          "description" : "league=leagueCode",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "timeFrame",
+          "in" : "query",
+          "description" : "timeFrame=/p|n[1-9]{1,2}/\n",
+          "required" : false,
+          "type" : "string"
+        } ]
+      }
+    },
+    "/teams/{id}" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "/teams/{id}/fixtures" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "venue",
+        "in" : "query",
+        "description" : "venue=/home|away/",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "timeFrame",
+        "in" : "query",
+        "description" : "timeFrame=/p|n[1-9]{1,2}/\n",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "season",
+        "in" : "query",
+        "description" : "season=/\\d\\d\\d\\d/\n",
+        "required" : false,
+        "type" : "string"
+      }, {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "/teams/{id}/players" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    },
+    "fixtures/{id}" : {
+      "get" : {
+        "parameters" : [ ]
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : false,
+        "type" : "string"
+      } ]
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

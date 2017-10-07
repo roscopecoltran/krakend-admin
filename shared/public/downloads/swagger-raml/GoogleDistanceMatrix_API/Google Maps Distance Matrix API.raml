@@ -1,0 +1,270 @@
+#%RAML 0.8
+title: Google Maps Distance Matrix API
+version: "1.0"
+baseUri: "https://maps.googleapis.com/maps/api"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/distancematrix/{outputFormat}: 
+    displayName: Distance Matrix
+    description: Provides travel distance and time for a matrix of origins and destinations.
+    uriParameters: 
+        outputFormat: 
+            description: "outputFormat may be either of the following values: json (recommended) indicates output in JavaScript Object Notation (JSON); or xml indicates output in XML"
+            type: string
+            required: true
+            repeat: false
+            default: ""
+    get: 
+        queryParameters: 
+            mode: 
+                description: |
+                    (defaults to driving) — Specifies the mode of transport to use when calculating distance. The following travel modes are supported:
+                    driving (default) indicates distance calculation using the road network.
+                    walking requests distance calculation for walking via pedestrian paths & sidewalks (where available).
+                    bicycling requests distance calculation for bicycling via bicycle paths & preferred streets (where available).
+                    transit requests distance calculation via public transit routes (where available). This value may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID. If you set the mode to transit you can optionally specify either a departure_time or an arrival_time. If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time). You can also optionally include a transit_mode and/or a transit_routing_preference.
+                    For more information, refer to https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            arrival_time: 
+                description: Specifies the desired time of arrival for transit requests, in seconds since midnight, January 1, 1970 UTC. You can specify either departure_time or arrival_time, but not both. Note that arrival_time must be specified as an integer.
+                type: string
+                required: false
+                repeat: false
+            destinations: 
+                description: One or more locations to use as the finishing point for calculating travel distance and time. The options for the destinations parameter are the same as for the origins parameter.
+                type: string
+                required: true
+                repeat: false
+            transit_mode: 
+                description: |
+                    Specifies one or more preferred modes of transit. This parameter may only be specified for requests where the mode is transit. The parameter supports the following arguments:
+                    bus indicates that the calculated route should prefer travel by bus.
+                    subway indicates that the calculated route should prefer travel by subway.
+                    train indicates that the calculated route should prefer travel by train.
+                    tram indicates that the calculated route should prefer travel by tram and light rail.
+                    rail indicates that the calculated route should prefer travel by train, tram, light rail, and subway. This is equivalent to transit_mode=train|tram|subway.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            traffic_model: 
+                description: |
+                    (defaults to best_guess) — Specifies the assumptions to use when calculating time in traffic. This setting affects the value returned in the duration_in_traffic field in the response, which contains the predicted time in traffic based on historical averages. The traffic_model parameter may only be specified for requests where the travel mode is driving. The available values for this parameter are:
+                    best_guess (default) indicates that the returned duration_in_traffic should be the best estimate of travel time given what is known about both historical traffic conditions and live traffic. Live traffic becomes more important the closer the departure_time is to now.
+                    pessimistic indicates that the returned duration_in_traffic should be longer than the actual travel time on most days, though occasional days with particularly bad traffic conditions may exceed this value.
+                    optimistic indicates that the returned duration_in_traffic should be shorter than the actual travel time on most days, though occasional days with particularly good traffic conditions may be faster than this value.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            origins: 
+                description: |
+                    The starting point for calculating travel distance and time. You can supply one or more locations separated by the pipe character (|), in the form of an address, latitude/longitude coordinates, or a place ID:
+                    If you pass an address, the service geocodes the string and converts it to a latitude/longitude coordinate to calculate distance. This coordinate may be different from that returned by the Google Maps Geocoding API, for example a building entrance rather than its center.
+                    origins=Bobcaygeon+ON|24+Sussex+Drive+Ottawa+ON
+                    If you pass latitude/longitude coordinates, they are used unchanged to calculate distance. Ensure that no space exists between the latitude and longitude values.
+                    origins=41.43206,-81.38992|-33.86748,151.20699
+                    If you supply a place ID, you must prefix it with place_id:. You can only specify a place ID if the request includes an API key or a Google Maps APIs Premium Plan client ID. You can retrieve place IDs from the Google Maps Geocoding API and the Google Places API (including Place Autocomplete). For an example using place IDs from Place Autocomplete, see Place Autocomplete and Directions. For more about place IDs, see the place ID overview.
+                    origins=place_id:ChIJ3S-JXmauEmsRUcIaWtf4MzE
+                    Alternatively, you can supply an encoded set of coordinates using the Encoded Polyline Algorithm. This is particularly useful if you have a large number of origin points, because the URL is significantly shorter when using an encoded polyline.
+                    Encoded polylines must be prefixed with enc: and followed by a colon (:).For example: origins=enc:gfo}EtohhU:
+                    You can also include multiple encoded polylines, separated by the pipe character (|). For example: origins=enc:wc~oAwquwMdlTxiKtqLyiK:|enc:c~vnAamswMvlTor@tjGi}L:|enc:udymA{~bxM:
+                type: string
+                required: true
+                repeat: false
+            language: 
+                description: |
+                    The language in which to return results.
+                    See https://developers.google.com/maps/faq#languagesupport. Google often updates the supported languages, so this list may not be exhaustive.
+                    If language is not supplied, the API attempts to use the preferred language as specified in the Accept-Language header, or the native language of the domain from which the request is sent.
+                    The API does its best to provide a street address that is readable for both the user and locals. To achieve that goal, it returns street addresses in the local language, transliterated to a script readable by the user if necessary, observing the preferred language. All other addresses are returned in the preferred language. Address components are all returned in the same language, which is chosen from the first component.
+                    If a name is not available in the preferred language, the API uses the closest match.
+                    The preferred language has a small influence on the set of results that the API chooses to return, and the order in which they are returned. The geocoder interprets abbreviations differently depending on language, such as the abbreviations for street types, or synonyms that may be valid in one language but not in another. For example, utca and tér are synonyms for street in Hungarian.
+                type: string
+                required: false
+                repeat: false
+            units: 
+                description: "Specifies the unit system to use when expressing distance as text. See https://developers.google.com/maps/documentation/distance-matrix/intro#unit_systems for more information."
+                type: string
+                required: false
+                repeat: false
+            avoid: 
+                description: |
+                    Introduces restrictions to the route. The following restrictions are supported:
+                    avoid=tolls
+                    avoid=highways
+                    avoid=ferries
+                    avoid=indoor
+                    Refer to https://developers.google.com/maps/documentation/distance-matrix/intro#Restrictions. Only one restriction can be specified.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            departure_time: 
+                description: |
+                    The desired time of departure. You can specify the time as an integer in seconds since midnight, January 1, 1970 UTC. Alternatively, you can specify a value of now, which sets the departure time to the current time (correct to the nearest second). The departure time may be specified in two cases:
+                    For requests where the travel mode is transit: You can optionally specify one of departure_time or arrival_time. If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time).
+                    For requests where the travel mode is driving: You can specify the departure_time to receive a route and trip duration (response field: duration_in_traffic) that take traffic conditions into account. The departure_time must be set to the current time or some time in the future. It cannot be in the past.
+                type: string
+                required: false
+                repeat: false
+            key: 
+                description: This key identifies your application for purposes of quota management.
+                type: string
+                required: true
+                repeat: false
+                enum: [AIzaSyAgCJBw8Jlutcm9rm6fUJFt8HmcE3ZRjS8]
+                default: AIzaSyAgCJBw8Jlutcm9rm6fUJFt8HmcE3ZRjS8
+            transit_routing_preference: 
+                description: |
+                    Specifies preferences for transit requests. Using this parameter, you can bias the options returned, rather than accepting the default best route chosen by the API. This parameter may only be specified for requests where the mode is transit. The parameter supports the following arguments:
+                    less_walking indicates that the calculated route should prefer limited amounts of walking.
+                    fewer_transfers indicates that the calculated route should prefer a limited number of transfers.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+        responses: 
+            "200": 
+                description: |
+                    Distance Matrix responses contain the following root elements:
+                    
+                    status contains metadata on the request. See https://developers.google.com/maps/documentation/distance-matrix/intro#StatusCodes.
+                    origin_addresses contains an array of addresses as returned by the API from your original request. These are formatted by the geocoder and localized according to the language parameter passed with the request.
+                    destination_addresses contains an array of addresses as returned by the API from your original request. As with origin_addresses, these are localized if appropriate.
+                    rows contains an array of elements, which in turn each contain a status, duration, and distance element.
+                body: 
+                    application/xml: 
+                        schema: ""
+                        example: |
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <DistanceMatrixResponse>
+                             <status>OK</status>
+                             <origin_address>Vancouver, BC, Canada</origin_address>
+                             <origin_address>Seattle, État de Washington, États-Unis</origin_address>
+                             <destination_address>San Francisco, Californie, États-Unis</destination_address>
+                             <destination_address>Victoria, BC, Canada</destination_address>
+                             <row>
+                              <element>
+                               <status>OK</status>
+                               <duration>
+                                <value>340110</value>
+                                <text>3 jours 22 heures</text>
+                               </duration>
+                               <distance>
+                                <value>1734542</value>
+                                <text>1 735 km</text>
+                               </distance>
+                              </element>
+                              <element>
+                               <status>OK</status>
+                               <duration>
+                                <value>24487</value>
+                                <text>6 heures 48 minutes</text>
+                               </duration>
+                               <distance>
+                                <value>129324</value>
+                                <text>129 km</text>
+                               </distance>
+                              </element>
+                             </row>
+                             <row>
+                              <element>
+                               <status>OK</status>
+                               <duration>
+                                <value>288834</value>
+                                <text>3 jours 8 heures</text>
+                               </duration>
+                               <distance>
+                                <value>1489604</value>
+                                <text>1 490 km</text>
+                               </distance>
+                              </element>
+                              <element>
+                               <status>OK</status>
+                               <duration>
+                                <value>14388</value>
+                                <text>4 heures 0 minutes</text>
+                               </duration>
+                               <distance>
+                                <value>135822</value>
+                                <text>136 km</text>
+                               </distance>
+                              </element>
+                             </row>
+                            </DistanceMatrixResponse>
+                    application/json: 
+                        schema: ""
+                        example: |
+                            {
+                              "status": "OK",
+                              "origin_addresses": [ "Vancouver, BC, Canada", "Seattle, État de Washington, États-Unis" ],
+                              "destination_addresses": [ "San Francisco, Californie, États-Unis", "Victoria, BC, Canada" ],
+                              "rows": [ {
+                                "elements": [ {
+                                  "status": "OK",
+                                  "duration": {
+                                    "value": 340110,
+                                    "text": "3 jours 22 heures"
+                                  },
+                                  "distance": {
+                                    "value": 1734542,
+                                    "text": "1 735 km"
+                                  }
+                                }, {
+                                  "status": "OK",
+                                  "duration": {
+                                    "value": 24487,
+                                    "text": "6 heures 48 minutes"
+                                  },
+                                  "distance": {
+                                    "value": 129324,
+                                    "text": "129 km"
+                                  }
+                                } ]
+                              }, {
+                                "elements": [ {
+                                  "status": "OK",
+                                  "duration": {
+                                    "value": 288834,
+                                    "text": "3 jours 8 heures"
+                                  },
+                                  "distance": {
+                                    "value": 1489604,
+                                    "text": "1 490 km"
+                                  }
+                                }, {
+                                  "status": "OK",
+                                  "duration": {
+                                    "value": 14388,
+                                    "text": "4 heures 0 minutes"
+                                  },
+                                  "distance": {
+                                    "value": 135822,
+                                    "text": "136 km"
+                                  }
+                                } ]
+                              } ]
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: |
+            The Google Maps Distance Matrix API returns information based on the recommended route between start and end points, as calculated by the Google Maps API, and consists of rows containing duration and distance values for each pair.
+            
+            This service does not return detailed route information. Route information can be obtained by passing the desired single origin and destination to the Google Maps Direc

@@ -1,0 +1,74 @@
+#%RAML 0.8
+title: Solcast
+version: "1.0"
+baseUri: "http://api.solcast.com.au/"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/radiation/forecasts: 
+    displayName: /radiation/forecasts
+    get: 
+        queryParameters: 
+            latitude: 
+                type: string
+                required: true
+                repeat: false
+            longitude: 
+                description: ""
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                body: 
+                    application/json: 
+                        schema: |
+                            {
+                              "forecasts": [
+                                {
+                                  "air_temp": "int",
+                                  "azimuth": "float",
+                                  "cloud_opacity": "int",
+                                  "dhi": "int",
+                                  "dni": "int",
+                                  "dni10": "int",
+                                  "dni90": "int",
+                                  "ebh": "int",
+                                  "ghi": "int",
+                                  "ghi10": "int",
+                                  "ghi90": "int",
+                                  "period": "",
+                                  "period_end": "Date",
+                                  "zenith": "float"
+                                }
+                              ],
+                              "response_status": {
+                                "error_code": "",
+                                "message": "",
+                                "stack_trace": "",
+                                "errors": [
+                                  {
+                                    "error_code": "",
+                                    "field_name": "",
+                                    "message": "",
+                                    "meta": {}
+                                  }
+                                ],
+                                "meta": {}
+                              }
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: Solcast is committed to smoothing the transition of the energy sector to high penetrations of solar energy generation. Our API services reflect this commitment, by making forecasts of solar radiation and power output easily accessible.

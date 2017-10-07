@@ -1,0 +1,43 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The Events API v2 is designed to allow you to easily integrate a monitoring system with PagerDuty. Monitoring systems generally send out events when problems are detected and when these problems have been resolved (fixed). Certain systems also understand the concept of acknowledgements: problems can be acknowledged by a person to signal that they are working on fixing the issue.\n\nThe Events API v2 is a highly reliable, highly available asynchronous API that ingests events from monitoring tools. Events sent via this API are routed to a PagerDuty service and processed. They may result in a new alert and/or incident being created, or an existing one being updated or resolved.\n\nFor further reading please visit https://v2.developer.pagerduty.com/docs/events-api-v2",
+    "version" : "1.0",
+    "title" : "PagerdutyIntegration"
+  },
+  "host" : "events.pagerduty.com",
+  "basePath" : "/v2",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/enqueue" : {
+      "post" : {
+        "parameters" : [ {
+          "in" : "body",
+          "required" : false,
+          "x-examples" : {
+            "application/json" : "{\n  \"payload\": {\n    \"summary\": \"Example alert on host1.example.com\",\n    \"timestamp\": \"2015-07-17T08:42:58.315+0000\",\n    \"source\": \"minotoriringtool:cloudvendor:central-region-dc-01:852559987:cluster/api-stats-prod-003\",\n    \"severity\": \"info\",\n    \"component\": \"postgres\",\n    \"group\": \"prod-datapipe\",\n    \"class\": \"deploy\",\n    \"custom_details\": {\n      \"ping time\": \"1500ms\",\n      \"load avg\": 0.75\n    }\n  },\n  \"routing_key\": \"samplekeyhere\",\n  \"dedup_key\": \"samplekeyhere\",\n  \"images\": [\n    {\n      \"src\": \"https://www.pagerduty.com/wp-content/uploads/2016/05/pagerduty-logo-green.png\",\n      \"href\": \"https://example.com/\",\n      \"alt\": \"Example text\"\n    }\n  ],\n  \"event_action\": \"trigger\",\n  \"client\": \"Sample Monitoring Service\",\n  \"client_url\": \"https://monitoring.example.com\"\n}"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Success response",
+            "examples" : {
+              "application/json" : "{\n  \"status\": \"success\",\n  \"message\": \"Event processed\",\n  \"dedup_key\": \"181bbbec26cc4467b351047de36eb128\"\n}"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

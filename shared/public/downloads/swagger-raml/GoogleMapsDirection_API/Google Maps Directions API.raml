@@ -1,0 +1,380 @@
+#%RAML 0.8
+title: Google Maps Directions API
+version: "1.0"
+baseUri: "https://maps.googleapis.com/maps/api"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/directions/{outputFormat}: 
+    displayName: Directions
+    description: |
+        With the Directions resource, you can:
+        Search for directions for several modes of transportation, including transit, driving, walking or cycling.
+        Return multi-part directions using a series of waypoints.
+        Specify origins, destinations, and waypoints as text strings (e.g. "Chicago, IL" or "Darwin, NT, Australia"), or as latitude/longitude coordinates, or as place IDs.
+    uriParameters: 
+        outputFormat: 
+            description: |
+                outputFormat may be either of the following values:
+                json (recommended) indicates output in JavaScript Object Notation (JSON)
+                xml indicates output as XML
+            type: string
+            required: true
+            repeat: false
+            default: ""
+    get: 
+        queryParameters: 
+            arrival_time: 
+                description: Specifies the desired time of arrival for transit directions, in seconds since midnight, January 1, 1970 UTC. You can specify either departure_time or arrival_time, but not both. Note that arrival_time must be specified as an integer.
+                type: string
+                required: false
+                repeat: false
+            origin: 
+                description: |
+                    The address, textual latitude/longitude value, or place ID from which you wish to calculate directions.
+                    If you pass an address, the Directions service geocodes the string and converts it to a latitude/longitude coordinate to calculate directions. This coordinate may be different from that returned by the Google Maps Geocoding API, for example a building entrance rather than its center.
+                    Ex: origin=24+Sussex+Drive+Ottawa+ON
+                    If you pass coordinates, they are used unchanged to calculate directions. Ensure that no space exists between the latitude and longitude values.
+                    Ex: origin=41.43206,-81.38992
+                    Place IDs must be prefixed with place_id:. The place ID may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID. You can retrieve place IDs from the Google Maps Geocoding API and the Google Places API (including Place Autocomplete). For an example using place IDs from Place Autocomplete, see Place Autocomplete and Directions. For more about place IDs, see the place ID overview.
+                    Ex: origin=place_id:ChIJ3S-JXmauEmsRUcIaWtf4MzE
+                type: string
+                required: true
+                repeat: false
+            transit_mode: 
+                description: |
+                    Specifies one or more preferred modes of transit. The parameter supports the following arguments:
+                    bus - indicates that the calculated route should prefer travel by bus.
+                    subway - indicates that the calculated route should prefer travel by subway.
+                    train - indicates that the calculated route should prefer travel by train.
+                    tram - indicates that the calculated route should prefer travel by tram and light rail.
+                    rail - indicates that the calculated route should prefer travel by train, tram, light rail, and subway. This is equivalent to transit_mode=train|tram|subway.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            destination: 
+                description: The address, textual latitude/longitude value, or place ID to which you wish to calculate directions. The options for the destination parameter are the same as for the origin parameter.
+                type: string
+                required: true
+                repeat: false
+            language: 
+                description: |
+                    The language in which to return results.
+                    See https://developers.google.com/maps/faq#languagesupport. Google often updates the supported languages, so this list may not be exhaustive.
+                    If language is not supplied, the API attempts to use the preferred language as specified in the Accept-Language header, or the native language of the domain from which the request is sent.
+                    The API does its best to provide a street address that is readable for both the user and locals. To achieve that goal, it returns street addresses in the local language, transliterated to a script readable by the user if necessary, observing the preferred language. All other addresses are returned in the preferred language. Address components are all returned in the same language, which is chosen from the first component.
+                    If a name is not available in the preferred language, the API uses the closest match.
+                    The preferred language has a small influence on the set of results that the API chooses to return, and the order in which they are returned. The geocoder interprets abbreviations differently depending on language, such as the abbreviations for street types, or synonyms that may be valid in one language but not in another. For example, utca and tér are synonyms for street in Hungarian.
+                type: string
+                required: false
+                repeat: false
+            units: 
+                description: |
+                    Specifies the unit system to use when displaying results. Valid values are :
+                    metric, imperial
+                    See https://developers.google.com/maps/documentation/directions/intro#UnitSystems.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            waypoints: 
+                description: "Specifies an array of waypoints. Waypoints alter a route by routing it through the specified location(s). A waypoint is specified as a latitude/longitude coordinate, an encoded polyline, a place ID, or an address which will be geocoded. Encoded polylines must be prefixed with enc: and followed by a colon (:). Place IDs must be prefixed with place_id:. The place ID may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID. Waypoints are only supported for driving, walking and bicycling directions. For more information on waypoints, see the guide to waypoints https://developers.google.com/maps/documentation/directions/intro#Waypoints."
+                type: string
+                required: false
+                repeat: false
+            transit_routing_preference: 
+                description: |
+                    Specifies preferences for transit routes. Using this parameter, you can bias the options returned, rather than accepting the default best route chosen by the API. This parameter may only be specified for transit directions. The parameter supports the following arguments:
+                    less_walking - indicates that the calculated route should prefer limited amounts of walking.
+                    fewer_transfers - indicates that the calculated route should prefer a limited number of transfers.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            mode: 
+                description: |
+                     Specifies the mode of transport to use when calculating directions. Valid values are:
+                    driving (default) indicates standard driving directions using the road network.
+                    walking requests walking directions via pedestrian paths & sidewalks (where available).
+                    bicycling requests bicycling directions via bicycle paths & preferred streets (where available).
+                    transit requests directions via public transit routes (where available). If you set the mode to transit, you can optionally specify either a departure_time or an arrival_time. If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time). You can also optionally include a transit_mode and/or a transit_routing_preference.
+                    Other request details are specified in https://developers.google.com/maps/documentation/directions/intro#TravelModes.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            traffic_model: 
+                description: |
+                    Specifies the assumptions to use when calculating time in traffic. This setting affects the value returned in the duration_in_traffic field in the response, which contains the predicted time in traffic based on historical averages. The traffic_model parameter may only be specified for driving directions where the request includes a departure_time.
+                    The available values for this parameter are:
+                    best_guess (default) - indicates that the returned duration_in_traffic should be the best estimate of travel time given what is known about both historical traffic conditions and live traffic. Live traffic becomes more important the closer the departure_time is to now.
+                    pessimistic - indicates that the returned duration_in_traffic should be longer than the actual travel time on most days, though occasional days with particularly bad traffic conditions may exceed this value.
+                    optimistic - indicates that the returned duration_in_traffic should be shorter than the actual travel time on most days, though occasional days with particularly good traffic conditions may be faster than this value.
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            alternatives: 
+                description: If set to true, specifies that the Directions service may provide more than one route alternative in the response. Note that providing route alternatives may increase the response time from the server.
+                type: boolean
+                required: false
+                repeat: false
+                default: "false"
+            avoid: 
+                description: |
+                    Indicates that the calculated route(s) should avoid the indicated features. This parameter supports the following arguments:
+                    tolls - indicates that the calculated route should avoid toll roads/bridges.
+                    highways - indicates that the calculated route should avoid highways.
+                    ferries - indicates that the calculated route should avoid ferries.
+                    indoor - indicates that the calculated route should avoid indoor steps for walking and transit directions. 
+                    For more information see https://developers.google.com/maps/documentation/directions/intro#Restrictions
+                type: string
+                required: false
+                repeat: false
+                default: ""
+            region: 
+                description: 'Specifies the region code, specified as a ccTLD ("top-level domain") two-character value. (For more information see https://developers.google.com/maps/documentation/directions/intro#RegionBiasing.)'
+                type: string
+                required: false
+                repeat: false
+            departure_time: 
+                description: |
+                    Specifies the desired time of departure. You can specify the time as an integer in seconds since midnight, January 1, 1970 UTC. Alternatively, you can specify a value of now, which sets the departure time to the current time (correct to the nearest second). The departure time may be specified in two cases:
+                    For requests where the travel mode is transit: You can optionally specify one of departure_time or arrival_time. If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time).
+                    For requests where the travel mode is driving: You can specify the departure_time to receive a route and trip duration (response field: duration_in_traffic) that take traffic conditions into account. The departure_time must be set to the current time or some time in the future. It cannot be in the past.
+                type: string
+                required: false
+                repeat: false
+            key: 
+                description: This key is required to track the quota usage.
+                type: string
+                required: true
+                repeat: false
+                enum: [AIzaSyD6Hx-SvfhbTfs62z9_DvheXXY0Cg4L3u0]
+                default: AIzaSyD6Hx-SvfhbTfs62z9_DvheXXY0Cg4L3u0
+        responses: 
+            "200": 
+                description: |
+                    The status field within the Directions response object contains the status of the request, and may contain debugging information to help you track down why the Directions service failed. The status field may contain the following values:
+                    
+                    OK indicates the response contains a valid result.
+                    NOT_FOUND indicates at least one of the locations specified in the request's origin, destination, or waypoints could not be geocoded.
+                    ZERO_RESULTS indicates no route could be found between the origin and destination.
+                    MAX_WAYPOINTS_EXCEEDED indicates that too many waypoints were provided in the request. For applications using the Google Maps Directions API as a web service, or the directions service in the Google Maps JavaScript API, the maximum allowed number of waypoints is 23, plus the origin and destination. Google Maps APIs Premium Plan customers may submit requests with up to 23 waypoints, plus the origin and destination.
+                    MAX_ROUTE_LENGTH_EXCEEDED indicates the requested route is too long and cannot be processed.
+                    INVALID_REQUEST indicates that the provided request was invalid. Common causes of this status include an invalid parameter or parameter value.
+                    OVER_QUERY_LIMIT indicates the service has received too many requests from your application within the allowed time period.
+                    REQUEST_DENIED indicates that the service denied use of the directions service by your application.
+                    UNKNOWN_ERROR indicates a directions request could not be processed due to a server error. The request may succeed if you try again.
+                    When the status code is other than OK, there may be an additional error_message field within the Directions response object. This field contains more detailed information about the reasons behind the given status code.
+                body: 
+                    application/xml: 
+                        schema: ""
+                        example: |
+                            <DirectionsResponse>
+                             <status>OK</status>
+                             <geocoded_waypoint>
+                              <geocoder_status>OK</geocoder_status>
+                              <type>locality</type>
+                              <type>political</type>
+                              <place_id>ChIJ7cv00DwsDogRAMDACa2m4K8</place_id>
+                             </geocoded_waypoint>
+                             <geocoded_waypoint>
+                              <geocoder_status>OK</geocoder_status>
+                              <type>locality</type>
+                              <type>political</type>
+                              <place_id>ChIJ69Pk6jdlyIcRDqM1KDY3Fpg</place_id>
+                             </geocoded_waypoint>
+                             <geocoded_waypoint>
+                              <geocoder_status>OK</geocoder_status>
+                              <type>locality</type>
+                              <type>political</type>
+                              <place_id>ChIJgdL4flSKrYcRnTpP0XQSojM</place_id>
+                             </geocoded_waypoint>
+                             <geocoded_waypoint>
+                              <geocoder_status>OK</geocoder_status>
+                              <type>locality</type>
+                              <type>political</type>
+                              <place_id>ChIJE9on3F3HwoAR9AhGJW_fL-I</place_id>
+                             </geocoded_waypoint>
+                             <route>
+                              <summary>I-40 W</summary>
+                              <leg>
+                               <step>
+                                <travel_mode>DRIVING</travel_mode>
+                                <start_location>
+                                 <lat>41.8507300</lat>
+                                 <lng>-87.6512600</lng>
+                                </start_location>
+                                <end_location>
+                                 <lat>41.8525800</lat>
+                                 <lng>-87.6514100</lng>
+                                </end_location>
+                                <polyline>
+                                 <points>a~l~Fjk~uOwHJy@P</points>
+                                </polyline>
+                                <duration>
+                                 <value>19</value>
+                                 <text>1 min</text>
+                                </duration>
+                                <html_instructions>Head <b>north</b> on <b>S Morgan St</b> toward <b>W Cermak Rd</b></html_instructions>
+                                <distance>
+                                 <value>207</value>
+                                 <text>0.1 mi</text>
+                                </distance>
+                               </step>
+                               ...
+                               ... additional steps of this leg
+                              ...
+                              ... additional legs of this route
+                               <duration>
+                                <value>74384</value>
+                                <text>20 hours 40 mins</text>
+                               </duration>
+                               <distance>
+                                <value>2137146</value>
+                                <text>1,328 mi</text>
+                               </distance>
+                               <start_location>
+                                <lat>35.4675602</lat>
+                                <lng>-97.5164276</lng>
+                               </start_location>
+                               <end_location>
+                                <lat>34.0522342</lat>
+                                <lng>-118.2436849</lng>
+                               </end_location>
+                               <start_address>Oklahoma City, OK, USA</start_address>
+                               <end_address>Los Angeles, CA, USA</end_address>
+                              <copyrights>Map data ©2010 Google, Sanborn</copyrights>
+                              <overview_polyline>
+                               <points>a~l~Fjk~uOnzh@vlbBtc~@tsE`vnApw{A`dw@~w\|tNtqf@l{Yd_Fblh@rxo@b}@xxSfytAblk@xxaBeJxlcBb~t@zbh@jc|Bx}C`rv@rw|@rlhA~dVzeo@vrSnc}Axf]fjz@xfFbw~@dz{A~d{A|zOxbrBbdUvpo@`cFp~xBc`Hk@nurDznmFfwMbwz@bbl@lq~@loPpxq@bw_@v|{CbtY~jGqeMb{iF|n\~mbDzeVh_Wr|Efc\x`Ij{kE}mAb~uF{cNd}xBjp]fulBiwJpgg@|kHntyArpb@bijCk_Kv~eGyqTj_|@`uV`k|DcsNdwxAott@r}q@_gc@nu`CnvHx`k@dse@j|p@zpiAp|gEicy@`omFvaErfo@igQxnlApqGze~AsyRzrjAb__@ftyB}pIlo_BflmA~yQftNboWzoAlzp@mz`@|}_@fda@jakEitAn{fB_a]lexClshBtmqAdmY_hLxiZd~XtaBndgC</points>
+                              </overview_polyline>
+                              <waypoint_index>0</waypoint_index>
+                              <waypoint_index>1</waypoint_index>
+                              <bounds>
+                               <southwest>
+                                <lat>34.0523600</lat>
+                                <lng>-118.2435600</lng>
+                               </southwest>
+                               <northeast>
+                                <lat>41.8781100</lat>
+                                <lng>-87.6297900</lng>
+                               </northeast>
+                              </bounds>
+                             </route>
+                            </DirectionsResponse>
+                    application/json: 
+                        schema: ""
+                        example: |
+                            {
+                              "status": "OK",
+                              "geocoded_waypoints" : [
+                                 {
+                                    "geocoder_status" : "OK",
+                                    "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+                                    "types" : [ "locality", "political" ]
+                                 },
+                                 {
+                                    "geocoder_status" : "OK",
+                                    "place_id" : "ChIJ69Pk6jdlyIcRDqM1KDY3Fpg",
+                                    "types" : [ "locality", "political" ]
+                                 },
+                                 {
+                                    "geocoder_status" : "OK",
+                                    "place_id" : "ChIJgdL4flSKrYcRnTpP0XQSojM",
+                                    "types" : [ "locality", "political" ]
+                                 },
+                                 {
+                                    "geocoder_status" : "OK",
+                                    "place_id" : "ChIJE9on3F3HwoAR9AhGJW_fL-I",
+                                    "types" : [ "locality", "political" ]
+                                 }
+                              ],
+                              "routes": [ {
+                                "summary": "I-40 W",
+                                "legs": [ {
+                                  "steps": [ {
+                                    "travel_mode": "DRIVING",
+                                    "start_location": {
+                                      "lat": 41.8507300,
+                                      "lng": -87.6512600
+                                    },
+                                    "end_location": {
+                                      "lat": 41.8525800,
+                                      "lng": -87.6514100
+                                    },
+                                    "polyline": {
+                                      "points": "a~l~Fjk~uOwHJy@P"
+                                    },
+                                    "duration": {
+                                      "value": 19,
+                                      "text": "1 min"
+                                    },
+                                    "html_instructions": "Head \u003cb\u003enorth\u003c/b\u003e on \u003cb\u003eS Morgan St\u003c/b\u003e toward \u003cb\u003eW Cermak Rd\u003c/b\u003e",
+                                    "distance": {
+                                      "value": 207,
+                                      "text": "0.1 mi"
+                                    }
+                                  },
+                                  ...
+                                  ... additional steps of this leg
+                                ...
+                                ... additional legs of this route
+                                  "duration": {
+                                    "value": 74384,
+                                    "text": "20 hours 40 mins"
+                                  },
+                                  "distance": {
+                                    "value": 2137146,
+                                    "text": "1,328 mi"
+                                  },
+                                  "start_location": {
+                                    "lat": 35.4675602,
+                                    "lng": -97.5164276
+                                  },
+                                  "end_location": {
+                                    "lat": 34.0522342,
+                                    "lng": -118.2436849
+                                  },
+                                  "start_address": "Oklahoma City, OK, USA",
+                                  "end_address": "Los Angeles, CA, USA"
+                                } ],
+                                "copyrights": "Map data ©2010 Google, Sanborn",
+                                "overview_polyline": {
+                                  "points": "a~l~Fjk~uOnzh@vlbBtc~@tsE`vnApw{A`dw@~w\\|tNtqf@l{Yd_Fblh@rxo@b}@xxSfytAblk@xxaBeJxlcBb~t@zbh@jc|Bx}C`rv@rw|@rlhA~dVzeo@vrSnc}Axf]fjz@xfFbw~@dz{A~d{A|zOxbrBbdUvpo@`cFp~xBc`Hk@nurDznmFfwMbwz@bbl@lq~@loPpxq@bw_@v|{CbtY~jGqeMb{iF|n\\~mbDzeVh_Wr|Efc\\x`Ij{kE}mAb~uF{cNd}xBjp]fulBiwJpgg@|kHntyArpb@bijCk_Kv~eGyqTj_|@`uV`k|DcsNdwxAott@r}q@_gc@nu`CnvHx`k@dse@j|p@zpiAp|gEicy@`omFvaErfo@igQxnlApqGze~AsyRzrjAb__@ftyB}pIlo_BflmA~yQftNboWzoAlzp@mz`@|}_@fda@jakEitAn{fB_a]lexClshBtmqAdmY_hLxiZd~XtaBndgC"
+                                },
+                                "warnings": [ ],
+                                "waypoint_order": [ 0, 1 ],
+                                "bounds": {
+                                  "southwest": {
+                                    "lat": 34.0523600,
+                                    "lng": -118.2435600
+                                  },
+                                  "northeast": {
+                                    "lat": 41.8781100,
+                                    "lng": -87.6297900
+                                  }
+                                }
+                              } ]
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: |
+            Access driving, cycling, walking and public transportation routing with the Google Maps Directions API using an HTTP request. Waypoints offer the ability to alter a route through a specific location. Specify origins, destinations and waypoints either as text strings (e.g. "Chicago, IL" or "Darwin, NT, Australia") or as latitude/longitude coordinates.
+            The Google Maps Directions API is a service that calculates directions between locations. You can search for directions for several modes of transportation, including transit, driving, walking, or cycling.
+            Detailed documentation is available at https://developers.google.com/maps/documentation/directions/start.
+            
+            Note: URLs must be properly encoded to be valid and are limited to 8192 characters for all web services. Be aware of this limit when constructing your URL

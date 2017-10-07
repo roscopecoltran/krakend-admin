@@ -1,0 +1,70 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The Google Maps Time Zone API provides time offset data for locations on the surface of the earth. You request the time zone information for a specific latitude/longitude pair and date. The API returns the name of that time zone, the time offset from UTC, and the daylight savings offset.",
+    "version" : "1.0",
+    "title" : "Google Maps Time Zone API"
+  },
+  "host" : "maps.googleapis.com",
+  "basePath" : "/maps/api",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/timezone/{outputFormat}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "language",
+          "in" : "query",
+          "description" : "The language in which to return results. Seehttps://developers.google.com/maps/faq#languagesupport. Note that we often update supported languages so this list may not be exhaustive. Defaults to en.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "key",
+          "in" : "query",
+          "description" : "This key identifies your application for purposes of quota management.",
+          "required" : true,
+          "type" : "string",
+          "default" : "AIzaSyB33fOKGWYH2vNM34ProYx93jvpxivgiio"
+        }, {
+          "name" : "timestamp",
+          "in" : "query",
+          "description" : "specifies the desired time as seconds since midnight, January 1, 1970 UTC. The Google Maps Time Zone API uses the timestamp to determine whether or not Daylight Savings should be applied, based on the time zone of the location. Note that the API does not take historical time zones into account. That is, if you specify a past timestamp, the API does not take into account the possibility that the location was previously in a different time zone.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "location",
+          "in" : "query",
+          "description" : "a comma-separated lat,lng tuple (eg. location=-33.86,151.20), representing the location to look up.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "examples" : {
+              "application/json" : "{\n   \"dstOffset\" : 0,\n   \"rawOffset\" : -28800,\n   \"status\" : \"OK\",\n   \"timeZoneId\" : \"America/Los_Angeles\",\n   \"timeZoneName\" : \"Pacific Standard Time\"\n}\n    ",
+              "application/xml" : "<TimeZoneResponse>\n  <status>OK</status>\n  <raw_offset>-28800.0000000</raw_offset>\n  <dst_offset>0.0000000</dst_offset>\n  <time_zone_id>America/Los_Angeles</time_zone_id>\n  <time_zone_name>Pacific Standard Time</time_zone_name>\n</TimeZoneResponse>"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "outputFormat",
+        "in" : "path",
+        "description" : "outputFormat may be either of the following values:\njson (recommended), indicates output in JavaScript Object Notation (JSON); or\nxml, indicates output in XML, wrapped within a <TimeZoneResponse> node.",
+        "required" : true,
+        "type" : "string",
+        "default" : ""
+      } ]
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

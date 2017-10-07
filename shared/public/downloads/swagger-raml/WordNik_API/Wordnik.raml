@@ -1,0 +1,914 @@
+#%RAML 0.8
+title: Wordnik
+version: "4.0"
+baseUri: "http://api.wordnik.com/v4"
+protocols: [HTTP]
+schemas: 
+    - 
+        ApiTokenStatus: '{"simple":false,"type":"object","properties":{"valid":{"required":false,"type":"boolean"},"expiresInMillis":{"format":"int64","required":false,"type":"integer"},"resetsInMillis":{"format":"int64","required":false,"type":"integer"},"totalRequests":{"format":"int64","required":false,"type":"integer"},"remainingCalls":{"format":"int64","required":false,"type":"integer"},"token":{"required":false,"type":"string"}}}'
+        AuthenticationToken: '{"simple":false,"type":"object","properties":{"userSignature":{"required":false,"type":"string"},"userId":{"format":"int64","required":false,"type":"integer"},"token":{"required":false,"type":"string"}}}'
+        Category: '{"simple":false,"required":["id"],"type":"object","properties":{"name":{"required":false,"type":"string"},"id":{"format":"int64","required":false,"type":"integer"}}}'
+        User: '{"simple":false,"type":"object","properties":{"password":{"required":false,"type":"string"},"displayName":{"required":false,"type":"string"},"faceBookId":{"required":false,"type":"string"},"id":{"format":"int64","required":false,"type":"integer"},"userName":{"required":false,"type":"string"},"email":{"required":false,"type":"string"},"status":{"format":"int32","required":false,"type":"integer"},"username":{"required":false,"type":"string"}}}'
+        ContentProvider: '{"simple":false,"type":"object","properties":{"name":{"required":false,"type":"string"},"id":{"format":"int32","required":false,"type":"integer"}}}'
+        FrequencySummary: |-
+                {"simple":false,"type":"object","properties":{"unknownYearCount":{"format":"int32","required":false,"type":"integer"},"totalCount":{"format":"int64","required":false,"type":"integer"},"word":{"required":false,"type":"string"},"frequencyString":{"required":false,"type":"string"},"frequency":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Frequency","refFormat":"INTERNAL","$ref":"#\/definitions\/Frequency"}}}}
+        Label: '{"simple":false,"type":"object","properties":{"text":{"required":false,"type":"string"},"type":{"required":false,"type":"string"}}}'
+        TextPron: '{"simple":false,"type":"object","properties":{"rawType":{"required":false,"type":"string"},"raw":{"required":false,"type":"string"},"seq":{"format":"int32","required":false,"type":"integer"}}}'
+        FacetValue: '{"simple":false,"type":"object","properties":{"count":{"format":"int64","required":false,"type":"integer"},"value":{"required":false,"type":"string"}}}'
+        SimpleExample: '{"simple":false,"type":"object","properties":{"id":{"format":"int64","required":false,"type":"integer"},"text":{"required":false,"type":"string"},"title":{"required":false,"type":"string"},"url":{"required":false,"type":"string"}}}'
+        Example: |-
+                {"simple":false,"type":"object","properties":{"sentence":{"required":false,"type":"ref","simpleRef":"Sentence","refFormat":"INTERNAL","$ref":"#\/definitions\/Sentence"},"score":{"required":false,"type":"ref","simpleRef":"ScoredWord","refFormat":"INTERNAL","$ref":"#\/definitions\/ScoredWord"},"exampleId":{"format":"int64","required":false,"type":"integer"},"provider":{"required":false,"type":"ref","simpleRef":"ContentProvider","refFormat":"INTERNAL","$ref":"#\/definitions\/ContentProvider"},"year":{"format":"int32","required":false,"type":"integer"},"rating":{"format":"float","required":false,"type":"number"},"documentId":{"format":"int64","required":false,"type":"integer"},"id":{"format":"int64","required":false,"type":"integer"},"text":{"required":false,"type":"string"},"title":{"required":false,"type":"string"},"word":{"required":false,"type":"string"},"url":{"required":false,"type":"string"}}}
+        SimpleDefinition: '{"simple":false,"type":"object","properties":{"note":{"required":false,"type":"string"},"partOfSpeech":{"required":false,"type":"string"},"source":{"required":false,"type":"string"},"text":{"required":false,"type":"string"}}}'
+        ExampleUsage: '{"simple":false,"type":"object","properties":{"text":{"required":false,"type":"string"}}}'
+        PartOfSpeech: |-
+                {"simple":false,"type":"object","properties":{"allCategories":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Category","refFormat":"INTERNAL","$ref":"#\/definitions\/Category"}},"roots":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Root","refFormat":"INTERNAL","$ref":"#\/definitions\/Root"}},"storageAbbr":{"required":false,"type":"array","items":{"required":false,"type":"string"}}}}
+        Citation: '{"simple":false,"type":"object","properties":{"cite":{"required":false,"type":"string"},"source":{"required":false,"type":"string"}}}'
+        WordListWord: '{"simple":false,"required":["id"],"type":"object","properties":{"createdAt":{"format":"date","required":false,"type":"string"},"numberLists":{"format":"int64","required":false,"type":"integer"},"id":{"format":"int64","required":false,"type":"integer"},"numberCommentsOnWord":{"format":"int64","required":false,"type":"integer"},"userId":{"format":"int64","required":false,"type":"integer"},"word":{"required":false,"type":"string"},"username":{"required":false,"type":"string"}}}'
+        StringValue: '{"simple":false,"type":"object","properties":{"word":{"required":false,"type":"string"}}}'
+        WordOfTheDay: |-
+                {"simple":false,"required":["id"],"type":"object","properties":{"contentProvider":{"required":false,"type":"ref","simpleRef":"ContentProvider","refFormat":"INTERNAL","$ref":"#\/definitions\/ContentProvider"},"createdAt":{"format":"date","required":false,"type":"string"},"note":{"required":false,"type":"string"},"examples":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"SimpleExample","refFormat":"INTERNAL","$ref":"#\/definitions\/SimpleExample"}},"createdBy":{"required":false,"type":"string"},"publishDate":{"format":"date","required":false,"type":"string"},"htmlExtra":{"required":false,"type":"string"},"id":{"format":"int64","required":false,"type":"integer"},"category":{"required":false,"type":"string"},"definitions":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"SimpleDefinition","refFormat":"INTERNAL","$ref":"#\/definitions\/SimpleDefinition"}},"word":{"required":false,"type":"string"},"parentId":{"required":false,"type":"string"}}}
+        Sentence: |-
+                {"simple":false,"type":"object","properties":{"documentMetadataId":{"format":"int64","required":false,"type":"integer"},"display":{"required":false,"type":"string"},"rating":{"format":"int32","required":false,"type":"integer"},"scoredWords":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"ScoredWord","refFormat":"INTERNAL","$ref":"#\/definitions\/ScoredWord"}},"id":{"format":"int64","required":false,"type":"integer"},"hasScoredWords":{"required":false,"type":"boolean"}}}
+        Syllable: '{"simple":false,"type":"object","properties":{"text":{"required":false,"type":"string"},"type":{"required":false,"type":"string"},"seq":{"format":"int32","required":false,"type":"integer"}}}'
+        Facet: |-
+                {"simple":false,"type":"object","properties":{"facetValues":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"FacetValue","refFormat":"INTERNAL","$ref":"#\/definitions\/FacetValue"}},"name":{"required":false,"type":"string"}}}
+        Root: |-
+                {"simple":false,"required":["id"],"type":"object","properties":{"name":{"required":false,"type":"string"},"categories":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Category","refFormat":"INTERNAL","$ref":"#\/definitions\/Category"}},"id":{"format":"int64","required":false,"type":"integer"}}}
+        Bigram: '{"simple":false,"type":"object","properties":{"wlmi":{"format":"double","required":false,"type":"number"},"count":{"format":"int64","required":false,"type":"integer"},"gram1":{"required":false,"type":"string"},"gram2":{"required":false,"type":"string"},"mi":{"format":"double","required":false,"type":"number"}}}'
+        Definition: |-
+                {"simple":false,"type":"object","properties":{"notes":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Note","refFormat":"INTERNAL","$ref":"#\/definitions\/Note"}},"exampleUses":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"ExampleUsage","refFormat":"INTERNAL","$ref":"#\/definitions\/ExampleUsage"}},"extendedText":{"required":false,"type":"string"},"partOfSpeech":{"required":false,"type":"string"},"attributionText":{"required":false,"type":"string"},"labels":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Label","refFormat":"INTERNAL","$ref":"#\/definitions\/Label"}},"score":{"format":"float","required":false,"type":"number"},"sequence":{"required":false,"type":"string"},"citations":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Citation","refFormat":"INTERNAL","$ref":"#\/definitions\/Citation"}},"sourceDictionary":{"required":false,"type":"string"},"textProns":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"TextPron","refFormat":"INTERNAL","$ref":"#\/definitions\/TextPron"}},"attributionUrl":{"required":false,"type":"string"},"text":{"required":false,"type":"string"},"word":{"required":false,"type":"string"},"relatedWords":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Related","refFormat":"INTERNAL","$ref":"#\/definitions\/Related"}},"seqString":{"required":false,"type":"string"}}}
+        ScoredWord: '{"simple":false,"type":"object","properties":{"docTermCount":{"format":"int32","required":false,"type":"integer"},"score":{"format":"float","required":false,"type":"number"},"wordType":{"required":false,"type":"string"},"partOfSpeech":{"required":false,"type":"string"},"lemma":{"required":false,"type":"string"},"sentenceId":{"format":"int64","required":false,"type":"integer"},"stopword":{"required":false,"type":"boolean"},"baseWordScore":{"format":"double","required":false,"type":"number"},"id":{"format":"int64","required":false,"type":"integer"},"position":{"format":"int32","required":false,"type":"integer"},"word":{"required":false,"type":"string"}}}'
+        WordList: '{"simple":false,"type":"object","properties":{"createdAt":{"format":"date","required":false,"type":"string"},"name":{"required":false,"type":"string"},"description":{"required":false,"type":"string"},"lastActivityAt":{"format":"date","required":false,"type":"string"},"id":{"format":"int64","required":false,"type":"integer"},"numberWordsInList":{"format":"int64","required":false,"type":"integer"},"permalink":{"required":false,"type":"string"},"type":{"required":false,"type":"string"},"userId":{"format":"int64","required":false,"type":"integer"},"updatedAt":{"format":"date","required":false,"type":"string"},"username":{"required":false,"type":"string"}}}'
+        WordSearchResults: |-
+                {"simple":false,"type":"object","properties":{"totalResults":{"format":"int32","required":false,"type":"integer"},"searchResults":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"WordSearchResult","refFormat":"INTERNAL","$ref":"#\/definitions\/WordSearchResult"}}}}
+        AudioFile: '{"simple":false,"required":["id"],"type":"object","properties":{"voteAverage":{"format":"float","required":false,"type":"number"},"audioType":{"required":false,"type":"string"},"attributionText":{"required":false,"type":"string"},"description":{"required":false,"type":"string"},"voteWeightedAverage":{"format":"float","required":false,"type":"number"},"commentCount":{"format":"int32","required":false,"type":"integer"},"duration":{"format":"double","required":false,"type":"number"},"createdAt":{"format":"date","required":false,"type":"string"},"createdBy":{"required":false,"type":"string"},"attributionUrl":{"required":false,"type":"string"},"fileUrl":{"required":false,"type":"string"},"id":{"format":"int64","required":false,"type":"integer"},"voteCount":{"format":"int32","required":false,"type":"integer"},"word":{"required":false,"type":"string"}}}'
+        Related: '{"simple":false,"type":"object","properties":{"label4":{"required":false,"type":"string"},"relationshipType":{"required":false,"type":"string"},"gram":{"required":false,"type":"string"},"words":{"required":false,"type":"array","items":{"required":false,"type":"string"}},"label1":{"required":false,"type":"string"},"label2":{"required":false,"type":"string"},"label3":{"required":false,"type":"string"}}}'
+        WordObject: '{"simple":false,"required":["id"],"type":"object","properties":{"vulgar":{"required":false,"type":"string"},"canonicalForm":{"required":false,"type":"string"},"suggestions":{"required":false,"type":"array","items":{"required":false,"type":"string"}},"id":{"format":"int64","required":false,"type":"integer"},"originalWord":{"required":false,"type":"string"},"word":{"required":false,"type":"string"}}}'
+        DefinitionSearchResults: |-
+                {"simple":false,"type":"object","properties":{"totalResults":{"format":"int32","required":false,"type":"integer"},"results":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Definition","refFormat":"INTERNAL","$ref":"#\/definitions\/Definition"}}}}
+        Note: '{"simple":false,"type":"object","properties":{"noteType":{"required":false,"type":"string"},"pos":{"format":"int32","required":false,"type":"integer"},"appliesTo":{"required":false,"type":"array","items":{"required":false,"type":"string"}},"value":{"required":false,"type":"string"}}}'
+        WordSearchResult: '{"simple":false,"type":"object","properties":{"count":{"format":"int64","required":false,"type":"integer"},"lexicality":{"format":"double","required":false,"type":"number"},"word":{"required":false,"type":"string"}}}'
+        AudioType: '{"simple":false,"type":"object","properties":{"name":{"required":false,"type":"string"},"id":{"format":"int32","required":false,"type":"integer"}}}'
+        Frequency: '{"simple":false,"type":"object","properties":{"year":{"format":"int32","required":false,"type":"integer"},"count":{"format":"int64","required":false,"type":"integer"}}}'
+        ExampleSearchResults: |-
+                {"simple":false,"type":"object","properties":{"examples":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Example","refFormat":"INTERNAL","$ref":"#\/definitions\/Example"}},"facets":{"required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"Facet","refFormat":"INTERNAL","$ref":"#\/definitions\/Facet"}}}}
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/account.json/user: 
+    get: 
+        description: Requires a valid auth_token to be set.
+        headers: 
+            auth_token: 
+                description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+/words.json/search/{query}: 
+    get: 
+        queryParameters: 
+            excludePartOfSpeech: 
+                description: Exclude these comma-delimited parts of speech
+                type: string
+                required: false
+                repeat: false
+            minDictionaryCount: 
+                description: Minimum number of dictionary entries for words returned
+                type: integer
+                required: false
+                repeat: false
+                default: "1"
+            caseSensitive: 
+                description: Search case sensitive
+                type: string
+                required: false
+                repeat: false
+                default: "true"
+            maxCorpusCount: 
+                description: Maximum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            minLength: 
+                description: Minimum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "1"
+            limit: 
+                description: Maximum number of results to return
+                type: integer
+                required: false
+                repeat: false
+                default: "10"
+            minCorpusCount: 
+                description: Minimum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "5"
+            includePartOfSpeech: 
+                description: Only include these comma-delimited parts of speech
+                type: string
+                required: false
+                repeat: false
+            skip: 
+                description: Results to skip
+                type: integer
+                required: false
+                repeat: false
+                default: "0"
+            maxDictionaryCount: 
+                description: Maximum dictionary definition count
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            maxLength: 
+                description: Maximum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            query: 
+                description: Search query
+                type: string
+                required: true
+                repeat: false
+/words.json/wordOfTheDay: 
+    get: 
+        queryParameters: 
+            date: 
+                description: Fetches by date in yyyy-MM-dd
+                type: string
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+/words.json/randomWord: 
+    get: 
+        queryParameters: 
+            excludePartOfSpeech: 
+                description: CSV part-of-speech values to exclude
+                type: string
+                required: false
+                repeat: false
+            minDictionaryCount: 
+                description: Minimum dictionary count
+                type: integer
+                required: false
+                repeat: false
+                default: "1"
+            maxCorpusCount: 
+                description: Maximum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            minLength: 
+                description: Minimum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "5"
+            minCorpusCount: 
+                description: Minimum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "0"
+            hasDictionaryDef: 
+                description: Only return words with dictionary definitions
+                type: string
+                required: false
+                repeat: false
+                default: "true"
+            includePartOfSpeech: 
+                description: CSV part-of-speech values to include
+                type: string
+                required: false
+                repeat: false
+            maxDictionaryCount: 
+                description: Maximum dictionary count
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            maxLength: 
+                description: Maximum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+        responses: 
+            "200": 
+                description: No response was specified
+/words.json/randomWords: 
+    get: 
+        queryParameters: 
+            excludePartOfSpeech: 
+                description: CSV part-of-speech values to exclude
+                type: string
+                required: false
+                repeat: false
+            minDictionaryCount: 
+                description: Minimum dictionary count
+                type: integer
+                required: false
+                repeat: false
+                default: "1"
+            maxCorpusCount: 
+                description: Maximum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            minLength: 
+                description: Minimum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "5"
+            sortOrder: 
+                description: Sort direction
+                type: string
+                required: false
+                repeat: false
+            limit: 
+                description: Maximum number of results to return
+                type: integer
+                required: false
+                repeat: false
+                default: "10"
+            minCorpusCount: 
+                description: Minimum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "0"
+            hasDictionaryDef: 
+                description: Only return words with dictionary definitions
+                type: string
+                required: false
+                repeat: false
+                default: "true"
+            includePartOfSpeech: 
+                description: CSV part-of-speech values to include
+                type: string
+                required: false
+                repeat: false
+            sortBy: 
+                description: Attribute to sort by
+                type: string
+                required: false
+                repeat: false
+            maxDictionaryCount: 
+                description: Maximum dictionary count
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            maxLength: 
+                description: Maximum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+        responses: 
+            "200": 
+                description: No response was specified
+/wordLists.json: 
+    post: 
+        headers: 
+            auth_token: 
+                description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+/account.json/apiTokenStatus: 
+    get: 
+        headers: 
+            api_key: 
+                description: Wordnik authentication token
+                type: string
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+/account.json/authenticate/{username}: 
+    get: 
+        queryParameters: 
+            password: 
+                description: The user's password
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            username: 
+                description: A confirmed Wordnik username
+                type: string
+                required: true
+                repeat: false
+    post: 
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            username: 
+                description: A confirmed Wordnik username
+                type: string
+                required: true
+                repeat: false
+/word.json/{word}: 
+    get: 
+        queryParameters: 
+            useCanonical: 
+                description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                type: string
+                required: false
+                repeat: false
+                default: "false"
+            includeSuggestions: 
+                description: Return suggestions (for correct spelling, case variants, etc.)
+                type: string
+                required: false
+                repeat: false
+                default: "true"
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            word: 
+                description: String value of WordObject to return
+                type: string
+                required: true
+                repeat: false
+    /pronunciations: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return a correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                sourceDictionary: 
+                    description: Get from a single dictionary
+                    type: string
+                    required: false
+                    repeat: false
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "50"
+                typeFormat: 
+                    description: Text pronunciation type
+                    type: string
+                    required: false
+                    repeat: false
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to get pronunciations for
+                    type: string
+                    required: true
+                    repeat: false
+    /frequency: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                startYear: 
+                    description: Starting Year
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "1800"
+                endYear: 
+                    description: Ending Year
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "2012"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to return
+                    type: string
+                    required: true
+                    repeat: false
+    /phrases: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                wlmi: 
+                    description: Minimum WLMI for the phrase
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "0"
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "5"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to fetch phrases for
+                    type: string
+                    required: true
+                    repeat: false
+    /etymologies: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to return
+                    type: string
+                    required: true
+                    repeat: false
+    /relatedWords: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                limitPerRelationshipType: 
+                    description: Restrict to the supplied relationship types
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "10"
+                relationshipTypes: 
+                    description: Limits the total results per type of relationship type
+                    type: string
+                    required: false
+                    repeat: false
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to fetch relationships for
+                    type: string
+                    required: true
+                    repeat: false
+    /audio: 
+        get: 
+            description: The metadata includes a time-expiring fileUrl which allows reading the audio file directly from the API.  Currently only audio pronunciations from the American Heritage Dictionary in mp3 format are supported.
+            queryParameters: 
+                useCanonical: 
+                    description: Use the canonical form of the word
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "50"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to get audio for.
+                    type: string
+                    required: true
+                    repeat: false
+    /examples: 
+        get: 
+            queryParameters: 
+                includeDuplicates: 
+                    description: Show duplicate examples from different sources
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "5"
+                skip: 
+                    description: Results to skip
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "0"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to return examples for
+                    type: string
+                    required: true
+                    repeat: false
+    /definitions: 
+        get: 
+            queryParameters: 
+                sourceDictionaries: 
+                    description: "Source dictionary to return definitions from.  If 'all' is received, results are returned from all sources. If multiple values are received (e.g. 'century,wiktionary'), results are returned from the first specified dictionary that has definitions. If left blank, results are returned from the first dictionary that has definitions. By default, dictionaries are searched in this order: ahd, wiktionary, webster, century, wordnet"
+                    type: string
+                    required: false
+                    repeat: true
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                partOfSpeech: 
+                    description: CSV list of part-of-speech types
+                    type: string
+                    required: false
+                    repeat: false
+                includeTags: 
+                    description: Return a closed set of XML tags in response
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "200"
+                includeRelated: 
+                    description: Return related words with definitions
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to return definitions for
+                    type: string
+                    required: true
+                    repeat: false
+    /topExample: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return the correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to fetch examples for
+                    type: string
+                    required: true
+                    repeat: false
+    /hyphenation: 
+        get: 
+            queryParameters: 
+                useCanonical: 
+                    description: If true will try to return a correct word root ('cats' -> 'cat'). If false returns exactly what was requested.
+                    type: string
+                    required: false
+                    repeat: false
+                    default: "false"
+                sourceDictionary: 
+                    description: "Get from a single dictionary. Valid options: ahd, century, wiktionary, webster, and wordnet."
+                    type: string
+                    required: false
+                    repeat: false
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "50"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                word: 
+                    description: Word to get syllables for
+                    type: string
+                    required: true
+                    repeat: false
+/account.json/wordLists: 
+    get: 
+        headers: 
+            auth_token: 
+                description: auth_token of logged-in user
+                type: string
+                required: true
+                repeat: false
+        queryParameters: 
+            limit: 
+                description: Maximum number of results to return
+                type: integer
+                required: false
+                repeat: false
+                default: "50"
+            skip: 
+                description: Results to skip
+                type: integer
+                required: false
+                repeat: false
+                default: "0"
+        responses: 
+            "200": 
+                description: No response was specified
+/wordList.json/{permalink}: 
+    get: 
+        headers: 
+            auth_token: 
+                description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            permalink: 
+                description: permalink of WordList to fetch
+                type: string
+                required: true
+                repeat: false
+    put: 
+        headers: 
+            auth_token: 
+                description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            permalink: 
+                description: permalink of WordList to update
+                type: string
+                required: true
+                repeat: false
+    delete: 
+        headers: 
+            auth_token: 
+                description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: No response was specified
+        baseUriParameters: 
+            permalink: 
+                description: ID of WordList to delete
+                type: string
+                required: true
+                repeat: false
+    /deleteWords: 
+        post: 
+            headers: 
+                auth_token: 
+                    description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                    type: string
+                    required: true
+                    repeat: false
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                permalink: 
+                    description: permalink of WordList to use
+                    type: string
+                    required: true
+                    repeat: false
+    /words: 
+        get: 
+            headers: 
+                auth_token: 
+                    description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                    type: string
+                    required: true
+                    repeat: false
+            queryParameters: 
+                sortOrder: 
+                    description: Direction to sort
+                    type: string
+                    required: false
+                    repeat: false
+                    default: desc
+                limit: 
+                    description: Maximum number of results to return
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "100"
+                sortBy: 
+                    description: Field to sort by
+                    type: string
+                    required: false
+                    repeat: false
+                    default: createDate
+                skip: 
+                    description: Results to skip
+                    type: integer
+                    required: false
+                    repeat: false
+                    default: "0"
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                permalink: 
+                    description: ID of WordList to use
+                    type: string
+                    required: true
+                    repeat: false
+        post: 
+            headers: 
+                auth_token: 
+                    description: The auth token of the logged-in user, obtained by calling /account.{format}/authenticate/{username} (described above)
+                    type: string
+                    required: true
+                    repeat: false
+            responses: 
+                "200": 
+                    description: No response was specified
+            baseUriParameters: 
+                permalink: 
+                    description: permalink of WordList to user
+                    type: string
+                    required: true
+                    repeat: false
+/words.json/reverseDictionary: 
+    get: 
+        queryParameters: 
+            excludePartOfSpeech: 
+                description: Exclude these comma-delimited parts of speech
+                type: string
+                required: false
+                repeat: false
+            findSenseForWord: 
+                description: Restricts words and finds closest sense
+                type: string
+                required: false
+                repeat: false
+            expandTerms: 
+                description: Expand terms
+                type: string
+                required: false
+                repeat: false
+            query: 
+                description: Search term
+                type: string
+                required: true
+                repeat: false
+            maxCorpusCount: 
+                description: Maximum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+            minLength: 
+                description: Minimum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "1"
+            includeTags: 
+                description: Return a closed set of XML tags in response
+                type: string
+                required: false
+                repeat: false
+                default: "false"
+            includePartOfSpeech: 
+                description: Only include these comma-delimited parts of speech
+                type: string
+                required: false
+                repeat: false
+            skip: 
+                description: Results to skip
+                type: string
+                required: false
+                repeat: false
+                default: "0"
+            excludeSourceDictionaries: 
+                description: Exclude these comma-delimited source dictionaries
+                type: string
+                required: false
+                repeat: false
+            sortOrder: 
+                description: Sort direction
+                type: string
+                required: false
+                repeat: false
+            limit: 
+                description: Maximum number of results to return
+                type: integer
+                required: false
+                repeat: false
+                default: "10"
+            minCorpusCount: 
+                description: Minimum corpus frequency for terms
+                type: integer
+                required: false
+                repeat: false
+                default: "5"
+            includeSourceDictionaries: 
+                description: Only include these comma-delimited source dictionaries
+                type: string
+                required: false
+                repeat: false
+            sortBy: 
+                description: Attribute to sort by
+                type: string
+                required: false
+                repeat: false
+            maxLength: 
+                description: Maximum word length
+                type: integer
+                required: false
+                repeat: false
+                default: "-1"
+        responses: 
+            "200": 
+                description: No response was specified
+documentation: 
+    - 
+        title: API Description
+        content: Wordnik is the world's biggest online English dictionary, by number of words
+    - 
+        content: "http://developer.wordnik.com/"
+#Vendor extensions not implemented
+#mediatype specification is missing in response schema

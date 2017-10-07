@@ -1,0 +1,58 @@
+#%RAML 0.8
+title: Sentiment APIs
+version: "1.0.5"
+baseUri: "  https://api.apitore.com/api/11"
+protocols: [HTTP]
+mediaType: application/json
+schemas: 
+    - 
+        SentimentResponseEntity: |-
+                {"simple":false,"required":["endTime","log","predict","processTime","sentiments","startTime","text"],"type":"object","properties":{"endTime":{"description":"End date","required":false,"type":"string"},"log":{"description":"Log message","required":false,"type":"string"},"predict":{"description":"Output: prediction","required":false,"type":"ref","simpleRef":"SentimentEntity","refFormat":"INTERNAL","$ref":"#\/definitions\/SentimentEntity"},"processTime":{"description":"Process time [millisecond]","required":false,"type":"string"},"sentiments":{"description":"Output: sentiments","required":false,"type":"array","items":{"required":false,"type":"ref","simpleRef":"SentimentEntity","refFormat":"INTERNAL","$ref":"#\/definitions\/SentimentEntity"}},"startTime":{"description":"Start date","required":false,"type":"string"},"text":{"description":"Input: text","required":false,"type":"string"}}}
+        SentimentEntity: '{"simple":false,"required":["score","sentiment"],"type":"object","properties":{"score":{"description":"cosine distance","format":"double","required":false,"type":"number"},"sentiment":{"description":"sentiment","required":false,"type":"string"}}}'
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/sentiment/predict: 
+    displayName: /sentiment/predict
+    get: 
+        description: 'Sentiment Analysis, last update at 2016-10-16.<BR />Response<BR />&nbsp; Github: <a href="https://github.com/keigohtr/apitore-response-parent/tree/master/word2vec-response">word2vec-response</a><BR />&nbsp; Class: com.apitore.banana.response.sentiment.SentimentResponseEntity<BR />'
+        queryParameters: 
+            access_token: 
+                description: Access Token
+                type: string
+                required: true
+                repeat: false
+                enum: ["187b20cb-e0fb-4a60-90dd-66e91a86b76a"]
+                default: "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+            text: 
+                description: text
+                type: string
+                required: true
+                repeat: false
+        responses: 
+            "200": 
+                description: OK
+                body: 
+                    application/json: 
+                        schema: ""
+            "401": 
+                description: Unauthorized
+            "403": 
+                description: Forbidden
+            "404": 
+                description: Not Found
+documentation: 
+    - 
+        title: API Description
+        content: "Japanese sentiment analyzer.<BR />[Endpoint] https://api.apitore.com/api/11"
+#Vendor extensions not implemented

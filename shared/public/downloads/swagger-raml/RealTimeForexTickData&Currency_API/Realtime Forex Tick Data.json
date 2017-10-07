@@ -1,0 +1,115 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This free API provides real-time forex quotes for as many currency pairs as possible. There is no charge to use this API.\n\nIf you have any questions or comments, please contact us at contact@ 1forge.com\nAll data is provided without warranty. Data may be delayed or inaccurate. Trading involves the risk of loss. Forex trading is considered especially risky.",
+    "version" : "1.0.1",
+    "title" : "Realtime Forex Tick Data & Currency Conversion API"
+  },
+  "host" : "1forge.com",
+  "basePath" : "/1.0.1",
+  "tags" : [ {
+    "name" : "sentiment-controller",
+    "description" : "Sentiment Controller"
+  } ],
+  "schemes" : [ "http" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/convert" : {
+      "get" : {
+        "description" : "Convert from one currency to another\nhttps://forex.1forge.com/1.0.1/convert?from=USD&to=EUR&quantity=100",
+        "parameters" : [ {
+          "name" : "quantity",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "required" : false,
+          "x-examples" : {
+            "*/*" : "convert?from=USD&to=EUR&quantity=100"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "{\nvalue: 89.6612,\ntext: \"100 USD is worth 89.6612 EUR\",\ntimestamp: 1497963690\n}"
+          }
+        }
+      }
+    },
+    "/market_status" : {
+      "get" : {
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "{\nmarket_is_open: true\n}"
+          }
+        }
+      }
+    },
+    "/quotes" : {
+      "get" : {
+        "description" : "Get quotes for specific currency pair(s):",
+        "parameters" : [ {
+          "name" : "pairs",
+          "in" : "query",
+          "description" : "Example\nEURUSD,GBPJPY,AUDUSD",
+          "required" : false,
+          "type" : "string",
+          "default" : "GBPJPY"
+        }, {
+          "in" : "body",
+          "required" : false,
+          "x-examples" : {
+            "*/*" : "/quotes?pairs=EURUSD,GBPJPY,AUDUSD"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "[\n{\nsymbol: \"AUDUSD\",\ntimestamp: 1497963211,\nprice: 0.760215\n},\n{\nsymbol: \"EURUSD\",\ntimestamp: 1497963211,\nprice: 1.115245\n},\n{\nsymbol: \"GBPJPY\",\ntimestamp: 1497963211,\nprice: 141.072712\n}\n]"
+          }
+        }
+      }
+    },
+    "/symbols" : {
+      "get" : {
+        "description" : "Get a list of symbols for which we provide real-time quotes:",
+        "parameters" : [ {
+          "in" : "body",
+          "required" : false,
+          "x-examples" : {
+            "*/*" : "GET /symbols"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "[\"AUDEUR\",\"AUDINR\"]"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

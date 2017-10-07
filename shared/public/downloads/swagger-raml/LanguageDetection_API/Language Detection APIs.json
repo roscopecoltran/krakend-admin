@@ -1,0 +1,156 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Language detection.<BR />[Endpoint] https://api.apitore.com/api/22",
+    "version" : "0.0.1",
+    "title" : "Language Detection APIs"
+  },
+  "host" : "api.apitore.com",
+  "basePath" : "/api/22",
+  "tags" : [ {
+    "name" : "lang-detect-controller",
+    "description" : "Lang Detect Controller"
+  } ],
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/langdetect/get" : {
+      "get" : {
+        "tags" : [ "lang-detect-controller" ],
+        "summary" : "Language Detection. This supports 53 languages.",
+        "description" : "Language Detection.<BR />Response<BR />&nbsp; Github: <a href=\"https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response\">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />",
+        "operationId" : "getUsingGET",
+        "parameters" : [ {
+          "name" : "access_token",
+          "in" : "query",
+          "description" : "Access Token",
+          "required" : true,
+          "type" : "string",
+          "default" : "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+        }, {
+          "name" : "text",
+          "in" : "query",
+          "description" : "Text [10-20 words over is recommended]",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    },
+    "/langdetect/short/get" : {
+      "get" : {
+        "tags" : [ "lang-detect-controller" ],
+        "summary" : "Language Detection for Short Messages. This supports 53 languages.",
+        "description" : "Language Detection.<BR />Response<BR />&nbsp; Github: <a href=\"https://github.com/keigohtr/apitore-response-parent/tree/master/langdetect-response\">langdetect-response</a><BR />&nbsp; Class: com.apitore.banana.response.org.jsoup.LanguageResponseEntity<BR />",
+        "operationId" : "smGetUsingGET",
+        "parameters" : [ {
+          "name" : "access_token",
+          "in" : "query",
+          "description" : "Access Token",
+          "required" : true,
+          "type" : "string",
+          "default" : "187b20cb-e0fb-4a60-90dd-66e91a86b76a"
+        }, {
+          "name" : "text",
+          "in" : "query",
+          "description" : "Text [Short message like tweet is supported]",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "x-Gateway-APIKey",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "LanguageEntity" : {
+      "type" : "object",
+      "required" : [ "lang", "prob" ],
+      "properties" : {
+        "lang" : {
+          "type" : "string",
+          "description" : "language"
+        },
+        "prob" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "probability"
+        }
+      }
+    },
+    "LanguageResponseEntity" : {
+      "type" : "object",
+      "required" : [ "endTime", "language", "log", "probabilities", "processTime", "startTime", "text" ],
+      "properties" : {
+        "endTime" : {
+          "type" : "string",
+          "description" : "End date"
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Output: prediction"
+        },
+        "log" : {
+          "type" : "string",
+          "description" : "Log message"
+        },
+        "probabilities" : {
+          "type" : "array",
+          "description" : "Output: probabilities",
+          "items" : {
+            "$ref" : "#/definitions/LanguageEntity"
+          }
+        },
+        "processTime" : {
+          "type" : "string",
+          "description" : "Process time [millisecond]"
+        },
+        "startTime" : {
+          "type" : "string",
+          "description" : "Start date"
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "Input: text"
+        }
+      }
+    }
+  },
+  "parameters" : { },
+  "securityRequirement" : [ {
+    "apiKey" : [ ]
+  } ]
+}

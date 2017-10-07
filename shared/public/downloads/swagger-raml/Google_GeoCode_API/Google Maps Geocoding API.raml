@@ -1,0 +1,286 @@
+#%RAML 0.8
+title: Google Maps Geocoding API
+version: "1.0"
+baseUri: "https://maps.googleapis.com/maps/api"
+protocols: [HTTP]
+securitySchemes: 
+    - 
+        apiKey: 
+            type: x-apiKey
+            describedBy: 
+                headers: 
+                    Authorization: 
+                        type: string
+                        required: false
+                        repeat: false
+securedBy: 
+    - 
+        apiKey
+/geocode/{outputFormat}: 
+    displayName: Geocoding and Reverse Geocoding
+    description: |
+        Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA") into geographic coordinates (like latitude 37.423021 and longitude -122.083739), which you can use to place markers on a map, or position the map.
+        
+        Reverse geocoding is the process of converting geographic coordinates into a human-readable address. The Google Maps Geocoding API's reverse geocoding service also lets you find the address for a given place ID.
+    uriParameters: 
+        outputFormat: 
+            description: |
+                outputFormat may be either of the following values:
+                
+                json (recommended) indicates output in JavaScript Object Notation (JSON); or
+                xml indicates output in XML
+            type: string
+            required: true
+            repeat: false
+            default: ""
+    get: 
+        queryParameters: 
+            result_type: 
+                description: |
+                    For Reverse Geocoding: 
+                    One or more address types, separated by a pipe (|). Examples of address types: country, street_address, postal_code. For a full list of allowable values, see https://developers.google.com/maps/documentation/geocoding/intro#Types.
+                    Specifying a type will restrict the results to this type. If multiple types are specified, the API will return all addresses that match any of the types. Note: This parameter is available only for requests that include an API key or a client ID.
+                type: string
+                required: false
+                repeat: false
+            components: 
+                description: |
+                    For Geocoding:
+                    A component filter for which you wish to obtain a geocode. See Component Filtering for more information. The components filter will also be accepted as an optional parameter if an address is provided. Either address or component must be provided
+                type: string
+                required: false
+                repeat: false
+            address: 
+                description: |
+                    For Geocoding:
+                    The street address that you want to geocode, in the format used by the national postal service of the country concerned. Additional address elements such as business names and unit, suite or floor numbers should be avoided. Please refer to https://developers.google.com/maps/faq#geocoder_queryformat for additional guidance. Either address or component must be provided.
+                type: string
+                required: false
+                repeat: false
+            bounds: 
+                description: |
+                    For Geocoding:
+                    The bounding box of the viewport within which to bias geocode results more prominently. This parameter will only influence, not fully restrict, results from the geocoder. For more information, see https://developers.google.com/maps/documentation/geocoding/intro#Viewports
+                type: string
+                required: false
+                repeat: false
+            language: 
+                description: |
+                    The language in which to return results.
+                    See https://developers.google.com/maps/faq#languagesupport.
+                    Google often updates the supported languages, so this list may not be exhaustive.
+                    If language is not supplied, the geocoder attempts to use the preferred language as specified in the Accept-Language header, or the native language of the domain from which the request is sent.
+                    The geocoder does its best to provide a street address that is readable for both the user and locals. To achieve that goal, it returns street addresses in the local language, transliterated to a script readable by the user if necessary, observing the preferred language. All other addresses are returned in the preferred language. Address components are all returned in the same language, which is chosen from the first component.
+                    If a name is not available in the preferred language, the geocoder uses the closest match.
+                    The preferred language has a small influence on the set of results that the API chooses to return, and the order in which they are returned. The geocoder interprets abbreviations differently depending on language, such as the abbreviations for street types, or synonyms that may be valid in one language but not in another. For example, utca and tér are synonyms for street in Hungarian.
+                type: string
+                required: false
+                repeat: false
+            region: 
+                description: |
+                    For Geocoding:
+                    The region code, specified as a ccTLD ("top-level domain") two-character value. This parameter will only influence, not fully restrict, results from the geocoder. For more information, see https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes
+                type: string
+                required: false
+                repeat: false
+            key: 
+                description: This key is required to track the quota usage.
+                type: string
+                required: true
+                repeat: false
+                enum: [AIzaSyDsP0UNTyLWDHTjjSGHq5cRYAEmdlxvoEg]
+                default: AIzaSyDsP0UNTyLWDHTjjSGHq5cRYAEmdlxvoEg
+            location_type: 
+                description: |
+                    For Reverse Geocoding: 
+                    One or more location types, separated by a pipe (|). Specifying a type will restrict the results to this type. If multiple types are specified, the API will return all addresses that match any of the types. 
+                    The following values are supported:
+                    "ROOFTOP" restricts the results to addresses for which we have location information accurate down to street address precision.
+                    "RANGE_INTERPOLATED" restricts the results to those that reflect an approximation (usually on a road) interpolated between two precise points (such as intersections). An interpolated range generally indicates that rooftop geocodes are unavailable for a street address.
+                    "GEOMETRIC_CENTER" restricts the results to geometric centers of a location such as a polyline (for example, a street) or polygon (region).
+                    "APPROXIMATE" restricts the results to those that are characterized as approximate.
+                    If both result_type and location_type restrictions are present then the API will return only those results that matches both the result_type and the location_type restrictions.
+                type: string
+                required: false
+                repeat: false
+            place_id: 
+                description: |
+                    For Reverse Geocoding:
+                    The place ID of the place for which you wish to obtain the human-readable address. The place ID is a unique identifier that can be used with other Google APIs. For example, you can use the placeID returned by the Google Maps Roads API to get the address for a snapped point. For more information about place IDs, see https://developers.google.com/places/place-id.
+                    Either latlng or place_id must be provided
+                type: string
+                required: false
+                repeat: false
+            latlng: 
+                description: |
+                    For Reverse Geocoding:
+                    The latitude and longitude values specifying the location for which you wish to obtain the closest, human-readable address.
+                    Either latlng or place_id must be provided
+                type: string
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                description: |
+                    The "status" field within the Geocoding response object contains the status of the request, and may contain debugging information to help you track down why geocoding is not working. The "status" field may contain the following values:
+                    
+                    "OK" indicates that no errors occurred; the address was successfully parsed and at least one geocode was returned.
+                    "ZERO_RESULTS" indicates that the geocode was successful but returned no results. This may occur if the geocoder was passed a non-existent address.
+                    "OVER_QUERY_LIMIT" indicates that you are over your quota.
+                    "REQUEST_DENIED" indicates that your request was denied.
+                    "INVALID_REQUEST" generally indicates that the query (address, components or latlng) is missing.
+                    "UNKNOWN_ERROR" indicates that the request could not be processed due to a server error. The request may succeed if you try again.
+                    
+                    When the geocoder returns a status code other than OK, there may be an additional error_message field within the Geocoding response object. This field contains more detailed information about the reasons behind the given status code.
+                body: 
+                    application/xml: 
+                        schema: ""
+                        example: |
+                            <GeocodeResponse>
+                             <status>OK</status>
+                             <result>
+                              <type>street_address</type>
+                              <formatted_address>1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA</formatted_address>
+                              <address_component>
+                               <long_name>1600</long_name>
+                               <short_name>1600</short_name>
+                               <type>street_number</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>Amphitheatre Pkwy</long_name>
+                               <short_name>Amphitheatre Pkwy</short_name>
+                               <type>route</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>Mountain View</long_name>
+                               <short_name>Mountain View</short_name>
+                               <type>locality</type>
+                               <type>political</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>San Jose</long_name>
+                               <short_name>San Jose</short_name>
+                               <type>administrative_area_level_3</type>
+                               <type>political</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>Santa Clara</long_name>
+                               <short_name>Santa Clara</short_name>
+                               <type>administrative_area_level_2</type>
+                               <type>political</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>California</long_name>
+                               <short_name>CA</short_name>
+                               <type>administrative_area_level_1</type>
+                               <type>political</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>United States</long_name>
+                               <short_name>US</short_name>
+                               <type>country</type>
+                               <type>political</type>
+                              </address_component>
+                              <address_component>
+                               <long_name>94043</long_name>
+                               <short_name>94043</short_name>
+                               <type>postal_code</type>
+                              </address_component>
+                              <geometry>
+                               <location>
+                                <lat>37.4217550</lat>
+                                <lng>-122.0846330</lng>
+                               </location>
+                               <location_type>ROOFTOP</location_type>
+                               <viewport>
+                                <southwest>
+                                 <lat>37.4188514</lat>
+                                 <lng>-122.0874526</lng>
+                                </southwest>
+                                <northeast>
+                                 <lat>37.4251466</lat>
+                                 <lng>-122.0811574</lng>
+                                </northeast>
+                               </viewport>
+                              </geometry>
+                              <place_id>ChIJ2eUgeAK6j4ARbn5u_wAGqWA</place_id>
+                             </result>
+                            </GeocodeResponse>
+                    application/json: 
+                        schema: ""
+                        example: |
+                            {
+                               "results" : [
+                                  {
+                                     "address_components" : [
+                                        {
+                                           "long_name" : "1600",
+                                           "short_name" : "1600",
+                                           "types" : [ "street_number" ]
+                                        },
+                                        {
+                                           "long_name" : "Amphitheatre Pkwy",
+                                           "short_name" : "Amphitheatre Pkwy",
+                                           "types" : [ "route" ]
+                                        },
+                                        {
+                                           "long_name" : "Mountain View",
+                                           "short_name" : "Mountain View",
+                                           "types" : [ "locality", "political" ]
+                                        },
+                                        {
+                                           "long_name" : "Santa Clara County",
+                                           "short_name" : "Santa Clara County",
+                                           "types" : [ "administrative_area_level_2", "political" ]
+                                        },
+                                        {
+                                           "long_name" : "California",
+                                           "short_name" : "CA",
+                                           "types" : [ "administrative_area_level_1", "political" ]
+                                        },
+                                        {
+                                           "long_name" : "United States",
+                                           "short_name" : "US",
+                                           "types" : [ "country", "political" ]
+                                        },
+                                        {
+                                           "long_name" : "94043",
+                                           "short_name" : "94043",
+                                           "types" : [ "postal_code" ]
+                                        }
+                                     ],
+                                     "formatted_address" : "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+                                     "geometry" : {
+                                        "location" : {
+                                           "lat" : 37.4224764,
+                                           "lng" : -122.0842499
+                                        },
+                                        "location_type" : "ROOFTOP",
+                                        "viewport" : {
+                                           "northeast" : {
+                                              "lat" : 37.4238253802915,
+                                              "lng" : -122.0829009197085
+                                           },
+                                           "southwest" : {
+                                              "lat" : 37.4211274197085,
+                                              "lng" : -122.0855988802915
+                                           }
+                                        }
+                                     },
+                                     "place_id" : "ChIJ2eUgeAK6j4ARbn5u_wAGqWA",
+                                     "types" : [ "street_address" ]
+                                  }
+                               ],
+                               "status" : "OK"
+                            }
+documentation: 
+    - 
+        title: API Description
+        content: |
+            The Google Maps Geocoding API is a service that provides geocoding and reverse geocoding of addresses. Convert addresses into geographic coordinates (geocoding), which you can use to place markers or position the map. This API also allows you to convert geographic coordinates into an address (reverse geocoding).
+            
+            Geocoding is the process of converting addresses (like a street address) into geographic coordinates (like latitude and longitude), which you can use to place markers on a map, or position the map.
+            Reverse geocoding is the process of converting geographic coordinates into a human-readable address. The Google Maps Geocoding API's reverse geocoding service also lets you find the address for a given place ID.
+            
+            Detailed documentation for the Google Maps Geocoding API is available at:
+            https://developers.google.com/maps/documentation/geocoding/start
