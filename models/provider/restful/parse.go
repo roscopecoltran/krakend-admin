@@ -20,17 +20,17 @@ func ParseSpecs(apis []SpecsRegistryAPI, ignoreList []string) error {
 			if len(ignoreList) > 0 {
 				for _, pattern := range ignoreList {
 					if strings.Contains(contentURL, pattern) == true {
-						fmt.Println("ParseSpecs(...): |- skipping url ", contentURL, " with pattern ", pattern)
+						// fmt.Println("ParseSpecs(...): |- skipping url ", contentURL, " with pattern ", pattern)
 						isSkip = true
 					}
 				}
 			}
-			fileName, fullPath, fullName := download.GetFilePathFromURL(contentURL)
+			_, fullPath, fullName := download.GetFilePathFromURL(contentURL)
 			filePathAbs, err := filepath.Abs(fullName)
 			if err != nil {
 				continue
 			}
-			fmt.Println("ParseSpecs(...): |- fileName: ", fileName, ", fullPath: ", fullPath, ", fullName: ", fullName, "filePathAbsolute: ", filePathAbs)
+			// fmt.Println("ParseSpecs(...): |- fileName: ", fileName, ", fullPath: ", fullPath, ", fullName: ", fullName, "filePathAbsolute: ", filePathAbs)
 			if !isSkip {
 				openapi.ConvertToProtobuf(filePathAbs, fullPath, true)
 			}

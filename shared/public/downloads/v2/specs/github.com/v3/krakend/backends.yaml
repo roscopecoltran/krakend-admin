@@ -27,6 +27,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-emojis
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -44,8 +46,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /events
   method: GET
@@ -61,13 +61,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -75,26 +87,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /feeds
   method: GET
@@ -109,7 +133,18 @@ backends:
   - X-RateLimit-Remaining
   - X-RateLimit-Reset
   whitelist:
-  - _links
+  - _links.current_user
+  - _links.current_user.href
+  - _links.current_user_actor
+  - _links.current_user_actor.href
+  - _links.current_user_organization
+  - _links.current_user_organization.href
+  - _links.current_user_public
+  - _links.current_user_public.href
+  - _links.timeline
+  - _links.timeline.href
+  - _links.user
+  - _links.user.href
   - current_user_actor_url
   - current_user_organization_url
   - current_user_public
@@ -123,12 +158,25 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-feeds
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
-      _links: _links
+      _links.current_user: _links.current_user
+      _links.current_user.href: _links.current_user.href
+      _links.current_user_actor: _links.current_user_actor
+      _links.current_user_actor.href: _links.current_user_actor.href
+      _links.current_user_organization: _links.current_user_organization
+      _links.current_user_organization.href: _links.current_user_organization.href
+      _links.current_user_public: _links.current_user_public
+      _links.current_user_public.href: _links.current_user_public.href
+      _links.timeline: _links.timeline
+      _links.timeline.href: _links.timeline.href
+      _links.user: _links.user
+      _links.user.href: _links.user.href
       current_user_actor_url: current_user_actor_url
       current_user_organization_url: current_user_organization_url
       current_user_public: current_user_public
@@ -140,8 +188,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists
   method: GET
@@ -164,6 +210,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -173,8 +221,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/public
   method: GET
@@ -197,6 +243,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-public
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -206,8 +254,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/starred
   method: GET
@@ -230,6 +276,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-starred
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -239,8 +287,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/{id}
   method: GET
@@ -262,15 +308,45 @@ backends:
   - created_at
   - description
   - files
+  - files.ring.erl
+  - files.ring.erl.filename
+  - files.ring.erl.raw_url
+  - files.ring.erl.size
   - forks
+  - forks.created_at
+  - forks.url
+  - forks.user
+  - forks.user.avatar_url
+  - forks.user.gravatar_id
+  - forks.user.id
+  - forks.user.login
+  - forks.user.url
   - git_pull_url
   - git_push_url
   - history
+  - history.change_status
+  - history.change_status.additions
+  - history.change_status.deletions
+  - history.change_status.total
+  - history.committed_at
+  - history.url
+  - history.user
+  - history.user.avatar_url
+  - history.user.gravatar_id
+  - history.user.id
+  - history.user.login
+  - history.user.url
+  - history.version
   - html_url
   - id
   - public
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -278,6 +354,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-id
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -288,22 +366,50 @@ backends:
       created_at: created_at
       description: description
       files: files
+      files.ring.erl: files.ring.erl
+      files.ring.erl.filename: files.ring.erl.filename
+      files.ring.erl.raw_url: files.ring.erl.raw_url
+      files.ring.erl.size: files.ring.erl.size
       forks: forks
+      forks.created_at: forks.created_at
+      forks.url: forks.url
+      forks.user: forks.user
+      forks.user.avatar_url: forks.user.avatar_url
+      forks.user.gravatar_id: forks.user.gravatar_id
+      forks.user.id: forks.user.id
+      forks.user.login: forks.user.login
+      forks.user.url: forks.user.url
       git_pull_url: git_pull_url
       git_push_url: git_push_url
       history: history
+      history.change_status: history.change_status
+      history.change_status.additions: history.change_status.additions
+      history.change_status.deletions: history.change_status.deletions
+      history.change_status.total: history.change_status.total
+      history.committed_at: history.committed_at
+      history.url: history.url
+      history.user: history.user
+      history.user.avatar_url: history.user.avatar_url
+      history.user.gravatar_id: history.user.gravatar_id
+      history.user.id: history.user.id
+      history.user.login: history.user.login
+      history.user.url: history.user.url
+      history.version: history.version
       html_url: html_url
       id: id
       public: public
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/{id}/comments
   method: GET
@@ -326,6 +432,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-id-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -335,8 +443,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/{id}/comments/{commentId}
   method: GET
@@ -362,6 +468,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-id-comments-commentid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -373,8 +481,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/{id}/forks
   method: POST
@@ -397,6 +503,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-id-forks
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -406,8 +514,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gists/{id}/star
   method: GET
@@ -430,6 +536,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gists-id-star
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -439,8 +547,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gitignore/templates
   method: GET
@@ -461,6 +567,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gitignore-templates
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -470,8 +578,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /gitignore/templates/{language}
   method: GET
@@ -497,6 +603,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-gitignore-templates-language
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -509,8 +617,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /issues
   method: GET
@@ -538,6 +644,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-issues
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -547,8 +655,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /legacy/issues/search/{owner}/{repository}/{state}/{keyword}
   method: GET
@@ -569,6 +675,20 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - issues
+  - issues.body
+  - issues.comments
+  - issues.created_at
+  - issues.gravatar_id
+  - issues.html_url
+  - issues.labels
+  - issues.labels.items
+  - issues.number
+  - issues.position
+  - issues.state
+  - issues.title
+  - issues.updated_at
+  - issues.user
+  - issues.votes
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -576,19 +696,33 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-legacy-issues-search-owner-repository-state-keyword
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       issues: issues
+      issues.body: issues.body
+      issues.comments: issues.comments
+      issues.created_at: issues.created_at
+      issues.gravatar_id: issues.gravatar_id
+      issues.html_url: issues.html_url
+      issues.labels: issues.labels
+      issues.labels.items: issues.labels.items
+      issues.number: issues.number
+      issues.position: issues.position
+      issues.state: issues.state
+      issues.title: issues.title
+      issues.updated_at: issues.updated_at
+      issues.user: issues.user
+      issues.votes: issues.votes
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /legacy/repos/search/{keyword}
   method: GET
@@ -611,6 +745,28 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - repositories
+  - repositories.created
+  - repositories.created_at
+  - repositories.description
+  - repositories.followers
+  - repositories.fork
+  - repositories.forks
+  - repositories.has_downloads
+  - repositories.has_issues
+  - repositories.has_wiki
+  - repositories.homepage
+  - repositories.language
+  - repositories.name
+  - repositories.open_issues
+  - repositories.owner
+  - repositories.private
+  - repositories.pushed
+  - repositories.pushed_at
+  - repositories.score
+  - repositories.size
+  - repositories.url
+  - repositories.username
+  - repositories.watchers
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -618,19 +774,41 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-legacy-repos-search-keyword
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       repositories: repositories
+      repositories.created: repositories.created
+      repositories.created_at: repositories.created_at
+      repositories.description: repositories.description
+      repositories.followers: repositories.followers
+      repositories.fork: repositories.fork
+      repositories.forks: repositories.forks
+      repositories.has_downloads: repositories.has_downloads
+      repositories.has_issues: repositories.has_issues
+      repositories.has_wiki: repositories.has_wiki
+      repositories.homepage: repositories.homepage
+      repositories.language: repositories.language
+      repositories.name: repositories.name
+      repositories.open_issues: repositories.open_issues
+      repositories.owner: repositories.owner
+      repositories.private: repositories.private
+      repositories.pushed: repositories.pushed
+      repositories.pushed_at: repositories.pushed_at
+      repositories.score: repositories.score
+      repositories.size: repositories.size
+      repositories.url: repositories.url
+      repositories.username: repositories.username
+      repositories.watchers: repositories.watchers
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /legacy/user/email/{email}
   method: GET
@@ -648,6 +826,20 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - user
+  - user.blog
+  - user.company
+  - user.created
+  - user.created_at
+  - user.email
+  - user.followers_count
+  - user.following_count
+  - user.gravatar_id
+  - user.id
+  - user.location
+  - user.login
+  - user.name
+  - user.public_gist_count
+  - user.public_repo_count
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -655,19 +847,33 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-legacy-user-email-email
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       user: user
+      user.blog: user.blog
+      user.company: user.company
+      user.created: user.created
+      user.created_at: user.created_at
+      user.email: user.email
+      user.followers_count: user.followers_count
+      user.following_count: user.following_count
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.location: user.location
+      user.login: user.login
+      user.name: user.name
+      user.public_gist_count: user.public_gist_count
+      user.public_repo_count: user.public_repo_count
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /legacy/user/search/{keyword}
   method: GET
@@ -689,6 +895,21 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - users
+  - users.created
+  - users.created_at
+  - users.followers
+  - users.followers_count
+  - users.fullname
+  - users.gravatar_id
+  - users.id
+  - users.language
+  - users.location
+  - users.login
+  - users.name
+  - users.public_repo_count
+  - users.repos
+  - users.score
+  - users.username
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -696,19 +917,34 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-legacy-user-search-keyword
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       users: users
+      users.created: users.created
+      users.created_at: users.created_at
+      users.followers: users.followers
+      users.followers_count: users.followers_count
+      users.fullname: users.fullname
+      users.gravatar_id: users.gravatar_id
+      users.id: users.id
+      users.language: users.language
+      users.location: users.location
+      users.login: users.login
+      users.name: users.name
+      users.public_repo_count: users.public_repo_count
+      users.repos: users.repos
+      users.score: users.score
+      users.username: users.username
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /markdown
   method: POST
@@ -729,6 +965,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-markdown
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -738,8 +976,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /markdown/raw
   method: POST
@@ -760,6 +996,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-markdown-raw
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -769,8 +1007,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /meta
   method: GET
@@ -794,6 +1030,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-meta
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -806,8 +1044,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /networks/{owner}/{repo}/events
   method: GET
@@ -826,13 +1062,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -840,26 +1088,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-networks-owner-repo-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /notifications
   method: GET
@@ -882,7 +1142,24 @@ backends:
   - last_read_at
   - reason
   - repository
+  - repository.description
+  - repository.fork
+  - repository.full_name
+  - repository.html_url
+  - repository.id
+  - repository.name
+  - repository.owner
+  - repository.owner.avatar_url
+  - repository.owner.gravatar_id
+  - repository.owner.id
+  - repository.owner.login
+  - repository.owner.url
+  - repository.private
+  - repository.url
   - subject
+  - subject.latest_comment_url
+  - subject.title
+  - subject.url
   - unread
   - updated_at
   - url
@@ -893,6 +1170,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-notifications
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -902,7 +1181,24 @@ backends:
       last_read_at: last_read_at
       reason: reason
       repository: repository
+      repository.description: repository.description
+      repository.fork: repository.fork
+      repository.full_name: repository.full_name
+      repository.html_url: repository.html_url
+      repository.id: repository.id
+      repository.name: repository.name
+      repository.owner: repository.owner
+      repository.owner.avatar_url: repository.owner.avatar_url
+      repository.owner.gravatar_id: repository.owner.gravatar_id
+      repository.owner.id: repository.owner.id
+      repository.owner.login: repository.owner.login
+      repository.owner.url: repository.owner.url
+      repository.private: repository.private
+      repository.url: repository.url
       subject: subject
+      subject.latest_comment_url: subject.latest_comment_url
+      subject.title: subject.title
+      subject.url: subject.url
       unread: unread
       updated_at: updated_at
       url: url
@@ -911,8 +1207,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /notifications/threads/{id}
   method: GET
@@ -933,7 +1227,24 @@ backends:
   - last_read_at
   - reason
   - repository
+  - repository.description
+  - repository.fork
+  - repository.full_name
+  - repository.html_url
+  - repository.id
+  - repository.name
+  - repository.owner
+  - repository.owner.avatar_url
+  - repository.owner.gravatar_id
+  - repository.owner.id
+  - repository.owner.login
+  - repository.owner.url
+  - repository.private
+  - repository.url
   - subject
+  - subject.latest_comment_url
+  - subject.title
+  - subject.url
   - unread
   - updated_at
   - url
@@ -944,6 +1255,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-notifications-threads-id
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -953,7 +1266,24 @@ backends:
       last_read_at: last_read_at
       reason: reason
       repository: repository
+      repository.description: repository.description
+      repository.fork: repository.fork
+      repository.full_name: repository.full_name
+      repository.html_url: repository.html_url
+      repository.id: repository.id
+      repository.name: repository.name
+      repository.owner: repository.owner
+      repository.owner.avatar_url: repository.owner.avatar_url
+      repository.owner.gravatar_id: repository.owner.gravatar_id
+      repository.owner.id: repository.owner.id
+      repository.owner.login: repository.owner.login
+      repository.owner.url: repository.owner.url
+      repository.private: repository.private
+      repository.url: repository.url
       subject: subject
+      subject.latest_comment_url: subject.latest_comment_url
+      subject.title: subject.title
+      subject.url: subject.url
       unread: unread
       updated_at: updated_at
       url: url
@@ -962,8 +1292,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /notifications/threads/{id}/subscription
   method: GET
@@ -993,6 +1321,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-notifications-threads-id-subscription
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1009,8 +1339,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}
   method: GET
@@ -1041,7 +1369,6 @@ backends:
   - name
   - public_gists
   - public_repos
-  - type
   - url
   concurrent_calls: 1
   extra_config:
@@ -1050,6 +1377,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1069,15 +1398,12 @@ backends:
       name: name
       public_gists: public_gists
       public_repos: public_repos
-      type: type
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/events
   method: GET
@@ -1095,13 +1421,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -1109,26 +1447,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/issues
   method: GET
@@ -1158,6 +1508,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-issues
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1167,8 +1519,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/members
   method: GET
@@ -1191,6 +1541,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-members
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1200,8 +1552,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/members/{username}
   method: GET
@@ -1225,6 +1575,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-members-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1234,8 +1586,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/public_members
   method: GET
@@ -1258,6 +1608,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-public-members
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1267,8 +1619,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/public_members/{username}
   method: GET
@@ -1292,6 +1642,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-public-members-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1301,8 +1653,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/repos
   method: GET
@@ -1327,6 +1677,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-repos
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1336,8 +1688,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /orgs/{org}/teams
   method: GET
@@ -1360,6 +1710,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-orgs-org-teams
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1369,8 +1721,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /rate_limit
   method: GET
@@ -1385,7 +1735,9 @@ backends:
   - X-RateLimit-Remaining
   - X-RateLimit-Reset
   whitelist:
-  - rate
+  - rate.limit
+  - rate.remaining
+  - rate.reset
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -1393,19 +1745,21 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-rate-limit
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
-      rate: rate
+      rate.limit: rate.limit
+      rate.remaining: rate.remaining
+      rate.reset: rate.reset
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}
   method: GET
@@ -1444,12 +1798,86 @@ backends:
   - open_issues
   - open_issues_count
   - organization
+  - organization.avatar_url
+  - organization.gravatar_id
+  - organization.id
+  - organization.login
+  - organization.url
   - owner
+  - owner.avatar_url
+  - owner.gravatar_id
+  - owner.id
+  - owner.login
+  - owner.url
   - parent
+  - parent.clone_url
+  - parent.created_at
+  - parent.description
+  - parent.fork
+  - parent.forks
+  - parent.forks_count
+  - parent.full_name
+  - parent.git_url
+  - parent.homepage
+  - parent.html_url
+  - parent.id
+  - parent.language
+  - parent.master_branch
+  - parent.mirror_url
+  - parent.name
+  - parent.open_issues
+  - parent.open_issues_count
+  - parent.owner
+  - parent.owner.avatar_url
+  - parent.owner.gravatar_id
+  - parent.owner.id
+  - parent.owner.login
+  - parent.owner.url
+  - parent.private
+  - parent.pushed_at
+  - parent.size
+  - parent.ssh_url
+  - parent.svn_url
+  - parent.updated_at
+  - parent.url
+  - parent.watchers
+  - parent.watchers_count
   - private
   - pushed_at
   - size
   - source
+  - source.clone_url
+  - source.created_at
+  - source.description
+  - source.fork
+  - source.forks
+  - source.forks_count
+  - source.full_name
+  - source.git_url
+  - source.homepage
+  - source.html_url
+  - source.id
+  - source.language
+  - source.master_branch
+  - source.mirror_url
+  - source.name
+  - source.open_issues
+  - source.open_issues_count
+  - source.owner
+  - source.owner.avatar_url
+  - source.owner.gravatar_id
+  - source.owner.id
+  - source.owner.login
+  - source.owner.url
+  - source.private
+  - source.pushed_at
+  - source.size
+  - source.ssh_url
+  - source.svn_url
+  - source.updated_at
+  - source.url
+  - source.watchers
+  - source.watchers_count
   - ssh_url
   - svn_url
   - updated_at
@@ -1463,6 +1891,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1489,12 +1919,86 @@ backends:
       open_issues: open_issues
       open_issues_count: open_issues_count
       organization: organization
+      organization.avatar_url: organization.avatar_url
+      organization.gravatar_id: organization.gravatar_id
+      organization.id: organization.id
+      organization.login: organization.login
+      organization.url: organization.url
       owner: owner
+      owner.avatar_url: owner.avatar_url
+      owner.gravatar_id: owner.gravatar_id
+      owner.id: owner.id
+      owner.login: owner.login
+      owner.url: owner.url
       parent: parent
+      parent.clone_url: parent.clone_url
+      parent.created_at: parent.created_at
+      parent.description: parent.description
+      parent.fork: parent.fork
+      parent.forks: parent.forks
+      parent.forks_count: parent.forks_count
+      parent.full_name: parent.full_name
+      parent.git_url: parent.git_url
+      parent.homepage: parent.homepage
+      parent.html_url: parent.html_url
+      parent.id: parent.id
+      parent.language: parent.language
+      parent.master_branch: parent.master_branch
+      parent.mirror_url: parent.mirror_url
+      parent.name: parent.name
+      parent.open_issues: parent.open_issues
+      parent.open_issues_count: parent.open_issues_count
+      parent.owner: parent.owner
+      parent.owner.avatar_url: parent.owner.avatar_url
+      parent.owner.gravatar_id: parent.owner.gravatar_id
+      parent.owner.id: parent.owner.id
+      parent.owner.login: parent.owner.login
+      parent.owner.url: parent.owner.url
+      parent.private: parent.private
+      parent.pushed_at: parent.pushed_at
+      parent.size: parent.size
+      parent.ssh_url: parent.ssh_url
+      parent.svn_url: parent.svn_url
+      parent.updated_at: parent.updated_at
+      parent.url: parent.url
+      parent.watchers: parent.watchers
+      parent.watchers_count: parent.watchers_count
       private: private
       pushed_at: pushed_at
       size: size
       source: source
+      source.clone_url: source.clone_url
+      source.created_at: source.created_at
+      source.description: source.description
+      source.fork: source.fork
+      source.forks: source.forks
+      source.forks_count: source.forks_count
+      source.full_name: source.full_name
+      source.git_url: source.git_url
+      source.homepage: source.homepage
+      source.html_url: source.html_url
+      source.id: source.id
+      source.language: source.language
+      source.master_branch: source.master_branch
+      source.mirror_url: source.mirror_url
+      source.name: source.name
+      source.open_issues: source.open_issues
+      source.open_issues_count: source.open_issues_count
+      source.owner: source.owner
+      source.owner.avatar_url: source.owner.avatar_url
+      source.owner.gravatar_id: source.owner.gravatar_id
+      source.owner.id: source.owner.id
+      source.owner.login: source.owner.login
+      source.owner.url: source.owner.url
+      source.private: source.private
+      source.pushed_at: source.pushed_at
+      source.size: source.size
+      source.ssh_url: source.ssh_url
+      source.svn_url: source.svn_url
+      source.updated_at: source.updated_at
+      source.url: source.url
+      source.watchers: source.watchers
+      source.watchers_count: source.watchers_count
       ssh_url: ssh_url
       svn_url: svn_url
       updated_at: updated_at
@@ -1506,8 +2010,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/assignees
   method: GET
@@ -1531,6 +2033,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-assignees
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1540,8 +2044,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/assignees/{assignee}
   method: GET
@@ -1566,6 +2068,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-assignees-assignee
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1575,8 +2079,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/branches
   method: GET
@@ -1600,6 +2102,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-branches
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1609,8 +2113,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/branches/{branch}
   method: GET
@@ -1630,7 +2132,40 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.html
+  - _links.self
   - commit
+  - commit.author
+  - commit.author.avatar_url
+  - commit.author.gravatar_id
+  - commit.author.id
+  - commit.author.login
+  - commit.author.url
+  - commit.commit
+  - commit.commit.author.date
+  - commit.commit.author.email
+  - commit.commit.author.name
+  - commit.commit.committer
+  - commit.commit.committer.date
+  - commit.commit.committer.email
+  - commit.commit.committer.name
+  - commit.commit.message
+  - commit.commit.tree
+  - commit.commit.tree.sha
+  - commit.commit.tree.url
+  - commit.commit.url
+  - commit.committer
+  - commit.committer.avatar_url
+  - commit.committer.gravatar_id
+  - commit.committer.id
+  - commit.committer.login
+  - commit.committer.url
+  - commit.parents
+  - commit.parents.items
+  - commit.parents.items.sha
+  - commit.parents.items.url
+  - commit.sha
+  - commit.url
   - name
   concurrent_calls: 1
   extra_config:
@@ -1639,21 +2174,54 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-branches-branch
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.html: _links.html
+      _links.self: _links.self
       commit: commit
+      commit.author: commit.author
+      commit.author.avatar_url: commit.author.avatar_url
+      commit.author.gravatar_id: commit.author.gravatar_id
+      commit.author.id: commit.author.id
+      commit.author.login: commit.author.login
+      commit.author.url: commit.author.url
+      commit.commit: commit.commit
+      commit.commit.author.date: commit.commit.author.date
+      commit.commit.author.email: commit.commit.author.email
+      commit.commit.author.name: commit.commit.author.name
+      commit.commit.committer: commit.commit.committer
+      commit.commit.committer.date: commit.commit.committer.date
+      commit.commit.committer.email: commit.commit.committer.email
+      commit.commit.committer.name: commit.commit.committer.name
+      commit.commit.message: commit.commit.message
+      commit.commit.tree: commit.commit.tree
+      commit.commit.tree.sha: commit.commit.tree.sha
+      commit.commit.tree.url: commit.commit.tree.url
+      commit.commit.url: commit.commit.url
+      commit.committer: commit.committer
+      commit.committer.avatar_url: commit.committer.avatar_url
+      commit.committer.gravatar_id: commit.committer.gravatar_id
+      commit.committer.id: commit.committer.id
+      commit.committer.login: commit.committer.login
+      commit.committer.url: commit.committer.url
+      commit.parents: commit.parents
+      commit.parents.items: commit.parents.items
+      commit.parents.items.sha: commit.parents.items.sha
+      commit.parents.items.url: commit.parents.items.url
+      commit.sha: commit.sha
+      commit.url: commit.url
       name: name
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/collaborators
   method: GET
@@ -1677,6 +2245,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-collaborators
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1686,8 +2256,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/collaborators/{user}
   method: GET
@@ -1712,6 +2280,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-collaborators-user
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1721,8 +2291,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/comments
   method: GET
@@ -1746,6 +2314,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1755,8 +2325,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/comments/{commentId}
   method: GET
@@ -1786,6 +2354,11 @@ backends:
   - updated_at
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -1793,6 +2366,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-comments-commentid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1809,13 +2384,16 @@ backends:
       updated_at: updated_at
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/commits
   method: GET
@@ -1845,6 +2423,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-commits
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1854,8 +2434,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/commits/{ref}/status
   method: GET
@@ -1880,6 +2458,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-commits-ref-status
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1889,8 +2469,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/commits/{shaCode}
   method: GET
@@ -1910,12 +2488,48 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - author
+  - author.avatar_url
+  - author.gravatar_id
+  - author.id
+  - author.login
+  - author.url
   - commit
+  - commit.author
+  - commit.author.date
+  - commit.author.email
+  - commit.author.name
+  - commit.committer
+  - commit.committer.date
+  - commit.committer.email
+  - commit.committer.name
+  - commit.message
+  - commit.tree
+  - commit.tree.sha
+  - commit.tree.url
+  - commit.url
   - committer
+  - committer.avatar_url
+  - committer.gravatar_id
+  - committer.id
+  - committer.login
+  - committer.url
   - files
+  - files.additions
+  - files.blob_url
+  - files.changes
+  - files.deletions
+  - files.filename
+  - files.patch
+  - files.raw_url
+  - files.status
   - parents
+  - parents.sha
+  - parents.url
   - sha
   - stats
+  - stats.additions
+  - stats.deletions
+  - stats.total
   - url
   concurrent_calls: 1
   extra_config:
@@ -1924,26 +2538,62 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-commits-shacode
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       author: author
+      author.avatar_url: author.avatar_url
+      author.gravatar_id: author.gravatar_id
+      author.id: author.id
+      author.login: author.login
+      author.url: author.url
       commit: commit
+      commit.author: commit.author
+      commit.author.date: commit.author.date
+      commit.author.email: commit.author.email
+      commit.author.name: commit.author.name
+      commit.committer: commit.committer
+      commit.committer.date: commit.committer.date
+      commit.committer.email: commit.committer.email
+      commit.committer.name: commit.committer.name
+      commit.message: commit.message
+      commit.tree: commit.tree
+      commit.tree.sha: commit.tree.sha
+      commit.tree.url: commit.tree.url
+      commit.url: commit.url
       committer: committer
+      committer.avatar_url: committer.avatar_url
+      committer.gravatar_id: committer.gravatar_id
+      committer.id: committer.id
+      committer.login: committer.login
+      committer.url: committer.url
       files: files
+      files.additions: files.additions
+      files.blob_url: files.blob_url
+      files.changes: files.changes
+      files.deletions: files.deletions
+      files.filename: files.filename
+      files.patch: files.patch
+      files.raw_url: files.raw_url
+      files.status: files.status
       parents: parents
+      parents.sha: parents.sha
+      parents.url: parents.url
       sha: sha
       stats: stats
+      stats.additions: stats.additions
+      stats.deletions: stats.deletions
+      stats.total: stats.total
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/commits/{shaCode}/comments
   method: GET
@@ -1968,6 +2618,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-commits-shacode-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -1977,8 +2629,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/compare/{baseId}
   encoding: json
@@ -1991,6 +2641,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-compare-baseid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2000,8 +2652,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/contents/{path}
   method: GET
@@ -2024,6 +2674,9 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.git
+  - _links.html
+  - _links.self
   - content
   - encoding
   - git_url
@@ -2032,7 +2685,6 @@ backends:
   - path
   - sha
   - size
-  - type
   - url
   concurrent_calls: 1
   extra_config:
@@ -2041,12 +2693,17 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-contents-path
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.git: _links.git
+      _links.html: _links.html
+      _links.self: _links.self
       content: content
       encoding: encoding
       git_url: git_url
@@ -2055,15 +2712,12 @@ backends:
       path: path
       sha: sha
       size: size
-      type: type
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/contributors
   method: GET
@@ -2089,6 +2743,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-contributors
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2098,8 +2754,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/deployments
   method: GET
@@ -2123,6 +2777,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-deployments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2132,8 +2788,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/deployments/{id}/statuses
   method: GET
@@ -2158,6 +2812,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-deployments-id-statuses
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2167,8 +2823,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/downloads
   method: GET
@@ -2201,6 +2855,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-downloads
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2219,8 +2875,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/downloads/{downloadId}
   method: GET
@@ -2254,6 +2908,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-downloads-downloadid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2272,8 +2928,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/events
   method: GET
@@ -2292,13 +2946,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -2306,26 +2972,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/forks
   method: GET
@@ -2351,6 +3029,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-forks
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2360,8 +3040,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/blobs
   method: POST
@@ -2385,6 +3063,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-blobs
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2394,8 +3074,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/blobs/{shaCode}
   method: GET
@@ -2424,6 +3102,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-blobs-shacode
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2437,8 +3117,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/commits
   method: POST
@@ -2462,6 +3140,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-commits
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2471,8 +3151,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/commits/{shaCode}
   method: GET
@@ -2492,11 +3170,21 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - author
+  - author.date
+  - author.email
+  - author.name
   - committer
+  - committer.date
+  - committer.email
+  - committer.name
   - message
   - parents
+  - parents.sha
+  - parents.url
   - sha
   - tree
+  - tree.sha
+  - tree.url
   - url
   concurrent_calls: 1
   extra_config:
@@ -2505,25 +3193,35 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-commits-shacode
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       author: author
+      author.date: author.date
+      author.email: author.email
+      author.name: author.name
       committer: committer
+      committer.date: committer.date
+      committer.email: committer.email
+      committer.name: committer.name
       message: message
       parents: parents
+      parents.sha: parents.sha
+      parents.url: parents.url
       sha: sha
       tree: tree
+      tree.sha: tree.sha
+      tree.url: tree.url
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/refs
   method: GET
@@ -2547,6 +3245,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-refs
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2556,8 +3256,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/refs/{ref}
   method: GET
@@ -2577,6 +3275,8 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - object
+  - object.sha
+  - object.url
   - ref
   - url
   concurrent_calls: 1
@@ -2586,12 +3286,16 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-refs-ref
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       object: object
+      object.sha: object.sha
+      object.url: object.url
       ref: ref
       url: url
     hosts:
@@ -2599,8 +3303,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/tags
   method: POST
@@ -2624,6 +3326,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-tags
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2633,8 +3337,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/tags/{shaCode}
   method: GET
@@ -2655,9 +3357,14 @@ backends:
   whitelist:
   - message
   - object
+  - object.sha
+  - object.url
   - sha
   - tag
   - tagger
+  - tagger.date
+  - tagger.email
+  - tagger.name
   - url
   concurrent_calls: 1
   extra_config:
@@ -2666,6 +3373,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-tags-shacode
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2673,17 +3382,20 @@ backends:
     mapping:
       message: message
       object: object
+      object.sha: object.sha
+      object.url: object.url
       sha: sha
       tag: tag
       tagger: tagger
+      tagger.date: tagger.date
+      tagger.email: tagger.email
+      tagger.name: tagger.name
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/trees
   method: POST
@@ -2707,6 +3419,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-trees
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2716,8 +3430,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/git/trees/{shaCode}
   method: GET
@@ -2740,6 +3452,11 @@ backends:
   whitelist:
   - sha
   - tree
+  - tree.mode
+  - tree.path
+  - tree.sha
+  - tree.size
+  - tree.url
   - url
   concurrent_calls: 1
   extra_config:
@@ -2748,6 +3465,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-git-trees-shacode
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2755,14 +3474,17 @@ backends:
     mapping:
       sha: sha
       tree: tree
+      tree.mode: tree.mode
+      tree.path: tree.path
+      tree.sha: tree.sha
+      tree.size: tree.size
+      tree.url: tree.url
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/hooks
   method: GET
@@ -2786,6 +3508,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-hooks
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2795,8 +3519,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/hooks/{hookId}
   method: GET
@@ -2821,6 +3543,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-hooks-hookid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2830,8 +3554,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/hooks/{hookId}/tests
   method: POST
@@ -2856,6 +3578,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-hooks-hookid-tests
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2865,8 +3589,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues
   method: GET
@@ -2897,6 +3619,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2906,8 +3630,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/comments
   method: GET
@@ -2935,6 +3657,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2944,8 +3668,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/comments/{commentId}
   method: GET
@@ -2971,6 +3693,11 @@ backends:
   - updated_at
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -2978,6 +3705,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-comments-commentid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -2990,13 +3719,16 @@ backends:
       updated_at: updated_at
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/events
   method: GET
@@ -3015,13 +3747,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -3029,26 +3773,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/events/{eventId}
   method: GET
@@ -3068,10 +3824,59 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - commit_id
   - created_at
   - event
   - issue
+  - issue.assignee.avatar_url
+  - issue.assignee.gravatar_id
+  - issue.assignee.id
+  - issue.assignee.login
+  - issue.assignee.url
+  - issue.body
+  - issue.closed_at
+  - issue.comments
+  - issue.created_at
+  - issue.html_url
+  - issue.labels
+  - issue.labels.items
+  - issue.labels.items.color
+  - issue.labels.items.name
+  - issue.labels.items.url
+  - issue.milestone
+  - issue.milestone.closed_issues
+  - issue.milestone.created_at
+  - issue.milestone.creator
+  - issue.milestone.creator.avatar_url
+  - issue.milestone.creator.gravatar_id
+  - issue.milestone.creator.id
+  - issue.milestone.creator.login
+  - issue.milestone.creator.url
+  - issue.milestone.description
+  - issue.milestone.due_on
+  - issue.milestone.number
+  - issue.milestone.open_issues
+  - issue.milestone.title
+  - issue.milestone.url
+  - issue.number
+  - issue.pull_request
+  - issue.pull_request.diff_url
+  - issue.pull_request.html_url
+  - issue.pull_request.patch_url
+  - issue.title
+  - issue.updated_at
+  - issue.url
+  - issue.user
+  - issue.user.avatar_url
+  - issue.user.gravatar_id
+  - issue.user.id
+  - issue.user.login
+  - issue.user.url
   - url
   concurrent_calls: 1
   extra_config:
@@ -3080,24 +3885,73 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-events-eventid
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       commit_id: commit_id
       created_at: created_at
       event: event
       issue: issue
+      issue.assignee.avatar_url: issue.assignee.avatar_url
+      issue.assignee.gravatar_id: issue.assignee.gravatar_id
+      issue.assignee.id: issue.assignee.id
+      issue.assignee.login: issue.assignee.login
+      issue.assignee.url: issue.assignee.url
+      issue.body: issue.body
+      issue.closed_at: issue.closed_at
+      issue.comments: issue.comments
+      issue.created_at: issue.created_at
+      issue.html_url: issue.html_url
+      issue.labels: issue.labels
+      issue.labels.items: issue.labels.items
+      issue.labels.items.color: issue.labels.items.color
+      issue.labels.items.name: issue.labels.items.name
+      issue.labels.items.url: issue.labels.items.url
+      issue.milestone: issue.milestone
+      issue.milestone.closed_issues: issue.milestone.closed_issues
+      issue.milestone.created_at: issue.milestone.created_at
+      issue.milestone.creator: issue.milestone.creator
+      issue.milestone.creator.avatar_url: issue.milestone.creator.avatar_url
+      issue.milestone.creator.gravatar_id: issue.milestone.creator.gravatar_id
+      issue.milestone.creator.id: issue.milestone.creator.id
+      issue.milestone.creator.login: issue.milestone.creator.login
+      issue.milestone.creator.url: issue.milestone.creator.url
+      issue.milestone.description: issue.milestone.description
+      issue.milestone.due_on: issue.milestone.due_on
+      issue.milestone.number: issue.milestone.number
+      issue.milestone.open_issues: issue.milestone.open_issues
+      issue.milestone.title: issue.milestone.title
+      issue.milestone.url: issue.milestone.url
+      issue.number: issue.number
+      issue.pull_request: issue.pull_request
+      issue.pull_request.diff_url: issue.pull_request.diff_url
+      issue.pull_request.html_url: issue.pull_request.html_url
+      issue.pull_request.patch_url: issue.pull_request.patch_url
+      issue.title: issue.title
+      issue.updated_at: issue.updated_at
+      issue.url: issue.url
+      issue.user: issue.user
+      issue.user.avatar_url: issue.user.avatar_url
+      issue.user.gravatar_id: issue.user.gravatar_id
+      issue.user.id: issue.user.id
+      issue.user.login: issue.user.login
+      issue.user.url: issue.user.url
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/{number}
   method: GET
@@ -3128,6 +3982,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-number
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3143,8 +3999,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/{number}/comments
   method: GET
@@ -3169,6 +4023,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-number-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3178,8 +4034,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/{number}/events
   method: GET
@@ -3199,13 +4053,25 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - actor
+  - actor.avatar_url
+  - actor.gravatar_id
+  - actor.id
+  - actor.login
+  - actor.url
   - created_at
   - id
   - org
+  - org.avatar_url
+  - org.gravatar_id
+  - org.id
+  - org.login
+  - org.url
   - payload
   - public
   - repo
-  - type
+  - repo.id
+  - repo.name
+  - repo.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -3213,26 +4079,38 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-number-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       actor: actor
+      actor.avatar_url: actor.avatar_url
+      actor.gravatar_id: actor.gravatar_id
+      actor.id: actor.id
+      actor.login: actor.login
+      actor.url: actor.url
       created_at: created_at
       id: id
       org: org
+      org.avatar_url: org.avatar_url
+      org.gravatar_id: org.gravatar_id
+      org.id: org.id
+      org.login: org.login
+      org.url: org.url
       payload: payload
       public: public
       repo: repo
-      type: type
+      repo.id: repo.id
+      repo.name: repo.name
+      repo.url: repo.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/issues/{number}/labels
   method: GET
@@ -3257,6 +4135,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-issues-number-labels
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3266,8 +4146,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/keys
   method: GET
@@ -3291,6 +4169,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-keys
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3300,8 +4180,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/keys/{keyId}
   method: GET
@@ -3331,6 +4209,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-keys-keyid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3345,8 +4225,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/labels
   method: GET
@@ -3370,6 +4248,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-labels
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3379,8 +4259,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/labels/{name}
   method: GET
@@ -3409,6 +4287,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-labels-name
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3422,8 +4302,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/languages
   method: GET
@@ -3447,6 +4325,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-languages
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3456,8 +4336,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/merges
   method: POST
@@ -3481,6 +4359,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-merges
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3490,8 +4370,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/milestones
   method: GET
@@ -3516,6 +4394,11 @@ backends:
   - closed_issues
   - created_at
   - creator
+  - creator.avatar_url
+  - creator.gravatar_id
+  - creator.id
+  - creator.login
+  - creator.url
   - description
   - due_on
   - number
@@ -3529,6 +4412,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-milestones
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3537,6 +4422,11 @@ backends:
       closed_issues: closed_issues
       created_at: created_at
       creator: creator
+      creator.avatar_url: creator.avatar_url
+      creator.gravatar_id: creator.gravatar_id
+      creator.id: creator.id
+      creator.login: creator.login
+      creator.url: creator.url
       description: description
       due_on: due_on
       number: number
@@ -3548,8 +4438,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/milestones/{number}
   method: GET
@@ -3571,6 +4459,11 @@ backends:
   - closed_issues
   - created_at
   - creator
+  - creator.avatar_url
+  - creator.gravatar_id
+  - creator.id
+  - creator.login
+  - creator.url
   - description
   - due_on
   - number
@@ -3584,6 +4477,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-milestones-number
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3592,6 +4487,11 @@ backends:
       closed_issues: closed_issues
       created_at: created_at
       creator: creator
+      creator.avatar_url: creator.avatar_url
+      creator.gravatar_id: creator.gravatar_id
+      creator.id: creator.id
+      creator.login: creator.login
+      creator.url: creator.url
       description: description
       due_on: due_on
       number: number
@@ -3603,8 +4503,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/milestones/{number}/labels
   method: GET
@@ -3629,6 +4527,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-milestones-number-labels
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3638,8 +4538,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/notifications
   method: GET
@@ -3665,7 +4563,24 @@ backends:
   - last_read_at
   - reason
   - repository
+  - repository.description
+  - repository.fork
+  - repository.full_name
+  - repository.html_url
+  - repository.id
+  - repository.name
+  - repository.owner
+  - repository.owner.avatar_url
+  - repository.owner.gravatar_id
+  - repository.owner.id
+  - repository.owner.login
+  - repository.owner.url
+  - repository.private
+  - repository.url
   - subject
+  - subject.latest_comment_url
+  - subject.title
+  - subject.url
   - unread
   - updated_at
   - url
@@ -3676,6 +4591,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-notifications
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3685,7 +4602,24 @@ backends:
       last_read_at: last_read_at
       reason: reason
       repository: repository
+      repository.description: repository.description
+      repository.fork: repository.fork
+      repository.full_name: repository.full_name
+      repository.html_url: repository.html_url
+      repository.id: repository.id
+      repository.name: repository.name
+      repository.owner: repository.owner
+      repository.owner.avatar_url: repository.owner.avatar_url
+      repository.owner.gravatar_id: repository.owner.gravatar_id
+      repository.owner.id: repository.owner.id
+      repository.owner.login: repository.owner.login
+      repository.owner.url: repository.owner.url
+      repository.private: repository.private
+      repository.url: repository.url
       subject: subject
+      subject.latest_comment_url: subject.latest_comment_url
+      subject.title: subject.title
+      subject.url: subject.url
       unread: unread
       updated_at: updated_at
       url: url
@@ -3694,8 +4628,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls
   method: GET
@@ -3723,6 +4655,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3732,8 +4666,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/comments
   method: GET
@@ -3761,6 +4693,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -3770,8 +4704,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/comments/{commentId}
   method: GET
@@ -3791,6 +4723,12 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.html
+  - _links.html.href
+  - _links.pull_request
+  - _links.pull_request.href
+  - _links.self
+  - _links.self.href
   - body
   - commit_id
   - created_at
@@ -3800,6 +4738,11 @@ backends:
   - updated_at
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -3807,12 +4750,20 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-comments-commentid
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.html: _links.html
+      _links.html.href: _links.html.href
+      _links.pull_request: _links.pull_request
+      _links.pull_request.href: _links.pull_request.href
+      _links.self: _links.self
+      _links.self.href: _links.self.href
       body: body
       commit_id: commit_id
       created_at: created_at
@@ -3822,13 +4773,16 @@ backends:
       updated_at: updated_at
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/{number}
   method: GET
@@ -3848,8 +4802,58 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.comments
+  - _links.comments.href
+  - _links.html
+  - _links.html.href
+  - _links.review_comments
+  - _links.review_comments.href
+  - _links.self
+  - _links.self.href
   - additions
   - base
+  - base.label
+  - base.ref
+  - base.repo
+  - base.repo.clone_url
+  - base.repo.created_at
+  - base.repo.description
+  - base.repo.fork
+  - base.repo.forks
+  - base.repo.forks_count
+  - base.repo.full_name
+  - base.repo.git_url
+  - base.repo.homepage
+  - base.repo.html_url
+  - base.repo.id
+  - base.repo.language
+  - base.repo.master_branch
+  - base.repo.mirror_url
+  - base.repo.name
+  - base.repo.open_issues
+  - base.repo.open_issues_count
+  - base.repo.owner
+  - base.repo.owner.avatar_url
+  - base.repo.owner.gravatar_id
+  - base.repo.owner.id
+  - base.repo.owner.login
+  - base.repo.owner.url
+  - base.repo.private
+  - base.repo.pushed_at
+  - base.repo.size
+  - base.repo.ssh_url
+  - base.repo.svn_url
+  - base.repo.updated_at
+  - base.repo.url
+  - base.repo.watchers
+  - base.repo.watchers_count
+  - base.sha
+  - base.user
+  - base.user.avatar_url
+  - base.user.gravatar_id
+  - base.user.id
+  - base.user.login
+  - base.user.url
   - body
   - changed_files
   - closed_at
@@ -3859,6 +4863,48 @@ backends:
   - deletions
   - diff_url
   - head
+  - head.label
+  - head.ref
+  - head.repo
+  - head.repo.clone_url
+  - head.repo.created_at
+  - head.repo.description
+  - head.repo.fork
+  - head.repo.forks
+  - head.repo.forks_count
+  - head.repo.full_name
+  - head.repo.git_url
+  - head.repo.homepage
+  - head.repo.html_url
+  - head.repo.id
+  - head.repo.language
+  - head.repo.master_branch
+  - head.repo.mirror_url
+  - head.repo.name
+  - head.repo.open_issues
+  - head.repo.open_issues_count
+  - head.repo.owner
+  - head.repo.owner.avatar_url
+  - head.repo.owner.gravatar_id
+  - head.repo.owner.id
+  - head.repo.owner.login
+  - head.repo.owner.url
+  - head.repo.private
+  - head.repo.pushed_at
+  - head.repo.size
+  - head.repo.ssh_url
+  - head.repo.svn_url
+  - head.repo.updated_at
+  - head.repo.url
+  - head.repo.watchers
+  - head.repo.watchers_count
+  - head.sha
+  - head.user
+  - head.user.avatar_url
+  - head.user.gravatar_id
+  - head.user.id
+  - head.user.login
+  - head.user.url
   - html_url
   - issue_url
   - merge_commit_sha
@@ -3866,6 +4912,11 @@ backends:
   - merged
   - merged_at
   - merged_by
+  - merged_by.avatar_url
+  - merged_by.gravatar_id
+  - merged_by.id
+  - merged_by.login
+  - merged_by.url
   - number
   - patch_url
   - state
@@ -3873,6 +4924,11 @@ backends:
   - updated_at
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -3880,14 +4936,66 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-number
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.comments: _links.comments
+      _links.comments.href: _links.comments.href
+      _links.html: _links.html
+      _links.html.href: _links.html.href
+      _links.review_comments: _links.review_comments
+      _links.review_comments.href: _links.review_comments.href
+      _links.self: _links.self
+      _links.self.href: _links.self.href
       additions: additions
       base: base
+      base.label: base.label
+      base.ref: base.ref
+      base.repo: base.repo
+      base.repo.clone_url: base.repo.clone_url
+      base.repo.created_at: base.repo.created_at
+      base.repo.description: base.repo.description
+      base.repo.fork: base.repo.fork
+      base.repo.forks: base.repo.forks
+      base.repo.forks_count: base.repo.forks_count
+      base.repo.full_name: base.repo.full_name
+      base.repo.git_url: base.repo.git_url
+      base.repo.homepage: base.repo.homepage
+      base.repo.html_url: base.repo.html_url
+      base.repo.id: base.repo.id
+      base.repo.language: base.repo.language
+      base.repo.master_branch: base.repo.master_branch
+      base.repo.mirror_url: base.repo.mirror_url
+      base.repo.name: base.repo.name
+      base.repo.open_issues: base.repo.open_issues
+      base.repo.open_issues_count: base.repo.open_issues_count
+      base.repo.owner: base.repo.owner
+      base.repo.owner.avatar_url: base.repo.owner.avatar_url
+      base.repo.owner.gravatar_id: base.repo.owner.gravatar_id
+      base.repo.owner.id: base.repo.owner.id
+      base.repo.owner.login: base.repo.owner.login
+      base.repo.owner.url: base.repo.owner.url
+      base.repo.private: base.repo.private
+      base.repo.pushed_at: base.repo.pushed_at
+      base.repo.size: base.repo.size
+      base.repo.ssh_url: base.repo.ssh_url
+      base.repo.svn_url: base.repo.svn_url
+      base.repo.updated_at: base.repo.updated_at
+      base.repo.url: base.repo.url
+      base.repo.watchers: base.repo.watchers
+      base.repo.watchers_count: base.repo.watchers_count
+      base.sha: base.sha
+      base.user: base.user
+      base.user.avatar_url: base.user.avatar_url
+      base.user.gravatar_id: base.user.gravatar_id
+      base.user.id: base.user.id
+      base.user.login: base.user.login
+      base.user.url: base.user.url
       body: body
       changed_files: changed_files
       closed_at: closed_at
@@ -3897,6 +5005,48 @@ backends:
       deletions: deletions
       diff_url: diff_url
       head: head
+      head.label: head.label
+      head.ref: head.ref
+      head.repo: head.repo
+      head.repo.clone_url: head.repo.clone_url
+      head.repo.created_at: head.repo.created_at
+      head.repo.description: head.repo.description
+      head.repo.fork: head.repo.fork
+      head.repo.forks: head.repo.forks
+      head.repo.forks_count: head.repo.forks_count
+      head.repo.full_name: head.repo.full_name
+      head.repo.git_url: head.repo.git_url
+      head.repo.homepage: head.repo.homepage
+      head.repo.html_url: head.repo.html_url
+      head.repo.id: head.repo.id
+      head.repo.language: head.repo.language
+      head.repo.master_branch: head.repo.master_branch
+      head.repo.mirror_url: head.repo.mirror_url
+      head.repo.name: head.repo.name
+      head.repo.open_issues: head.repo.open_issues
+      head.repo.open_issues_count: head.repo.open_issues_count
+      head.repo.owner: head.repo.owner
+      head.repo.owner.avatar_url: head.repo.owner.avatar_url
+      head.repo.owner.gravatar_id: head.repo.owner.gravatar_id
+      head.repo.owner.id: head.repo.owner.id
+      head.repo.owner.login: head.repo.owner.login
+      head.repo.owner.url: head.repo.owner.url
+      head.repo.private: head.repo.private
+      head.repo.pushed_at: head.repo.pushed_at
+      head.repo.size: head.repo.size
+      head.repo.ssh_url: head.repo.ssh_url
+      head.repo.svn_url: head.repo.svn_url
+      head.repo.updated_at: head.repo.updated_at
+      head.repo.url: head.repo.url
+      head.repo.watchers: head.repo.watchers
+      head.repo.watchers_count: head.repo.watchers_count
+      head.sha: head.sha
+      head.user: head.user
+      head.user.avatar_url: head.user.avatar_url
+      head.user.gravatar_id: head.user.gravatar_id
+      head.user.id: head.user.id
+      head.user.login: head.user.login
+      head.user.url: head.user.url
       html_url: html_url
       issue_url: issue_url
       merge_commit_sha: merge_commit_sha
@@ -3904,6 +5054,11 @@ backends:
       merged: merged
       merged_at: merged_at
       merged_by: merged_by
+      merged_by.avatar_url: merged_by.avatar_url
+      merged_by.gravatar_id: merged_by.gravatar_id
+      merged_by.id: merged_by.id
+      merged_by.login: merged_by.login
+      merged_by.url: merged_by.url
       number: number
       patch_url: patch_url
       state: state
@@ -3911,13 +5066,16 @@ backends:
       updated_at: updated_at
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/{number}/comments
   method: GET
@@ -3937,6 +5095,12 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.html
+  - _links.html.href
+  - _links.pull_request
+  - _links.pull_request.href
+  - _links.self
+  - _links.self.href
   - body
   - commit_id
   - created_at
@@ -3946,6 +5110,11 @@ backends:
   - updated_at
   - url
   - user
+  - user.avatar_url
+  - user.gravatar_id
+  - user.id
+  - user.login
+  - user.url
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -3953,12 +5122,20 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-number-comments
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.html: _links.html
+      _links.html.href: _links.html.href
+      _links.pull_request: _links.pull_request
+      _links.pull_request.href: _links.pull_request.href
+      _links.self: _links.self
+      _links.self.href: _links.self.href
       body: body
       commit_id: commit_id
       created_at: created_at
@@ -3968,13 +5145,16 @@ backends:
       updated_at: updated_at
       url: url
       user: user
+      user.avatar_url: user.avatar_url
+      user.gravatar_id: user.gravatar_id
+      user.id: user.id
+      user.login: user.login
+      user.url: user.url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/{number}/commits
   method: GET
@@ -3999,6 +5179,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-number-commits
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4008,8 +5190,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/{number}/files
   method: GET
@@ -4034,6 +5214,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-number-files
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4043,8 +5225,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/pulls/{number}/merge
   method: GET
@@ -4069,6 +5249,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-pulls-number-merge
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4078,8 +5260,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/readme
   method: GET
@@ -4100,6 +5280,9 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - _links
+  - _links.git
+  - _links.html
+  - _links.self
   - content
   - encoding
   - git_url
@@ -4108,7 +5291,6 @@ backends:
   - path
   - sha
   - size
-  - type
   - url
   concurrent_calls: 1
   extra_config:
@@ -4117,12 +5299,17 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-readme
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       _links: _links
+      _links.git: _links.git
+      _links.html: _links.html
+      _links.self: _links.self
       content: content
       encoding: encoding
       git_url: git_url
@@ -4131,15 +5318,12 @@ backends:
       path: path
       sha: sha
       size: size
-      type: type
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/releases
   method: GET
@@ -4163,6 +5347,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-releases
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4172,8 +5358,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/releases/assets/{id}
   method: GET
@@ -4202,6 +5386,22 @@ backends:
   - state
   - updated_at
   - uploader
+  - uploader.avatar_url
+  - uploader.events_url
+  - uploader.followers_url
+  - uploader.following_url
+  - uploader.gists_url
+  - uploader.gravatar_id
+  - uploader.html_url
+  - uploader.id
+  - uploader.login
+  - uploader.organizations_url
+  - uploader.received_events_url
+  - uploader.repos_url
+  - uploader.site_admin
+  - uploader.starred_url
+  - uploader.subscriptions_url
+  - uploader.url
   - url
   concurrent_calls: 1
   extra_config:
@@ -4210,6 +5410,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-releases-assets-id
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4225,14 +5427,28 @@ backends:
       state: state
       updated_at: updated_at
       uploader: uploader
+      uploader.avatar_url: uploader.avatar_url
+      uploader.events_url: uploader.events_url
+      uploader.followers_url: uploader.followers_url
+      uploader.following_url: uploader.following_url
+      uploader.gists_url: uploader.gists_url
+      uploader.gravatar_id: uploader.gravatar_id
+      uploader.html_url: uploader.html_url
+      uploader.id: uploader.id
+      uploader.login: uploader.login
+      uploader.organizations_url: uploader.organizations_url
+      uploader.received_events_url: uploader.received_events_url
+      uploader.repos_url: uploader.repos_url
+      uploader.site_admin: uploader.site_admin
+      uploader.starred_url: uploader.starred_url
+      uploader.subscriptions_url: uploader.subscriptions_url
+      uploader.url: uploader.url
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/releases/{id}
   method: GET
@@ -4252,8 +5468,51 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - assets
+  - assets.content_type
+  - assets.created_at
+  - assets.download_count
+  - assets.id
+  - assets.label
+  - assets.name
+  - assets.size
+  - assets.state
+  - assets.updated_at
+  - assets.uploader
+  - assets.uploader.avatar_url
+  - assets.uploader.events_url
+  - assets.uploader.followers_url
+  - assets.uploader.following_url
+  - assets.uploader.gists_url
+  - assets.uploader.gravatar_id
+  - assets.uploader.html_url
+  - assets.uploader.id
+  - assets.uploader.login
+  - assets.uploader.organizations_url
+  - assets.uploader.received_events_url
+  - assets.uploader.repos_url
+  - assets.uploader.site_admin
+  - assets.uploader.starred_url
+  - assets.uploader.subscriptions_url
+  - assets.uploader.url
+  - assets.url
   - assets_url
   - author
+  - author.avatar_url
+  - author.events_url
+  - author.followers_url
+  - author.following_url
+  - author.gists_url
+  - author.gravatar_id
+  - author.html_url
+  - author.id
+  - author.login
+  - author.organizations_url
+  - author.received_events_url
+  - author.repos_url
+  - author.site_admin
+  - author.starred_url
+  - author.subscriptions_url
+  - author.url
   - body
   - created_at
   - draft
@@ -4275,14 +5534,59 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-releases-id
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       assets: assets
+      assets.content_type: assets.content_type
+      assets.created_at: assets.created_at
+      assets.download_count: assets.download_count
+      assets.id: assets.id
+      assets.label: assets.label
+      assets.name: assets.name
+      assets.size: assets.size
+      assets.state: assets.state
+      assets.updated_at: assets.updated_at
+      assets.uploader: assets.uploader
+      assets.uploader.avatar_url: assets.uploader.avatar_url
+      assets.uploader.events_url: assets.uploader.events_url
+      assets.uploader.followers_url: assets.uploader.followers_url
+      assets.uploader.following_url: assets.uploader.following_url
+      assets.uploader.gists_url: assets.uploader.gists_url
+      assets.uploader.gravatar_id: assets.uploader.gravatar_id
+      assets.uploader.html_url: assets.uploader.html_url
+      assets.uploader.id: assets.uploader.id
+      assets.uploader.login: assets.uploader.login
+      assets.uploader.organizations_url: assets.uploader.organizations_url
+      assets.uploader.received_events_url: assets.uploader.received_events_url
+      assets.uploader.repos_url: assets.uploader.repos_url
+      assets.uploader.site_admin: assets.uploader.site_admin
+      assets.uploader.starred_url: assets.uploader.starred_url
+      assets.uploader.subscriptions_url: assets.uploader.subscriptions_url
+      assets.uploader.url: assets.uploader.url
+      assets.url: assets.url
       assets_url: assets_url
       author: author
+      author.avatar_url: author.avatar_url
+      author.events_url: author.events_url
+      author.followers_url: author.followers_url
+      author.following_url: author.following_url
+      author.gists_url: author.gists_url
+      author.gravatar_id: author.gravatar_id
+      author.html_url: author.html_url
+      author.id: author.id
+      author.login: author.login
+      author.organizations_url: author.organizations_url
+      author.received_events_url: author.received_events_url
+      author.repos_url: author.repos_url
+      author.site_admin: author.site_admin
+      author.starred_url: author.starred_url
+      author.subscriptions_url: author.subscriptions_url
+      author.url: author.url
       body: body
       created_at: created_at
       draft: draft
@@ -4302,8 +5606,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/releases/{id}/assets
   method: GET
@@ -4328,6 +5630,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-releases-id-assets
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4337,8 +5641,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stargazers
   method: GET
@@ -4362,6 +5664,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stargazers
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4371,8 +5675,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stats/code_frequency
   method: GET
@@ -4396,6 +5698,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stats-code-frequency
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4405,8 +5709,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stats/commit_activity
   method: GET
@@ -4430,6 +5732,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stats-commit-activity
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4439,8 +5743,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stats/contributors
   method: GET
@@ -4464,6 +5766,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stats-contributors
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4473,8 +5777,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stats/participation
   method: GET
@@ -4501,6 +5803,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stats-participation
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4513,8 +5817,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/stats/punch_card
   method: GET
@@ -4538,6 +5840,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-stats-punch-card
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4547,8 +5851,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/statuses/{ref}
   method: GET
@@ -4573,6 +5875,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-statuses-ref
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4582,8 +5886,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/subscribers
   method: GET
@@ -4607,6 +5909,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-subscribers
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4616,8 +5920,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/subscription
   method: GET
@@ -4648,6 +5950,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-subscription
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4664,8 +5968,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/tags
   method: GET
@@ -4687,7 +5989,9 @@ backends:
   - object
   - tag
   - tagger
-  - type
+  - tagger.date
+  - tagger.email
+  - tagger.name
   concurrent_calls: 1
   extra_config:
     provider: github.com
@@ -4695,6 +5999,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-tags
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4704,14 +6010,14 @@ backends:
       object: object
       tag: tag
       tagger: tagger
-      type: type
+      tagger.date: tagger.date
+      tagger.email: tagger.email
+      tagger.name: tagger.name
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/teams
   method: GET
@@ -4735,6 +6041,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-teams
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4744,8 +6052,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/watchers
   method: GET
@@ -4769,6 +6075,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-watchers
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4778,8 +6086,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repos/{owner}/{repo}/{archive_format}/{path}
   method: GET
@@ -4805,6 +6111,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repos-owner-repo-archive-format-path
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4814,8 +6122,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /repositories
   method: GET
@@ -4838,6 +6144,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-repositories
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -4847,8 +6155,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /search/code
   method: GET
@@ -4868,6 +6174,72 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - items
+  - items.git_url
+  - items.html_url
+  - items.name
+  - items.path
+  - items.repository
+  - items.repository.archive_url
+  - items.repository.assignees_url
+  - items.repository.blobs_url
+  - items.repository.branches_url
+  - items.repository.collaborators_url
+  - items.repository.comments_url
+  - items.repository.commits_url
+  - items.repository.compare_url
+  - items.repository.contents_url
+  - items.repository.contributors_url
+  - items.repository.description
+  - items.repository.downloads_url
+  - items.repository.events_url
+  - items.repository.fork
+  - items.repository.forks_url
+  - items.repository.full_name
+  - items.repository.git_commits_url
+  - items.repository.git_refs_url
+  - items.repository.git_tags_url
+  - items.repository.hooks_url
+  - items.repository.html_url
+  - items.repository.id
+  - items.repository.issue_comment_url
+  - items.repository.issue_events_url
+  - items.repository.issues_url
+  - items.repository.keys_url
+  - items.repository.labels_url
+  - items.repository.languages_url
+  - items.repository.merges_url
+  - items.repository.milestones_url
+  - items.repository.name
+  - items.repository.notifications_url
+  - items.repository.owner
+  - items.repository.owner.avatar_url
+  - items.repository.owner.events_url
+  - items.repository.owner.followers_url
+  - items.repository.owner.following_url
+  - items.repository.owner.gists_url
+  - items.repository.owner.gravatar_id
+  - items.repository.owner.html_url
+  - items.repository.owner.id
+  - items.repository.owner.login
+  - items.repository.owner.organizations_url
+  - items.repository.owner.received_events_url
+  - items.repository.owner.repos_url
+  - items.repository.owner.starred_url
+  - items.repository.owner.subscriptions_url
+  - items.repository.owner.url
+  - items.repository.private
+  - items.repository.pulls_url
+  - items.repository.stargazers_url
+  - items.repository.statuses_url
+  - items.repository.subscribers_url
+  - items.repository.subscription_url
+  - items.repository.tags_url
+  - items.repository.teams_url
+  - items.repository.trees_url
+  - items.repository.url
+  - items.score
+  - items.sha
+  - items.url
   - total_count
   concurrent_calls: 1
   extra_config:
@@ -4876,20 +6248,86 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-search-code
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       items: items
+      items.git_url: items.git_url
+      items.html_url: items.html_url
+      items.name: items.name
+      items.path: items.path
+      items.repository: items.repository
+      items.repository.archive_url: items.repository.archive_url
+      items.repository.assignees_url: items.repository.assignees_url
+      items.repository.blobs_url: items.repository.blobs_url
+      items.repository.branches_url: items.repository.branches_url
+      items.repository.collaborators_url: items.repository.collaborators_url
+      items.repository.comments_url: items.repository.comments_url
+      items.repository.commits_url: items.repository.commits_url
+      items.repository.compare_url: items.repository.compare_url
+      items.repository.contents_url: items.repository.contents_url
+      items.repository.contributors_url: items.repository.contributors_url
+      items.repository.description: items.repository.description
+      items.repository.downloads_url: items.repository.downloads_url
+      items.repository.events_url: items.repository.events_url
+      items.repository.fork: items.repository.fork
+      items.repository.forks_url: items.repository.forks_url
+      items.repository.full_name: items.repository.full_name
+      items.repository.git_commits_url: items.repository.git_commits_url
+      items.repository.git_refs_url: items.repository.git_refs_url
+      items.repository.git_tags_url: items.repository.git_tags_url
+      items.repository.hooks_url: items.repository.hooks_url
+      items.repository.html_url: items.repository.html_url
+      items.repository.id: items.repository.id
+      items.repository.issue_comment_url: items.repository.issue_comment_url
+      items.repository.issue_events_url: items.repository.issue_events_url
+      items.repository.issues_url: items.repository.issues_url
+      items.repository.keys_url: items.repository.keys_url
+      items.repository.labels_url: items.repository.labels_url
+      items.repository.languages_url: items.repository.languages_url
+      items.repository.merges_url: items.repository.merges_url
+      items.repository.milestones_url: items.repository.milestones_url
+      items.repository.name: items.repository.name
+      items.repository.notifications_url: items.repository.notifications_url
+      items.repository.owner: items.repository.owner
+      items.repository.owner.avatar_url: items.repository.owner.avatar_url
+      items.repository.owner.events_url: items.repository.owner.events_url
+      items.repository.owner.followers_url: items.repository.owner.followers_url
+      items.repository.owner.following_url: items.repository.owner.following_url
+      items.repository.owner.gists_url: items.repository.owner.gists_url
+      items.repository.owner.gravatar_id: items.repository.owner.gravatar_id
+      items.repository.owner.html_url: items.repository.owner.html_url
+      items.repository.owner.id: items.repository.owner.id
+      items.repository.owner.login: items.repository.owner.login
+      items.repository.owner.organizations_url: items.repository.owner.organizations_url
+      items.repository.owner.received_events_url: items.repository.owner.received_events_url
+      items.repository.owner.repos_url: items.repository.owner.repos_url
+      items.repository.owner.starred_url: items.repository.owner.starred_url
+      items.repository.owner.subscriptions_url: items.repository.owner.subscriptions_url
+      items.repository.owner.url: items.repository.owner.url
+      items.repository.private: items.repository.private
+      items.repository.pulls_url: items.repository.pulls_url
+      items.repository.stargazers_url: items.repository.stargazers_url
+      items.repository.statuses_url: items.repository.statuses_url
+      items.repository.subscribers_url: items.repository.subscribers_url
+      items.repository.subscription_url: items.repository.subscription_url
+      items.repository.tags_url: items.repository.tags_url
+      items.repository.teams_url: items.repository.teams_url
+      items.repository.trees_url: items.repository.trees_url
+      items.repository.url: items.repository.url
+      items.score: items.score
+      items.sha: items.sha
+      items.url: items.url
       total_count: total_count
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /search/issues
   method: GET
@@ -4909,6 +6347,48 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - items
+  - items.assignee
+  - items.body
+  - items.closed_at
+  - items.comments
+  - items.comments_url
+  - items.created_at
+  - items.events_url
+  - items.html_url
+  - items.id
+  - items.labels
+  - items.labels.items
+  - items.labels.items.color
+  - items.labels.items.name
+  - items.labels.items.url
+  - items.labels_url
+  - items.milestone
+  - items.number
+  - items.pull_request
+  - items.pull_request.diff_url
+  - items.pull_request.html_url
+  - items.pull_request.patch_url
+  - items.score
+  - items.state
+  - items.title
+  - items.updated_at
+  - items.url
+  - items.user
+  - items.user.avatar_url
+  - items.user.events_url
+  - items.user.followers_url
+  - items.user.following_url
+  - items.user.gists_url
+  - items.user.gravatar_id
+  - items.user.html_url
+  - items.user.id
+  - items.user.login
+  - items.user.organizations_url
+  - items.user.received_events_url
+  - items.user.repos_url
+  - items.user.starred_url
+  - items.user.subscriptions_url
+  - items.user.url
   - total_count
   concurrent_calls: 1
   extra_config:
@@ -4917,20 +6397,62 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-search-issues
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       items: items
+      items.assignee: items.assignee
+      items.body: items.body
+      items.closed_at: items.closed_at
+      items.comments: items.comments
+      items.comments_url: items.comments_url
+      items.created_at: items.created_at
+      items.events_url: items.events_url
+      items.html_url: items.html_url
+      items.id: items.id
+      items.labels: items.labels
+      items.labels.items: items.labels.items
+      items.labels.items.color: items.labels.items.color
+      items.labels.items.name: items.labels.items.name
+      items.labels.items.url: items.labels.items.url
+      items.labels_url: items.labels_url
+      items.milestone: items.milestone
+      items.number: items.number
+      items.pull_request: items.pull_request
+      items.pull_request.diff_url: items.pull_request.diff_url
+      items.pull_request.html_url: items.pull_request.html_url
+      items.pull_request.patch_url: items.pull_request.patch_url
+      items.score: items.score
+      items.state: items.state
+      items.title: items.title
+      items.updated_at: items.updated_at
+      items.url: items.url
+      items.user: items.user
+      items.user.avatar_url: items.user.avatar_url
+      items.user.events_url: items.user.events_url
+      items.user.followers_url: items.user.followers_url
+      items.user.following_url: items.user.following_url
+      items.user.gists_url: items.user.gists_url
+      items.user.gravatar_id: items.user.gravatar_id
+      items.user.html_url: items.user.html_url
+      items.user.id: items.user.id
+      items.user.login: items.user.login
+      items.user.organizations_url: items.user.organizations_url
+      items.user.received_events_url: items.user.received_events_url
+      items.user.repos_url: items.user.repos_url
+      items.user.starred_url: items.user.starred_url
+      items.user.subscriptions_url: items.user.subscriptions_url
+      items.user.url: items.user.url
       total_count: total_count
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /search/repositories
   method: GET
@@ -4950,6 +6472,36 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - items
+  - items.created_at
+  - items.default_branch
+  - items.description
+  - items.fork
+  - items.forks
+  - items.forks_count
+  - items.full_name
+  - items.homepage
+  - items.html_url
+  - items.id
+  - items.language
+  - items.master_branch
+  - items.name
+  - items.open_issues
+  - items.open_issues_count
+  - items.owner
+  - items.owner.avatar_url
+  - items.owner.gravatar_id
+  - items.owner.id
+  - items.owner.login
+  - items.owner.received_events_url
+  - items.owner.url
+  - items.private
+  - items.pushed_at
+  - items.score
+  - items.size
+  - items.updated_at
+  - items.url
+  - items.watchers
+  - items.watchers_count
   - total_count
   concurrent_calls: 1
   extra_config:
@@ -4958,20 +6510,50 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-search-repositories
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       items: items
+      items.created_at: items.created_at
+      items.default_branch: items.default_branch
+      items.description: items.description
+      items.fork: items.fork
+      items.forks: items.forks
+      items.forks_count: items.forks_count
+      items.full_name: items.full_name
+      items.homepage: items.homepage
+      items.html_url: items.html_url
+      items.id: items.id
+      items.language: items.language
+      items.master_branch: items.master_branch
+      items.name: items.name
+      items.open_issues: items.open_issues
+      items.open_issues_count: items.open_issues_count
+      items.owner: items.owner
+      items.owner.avatar_url: items.owner.avatar_url
+      items.owner.gravatar_id: items.owner.gravatar_id
+      items.owner.id: items.owner.id
+      items.owner.login: items.owner.login
+      items.owner.received_events_url: items.owner.received_events_url
+      items.owner.url: items.owner.url
+      items.private: items.private
+      items.pushed_at: items.pushed_at
+      items.score: items.score
+      items.size: items.size
+      items.updated_at: items.updated_at
+      items.url: items.url
+      items.watchers: items.watchers
+      items.watchers_count: items.watchers_count
       total_count: total_count
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /search/users
   method: GET
@@ -4991,6 +6573,18 @@ backends:
   - X-RateLimit-Reset
   whitelist:
   - items
+  - items.avatar_url
+  - items.followers_url
+  - items.gravatar_id
+  - items.html_url
+  - items.id
+  - items.login
+  - items.organizations_url
+  - items.received_events_url
+  - items.repos_url
+  - items.score
+  - items.subscriptions_url
+  - items.url
   - total_count
   concurrent_calls: 1
   extra_config:
@@ -4999,20 +6593,32 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-search-users
+    schemes:
+    - https
     consumes:
     - json
     produces:
     - json
     mapping:
       items: items
+      items.avatar_url: items.avatar_url
+      items.followers_url: items.followers_url
+      items.gravatar_id: items.gravatar_id
+      items.html_url: items.html_url
+      items.id: items.id
+      items.login: items.login
+      items.organizations_url: items.organizations_url
+      items.received_events_url: items.received_events_url
+      items.repos_url: items.repos_url
+      items.score: items.score
+      items.subscriptions_url: items.subscriptions_url
+      items.url: items.url
       total_count: total_count
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}
   method: GET
@@ -5042,6 +6648,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5058,8 +6666,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}/members
   method: GET
@@ -5082,6 +6688,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid-members
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5091,8 +6699,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}/members/{username}
   method: GET
@@ -5116,6 +6722,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid-members-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5125,8 +6733,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}/memberships/{username}
   method: GET
@@ -5153,6 +6759,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid-memberships-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5165,8 +6773,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}/repos
   method: GET
@@ -5189,6 +6795,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid-repos
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5198,8 +6806,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /teams/{teamId}/repos/{owner}/{repo}
   method: GET
@@ -5224,6 +6830,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-teams-teamid-repos-owner-repo
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5233,8 +6841,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user
   method: GET
@@ -5268,11 +6874,14 @@ backends:
   - name
   - owned_private_repos
   - plan
+  - plan.collaborators
+  - plan.name
+  - plan.private_repos
+  - plan.space
   - private_gists
   - public_gists
   - public_repos
   - total_private_repos
-  - type
   - url
   concurrent_calls: 1
   extra_config:
@@ -5281,6 +6890,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5305,19 +6916,20 @@ backends:
       name: name
       owned_private_repos: owned_private_repos
       plan: plan
+      plan.collaborators: plan.collaborators
+      plan.name: plan.name
+      plan.private_repos: plan.private_repos
+      plan.space: plan.space
       private_gists: private_gists
       public_gists: public_gists
       public_repos: public_repos
       total_private_repos: total_private_repos
-      type: type
       url: url
     hosts:
     - https://api.github.com
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/emails
   method: GET
@@ -5338,6 +6950,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-emails
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5347,8 +6961,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/followers
   method: GET
@@ -5369,6 +6981,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-followers
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5378,8 +6992,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/following
   method: GET
@@ -5400,6 +7012,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-following
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5409,8 +7023,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/following/{username}
   method: GET
@@ -5433,6 +7045,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-following-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5442,8 +7056,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/issues
   method: GET
@@ -5471,6 +7083,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-issues
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5480,8 +7094,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/keys
   method: GET
@@ -5502,6 +7114,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-keys
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5511,8 +7125,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/keys/{keyId}
   method: GET
@@ -5540,6 +7152,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-keys-keyid
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5554,8 +7168,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/orgs
   method: GET
@@ -5576,6 +7188,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-orgs
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5585,8 +7199,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/repos
   method: GET
@@ -5609,6 +7221,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-repos
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5618,8 +7232,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/starred
   method: GET
@@ -5643,6 +7255,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-starred
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5652,8 +7266,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/starred/{owner}/{repo}
   method: GET
@@ -5677,6 +7289,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-starred-owner-repo
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5686,8 +7300,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/subscriptions
   method: GET
@@ -5708,6 +7320,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-subscriptions
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5717,8 +7331,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/subscriptions/{owner}/{repo}
   method: GET
@@ -5742,6 +7354,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-subscriptions-owner-repo
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5751,8 +7365,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /user/teams
   method: GET
@@ -5773,6 +7385,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-user-teams
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5782,8 +7396,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users
   method: GET
@@ -5806,6 +7418,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5815,8 +7429,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}
   method: GET
@@ -5839,6 +7451,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5848,8 +7462,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/events
   method: GET
@@ -5872,6 +7484,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5881,8 +7495,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/events/orgs/{org}
   method: GET
@@ -5906,6 +7518,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-events-orgs-org
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5915,8 +7529,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/followers
   method: GET
@@ -5939,6 +7551,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-followers
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5948,8 +7562,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/following/{targetUser}
   method: GET
@@ -5973,6 +7585,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-following-targetuser
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -5982,8 +7596,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/gists
   method: GET
@@ -6008,6 +7620,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-gists
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6017,8 +7631,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/keys
   method: GET
@@ -6041,6 +7653,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-keys
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6050,8 +7664,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/orgs
   method: GET
@@ -6074,6 +7686,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-orgs
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6083,8 +7697,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/received_events
   method: GET
@@ -6107,6 +7719,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-received-events
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6116,8 +7730,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/received_events/public
   method: GET
@@ -6140,6 +7752,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-received-events-public
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6149,8 +7763,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/repos
   method: GET
@@ -6175,6 +7787,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-repos
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6184,8 +7798,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/starred
   method: GET
@@ -6208,6 +7820,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-starred
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6217,8 +7831,6 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https
 - group: github-v3
   url_pattern: /users/{username}/subscriptions
   method: GET
@@ -6241,6 +7853,8 @@ backends:
       Powerful collaboration, code review, and code management for open source and private projects.
     version: v3
     slug: github-v3-users-username-subscriptions
+    schemes:
+    - https
     consumes:
     - json
     produces:
@@ -6250,5 +7864,3 @@ backends:
     topics:
     - collaboration
     - developer-tools
-    schemes:
-    - https

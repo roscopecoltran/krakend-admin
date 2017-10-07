@@ -3,18 +3,24 @@
   url_pattern = "/oauth2/v2/certs"
   method = "GET"
   host = ["https://www.googleapis.com"]
-  whitelist = ["keys"]
+  whitelist = ["keys", "keys.alg", "keys.e", "keys.kid", "keys.kty", "keys.n", "keys.use"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "googleapis.com"
     description = "Obtains end-user authorization grants for use with other Google APIs."
     version = "v2"
     slug = "google-oauth2-v2-oauth2-v2-certs"
+    schemes = ["https"]
     hosts = ["https://www.googleapis.com"]
     topics = ["security"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      alg = "alg"
+      e = "e"
       keys = "keys"
+      kid = "kid"
+      kty = "kty"
+      n = "n"
+      use = "use"
 
 [[backends]]
   group = "google-oauth2-v2"
@@ -29,9 +35,9 @@
     description = "Obtains end-user authorization grants for use with other Google APIs."
     version = "v2"
     slug = "google-oauth2-v2-oauth2-v2-tokeninfo"
+    schemes = ["https"]
     hosts = ["https://www.googleapis.com"]
     topics = ["security"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       access_type = "access_type"
       audience = "audience"
@@ -55,9 +61,9 @@
     description = "Obtains end-user authorization grants for use with other Google APIs."
     version = "v2"
     slug = "google-oauth2-v2-oauth2-v2-userinfo"
-    hosts = ["https://www.googleapis.com"]
-    topics = ["security"]
     schemes = ["https"]
+    hosts = ["https://www.googleapis.com"]
+    topics = ["security", "userinfo"]
     [backends.extra_config.mapping]
       email = "email"
       family_name = "family_name"
@@ -83,9 +89,9 @@
     description = "Obtains end-user authorization grants for use with other Google APIs."
     version = "v2"
     slug = "google-oauth2-v2-userinfo-v2-me"
-    hosts = ["https://www.googleapis.com"]
-    topics = ["security"]
     schemes = ["https"]
+    hosts = ["https://www.googleapis.com"]
+    topics = ["security", "userinfo"]
     [backends.extra_config.mapping]
       email = "email"
       family_name = "family_name"

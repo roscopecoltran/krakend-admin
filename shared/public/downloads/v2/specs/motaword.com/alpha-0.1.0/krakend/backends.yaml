@@ -11,6 +11,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -18,9 +20,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - static
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /formats
   method: GET
@@ -33,6 +34,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-formats
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -40,9 +43,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - static
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /glossary
   method: GET
@@ -55,6 +57,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-glossary
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -62,9 +66,9 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - account
+    - glossary
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /languages
   method: GET
@@ -77,6 +81,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-languages
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -84,9 +90,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - static
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /me
   method: GET
@@ -95,34 +100,59 @@ backends:
   - https://api.motaword.com
   whitelist:
   - billing
+  - billing.city
+  - billing.country
+  - billing.name
+  - billing.state
+  - billing.street
+  - billing.zip
   - created_at
   - id
   - links
+  - links.projects
+  - links.projects.href
+  - links.self
+  - links.self.href
   - name
   - stats
+  - stats.started_projects
+  - stats.total_projects
   concurrent_calls: 1
   extra_config:
     provider: motaword.com
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-me
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
     - json
     mapping:
       billing: billing
+      billing.city: billing.city
+      billing.country: billing.country
+      billing.name: billing.name
+      billing.state: billing.state
+      billing.street: billing.street
+      billing.zip: billing.zip
       created_at: created_at
       id: id
       links: links
+      links.projects: links.projects
+      links.projects.href: links.projects.href
+      links.self: links.self
+      links.self.href: links.self.href
       name: name
       stats: stats
+      stats.started_projects: stats.started_projects
+      stats.total_projects: stats.total_projects
     hosts:
     - https://api.motaword.com
     topics:
+    - account
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects
   method: GET
@@ -138,6 +168,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -145,9 +177,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}
   method: GET
@@ -164,6 +195,8 @@ backends:
   - errors
   - id
   - price
+  - price.amount
+  - price.currency
   - source_language
   - status
   - target_languages
@@ -175,6 +208,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -187,6 +222,8 @@ backends:
       errors: errors
       id: id
       price: price
+      price.amount: price.amount
+      price.currency: price.currency
       source_language: source_language
       status: status
       target_languages: target_languages
@@ -195,9 +232,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/callback/{actionType}
   method: GET
@@ -209,7 +245,6 @@ backends:
   - id
   whitelist:
   - result
-  - type
   - url
   concurrent_calls: 1
   extra_config:
@@ -217,20 +252,20 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-callback-actiontype
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
     - json
     mapping:
       result: result
-      type: type
       url: url
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/cancel
   method: POST
@@ -245,6 +280,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-cancel
+    schemes:
+    - https
     form_data:
     - reason
     consumes:
@@ -254,9 +291,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/download
   method: POST
@@ -271,6 +307,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-download
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -278,9 +316,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/download/{language}
   method: POST
@@ -296,6 +333,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-download-language
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -303,9 +342,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/launch
   method: POST
@@ -320,6 +358,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-launch
+    schemes:
+    - https
     form_data:
     - budget_code
     - payment_code
@@ -331,9 +371,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/package
   method: POST
@@ -350,6 +389,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-package
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -357,9 +398,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/package/check
   method: GET
@@ -378,6 +418,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-package-check
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -387,9 +429,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/package/{language}
   method: POST
@@ -410,6 +451,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-package-language
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -420,9 +463,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/progress
   method: GET
@@ -437,6 +479,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-progress
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -444,9 +488,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{id}/reports
   method: POST
@@ -461,6 +504,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-id-reports
+    schemes:
+    - https
     form_data:
     - activity_type
     - message
@@ -471,9 +516,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - project
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/activities
   method: GET
@@ -493,6 +537,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-activities
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -502,9 +548,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - activity
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/activities/{activityId}
   method: GET
@@ -520,13 +565,14 @@ backends:
   - source_text
   - target_text
   - translator
-  - type
   concurrent_calls: 1
   extra_config:
     provider: motaword.com
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-activities-activityid
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -537,13 +583,11 @@ backends:
       source_text: source_text
       target_text: target_text
       translator: translator
-      type: type
     hosts:
     - https://api.motaword.com
     topics:
+    - activity
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/activities/{activityId}/comments
   method: GET
@@ -561,6 +605,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-activities-activityid-comments
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -570,9 +616,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - activity
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/comments
   method: GET
@@ -592,6 +637,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-comments
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -601,9 +648,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - activity
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/documents
   method: GET
@@ -620,6 +666,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-documents
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -629,9 +677,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - document
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/documents/{documentId}
   method: GET
@@ -653,6 +700,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-documents-documentid
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -666,9 +715,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - document
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/documents/{documentId}/download
   method: GET
@@ -684,6 +732,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-documents-documentid-download
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -691,9 +741,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - document
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/glossaries
   method: GET
@@ -710,6 +759,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-glossaries
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -719,9 +770,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - glossary
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/glossaries/{glossaryId}
   method: GET
@@ -741,6 +791,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-glossaries-glossaryid
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -752,9 +804,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - glossary
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/glossaries/{glossaryId}/download
   method: GET
@@ -770,6 +821,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-glossaries-glossaryid-download
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -777,9 +830,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - glossary
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/styleguides
   method: GET
@@ -796,6 +848,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-styleguides
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -805,9 +859,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - style-guide
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/styleguides/{styleGuideId}
   method: GET
@@ -827,6 +880,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-styleguides-styleguideid
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -838,9 +893,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - style-guide
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /projects/{projectId}/styleguides/{styleGuideId}/download
   method: GET
@@ -856,6 +910,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-projects-projectid-styleguides-styleguideid-download
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -863,9 +919,8 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - style-guide
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /styleguide
   method: GET
@@ -878,6 +933,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-styleguide
+    schemes:
+    - https
     consumes:
     - x-www-form-urlencoded
     produces:
@@ -885,9 +942,9 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - account
+    - style-guide
     - text
-    schemes:
-    - https
 - group: motaword-alpha-0-1-0
   url_pattern: /token
   method: POST
@@ -907,6 +964,8 @@ backends:
     description: Use MotaWord API to post and track your translation projects.
     version: alpha-0.1.0
     slug: motaword-alpha-0-1-0-token
+    schemes:
+    - https
     form_data:
     - grant_type
     consumes:
@@ -921,6 +980,5 @@ backends:
     hosts:
     - https://api.motaword.com
     topics:
+    - auth
     - text
-    schemes:
-    - https

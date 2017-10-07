@@ -1,10 +1,5 @@
 package openapi
 
-/*
-	Refs:
-	- https://developer.github.com/v3/#authentication
-*/
-
 import (
 	"encoding/json"
 	"fmt"
@@ -17,19 +12,6 @@ import (
 
 	"github.com/Machiel/slugify"
 	"github.com/dimiro1/flatmap"
-	// "github.com/generaltso/linguist/tokenizer"
-	// "github.com/emirpasic/gods/utils"
-	// "github.com/SamuelKupferschmid/nbc"
-	// "github.com/AlasdairF/Classifier"
-	// "github.com/lytics/multibayes"
-	// "github.com/mgudipati/urlclassify"
-
-	// "github.com/sjwhitworth/golearn/base"
-	// "github.com/sjwhitworth/golearn/evaluation"
-	// "github.com/sjwhitworth/golearn/knn"
-
-	// "github.com/russellsimpkins/ensemble"
-
 	"github.com/gebv/typed"
 	"github.com/k0kubun/pp"
 	"github.com/paulvollmer/yaml2json/src"
@@ -38,6 +20,17 @@ import (
 	"github.com/roscopecoltran/krakend-admin/models/provider/engine/gateway"
 	"github.com/roscopecoltran/krakend-admin/utils/errors"
 	"github.com/roscopecoltran/krakend-admin/utils/types"
+	// "github.com/roscopecoltran/krakend-admin/plugins/tokenizer"
+	// "github.com/generaltso/linguist/tokenizer"
+	// "github.com/emirpasic/gods/utils"
+	// "github.com/SamuelKupferschmid/nbc"
+	// "github.com/AlasdairF/Classifier"
+	// "github.com/lytics/multibayes"
+	// "github.com/mgudipati/urlclassify"
+	// "github.com/sjwhitworth/golearn/base"
+	// "github.com/sjwhitworth/golearn/evaluation"
+	// "github.com/sjwhitworth/golearn/knn"
+	// "github.com/russellsimpkins/ensemble"
 )
 
 type newKrakenBackends []gateway.Export
@@ -73,6 +66,7 @@ type SwaggerExport struct {
 		Description string            `json:"description,omitempty" yaml:"description,omitempty" toml:"description,omitempty"`
 		Version     string            `json:"version,omitempty" yaml:"version,omitempty" toml:"version,omitempty"`
 		Slug        string            `json:"slug,omitempty" yaml:"slug,omitempty" toml:"slug,omitempty"`
+		Schemes     []string          `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
 		Bodies      []string          `json:"body,omitempty" yaml:"body,omitempty" toml:"body,omitempty"`
 		Encodings   []string          `json:"-" yaml:"-" toml:"-"`
 		FormDatas   []string          `json:"form_data,omitempty" yaml:"form_data,omitempty" toml:"form_data,omitempty"`
@@ -83,7 +77,7 @@ type SwaggerExport struct {
 		Mapping     map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty" toml:"mapping,omitempty"`
 		Hosts       []string          `json:"hosts,omitempty" yaml:"hosts,omitempty" toml:"hosts,omitempty"`
 		Topics      []string          `json:"topics,omitempty" yaml:"topics,omitempty" toml:"topics,omitempty"`
-		Schemes     []string          `json:"schemes,omitempty" yaml:"schemes,omitempty" toml:"schemes,omitempty"`
+		Tokens      []string          `json:"tokens,omitempty" yaml:"tokens,omitempty" toml:"tokens,omitempty"`
 		LocalFile   string            `json:"-" yaml:"-" toml:"-"`
 	} `json:"extra_config" yaml:"extra_config" toml:"extra_config"`
 }
@@ -144,7 +138,9 @@ func removeDuplicates(elements []string) []string {
 			// Record this element as an encountered element.
 			encountered[elements[v]] = true
 			// Append to result slice.
-			result = append(result, elements[v])
+			if elements[v] != "" {
+				result = append(result, elements[v])
+			}
 		}
 	}
 	sort.Strings(result)
@@ -238,6 +234,12 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			log.Fatal(err)
 		}
 
+		if err := configor.Dump(fm, "flatten", "json,yaml", fmt.Sprintf("%s/flatten", prefixPath)); err != nil {
+			log.Fatal("ERROR while dumping the config struct:", err.Error())
+		}
+
+		// tokens := tokenizer.TokenizeFile(fmt.Sprintf("%s/flatten/flatten.yaml", prefixPath), "yaml", 3)
+
 		queue := make(map[string]bool, 0)
 		for _, k := range ks {
 			if strings.HasPrefix(k, "paths.") && (strings.Contains(k, "post.") || strings.Contains(k, "get.")) {
@@ -259,8 +261,14 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				backend.Extra.LocalFile = swaggerFile
 				backend.ConcurrentCalls = 1
 
-				var paramsKeyLength, respAttrLength, respAttrRef, categoriesKeyLength string
-				var paramsKeyLengthInt, respAttrLengthInt, categoriesKeyLengthInt int
+				/*
+					if len(tokens) > 0 {
+						backend.Extra.Tokens = tokens
+					}
+				*/
+
+				var paramsKeyLength, respAttrLength, respAttrRef string
+				var paramsKeyLengthInt, respAttrLengthInt int
 
 				host := typed.String("host")
 
@@ -268,8 +276,6 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 				produces := typed.Strings("produces")
 				schemes := typed.StringsOr("schemes", []string{"https"})
 				backend.Extra.Schemes = schemes
-
-				var tags []string
 
 				providerName := findKeyValue("info.x-providerName", fm)
 				backend.Extra.Provider = providerName
@@ -279,20 +285,6 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 
 				apiVersion := findKeyValue("info.version", fm) // strconv.ParseFloat(findKeyValue("info.version", fm), 64)
 				backend.Extra.Version = apiVersion
-
-				categoriesKeyLength = findKeyValue("info.x-apisguru-categories.length", fm)
-				categoriesKeyLengthInt, _ = strconv.Atoi(categoriesKeyLength)
-
-				for i := 0; i <= categoriesKeyLengthInt; i++ {
-					tagName := findKeyValue(fmt.Sprintf("info.x-apisguru-categories[%d]", i), fm)
-					if tagName != "" {
-						tags = append(tags, dotSlugifier.Slugify(tagName))
-					}
-				}
-
-				if len(tags) > 0 {
-					backend.Extra.Topics = tags
-				}
 
 				/*
 					According to W3C:
@@ -395,6 +387,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					}
 				}
 				var fieldList []string
+				var fieldListNested []string
 				if defObjectName != "" {
 					prefixPath := fmt.Sprintf("definitions.%s.properties.", defObjectName)
 					for k, _ := range fm {
@@ -405,18 +398,53 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 								fmt.Println("key: ", k, " / start with: ", prefixPath, " / end with: .type / len(propParts): ", len(propParts))
 								pp.Println(propParts)
 							}
-							if len(propParts) >= 3 {
-								fieldList = append(fieldList, propParts[3])
+							// check the lenght in order to append more dot style paths
+							var subPaths []string
+							for kp, vp := range propParts {
+								if kp >= 3 {
+									if kp == 4 && vp == "items" {
+										continue
+									}
+									if vp == "type" || vp == "properties" {
+										continue
+									}
+									if vp != "" {
+										subPaths = append(subPaths, vp)
+										fieldList = append(fieldList, vp)
+									}
+								}
 							}
+							fmt.Printf("######### subPaths: %s \n", strings.Join(subPaths, "."))
+							fieldListNested = append(fieldListNested, strings.Join(subPaths, "."))
 							if debug {
 								fmt.Println("fieldList: ", fieldList)
 							}
 						}
 					}
+					if len(fieldList) > 0 {
+						fmt.Println("######### fieldList:")
+						pp.Print(fieldList)
+					}
 				}
+				// Properties
+				/*
+					definitions.search-code.properties.items.items.properties.git_url.type: string
+					definitions.search-code.properties.items.items.properties.html_url.type: string
+					definitions.search-code.properties.items.items.properties.name.type: string
+					definitions.search-code.properties.items.items.properties.path.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.archive_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.assignees_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.blobs_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.branches_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.collaborators_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.comments_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.commits_url.type: string
+					definitions.search-code.properties.items.items.properties.repository.properties.compare_url.type: string
+				*/
 				if len(fieldList) > 0 {
-					backend.Whitelist = removeDuplicates(fieldList)
-					backend.Extra.Mapping = sliceToStrMap(removeDuplicates(fieldList))
+					backend.Whitelist = removeDuplicates(fieldListNested)
+					backend.Extra.Mapping = sliceToStrMap(removeDuplicates(fieldListNested))
+					//backend.Extra.Mapping = sliceToStrMap(removeDuplicates(fieldList))
 					if debug {
 						pp.Print(backend.Whitelist)
 					}
@@ -458,6 +486,33 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 					}
 				}
 			}
+			var categoriesKeyLength, tagListLength string
+			var categoriesKeyLengthInt, tagListLengthInt int
+			var tagList []string
+
+			categoriesKeyLength = findKeyValue("info.x-apisguru-categories.length", fm)
+			categoriesKeyLengthInt, _ = strconv.Atoi(categoriesKeyLength)
+
+			for i := 0; i <= categoriesKeyLengthInt; i++ {
+				tagName := findKeyValue(fmt.Sprintf("info.x-apisguru-categories[%d]", i), fm)
+				if tagName != "" {
+					tagList = append(tagList, dotSlugifier.Slugify(tagName))
+				}
+			}
+
+			tagListLength = findKeyValue(fmt.Sprintf("paths.%s.%s.tags.length", backPath, strings.ToLower(bck.Method)), fm)
+			tagListLengthInt, _ = strconv.Atoi(tagListLength)
+
+			for i := 0; i <= tagListLengthInt; i++ {
+				tagLabel := findKeyValue(fmt.Sprintf("paths.%s.%s.tags[%d]", backPath, strings.ToLower(bck.Method), i), fm)
+				if tagLabel != "" {
+					tagList = append(tagList, dotSlugifier.Slugify(tagLabel))
+				}
+			}
+
+			if len(tagList) > 0 {
+				swaggerExports.Backends[k].Extra.Topics = removeDuplicates(tagList)
+			}
 
 			if len(paramsList) > 0 {
 				swaggerExports.Backends[k].Params = removeDuplicates(paramsList)
@@ -489,11 +544,7 @@ func ConvertToKrakend(swaggerFile string, prefixPath string, format string) {
 			fmt.Println("Paths for swagger file: ", swaggerFile)
 		}
 
-		if err := configor.Dump(fm, "flatten", "json,yaml,toml", fmt.Sprintf("%s/flatten", prefixPath)); err != nil {
-			log.Fatal("ERROR while dumping the config struct:", err.Error())
-		}
-
-		if err := configor.Dump(swaggerExports, "backends", "json,yaml,toml", fmt.Sprintf("%s/krakend", prefixPath)); err != nil {
+		if err := configor.Dump(swaggerExports, "backends", "json,yaml", fmt.Sprintf("%s/krakend", prefixPath)); err != nil {
 			log.Fatal("ERROR while dumping the config struct:", err.Error())
 		}
 

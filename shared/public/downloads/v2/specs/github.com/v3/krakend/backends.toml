@@ -12,11 +12,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-emojis"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       "+1" = "+1"
       -1 = "-1"
@@ -33,27 +33,31 @@
   encoding = "json"
   host = ["https://api.github.com"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -62,25 +66,31 @@
   encoding = "json"
   host = ["https://api.github.com"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "current_user_actor_url", "current_user_organization_url", "current_user_public", "current_user_url", "timeline_url", "user_url"]
+  whitelist = ["_links.current_user", "_links.current_user.href", "_links.current_user_actor", "_links.current_user_actor.href", "_links.current_user_organization", "_links.current_user_organization.href", "_links.current_user_public", "_links.current_user_public.href", "_links.timeline", "_links.timeline.href", "_links.user", "_links.user.href", "current_user_actor_url", "current_user_organization_url", "current_user_public", "current_user_url", "timeline_url", "user_url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-feeds"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
+      current_user = "current_user"
+      current_user_actor = "current_user_actor"
       current_user_actor_url = "current_user_actor_url"
+      current_user_organization = "current_user_organization"
       current_user_organization_url = "current_user_organization_url"
       current_user_public = "current_user_public"
       current_user_url = "current_user_url"
+      href = "href"
+      timeline = "timeline"
       timeline_url = "timeline_url"
+      user = "user"
       user_url = "user_url"
 
 [[backends]]
@@ -97,11 +107,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -117,11 +127,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-public"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -137,11 +147,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-starred"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -151,33 +161,47 @@
   host = ["https://api.github.com"]
   url_keys = ["id"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["comments", "comments_url", "created_at", "description", "files", "forks", "git_pull_url", "git_push_url", "history", "html_url", "id", "public", "url", "user"]
+  whitelist = ["comments", "comments_url", "created_at", "description", "files", "files.ring.erl", "files.ring.erl.filename", "files.ring.erl.raw_url", "files.ring.erl.size", "forks", "forks.created_at", "forks.url", "forks.user", "forks.user.avatar_url", "forks.user.gravatar_id", "forks.user.id", "forks.user.login", "forks.user.url", "git_pull_url", "git_push_url", "history", "history.change_status", "history.change_status.additions", "history.change_status.deletions", "history.change_status.total", "history.committed_at", "history.url", "history.user", "history.user.avatar_url", "history.user.gravatar_id", "history.user.id", "history.user.login", "history.user.url", "history.version", "html_url", "id", "public", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-id"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      additions = "additions"
+      avatar_url = "avatar_url"
+      change_status = "change_status"
       comments = "comments"
       comments_url = "comments_url"
+      committed_at = "committed_at"
       created_at = "created_at"
+      deletions = "deletions"
       description = "description"
+      erl = "erl"
+      filename = "filename"
       files = "files"
       forks = "forks"
       git_pull_url = "git_pull_url"
       git_push_url = "git_push_url"
+      gravatar_id = "gravatar_id"
       history = "history"
       html_url = "html_url"
       id = "id"
+      login = "login"
       public = "public"
+      raw_url = "raw_url"
+      ring = "ring"
+      size = "size"
+      total = "total"
       url = "url"
       user = "user"
+      version = "version"
 
 [[backends]]
   group = "github-v3"
@@ -193,11 +217,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-id-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -214,11 +238,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-id-comments-commentid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       body = "body"
 
@@ -236,11 +260,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-id-forks"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -256,11 +280,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gists-id-star"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -275,11 +299,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gitignore-templates"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -296,11 +320,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-gitignore-templates-language"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       name = "name"
       source = "source"
@@ -319,11 +343,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-issues"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -333,20 +357,34 @@
   host = ["https://api.github.com"]
   url_keys = ["keyword", "owner", "repository", "state"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["issues"]
+  whitelist = ["issues", "issues.body", "issues.comments", "issues.created_at", "issues.gravatar_id", "issues.html_url", "issues.labels", "issues.labels.items", "issues.number", "issues.position", "issues.state", "issues.title", "issues.updated_at", "issues.user", "issues.votes"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-legacy-issues-search-owner-repository-state-keyword"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      body = "body"
+      comments = "comments"
+      created_at = "created_at"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
       issues = "issues"
+      items = "items"
+      labels = "labels"
+      number = "number"
+      position = "position"
+      state = "state"
+      title = "title"
+      updated_at = "updated_at"
+      user = "user"
+      votes = "votes"
 
 [[backends]]
   group = "github-v3"
@@ -357,20 +395,42 @@
   url_keys = ["keyword"]
   query_string_params = ["language", "order", "sort", "start_page"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["repositories"]
+  whitelist = ["repositories", "repositories.created", "repositories.created_at", "repositories.description", "repositories.followers", "repositories.fork", "repositories.forks", "repositories.has_downloads", "repositories.has_issues", "repositories.has_wiki", "repositories.homepage", "repositories.language", "repositories.name", "repositories.open_issues", "repositories.owner", "repositories.private", "repositories.pushed", "repositories.pushed_at", "repositories.score", "repositories.size", "repositories.url", "repositories.username", "repositories.watchers"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-legacy-repos-search-keyword"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      created = "created"
+      created_at = "created_at"
+      description = "description"
+      followers = "followers"
+      fork = "fork"
+      forks = "forks"
+      has_downloads = "has_downloads"
+      has_issues = "has_issues"
+      has_wiki = "has_wiki"
+      homepage = "homepage"
+      language = "language"
+      name = "name"
+      open_issues = "open_issues"
+      owner = "owner"
+      private = "private"
+      pushed = "pushed"
+      pushed_at = "pushed_at"
       repositories = "repositories"
+      score = "score"
+      size = "size"
+      url = "url"
+      username = "username"
+      watchers = "watchers"
 
 [[backends]]
   group = "github-v3"
@@ -380,19 +440,33 @@
   host = ["https://api.github.com"]
   url_keys = ["email"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["user"]
+  whitelist = ["user", "user.blog", "user.company", "user.created", "user.created_at", "user.email", "user.followers_count", "user.following_count", "user.gravatar_id", "user.id", "user.location", "user.login", "user.name", "user.public_gist_count", "user.public_repo_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-legacy-user-email-email"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      blog = "blog"
+      company = "company"
+      created = "created"
+      created_at = "created_at"
+      email = "email"
+      followers_count = "followers_count"
+      following_count = "following_count"
+      gravatar_id = "gravatar_id"
+      id = "id"
+      location = "location"
+      login = "login"
+      name = "name"
+      public_gist_count = "public_gist_count"
+      public_repo_count = "public_repo_count"
       user = "user"
 
 [[backends]]
@@ -404,19 +478,34 @@
   url_keys = ["keyword"]
   query_string_params = ["order", "sort", "start_page"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["users"]
+  whitelist = ["users", "users.created", "users.created_at", "users.followers", "users.followers_count", "users.fullname", "users.gravatar_id", "users.id", "users.language", "users.location", "users.login", "users.name", "users.public_repo_count", "users.repos", "users.score", "users.username"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-legacy-user-search-keyword"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      created = "created"
+      created_at = "created_at"
+      followers = "followers"
+      followers_count = "followers_count"
+      fullname = "fullname"
+      gravatar_id = "gravatar_id"
+      id = "id"
+      language = "language"
+      location = "location"
+      login = "login"
+      name = "name"
+      public_repo_count = "public_repo_count"
+      repos = "repos"
+      score = "score"
+      username = "username"
       users = "users"
 
 [[backends]]
@@ -432,11 +521,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-markdown"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -451,11 +540,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-markdown-raw"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -471,11 +560,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-meta"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       git = "git"
       hooks = "hooks"
@@ -488,27 +577,31 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-networks-owner-repo-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -518,24 +611,36 @@
   host = ["https://api.github.com"]
   query_string_params = ["all", "participating", "since"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["id", "last_read_at", "reason", "repository", "subject", "unread", "updated_at", "url"]
+  whitelist = ["id", "last_read_at", "reason", "repository", "repository.description", "repository.fork", "repository.full_name", "repository.html_url", "repository.id", "repository.name", "repository.owner", "repository.owner.avatar_url", "repository.owner.gravatar_id", "repository.owner.id", "repository.owner.login", "repository.owner.url", "repository.private", "repository.url", "subject", "subject.latest_comment_url", "subject.title", "subject.url", "unread", "updated_at", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-notifications"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
+      description = "description"
+      fork = "fork"
+      full_name = "full_name"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
       id = "id"
       last_read_at = "last_read_at"
+      latest_comment_url = "latest_comment_url"
+      login = "login"
+      name = "name"
+      owner = "owner"
+      private = "private"
       reason = "reason"
       repository = "repository"
       subject = "subject"
+      title = "title"
       unread = "unread"
       updated_at = "updated_at"
       url = "url"
@@ -548,24 +653,36 @@
   host = ["https://api.github.com"]
   url_keys = ["id"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["id", "last_read_at", "reason", "repository", "subject", "unread", "updated_at", "url"]
+  whitelist = ["id", "last_read_at", "reason", "repository", "repository.description", "repository.fork", "repository.full_name", "repository.html_url", "repository.id", "repository.name", "repository.owner", "repository.owner.avatar_url", "repository.owner.gravatar_id", "repository.owner.id", "repository.owner.login", "repository.owner.url", "repository.private", "repository.url", "subject", "subject.latest_comment_url", "subject.title", "subject.url", "unread", "updated_at", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-notifications-threads-id"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
+      description = "description"
+      fork = "fork"
+      full_name = "full_name"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
       id = "id"
       last_read_at = "last_read_at"
+      latest_comment_url = "latest_comment_url"
+      login = "login"
+      name = "name"
+      owner = "owner"
+      private = "private"
       reason = "reason"
       repository = "repository"
       subject = "subject"
+      title = "title"
       unread = "unread"
       updated_at = "updated_at"
       url = "url"
@@ -585,11 +702,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-notifications-threads-id-subscription"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       created_at = "created_at"
       ignored = "ignored"
@@ -606,18 +723,18 @@
   host = ["https://api.github.com"]
   url_keys = ["org"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["avatar_url", "blog", "company", "created_at", "email", "followers", "following", "html_url", "id", "location", "login", "name", "public_gists", "public_repos", "type", "url"]
+  whitelist = ["avatar_url", "blog", "company", "created_at", "email", "followers", "following", "html_url", "id", "location", "login", "name", "public_gists", "public_repos", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       avatar_url = "avatar_url"
       blog = "blog"
@@ -633,7 +750,6 @@
       name = "name"
       public_gists = "public_gists"
       public_repos = "public_repos"
-      type = "type"
       url = "url"
 
 [[backends]]
@@ -644,27 +760,31 @@
   host = ["https://api.github.com"]
   url_keys = ["org"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -681,11 +801,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-issues"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -701,11 +821,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-members"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -721,11 +841,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-members-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -741,11 +861,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-public-members"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -761,11 +881,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-public-members-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -782,11 +902,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-repos"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -802,11 +922,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-orgs-org-teams"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -815,20 +935,23 @@
   encoding = "json"
   host = ["https://api.github.com"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["rate"]
+  whitelist = ["rate.limit", "rate.remaining", "rate.reset"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-rate-limit"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      limit = "limit"
       rate = "rate"
+      remaining = "remaining"
+      reset = "reset"
 
 [[backends]]
   group = "github-v3"
@@ -838,19 +961,20 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["clone_url", "created_at", "description", "fork", "forks", "forks_count", "full_name", "git_url", "has_downloads", "has_issues", "has_wiki", "homepage", "html_url", "id", "language", "master_branch", "mirror_url", "name", "open_issues", "open_issues_count", "organization", "owner", "parent", "private", "pushed_at", "size", "source", "ssh_url", "svn_url", "updated_at", "url", "watchers", "watchers_count"]
+  whitelist = ["clone_url", "created_at", "description", "fork", "forks", "forks_count", "full_name", "git_url", "has_downloads", "has_issues", "has_wiki", "homepage", "html_url", "id", "language", "master_branch", "mirror_url", "name", "open_issues", "open_issues_count", "organization", "organization.avatar_url", "organization.gravatar_id", "organization.id", "organization.login", "organization.url", "owner", "owner.avatar_url", "owner.gravatar_id", "owner.id", "owner.login", "owner.url", "parent", "parent.clone_url", "parent.created_at", "parent.description", "parent.fork", "parent.forks", "parent.forks_count", "parent.full_name", "parent.git_url", "parent.homepage", "parent.html_url", "parent.id", "parent.language", "parent.master_branch", "parent.mirror_url", "parent.name", "parent.open_issues", "parent.open_issues_count", "parent.owner", "parent.owner.avatar_url", "parent.owner.gravatar_id", "parent.owner.id", "parent.owner.login", "parent.owner.url", "parent.private", "parent.pushed_at", "parent.size", "parent.ssh_url", "parent.svn_url", "parent.updated_at", "parent.url", "parent.watchers", "parent.watchers_count", "private", "pushed_at", "size", "source", "source.clone_url", "source.created_at", "source.description", "source.fork", "source.forks", "source.forks_count", "source.full_name", "source.git_url", "source.homepage", "source.html_url", "source.id", "source.language", "source.master_branch", "source.mirror_url", "source.name", "source.open_issues", "source.open_issues_count", "source.owner", "source.owner.avatar_url", "source.owner.gravatar_id", "source.owner.id", "source.owner.login", "source.owner.url", "source.private", "source.pushed_at", "source.size", "source.ssh_url", "source.svn_url", "source.updated_at", "source.url", "source.watchers", "source.watchers_count", "ssh_url", "svn_url", "updated_at", "url", "watchers", "watchers_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       clone_url = "clone_url"
       created_at = "created_at"
       description = "description"
@@ -859,6 +983,7 @@
       forks_count = "forks_count"
       full_name = "full_name"
       git_url = "git_url"
+      gravatar_id = "gravatar_id"
       has_downloads = "has_downloads"
       has_issues = "has_issues"
       has_wiki = "has_wiki"
@@ -866,6 +991,7 @@
       html_url = "html_url"
       id = "id"
       language = "language"
+      login = "login"
       master_branch = "master_branch"
       mirror_url = "mirror_url"
       name = "name"
@@ -899,11 +1025,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-assignees"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -919,11 +1045,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-assignees-assignee"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -939,11 +1065,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-branches"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -953,22 +1079,38 @@
   host = ["https://api.github.com"]
   url_keys = ["branch", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "commit", "name"]
+  whitelist = ["_links", "_links.html", "_links.self", "commit", "commit.author", "commit.author.avatar_url", "commit.author.gravatar_id", "commit.author.id", "commit.author.login", "commit.author.url", "commit.commit", "commit.commit.author.date", "commit.commit.author.email", "commit.commit.author.name", "commit.commit.committer", "commit.commit.committer.date", "commit.commit.committer.email", "commit.commit.committer.name", "commit.commit.message", "commit.commit.tree", "commit.commit.tree.sha", "commit.commit.tree.url", "commit.commit.url", "commit.committer", "commit.committer.avatar_url", "commit.committer.gravatar_id", "commit.committer.id", "commit.committer.login", "commit.committer.url", "commit.parents", "commit.parents.items", "commit.parents.items.sha", "commit.parents.items.url", "commit.sha", "commit.url", "name"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-branches-branch"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
+      author = "author"
+      avatar_url = "avatar_url"
       commit = "commit"
+      committer = "committer"
+      date = "date"
+      email = "email"
+      gravatar_id = "gravatar_id"
+      html = "html"
+      id = "id"
+      items = "items"
+      login = "login"
+      message = "message"
       name = "name"
+      parents = "parents"
+      self = "self"
+      sha = "sha"
+      tree = "tree"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -984,11 +1126,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-collaborators"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1004,11 +1146,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-collaborators-user"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1024,11 +1166,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1038,25 +1180,28 @@
   host = ["https://api.github.com"]
   url_keys = ["commentId", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["body", "commit_id", "created_at", "html_url", "id", "line", "path", "position", "updated_at", "url", "user"]
+  whitelist = ["body", "commit_id", "created_at", "html_url", "id", "line", "path", "position", "updated_at", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-comments-commentid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       body = "body"
       commit_id = "commit_id"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       html_url = "html_url"
       id = "id"
       line = "line"
+      login = "login"
       path = "path"
       position = "position"
       updated_at = "updated_at"
@@ -1078,11 +1223,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-commits"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1098,11 +1243,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-commits-ref-status"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1112,26 +1257,44 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo", "shaCode"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["author", "commit", "committer", "files", "parents", "sha", "stats", "url"]
+  whitelist = ["author", "author.avatar_url", "author.gravatar_id", "author.id", "author.login", "author.url", "commit", "commit.author", "commit.author.date", "commit.author.email", "commit.author.name", "commit.committer", "commit.committer.date", "commit.committer.email", "commit.committer.name", "commit.message", "commit.tree", "commit.tree.sha", "commit.tree.url", "commit.url", "committer", "committer.avatar_url", "committer.gravatar_id", "committer.id", "committer.login", "committer.url", "files", "files.additions", "files.blob_url", "files.changes", "files.deletions", "files.filename", "files.patch", "files.raw_url", "files.status", "parents", "parents.sha", "parents.url", "sha", "stats", "stats.additions", "stats.deletions", "stats.total", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-commits-shacode"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      additions = "additions"
       author = "author"
+      avatar_url = "avatar_url"
+      blob_url = "blob_url"
+      changes = "changes"
       commit = "commit"
       committer = "committer"
+      date = "date"
+      deletions = "deletions"
+      email = "email"
+      filename = "filename"
       files = "files"
+      gravatar_id = "gravatar_id"
+      id = "id"
+      login = "login"
+      message = "message"
+      name = "name"
       parents = "parents"
+      patch = "patch"
+      raw_url = "raw_url"
       sha = "sha"
       stats = "stats"
+      status = "status"
+      total = "total"
+      tree = "tree"
       url = "url"
 
 [[backends]]
@@ -1148,11 +1311,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-commits-shacode-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1165,11 +1328,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-compare-baseid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1180,29 +1343,31 @@
   url_keys = ["owner", "path", "repo"]
   query_string_params = ["path", "ref"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "content", "encoding", "git_url", "html_url", "name", "path", "sha", "size", "type", "url"]
+  whitelist = ["_links", "_links.git", "_links.html", "_links.self", "content", "encoding", "git_url", "html_url", "name", "path", "sha", "size", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-contents-path"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
       content = "content"
       encoding = "encoding"
+      git = "git"
       git_url = "git_url"
+      html = "html"
       html_url = "html_url"
       name = "name"
       path = "path"
+      self = "self"
       sha = "sha"
       size = "size"
-      type = "type"
       url = "url"
 
 [[backends]]
@@ -1220,11 +1385,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-contributors"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1240,11 +1405,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-deployments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1260,11 +1425,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-deployments-id-statuses"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1281,11 +1446,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-downloads"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       content_type = "content_type"
       description = "description"
@@ -1311,11 +1476,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-downloads-downloadid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       content_type = "content_type"
       description = "description"
@@ -1334,27 +1499,31 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -1371,11 +1540,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-forks"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1391,11 +1560,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-blobs"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1412,11 +1581,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-blobs-shacode"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       content = "content"
       sha = "sha"
@@ -1436,11 +1605,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-commits"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1450,22 +1619,25 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo", "shaCode"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["author", "committer", "message", "parents", "sha", "tree", "url"]
+  whitelist = ["author", "author.date", "author.email", "author.name", "committer", "committer.date", "committer.email", "committer.name", "message", "parents", "parents.sha", "parents.url", "sha", "tree", "tree.sha", "tree.url", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-commits-shacode"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       author = "author"
       committer = "committer"
+      date = "date"
+      email = "email"
       message = "message"
+      name = "name"
       parents = "parents"
       sha = "sha"
       tree = "tree"
@@ -1485,11 +1657,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-refs"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1499,21 +1671,22 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "ref", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["object", "ref", "url"]
+  whitelist = ["object", "object.sha", "object.url", "ref", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-refs-ref"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       object = "object"
       ref = "ref"
+      sha = "sha"
       url = "url"
 
 [[backends]]
@@ -1530,11 +1703,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-tags"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1544,20 +1717,23 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo", "shaCode"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["message", "object", "sha", "tag", "tagger", "url"]
+  whitelist = ["message", "object", "object.sha", "object.url", "sha", "tag", "tagger", "tagger.date", "tagger.email", "tagger.name", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-tags-shacode"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      date = "date"
+      email = "email"
       message = "message"
+      name = "name"
       object = "object"
       sha = "sha"
       tag = "tag"
@@ -1578,11 +1754,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-trees"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1593,20 +1769,23 @@
   url_keys = ["owner", "repo", "shaCode"]
   query_string_params = ["recursive"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["sha", "tree", "url"]
+  whitelist = ["sha", "tree", "tree.mode", "tree.path", "tree.sha", "tree.size", "tree.url", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-git-trees-shacode"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      mode = "mode"
+      path = "path"
       sha = "sha"
+      size = "size"
       tree = "tree"
       url = "url"
 
@@ -1624,11 +1803,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-hooks"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1644,11 +1823,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-hooks-hookid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1664,11 +1843,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-hooks-hookid-tests"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1685,11 +1864,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1706,11 +1885,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1720,23 +1899,26 @@
   host = ["https://api.github.com"]
   url_keys = ["commentId", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["body", "created_at", "html_url", "id", "updated_at", "url", "user"]
+  whitelist = ["body", "created_at", "html_url", "id", "updated_at", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-comments-commentid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       body = "body"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       html_url = "html_url"
       id = "id"
+      login = "login"
       updated_at = "updated_at"
       url = "url"
       user = "user"
@@ -1749,27 +1931,31 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -1779,25 +1965,51 @@
   host = ["https://api.github.com"]
   url_keys = ["eventId", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "commit_id", "created_at", "event", "issue", "url"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "commit_id", "created_at", "event", "issue", "issue.assignee.avatar_url", "issue.assignee.gravatar_id", "issue.assignee.id", "issue.assignee.login", "issue.assignee.url", "issue.body", "issue.closed_at", "issue.comments", "issue.created_at", "issue.html_url", "issue.labels", "issue.labels.items", "issue.labels.items.color", "issue.labels.items.name", "issue.labels.items.url", "issue.milestone", "issue.milestone.closed_issues", "issue.milestone.created_at", "issue.milestone.creator", "issue.milestone.creator.avatar_url", "issue.milestone.creator.gravatar_id", "issue.milestone.creator.id", "issue.milestone.creator.login", "issue.milestone.creator.url", "issue.milestone.description", "issue.milestone.due_on", "issue.milestone.number", "issue.milestone.open_issues", "issue.milestone.title", "issue.milestone.url", "issue.number", "issue.pull_request", "issue.pull_request.diff_url", "issue.pull_request.html_url", "issue.pull_request.patch_url", "issue.title", "issue.updated_at", "issue.url", "issue.user", "issue.user.avatar_url", "issue.user.gravatar_id", "issue.user.id", "issue.user.login", "issue.user.url", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-events-eventid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      assignee = "assignee"
+      avatar_url = "avatar_url"
+      body = "body"
+      closed_at = "closed_at"
+      closed_issues = "closed_issues"
+      color = "color"
+      comments = "comments"
       commit_id = "commit_id"
       created_at = "created_at"
+      creator = "creator"
+      description = "description"
+      diff_url = "diff_url"
+      due_on = "due_on"
       event = "event"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
+      id = "id"
       issue = "issue"
+      items = "items"
+      labels = "labels"
+      login = "login"
+      milestone = "milestone"
+      name = "name"
+      number = "number"
+      open_issues = "open_issues"
+      patch_url = "patch_url"
+      pull_request = "pull_request"
+      title = "title"
+      updated_at = "updated_at"
       url = "url"
+      user = "user"
 
 [[backends]]
   group = "github-v3"
@@ -1814,11 +2026,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-number"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       assignee = "assignee"
       body = "body"
@@ -1840,11 +2052,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-number-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1854,27 +2066,31 @@
   host = ["https://api.github.com"]
   url_keys = ["number", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["actor", "created_at", "id", "org", "payload", "public", "repo", "type"]
+  whitelist = ["actor", "actor.avatar_url", "actor.gravatar_id", "actor.id", "actor.login", "actor.url", "created_at", "id", "org", "org.avatar_url", "org.gravatar_id", "org.id", "org.login", "org.url", "payload", "public", "repo", "repo.id", "repo.name", "repo.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-number-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       actor = "actor"
+      avatar_url = "avatar_url"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
       id = "id"
+      login = "login"
+      name = "name"
       org = "org"
       payload = "payload"
       public = "public"
       repo = "repo"
-      type = "type"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -1890,11 +2106,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-issues-number-labels"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1910,11 +2126,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-keys"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1931,11 +2147,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-keys-keyid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       id = "id"
       key = "key"
@@ -1956,11 +2172,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-labels"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -1977,11 +2193,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-labels-name"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       color = "color"
       name = "name"
@@ -2001,11 +2217,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-languages"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2021,11 +2237,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-merges"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2036,24 +2252,28 @@
   url_keys = ["owner", "repo"]
   query_string_params = ["direction", "sort", "state"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["closed_issues", "created_at", "creator", "description", "due_on", "number", "open_issues", "title", "url"]
+  whitelist = ["closed_issues", "created_at", "creator", "creator.avatar_url", "creator.gravatar_id", "creator.id", "creator.login", "creator.url", "description", "due_on", "number", "open_issues", "title", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-milestones"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       closed_issues = "closed_issues"
       created_at = "created_at"
       creator = "creator"
       description = "description"
       due_on = "due_on"
+      gravatar_id = "gravatar_id"
+      id = "id"
+      login = "login"
       number = "number"
       open_issues = "open_issues"
       title = "title"
@@ -2067,24 +2287,28 @@
   host = ["https://api.github.com"]
   url_keys = ["number", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["closed_issues", "created_at", "creator", "description", "due_on", "number", "open_issues", "title", "url"]
+  whitelist = ["closed_issues", "created_at", "creator", "creator.avatar_url", "creator.gravatar_id", "creator.id", "creator.login", "creator.url", "description", "due_on", "number", "open_issues", "title", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-milestones-number"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       closed_issues = "closed_issues"
       created_at = "created_at"
       creator = "creator"
       description = "description"
       due_on = "due_on"
+      gravatar_id = "gravatar_id"
+      id = "id"
+      login = "login"
       number = "number"
       open_issues = "open_issues"
       title = "title"
@@ -2104,11 +2328,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-milestones-number-labels"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2119,24 +2343,36 @@
   url_keys = ["owner", "repo"]
   query_string_params = ["all", "participating", "since"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["id", "last_read_at", "reason", "repository", "subject", "unread", "updated_at", "url"]
+  whitelist = ["id", "last_read_at", "reason", "repository", "repository.description", "repository.fork", "repository.full_name", "repository.html_url", "repository.id", "repository.name", "repository.owner", "repository.owner.avatar_url", "repository.owner.gravatar_id", "repository.owner.id", "repository.owner.login", "repository.owner.url", "repository.private", "repository.url", "subject", "subject.latest_comment_url", "subject.title", "subject.url", "unread", "updated_at", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-notifications"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
+      description = "description"
+      fork = "fork"
+      full_name = "full_name"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
       id = "id"
       last_read_at = "last_read_at"
+      latest_comment_url = "latest_comment_url"
+      login = "login"
+      name = "name"
+      owner = "owner"
+      private = "private"
       reason = "reason"
       repository = "repository"
       subject = "subject"
+      title = "title"
       unread = "unread"
       updated_at = "updated_at"
       url = "url"
@@ -2156,11 +2392,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2177,11 +2413,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2191,26 +2427,33 @@
   host = ["https://api.github.com"]
   url_keys = ["commentId", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "body", "commit_id", "created_at", "id", "path", "position", "updated_at", "url", "user"]
+  whitelist = ["_links", "_links.html", "_links.html.href", "_links.pull_request", "_links.pull_request.href", "_links.self", "_links.self.href", "body", "commit_id", "created_at", "id", "path", "position", "updated_at", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-comments-commentid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
+      avatar_url = "avatar_url"
       body = "body"
       commit_id = "commit_id"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
+      href = "href"
+      html = "html"
       id = "id"
+      login = "login"
       path = "path"
       position = "position"
+      pull_request = "pull_request"
+      self = "self"
       updated_at = "updated_at"
       url = "url"
       user = "user"
@@ -2223,45 +2466,79 @@
   host = ["https://api.github.com"]
   url_keys = ["number", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "additions", "base", "body", "changed_files", "closed_at", "comments", "commits", "created_at", "deletions", "diff_url", "head", "html_url", "issue_url", "merge_commit_sha", "mergeable", "merged", "merged_at", "merged_by", "number", "patch_url", "state", "title", "updated_at", "url", "user"]
+  whitelist = ["_links", "_links.comments", "_links.comments.href", "_links.html", "_links.html.href", "_links.review_comments", "_links.review_comments.href", "_links.self", "_links.self.href", "additions", "base", "base.label", "base.ref", "base.repo", "base.repo.clone_url", "base.repo.created_at", "base.repo.description", "base.repo.fork", "base.repo.forks", "base.repo.forks_count", "base.repo.full_name", "base.repo.git_url", "base.repo.homepage", "base.repo.html_url", "base.repo.id", "base.repo.language", "base.repo.master_branch", "base.repo.mirror_url", "base.repo.name", "base.repo.open_issues", "base.repo.open_issues_count", "base.repo.owner", "base.repo.owner.avatar_url", "base.repo.owner.gravatar_id", "base.repo.owner.id", "base.repo.owner.login", "base.repo.owner.url", "base.repo.private", "base.repo.pushed_at", "base.repo.size", "base.repo.ssh_url", "base.repo.svn_url", "base.repo.updated_at", "base.repo.url", "base.repo.watchers", "base.repo.watchers_count", "base.sha", "base.user", "base.user.avatar_url", "base.user.gravatar_id", "base.user.id", "base.user.login", "base.user.url", "body", "changed_files", "closed_at", "comments", "commits", "created_at", "deletions", "diff_url", "head", "head.label", "head.ref", "head.repo", "head.repo.clone_url", "head.repo.created_at", "head.repo.description", "head.repo.fork", "head.repo.forks", "head.repo.forks_count", "head.repo.full_name", "head.repo.git_url", "head.repo.homepage", "head.repo.html_url", "head.repo.id", "head.repo.language", "head.repo.master_branch", "head.repo.mirror_url", "head.repo.name", "head.repo.open_issues", "head.repo.open_issues_count", "head.repo.owner", "head.repo.owner.avatar_url", "head.repo.owner.gravatar_id", "head.repo.owner.id", "head.repo.owner.login", "head.repo.owner.url", "head.repo.private", "head.repo.pushed_at", "head.repo.size", "head.repo.ssh_url", "head.repo.svn_url", "head.repo.updated_at", "head.repo.url", "head.repo.watchers", "head.repo.watchers_count", "head.sha", "head.user", "head.user.avatar_url", "head.user.gravatar_id", "head.user.id", "head.user.login", "head.user.url", "html_url", "issue_url", "merge_commit_sha", "mergeable", "merged", "merged_at", "merged_by", "merged_by.avatar_url", "merged_by.gravatar_id", "merged_by.id", "merged_by.login", "merged_by.url", "number", "patch_url", "state", "title", "updated_at", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-number"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
       additions = "additions"
+      avatar_url = "avatar_url"
       base = "base"
       body = "body"
       changed_files = "changed_files"
+      clone_url = "clone_url"
       closed_at = "closed_at"
       comments = "comments"
       commits = "commits"
       created_at = "created_at"
       deletions = "deletions"
+      description = "description"
       diff_url = "diff_url"
+      fork = "fork"
+      forks = "forks"
+      forks_count = "forks_count"
+      full_name = "full_name"
+      git_url = "git_url"
+      gravatar_id = "gravatar_id"
       head = "head"
+      homepage = "homepage"
+      href = "href"
+      html = "html"
       html_url = "html_url"
+      id = "id"
       issue_url = "issue_url"
+      label = "label"
+      language = "language"
+      login = "login"
+      master_branch = "master_branch"
       merge_commit_sha = "merge_commit_sha"
       mergeable = "mergeable"
       merged = "merged"
       merged_at = "merged_at"
       merged_by = "merged_by"
+      mirror_url = "mirror_url"
+      name = "name"
       number = "number"
+      open_issues = "open_issues"
+      open_issues_count = "open_issues_count"
+      owner = "owner"
       patch_url = "patch_url"
+      private = "private"
+      pushed_at = "pushed_at"
+      ref = "ref"
+      repo = "repo"
+      review_comments = "review_comments"
+      self = "self"
+      sha = "sha"
+      size = "size"
+      ssh_url = "ssh_url"
       state = "state"
+      svn_url = "svn_url"
       title = "title"
       updated_at = "updated_at"
       url = "url"
       user = "user"
+      watchers = "watchers"
+      watchers_count = "watchers_count"
 
 [[backends]]
   group = "github-v3"
@@ -2271,26 +2548,33 @@
   host = ["https://api.github.com"]
   url_keys = ["number", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "body", "commit_id", "created_at", "id", "path", "position", "updated_at", "url", "user"]
+  whitelist = ["_links", "_links.html", "_links.html.href", "_links.pull_request", "_links.pull_request.href", "_links.self", "_links.self.href", "body", "commit_id", "created_at", "id", "path", "position", "updated_at", "url", "user", "user.avatar_url", "user.gravatar_id", "user.id", "user.login", "user.url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-number-comments"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
+      avatar_url = "avatar_url"
       body = "body"
       commit_id = "commit_id"
       created_at = "created_at"
+      gravatar_id = "gravatar_id"
+      href = "href"
+      html = "html"
       id = "id"
+      login = "login"
       path = "path"
       position = "position"
+      pull_request = "pull_request"
+      self = "self"
       updated_at = "updated_at"
       url = "url"
       user = "user"
@@ -2309,11 +2593,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-number-commits"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2329,11 +2613,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-number-files"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2349,11 +2633,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-pulls-number-merge"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2364,29 +2648,31 @@
   url_keys = ["owner", "repo"]
   query_string_params = ["ref"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["_links", "content", "encoding", "git_url", "html_url", "name", "path", "sha", "size", "type", "url"]
+  whitelist = ["_links", "_links.git", "_links.html", "_links.self", "content", "encoding", "git_url", "html_url", "name", "path", "sha", "size", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-readme"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       _links = "_links"
       content = "content"
       encoding = "encoding"
+      git = "git"
       git_url = "git_url"
+      html = "html"
       html_url = "html_url"
       name = "name"
       path = "path"
+      self = "self"
       sha = "sha"
       size = "size"
-      type = "type"
       url = "url"
 
 [[backends]]
@@ -2403,11 +2689,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-releases"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2417,27 +2703,41 @@
   host = ["https://api.github.com"]
   url_keys = ["id", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["content_type", "created_at", "download_count", "id", "label", "name", "size", "state", "updated_at", "uploader", "url"]
+  whitelist = ["content_type", "created_at", "download_count", "id", "label", "name", "size", "state", "updated_at", "uploader", "uploader.avatar_url", "uploader.events_url", "uploader.followers_url", "uploader.following_url", "uploader.gists_url", "uploader.gravatar_id", "uploader.html_url", "uploader.id", "uploader.login", "uploader.organizations_url", "uploader.received_events_url", "uploader.repos_url", "uploader.site_admin", "uploader.starred_url", "uploader.subscriptions_url", "uploader.url", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-releases-assets-id"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
       content_type = "content_type"
       created_at = "created_at"
       download_count = "download_count"
+      events_url = "events_url"
+      followers_url = "followers_url"
+      following_url = "following_url"
+      gists_url = "gists_url"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
       id = "id"
       label = "label"
+      login = "login"
       name = "name"
+      organizations_url = "organizations_url"
+      received_events_url = "received_events_url"
+      repos_url = "repos_url"
+      site_admin = "site_admin"
       size = "size"
+      starred_url = "starred_url"
       state = "state"
+      subscriptions_url = "subscriptions_url"
       updated_at = "updated_at"
       uploader = "uploader"
       url = "url"
@@ -2450,34 +2750,54 @@
   host = ["https://api.github.com"]
   url_keys = ["id", "owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["assets", "assets_url", "author", "body", "created_at", "draft", "html_url", "id", "name", "prerelease", "published_at", "tag_name", "tarball_url", "target_commitish", "upload_url", "url", "zipball_url"]
+  whitelist = ["assets", "assets.content_type", "assets.created_at", "assets.download_count", "assets.id", "assets.label", "assets.name", "assets.size", "assets.state", "assets.updated_at", "assets.uploader", "assets.uploader.avatar_url", "assets.uploader.events_url", "assets.uploader.followers_url", "assets.uploader.following_url", "assets.uploader.gists_url", "assets.uploader.gravatar_id", "assets.uploader.html_url", "assets.uploader.id", "assets.uploader.login", "assets.uploader.organizations_url", "assets.uploader.received_events_url", "assets.uploader.repos_url", "assets.uploader.site_admin", "assets.uploader.starred_url", "assets.uploader.subscriptions_url", "assets.uploader.url", "assets.url", "assets_url", "author", "author.avatar_url", "author.events_url", "author.followers_url", "author.following_url", "author.gists_url", "author.gravatar_id", "author.html_url", "author.id", "author.login", "author.organizations_url", "author.received_events_url", "author.repos_url", "author.site_admin", "author.starred_url", "author.subscriptions_url", "author.url", "body", "created_at", "draft", "html_url", "id", "name", "prerelease", "published_at", "tag_name", "tarball_url", "target_commitish", "upload_url", "url", "zipball_url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-releases-id"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       assets = "assets"
       assets_url = "assets_url"
       author = "author"
+      avatar_url = "avatar_url"
       body = "body"
+      content_type = "content_type"
       created_at = "created_at"
+      download_count = "download_count"
       draft = "draft"
+      events_url = "events_url"
+      followers_url = "followers_url"
+      following_url = "following_url"
+      gists_url = "gists_url"
+      gravatar_id = "gravatar_id"
       html_url = "html_url"
       id = "id"
+      label = "label"
+      login = "login"
       name = "name"
+      organizations_url = "organizations_url"
       prerelease = "prerelease"
       published_at = "published_at"
+      received_events_url = "received_events_url"
+      repos_url = "repos_url"
+      site_admin = "site_admin"
+      size = "size"
+      starred_url = "starred_url"
+      state = "state"
+      subscriptions_url = "subscriptions_url"
       tag_name = "tag_name"
       tarball_url = "tarball_url"
       target_commitish = "target_commitish"
+      updated_at = "updated_at"
       upload_url = "upload_url"
+      uploader = "uploader"
       url = "url"
       zipball_url = "zipball_url"
 
@@ -2495,11 +2815,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-releases-id-assets"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2515,11 +2835,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stargazers"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2535,11 +2855,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stats-code-frequency"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2555,11 +2875,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stats-commit-activity"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2575,11 +2895,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stats-contributors"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2596,11 +2916,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stats-participation"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       all = "all"
       owner = "owner"
@@ -2619,11 +2939,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-stats-punch-card"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2639,11 +2959,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-statuses-ref"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2659,11 +2979,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-subscribers"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2680,11 +3000,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-subscription"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       created_at = "created_at"
       ignored = "ignored"
@@ -2701,24 +3021,26 @@
   host = ["https://api.github.com"]
   url_keys = ["owner", "repo"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["message", "object", "tag", "tagger", "type"]
+  whitelist = ["message", "object", "tag", "tagger", "tagger.date", "tagger.email", "tagger.name"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-tags"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      date = "date"
+      email = "email"
       message = "message"
+      name = "name"
       object = "object"
       tag = "tag"
       tagger = "tagger"
-      type = "type"
 
 [[backends]]
   group = "github-v3"
@@ -2734,11 +3056,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-teams"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2754,11 +3076,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-watchers"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2774,11 +3096,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repos-owner-repo-archive-format-path"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2794,11 +3116,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-repositories"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2808,21 +3130,80 @@
   host = ["https://api.github.com"]
   query_string_params = ["order", "q", "sort"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["items", "total_count"]
+  whitelist = ["items", "items.git_url", "items.html_url", "items.name", "items.path", "items.repository", "items.repository.archive_url", "items.repository.assignees_url", "items.repository.blobs_url", "items.repository.branches_url", "items.repository.collaborators_url", "items.repository.comments_url", "items.repository.commits_url", "items.repository.compare_url", "items.repository.contents_url", "items.repository.contributors_url", "items.repository.description", "items.repository.downloads_url", "items.repository.events_url", "items.repository.fork", "items.repository.forks_url", "items.repository.full_name", "items.repository.git_commits_url", "items.repository.git_refs_url", "items.repository.git_tags_url", "items.repository.hooks_url", "items.repository.html_url", "items.repository.id", "items.repository.issue_comment_url", "items.repository.issue_events_url", "items.repository.issues_url", "items.repository.keys_url", "items.repository.labels_url", "items.repository.languages_url", "items.repository.merges_url", "items.repository.milestones_url", "items.repository.name", "items.repository.notifications_url", "items.repository.owner", "items.repository.owner.avatar_url", "items.repository.owner.events_url", "items.repository.owner.followers_url", "items.repository.owner.following_url", "items.repository.owner.gists_url", "items.repository.owner.gravatar_id", "items.repository.owner.html_url", "items.repository.owner.id", "items.repository.owner.login", "items.repository.owner.organizations_url", "items.repository.owner.received_events_url", "items.repository.owner.repos_url", "items.repository.owner.starred_url", "items.repository.owner.subscriptions_url", "items.repository.owner.url", "items.repository.private", "items.repository.pulls_url", "items.repository.stargazers_url", "items.repository.statuses_url", "items.repository.subscribers_url", "items.repository.subscription_url", "items.repository.tags_url", "items.repository.teams_url", "items.repository.trees_url", "items.repository.url", "items.score", "items.sha", "items.url", "total_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-search-code"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      archive_url = "archive_url"
+      assignees_url = "assignees_url"
+      avatar_url = "avatar_url"
+      blobs_url = "blobs_url"
+      branches_url = "branches_url"
+      collaborators_url = "collaborators_url"
+      comments_url = "comments_url"
+      commits_url = "commits_url"
+      compare_url = "compare_url"
+      contents_url = "contents_url"
+      contributors_url = "contributors_url"
+      description = "description"
+      downloads_url = "downloads_url"
+      events_url = "events_url"
+      followers_url = "followers_url"
+      following_url = "following_url"
+      fork = "fork"
+      forks_url = "forks_url"
+      full_name = "full_name"
+      gists_url = "gists_url"
+      git_commits_url = "git_commits_url"
+      git_refs_url = "git_refs_url"
+      git_tags_url = "git_tags_url"
+      git_url = "git_url"
+      gravatar_id = "gravatar_id"
+      hooks_url = "hooks_url"
+      html_url = "html_url"
+      id = "id"
+      issue_comment_url = "issue_comment_url"
+      issue_events_url = "issue_events_url"
+      issues_url = "issues_url"
       items = "items"
+      keys_url = "keys_url"
+      labels_url = "labels_url"
+      languages_url = "languages_url"
+      login = "login"
+      merges_url = "merges_url"
+      milestones_url = "milestones_url"
+      name = "name"
+      notifications_url = "notifications_url"
+      organizations_url = "organizations_url"
+      owner = "owner"
+      path = "path"
+      private = "private"
+      pulls_url = "pulls_url"
+      received_events_url = "received_events_url"
+      repos_url = "repos_url"
+      repository = "repository"
+      score = "score"
+      sha = "sha"
+      stargazers_url = "stargazers_url"
+      starred_url = "starred_url"
+      statuses_url = "statuses_url"
+      subscribers_url = "subscribers_url"
+      subscription_url = "subscription_url"
+      subscriptions_url = "subscriptions_url"
+      tags_url = "tags_url"
+      teams_url = "teams_url"
       total_count = "total_count"
+      trees_url = "trees_url"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -2832,21 +3213,56 @@
   host = ["https://api.github.com"]
   query_string_params = ["order", "q", "sort"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["items", "total_count"]
+  whitelist = ["items", "items.assignee", "items.body", "items.closed_at", "items.comments", "items.comments_url", "items.created_at", "items.events_url", "items.html_url", "items.id", "items.labels", "items.labels.items", "items.labels.items.color", "items.labels.items.name", "items.labels.items.url", "items.labels_url", "items.milestone", "items.number", "items.pull_request", "items.pull_request.diff_url", "items.pull_request.html_url", "items.pull_request.patch_url", "items.score", "items.state", "items.title", "items.updated_at", "items.url", "items.user", "items.user.avatar_url", "items.user.events_url", "items.user.followers_url", "items.user.following_url", "items.user.gists_url", "items.user.gravatar_id", "items.user.html_url", "items.user.id", "items.user.login", "items.user.organizations_url", "items.user.received_events_url", "items.user.repos_url", "items.user.starred_url", "items.user.subscriptions_url", "items.user.url", "total_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-search-issues"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      assignee = "assignee"
+      avatar_url = "avatar_url"
+      body = "body"
+      closed_at = "closed_at"
+      color = "color"
+      comments = "comments"
+      comments_url = "comments_url"
+      created_at = "created_at"
+      diff_url = "diff_url"
+      events_url = "events_url"
+      followers_url = "followers_url"
+      following_url = "following_url"
+      gists_url = "gists_url"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
+      id = "id"
       items = "items"
+      labels = "labels"
+      labels_url = "labels_url"
+      login = "login"
+      milestone = "milestone"
+      name = "name"
+      number = "number"
+      organizations_url = "organizations_url"
+      patch_url = "patch_url"
+      pull_request = "pull_request"
+      received_events_url = "received_events_url"
+      repos_url = "repos_url"
+      score = "score"
+      starred_url = "starred_url"
+      state = "state"
+      subscriptions_url = "subscriptions_url"
+      title = "title"
       total_count = "total_count"
+      updated_at = "updated_at"
+      url = "url"
+      user = "user"
 
 [[backends]]
   group = "github-v3"
@@ -2856,21 +3272,49 @@
   host = ["https://api.github.com"]
   query_string_params = ["order", "q", "sort"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["items", "total_count"]
+  whitelist = ["items", "items.created_at", "items.default_branch", "items.description", "items.fork", "items.forks", "items.forks_count", "items.full_name", "items.homepage", "items.html_url", "items.id", "items.language", "items.master_branch", "items.name", "items.open_issues", "items.open_issues_count", "items.owner", "items.owner.avatar_url", "items.owner.gravatar_id", "items.owner.id", "items.owner.login", "items.owner.received_events_url", "items.owner.url", "items.private", "items.pushed_at", "items.score", "items.size", "items.updated_at", "items.url", "items.watchers", "items.watchers_count", "total_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-search-repositories"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
+      created_at = "created_at"
+      default_branch = "default_branch"
+      description = "description"
+      fork = "fork"
+      forks = "forks"
+      forks_count = "forks_count"
+      full_name = "full_name"
+      gravatar_id = "gravatar_id"
+      homepage = "homepage"
+      html_url = "html_url"
+      id = "id"
       items = "items"
+      language = "language"
+      login = "login"
+      master_branch = "master_branch"
+      name = "name"
+      open_issues = "open_issues"
+      open_issues_count = "open_issues_count"
+      owner = "owner"
+      private = "private"
+      pushed_at = "pushed_at"
+      received_events_url = "received_events_url"
+      score = "score"
+      size = "size"
       total_count = "total_count"
+      updated_at = "updated_at"
+      url = "url"
+      watchers = "watchers"
+      watchers_count = "watchers_count"
 
 [[backends]]
   group = "github-v3"
@@ -2880,21 +3324,33 @@
   host = ["https://api.github.com"]
   query_string_params = ["order", "q", "sort"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["items", "total_count"]
+  whitelist = ["items", "items.avatar_url", "items.followers_url", "items.gravatar_id", "items.html_url", "items.id", "items.login", "items.organizations_url", "items.received_events_url", "items.repos_url", "items.score", "items.subscriptions_url", "items.url", "total_count"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-search-users"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
+      avatar_url = "avatar_url"
+      followers_url = "followers_url"
+      gravatar_id = "gravatar_id"
+      html_url = "html_url"
+      id = "id"
       items = "items"
+      login = "login"
+      organizations_url = "organizations_url"
+      received_events_url = "received_events_url"
+      repos_url = "repos_url"
+      score = "score"
+      subscriptions_url = "subscriptions_url"
       total_count = "total_count"
+      url = "url"
 
 [[backends]]
   group = "github-v3"
@@ -2911,11 +3367,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       id = "id"
       members_count = "members_count"
@@ -2938,11 +3394,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid-members"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2958,11 +3414,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid-members-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -2979,11 +3435,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid-memberships-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       state = "state"
       url = "url"
@@ -3002,11 +3458,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid-repos"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3022,11 +3478,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-teams-teamid-repos-owner-repo"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3035,18 +3491,18 @@
   encoding = "json"
   host = ["https://api.github.com"]
   header = ["Accept", "X-GitHub-Media-Type", "X-GitHub-Request-Id", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
-  whitelist = ["avatar_url", "bio", "blog", "collaborators", "company", "created_at", "disk_usage", "email", "followers", "following", "gravatar_id", "hireable", "html_url", "id", "location", "login", "name", "owned_private_repos", "plan", "private_gists", "public_gists", "public_repos", "total_private_repos", "type", "url"]
+  whitelist = ["avatar_url", "bio", "blog", "collaborators", "company", "created_at", "disk_usage", "email", "followers", "following", "gravatar_id", "hireable", "html_url", "id", "location", "login", "name", "owned_private_repos", "plan", "plan.collaborators", "plan.name", "plan.private_repos", "plan.space", "private_gists", "public_gists", "public_repos", "total_private_repos", "url"]
   concurrent_calls = 1
   [backends.extra_config]
     provider = "github.com"
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       avatar_url = "avatar_url"
       bio = "bio"
@@ -3068,10 +3524,11 @@
       owned_private_repos = "owned_private_repos"
       plan = "plan"
       private_gists = "private_gists"
+      private_repos = "private_repos"
       public_gists = "public_gists"
       public_repos = "public_repos"
+      space = "space"
       total_private_repos = "total_private_repos"
-      type = "type"
       url = "url"
 
 [[backends]]
@@ -3087,11 +3544,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-emails"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3106,11 +3563,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-followers"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3125,11 +3582,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-following"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3145,11 +3602,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-following-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3165,11 +3622,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-issues"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3184,11 +3641,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-keys"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3205,11 +3662,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-keys-keyid"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
     [backends.extra_config.mapping]
       id = "id"
       key = "key"
@@ -3229,11 +3686,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-orgs"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3249,11 +3706,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-repos"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3269,11 +3726,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-starred"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3289,11 +3746,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-starred-owner-repo"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3308,11 +3765,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-subscriptions"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3328,11 +3785,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-subscriptions-owner-repo"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3347,11 +3804,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-user-teams"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3367,11 +3824,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3387,11 +3844,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3407,11 +3864,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3427,11 +3884,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-events-orgs-org"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3447,11 +3904,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-followers"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3467,11 +3924,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-following-targetuser"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3488,11 +3945,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-gists"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3508,11 +3965,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-keys"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3528,11 +3985,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-orgs"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3548,11 +4005,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-received-events"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3568,11 +4025,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-received-events-public"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3589,11 +4046,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-repos"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3609,11 +4066,11 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-starred"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]
 
 [[backends]]
   group = "github-v3"
@@ -3629,8 +4086,8 @@
     description = "Powerful collaboration, code review, and code management for open source and private projects.\n"
     version = "v3"
     slug = "github-v3-users-username-subscriptions"
+    schemes = ["https"]
     consumes = ["json"]
     produces = ["json"]
     hosts = ["https://api.github.com"]
     topics = ["collaboration", "developer-tools"]
-    schemes = ["https"]

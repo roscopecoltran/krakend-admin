@@ -10,12 +10,12 @@ backends:
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-oauth2-v1-certs
+    schemes:
+    - https
     hosts:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /oauth2/v1/raw_public_keys
   method: GET
@@ -23,20 +23,28 @@ backends:
   - https://www.googleapis.com
   whitelist:
   - keyvalues
+  - keyvalues.algorithm
+  - keyvalues.exponent
+  - keyvalues.keyid
+  - keyvalues.modulus
   concurrent_calls: 1
   extra_config:
     provider: googleapis.com
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-oauth2-v1-raw-public-keys
+    schemes:
+    - https
     mapping:
       keyvalues: keyvalues
+      keyvalues.algorithm: keyvalues.algorithm
+      keyvalues.exponent: keyvalues.exponent
+      keyvalues.keyid: keyvalues.keyid
+      keyvalues.modulus: keyvalues.modulus
     hosts:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /oauth2/v1/tokeninfo
   method: POST
@@ -64,6 +72,8 @@ backends:
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-oauth2-v1-tokeninfo
+    schemes:
+    - https
     mapping:
       access_type: access_type
       audience: audience
@@ -81,8 +91,6 @@ backends:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /oauth2/v1/userinfo
   method: GET
@@ -106,6 +114,8 @@ backends:
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-oauth2-v1-userinfo
+    schemes:
+    - https
     mapping:
       email: email
       family_name: family_name
@@ -122,8 +132,7 @@ backends:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
+    - userinfo
 - group: google-oauth2-v1
   url_pattern: /service_accounts/v1/jwk/{robotEmail}
   method: GET
@@ -133,20 +142,32 @@ backends:
   - robotEmail
   whitelist:
   - keys
+  - keys.alg
+  - keys.e
+  - keys.kid
+  - keys.kty
+  - keys.n
+  - keys.use
   concurrent_calls: 1
   extra_config:
     provider: googleapis.com
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-service-accounts-v1-jwk-robotemail
+    schemes:
+    - https
     mapping:
       keys: keys
+      keys.alg: keys.alg
+      keys.e: keys.e
+      keys.kid: keys.kid
+      keys.kty: keys.kty
+      keys.n: keys.n
+      keys.use: keys.use
     hosts:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /service_accounts/v1/metadata/raw/{robotEmail}
   method: GET
@@ -156,20 +177,28 @@ backends:
   - robotEmail
   whitelist:
   - keyvalues
+  - keyvalues.algorithm
+  - keyvalues.exponent
+  - keyvalues.keyid
+  - keyvalues.modulus
   concurrent_calls: 1
   extra_config:
     provider: googleapis.com
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-service-accounts-v1-metadata-raw-robotemail
+    schemes:
+    - https
     mapping:
       keyvalues: keyvalues
+      keyvalues.algorithm: keyvalues.algorithm
+      keyvalues.exponent: keyvalues.exponent
+      keyvalues.keyid: keyvalues.keyid
+      keyvalues.modulus: keyvalues.modulus
     hosts:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /service_accounts/v1/metadata/x509/{robotEmail}
   method: GET
@@ -183,12 +212,12 @@ backends:
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-service-accounts-v1-metadata-x509-robotemail
+    schemes:
+    - https
     hosts:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
 - group: google-oauth2-v1
   url_pattern: /userinfo/v2/me
   method: GET
@@ -212,6 +241,8 @@ backends:
     description: Obtains end-user authorization grants for use with other Google APIs.
     version: v1
     slug: google-oauth2-v1-userinfo-v2-me
+    schemes:
+    - https
     mapping:
       email: email
       family_name: family_name
@@ -228,5 +259,4 @@ backends:
     - https://www.googleapis.com
     topics:
     - security
-    schemes:
-    - https
+    - userinfo
